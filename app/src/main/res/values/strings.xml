@@ -44,7 +44,7 @@
     <string name="sendmessage">发消息</string>
     <string name="emailbox">邮箱</string>
     <string name="eventevaluation">事件评估</string>
-    <string name="addevaluation">新增评估</string>
+    <string name="addevaluation">添加评估</string>
     <string name="dismissvaluation">驳回事件</string>
     <string name="planstar">预案启动</string>
     <string name="authorization_decision">授权决策</string>

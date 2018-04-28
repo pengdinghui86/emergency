@@ -89,8 +89,8 @@
         style="@style/small_text" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:src="@drawable/right" />
