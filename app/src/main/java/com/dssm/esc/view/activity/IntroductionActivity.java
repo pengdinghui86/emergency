@@ -136,13 +136,16 @@ public class IntroductionActivity extends BaseActivity {
 		switch (view.getId()) {
 
 		case R.id.call:// 联系电话
+			if(phonenumber.equals(""))
+				return;
 			Intent intent = new Intent(Intent.ACTION_DIAL);
 			Uri data = Uri.parse("tel:" + phonenumberOne);
 			intent.setData(data);
 			startActivity(intent);
 			break;
 		case R.id.call2:// 备用电话
-
+			if(phonenumberTwo.equals(""))
+				return;
 			Intent intent2 = new Intent(Intent.ACTION_DIAL);
 			Uri data2 = Uri.parse("tel:" + phonenumberTwo);
 			intent2.setData(data2);

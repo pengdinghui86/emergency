@@ -218,7 +218,7 @@ public class HttpUrl {
     /**
      * 预案列表(协同通告)
      */
-    public final static String GETBYSTATELIST = 
+    public final static String GETBYSTATELIST =
              "emergency/planInfo/getByStateList?state=1,2,3";
     /**
      * 待指派列表

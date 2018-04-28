@@ -185,9 +185,11 @@ public class DismissValuationListviewAdapter extends BaseAdapter {
 			mhHolder.dismissv_item_tv.setText(entity.getEveName());
 			String planResType = entity.getPlanResType();
 			if (planResType.equals("1")) {
-				mhHolder.evecodetv.setText("应急");
+				mhHolder.evecodetv.setTextColor(context.getResources().getColor(R.color.control_center_emergency_type));
+				mhHolder.evecodetv.setText(context.getResources().getString(R.string.control_center_emergency_txt));
 			} else if (planResType.equals("2")) {
-				mhHolder.evecodetv.setText("演练");
+				mhHolder.evecodetv.setTextColor(context.getResources().getColor(R.color.control_center_drill_type));
+				mhHolder.evecodetv.setText(context.getResources().getString(R.string.control_center_drill_txt));
 			}
 			mhHolder.tradeTypetv.setText(entity.getPlanResName());
 			// （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
