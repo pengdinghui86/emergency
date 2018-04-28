@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sat Apr 28 09:07:35 CST 2018
+#Sat Apr 28 10:49:23 CST 2018
 17.baseType=DIRECTORY
 4.path=lib/x86/libtpnsSecurity.so
 25.base=D\:\\git_project\\emergency_newStyle\\app\\build\\intermediates\\transforms\\mergeJniLibs\\debug\\0

@@ -16,7 +16,7 @@ import com.dssm.esc.R;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.util.Const;
-import com.dssm.esc.view.adapter.DismissValuationListviewAdapter;
+import com.dssm.esc.view.adapter.EventProcessListviewAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 
 import net.tsz.afinal.annotation.view.ViewInject;
@@ -46,7 +46,7 @@ public class EventProcessActivity extends BaseActivity implements
 	@ViewInject(id = R.id.eventprocess_listview)
 	AutoListView listView;
 	/** 适配器 */
-	private DismissValuationListviewAdapter adapter;
+	private EventProcessListviewAdapter adapter;
 	/** 数据源 */
 	private List<BoHuiListEntity> list = new ArrayList<BoHuiListEntity>();
 	/** 当前页面 */
@@ -101,7 +101,7 @@ public class EventProcessActivity extends BaseActivity implements
 
 		title.setText(R.string.event_process);
 
-		adapter = new DismissValuationListviewAdapter(
+		adapter = new EventProcessListviewAdapter(
 				EventProcessActivity.this, list,"6");
 		listView.setAdapter(adapter);
 		listView.setOnRefreshListener(this);
