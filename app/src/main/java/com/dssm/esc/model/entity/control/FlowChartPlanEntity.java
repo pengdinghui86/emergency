@@ -89,6 +89,20 @@ public class FlowChartPlanEntity implements Serializable {
          */
         private String executePeopleType;
         /**
+         * 节点类型
+         * ExclusiveGateway=判断节点，UserTask=其他节点
+         */
+        private String nodeStepType;
+
+        public String getNodeStepType() {
+            return nodeStepType;
+        }
+
+        public void setNodeStepType(String nodeStepType) {
+            this.nodeStepType = nodeStepType;
+        }
+
+        /**
          * 流程节点备注
          */
         private String remark;

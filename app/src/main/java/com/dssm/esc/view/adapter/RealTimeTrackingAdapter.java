@@ -361,7 +361,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
 
         if ((roleCode.equals("R001") || roleCode.equals("R002")
                 || roleCode.equals("R003")) && entity.getStatus().equals("5")
-                && parentState.equals("3")) {
+                && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.tv_pause.setVisibility(View.VISIBLE);
             mhHolder.tv_pause.setOnClickListener(new OnClickListener() {
 
@@ -390,7 +390,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
 
         if ((roleCode.equals("R001") || roleCode.equals("R002")
                 || roleCode.equals("R003")) && entity.getStatus().equals("6")
-                && parentState.equals("3")) {
+                && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.tv_pause.setVisibility(View.VISIBLE);
             mhHolder.tv_pause.setOnClickListener(new OnClickListener() {
 
@@ -420,7 +420,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         if ((roleCode.equals("R001") || roleCode.equals("R002")
                 || roleCode.equals("R003")) && (entity.getStatus().equals(RealTimeTrackingStatus.EXECUTING)
                 || entity.getStatus().equals(RealTimeTrackingStatus.BEFORE))
-                && parentState.equals("3")) {
+                && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.jumptv.setVisibility(View.VISIBLE);
             mhHolder.jumptv.setOnClickListener(new OnClickListener() {
 
@@ -504,7 +504,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
 
         if ((roleCode.equals("R001") || roleCode.equals("R002")
                 || roleCode.equals("R003")) && entity.getStatus().equals("25")
-                && parentState.equals("3")) {
+                && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.jumptv.setVisibility(View.VISIBLE);
             mhHolder.jumptv.setOnClickListener(new OnClickListener() {
 
@@ -568,7 +568,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
          */
         //执行中
         if (roleCode.equals("R003") && entity.getStatus().equals("4")
-                && parentState.equals("3")) {
+                && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.jumptv.setVisibility(View.VISIBLE);
             mhHolder.jumptv.setOnClickListener(new OnClickListener() {
 
