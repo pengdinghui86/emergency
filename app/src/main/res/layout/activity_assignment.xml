@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/assignment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:background="@color/set_gray"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.dssm.esc.view.widget.SegmentControl
+        xmlns:segmentcontrol="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/segment_control_assign"
+        style="@style/linearlayout_segmentcontrol_style"
+        segmentcontrol:colors="@color/textColor_selected"
+        segmentcontrol:cornerRadius="5dp"
+        segmentcontrol:direction="horizon"
+        segmentcontrol:horizonGap="12dp"
+        segmentcontrol:selectedIndex="0"
+        android:layout_gravity="center"
+        segmentcontrol:texts="相关人员|应急小组"
+        segmentcontrol:verticalGap="8dp" />
+
+    <ListView
+        android:id="@+id/assign_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:visibility="gone"
+        android:divider="@color/colorWeSplitMini"
+        android:dividerHeight="1dp"
+        android:layout_marginTop="10dp">
+    </ListView>
+
+    <ExpandableListView
+        android:id="@+id/assign_expandlistview"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:indicatorLeft="1sp"
+        android:scrollbars="none"
+        android:visibility="gone"
+        android:layout_marginTop="10dp" />
+     <ExpandableListView  
+        android:id="@+id/elistview" 
+        android:layout_width="fill_parent" 
+        android:layout_height="match_parent" 
+        android:groupIndicator="@null" 
+        /> 
+
+</LinearLayout>

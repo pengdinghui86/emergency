@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/gropimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/we_margin_left"
+        android:src="@drawable/rightlist" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/group_palnexecute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:text="TextView"
+            style="@style/normal_text" />
+
+        <TextView
+            android:id="@+id/textstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/group_palnexecute"
+            android:text="TextView"
+            style="@style/normal_text" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_operation_menu"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dp"
+        android:layout_weight="2"
+        android:layout_marginLeft="5dp"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/operation_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="操作手册"
+            android:layout_gravity="center"
+            android:gravity="center"
+             android:textSize="@dimen/we_normal_textsize"
+            android:textColor="@color/textColor_selected" />
+        
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/menu" />
+    </LinearLayout>
+
+</LinearLayout>

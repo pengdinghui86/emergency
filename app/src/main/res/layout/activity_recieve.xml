@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recieve"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWeWindowGrayBackground"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/submit"
+        style="@style/text"
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/tvbk_gray"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="添加"
+        android:textColor="#000"/>
+
+    <ListView
+        android:id="@+id/recieve_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/submit"
+        android:layout_above="@+id/ok"
+        android:layout_marginTop="10dp"
+        android:divider="@color/colorWeSplitMini"
+        android:dividerHeight="1dp"
+        android:scrollbars="none" >
+    </ListView>
+ <TextView
+        android:id="@+id/ok"
+        style="@style/text"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/btbg_blue"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="确定"
+        android:textColor="#fff"
+        android:textSize="@dimen/we_title_textsize" />
+</RelativeLayout>

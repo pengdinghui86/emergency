@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addvaluation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/emergency_fragment_bg"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:id="@+id/rl_marine_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.dssm.esc.view.widget.MyScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWeWindowGrayBackground"
+            android:focusable="true"
+            
+            android:focusableInTouchMode="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:gravity="top"
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.9"
+                    android:gravity="left|top"
+                    android:text="@string/eventname"
+                    android:textSize="@dimen/we_normal_textsize"
+                    android:textColor="@color/colorWeFontBlack" />
+
+                <com.dssm.esc.view.widget.ContainsEmojiEditText
+                    android:id="@+id/event_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="@string/eventnamehint"
+                    android:padding="5dp"
+                    android:textColor="@color/textColor_selected"
+                    android:textSize="@dimen/we_normal_textsize" >
+
+                    <requestFocus />
+                </com.dssm.esc.view.widget.ContainsEmojiEditText>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2" />
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_gray_style"
+                android:layout_marginTop="20dp" />
+
+            <LinearLayout
+                android:id="@+id/business_type_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="5dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/business_type" />
+
+                <TextView
+                    android:id="@+id/business_type"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:textColor="@color/textColor_selected"
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/right" />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/event_level_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="5dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/event_level" />
+
+                <TextView
+                    android:id="@+id/event_level"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:textColor="@color/textColor_selected"
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/right" />
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_gray_style"
+                android:layout_marginTop="20dp" />
+
+            <LinearLayout
+                android:id="@+id/event_background_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="5dp" >
+
+                <TextView
+                    android:id="@+id/palntv"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/event_background"/>
+
+                <TextView
+                    android:id="@+id/event_background"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:textColor="@color/textColor_selected"
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/right" />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/event_type_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="5dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="事件来源"/>
+
+                <TextView
+                    android:id="@+id/event_type"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:textColor="@color/textColor_selected"
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/right" />
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_gray_style"
+                android:layout_marginTop="20dp" />
+
+            <LinearLayout
+                android:id="@+id/plan_ll_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="5dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="演练预案"/>
+
+                <TextView
+                    android:id="@+id/plan_name"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:textColor="@color/textColor_selected"
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/emergType_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="5dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="演练类型"/>
+
+                <TextView
+                    android:id="@+id/emergType"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:textColor="@color/textColor_selected"
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/plan_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/referPlan_name_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="场景预案"/>
+
+                    <TextView
+                        android:id="@+id/referPlan_name"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left"
+                        android:padding="5dp"
+                        android:textColor="@color/textColor_selected"
+                        />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/right" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:id="@+id/otherReferPlan_name_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="5dp" >
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="其他预案"/>
+
+                    <TextView
+                        android:id="@+id/otherReferPlan_name"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left"
+                        android:padding="5dp"
+                        android:textColor="@color/textColor_selected"
+                        />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/right" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:id="@+id/categoryPlan_name_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="5dp" >
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="分类预案"/>
+
+                    <TextView
+                        android:id="@+id/categoryPlan_name"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left"
+                        android:padding="5dp"
+                        android:textColor="@color/textColor_selected"
+                        />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/right" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_gray_style"
+                android:layout_marginTop="20dp" />
+
+            <LinearLayout
+                android:id="@+id/event_des_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="5dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.9"
+                    android:gravity="left"
+                    android:text="@string/event_des"/>
+
+                <EditText
+                    android:id="@+id/event_des"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="请输入事件描述"
+                    android:padding="5dp"
+                    android:textColor="@color/textColor_selected"
+                    android:textSize="@dimen/we_normal_textsize">
+
+                    <requestFocus />
+                </EditText>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2" />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/suggestion_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:padding="5dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.9"
+                    android:gravity="left"
+                    android:text="@string/suggestion"/>
+
+                <EditText
+                    android:id="@+id/suggestion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="请输入应对建议"
+                    android:padding="5dp"
+                    android:textColor="@color/textColor_selected"
+                    android:textSize="@dimen/we_normal_textsize">
+
+                    <requestFocus />
+                </EditText>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2" />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <TextView
+                android:id="@+id/submittv"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/btbg_blue"
+                android:clickable="true"
+                android:padding="10dp"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/we_title_textsize" />
+        </LinearLayout>
+    </com.dssm.esc.view.widget.MyScrollView>
+
+</LinearLayout>

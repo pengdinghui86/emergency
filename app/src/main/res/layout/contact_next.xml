@@ -1,0 +1,141 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sendmessage"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+  
+
+ <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#fff"
+        android:gravity="center"
+        style="@style/normal_text" />
+     
+
+   
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_gray_30"
+        android:padding="5dp" >
+
+        <LinearLayout
+            android:id="@+id/xitong_ll"
+            style="@style/addresslist_togbtlinear_style"
+            android:layout_marginLeft="25dp"
+             android:background="@drawable/tvbk_gray"
+            android:clickable="true" >
+
+            <ToggleButton
+                android:id="@+id/xitong_tg"
+                style="@style/addresslist_togbt_style"
+                android:textOff="@string/xitong"
+                android:textOn="@string/xitong" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/message_ll"
+            style="@style/addresslist_togbtlinear_style"
+            android:layout_marginLeft="15dp"
+             android:background="@drawable/tvbk_gray"
+            android:clickable="true" >
+
+            <ToggleButton
+                android:id="@+id/shortmessage_tg"
+                style="@style/addresslist_togbt_style"
+                android:textOff="@string/shortmessage"
+                android:textOn="@string/shortmessage" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/email_ll"
+            style="@style/addresslist_togbtlinear_style"
+            android:layout_marginLeft="15dp"
+             android:background="@drawable/tvbk_gray"
+            android:clickable="true" >
+
+            <ToggleButton
+                android:id="@+id/email_tg"
+                style="@style/addresslist_togbt_style"
+                android:textOff="@string/email"
+                android:textOn="@string/email" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/APP_ll"
+            style="@style/addresslist_togbtlinear_style"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/tvbk_gray"
+            android:clickable="true" >
+
+            <ToggleButton
+                android:id="@+id/app_tg"
+                style="@style/addresslist_togbt_style"
+                android:textOff="@string/app"
+                android:textOn="@string/app" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+             android:background="@drawable/tvbk_blue"
+            android:orientation="horizontal" >
+
+           <EditText
+                android:id="@+id/edit_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/seabar_input"
+                android:ems="10"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="@string/messageedit"
+                android:imeOptions="actionNext"
+                android:maxLength="70"
+               android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:textColorHint="#8C8C8C"
+                style="@style/normal_text" >
+            </EditText>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- android:background="@drawable/search_bar_edit_selector" -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/colorWeWindowGrayBackground"
+        android:gravity="center"
+        style="@style/normal_text" />
+
+    <TextView
+        android:id="@+id/send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@color/textColor_selected"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="发消息"
+        android:textColor="#fff"
+        android:textSize="@dimen/we_title_textsize" />
+
+</LinearLayout>

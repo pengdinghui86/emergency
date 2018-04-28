@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/filter_edit_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/searchbg"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="8dp" >
+
+        <com.dssm.esc.view.widget.ClearEditText
+            android:id="@+id/filter_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_bg"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="10dp"
+            android:hint="@string/editflithint"
+            android:textColorHint="@color/colorWeFontGray_9"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:singleLine="true"
+            style="@style/normal_text"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/no_search_result_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/filter_edit_ll"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/searchno"
+        android:textSize="@dimen/we_normal_textsize"
+        android:background="#fff"
+        android:visibility="gone" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/id_swipe_ly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/filter_edit_ll"
+        android:paddingBottom="@dimen/we_margin_left">
+
+        <ExpandableListView
+            android:id="@+id/expandable_listv_failsafe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorWeSplitMini"
+            android:childDivider="@color/colorWeSplitMini"
+            android:dividerHeight="1dp"
+            android:background="@color/list_view_background"
+            android:indicatorLeft="1sp"
+            android:scrollbars="none" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+  
+</RelativeLayout>

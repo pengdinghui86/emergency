@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/control"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.dssm.esc.view.widget.SegmentControl
+        xmlns:segmentcontrol="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/segment_control_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="@dimen/we_normal_textsize"
+        segmentcontrol:colors="@color/textColor_selected"
+        segmentcontrol:cornerRadius="5dp"
+        segmentcontrol:direction="horizon"
+        segmentcontrol:horizonGap="12dp"
+        segmentcontrol:selectedIndex="0"
+        segmentcontrol:texts="实时跟踪|流程监控|资源筹备"
+        segmentcontrol:verticalGap="8dp" />
+
+    <ScrollView
+        android:id="@+id/myscrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <com.dssm.esc.view.ZoomView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/progress_control"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </com.dssm.esc.view.ZoomView>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/realtime_tracking"
+        layout="@layout/realtime_tarcking" />
+
+    <include
+        android:id="@+id/resource_preparation"
+        layout="@layout/resource_preparation"
+        android:visibility="gone" />
+
+</LinearLayout>

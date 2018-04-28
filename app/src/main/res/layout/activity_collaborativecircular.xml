@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/collaborativecircular"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/set_gray" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+   <LinearLayout
+        android:id="@+id/filter_edit_ll"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_height="wrap_content"
+        android:background="@color/searchbg"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="8dp" >
+
+        <com.dssm.esc.view.widget.ClearEditText
+            android:id="@+id/filter_edit_c"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_bg"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="10dp"
+            android:hint="@string/editflithint"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:singleLine="true"
+            android:textColor="@color/colorWeFontBlack"
+            android:textSize="@dimen/we_normal_textsize"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/no_search_result_tv_c"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/filter_edit_ll"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/searchno"
+        style="@style/normal_text"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/filter_edit_ll"
+        android:orientation="vertical"
+        android:paddingTop="5dp" >
+
+        <ExpandableListView
+            android:id="@+id/collab_expandlistview"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:indicatorLeft="1sp" />
+
+        <TextView
+            android:id="@+id/no_search_result_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/searchno"
+            style="@style/normal_text"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    
+
+</RelativeLayout>

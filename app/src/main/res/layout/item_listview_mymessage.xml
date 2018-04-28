@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/mymessage_name_tv"
+        style="@style/message_content_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/mymessage_positon_tv"
+        style="@style/message_time_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/mymessage_name_tv"
+        android:layout_alignBottom="@+id/mymessage_name_tv"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/mymessage_name_tv" />
+
+    <TextView
+        android:id="@+id/mymessage_date"
+        style="@style/message_time_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/mymessage_positon_tv"
+        android:layout_alignBottom="@+id/mymessage_positon_tv"
+        android:layout_toLeftOf="@+id/mymessage_time"
+        />
+
+    <TextView
+        android:id="@+id/mymessage_time"
+        style="@style/message_time_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/mymessage_date"
+        android:layout_alignBottom="@+id/mymessage_date"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <TextView
+        android:id="@+id/mymessage_content_tv"
+        style="@style/message_content_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mymessage_name_tv"
+        android:layout_alignRight="@+id/mymessage_time"
+        android:layout_below="@+id/mymessage_name_tv"
+        />
+
+</RelativeLayout>

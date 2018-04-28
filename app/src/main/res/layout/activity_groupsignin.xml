@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/groupsignin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/set_gray"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.dssm.esc.view.widget.SegmentControl
+        xmlns:segmentcontrol="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/segment_control_sign_grop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="@dimen/we_normal_textsize"
+        segmentcontrol:colors="@color/textColor_selected"
+        segmentcontrol:cornerRadius="5dp"
+        segmentcontrol:direction="horizon"
+        segmentcontrol:horizonGap="12dp"
+        segmentcontrol:selectedIndex="0"
+        segmentcontrol:texts="全部|已接收|未接收"
+        segmentcontrol:verticalGap="8dp" />
+
+    <com.dssm.esc.view.widget.SegmentControl
+        xmlns:segmentcontrol="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/segment_control_sign_grop2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="@dimen/we_normal_textsize"
+        segmentcontrol:colors="@color/textColor_selected"
+        segmentcontrol:cornerRadius="5dp"
+        segmentcontrol:direction="horizon"
+        segmentcontrol:horizonGap="12dp"
+        segmentcontrol:selectedIndex="0"
+        segmentcontrol:texts="全部|已签到|未签到"
+        segmentcontrol:verticalGap="8dp" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/id_swipe_ly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp" >
+
+        <ExpandableListView
+            android:id="@+id/expandable_signin_grop"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:indicatorLeft="1sp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/emyptytv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:background="@color/colorWeWindowGrayBackground"
+        android:gravity="center"
+        android:text="暂无数据"
+        style="@style/normal_text"
+        android:visibility="gone" />
+
+</LinearLayout>

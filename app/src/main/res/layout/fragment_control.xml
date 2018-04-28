@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWeWindowGrayBackground"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        style="@style/horizontal_gray_style"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:id="@+id/event_prcess_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_pressed_selector"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            style="@style/emergency_img"
+            android:src="@drawable/event_process" />
+
+        <TextView
+            style="@style/message_content_style"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="@string/event_process" />
+
+        <ImageView style="@style/emergency_img_right" />
+    </LinearLayout>
+
+    <View style="@style/horizontal_gray_style" />
+
+    <View
+        style="@style/horizontal_gray_style"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:id="@+id/command_display_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_pressed_selector"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <ImageView
+            style="@style/emergency_img"
+            android:src="@drawable/control_display" />
+
+        <TextView
+            style="@style/message_content_style"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="@string/command_display" />
+
+        <ImageView style="@style/emergency_img_right" />
+    </LinearLayout>
+
+    <View style="@style/horizontal_gray_style" />
+
+</LinearLayout>

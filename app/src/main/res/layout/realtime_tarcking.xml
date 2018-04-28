@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="中止"
+            android:visibility="gone"
+            android:textColor="#fff"
+            android:textSize="@dimen/we_normal_textsize" />
+<!--        <Button
+            android:id="@+id/pause"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/btbg_blue"
+            android:text="暂停"
+            android:visibility="gone"
+            android:textColor="#fff"
+            android:textSize="15sp" />-->
+    </LinearLayout>
+
+
+     <com.dssm.esc.view.widget.AutoListView
+        android:id="@+id/realtime_track_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+      android:layout_marginTop="10dp"
+      android:scrollbars="none" /> 
+     <!--  <ListView
+        android:id="@+id/realtime_track_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+      android:layout_marginTop="10dp"
+      android:scrollbars="none" /> -->
+
+</LinearLayout>

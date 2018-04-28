@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/palndetail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/set_gray"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </com.dssm.esc.view.widget.Title_Layout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorWeWindowGrayBackground"
+        android:orientation="vertical"
+        android:paddingLeft="20dp" >
+
+        <TextView
+            style="@style/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="@string/planexcdesc" />
+    </LinearLayout>
+
+    <com.dssm.esc.view.widget.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="预案名称" />
+
+                <TextView
+                    android:id="@+id/event_name"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.5"
+                    android:gravity="left" />
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_gray_style"
+                android:layout_marginTop="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="预案启动人" />
+
+                <TextView
+                    android:id="@+id/planstarter"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.5"
+                    android:gravity="left" />
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_gray_style"
+                android:layout_marginTop="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="启动时间" />
+
+                <TextView
+                    android:id="@+id/startime"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.5"
+                    android:gravity="left" />
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_gray_style"
+                android:layout_marginTop="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" >
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="预案类型" />
+
+                    <TextView
+                        android:id="@+id/planTypeNametv"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View
+                    style="@style/horizontal_gray_style"
+                    android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" >
+
+                        <TextView
+                            style="@style/text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="预案摘要" />
+
+                        <TextView
+                            android:id="@+id/plansummary"
+                            style="@style/text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1.5"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <View
+                        style="@style/horizontal_gray_style"
+                        android:layout_marginTop="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" >
+
+                        <TextView
+                            style="@style/text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="处理意见" />
+
+                        <TextView
+                            android:id="@+id/advice"
+                            style="@style/text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1.5"
+                            android:gravity="left" />
+                    </LinearLayout>
+
+                    <View
+                        style="@style/horizontal_gray_style"
+                        android:layout_marginTop="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#fff"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp" >
+
+                            <TextView
+                                style="@style/text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="left"
+                                android:text="事件来源" />
+
+                            <TextView
+                                android:id="@+id/planResTypetv"
+                                style="@style/text"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1.5"
+                                android:gravity="left" />
+                        </LinearLayout>
+
+                        <View
+                            style="@style/horizontal_gray_style"
+                            android:layout_marginTop="10dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#fff"
+                            android:orientation="vertical" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp" >
+
+                                <TextView
+                                    style="@style/text"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1"
+                                    android:gravity="left"
+                                    android:text="所属事件" />
+
+                                <TextView
+                                    android:id="@+id/planResNametv"
+                                    style="@style/text"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1.5"
+                                    android:gravity="left" />
+                            </LinearLayout>
+
+                            <View
+                                style="@style/horizontal_gray_style"
+                                android:layout_marginTop="10dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp" >
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:textColor="@color/textColor_selected"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:id="@+id/operation_menu"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="操作手册"
+                                    android:textColor="@color/textColor_selected"
+                                    android:textSize="14sp" />
+
+                                <ImageView
+                                    android:id="@+id/operation_menu2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:src="@drawable/menu" />
+                            </LinearLayout>
+
+                            <View
+                                style="@style/horizontal_gray_style"
+                                android:layout_marginTop="10dp" />
+
+                            <LinearLayout
+                                android:id="@+id/execute_ll"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:id="@+id/execute"
+                                    style="@style/text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:background="@drawable/btbg_blue"
+                                    android:clickable="true"
+                                    android:padding="10dp"
+                                    android:text="开始执行"
+                                    android:textColor="#fff"
+                                    android:textSize="@dimen/we_title_textsize" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/change_ll"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="#fff"
+                                android:orientation="vertical"
+                                android:visibility="gone" >
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical" >
+
+                                    <LinearLayout
+                                        android:id="@+id/done_status_ll"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp" >
+
+                                        <TextView
+                                            style="@style/text"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:text="@string/done_status" />
+
+                                        <TextView
+                                            android:id="@+id/done_status"
+                                            style="@style/text"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:gravity="left" />
+
+                                        <ImageView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5"
+                                            android:src="@drawable/right" />
+                                    </LinearLayout>
+
+                                    <View
+                                        style="@style/horizontal_gray_style"
+                                        android:layout_marginTop="10dp" />
+
+                                    <LinearLayout
+                                        android:id="@+id/submit_infomation_ll"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp" >
+
+                                        <TextView
+                                            style="@style/text"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:text="完成情况" />
+
+                                        <TextView
+                                            android:id="@+id/submit_infomation"
+                                            style="@style/text"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:gravity="left" />
+
+                                        <ImageView
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="0.5"
+                                            android:src="@drawable/right" />
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/change"
+                                    style="@style/text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_marginTop="30dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/btbg_blue"
+                                    android:clickable="true"
+                                    android:padding="10dp"
+                                    android:text="@string/change"
+                                    android:textColor="#fff"
+                                    android:textSize="@dimen/we_title_textsize" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/done_ok_ll"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:visibility="gone" >
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical" >
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp" >
+
+                                        <TextView
+                                            style="@style/text"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:gravity="left"
+                                            android:text="提交信息" />
+
+                                        <TextView
+                                            android:id="@+id/alltime"
+                                            style="@style/text"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1.5"
+                                            android:gravity="left"
+                                            android:textColor="#f00" />
+                                    </LinearLayout>
+
+                                    <View
+                                        style="@style/horizontal_gray_style"
+                                        android:layout_marginTop="10dp" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp" >
+
+                                        <TextView
+                                            style="@style/text"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                             android:layout_gravity="center"
+                                            android:gravity="left"
+                                            android:text="@string/done_status" />
+
+                                        <TextView
+                                            android:id="@+id/done_status_done"
+                                            style="@style/text"
+                                            android:layout_width="0dp"
+                                              android:layout_gravity="center"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1.5"
+                                            android:gravity="left"
+                                            android:textColor="#f00" />
+                                    </LinearLayout>
+
+                                    <TextView
+                                        android:id="@+id/okdone"
+                                        style="@style/text"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_marginTop="30dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/btbg_gray"
+                                        android:clickable="true"
+                                        android:padding="10dp"
+                                        android:text="@string/okdone"
+                                        android:textColor="#fff"
+                                        android:textSize="@dimen/we_title_textsize" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.dssm.esc.view.widget.MyScrollView>
+
+</LinearLayout>

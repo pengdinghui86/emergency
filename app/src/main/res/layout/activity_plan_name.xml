@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/plan_name"
+    android:background="@color/emergency_fragment_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </com.dssm.esc.view.widget.Title_Layout>
+
+<!--  <LinearLayout
+        android:id="@+id/search_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="5dp"
+        android:background="@color/searchbg"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="10dp" >
+
+        <com.dssm.esc.view.widget.ClearEditText
+            android:id="@+id/plan_filter_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_bg"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="10dp"
+            android:hint="@string/editflithint"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:singleLine="true"
+            android:textSize="15.0dip" />
+    </LinearLayout>
+
+   
+
+   <View style="@style/horizontal_gray_style" /> -->
+
+    <ListView
+        android:id="@+id/planname_type_listview"
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:background="#fff"
+        android:layout_height="match_parent" >
+    </ListView>
+ <TextView
+     android:id="@+id/emptytv"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center"
+     android:padding="5dp"
+     android:gravity="center"
+     android:background="#fff"
+     style="@style/normal_text"
+     android:text="暂无数据"/>
+</LinearLayout>

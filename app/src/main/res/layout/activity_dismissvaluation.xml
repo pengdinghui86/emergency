@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dismissvaluation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWeWindowGrayBackground"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+ 
+  <com.dssm.esc.view.widget.AutoListView
+        android:id="@+id/dismissv_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+         android:dividerHeight="10dp"
+        android:divider="@color/colorWeWindowGrayBackground" />
+</LinearLayout>

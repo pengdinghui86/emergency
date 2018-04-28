@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray_30"
+    android:orientation="vertical">
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.dssm.esc.view.widget.DeleteEditText
+        android:id="@+id/edit_ip"
+        style="@style/default_edit_style"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:padding="10dp"/>
+
+    <RadioGroup
+        android:id="@+id/raido_gp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <RadioButton
+            android:id="@+id/http_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@drawable/check_bt"
+            android:checked="true"
+            style="@style/normal_text"
+            android:text="http://" />
+
+        <RadioButton
+            android:id="@+id/https_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@drawable/check_bt"
+            style="@style/normal_text"
+            android:text="https://" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/sure_bt"
+        style="@style/default_textview_btn"
+        android:layout_marginTop="30dp"
+        android:text="@string/sure" />
+</LinearLayout>

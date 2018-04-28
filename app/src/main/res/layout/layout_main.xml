@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true" >
+
+    <FrameLayout
+        android:id="@+id/view_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="50dp"
+        android:background="@color/set_gray" />
+
+    <View
+        style="@style/horizontal_gray_style"
+        android:layout_above="@+id/main_tab" />
+
+    <RadioGroup
+        android:id="@+id/main_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:paddingTop="2dp"
+        android:paddingBottom="3dp"
+        android:layout_gravity="center"
+        android:background="@color/titlebg"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rdb0"
+            style="@style/radio_tab"
+            android:checked="true"
+            android:drawableTop="@drawable/tab_message_selector"
+            android:text="@string/message"
+            android:textSize="@dimen/we_small_textsize"/>
+
+        <RadioButton
+            android:id="@+id/rdb1"
+            style="@style/radio_tab"
+            android:drawableTop="@drawable/tab_addresslist_selector"
+            android:text="@string/addressList"
+            android:textSize="@dimen/we_small_textsize"/>
+
+        <RadioButton
+            android:id="@+id/rdb2"
+            style="@style/radio_tab"
+            android:drawablePadding="-3dp"
+            android:drawableTop="@drawable/tab_emergency_selector"
+            android:text="@string/emergenceMenege"
+            android:textSize="@dimen/we_small_textsize"/>
+
+        <RadioButton
+            android:id="@+id/rdb3"
+            style="@style/radio_tab"
+            android:drawablePadding="-3dp"
+            android:drawableTop="@drawable/tab_control_selector"
+            android:text="@string/controlCenter"
+            android:textSize="@dimen/we_small_textsize"/>
+    </RadioGroup>
+    <!-- 实现提醒信息用的 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/main_tab"
+        android:layout_alignTop="@id/main_tab"
+        android:background="#00000000"
+        android:orientation="horizontal"
+        android:paddingTop="3dp" >
+
+        <!-- 显示提醒信息的button android:layout_weight=1  是3个butto，平分手机界面的宽度 -->
+
+        <TextView
+            android:id="@+id/bt"
+            style="@style/radio_tab"
+            android:background="#00000000"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
+        <!-- 占位置的button，以便适应不同分辨率手机 -->
+
+        <TextView
+            style="@style/radio_tab"
+            android:visibility="invisible" />
+
+        <TextView
+            style="@style/radio_tab"
+            android:visibility="invisible" />
+        <!-- 占位置的button，以便适应不同分辨率手机 -->
+
+        <TextView
+            style="@style/radio_tab"
+            android:visibility="invisible" />
+
+        <TextView
+            style="@style/radio_tab"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+</RelativeLayout>

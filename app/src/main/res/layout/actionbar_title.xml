@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/actionbar_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/title_bg"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_actionbar_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:src="@drawable/back"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_actionbar_editData2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/we_small_textsize"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_actionbar_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textColor="@color/titlebg"
+            android:textSize="@dimen/we_title_textsize" />
+
+
+
+            <TextView
+                android:id="@+id/tv_actionbar_editData"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/we_small_textsize"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/tv_actionbar_rightimag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="editip"
+                android:padding="5dp"
+                android:src="@drawable/settings_normal"
+                android:visibility="gone" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

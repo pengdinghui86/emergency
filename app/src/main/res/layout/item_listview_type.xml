@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:src="@drawable/pinggu"
+        android:gravity="left" />
+
+    <TextView
+        android:id="@+id/select_type_item_type"
+        style="@style/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1.5"
+        android:gravity="left"
+        android:padding="10dp"
+       />
+     <TextView
+        android:id="@+id/select_type_item_type2"
+        style="@style/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.8"
+        android:gravity="left"
+        android:padding="10dp"
+         />
+     <TextView
+        android:id="@+id/select_type_item_type3"
+        style="@style/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:padding="10dp"
+        />
+
+    <CheckBox
+        android:id="@+id/select_type_item_checkbox"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="right|center_vertical"
+        android:focusable="false"
+        android:button="@null"
+        android:background="@drawable/checkbox_background_selector"
+        android:paddingRight="2dp"
+        android:clickable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="left" />
+
+    <TextView
+        style="@style/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.3"
+        android:gravity="left" />
+
+</LinearLayout>

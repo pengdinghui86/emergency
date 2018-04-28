@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/plan_detail_all"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical" >
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.dssm.esc.view.widget.MyScrollView
+        android:id="@+id/plan_detail_sll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:text="@string/plan_name"
+                    />
+
+                <TextView
+                    android:id="@+id/plan_detail_name"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/planpeople"
+                     android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+
+                <TextView
+                    android:id="@+id/plan_people"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                     android:layout_gravity="center"
+                    android:gravity="left"
+                    android:text="@string/startime"
+                    />
+
+                <TextView
+                    android:id="@+id/startime"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                     android:layout_gravity="center"
+                    android:gravity="left"
+                    android:text="@string/eventovertime"
+                    />
+
+                <TextView
+                    android:id="@+id/plan_over_time"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                     android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="预案授权人"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+
+                <TextView
+                    android:id="@+id/planAther"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="预案授权时间"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+
+                <TextView
+                    android:id="@+id/planAuthTime"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="预案授权意见"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+
+                <TextView
+                    android:id="@+id/planAuthOption"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:text="@string/plan_type"
+                    />
+
+                <TextView
+                    android:id="@+id/plan_type"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:text="@string/plan_des"
+                    />
+
+                <TextView
+                    android:id="@+id/plan_des"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" >
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/donesug"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+
+                <TextView
+                    android:id="@+id/plan_donesug"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    />
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:id="@+id/ed_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/tvbk_gray"
+                android:gravity="center"
+                android:padding="2dp" >
+
+            <EditText
+                android:id="@+id/etc"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="请输入中止原因"
+                android:paddingLeft="5dp" >
+
+                <requestFocus />
+            </EditText>
+
+            <ImageView
+                android:id="@+id/img_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:src="@drawable/icon_delete"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/suspandbt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_margin="20dp"
+            android:background="@drawable/btbg_blue"
+            android:text="中止"
+            android:textColor="#fff"
+            android:textSize="@dimen/we_title_textsize" />
+        </LinearLayout>
+
+       
+    </com.dssm.esc.view.widget.MyScrollView>
+
+</RelativeLayout>

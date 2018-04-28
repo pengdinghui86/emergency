@@ -1,0 +1,332 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sendcollaborate"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_marine_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title_bg"
+        android:paddingBottom="7dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="7dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.dssm.esc.view.widget.SegmentedGroup
+                android:id="@+id/segmented"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                segmentedgroup:sc_checked_text_color="@color/textColor_selected"
+                segmentedgroup:sc_tint_color="@android:color/white" >
+
+                <RadioButton
+                    android:id="@+id/rb_failsafe"
+                    style="@style/RadioButton"
+                    android:checked="true"
+                    android:text="协同" />
+
+                <RadioButton
+                    android:id="@+id/rb_show"
+                    style="@style/RadioButton"
+                    android:text="通告" />
+            </com.dssm.esc.view.widget.SegmentedGroup>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:src="@drawable/back" />
+    </RelativeLayout>
+
+    <com.dssm.esc.view.widget.MyScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/cooridiration_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:id="@+id/send_object_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="10dp" >
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5" />
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:padding="5dp"
+                        android:text="@string/sendobject"
+                        />
+
+                    <TextView
+                        android:id="@+id/send_object"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:gravity="left"
+                        android:padding="5dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:clickable="true"
+                        android:src="@drawable/right" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/v"
+                    style="@style/horizontal_gray_style"
+                    android:layout_margin="5dp" />
+
+                <LinearLayout
+                    android:id="@+id/stage_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:paddingBottom="5dp" >
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5" />
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:padding="5dp"
+                        android:text="@string/stage"
+                        />
+
+                    <TextView
+                        android:id="@+id/stage"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        android:gravity="left"
+                        android:padding="5dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:clickable="true"
+                        android:src="@drawable/right" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pell"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/emergency_fragment_bg"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:id="@+id/add"
+                        style="@style/text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/tvbk_gray"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="添加联系人"/>
+
+                    <ListView
+                        android:id="@+id/recieve_listview_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:scrollbars="none"
+                        android:dividerHeight="1dp"
+                        android:divider="@color/colorWeSplitMini">
+                    </ListView>
+
+                    <TextView
+                        android:id="@+id/emptytv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="暂无数据"
+                        android:textColor="@color/textColor_unselected"
+                        style="@style/normal_text" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/horizontal_gray_style" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_gray_30"
+                android:padding="10dp" >
+
+                <LinearLayout
+                    android:id="@+id/xitong_ll1"
+                    style="@style/addresslist_togbtlinear_style"
+                    android:layout_marginLeft="25dp"
+                    android:background="@drawable/tvbk_gray"
+                    android:clickable="true" >
+
+                    <ToggleButton
+                        android:id="@+id/xitong_tg"
+                        style="@style/addresslist_togbt_style"
+                        android:textOff="@string/xitong"
+                        android:textOn="@string/xitong" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_ll1"
+                    style="@style/addresslist_togbtlinear_style"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/tvbk_gray"
+                    android:clickable="true" >
+
+                    <ToggleButton
+                        android:id="@+id/shortmessage_tg"
+                        style="@style/addresslist_togbt_style"
+                        android:textOff="@string/shortmessage"
+                        android:textOn="@string/shortmessage" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/email_ll1"
+                    style="@style/addresslist_togbtlinear_style"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/tvbk_gray"
+                    android:clickable="true" >
+
+                    <ToggleButton
+                        android:id="@+id/email_tg"
+                        style="@style/addresslist_togbt_style"
+                        android:textOff="@string/email"
+                        android:textOn="@string/email" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/APP_ll1"
+                    style="@style/addresslist_togbtlinear_style"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="25dp"
+                    android:background="@drawable/tvbk_gray"
+                    android:clickable="true" >
+
+                    <ToggleButton
+                        android:id="@+id/app_tg"
+                        style="@style/addresslist_togbt_style"
+                        android:textOff="@string/app"
+                        android:textOn="@string/app" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/tvbk_blue"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/edit_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/seabar_input"
+                        android:ems="10"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:hint="@string/messageedit"
+                        android:imeOptions="actionNext"
+                        android:maxLength="70"
+                        android:textColorHint="#8C8C8C"
+                        android:textSize="16sp" >
+                    </EditText>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- android:background="@drawable/search_bar_edit_selector" -->
+
+            <TextView
+                android:id="@+id/next_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/textColor_selected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="下一步"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </com.dssm.esc.view.widget.MyScrollView>
+
+</LinearLayout>
