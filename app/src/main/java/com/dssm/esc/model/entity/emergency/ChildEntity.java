@@ -1,6 +1,7 @@
 package com.dssm.esc.model.entity.emergency;
 
 import java.io.Serializable;
+import java.util.List;
 
 import android.R.string;
 
@@ -285,4 +286,27 @@ public class ChildEntity implements Serializable {
         this.isChecked = isChecked;
     }
 
+    /**
+     * 判断节点
+     * 2018/5/2
+     */
+    private String nodeStepType;//节点类型
+
+    private List<BusinessTypeEntity> branches;//判断节点分支选项
+
+    public String getNodeStepType() {
+        return nodeStepType;
+    }
+
+    public void setNodeStepType(String nodeStepType) {
+        this.nodeStepType = nodeStepType;
+    }
+
+    public List<BusinessTypeEntity> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(List<BusinessTypeEntity> branches) {
+        this.branches = branches;
+    }
 }

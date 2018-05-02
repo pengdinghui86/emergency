@@ -152,6 +152,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     private PlanDetailObjEntity obj;
     private String message = "";
     private String changeStatus = "";
+    private String branchId = "";
     /**
      * 完成状态
      */
@@ -241,24 +242,19 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                             event_desc.setText(obj.getPlanTypeName());
                             String planResType2 = obj.getPlanResType();
                             if (planResType2.equals("1")) {
-
                                 planResTypetv.setText("应急");
                             } else if (planResType2.equals("2")) {
                                 planResTypetv.setText("演练");
                             }
-
                             planResNametv.setText(obj.getPlanResName());
                             // if (tag.equals("2")) {
                             planResType = obj.getPlanResType();
                             drillPrecautionId = obj.getDrillPrecautionId();
-
                         } else if (stRerror != null) {
                             ToastUtil.showToast(
                                     PlanExecutionDetailActivity.this, stRerror);
-
                         } else if (Exceptionerror != null) {
-                            ToastUtil.showToast(
-                                    PlanExecutionDetailActivity.this,
+                            ToastUtil.showToast(PlanExecutionDetailActivity.this,
                                     Const.NETWORKERROR + ":" + Exceptionerror);
                         }
                     }
@@ -346,7 +342,12 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         EmergencyTypeActivity.class);
                 // intent.putExtra("tag", tag);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("arrlist", (Serializable) resutList);
+                if(childEntity.getNodeStepType() != null && "ExclusiveGateway".equals(childEntity.getNodeStepType())) {
+                    bundle.putString("nodeStepType", childEntity.getNodeStepType());
+                    bundle.putSerializable("arrlist", (Serializable) childEntity.getBranches());
+                }
+                else
+                    bundle.putSerializable("arrlist", (Serializable) resutList);
                 bundle.putString("tags", "4");
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 4);
@@ -366,7 +367,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         Utils.getInstance().showProgressDialog(
                                 PlanExecutionDetailActivity.this, "",
                                 Const.SUBMIT_MESSAGE);
-                        esevice.swichOver(id, planInfoId, changeStatus, message,
+                        esevice.swichOver(id, planInfoId, changeStatus, message, childEntity.getNodeStepType(), branchId,
                                 new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
                                     @Override
@@ -456,19 +457,33 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         typelist.clear();
                         typelist.addAll(resutList);
 
-                        for (int i = 0; i < typelist.size(); i++) {
-                            BusinessTypeEntity businessTypeEntity = typelist.get(i);
-                            boolean select = businessTypeEntity.isSelect();
-                            if (select) {
-                                status = businessTypeEntity.getName();
+                        if(childEntity.getNodeStepType().equals("ExclusiveGateway")) {
+                            for (int i = 0; i < typelist.size(); i++) {
+                                BusinessTypeEntity businessTypeEntity = typelist.get(i);
+                                boolean select = businessTypeEntity.isSelect();
+                                if (select) {
+                                    branchId = businessTypeEntity.getId();
+                                    status = businessTypeEntity.getName();
+                                    break;
+                                }
                             }
-                        }
-                        if (status.equals("部分完成")) {
-                            changeStatus = "2";
-                        } else if (status.equals("全部完成")) {
                             changeStatus = "1";
-                        } else if (status.equals("跳过")) {
-                            changeStatus = "3";
+                        }
+                        else {
+                            for (int i = 0; i < typelist.size(); i++) {
+                                BusinessTypeEntity businessTypeEntity = typelist.get(i);
+                                boolean select = businessTypeEntity.isSelect();
+                                if (select) {
+                                    status = businessTypeEntity.getName();
+                                }
+                            }
+                            if (status.equals("部分完成")) {
+                                changeStatus = "2";
+                            } else if (status.equals("全部完成")) {
+                                changeStatus = "1";
+                            } else if (status.equals("跳过")) {
+                                changeStatus = "3";
+                            }
                         }
                         okState = status;
                         done_status.setText(status);

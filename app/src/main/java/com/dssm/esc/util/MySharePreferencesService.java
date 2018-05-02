@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.easemob.chatuidemo.DemoApplication;
 
 
 /**
@@ -19,7 +20,7 @@ import android.content.SharedPreferences.Editor;
  * 
  */
 public class MySharePreferencesService {
-	private SharedPreferences preferences;
+	private static SharedPreferences preferences;
 	private static MySharePreferencesService instance;
 
 	public MySharePreferencesService() {

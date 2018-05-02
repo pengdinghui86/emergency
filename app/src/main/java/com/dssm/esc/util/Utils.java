@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.entity.user.UserEntity;
@@ -407,6 +408,11 @@ public class Utils implements Serializable {
      */
     public void relogin() {
         map = service.getPreferences();
+        if (usevice == null) {
+            usevice = Control.getinstance().getUserSevice();
+            ToastUtil.showLongToast(DemoApplication.applicationContext,
+                    "登录超时,自动重新登陆");
+        }
         usevice.relogin(map.get("loginName"), map.get("password"),
                 map.get("selectedRolem"), new UserSeviceImpl.UserSeviceImplListListenser() {
 
@@ -420,7 +426,7 @@ public class Utils implements Serializable {
                         if (object != null) {
                             UserEntity userEntity = (UserEntity) object;
                             if (userEntity.getSuccess().equals("true")) {
-                                str = "Util登陆成功";
+                                str = "登陆成功";
                                 ToastUtil
                                         .showLongToast(
                                                 DemoApplication.applicationContext,
@@ -437,19 +443,26 @@ public class Utils implements Serializable {
                                         LoginActivity.class);
                                 DemoApplication.applicationContext
                                         .startActivity(intent);
-
                             }
 
                         } else if (stRerror != null) {
-
                             str = stRerror;
                             ToastUtil.showLongToast(
                                     DemoApplication.applicationContext, str);
+                            Intent intent = new Intent(
+                                    DemoApplication.applicationContext,
+                                    LoginActivity.class);
+                            DemoApplication.applicationContext
+                                    .startActivity(intent);
                         } else if (Exceptionerror != null) {
-
                             str = Const.NETWORKERROR + Exceptionerror;
                             ToastUtil.showLongToast(
                                     DemoApplication.applicationContext, str);
+                            Intent intent = new Intent(
+                                    DemoApplication.applicationContext,
+                                    LoginActivity.class);
+                            DemoApplication.applicationContext
+                                    .startActivity(intent);
                         }
                     }
                 });

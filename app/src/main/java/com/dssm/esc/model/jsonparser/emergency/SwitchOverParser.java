@@ -31,12 +31,12 @@ public class SwitchOverParser {
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public SwitchOverParser(String id, String planInfoId, String status,
-			String message, OnDataCompleterListener completeListener) {
+			String message, String nodeStepType, String branch, OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
 		finalHttp = Utils.getInstance().getFinalHttp();
 		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
-		request(id, planInfoId, status, message);
+		request(id, planInfoId, status, message, nodeStepType, branch);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class SwitchOverParser {
 
 	 */
 	public void request(final String id,final String planInfoId,final String status,
-			final String message) {
+			final String message, final String nodeStepType, final String branch) {
 
 		AjaxParams params = new AjaxParams();
 		if (id != null) {
@@ -58,7 +58,9 @@ public class SwitchOverParser {
 			params.put("planInfoId", planInfoId);
 			params.put("status", status);
 			params.put("message", message);
-
+			params.put("nodeStepType", nodeStepType);
+			if(nodeStepType.equals("ExclusiveGateway"))
+				params.put("branch", branch);
 		}
 		finalHttp.post(DemoApplication.getInstance().getUrl()+HttpUrl.SWITHOVER, params, new AjaxCallBack<String>() {
 
@@ -73,7 +75,7 @@ public class SwitchOverParser {
 				if (errorNo==518) {
 					Utils.getInstance().relogin();
 					request( id, planInfoId, status,
-							message);
+							message, nodeStepType, branch);
 					}
 			}
 

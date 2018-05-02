@@ -53,6 +53,8 @@ public class EmergencyTypeActivity extends BaseActivity implements
 	private ListviewCheckboxAdapter mSelectAdapter;
 	/** 1,行业类型;2,事件等级;3,事件场景; 4,完成状态;5,发送对象;6,阶段 */
 	private String tags;
+	//节点类型
+	private String nodeStepType = "";
 	/** 业务类型、事件等级、事件场景数据源 */
 	private List<BusinessTypeEntity> businessTypeList = new ArrayList<BusinessTypeEntity>();
 	/** 被选中的事件场景id */
@@ -83,6 +85,10 @@ public class EmergencyTypeActivity extends BaseActivity implements
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();
 		tags = intent.getStringExtra("tags");
+		if(intent.getStringExtra("nodeStepType") != null &&
+				!"".equals(intent.getStringExtra("nodeStepType"))) {
+			nodeStepType = intent.getStringExtra("nodeStepType");
+		}
 		// tag = getIntent().getStringExtra("tag");
 		arrlist = (List<BusinessTypeEntity>) intent.getSerializableExtra("arrlist");
 		initView();
@@ -244,20 +250,27 @@ public class EmergencyTypeActivity extends BaseActivity implements
 				handler.sendMessage(message);
 			}
 		} else if (tags.equals("4")) {
-			for (int i = 0; i < 3; i++) {
-				BusinessTypeEntity businessTypeEntity = new BusinessTypeEntity();
-				switch (i) {
-				case 0:
-					businessTypeEntity.setName("部分完成");
-					break;
-				case 1:
-					businessTypeEntity.setName("全部完成");
-					break;
-				case 2:
-					businessTypeEntity.setName("跳过");
-					break;
+			//判断节点
+			if(nodeStepType.equals("ExclusiveGateway")) {
+				businessTypeList.clear();
+				businessTypeList.addAll(arrlist);
+			}
+			else {
+				for (int i = 0; i < 3; i++) {
+					BusinessTypeEntity businessTypeEntity = new BusinessTypeEntity();
+					switch (i) {
+						case 0:
+							businessTypeEntity.setName("部分完成");
+							break;
+						case 1:
+							businessTypeEntity.setName("全部完成");
+							break;
+						case 2:
+							businessTypeEntity.setName("跳过");
+							break;
+					}
+					businessTypeList.add(businessTypeEntity);
 				}
-				businessTypeList.add(businessTypeEntity);
 			}
 			Message message = new Message();
 			message.what = 0;

@@ -2,6 +2,7 @@ package com.dssm.esc.model.jsonparser.emergency;
 
 import android.util.Log;
 
+import com.dssm.esc.model.entity.emergency.BusinessTypeEntity;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
@@ -126,7 +127,28 @@ public class GetPrecautionByPlanResParser {
                         if(jsonObject.has("code")){
                             childEntity.setCode(isNull(jsonObject.getString("code")));
                         }
-
+                        /**
+                         * 判断节点
+                         * 2018/5/2
+                         */
+                        if(jsonObject.has("nodeStepType")){
+                            childEntity.setNodeStepType(jsonObject.getString("nodeStepType"));
+                            if("ExclusiveGateway".equals(jsonObject.getString("nodeStepType")))
+                            {
+                                if(jsonObject.has("branches")&&!"".equals(jsonObject.getString("branches"))) {
+                                    List<BusinessTypeEntity> branches = new ArrayList<>();
+                                    JSONArray jsonArray3 = jsonObject.getJSONArray("branches");
+                                    for (int k = 0; k < jsonArray3.length(); k++) {
+                                        JSONObject jsonObject3 = (JSONObject) jsonArray3.opt(k);
+                                        BusinessTypeEntity branch = new BusinessTypeEntity();
+                                        branch.setId(jsonObject3.getString("id"));
+                                        branch.setName(jsonObject3.getString("name"));
+                                        branches.add(branch);
+                                    }
+                                    childEntity.setBranches(branches);
+                                }
+                            }
+                        }
                         childEntity.setChild_id(isNull(jsonObject
                                 .getString("id")));
                         childEntity.setPrecautionId(isNull(jsonObject

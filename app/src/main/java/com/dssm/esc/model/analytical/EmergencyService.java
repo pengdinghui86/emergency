@@ -263,9 +263,11 @@ public interface EmergencyService {
 	 * @param planInfoId
 	 * @param status
 	 * @param message
+	 * @param nodeStepType
+	 * @param branch
 	 * @param listenser
 	 */
-	void swichOver(String id, String planInfoId, String status, String message,
+	void swichOver(String id, String planInfoId, String status, String message,String nodeStepType,String branch,
 				   EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listenser);
 
 	/**

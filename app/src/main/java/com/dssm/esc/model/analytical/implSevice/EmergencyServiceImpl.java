@@ -773,7 +773,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void swichOver(String id, String planInfoId, String status,
-			String message,
+			String message, String nodeStepType, String branch,
 			final EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
 		if (id == null) {
@@ -781,7 +781,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 					Const.PARAMETER_NULL, null);
 			return;
 		}
-		new SwitchOverParser(id, planInfoId, status, message,
+		new SwitchOverParser(id, planInfoId, status, message, nodeStepType, branch,
 				new OnDataCompleterListener() {
 
 					@Override

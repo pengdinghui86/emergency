@@ -126,6 +126,7 @@
         <!-- android:theme="@style/horizontal_slide" -->
         <activity
             android:name="com.easemob.chatuidemo.activity.LoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustResize|stateVisible" />

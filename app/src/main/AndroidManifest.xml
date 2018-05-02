@@ -124,6 +124,7 @@
             android:name="com.easemob.chatuidemo.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize|stateVisible"></activity>
 
         <!-- 注册 -->
