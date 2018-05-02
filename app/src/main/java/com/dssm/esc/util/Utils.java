@@ -441,6 +441,7 @@ public class Utils implements Serializable {
                                 Intent intent = new Intent(
                                         DemoApplication.applicationContext,
                                         LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 DemoApplication.applicationContext
                                         .startActivity(intent);
                             }
@@ -452,6 +453,7 @@ public class Utils implements Serializable {
                             Intent intent = new Intent(
                                     DemoApplication.applicationContext,
                                     LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             DemoApplication.applicationContext
                                     .startActivity(intent);
                         } else if (Exceptionerror != null) {
@@ -461,6 +463,7 @@ public class Utils implements Serializable {
                             Intent intent = new Intent(
                                     DemoApplication.applicationContext,
                                     LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             DemoApplication.applicationContext
                                     .startActivity(intent);
                         }

@@ -7,25 +7,25 @@
     format="10"
     ir-eligibility="COMPATIBLE"
     plugin-version="3.0.1"
-    timestamp="1525261713446"
+    timestamp="1525263683539"
     token="5765139067433144097"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="4660" />
+        duration="4853" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="21" />
+        duration="16" />
     <task
         name="verifier"
-        duration="49" />
+        duration="11" />
 
     <artifact
-        location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+        location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
         type="SPLIT" />
     <artifact
         location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
@@ -96,19 +96,22 @@
     <build
         build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1525259263560"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
-            type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
         timestamp="1525261713446"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+            type="SPLIT" />
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1525263683539"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
         <artifact
             location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
