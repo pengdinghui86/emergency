@@ -50,7 +50,8 @@ public class MyvView extends View {
         public void setPaintDefaultStyle(){  
             myPaint.setAntiAlias(true);  
             myPaint.setColor(Color.RED);  
-            myPaint.setStyle(Paint.Style.STROKE);  
+            myPaint.setStyle(Paint.Style.STROKE);
+            myPaint.setAntiAlias(true);
             myPaint.setStrokeWidth(3);  
         }  
           
