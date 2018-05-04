@@ -395,6 +395,8 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                                             } else if (changeStatus.equals("3")) {
                                                 done_status_done.setText("跳过");
                                             }
+                                            else
+                                                done_status_done.setText(changeStatus);
                                             EventBus.getDefault().post(
                                                     new mainEvent("refre"));// 刷新预案执行列表
                                         } else if (backflag == false) {
@@ -467,7 +469,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                                     break;
                                 }
                             }
-                            changeStatus = "1";
+                            changeStatus = status;
                         }
                         else {
                             for (int i = 0; i < typelist.size(); i++) {

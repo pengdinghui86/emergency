@@ -38,6 +38,7 @@ import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.control.SignUserEntity;
 import com.dssm.esc.model.entity.user.ButtonEntity;
 import com.dssm.esc.model.entity.user.UserPowerEntity;
+import com.dssm.esc.status.RealTimeTrackingStatus;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
@@ -641,6 +642,13 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                                 ControlActivity.this);
                         if (step.type.equals("") && !step.stepId.startsWith("sid")) {// 新建节点
                             builder.setTitle("步骤：" + step.name);
+                            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
+                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
+                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
+                                message += "执行状态：跳过";
+                            }
+                            if(!"".equals(message))
+                                builder.setMessage(message);
                             builder.setPositiveButton("ok",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(
@@ -657,9 +665,21 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                                 message += "开始时间：" + beginTime;
                             }
                             if (!TextUtils.isEmpty(endTime)) {
-                                message += "\n" + "完成时间：" + endTime;
+                                if(!message.equals(""))
+                                    message += "\n" + "完成时间：" + endTime;
+                                else
+                                    message += "\n" + "完成时间：" + endTime;
                             }
-                            builder.setMessage(message);
+                            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
+                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
+                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
+                                if(!message.equals(""))
+                                    message += "\n" + "执行状态：跳过";
+                                else
+                                    message += "执行状态：跳过";
+                            }
+                            if(!"".equals(message))
+                                builder.setMessage(message);
                             builder.setTitle("步骤：" + step.name);
                             builder.setPositiveButton("ok",
                                     new DialogInterface.OnClickListener() {
@@ -675,6 +695,13 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                         }
                         else if (step.type.equals("drillNew")) {// 新增节点
                             builder.setTitle("步骤：" + step.name);
+                            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
+                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
+                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
+                                message += "执行状态：跳过";
+                            }
+                            if(!"".equals(message))
+                                builder.setMessage(message);
                             builder.setPositiveButton("ok",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(
@@ -703,9 +730,18 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                                 else
                                     message += "完成时间：" + endTime;
                             }
+                            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
+                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
+                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
+                                if(!message.equals(""))
+                                    message += "\n" + "执行状态：跳过";
+                                else
+                                    message += "执行状态：跳过";
+                            }
 //                            message = "执行人：" + executePeople + "\n" + "开始时间："
 //                                    + beginTime + "\n" + "完成时间：" + endTime;
-                            builder.setMessage(message);
+                            if(!"".equals(message))
+                                builder.setMessage(message);
                             builder.setTitle("步骤：" + step.name);
                             builder.setPositiveButton("ok",
                                     new DialogInterface.OnClickListener() {

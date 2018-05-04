@@ -5,23 +5,31 @@
     build-mode="COLD"
     density="xhdpi"
     format="10"
+    ir-eligibility="COMPATIBLE"
     plugin-version="3.0.1"
-    timestamp="1525401117213"
+    timestamp="1525405022563"
     token="5765139067433144097"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="5705" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="168" />
     <task
         name="verifier"
-        duration="0" />
+        duration="66" />
+
+    <artifact
+        location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+        type="SPLIT" />
+    <artifact
+        location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
@@ -66,7 +74,24 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1525401117213"
-        verifier="COLD_SWAP_REQUESTED" />
+        ir-eligibility="COMPATIBLE"
+        timestamp="1525404378544"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1525405022563"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
 
 </instant-run>

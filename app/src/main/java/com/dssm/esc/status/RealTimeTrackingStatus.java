@@ -42,7 +42,7 @@ public class RealTimeTrackingStatus {
      * 不执行节点
      */
     public static String NO_OPTION_CAN_START = "23"; //"跳过"
-    public static String NO_OPTION_NO_CAN_START = "24"; //"跳过"
+    public static String NO_OPTION_NO_CAN_START = "24"; //判断节点选择导致的"跳过"
     //NoOption("27", "跳过",ColorStates.color_gray),
     /**
      * 演练中新增或合并节点  已执行 ,---该状态已被弃用，现暂时用作app端的状态以便节点颜色的展示--dt 2018-3-20
