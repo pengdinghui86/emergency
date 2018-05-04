@@ -56,6 +56,8 @@ import com.dssm.esc.view.widget.Title_Layout;
 import net.tsz.afinal.annotation.view.ViewInject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -1116,6 +1118,24 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                             List<FlowChartPlanEntity.FlowChart> data = null;
                             if (backValue != null) {
                                 data = (List<FlowChartPlanEntity.FlowChart>) backValue.getData();
+                                Collections.sort(data, new Comparator<FlowChartPlanEntity.FlowChart>() {
+                                    @Override
+                                    public int compare(FlowChartPlanEntity.FlowChart o1, FlowChartPlanEntity.FlowChart o2) {
+                                        if (o1.getEditOrderNum() == null || "".equals(o1.getEditOrderNum()))
+                                            o1.setEditOrderNum("0");
+                                        if (o2.getEditOrderNum() == null || "".equals(o2.getEditOrderNum()))
+                                            o2.setEditOrderNum("0");
+                                        if(Integer.parseInt(o1.getEditOrderNum()) > Integer.parseInt(o2.getEditOrderNum())) {
+                                            return 1;
+                                        }
+                                        else if(Integer.parseInt(o1.getEditOrderNum()) < Integer.parseInt(o2.getEditOrderNum())) {
+                                            return -1;
+                                        }
+                                        else {
+                                            return 0;
+                                        }
+                                    }
+                                });
                                 curDate = backValue.getCurDate();
                                 alist = data;
                                 if (backValue.getState().equals("2")) {

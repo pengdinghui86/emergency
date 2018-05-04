@@ -175,67 +175,26 @@ public class NSSetPointValueToSteps {
 		return parentlist;
 	}
 
-	public class ValComparator implements Comparator<NSstep> {
-
-		public int compare(NSstep o1, NSstep o2) {
-			int seq1 = 0;
-			int seq2 = 0;
-			try {
-				if(o1.editOrderNum != null) {
-					seq1 = Integer.parseInt(o1.editOrderNum);
-				}
-				if(o2.editOrderNum != null) {
-					seq2 = Integer.parseInt(o2.editOrderNum);
-				}
-			} catch (Exception e) {
-			}
-			return seq1 - seq2;
-		}
-	}
-
-	/**
-	 * 用冒泡排序对任何对象排序
-
-	 *extends 在这里不表示继承的关系，而是类型的限定
-
-	 *Comparable类 用于比较两个对象的大小
-	 *
-	 * @param x 对象
-	 */
-	public static NSstep[] bubbleSort(NSstep[] x) {
-		NSstep temp;
-		boolean flag = true;
-		int size = x.length;
-		for (int i = 1; flag && i <= size - 1; i++) {
-			flag = false;
-			if (x[i].editOrderNum == null || "".equals(x[i].editOrderNum))
-				x[i].editOrderNum = "0";
-			for (int j = 0; j < size - i; j++) {
-				if (x[j].editOrderNum == null || "".equals(x[j].editOrderNum))
-					x[j].editOrderNum = "0";
-				if (x[j + 1].editOrderNum == null || "".equals(x[j + 1].editOrderNum))
-					x[j + 1].editOrderNum = "0";
-				if (Integer.parseInt(x[j].editOrderNum) > Integer.parseInt(x[j + 1].editOrderNum)) {
-					temp = x[j];
-					x[j] = x[j + 1];
-					x[j + 1] = temp;
-					flag = true;
-				}
-			}
-
-		}
-		return x;
-	}
-
 	private void initStepVlaus() {
 		// TODO Auto-generated method stub
-		NSstep[] nSsteps = new NSstep[steplist.size()];
-		steplist.toArray(nSsteps);
-		steplist.clear();
-		nSsteps = bubbleSort(nSsteps);
-		for (NSstep nSstep:nSsteps) {
-			steplist.add(nSstep);
-		}
+		Collections.sort(steplist, new Comparator<NSstep>() {
+			@Override
+			public int compare(NSstep o1, NSstep o2) {
+				if (o1.editOrderNum == null || "".equals(o1.editOrderNum))
+					o1.editOrderNum = "0";
+				if (o2.editOrderNum == null || "".equals(o2.editOrderNum))
+					o2.editOrderNum = "0";
+				if(Integer.parseInt(o1.editOrderNum) > Integer.parseInt(o2.editOrderNum)) {
+					return 1;
+				}
+				else if(Integer.parseInt(o1.editOrderNum) < Integer.parseInt(o2.editOrderNum)) {
+					return -1;
+				}
+				else {
+					return 0;
+				}
+			}
+		});
 
 		for (int i = 1; i <= rowNum; i++) {
 			int j = 0;

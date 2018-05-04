@@ -134,7 +134,7 @@
         android:background="@color/textColor_selected"
         android:gravity="center"
         android:padding="15dp"
-        android:text="发消息"
+        android:text="发送"
         android:textColor="#fff"
         android:textSize="@dimen/we_title_textsize" />
 
