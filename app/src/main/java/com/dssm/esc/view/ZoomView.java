@@ -51,7 +51,7 @@ public class ZoomView extends FrameLayout {
 
     // zooming
     float zoom = 1.0f;
-    float maxZoom = 2.0f;
+    float maxZoom = 3.0f;
     float smoothZoom = 1.0f;
     float zoomX, zoomY;
     float smoothZoomX, smoothZoomY;
@@ -398,11 +398,12 @@ public class ZoomView extends FrameLayout {
         // prepare matrix
         m.setTranslate(0.5f * getWidth(), 0.5f * getHeight());
         m.preScale(zoom, zoom);
-        m.preTranslate(
-                -clamp(0.5f * getWidth() / zoom, zoomX, getWidth() - 0.5f
-                        * getWidth() / zoom),
-                -clamp(0.5f * getHeight() / zoom, zoomY, getHeight() - 0.5f
-                        * getHeight() / zoom));
+        m.preTranslate(-0.5f * getWidth() / zoom, -0.5f * getHeight() / zoom);
+//        m.preTranslate(
+//                -clamp(0.5f * getWidth() / zoom, zoomX, getWidth() - 0.5f
+//                        * getWidth() / zoom),
+//                -clamp(0.5f * getHeight() / zoom, zoomY, getHeight() - 0.5f
+//                        * getHeight() / zoom));
 
         // get view
         final View v = getChildAt(0);
@@ -462,5 +463,8 @@ public class ZoomView extends FrameLayout {
         getRootView().invalidate();
         invalidate();
         // }
+        if (zoom != smoothZoom && listener != null) {
+            listener.onZoomEnded(zoom, zoomX, zoomY);
+        }
     }
 }

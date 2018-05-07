@@ -206,7 +206,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 case 2:
                     WindowManager wm = (WindowManager) ControlActivity.this
                             .getSystemService(Context.WINDOW_SERVICE);
-                    width = wm.getDefaultDisplay().getWidth();
                     nsSetPointValueToSteps = new NSSetPointValueToSteps();
                     try {
                         nsSetPointValueToSteps.exampleSteps(result);
@@ -214,7 +213,8 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                         // TODO: handle exception
                         e.printStackTrace();
                     }
-                    height = nsSetPointValueToSteps.steplist.size() * 140;
+                    width = Math.max(wm.getDefaultDisplay().getWidth(), nsSetPointValueToSteps.maxLineNum * 80);
+                    height = Math.max(width * 16 / 9, nsSetPointValueToSteps.rowNum * 150);
                     layout.setLayoutParams(new LinearLayout.LayoutParams(
                             (int) width, (int) height));
                     addButtonandTextvew(layout);
@@ -413,7 +413,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     float bx = (int) (onesstep.y * width);
                     float ex = (int) (sstep.y * width);
                     float ey = (int) (sstep.x * height);
-                    MyvView myvView = new MyvView(this, bx, by + 35, ex, ey - 35);
+                    MyvView myvView = new MyvView(this, bx, by + 20, ex, ey - 20);
                     layout.addView(myvView);
 
                 }
@@ -428,9 +428,9 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             float h = step.y;
 
             Button button = new Button(this);
-            button.setLayoutParams(new LayoutParams(70, 70));
-            button.setX((h * width) - 35);
-            button.setY((w * height) - 35);
+            button.setLayoutParams(new LayoutParams(48, 48));
+            button.setX((h * width) - 24);
+            button.setY((w * height) - 24);
             // (w * height) - 25
             /*
              * if (step.stepId == 10001||step.stepId == 10002) {
@@ -814,8 +814,8 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             TextView textView = new TextView(this);
             textView.setLayoutParams(new LayoutParams(
                     LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            textView.setX((h * width) + 35);
-            textView.setY((w * height) - 35);
+            textView.setX((h * width) + 24);
+            textView.setY((w * height) - 24);
             // textView.setText(step.name);
             if (step.type.equals("begin")) {
                 textView.setText("开始");

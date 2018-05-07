@@ -41,7 +41,7 @@ public class MyvView extends View {
             this.myCanvas=canvas;  
             setPaintDefaultStyle();
 				
-            drawAL(bx,by, ex, ey);  
+            drawAL(bx,by, ex, ey);
         }  
           
         /** 
@@ -51,7 +51,7 @@ public class MyvView extends View {
             myPaint.setAntiAlias(true);
             myPaint.setColor(Color.RED);
             myPaint.setStyle(Paint.Style.STROKE);
-            myPaint.setStrokeWidth(1);
+            myPaint.setStrokeWidth(2);
         }  
           
           
@@ -115,13 +115,15 @@ public class MyvView extends View {
             Double Y4 = new Double(y_4);  
             y4 = Y4.intValue();  
             // 画线     
-            myCanvas.drawLine(sx, sy, ex, ey,myPaint);  
-            Path triangle = new Path();  
-            triangle.moveTo(ex, ey);  
-            triangle.lineTo(x3, y3);    
-            triangle.lineTo(x4, y4);   
-            triangle.close();  
-            myCanvas.drawPath(triangle,myPaint);  
+            myCanvas.drawLine(sx, sy, ex, ey,myPaint);
+            myCanvas.drawLine(ex, ey, x3, y3,myPaint);
+            myCanvas.drawLine(ex, ey, x4, y4,myPaint);
+//            Path triangle = new Path();
+//            triangle.moveTo(ex, ey);
+//            triangle.lineTo(x3, y3);
+//            triangle.lineTo(x4, y4);
+//            triangle.close();
+//            myCanvas.drawPath(triangle,myPaint);
       
         }  
         // 计算     
