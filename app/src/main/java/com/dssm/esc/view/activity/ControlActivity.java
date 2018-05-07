@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -44,6 +45,7 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
+import com.dssm.esc.view.ZoomView;
 import com.dssm.esc.view.adapter.RealTimeTrackingAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.CustomDialog;
@@ -116,6 +118,11 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      * 实时跟踪的列表
      */
     private AutoListView rlistview;
+
+    private ZoomView zv_progress;
+
+    private float currentZoom = 1f;
+
     /**
      * 实时跟踪的列表的适配器
      */
@@ -242,6 +249,29 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         setContentView(R.layout.activity_control);
         View findViewById = findViewById(R.id.control);
         findViewById.setFitsSystemWindows(true);
+        zv_progress = (ZoomView) findViewById(R.id.zv_progress);
+        zv_progress.setListner(new ZoomView.ZoomViewListener() {
+            @Override
+            public void onZoomStarted(float zoom, float zoomx, float zoomy) {
+                ViewGroup.LayoutParams lp = layout.getLayoutParams();
+                if(currentZoom != zoom) {
+                    lp.height = (int) (lp.height * zoom / currentZoom);
+                    lp.width = (int) (lp.width * zoom / currentZoom);
+                    layout.setLayoutParams(lp);
+                    currentZoom = zoom;
+                }
+            }
+
+            @Override
+            public void onZooming(float zoom, float zoomx, float zoomy) {
+
+            }
+
+            @Override
+            public void onZoomEnded(float zoom, float zoomx, float zoomy) {
+
+            }
+        });
         planEntity = (PlanEntity) getIntent().getSerializableExtra("PlanEntity");
         sevice = Control.getinstance().getUserSevice();
         csevice = Control.getinstance().getControlSevice();

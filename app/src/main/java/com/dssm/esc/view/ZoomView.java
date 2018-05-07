@@ -51,7 +51,7 @@ public class ZoomView extends FrameLayout {
 
     // zooming
     float zoom = 1.0f;
-    float maxZoom = 1.5f;
+    float maxZoom = 2.0f;
     float smoothZoom = 1.0f;
     float zoomX, zoomY;
     float smoothZoomX, smoothZoomY;
@@ -274,11 +274,12 @@ public class ZoomView extends FrameLayout {
                 if (l < 30.0f) {
                     // check double tap
                     if (System.currentTimeMillis() - lastTapTime < 500) {
-                        if (smoothZoom == 1.0f) {
-                            smoothZoomTo(maxZoom, x, y);
-                        } else {
+                        if (smoothZoom >= maxZoom) {
                             smoothZoomTo(1.0f, getWidth() / 2.0f,
                                     getHeight() / 2.0f);
+                        } else {
+                            float zoom = Math.min(maxZoom, smoothZoom * 1.2f);
+                            smoothZoomTo(zoom, x, y);
                         }
                         lastTapTime = 0;
                         ev.setAction(MotionEvent.ACTION_CANCEL);
@@ -337,12 +338,16 @@ public class ZoomView extends FrameLayout {
                     pinching = true;
                     final float dxk = 0.5f * (dx1 + dx2);
                     final float dyk = 0.5f * (dy1 + dy2);
-                    smoothZoomTo(Math.max(1.0f, zoom * d / (d - dd)), zoomX - dxk
-                            / zoom, zoomY - dyk / zoom);
+                    if(dd > 0f) {
+                        smoothZoomTo(Math.max(1.0f, zoom * d / (d - dd)), zoomX - dxk
+                                / zoom, zoomY - dyk / zoom);
+                    }
+                    else {
+                        smoothZoomTo(Math.max(1.0f, zoom * (d + dd) / d), zoomX - dxk
+                                / zoom, zoomY - dyk / zoom);
+                    }
                 }
-
                 break;
-
             case MotionEvent.ACTION_UP:
             default:
                 pinching = false;
@@ -404,10 +409,10 @@ public class ZoomView extends FrameLayout {
         m.preTranslate(v.getLeft(), v.getTop());
 
         // get drawing cache if available
-        if (animating && ch == null && isAnimationCacheEnabled()) {
-            v.setDrawingCacheEnabled(true);
-            ch = v.getDrawingCache();
-        }
+//        if (animating && ch == null && isAnimationCacheEnabled()) {
+//            v.setDrawingCacheEnabled(true);
+//            ch = v.getDrawingCache();
+//        }
 
         // draw using cache while animating
         if (animating && isAnimationCacheEnabled() && ch != null) {
@@ -449,7 +454,7 @@ public class ZoomView extends FrameLayout {
             canvas.drawRect(dx - 0.5f * w / zoom, dy - 0.5f * h / zoom, dx
                     + 0.5f * w / zoom, dy + 0.5f * h / zoom, p);
 
-            canvas.translate(-10.0f, -10.0f);
+            canvas.translate(-10f, -10f);
         }
 
         // redraw

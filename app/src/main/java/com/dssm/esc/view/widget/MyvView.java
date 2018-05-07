@@ -13,7 +13,7 @@ public class MyvView extends View {
 
         
         private Canvas myCanvas;  
-        private Paint myPaint=new Paint();  
+        private Paint myPaint = new Paint();
         float bx,by,ex,ey;
         public MyvView(Context context, float bx,float by,float ex, float ey) {  
             super(context);  
@@ -48,11 +48,10 @@ public class MyvView extends View {
          * 设置画笔默认样式 
          */  
         public void setPaintDefaultStyle(){  
-            myPaint.setAntiAlias(true);  
-            myPaint.setColor(Color.RED);  
-            myPaint.setStyle(Paint.Style.STROKE);
             myPaint.setAntiAlias(true);
-            myPaint.setStrokeWidth(3);  
+            myPaint.setColor(Color.RED);
+            myPaint.setStyle(Paint.Style.STROKE);
+            myPaint.setStrokeWidth(1);
         }  
           
           

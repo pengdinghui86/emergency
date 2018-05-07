@@ -4273,6 +4273,7 @@ public final class R {
     public static final int xttg=0x7f070298;
     public static final int yaqd=0x7f070299;
     public static final int zhizhe=0x7f07029a;
+    public static final int zv_progress=0x7f07029b;
   }
   public static final class integer {
     public static final int abc_config_activityDefaultDur=0x7f080000;

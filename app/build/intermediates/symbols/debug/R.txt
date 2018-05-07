@@ -1911,6 +1911,7 @@ int id xitong_tg 0x7f070297
 int id xttg 0x7f070298
 int id yaqd 0x7f070299
 int id zhizhe 0x7f07029a
+int id zv_progress 0x7f07029b
 int integer abc_config_activityDefaultDur 0x7f080000
 int integer abc_config_activityShortDur 0x7f080001
 int integer app_bar_elevation_anim_duration 0x7f080002
