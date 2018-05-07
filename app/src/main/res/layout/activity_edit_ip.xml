@@ -15,6 +15,10 @@
         style="@style/default_edit_style"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
+        android:inputType="textUri"
+        android:maxLength="50"
+        android:lines="1"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyz:/"
         android:padding="10dp"/>
 
     <RadioGroup
