@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -121,6 +120,8 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
 
     private ZoomView zv_progress;
 
+    private LinearLayout scrollView;
+
     private float currentZoom = 1f;
 
     /**
@@ -156,10 +157,10 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     @ViewInject(id = R.id.progress_control)
     private RelativeLayout layout;
     LinearLayout lin_group, lin_group_sign;
-    @ViewInject(id = R.id.myscrollview)
-    private ScrollView scrollView;
     private UserSevice sevice;
     private ControlSevice csevice;
+    private int buttonRadius = 24;
+    private int textSize = 10;
 
     /**
      * 新增
@@ -213,10 +214,19 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                         // TODO: handle exception
                         e.printStackTrace();
                     }
-                    width = Math.max(wm.getDefaultDisplay().getWidth(), nsSetPointValueToSteps.maxLineNum * 80);
-                    height = Math.max(width * 16 / 9, nsSetPointValueToSteps.rowNum * 150);
+                    width = Math.max(wm.getDefaultDisplay().getWidth(), nsSetPointValueToSteps.maxLineNum * 48);
+                    height = Math.max(wm.getDefaultDisplay().getHeight(), nsSetPointValueToSteps.rowNum * 48);
+//                    width = wm.getDefaultDisplay().getWidth();
+//                    height = wm.getDefaultDisplay().getHeight();
+                    buttonRadius = (int) Math.min(width/(nsSetPointValueToSteps.maxLineNum + 1)/4, height/(nsSetPointValueToSteps.rowNum + 1)/4);
+                    buttonRadius = Math.max(12, buttonRadius);
+                    textSize = (int) (buttonRadius / 3);
+//                    scrollView.setLayoutParams(new LinearLayout.LayoutParams(
+//                            Math.max((int)width,buttonRadius * (nsSetPointValueToSteps.maxLineNum + 1) * 4),  Math.max((int)height,buttonRadius * (nsSetPointValueToSteps.rowNum + 1) * 4)));
                     layout.setLayoutParams(new LinearLayout.LayoutParams(
-                            (int) width, (int) height));
+                            (int)width, (int)height));
+//                    scrollView.setLayoutParams(new LinearLayout.LayoutParams(
+//                            (int)width, (int)height));
                     addButtonandTextvew(layout);
                     addLine(layout);
                     /**
@@ -224,12 +234,12 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                      * 2017/10/16
                      * 跳转
                      */
-                    ViewTreeObserver vto = scrollView.getViewTreeObserver();
-                    vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        public void onGlobalLayout() {
-                            scrollView.scrollTo(scrollToX, scrollToY);
-                        }
-                    });
+//                    ViewTreeObserver vto = scrollView.getViewTreeObserver();
+//                    vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//                        public void onGlobalLayout() {
+//                            scrollView.scrollTo(scrollToX, scrollToY);
+//                        }
+//                    });
                     break;
             }
 
@@ -250,16 +260,20 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         View findViewById = findViewById(R.id.control);
         findViewById.setFitsSystemWindows(true);
         zv_progress = (ZoomView) findViewById(R.id.zv_progress);
+        scrollView = (LinearLayout) findViewById(R.id.myscrollview);
         zv_progress.setListner(new ZoomView.ZoomViewListener() {
             @Override
             public void onZoomStarted(float zoom, float zoomx, float zoomy) {
-                ViewGroup.LayoutParams lp = layout.getLayoutParams();
-                if(currentZoom != zoom) {
-                    lp.height = (int) (lp.height * zoom / currentZoom);
-                    lp.width = (int) (lp.width * zoom / currentZoom);
-                    layout.setLayoutParams(lp);
-                    currentZoom = zoom;
-                }
+//                if(currentZoom == 1.0f) {
+//                    width = Math.max(width, nsSetPointValueToSteps.maxLineNum * 48);
+//                    height = Math.max(height, nsSetPointValueToSteps.rowNum * 48);
+//                    layout.setLayoutParams(new LinearLayout.LayoutParams(
+//                            (int) width, (int) height));
+//                    currentZoom = zoom;
+//                    layout.removeAllViews();
+//                    addButtonandTextvew(layout);
+//                    addLine(layout);
+//                }
             }
 
             @Override
@@ -269,7 +283,18 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
 
             @Override
             public void onZoomEnded(float zoom, float zoomx, float zoomy) {
+//                ViewGroup.LayoutParams lp = layout.getLayoutParams();
+//                lp.height = (int)height;
+//                lp.width = (int)width;
+//                layout.setLayoutParams(lp);
+//                if(currentZoom != zoom) {
+//                    currentZoom = zoom;
+//                }
+            }
 
+            @Override
+            public void onMoved(float moveX, float moveY) {
+                //scrollView.scrollTo((int)moveX, (int)moveY);
             }
         });
         planEntity = (PlanEntity) getIntent().getSerializableExtra("PlanEntity");
@@ -389,17 +414,17 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         if (sem_tags == 1) {
             realtime_tracking.setVisibility(View.VISIBLE);
             resource_preparation.setVisibility(View.GONE);
-            scrollView.setVisibility(View.GONE);
+            zv_progress.setVisibility(View.GONE);
             queryProcessTrack(0);
         } else if (sem_tags == 2) {
-            scrollView.setVisibility(View.VISIBLE);
+            zv_progress.setVisibility(View.VISIBLE);
             realtime_tracking.setVisibility(View.GONE);
             resource_preparation.setVisibility(View.GONE);
             flowChartPlanData();
         } else if (sem_tags == 3) {
             realtime_tracking.setVisibility(View.GONE);
             resource_preparation.setVisibility(View.VISIBLE);
-            scrollView.setVisibility(View.GONE);
+            zv_progress.setVisibility(View.GONE);
             initProgressData();
         }
     }
@@ -413,7 +438,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     float bx = (int) (onesstep.y * width);
                     float ex = (int) (sstep.y * width);
                     float ey = (int) (sstep.x * height);
-                    MyvView myvView = new MyvView(this, bx, by + 20, ex, ey - 20);
+                    MyvView myvView = new MyvView(this, bx, by + buttonRadius, ex, ey - buttonRadius, buttonRadius);
                     layout.addView(myvView);
 
                 }
@@ -428,9 +453,9 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             float h = step.y;
 
             Button button = new Button(this);
-            button.setLayoutParams(new LayoutParams(48, 48));
-            button.setX((h * width) - 24);
-            button.setY((w * height) - 24);
+            button.setLayoutParams(new LayoutParams(buttonRadius * 2, buttonRadius * 2));
+            button.setX((h * width) - buttonRadius);
+            button.setY((w * height) - buttonRadius);
             // (w * height) - 25
             /*
              * if (step.stepId == 10001||step.stepId == 10002) {
@@ -793,7 +818,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 });
             }
             button.setTextColor(Color.WHITE);
-            button.setTextSize(10);
+            button.setTextSize(textSize);
 
             /**
              * 新增
@@ -814,8 +839,8 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             TextView textView = new TextView(this);
             textView.setLayoutParams(new LayoutParams(
                     LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            textView.setX((h * width) + 24);
-            textView.setY((w * height) - 24);
+            textView.setX((h * width) + buttonRadius);
+            textView.setY((w * height) - buttonRadius);
             // textView.setText(step.name);
             if (step.type.equals("begin")) {
                 textView.setText("开始");

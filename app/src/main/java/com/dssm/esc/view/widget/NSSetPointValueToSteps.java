@@ -90,6 +90,8 @@ public class NSSetPointValueToSteps {
 
 	public void getStepPointBySteps() {
 		rowNum = findRowNumber(steplist);
+		if(rowNum > 5)
+			reCalculateStepPoisition(steplist);
 		initStepVlaus();
 
 	}
@@ -144,6 +146,18 @@ public class NSSetPointValueToSteps {
 	}
 
 	/**
+	 * 重新计算节点的位置
+	 *
+	 * @param steplist
+	 * @return
+	 */
+	private void reCalculateStepPoisition(List<NSstep> steplist) {
+		for (NSstep step : steplist) {
+			step.x = (rowNum - 3f) / (rowNum - 1f) * step.x + 2f * rowNum / (rowNum - 1f);
+		}
+	}
+
+	/**
 	 * 根据当前级点集合查找上一级点集合
 	 * 
 	 * @param currentsteplist
@@ -151,7 +165,6 @@ public class NSSetPointValueToSteps {
 	 */
 	private List<NSstep> findParentStepsId(List<NSstep> currentsteplist) {
 		this.rowId++;
-
 		for (NSstep currentstep : currentsteplist) {
 			currentstep.x = this.rowId;
 			currentstep.lineId = this.rowId;
@@ -204,6 +217,7 @@ public class NSSetPointValueToSteps {
 					j++;
 				}
 			}
+			//计算每一个节点的绝对坐标
 			for (NSstep currentstep : steplist) {
 				if (currentstep.lineId == i) {
 					k++;

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/control"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#fff"
     android:orientation="vertical" >
 
@@ -28,37 +28,33 @@
         segmentcontrol:texts="实时跟踪|流程监控|资源筹备"
         segmentcontrol:verticalGap="8dp" />
 
-    <ScrollView
+    <LinearLayout
         android:id="@+id/myscrollview"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-        <HorizontalScrollView
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+    <com.dssm.esc.view.ZoomView
+        android:id="@+id/zv_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <com.dssm.esc.view.ZoomView
-                android:id="@+id/zv_progress"
+            <RelativeLayout
+                android:id="@+id/progress_control"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                android:layout_height="wrap_content" >
+            </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/progress_control"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-                    </RelativeLayout>
+        </LinearLayout>
 
-                </LinearLayout>
-
-            </com.dssm.esc.view.ZoomView>
-
-        </HorizontalScrollView>
-
-    </ScrollView>
+    </com.dssm.esc.view.ZoomView>
 
     <include
         android:id="@+id/realtime_tracking"

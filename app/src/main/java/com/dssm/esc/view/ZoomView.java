@@ -47,11 +47,13 @@ public class ZoomView extends FrameLayout {
         void onZooming(float zoom, float zoomx, float zoomy);
 
         void onZoomEnded(float zoom, float zoomx, float zoomy);
+
+        void onMoved(float moveX, float moveY);
     }
 
     // zooming
     float zoom = 1.0f;
-    float maxZoom = 3.0f;
+    float maxZoom = 10.0f;
     float smoothZoom = 1.0f;
     float zoomX, zoomY;
     float smoothZoomX, smoothZoomY;
@@ -167,6 +169,11 @@ public class ZoomView extends FrameLayout {
         }
     }
 
+    public void smoothMoveTo(final float x, final float y) {
+        smoothZoomX -= x;
+        smoothZoomY -= y;
+    }
+
     public ZoomViewListener getListener() {
         return listener;
     }
@@ -255,14 +262,15 @@ public class ZoomView extends FrameLayout {
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                if (scrolling || (smoothZoom > 1.0f && l > 30.0f)) {
-                    if (!scrolling) {
-                        scrolling = true;
+                if (scrolling || l > 10.0f) {
+//                    if (!scrolling) {
+//                        scrolling = true;
                         ev.setAction(MotionEvent.ACTION_CANCEL);
                         super.dispatchTouchEvent(ev);
-                    }
-                    smoothZoomX -= dx / zoom;
-                    smoothZoomY -= dy / zoom;
+//                    }
+//                    smoothZoomX -= dx / zoom;
+//                    smoothZoomY -= dy / zoom;
+                    smoothMoveTo(dx / zoom, dy / zoom);
                     return;
                 }
                 break;
@@ -271,7 +279,7 @@ public class ZoomView extends FrameLayout {
             case MotionEvent.ACTION_UP:
 
                 // tap
-                if (l < 30.0f) {
+                if (l < 20.0f) {
                     // check double tap
                     if (System.currentTimeMillis() - lastTapTime < 500) {
                         if (smoothZoom >= maxZoom) {
@@ -396,15 +404,13 @@ public class ZoomView extends FrameLayout {
         }
 
         // prepare matrix
-        m.setTranslate(0.5f * getWidth(), 0.5f * getHeight());
+        m.setTranslate( 0.5f * getWidth(),  0.5f * getHeight());
         m.preScale(zoom, zoom);
-        m.preTranslate(-0.5f * getWidth() / zoom, -0.5f * getHeight() / zoom);
-//        m.preTranslate(
-//                -clamp(0.5f * getWidth() / zoom, zoomX, getWidth() - 0.5f
-//                        * getWidth() / zoom),
-//                -clamp(0.5f * getHeight() / zoom, zoomY, getHeight() - 0.5f
-//                        * getHeight() / zoom));
-
+        m.preTranslate(
+                 - clamp(0.5f * getWidth() / zoom, zoomX, getWidth() - 0.5f
+                        * getWidth() / zoom),
+                 - clamp(0.5f * getHeight() / zoom, zoomY, getHeight() - 0.5f
+                        * getHeight() / zoom));
         // get view
         final View v = getChildAt(0);
         m.preTranslate(v.getLeft(), v.getTop());
@@ -460,11 +466,11 @@ public class ZoomView extends FrameLayout {
 
         // redraw
         // if (animating) {
-        getRootView().invalidate();
         invalidate();
+        getRootView().invalidate();
         // }
-        if (zoom != smoothZoom && listener != null) {
-            listener.onZoomEnded(zoom, zoomX, zoomY);
+        if (listener != null) {
+            listener.onZoomEnded(zoom, smoothZoomX, smoothZoomY);
         }
     }
 }

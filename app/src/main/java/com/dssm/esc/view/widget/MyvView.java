@@ -15,17 +15,19 @@ public class MyvView extends View {
         private Canvas myCanvas;  
         private Paint myPaint = new Paint();
         float bx,by,ex,ey;
-        public MyvView(Context context, float bx,float by,float ex, float ey) {  
+        private int buttonRadius = 24;
+        public MyvView(Context context, float bx,float by,float ex, float ey, int buttonRadius) {
             super(context);  
             // TODO Auto-generated constructor stub  
             this.bx=bx;
             this.by=by;
             this.ex=ex;
             this.ey=ey;
+            this.buttonRadius = buttonRadius;
         }  
       
-        public MyvView(Context context, AttributeSet attrs, int defStyle) {  
-            super(context, attrs, defStyle);  
+        public MyvView(Context context, AttributeSet attrs, int defStyle) {
+            super(context, attrs, defStyle);
             // TODO Auto-generated constructor stub  
         }  
       
@@ -51,7 +53,7 @@ public class MyvView extends View {
             myPaint.setAntiAlias(true);
             myPaint.setColor(Color.RED);
             myPaint.setStyle(Paint.Style.STROKE);
-            myPaint.setStrokeWidth(2);
+            myPaint.setStrokeWidth(1);
         }  
           
           
@@ -92,8 +94,8 @@ public class MyvView extends View {
          */  
         public void drawAL(float sx, float sy, float ex, float ey)  
         {  
-            double H = 8; // 箭头高度     
-            double L = 3.5; // 底边的一半     
+            double H = buttonRadius / 4f; // 箭头高度
+            double L = buttonRadius / 12f; // 底边的一半
             int x3 = 0;  
             int y3 = 0;  
             int x4 = 0;  

@@ -5,41 +5,42 @@
     build-mode="COLD"
     density="xhdpi"
     format="10"
+    ir-eligibility="COMPATIBLE"
     plugin-version="3.0.1"
-    timestamp="1525692094852"
+    timestamp="1525862716317"
     token="5765139067433144097"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="3897" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="36" />
     <task
         name="verifier"
-        duration="0" />
+        duration="4" />
 
+    <artifact
+        location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
     <artifact
         location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
         type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1525655816736"
+        timestamp="1525860790876"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
         <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
-        <artifact
-            location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
-            type="SPLIT_MAIN" />
         <artifact
             location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
@@ -47,31 +48,34 @@
             location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
-            type="SPLIT" />
-        <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
-            type="SPLIT" />
-        <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
-            type="SPLIT" />
-        <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
             type="SPLIT" />
         <artifact
             location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            type="SPLIT" />
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1525685400547"
+        timestamp="1525862573025"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
@@ -80,19 +84,20 @@
     <build
         build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1525686380822"
+        timestamp="1525862651285"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
-            type="SPLIT" />
-        <artifact
-            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
-            type="SPLIT" />
+            location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
-        timestamp="1525692094852"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1525862716317"
         verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="D:\git_project\emergency_newStyle\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            type="SPLIT" />
         <artifact
             location="D:\git_project\emergency_newStyle\app\build\outputs\apk\debug\app-debug.apk"
             type="SPLIT_MAIN" />
