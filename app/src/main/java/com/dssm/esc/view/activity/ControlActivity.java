@@ -219,8 +219,8 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
 //                    width = wm.getDefaultDisplay().getWidth();
 //                    height = wm.getDefaultDisplay().getHeight();
                     buttonRadius = (int) Math.min(width/(nsSetPointValueToSteps.maxLineNum + 1)/4, height/(nsSetPointValueToSteps.rowNum + 1)/4);
-                    buttonRadius = Math.max(12, buttonRadius);
-                    textSize = (int) (buttonRadius / 3);
+                    buttonRadius = Math.max(16, buttonRadius);
+                    textSize = (int) (buttonRadius / 3f);
 //                    scrollView.setLayoutParams(new LinearLayout.LayoutParams(
 //                            Math.max((int)width,buttonRadius * (nsSetPointValueToSteps.maxLineNum + 1) * 4),  Math.max((int)height,buttonRadius * (nsSetPointValueToSteps.rowNum + 1) * 4)));
                     layout.setLayoutParams(new LinearLayout.LayoutParams(
