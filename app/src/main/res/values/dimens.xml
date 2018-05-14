@@ -74,4 +74,6 @@
 
     <!--小列表更小图标大小  如checkbox-->
     <dimen name="we_lsitview_item_small_mini_size">24dp</dimen>
+
+    <dimen name="flow_view_button_radius_size">24dp</dimen>
 </resources>

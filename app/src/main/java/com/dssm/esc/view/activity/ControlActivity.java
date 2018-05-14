@@ -1,29 +1,22 @@
 package com.dssm.esc.view.activity;
 
-import android.app.ActionBar.LayoutParams;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,20 +31,16 @@ import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.control.SignUserEntity;
 import com.dssm.esc.model.entity.user.ButtonEntity;
 import com.dssm.esc.model.entity.user.UserPowerEntity;
-import com.dssm.esc.status.RealTimeTrackingStatus;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
-import com.dssm.esc.view.ZoomView;
 import com.dssm.esc.view.adapter.RealTimeTrackingAdapter;
 import com.dssm.esc.view.widget.AutoListView;
-import com.dssm.esc.view.widget.CustomDialog;
+import com.dssm.esc.view.widget.MyFlowView;
 import com.dssm.esc.view.widget.MyProgressBar;
-import com.dssm.esc.view.widget.MyvView;
 import com.dssm.esc.view.widget.NSSetPointValueToSteps;
-import com.dssm.esc.view.widget.NSstep;
 import com.dssm.esc.view.widget.SegmentControl;
 import com.dssm.esc.view.widget.Title_Layout;
 
@@ -118,11 +107,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      */
     private AutoListView rlistview;
 
-    private ZoomView zv_progress;
-
-    private LinearLayout scrollView;
-
-    private float currentZoom = 1f;
+    private MyFlowView my_flow_view;
 
     /**
      * 实时跟踪的列表的适配器
@@ -152,22 +137,9 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     private TextView no_sigin_number, sigin_number, emergency_grop_number;
 
     NSSetPointValueToSteps nsSetPointValueToSteps;
-    float width;
-    float height;
-    @ViewInject(id = R.id.progress_control)
-    private RelativeLayout layout;
     LinearLayout lin_group, lin_group_sign;
     private UserSevice sevice;
     private ControlSevice csevice;
-    private int buttonRadius = 24;
-    private int textSize = 10;
-
-    /**
-     * 新增
-     * 2017/10/16
-     */
-    private int scrollToX, scrollToY;
-
 
     /**
      * 当前页面
@@ -210,43 +182,17 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     nsSetPointValueToSteps = new NSSetPointValueToSteps();
                     try {
                         nsSetPointValueToSteps.exampleSteps(result);
+                        my_flow_view.setData(nsSetPointValueToSteps);
                     } catch (Exception e) {
                         // TODO: handle exception
                         e.printStackTrace();
                     }
-                    width = Math.max(wm.getDefaultDisplay().getWidth(), nsSetPointValueToSteps.maxLineNum * 48);
-                    height = Math.max(wm.getDefaultDisplay().getHeight(), nsSetPointValueToSteps.rowNum * 48);
-//                    width = wm.getDefaultDisplay().getWidth();
-//                    height = wm.getDefaultDisplay().getHeight();
-                    buttonRadius = (int) Math.min(width/(nsSetPointValueToSteps.maxLineNum + 1)/4, height/(nsSetPointValueToSteps.rowNum + 1)/4);
-                    buttonRadius = Math.max(16, buttonRadius);
-                    textSize = (int) (buttonRadius / 3f);
-//                    scrollView.setLayoutParams(new LinearLayout.LayoutParams(
-//                            Math.max((int)width,buttonRadius * (nsSetPointValueToSteps.maxLineNum + 1) * 4),  Math.max((int)height,buttonRadius * (nsSetPointValueToSteps.rowNum + 1) * 4)));
-                    layout.setLayoutParams(new LinearLayout.LayoutParams(
-                            (int)width, (int)height));
-//                    scrollView.setLayoutParams(new LinearLayout.LayoutParams(
-//                            (int)width, (int)height));
-                    addButtonandTextvew(layout);
-                    addLine(layout);
-                    /**
-                     * 新增
-                     * 2017/10/16
-                     * 跳转
-                     */
-//                    ViewTreeObserver vto = scrollView.getViewTreeObserver();
-//                    vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//                        public void onGlobalLayout() {
-//                            scrollView.scrollTo(scrollToX, scrollToY);
-//                        }
-//                    });
                     break;
             }
 
         }
-
-        ;
     };
+
     /**
      * 角色编号（R003）流程控制管理员有跳过此步骤的权限
      */
@@ -259,44 +205,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         setContentView(R.layout.activity_control);
         View findViewById = findViewById(R.id.control);
         findViewById.setFitsSystemWindows(true);
-        zv_progress = (ZoomView) findViewById(R.id.zv_progress);
-        scrollView = (LinearLayout) findViewById(R.id.myscrollview);
-        zv_progress.setListner(new ZoomView.ZoomViewListener() {
-            @Override
-            public void onZoomStarted(float zoom, float zoomx, float zoomy) {
-//                if(currentZoom == 1.0f) {
-//                    width = Math.max(width, nsSetPointValueToSteps.maxLineNum * 48);
-//                    height = Math.max(height, nsSetPointValueToSteps.rowNum * 48);
-//                    layout.setLayoutParams(new LinearLayout.LayoutParams(
-//                            (int) width, (int) height));
-//                    currentZoom = zoom;
-//                    layout.removeAllViews();
-//                    addButtonandTextvew(layout);
-//                    addLine(layout);
-//                }
-            }
-
-            @Override
-            public void onZooming(float zoom, float zoomx, float zoomy) {
-
-            }
-
-            @Override
-            public void onZoomEnded(float zoom, float zoomx, float zoomy) {
-//                ViewGroup.LayoutParams lp = layout.getLayoutParams();
-//                lp.height = (int)height;
-//                lp.width = (int)width;
-//                layout.setLayoutParams(lp);
-//                if(currentZoom != zoom) {
-//                    currentZoom = zoom;
-//                }
-            }
-
-            @Override
-            public void onMoved(float moveX, float moveY) {
-                //scrollView.scrollTo((int)moveX, (int)moveY);
-            }
-        });
+        my_flow_view = (MyFlowView) findViewById(R.id.my_flow_view);
         planEntity = (PlanEntity) getIntent().getSerializableExtra("PlanEntity");
         sevice = Control.getinstance().getUserSevice();
         csevice = Control.getinstance().getControlSevice();
@@ -371,7 +280,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             }
         });
         segmentControlListDate();
-        // setNetListener(this);
     }
 
     private void initView() {
@@ -387,7 +295,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
 
         sem_tag = 1;
         initData(sem_tag);
-        // initListData();
         stop.setOnClickListener(this);
 
         look_details_receive = (TextView) resource_preparation
@@ -414,446 +321,18 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         if (sem_tags == 1) {
             realtime_tracking.setVisibility(View.VISIBLE);
             resource_preparation.setVisibility(View.GONE);
-            zv_progress.setVisibility(View.GONE);
+            my_flow_view.setVisibility(View.GONE);
             queryProcessTrack(0);
         } else if (sem_tags == 2) {
-            zv_progress.setVisibility(View.VISIBLE);
+            my_flow_view.setVisibility(View.VISIBLE);
             realtime_tracking.setVisibility(View.GONE);
             resource_preparation.setVisibility(View.GONE);
             flowChartPlanData();
         } else if (sem_tags == 3) {
             realtime_tracking.setVisibility(View.GONE);
             resource_preparation.setVisibility(View.VISIBLE);
-            zv_progress.setVisibility(View.GONE);
+            my_flow_view.setVisibility(View.GONE);
             initProgressData();
-        }
-    }
-
-    private void addLine(RelativeLayout layout) {
-        for (NSstep onesstep : nsSetPointValueToSteps.steplist) {
-
-            for (NSstep sstep : nsSetPointValueToSteps.steplist) {
-                if (onesstep.isParentStep(sstep)) {
-                    float by = (int) (onesstep.x * height);
-                    float bx = (int) (onesstep.y * width);
-                    float ex = (int) (sstep.y * width);
-                    float ey = (int) (sstep.x * height);
-                    MyvView myvView = new MyvView(this, bx, by + buttonRadius, ex, ey - buttonRadius, buttonRadius);
-                    layout.addView(myvView);
-
-                }
-            }
-        }
-    }
-
-    private void addButtonandTextvew(RelativeLayout layout) {
-        for (final NSstep step : nsSetPointValueToSteps.steplist) {
-
-            float w = step.x;
-            float h = step.y;
-
-            Button button = new Button(this);
-            button.setLayoutParams(new LayoutParams(buttonRadius * 2, buttonRadius * 2));
-            button.setX((h * width) - buttonRadius);
-            button.setY((w * height) - buttonRadius);
-            // (w * height) - 25
-            /*
-             * if (step.stepId == 10001||step.stepId == 10002) {
-			 * //button.setText("" + step.stepId); } else {
-			 * 
-			 * button.setText("" + step.stepId); }
-			 */
-            Log.i("x+y", (h * width) + ")-----(" + (w * height));
-            if (step.type.equals("begin")) {
-                button.setBackgroundResource(R.drawable.round_begin);
-
-                /**
-                 * 新增
-                 * 2017/10/12
-                 */
-                if (!TextUtils.isEmpty(step.color)) {
-                    GradientDrawable drawable = new GradientDrawable();
-                    drawable.setShape(GradientDrawable.OVAL); // 画框
-                    if (!TextUtils.isEmpty(step.color)) {
-                        drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                    } else {
-                        drawable.setColor(0xFF00AE9D); // 边框内部颜色
-                    }
-                    drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                    button.setBackgroundDrawable(drawable);
-                }
-            } else if (step.type.equals("end")) {
-                button.setBackgroundResource(R.drawable.round_end);
-
-                if (!TextUtils.isEmpty(step.color)) {
-                    GradientDrawable drawable = new GradientDrawable();
-                    drawable.setShape(GradientDrawable.OVAL); // 画框
-                    if (!TextUtils.isEmpty(step.color)) {
-                        drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                    } else {
-                        drawable.setColor(0xFF009AD6); // 边框内部颜色
-                    }
-                    drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                    button.setBackgroundDrawable(drawable);
-                }
-            } else if (step.type.equals("merge")) {
-                if (!step.statusId.equals("") && step.statusId != null
-                        && step.statusId.length() > 0
-                        && !step.statusId.equals("null")) {// 初始合并status为null
-
-                    if (step.statusId.equals("1") || step.statusId.equals("2")
-                            || step.statusId.equals("3")) {// (1，全部完成；2，部分完成；3，跳过)
-                        // 绿色
-                        button.setBackgroundResource(R.drawable.fangxing_bt_bg_green);// 绿色
-
-                        if (!TextUtils.isEmpty(step.color)) {
-                            GradientDrawable drawable = new GradientDrawable();
-                            drawable.setShape(GradientDrawable.RECTANGLE); // 画框
-                            if (!TextUtils.isEmpty(step.color)) {
-                                drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                            } else {
-                                drawable.setColor(0xFF78D278); // 边框内部颜色
-                            }
-                            drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                            button.setBackgroundDrawable(drawable);
-                        }
-                    } else if (step.statusId.equals("4")) {// （4，正在执行）黄色
-                        button.setBackgroundResource(R.drawable.fangxing_bt_bg_yellow);// 黄色
-
-                        if (!TextUtils.isEmpty(step.color)) {
-                            GradientDrawable drawable = new GradientDrawable();
-                            drawable.setShape(GradientDrawable.RECTANGLE); // 画框
-                            if (!TextUtils.isEmpty(step.color)) {
-                                drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                            } else {
-                                drawable.setColor(0xFFfacb1f); // 边框内部颜色
-                            }
-                            drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                            button.setBackgroundDrawable(drawable);
-                        }
-                    } else if (step.statusId.equals("5")
-                            || step.statusId.equals("6")
-                            || step.statusId.equals("7")) {// （5，可执行；6,准备执行；7，还未执行）
-                        // 红色
-                        button.setBackgroundResource(R.drawable.fangxing_bt_bg_red);// 红色
-
-                        if (!TextUtils.isEmpty(step.color)) {
-                            GradientDrawable drawable = new GradientDrawable();
-                            drawable.setShape(GradientDrawable.RECTANGLE); // 画框
-                            if (!TextUtils.isEmpty(step.color)) {
-                                drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                            } else {
-                                drawable.setColor(0xFFf00); // 边框内部颜色
-                            }
-                            drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                            button.setBackgroundDrawable(drawable);
-                        }
-                    } else {
-                        button.setBackgroundResource(R.drawable.fangxing_bt_bg_red);// 红色
-
-                        if (!TextUtils.isEmpty(step.color)) {
-                            GradientDrawable drawable = new GradientDrawable();
-                            drawable.setShape(GradientDrawable.RECTANGLE); // 画框
-                            if (!TextUtils.isEmpty(step.color)) {
-                                drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                            } else {
-                                drawable.setColor(0xFFf00); // 边框内部颜色
-                            }
-                            drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                            button.setBackgroundDrawable(drawable);
-                        }
-                    }
-                } else {
-
-                    /**
-                     * 新增。
-                     * 2017/10/16
-                     */
-                    // 红色
-                    button.setBackgroundResource(R.drawable.fangxing_bt_bg_red);// 红色
-
-                    if (!TextUtils.isEmpty(step.color)) {
-                        GradientDrawable drawable = new GradientDrawable();
-                        drawable.setShape(GradientDrawable.RECTANGLE); // 画框
-                        if (!TextUtils.isEmpty(step.color)) {
-                            drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                        } else {
-                            drawable.setColor(0xFFf00); // 边框内部颜色
-                        }
-                        drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                        button.setBackgroundDrawable(drawable);
-                    }
-                }
-
-            } else if (step.type.equals("") && !step.stepId.startsWith("sid")) {
-                button.setBackgroundResource(R.drawable.round_other);// 新建节点
-
-                if (!TextUtils.isEmpty(step.color)) {
-                    GradientDrawable drawable = new GradientDrawable();
-                    drawable.setShape(GradientDrawable.OVAL); // 画框
-                    if (!TextUtils.isEmpty(step.color)) {
-                        drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                    } else {
-                        drawable.setColor(0xFFF49704); // 边框内部颜色
-                    }
-                    drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                    button.setBackgroundDrawable(drawable);
-                }
-
-            } else {
-                if (step.statusId.equals("1") || step.statusId.equals("2")
-                        || step.statusId.equals("3")) {// (1，全部完成；2，部分完成；3，跳过)
-                    // 绿色
-                    button.setBackgroundResource(R.drawable.round_but);// 绿色
-
-                    if (!TextUtils.isEmpty(step.color)) {
-                        GradientDrawable drawable = new GradientDrawable();
-                        drawable.setShape(GradientDrawable.OVAL); // 画框
-                        if (!TextUtils.isEmpty(step.color)) {
-                            drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                        } else {
-                            drawable.setColor(0xFF78D278); // 边框内部颜色
-                        }
-                        drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                        button.setBackgroundDrawable(drawable);
-                    }
-                } else if (step.statusId.equals("4")) {// （4，正在执行）黄色
-                    button.setBackgroundResource(R.drawable.round_but_yellow);// 黄色
-
-                    if (!TextUtils.isEmpty(step.color)) {
-                        GradientDrawable drawable = new GradientDrawable();
-                        drawable.setShape(GradientDrawable.OVAL); // 画框
-                        if (!TextUtils.isEmpty(step.color)) {
-                            drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                        } else {
-                            drawable.setColor(0xFFfacb1f); // 边框内部颜色
-                        }
-                        drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                        button.setBackgroundDrawable(drawable);
-                    }
-                } else if (step.statusId.equals("5")
-                        || step.statusId.equals("6")
-                        || step.statusId.equals("7")) {// （5，可执行；6,准备执行；7，还未执行）
-                    // 红色
-                    button.setBackgroundResource(R.drawable.round_but_res);// 红色
-
-                    if (!TextUtils.isEmpty(step.color)) {
-                        GradientDrawable drawable = new GradientDrawable();
-                        drawable.setShape(GradientDrawable.OVAL); // 画框
-                        if (!TextUtils.isEmpty(step.color)) {
-                            drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                        } else {
-                            drawable.setColor(0xFFf00); // 边框内部颜色
-                        }
-                        drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                        button.setBackgroundDrawable(drawable);
-                    }
-                } else {
-
-                    /**
-                     * 新增。
-                     * 2017/10/16
-                     */
-                    // 红色
-                    button.setBackgroundResource(R.drawable.fangxing_bt_bg_red);// 红色
-
-                    if (!TextUtils.isEmpty(step.color)) {
-                        GradientDrawable drawable = new GradientDrawable();
-                        drawable.setShape(GradientDrawable.OVAL); // 画框
-                        if (!TextUtils.isEmpty(step.color)) {
-                            drawable.setColor(Color.parseColor(step.color)); // 边框内部颜色
-                        } else {
-                            drawable.setColor(0xFFf00); // 边框内部颜色
-                        }
-                        drawable.setStroke(1, 0xFF000000); // 边框内部颜色
-                        button.setBackgroundDrawable(drawable);
-                    }
-                }
-            }
-
-            if (step.type.equals("begin")) {
-                button.setText("");
-            } else if (step.type.equals("end")) {
-                button.setText("");
-            } else {
-                String orderNum = step.editOrderNum;
-                if (orderNum != null && !orderNum.equals("")
-                        && orderNum.length() > 0 && !orderNum.equals("null")) {
-
-                    button.setText(step.editOrderNum);
-                } else {
-                    button.setText("");
-                }
-                button.setOnClickListener(new OnClickListener() {
-
-                    @Override
-                    public void onClick(View arg0) {
-                        // TODO Auto-generated method stub
-                        String beginTime = step.beginTime;
-                        String endTime = step.endTime;
-                        String executePeople = step.executePeople;
-                        String message = "";
-                        CustomDialog.Builder builder = new CustomDialog.Builder(
-                                ControlActivity.this);
-                        if (step.type.equals("") && !step.stepId.startsWith("sid")) {// 新建节点
-                            builder.setTitle("步骤：" + step.name);
-                            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
-                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
-                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
-                                message += "执行状态：跳过";
-                            }
-                            if(!"".equals(message))
-                                builder.setMessage(message);
-                            builder.setPositiveButton("ok",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(
-                                                DialogInterface dialog,
-                                                int which) {
-                                            dialog.dismiss();
-
-                                        }
-                                    });
-
-                            builder.create().show();
-                        } else if (step.type.equals("merge")) {// 合并节点
-                            if (!TextUtils.isEmpty(beginTime)) {
-                                message += "开始时间：" + beginTime;
-                            }
-                            if (!TextUtils.isEmpty(endTime)) {
-                                if(!message.equals(""))
-                                    message += "\n" + "完成时间：" + endTime;
-                                else
-                                    message += "\n" + "完成时间：" + endTime;
-                            }
-                            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
-                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
-                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
-                                if(!message.equals(""))
-                                    message += "\n" + "执行状态：跳过";
-                                else
-                                    message += "执行状态：跳过";
-                            }
-                            if(!"".equals(message))
-                                builder.setMessage(message);
-                            builder.setTitle("步骤：" + step.name);
-                            builder.setPositiveButton("ok",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(
-                                                DialogInterface dialog,
-                                                int which) {
-                                            dialog.dismiss();
-
-                                        }
-                                    });
-
-                            builder.create().show();
-                        }
-                        else if (step.type.equals("drillNew")) {// 新增节点
-                            builder.setTitle("步骤：" + step.name);
-                            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
-                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
-                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
-                                message += "执行状态：跳过";
-                            }
-                            if(!"".equals(message))
-                                builder.setMessage(message);
-                            builder.setPositiveButton("ok",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(
-                                                DialogInterface dialog,
-                                                int which) {
-                                            dialog.dismiss();
-
-                                        }
-                                    });
-
-                            builder.create().show();
-                        }
-                        else {
-                            if (!TextUtils.isEmpty(executePeople)) {
-                                message += "执行人：" + executePeople;
-                            }
-                            if (!TextUtils.isEmpty(beginTime)) {
-                                if(!message.equals(""))
-                                    message += "\n" + "开始时间：" + beginTime;
-                                else
-                                    message += "开始时间：" + beginTime;
-                            }
-                            if (!TextUtils.isEmpty(endTime)) {
-                                if(!message.equals(""))
-                                    message += "\n" + "完成时间：" + endTime;
-                                else
-                                    message += "完成时间：" + endTime;
-                            }
-                            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
-                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
-                                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
-                                if(!message.equals(""))
-                                    message += "\n" + "执行状态：跳过";
-                                else
-                                    message += "执行状态：跳过";
-                            }
-//                            message = "执行人：" + executePeople + "\n" + "开始时间："
-//                                    + beginTime + "\n" + "完成时间：" + endTime;
-                            if(!"".equals(message))
-                                builder.setMessage(message);
-                            builder.setTitle("步骤：" + step.name);
-                            builder.setPositiveButton("ok",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(
-                                                DialogInterface dialog,
-                                                int which) {
-                                            dialog.dismiss();
-
-                                        }
-                                    });
-
-                            builder.create().show();
-                        }
-
-                        // new AlertDialog.Builder(ControlActivity.this)
-                        // .setMessage(message)
-                        // .setNegativeButton("ok", null).show();
-                    }
-                });
-            }
-            button.setTextColor(Color.WHITE);
-            button.setTextSize(textSize);
-
-            /**
-             * 新增
-             * 2017/10/16
-             */
-            if (step.statusId.equals("4")) {
-                scrollToX = (int) button.getX();
-                if ((int) button.getY() > 500) {
-                    scrollToY = (int) button.getY();
-                } else {
-                    scrollToY = 0;
-                }
-            }
-
-            layout.addView(button);
-
-
-            TextView textView = new TextView(this);
-            textView.setLayoutParams(new LayoutParams(
-                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            textView.setX((h * width) + buttonRadius);
-            textView.setY((w * height) - buttonRadius);
-            // textView.setText(step.name);
-            if (step.type.equals("begin")) {
-                textView.setText("开始");
-                textView.setTextSize(14);
-            } else if (step.type.equals("end")) {
-                textView.setText("结束");
-                textView.setTextSize(14);
-            } else {
-                textView.setText("");
-                textView.setTextSize(10);
-            }
-
-            layout.addView(textView);
         }
     }
 
@@ -970,7 +449,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         }
     }
 
-    private AlertDialog selfdialog;
     private String getCode = null;
 
     @Override
@@ -1029,8 +507,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                                                     R.layout.editcode, null);
                                             final EditText et = (EditText) view
                                                     .findViewById(R.id.vc_code);
-                                            // getCode =
-                                            // Code.getInstance().getCode();
                                             getCode = Utils.getInstance().code();
                                             new AlertDialog.Builder(
                                                     ControlActivity.this)

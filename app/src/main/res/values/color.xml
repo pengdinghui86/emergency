@@ -245,4 +245,17 @@
 
    <!--字体灰色-->
    <color name="colorWeFontGray_b">#bbbbbb</color>
+
+   <color name="color_flow_start">#00AE9D</color>
+
+   <color name="color_flow_end">#009AD6</color>
+
+   <color name="color_flow_yellow">#facb1f</color>
+
+   <color name="color_flow_red">#f00</color>
+
+   <color name="color_flow_green">#78D278</color>
+
+   <color name="color_flow_other">#F49704</color>
+
 </resources>

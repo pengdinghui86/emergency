@@ -90,8 +90,8 @@ public class NSSetPointValueToSteps {
 
 	public void getStepPointBySteps() {
 		rowNum = findRowNumber(steplist);
-		if(rowNum > 5)
-			reCalculateStepPoisition(steplist);
+//		if(rowNum > 5)
+//			reCalculateStepPoisition(steplist);
 		initStepVlaus();
 
 	}
