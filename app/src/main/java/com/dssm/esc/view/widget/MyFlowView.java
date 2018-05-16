@@ -163,6 +163,7 @@ public class MyFlowView extends View {
             smoothMoveX = steplist.get(0).y * width - defaultWidth / 2f;
             smoothMoveY = steplist.get(2).x * height - defaultHeight / 2f;
         }
+        smoothMoveX = (smoothMoveX > 0 ? smoothMoveX: 0);
         smoothMoveY = (smoothMoveY > 0 ? smoothMoveY: 0);
     }
 
