@@ -38,7 +38,10 @@ public class MyFlowView extends View {
     private Paint textPaint = new Paint();
     private Paint textFlowPaint = new Paint();
     private Paint circlePaint = new Paint();
+    private int radius = 16;
     private int buttonRadius = 16;
+    private int maxButtonRadius = 16;
+    private int minButtonRadius = 16;
     private int textSize = 8;
     private int descriptionTextSize = 12;
 
@@ -46,18 +49,14 @@ public class MyFlowView extends View {
     private float maxZoom = 1.5f;
     private float currentZoom = 1.0f;
     private float smoothZoom = 1.0f;
-    private float zoomX, zoomY;
-    private float smoothZoomX, smoothZoomY;
     private float smoothMoveX, smoothMoveY;
     // touching variables
     private long lastTapTime;
     private float touchStartX, touchStartY;
     private float touchLastX, touchLastY;
     private float startd;
-    private boolean pinching;
+    private boolean doubleFinger = false;
     private float lastd;
-    private float lastdx1, lastdy1;
-    private float lastdx2, lastdy2;
     private final Matrix m = new Matrix();
     //控件初始化时的宽和高
     private int defaultWidth = 0, defaultHeight = 0;
@@ -75,9 +74,11 @@ public class MyFlowView extends View {
     }
 
     private void init() {
-        textSize = (int) (buttonRadius / 2f);
-        textSize = DisplayUtils.dp2px(textSize);
-        buttonRadius = DisplayUtils.dp2px(buttonRadius);
+        radius = DisplayUtils.dp2px(radius);
+        textSize = (int) (radius / 2f);
+        buttonRadius = radius;
+        maxButtonRadius = (int) (radius * maxZoom);
+        minButtonRadius = (int) (radius * minZoom);
     }
 
     @Override
@@ -87,28 +88,26 @@ public class MyFlowView extends View {
         this.myCanvas = canvas;
         setPaintDefaultStyle();
         addArrowLine();
-        addButtonAndTextvew();
+        addButtonAndText();
+        if(currentZoom == 1.0f)
+            setPoisition2ExcuteNode(getWidth(), getHeight());
         setZoomAndMove(canvas);
     }
 
     private void setZoomAndMove(Canvas canvas) {
-        smoothZoomX = clamp(0.5f * getWidth() / smoothZoom, smoothZoomX,
-                getWidth() - 0.5f * getWidth() / smoothZoom);
-        smoothZoomY = clamp(0.5f * getHeight() / smoothZoom, smoothZoomY,
-                getHeight() - 0.5f * getHeight() / smoothZoom);
-        zoomX = smoothZoomX;
-        zoomY = smoothZoomY;
         // prepare matrix
-        m.setTranslate( 0.5f * getWidth(),  0.5f * getHeight());
         m.preScale(smoothZoom, smoothZoom);
-        m.preTranslate(
-                - clamp(0.5f * getWidth() / smoothZoom, zoomX, getWidth() - 0.5f
-                        * getWidth() / smoothZoom),
-                - clamp(0.5f * getHeight() / smoothZoom, zoomY, getHeight() - 0.5f
-                        * getHeight() / smoothZoom));
         canvas.save();
         canvas.concat(m);
         canvas.restore();
+        if(smoothMoveX > getWidth() - defaultWidth / 2f)
+            smoothMoveX = getWidth() - defaultWidth / 2f;
+        else if(smoothMoveX < - defaultWidth / 2f)
+            smoothMoveX = - defaultWidth / 2f;
+        if(smoothMoveY > getHeight() - defaultHeight / 2f)
+            smoothMoveY = getHeight() - defaultHeight / 2f;
+        else if(smoothMoveY < - defaultHeight / 2f)
+            smoothMoveY = - defaultHeight / 2f;
         scrollTo((int) smoothMoveX, (int) smoothMoveY);
     }
 
@@ -121,10 +120,11 @@ public class MyFlowView extends View {
         if(defaultHeight == 0)
             defaultHeight = getHeight();
         ViewGroup.LayoutParams lp = getLayoutParams();
-        lp.height = Math.max((maxRow + 1) * 4 * 16 / 9 * buttonRadius, defaultHeight);
+        lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
         lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
+        if(maxColumn > maxRow)
+            lp.height = Math.max(lp.width * 4 / 3, lp.height);
         setLayoutParams(lp);
-        setPoisition2ExcuteNode(lp.width, lp.height);
         invalidate();
     }
 
@@ -173,10 +173,10 @@ public class MyFlowView extends View {
                     float bx = (int) (onesstep.y * this.getWidth());
                     float ex = (int) (sstep.y * this.getWidth());
                     float ey = (int) (sstep.x * this.getHeight());
-                    if((ex + buttonRadius < smoothMoveX || ex - buttonRadius > smoothMoveX + defaultWidth ||
-                            ey + buttonRadius < smoothMoveY || ey - buttonRadius > smoothMoveY + defaultHeight)
-                            &&(bx + buttonRadius < smoothMoveX || bx - buttonRadius > smoothMoveX + defaultWidth ||
-                            by + buttonRadius < smoothMoveY || by - buttonRadius > smoothMoveY + defaultHeight))
+                    if((ex < smoothMoveX || ex > smoothMoveX + defaultWidth) &&
+                            (ey - buttonRadius < smoothMoveY || ey - buttonRadius > smoothMoveY + defaultHeight)
+                            &&(bx < smoothMoveX || bx > smoothMoveX + defaultWidth) &&
+                            (by + buttonRadius < smoothMoveY || by + buttonRadius > smoothMoveY + defaultHeight))
                         continue;
                     drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
                 }
@@ -184,13 +184,14 @@ public class MyFlowView extends View {
         }
     }
 
-    private void addButtonAndTextvew() {
+    private void addButtonAndText() {
         Paint paint;
         String str;
         for (final NSstep step : steplist) {
             float w = step.x * this.getHeight();
             float h = step.y * this.getWidth();
-            if(h + buttonRadius < smoothMoveX || h - buttonRadius > smoothMoveX + defaultWidth || w + buttonRadius < smoothMoveY || w - buttonRadius > smoothMoveY + defaultHeight)
+            if((h + buttonRadius < smoothMoveX || h - buttonRadius > smoothMoveX + defaultWidth)
+                    && (w + buttonRadius < smoothMoveY || w - buttonRadius > smoothMoveY + defaultHeight))
                 continue;
             if (step.type.equals("begin")) {
                 paint = startFlowPaint;
@@ -224,10 +225,6 @@ public class MyFlowView extends View {
                         str = step.editOrderNum;
                     }
                 } else {
-                    /**
-                     * 新增。
-                     * 2017/10/16
-                     */
                     // 红色
                     paint = redFlowPaint;
                     str = step.editOrderNum;
@@ -283,44 +280,37 @@ public class MyFlowView extends View {
 
     private void processDoubleTouchEvent(final MotionEvent ev) {
         final float x1 = ev.getX(0);
-        final float dx1 = x1 - lastdx1;
-        lastdx1 = x1;
         final float y1 = ev.getY(0);
-        final float dy1 = y1 - lastdy1;
-        lastdy1 = y1;
         final float x2 = ev.getX(1);
-        final float dx2 = x2 - lastdx2;
-        lastdx2 = x2;
         final float y2 = ev.getY(1);
-        final float dy2 = y2 - lastdy2;
-        lastdy2 = y2;
         // pointers distance
         final float d = (float) Math.hypot(x2 - x1, y2 - y1);
         final float dd = d - lastd;
         lastd = d;
         final float ld = Math.abs(d - startd);
-        Math.atan2(y2 - y1, x2 - x1);
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 startd = d;
-                pinching = false;
+                doubleFinger = true;
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (pinching || ld > 30.0f) {
-                    pinching = true;
-                    final float dxk = 0.5f * (dx1 + dx2);
-                    final float dyk = 0.5f * (dy1 + dy2);
+                if (ld > 30.0f) {
+                    final float x = 0.5f * (x1 + x2);
+                    final float y = 0.5f * (y1 + y2);
+                    float zoom;
                     if(dd > 0f) {
-                        smoothZoomTo(Math.min(maxZoom, smoothZoom * 1.1f), zoomX - dxk, zoomY - dyk);
+                        zoom = smoothZoom * 1.02f;
                     }
-                    else {
-                        smoothZoomTo(Math.max(minZoom, smoothZoom / 1.1f), zoomX - dxk, zoomY - dyk);
-                    }
+                    else
+                        zoom = smoothZoom / 1.02f;
+                    smoothZoomTo(zoom, x, y, 1);
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                doubleFinger = false;
+                break;
             default:
-                pinching = false;
+                doubleFinger = false;
                 break;
         }
         ev.setAction(MotionEvent.ACTION_CANCEL);
@@ -346,11 +336,9 @@ public class MyFlowView extends View {
                 detectClicked(x, y);
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (l > 10.0f) {
+                if (!doubleFinger && l > 10.0f) {
                     ev.setAction(MotionEvent.ACTION_CANCEL);
                     super.onTouchEvent(ev);
-                    smoothZoomX -= dx / smoothZoom;
-                    smoothZoomY -= dy / smoothZoom;
                     smoothMoveX -= dx;
                     smoothMoveY -= dy;
                     return;
@@ -362,13 +350,11 @@ public class MyFlowView extends View {
                 if (l < 20.0f) {
                     // check double tap
                     if (System.currentTimeMillis() - lastTapTime < 500) {
-                        if (smoothZoom <= minZoom) {
-                            smoothZoomTo(1.0f, getWidth() / 2.0f,
-                                    getHeight() / 2.0f);
-                        } else {
-                            float zoom = Math.max(minZoom, smoothZoom / 1.2f);
-                            smoothZoomTo(zoom, x, y);
+                        if(smoothZoom == maxZoom) {
+                            smoothZoomTo(1.0f, 0, 0, 0);
                         }
+                        else
+                            smoothZoomTo(smoothZoom * 1.2f, x, y, 0);
                         lastTapTime = 0;
                         ev.setAction(MotionEvent.ACTION_CANCEL);
                         super.onTouchEvent(ev);
@@ -381,33 +367,49 @@ public class MyFlowView extends View {
             default:
                 break;
         }
-        ev.setLocation(zoomX + (x - 0.5f * getWidth()) / smoothZoom, zoomY
-                + (y - 0.5f * getHeight()) / smoothZoom);
-        ev.getX();
-        ev.getY();
         super.onTouchEvent(ev);
     }
 
-    public void smoothZoomTo(final float zoom, final float x, final float y) {
-        smoothZoom = Math.min(maxZoom, zoom);
-        smoothZoomX = x;
-        smoothZoomY = y;
+    /**
+     * param zoom 缩放参数
+     * param x 屏幕x坐标值
+     * param y 屏幕y坐标值
+     * param flag 是否保持位置不变 0=否，1=是
+    **/
+    public synchronized void smoothZoomTo(float zoom, float x, float y, int flag) {
+        if(zoom > maxZoom)
+            smoothZoom = maxZoom;
+        else if(zoom < minZoom)
+            smoothZoom = minZoom;
+        else
+            smoothZoom = zoom;
         if(currentZoom != smoothZoom) {
-            buttonRadius = DisplayUtils.dp2px(buttonRadius);
-            buttonRadius = (int) (buttonRadius  * smoothZoom / currentZoom);
+            buttonRadius = radius + (int) (radius * (smoothZoom - 1f));
+            if(buttonRadius > maxButtonRadius)
+                buttonRadius = maxButtonRadius;
+            else if(buttonRadius < minButtonRadius)
+                buttonRadius = minButtonRadius;
             currentZoom = smoothZoom;
             textSize = (int) (buttonRadius / 2f);
-            buttonRadius = DisplayUtils.px2dp(buttonRadius);
-            textSize = DisplayUtils.px2dp(textSize);
             ViewGroup.LayoutParams lp = getLayoutParams();
-            lp.height = Math.max((maxRow + 1) * 4 * 16 / 9 * buttonRadius, defaultHeight);
+            float tempX = x / lp.width;
+            float tempY = y / lp.height;
+            float dx = smoothMoveX / lp.width;
+            float dy = smoothMoveY / lp.height;
+            lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
             lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
+            if(maxColumn > maxRow)
+                lp.height = Math.max(lp.width * 4 / 3, lp.height);
+            if(flag == 1) {
+                smoothMoveX = (tempX + dx) * lp.width - x;
+                smoothMoveY = (tempY + dy) * lp.height - y;
+            }
+            else {
+                smoothMoveX = (tempX + dx) * lp.width - defaultWidth / 2f;
+                smoothMoveY = (tempY + dy) * lp.height - defaultHeight / 2f;
+            }
             setLayoutParams(lp);
         }
-    }
-
-    private float clamp(final float min, final float value, final float max) {
-        return Math.max(min, Math.min(value, max));
     }
 
     private void detectClicked(float x, float y) {
@@ -637,10 +639,7 @@ public class MyFlowView extends View {
     public void drawAL(float sx, float sy, float ex, float ey) {
         double H = buttonRadius / 4f; // 箭头高度
         double L = buttonRadius / 12f; // 底边的一半
-        int x3 = 0;
-        int y3 = 0;
-        int x4 = 0;
-        int y4 = 0;
+        int x3,y3,x4,y4;
         double awrad = Math.atan(L / H); // 箭头角度
         double arraow_len = Math.sqrt(L * L + H * H); // 箭头的长度
         double[] arrXY_1 = rotateVec(ex - sx, ey - sy, awrad, true, arraow_len);
@@ -659,8 +658,10 @@ public class MyFlowView extends View {
         y4 = Y4.intValue();
         // 画线
         myCanvas.drawLine(sx, sy, ex, ey, linePaint);
-        myCanvas.drawLine(ex, ey, x3, y3, linePaint);
-        myCanvas.drawLine(ex, ey, x4, y4, linePaint);
+        if(x3 >0 || y3 > 0)
+            myCanvas.drawLine(ex, ey, x3, y3, linePaint);
+        if(x4 >0 || y4 > 0)
+            myCanvas.drawLine(ex, ey, x4, y4, linePaint);
     }
 
     // 计算
