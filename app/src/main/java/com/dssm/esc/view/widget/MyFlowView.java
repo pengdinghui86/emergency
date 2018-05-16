@@ -89,8 +89,6 @@ public class MyFlowView extends View {
         setPaintDefaultStyle();
         addArrowLine();
         addButtonAndText();
-        if(currentZoom == 1.0f)
-            setPoisition2ExcuteNode(getWidth(), getHeight());
         setZoomAndMove(canvas);
     }
 
@@ -112,6 +110,9 @@ public class MyFlowView extends View {
     }
 
     public void setData(NSSetPointValueToSteps nsSetPointValueToSteps) {
+        int flag = 0;
+        if(this.steplist.size() == 0)
+            flag = 1;
         this.steplist = nsSetPointValueToSteps.steplist;
         maxRow = nsSetPointValueToSteps.rowNum;
         maxColumn = nsSetPointValueToSteps.maxLineNum;
@@ -125,6 +126,8 @@ public class MyFlowView extends View {
         if(maxColumn > maxRow)
             lp.height = Math.max(lp.width * 4 / 3, lp.height);
         setLayoutParams(lp);
+        if(flag == 1)
+            setPoisition2ExcuteNode(lp.width, lp.height);
         invalidate();
     }
 
@@ -173,10 +176,11 @@ public class MyFlowView extends View {
                     float bx = (int) (onesstep.y * this.getWidth());
                     float ex = (int) (sstep.y * this.getWidth());
                     float ey = (int) (sstep.x * this.getHeight());
-                    if((ex < smoothMoveX || ex > smoothMoveX + defaultWidth) &&
-                            (ey - buttonRadius < smoothMoveY || ey - buttonRadius > smoothMoveY + defaultHeight)
-                            &&(bx < smoothMoveX || bx > smoothMoveX + defaultWidth) &&
-                            (by + buttonRadius < smoothMoveY || by + buttonRadius > smoothMoveY + defaultHeight))
+                    if(((ex < smoothMoveX && bx < smoothMoveX)
+                            || (ex > smoothMoveX + defaultWidth && bx > smoothMoveX + defaultWidth))
+                            ||((ey - buttonRadius < smoothMoveY && by + buttonRadius < smoothMoveY)
+                            || (ey - buttonRadius > smoothMoveY + defaultHeight
+                            && by + buttonRadius > smoothMoveY + defaultHeight)))
                         continue;
                     drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
                 }
@@ -409,6 +413,8 @@ public class MyFlowView extends View {
                 smoothMoveY = (tempY + dy) * lp.height - defaultHeight / 2f;
             }
             setLayoutParams(lp);
+            if(currentZoom == 1.0f)
+                setPoisition2ExcuteNode(lp.width, lp.height);
         }
     }
 
