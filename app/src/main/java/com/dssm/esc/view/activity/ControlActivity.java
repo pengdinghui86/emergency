@@ -211,7 +211,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         my_flow_view = (MyFlowView) findViewById(R.id.my_flow_view);
         tv_editData = (TextView) findViewById(R.id.tv_actionbar_editData);
         tv_editData.setText("刷新");
-        tv_editData.setVisibility(View.VISIBLE);
         tv_editData.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -427,13 +426,15 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 switch (index) {
                     case 0:// 1，实时跟踪
                         sem_tag = 1;
-
+                        tv_editData.setVisibility(View.INVISIBLE);
                         break;
                     case 1:// 2，流程监
                         sem_tag = 2;
+                        tv_editData.setVisibility(View.VISIBLE);
                         break;
                     case 2:// 3，资源筹
                         sem_tag = 3;
+                        tv_editData.setVisibility(View.INVISIBLE);
                         break;
                 }
                 initData(sem_tag);
