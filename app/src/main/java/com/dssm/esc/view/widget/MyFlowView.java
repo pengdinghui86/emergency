@@ -98,21 +98,19 @@ public class MyFlowView extends View {
         canvas.save();
         canvas.concat(m);
         canvas.restore();
-        if(smoothMoveX > getWidth() - defaultWidth / 2f)
-            smoothMoveX = getWidth() - defaultWidth / 2f;
-        else if(smoothMoveX < - defaultWidth / 2f)
-            smoothMoveX = - defaultWidth / 2f;
-        if(smoothMoveY > getHeight() - defaultHeight / 2f)
-            smoothMoveY = getHeight() - defaultHeight / 2f;
-        else if(smoothMoveY < - defaultHeight / 2f)
-            smoothMoveY = - defaultHeight / 2f;
+        if(smoothMoveX > getWidth() - defaultWidth)
+            smoothMoveX = getWidth() - defaultWidth;
+        else if(smoothMoveX < 0)
+            smoothMoveX = 0;
+        if(smoothMoveY > getHeight() - defaultHeight)
+            smoothMoveY = getHeight() - defaultHeight;
+        else if(smoothMoveY < 0)
+            smoothMoveY = 0;
         scrollTo((int) smoothMoveX, (int) smoothMoveY);
     }
 
     public void setData(NSSetPointValueToSteps nsSetPointValueToSteps) {
-        int flag = 0;
         if(this.steplist.size() == 0)
-            flag = 1;
         this.steplist = nsSetPointValueToSteps.steplist;
         maxRow = nsSetPointValueToSteps.rowNum;
         maxColumn = nsSetPointValueToSteps.maxLineNum;
@@ -126,8 +124,7 @@ public class MyFlowView extends View {
         if(maxColumn > maxRow)
             lp.height = Math.max(lp.width * 4 / 3, lp.height);
         setLayoutParams(lp);
-        if(flag == 1)
-            setPoisition2ExcuteNode(lp.width, lp.height);
+        setPoisition2ExcuteNode(lp.width, lp.height);
         invalidate();
     }
 
@@ -163,9 +160,10 @@ public class MyFlowView extends View {
             }
         }
         if(flag == 0) {
-            smoothMoveX = steplist.get(2).y * width - defaultWidth / 2f;
+            smoothMoveX = steplist.get(0).y * width - defaultWidth / 2f;
             smoothMoveY = steplist.get(2).x * height - defaultHeight / 2f;
         }
+        smoothMoveY = (smoothMoveY > 0 ? smoothMoveY: 0);
     }
 
     private void addArrowLine() {
@@ -600,7 +598,7 @@ public class MyFlowView extends View {
         circlePaint.setAntiAlias(true);
         circlePaint.setColor(getResources().getColor(R.color.white));
         circlePaint.setStyle(Paint.Style.STROKE);
-        linePaint.setStrokeWidth(1);
+        circlePaint.setStrokeWidth(1);
 
         textPaint.setAntiAlias(true);
         textPaint.setColor(getResources().getColor(R.color.black));

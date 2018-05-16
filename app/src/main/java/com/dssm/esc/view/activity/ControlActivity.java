@@ -75,6 +75,9 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      */
     @ViewInject(id = R.id.tv_actionbar_title)
     private TextView title;
+
+    private TextView tv_editData;
+
     /**
      * 返回按钮
      */
@@ -206,6 +209,15 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         View findViewById = findViewById(R.id.control);
         findViewById.setFitsSystemWindows(true);
         my_flow_view = (MyFlowView) findViewById(R.id.my_flow_view);
+        tv_editData = (TextView) findViewById(R.id.tv_actionbar_editData);
+        tv_editData.setText("刷新");
+        tv_editData.setVisibility(View.VISIBLE);
+        tv_editData.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flowChartPlanData();
+            }
+        });
         planEntity = (PlanEntity) getIntent().getSerializableExtra("PlanEntity");
         sevice = Control.getinstance().getUserSevice();
         csevice = Control.getinstance().getControlSevice();
