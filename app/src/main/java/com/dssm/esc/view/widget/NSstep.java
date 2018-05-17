@@ -10,7 +10,7 @@ public class NSstep {
 	/**
 	 * 下一个点的数组
 	 */
-	public String nextsetpids[];
+	public String nextStepIds[];
 	/**
 	 * 状态id
 	 */
@@ -62,6 +62,16 @@ public class NSstep {
 	 */
 	public String color;
 
+	/**
+	 * 当前节点所在的行总共有多少个节点
+	 */
+	public int stepNum;
+
+	/**
+	 * 连接线绘制标志
+	 */
+	public boolean drawLine = false;
+
 
 	public NSstep setStep(String stepId, String[] nextsetpids, String name,
 			String editOrderNum, String type, String executePeople,
@@ -83,7 +93,7 @@ public class NSstep {
 			String timenote, String name, String editOrderNum, String type,
 			String executePeople, String beginTime, String endTime,String color) {
 		this.stepId = stepId;
-		this.nextsetpids = nextsetpids;
+		this.nextStepIds = nextsetpids;
 		this.statusId = statusId;
 		this.timenote = timenote;
 		this.name = name;
@@ -103,21 +113,21 @@ public class NSstep {
 	 */
 	public boolean isTheLastStep() {
 		// TODO Auto-generated method stub
-		if (this.nextsetpids.length == 0) {
+		if (this.nextStepIds.length == 0) {
 			return true;
 		}
 		return false;
 	}
 
 	/**
-	 * 判断当前点是否为currentstep父节点
+	 * 判断是否为currentStep父节点
 	 * 
-	 * @param currentstep
+	 * @param currentStep
 	 */
-	public boolean isParentStep(NSstep currentstep) {
+	public boolean isParentStep(NSstep currentStep) {
 		// TODO Auto-generated method stub
-		for (String i : nextsetpids) {
-			if (i.equals(currentstep.stepId)) {
+		for (String i : nextStepIds) {
+			if (i.equals(currentStep.stepId)) {
 				return true;
 			}
 		}

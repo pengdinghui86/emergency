@@ -83,17 +83,12 @@ public class NSSetPointValueToSteps {
 		// steplist.add(new NSstep().setStep(17, new int[]{10002}, 1, "15:56"));
 		//
 		// steplist.add(new NSstep().setStep(10002, new int[]{}, 10, "预案结束"));
-
 		getStepPointBySteps();
-
 	}
 
 	public void getStepPointBySteps() {
 		rowNum = findRowNumber(steplist);
-//		if(rowNum > 5)
-//			reCalculateStepPoisition(steplist);
-		initStepVlaus();
-
+		initStepValues();
 	}
 
 	/**
@@ -142,53 +137,39 @@ public class NSSetPointValueToSteps {
 			return 1 + getRowNumber(list);
 		else
 			return 1;
-
-	}
-
-	/**
-	 * 重新计算节点的位置
-	 *
-	 * @param steplist
-	 * @return
-	 */
-	private void reCalculateStepPoisition(List<NSstep> steplist) {
-		for (NSstep step : steplist) {
-			step.x = (rowNum - 3f) / (rowNum - 1f) * step.x + 2f * rowNum / (rowNum - 1f);
-		}
 	}
 
 	/**
 	 * 根据当前级点集合查找上一级点集合
 	 * 
-	 * @param currentsteplist
+	 * @param currentStepList
 	 * @return
 	 */
-	private List<NSstep> findParentStepsId(List<NSstep> currentsteplist) {
+	private List<NSstep> findParentStepsId(List<NSstep> currentStepList) {
 		this.rowId++;
-		for (NSstep currentstep : currentsteplist) {
-			currentstep.x = this.rowId;
-			currentstep.lineId = this.rowId;
+		for (NSstep currentStep : currentStepList) {
+			currentStep.x = this.rowId;
+			currentStep.lineId = this.rowId;
 		}
 
-		if (this.maxLineNum < currentsteplist.size()) {
-			this.maxLineNum = currentsteplist.size();
+		if (this.maxLineNum < currentStepList.size()) {
+			this.maxLineNum = currentStepList.size();
 		}
-		List<NSstep> parentlist = new ArrayList<NSstep>();
+		List<NSstep> parentList = new ArrayList<NSstep>();
 
-		for (NSstep onestep : steplist) {
+		for (NSstep oneStep : steplist) {
 
-			for (NSstep currentstep : currentsteplist) {
-				if (onestep.isParentStep(currentstep)) {
-					parentlist.add(onestep);
+			for (NSstep currentStep : currentStepList) {
+				if (oneStep.isParentStep(currentStep)) {
+					parentList.add(oneStep);
 					break;
 				}
 			}
 		}
-
-		return parentlist;
+		return parentList;
 	}
 
-	private void initStepVlaus() {
+	private void initStepValues() {
 		// TODO Auto-generated method stub
 		Collections.sort(steplist, new Comparator<NSstep>() {
 			@Override
@@ -212,21 +193,71 @@ public class NSSetPointValueToSteps {
 		for (int i = 1; i <= rowNum; i++) {
 			int j = 0;
 			int k = 0;
-			for (NSstep currentstep : steplist) {
-				if (currentstep.lineId == i) {
+			for (NSstep currentStep : steplist) {
+				if (currentStep.lineId == i) {
 					j++;
 				}
 			}
 			//计算每一个节点的绝对坐标
-			for (NSstep currentstep : steplist) {
-				if (currentstep.lineId == i) {
+			for (NSstep currentStep : steplist) {
+				if (currentStep.lineId == i) {
 					k++;
-					currentstep.x = (1 - currentstep.x / (rowNum + 1));
-					currentstep.y = k / (j + 1.f);
+					currentStep.stepNum = j;
+					currentStep.x = (1 - currentStep.x / (rowNum + 1));
+					currentStep.y = k / (j + 1f);
 				}
 			}
 		}
 
+	}
+
+	/**
+	 * 优化节点的位置
+	 */
+	private void proveStepPosition() {
+		for (int i = 1; i <= rowNum; i++) {
+			int j;
+			//调整每一个节点的绝对坐标
+			for (NSstep currentStep : steplist) {
+				if (currentStep.lineId == i) {
+					//当前行节点总数
+					j = currentStep.stepNum;
+					List<NSstep> parentSteps = findAllParentNodes(currentStep);
+					if(parentSteps.size() > 1) {
+
+					}
+					else if(j > 1 && currentStep.nextStepIds.length > 1) {
+
+					}
+					else if(j == 1 && currentStep.nextStepIds.length == 1) {
+
+					}
+				}
+			}
+		}
+	}
+
+	private List<NSstep> findAllParentNodes(NSstep step) {
+		List<NSstep> parentList = new ArrayList<>();
+		for (NSstep oneStep : steplist) {
+			if (oneStep.isParentStep(step)) {
+				parentList.add(oneStep);
+			}
+		}
+		return parentList;
+	}
+
+	private List<NSstep> findAllNextNodes(NSstep step) {
+		List<NSstep> list = new ArrayList<>();
+		for (NSstep oneStep : steplist) {
+			for(String id : step.nextStepIds) {
+				if (oneStep.stepId.equals(id)) {
+					list.add(oneStep);
+					break;
+				}
+			}
+		}
+		return list;
 	}
 
 	/*
