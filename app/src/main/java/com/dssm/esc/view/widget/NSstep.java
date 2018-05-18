@@ -2,6 +2,9 @@ package com.dssm.esc.view.widget;
 
 import android.graphics.Point;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NSstep {
 	/**
 	 * 点的id type为空并且id不是已sid开头的为新建节点
@@ -68,10 +71,14 @@ public class NSstep {
 	public int stepNum;
 
 	/**
-	 * 连接线绘制标志
+	 * 与父节点之间的连接线标志
 	 */
-	public boolean drawLine = false;
+	public List<String> parentDrawLine = new ArrayList<>();
 
+	/**
+	 * 与子节点之间的连接线标志
+	 */
+	public List<String> nextDrawLine = new ArrayList<>();
 
 	public NSstep setStep(String stepId, String[] nextsetpids, String name,
 			String editOrderNum, String type, String executePeople,

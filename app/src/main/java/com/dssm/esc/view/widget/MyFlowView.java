@@ -90,8 +90,8 @@ public class MyFlowView extends View {
         super.onDraw(canvas);
         this.myCanvas = canvas;
         setPaintDefaultStyle();
-        addArrowLine2();
         addButtonAndText();
+        addArrowLine2();
         setZoomAndMove(canvas);
         clearDrawLineFlag();
     }
@@ -125,12 +125,12 @@ public class MyFlowView extends View {
         ViewGroup.LayoutParams lp = getLayoutParams();
         lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
         lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
-        if(maxColumn > 50 && maxColumn > maxRow)
-            setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxColumn / 50), 0.1f));
-        else if(maxRow > 50)
-            setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxRow / 50), 0.1f));
-//        if(maxColumn > maxRow)
-//            lp.height = Math.max(lp.width * 4 / 3, lp.height);
+        if(maxColumn > 100)
+            lp.height = Math.max(lp.width * 4 / 3, lp.height);
+        if(maxColumn > 30 && maxColumn > maxRow)
+            setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxColumn / 30), 0.1f));
+        else if(maxRow > 30)
+            setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxRow / 30), 0.1f));
         setLayoutParams(lp);
         setPoisition2ExcuteNode(lp.width, lp.height);
         invalidate();
@@ -230,102 +230,200 @@ public class MyFlowView extends View {
 
     private void clearDrawLineFlag() {
         for (NSstep step : steplist) {
-            step.drawLine = false;
+            if(step.parentDrawLine != null)
+                step.parentDrawLine.clear();
+            if(step.nextDrawLine != null)
+                step.nextDrawLine.clear();
         }
+    }
+
+    private boolean containsStepId(List<String> list, String id) {
+        boolean result = false;
+        for(String str : list) {
+            if(str.equals(id)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     private void addArrowLine2() {
         for (NSstep sstep : steplist) {
-            if(!sstep.drawLine) {
-                List<NSstep> parentSteps = findAllParentNodes(sstep);
-                List<NSstep> nextSteps = findAllNextNodes(sstep);
-                if (parentSteps.size() == 1) {
-                    if(!parentSteps.get(0).drawLine) {
-                        float by = parentSteps.get(0).x * this.getHeight();
-                        float bx = parentSteps.get(0).y * this.getWidth();
-                        float ex = sstep.y * this.getWidth();
-                        float ey = sstep.x * this.getHeight();
-                        if (invisible2Draw(bx,by + buttonRadius, ex,ey - buttonRadius)) {
-                            drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
-                        }
-                        if(!sstep.editOrderNum.equals("0"))
-                            parentSteps.get(0).drawLine = true;
+            List<NSstep> parentSteps = findAllParentNodes(sstep);
+            List<NSstep> nextSteps = findAllNextNodes(sstep);
+            if (parentSteps.size() == 1) {
+                if(!containsStepId(parentSteps.get(0).nextDrawLine, sstep.stepId)) {
+                    float by = parentSteps.get(0).x * this.getHeight();
+                    float bx = parentSteps.get(0).y * this.getWidth();
+                    float ex = sstep.y * this.getWidth();
+                    float ey = sstep.x * this.getHeight();
+                    if (invisible2Draw(bx,by + buttonRadius, ex,ey - buttonRadius)) {
+                        drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
                     }
-                }
-                else if(parentSteps.size() > 1) {
-                    float maxY = parentSteps.get(0).y, minY = parentSteps.get(0).y;
-                    for(NSstep step : parentSteps) {
-                        if(maxY < step.y)
-                            maxY = step.y;
-                        if(minY > step.y)
-                            minY = step.y;
-                    }
-                    float by = (parentSteps.get(0).x + sstep.x) / 2 * this.getHeight();
-                    float bx = minY * this.getWidth();
-                    float ex = maxY * this.getWidth();
-                    float ey = by;
-                    float middleX = sstep.y * this.getWidth();
-                    float endX = sstep.y * this.getWidth();
-                    float endY = sstep.x * this.getHeight();
-                    if(endX > bx || endX < ex)
-                        middleX = (bx + ex) / 2f;
-                    if (invisible2Draw(bx, by, ex, ey))
-                    {
-                        myCanvas.drawLine(bx, by, ex, ey, linePaint);
-                    }
-                    if (invisible2Draw(middleX, by, endX, endY - buttonRadius))
-                    {
-                        drawAL(middleX, by, endX, endY - buttonRadius);
-                    }
-                    for(NSstep step : parentSteps) {
-                        float y1 = step.x * this.getHeight();
-                        float x1 = step.y * this.getWidth();
-                        float x2 = x1;
-                        float y2 = by;
-                        if (invisible2Draw(x1,y1 + buttonRadius, x2, y2)) {
-                            myCanvas.drawLine(x1, y1 + buttonRadius, x2, y2, linePaint);
-                        }
-                        step.drawLine = true;
-                    }
-                }
-
-                if(nextSteps.size() > 1) {
-                    float maxY = nextSteps.get(0).y,minY = nextSteps.get(0).y;
-                    for(NSstep step : nextSteps) {
-                        if(maxY < step.y)
-                            maxY = step.y;
-                        if(minY > step.y)
-                            minY = step.y;
-                    }
-                    float by = (nextSteps.get(0).x + sstep.x) / 2 * this.getHeight();
-                    float bx = minY * this.getWidth();
-                    float ex = maxY * this.getWidth();
-                    float ey = by;
-                    float middleX = sstep.y * this.getWidth();
-                    float startX = sstep.y * this.getWidth();
-                    float startY = sstep.x * this.getHeight();
-                    if(sstep.y > ey || sstep.y < by)
-                        middleX = (bx + ex) / 2f;
-                    if (invisible2Draw(bx, by, ex, ey))
-                    {
-                        myCanvas.drawLine(bx, by, ex, ey, linePaint);
-                    }
-                    if (invisible2Draw(startX, startY, middleX, by))
-                    {
-                        myCanvas.drawLine(startX, startY, middleX, by, linePaint);
-                    }
-                    for(NSstep step : nextSteps) {
-                        float y1 = by;
-                        float x1 = step.y * this.getWidth();
-                        float x2 = x1;
-                        float y2 = step.x * this.getHeight();
-                        if (invisible2Draw(x1,y1, x2,y2 - buttonRadius)) {
-                            drawAL(x1,y1, x2,y2 - buttonRadius);
-                        }
-                    }
-                    sstep.drawLine = true;
+                    parentSteps.get(0).nextDrawLine.add(sstep.stepId);
+                    sstep.parentDrawLine.add(parentSteps.get(0).stepId);
                 }
             }
+            else if(parentSteps.size() > 1){
+                List<NSstep> tmpParentSteps = new ArrayList<>();
+                List<Integer> lineIds = findAllLineId(parentSteps);
+                for(Integer i : lineIds) {
+                    tmpParentSteps.clear();
+                    for(NSstep sstep1 : parentSteps) {
+                        if(sstep1.lineId == i && !containsStepId(sstep.parentDrawLine, sstep1.stepId))
+                            tmpParentSteps.add(sstep1);
+                    }
+                    if(tmpParentSteps.size() > 3) {
+                        drawParentMutiSteps(tmpParentSteps, sstep);
+                    }
+                    else if(tmpParentSteps.size() > 0) {
+                        drawParentSteps(tmpParentSteps, sstep);
+                    }
+                }
+            }
+
+            if(nextSteps.size() > 1) {
+                List<NSstep> tmpNextSteps = new ArrayList<>();
+                List<Integer> lineIds = findAllLineId(nextSteps);
+                for(Integer i : lineIds) {
+                    tmpNextSteps.clear();
+                    for(NSstep sstep1 : nextSteps) {
+                        if(sstep1.lineId == i)
+                            tmpNextSteps.add(sstep1);
+                    }
+                    if(tmpNextSteps.size() > 3) {
+                        drawNextMutiSteps(tmpNextSteps, sstep);
+                    }
+                    else if(tmpNextSteps.size() > 0) {
+                        drawNextSteps(tmpNextSteps, sstep);
+                    }
+                }
+            }
+        }
+    }
+
+    private List<Integer> findAllLineId(List<NSstep> steps) {
+        List<Integer> list = new ArrayList<>();
+        for(NSstep step : steps) {
+            if(!containsLineId(list, step.lineId))
+                list.add(step.lineId);
+        }
+        return list;
+    }
+
+    private boolean containsLineId(List<Integer> list, int id) {
+        boolean result = false;
+        for(Integer lineId : list) {
+            if(lineId == id) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private void drawParentMutiSteps(List<NSstep> parentSteps, NSstep sstep) {
+        float maxY = parentSteps.get(0).y, minY = parentSteps.get(0).y;
+        for(NSstep step : parentSteps) {
+            if(maxY < step.y)
+                maxY = step.y;
+            if(minY > step.y)
+                minY = step.y;
+        }
+        float by = (parentSteps.get(0).x + sstep.x) / 2 * this.getHeight();
+        float bx = minY * this.getWidth();
+        float ex = maxY * this.getWidth();
+        float ey = by;
+        float middleX = sstep.y * this.getWidth();
+        float endX = sstep.y * this.getWidth();
+        float endY = sstep.x * this.getHeight();
+        if(endX > bx || endX < ex)
+            middleX = (bx + ex) / 2f;
+        if (invisible2Draw(bx, by, ex, ey))
+        {
+            myCanvas.drawLine(bx, by, ex, ey, linePaint);
+        }
+        if (invisible2Draw(middleX, by, endX, endY - buttonRadius))
+        {
+            drawAL(middleX, by, endX, endY - buttonRadius);
+        }
+        for(NSstep step : parentSteps) {
+            float y1 = step.x * this.getHeight();
+            float x1 = step.y * this.getWidth();
+            float x2 = x1;
+            float y2 = by;
+            if (invisible2Draw(x1, y1 + buttonRadius, x2, y2)) {
+                myCanvas.drawLine(x1, y1 + buttonRadius, x2, y2, linePaint);
+            }
+            step.nextDrawLine.add(sstep.stepId);
+            sstep.parentDrawLine.add(step.stepId);
+        }
+    }
+
+    private void drawParentSteps(List<NSstep> parentSteps, NSstep sstep) {
+        for(NSstep step : parentSteps) {
+            float y1 = step.x * this.getHeight();
+            float x1 = step.y * this.getWidth();
+            float x2 = sstep.y * this.getWidth();
+            float y2 = sstep.x * this.getHeight();
+            if (invisible2Draw(x1, y1 + buttonRadius, x2, y2 - buttonRadius)) {
+                drawAL(x1, y1 + buttonRadius, x2, y2 - buttonRadius);
+            }
+            step.nextDrawLine.add(sstep.stepId);
+            sstep.parentDrawLine.add(step.stepId);
+        }
+    }
+
+    private void drawNextMutiSteps(List<NSstep> nextSteps, NSstep sstep) {
+        float maxY = nextSteps.get(0).y,minY = nextSteps.get(0).y;
+        for(NSstep step : nextSteps) {
+            if(maxY < step.y)
+                maxY = step.y;
+            if(minY > step.y)
+                minY = step.y;
+        }
+        float by = (nextSteps.get(0).x + sstep.x) / 2 * this.getHeight();
+        float bx = minY * this.getWidth();
+        float ex = maxY * this.getWidth();
+        float ey = by;
+        float middleX = sstep.y * this.getWidth();
+        float startX = sstep.y * this.getWidth();
+        float startY = sstep.x * this.getHeight();
+        if(startX > bx || startX < ex)
+            middleX = (bx + ex) / 2f;
+        if (invisible2Draw(bx, by, ex, ey))
+        {
+            myCanvas.drawLine(bx, by, ex, ey, linePaint);
+        }
+        if (invisible2Draw(startX, startY + buttonRadius, middleX, by))
+        {
+            myCanvas.drawLine(startX, startY + buttonRadius, middleX, by, linePaint);
+        }
+        for(NSstep step : nextSteps) {
+            float y1 = by;
+            float x1 = step.y * this.getWidth();
+            float x2 = x1;
+            float y2 = step.x * this.getHeight();
+            if (invisible2Draw(x1,y1, x2,y2 - buttonRadius)) {
+                drawAL(x1,y1, x2,y2 - buttonRadius);
+            }
+            sstep.nextDrawLine.add(step.stepId);
+            step.parentDrawLine.add(sstep.stepId);
+        }
+    }
+
+    private void drawNextSteps(List<NSstep> nextSteps, NSstep sstep) {
+        for(NSstep step : nextSteps) {
+            float y1 = sstep.x * this.getHeight();
+            float x1 = sstep.y * this.getWidth();
+            float x2 = step.y * this.getWidth();
+            float y2 = step.x * this.getHeight();
+            if (invisible2Draw(x1, y1 + buttonRadius, x2,y2 - buttonRadius)) {
+                drawAL(x1, y1 + buttonRadius, x2,y2 - buttonRadius);
+            }
+            sstep.nextDrawLine.add(step.stepId);
+            step.parentDrawLine.add(sstep.stepId);
         }
     }
 
@@ -554,8 +652,8 @@ public class MyFlowView extends View {
             float dy = smoothMoveY / lp.height;
             lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
             lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
-//            if(maxColumn > maxRow)
-//                lp.height = Math.max(lp.width * 4 / 3, lp.height);
+            if(maxColumn > 100)
+                lp.height = Math.max(lp.width * 4 / 3, lp.height);
             if(flag == 1) {
                 smoothMoveX = (tempX + dx) * lp.width - x;
                 smoothMoveY = (tempY + dy) * lp.height - y;
@@ -714,7 +812,10 @@ public class MyFlowView extends View {
         linePaint.setAntiAlias(true);
         linePaint.setColor(Color.RED);
         linePaint.setStyle(Paint.Style.STROKE);
-        linePaint.setStrokeWidth(2);
+        if(smoothZoom < 0.5f)
+            linePaint.setStrokeWidth(1);
+        else
+            linePaint.setStrokeWidth(2);
 
         startFlowPaint.setAntiAlias(true);
         startFlowPaint.setColor(getResources().getColor(R.color.color_flow_start));
