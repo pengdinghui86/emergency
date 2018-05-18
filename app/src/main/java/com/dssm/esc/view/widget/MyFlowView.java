@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,8 @@ public class MyFlowView extends View {
     private Paint circlePaint = new Paint();
     private int radius = 16;
     private int buttonRadius = 16;
+    //连接线的长度
+    private int lineLenth = 24;
     private int maxButtonRadius = 16;
     private int minButtonRadius = 16;
     private int textSize = 8;
@@ -122,8 +125,12 @@ public class MyFlowView extends View {
         ViewGroup.LayoutParams lp = getLayoutParams();
         lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
         lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
-        if(maxColumn > maxRow)
-            lp.height = Math.max(lp.width * 4 / 3, lp.height);
+        if(maxColumn > 50 && maxColumn > maxRow)
+            setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxColumn / 50), 0.1f));
+        else if(maxRow > 50)
+            setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxRow / 50), 0.1f));
+//        if(maxColumn > maxRow)
+//            lp.height = Math.max(lp.width * 4 / 3, lp.height);
         setLayoutParams(lp);
         setPoisition2ExcuteNode(lp.width, lp.height);
         invalidate();
@@ -170,6 +177,7 @@ public class MyFlowView extends View {
 
     public void setMinZoom(float minZoom) {
         this.minZoom = minZoom;
+        minButtonRadius = (int) (radius * minZoom);
     }
 
     public void setMaxZoom(float maxZoom) {
@@ -207,12 +215,13 @@ public class MyFlowView extends View {
                     float bx = (int) (onesstep.y * this.getWidth());
                     float ex = (int) (sstep.y * this.getWidth());
                     float ey = (int) (sstep.x * this.getHeight());
-                    if(((ex < smoothMoveX && bx < smoothMoveX)
-                            || (ex > smoothMoveX + defaultWidth && bx > smoothMoveX + defaultWidth))
-                            ||((ey - buttonRadius < smoothMoveY && by + buttonRadius < smoothMoveY)
-                            || (ey - buttonRadius > smoothMoveY + defaultHeight
-                            && by + buttonRadius > smoothMoveY + defaultHeight)))
-                        continue;
+//                    if(((ex < smoothMoveX && bx < smoothMoveX)
+//                            || (ex > smoothMoveX + defaultWidth && bx > smoothMoveX + defaultWidth))
+//                            ||((ey - buttonRadius < smoothMoveY && by + buttonRadius < smoothMoveY)
+//                            || (ey - buttonRadius > smoothMoveY + defaultHeight
+//                            && by + buttonRadius > smoothMoveY + defaultHeight)))
+                    if(!invisible2Draw(bx, by + buttonRadius, ex, ey - buttonRadius))
+                    continue;
                     drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
                 }
             }
@@ -236,10 +245,11 @@ public class MyFlowView extends View {
                         float bx = parentSteps.get(0).y * this.getWidth();
                         float ex = sstep.y * this.getWidth();
                         float ey = sstep.x * this.getHeight();
-                        if (!invisible2Draw(bx,by + buttonRadius, ex,ey - buttonRadius)) {
+                        if (invisible2Draw(bx,by + buttonRadius, ex,ey - buttonRadius)) {
                             drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
                         }
-                        parentSteps.get(0).drawLine = true;
+                        if(!sstep.editOrderNum.equals("0"))
+                            parentSteps.get(0).drawLine = true;
                     }
                 }
                 else if(parentSteps.size() > 1) {
@@ -257,23 +267,23 @@ public class MyFlowView extends View {
                     float middleX = sstep.y * this.getWidth();
                     float endX = sstep.y * this.getWidth();
                     float endY = sstep.x * this.getHeight();
-                    if(sstep.y > ey || sstep.y < by)
+                    if(endX > bx || endX < ex)
                         middleX = (bx + ex) / 2f;
                     if (invisible2Draw(bx, by, ex, ey))
                     {
                         myCanvas.drawLine(bx, by, ex, ey, linePaint);
                     }
-                    if (invisible2Draw(middleX, by + buttonRadius, endX, endY - buttonRadius))
+                    if (invisible2Draw(middleX, by, endX, endY - buttonRadius))
                     {
-                        drawAL(middleX, by + buttonRadius, endX, endY - buttonRadius);
+                        drawAL(middleX, by, endX, endY - buttonRadius);
                     }
                     for(NSstep step : parentSteps) {
                         float y1 = step.x * this.getHeight();
                         float x1 = step.y * this.getWidth();
                         float x2 = x1;
                         float y2 = by;
-                        if (!invisible2Draw(x1,y1 + buttonRadius, x2,y2 - buttonRadius)) {
-                            myCanvas.drawLine(middleX, by, endX, endY, linePaint);
+                        if (invisible2Draw(x1,y1 + buttonRadius, x2, y2)) {
+                            myCanvas.drawLine(x1, y1 + buttonRadius, x2, y2, linePaint);
                         }
                         step.drawLine = true;
                     }
@@ -309,8 +319,8 @@ public class MyFlowView extends View {
                         float x1 = step.y * this.getWidth();
                         float x2 = x1;
                         float y2 = step.x * this.getHeight();
-                        if (!invisible2Draw(x1,y1 + buttonRadius, x2,y2 - buttonRadius)) {
-                            drawAL(x1,y1 + buttonRadius, x2,y2 - buttonRadius);
+                        if (invisible2Draw(x1,y1, x2,y2 - buttonRadius)) {
+                            drawAL(x1,y1, x2,y2 - buttonRadius);
                         }
                     }
                     sstep.drawLine = true;
@@ -445,10 +455,10 @@ public class MyFlowView extends View {
                     final float y = 0.5f * (y1 + y2);
                     float zoom;
                     if(dd > 0f) {
-                        zoom = smoothZoom * 1.02f;
+                        zoom = smoothZoom * 1.1f;
                     }
                     else
-                        zoom = smoothZoom / 1.02f;
+                        zoom = smoothZoom / 1.1f;
                     smoothZoomTo(zoom, x, y, 1);
                 }
                 break;
@@ -544,8 +554,8 @@ public class MyFlowView extends View {
             float dy = smoothMoveY / lp.height;
             lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
             lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
-            if(maxColumn > maxRow)
-                lp.height = Math.max(lp.width * 4 / 3, lp.height);
+//            if(maxColumn > maxRow)
+//                lp.height = Math.max(lp.width * 4 / 3, lp.height);
             if(flag == 1) {
                 smoothMoveX = (tempX + dx) * lp.width - x;
                 smoothMoveY = (tempY + dy) * lp.height - y;
