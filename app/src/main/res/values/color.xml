@@ -258,4 +258,7 @@
 
    <color name="color_flow_other">#F49704</color>
 
+    <color name="color_flow_line_red">#FF3333</color>
+
+    <color name="color_flow_line_green">#66ff66</color>
 </resources>

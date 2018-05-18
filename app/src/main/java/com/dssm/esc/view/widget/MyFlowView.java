@@ -24,6 +24,7 @@ import java.util.List;
 public class MyFlowView extends View {
 
     private List<NSstep> steplist = new ArrayList<>();
+    private NSstep currentStep = new NSstep();
     private int maxRow, maxColumn;
     private Canvas myCanvas;
     private Paint linePaint = new Paint();
@@ -126,7 +127,7 @@ public class MyFlowView extends View {
         lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
         lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
         if(maxColumn > 100)
-            lp.height = Math.max(lp.width * 4 / 3, lp.height);
+            lp.height = Math.max(lp.width, lp.height);
         if(maxColumn > 30 && maxColumn > maxRow)
             setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxColumn / 30), 0.1f));
         else if(maxRow > 30)
@@ -148,6 +149,7 @@ public class MyFlowView extends View {
                 //正在执行
                 if (step.statusId.equals("4")) {
                     flag = 1;
+                    currentStep = step;
                     smoothMoveX = step.y * width - defaultWidth / 2f;
                     smoothMoveY = step.x * height - defaultHeight / 2f;
                     break;
@@ -160,6 +162,7 @@ public class MyFlowView extends View {
                     //准备执行
                     if (step.statusId.equals("6")) {
                         flag = 1;
+                        currentStep = step;
                         smoothMoveX = step.y * width - defaultWidth / 2f;
                         smoothMoveY = step.x * height - defaultHeight / 2f;
                         break;
@@ -168,6 +171,7 @@ public class MyFlowView extends View {
             }
         }
         if(flag == 0) {
+            currentStep = steplist.get(2);
             smoothMoveX = steplist.get(0).y * width - defaultWidth / 2f;
             smoothMoveY = steplist.get(2).x * height - defaultHeight / 2f;
         }
@@ -253,6 +257,10 @@ public class MyFlowView extends View {
             List<NSstep> parentSteps = findAllParentNodes(sstep);
             List<NSstep> nextSteps = findAllNextNodes(sstep);
             if (parentSteps.size() == 1) {
+                if(currentStep.stepId.equals(parentSteps.get(0).stepId))
+                    linePaint.setColor(getResources().getColor(R.color.color_flow_line_green));
+                else
+                    linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));
                 if(!containsStepId(parentSteps.get(0).nextDrawLine, sstep.stepId)) {
                     float by = parentSteps.get(0).x * this.getHeight();
                     float bx = parentSteps.get(0).y * this.getWidth();
@@ -266,6 +274,10 @@ public class MyFlowView extends View {
                 }
             }
             else if(parentSteps.size() > 1){
+                if(currentStep.stepId.equals(parentSteps.get(0).stepId))
+                    linePaint.setColor(getResources().getColor(R.color.color_flow_line_green));
+                else
+                    linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));
                 List<NSstep> tmpParentSteps = new ArrayList<>();
                 List<Integer> lineIds = findAllLineId(parentSteps);
                 for(Integer i : lineIds) {
@@ -284,6 +296,10 @@ public class MyFlowView extends View {
             }
 
             if(nextSteps.size() > 1) {
+                if(currentStep.stepId.equals(sstep.stepId))
+                    linePaint.setColor(getResources().getColor(R.color.color_flow_line_green));
+                else
+                    linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));
                 List<NSstep> tmpNextSteps = new ArrayList<>();
                 List<Integer> lineIds = findAllLineId(nextSteps);
                 for(Integer i : lineIds) {
@@ -653,7 +669,7 @@ public class MyFlowView extends View {
             lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
             lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
             if(maxColumn > 100)
-                lp.height = Math.max(lp.width * 4 / 3, lp.height);
+                lp.height = Math.max(lp.width, lp.height);
             if(flag == 1) {
                 smoothMoveX = (tempX + dx) * lp.width - x;
                 smoothMoveY = (tempY + dy) * lp.height - y;
@@ -810,12 +826,12 @@ public class MyFlowView extends View {
      */
     public void setPaintDefaultStyle() {
         linePaint.setAntiAlias(true);
-        linePaint.setColor(Color.RED);
+        linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));
         linePaint.setStyle(Paint.Style.STROKE);
         if(smoothZoom < 0.5f)
-            linePaint.setStrokeWidth(1);
+            linePaint.setStrokeWidth(DisplayUtils.dp2px(1));
         else
-            linePaint.setStrokeWidth(2);
+            linePaint.setStrokeWidth(DisplayUtils.dp2px(2));
 
         startFlowPaint.setAntiAlias(true);
         startFlowPaint.setColor(getResources().getColor(R.color.color_flow_start));
