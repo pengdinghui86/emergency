@@ -87,6 +87,24 @@ public class NSSetPointValueToSteps {
 	}
 
 	public void getStepPointBySteps() {
+		Collections.sort(steplist, new Comparator<NSstep>() {
+			@Override
+			public int compare(NSstep o1, NSstep o2) {
+				if (o1.editOrderNum == null || "".equals(o1.editOrderNum))
+					o1.editOrderNum = "0";
+				if (o2.editOrderNum == null || "".equals(o2.editOrderNum))
+					o2.editOrderNum = "0";
+				if(Integer.parseInt(o1.editOrderNum) > Integer.parseInt(o2.editOrderNum)) {
+					return 1;
+				}
+				else if(Integer.parseInt(o1.editOrderNum) < Integer.parseInt(o2.editOrderNum)) {
+					return -1;
+				}
+				else {
+					return 0;
+				}
+			}
+		});
 		rowNum = findRowNumber(steplist);
 		initStepValues();
 	}
@@ -171,24 +189,6 @@ public class NSSetPointValueToSteps {
 
 	private void initStepValues() {
 		// TODO Auto-generated method stub
-		Collections.sort(steplist, new Comparator<NSstep>() {
-			@Override
-			public int compare(NSstep o1, NSstep o2) {
-				if (o1.editOrderNum == null || "".equals(o1.editOrderNum))
-					o1.editOrderNum = "0";
-				if (o2.editOrderNum == null || "".equals(o2.editOrderNum))
-					o2.editOrderNum = "0";
-				if(Integer.parseInt(o1.editOrderNum) > Integer.parseInt(o2.editOrderNum)) {
-					return 1;
-				}
-				else if(Integer.parseInt(o1.editOrderNum) < Integer.parseInt(o2.editOrderNum)) {
-					return -1;
-				}
-				else {
-					return 0;
-				}
-			}
-		});
 
 		for (int i = 1; i <= rowNum; i++) {
 			int j = 0;
@@ -214,27 +214,35 @@ public class NSSetPointValueToSteps {
 	/**
 	 * 优化节点的位置
 	 */
-	private void proveStepPosition() {
-		for (int i = 1; i <= rowNum; i++) {
-			int j;
-			//调整每一个节点的绝对坐标
-			for (NSstep currentStep : steplist) {
-				if (currentStep.lineId == i) {
-					//当前行节点总数
-					j = currentStep.stepNum;
-					List<NSstep> parentSteps = findAllParentNodes(currentStep);
-					if(parentSteps.size() > 1) {
-
-					}
-					else if(j > 1 && currentStep.nextStepIds.length > 1) {
-
-					}
-					else if(j == 1 && currentStep.nextStepIds.length == 1) {
-
+	public void proveStepPosition() {
+		for (int row = rowNum; row >= 1; row--) {
+			List<NSstep> currentSteps = findAllCurrentNodes(row);
+			if(currentSteps.size() > 1) {
+				for(int i = 0; i < currentSteps.size() - 1; i++) {
+					NSstep parentNode1 = findLeftParentNode(currentSteps.get(i));
+					NSstep parentNode2 = findLeftParentNode(currentSteps.get(i + 1));
+					if(parentNode1 != null && parentNode2 != null) {
+						if ((parentNode1.lineId == parentNode2.lineId && parentNode1.y > parentNode2.y)
+								|| parentNode1.lineId > parentNode2.lineId) {
+							float y = currentSteps.get(i).y;
+							currentSteps.get(i).y = currentSteps.get(i + 1).y;
+							currentSteps.get(i + 1).y = y;
+						}
 					}
 				}
+
 			}
 		}
+	}
+
+	private List<NSstep> findAllCurrentNodes(int lineId) {
+		List<NSstep> currentList = new ArrayList<>();
+		for (NSstep oneStep : steplist) {
+			if (oneStep.lineId == lineId) {
+				currentList.add(oneStep);
+			}
+		}
+		return currentList;
 	}
 
 	private List<NSstep> findAllParentNodes(NSstep step) {
@@ -247,11 +255,26 @@ public class NSSetPointValueToSteps {
 		return parentList;
 	}
 
-	private List<NSstep> findAllNextNodes(NSstep step) {
+	private NSstep findLeftParentNode(NSstep step) {
+		NSstep parent = null;
+		for (NSstep oneStep : steplist) {
+			if (oneStep.isParentStep(step)) {
+				if(parent == null)
+					parent = oneStep;
+				else {
+					if(parent.y > oneStep.y)
+						parent = oneStep;
+				}
+			}
+		}
+		return parent;
+	}
+
+	private List<NSstep> findAllNextNodes(NSstep step, int lineId) {
 		List<NSstep> list = new ArrayList<>();
 		for (NSstep oneStep : steplist) {
 			for(String id : step.nextStepIds) {
-				if (oneStep.stepId.equals(id)) {
+				if (oneStep.stepId.equals(id) && lineId - 1 == oneStep.lineId) {
 					list.add(oneStep);
 					break;
 				}

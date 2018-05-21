@@ -21,6 +21,10 @@ import com.dssm.esc.util.DisplayUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 流程监控-流程图绘制
+ */
+
 public class MyFlowView extends View {
 
     private List<NSstep> steplist = new ArrayList<>();
@@ -347,15 +351,20 @@ public class MyFlowView extends View {
             if(minY > step.y)
                 minY = step.y;
         }
-        float by = (parentSteps.get(0).x + sstep.x) / 2 * this.getHeight();
+        float by = (parentSteps.get(0).x + (sstep.x - parentSteps.get(0).x) /
+                2 / (parentSteps.get(0).lineId - sstep.lineId)) * this.getHeight();
         float bx = minY * this.getWidth();
         float ex = maxY * this.getWidth();
         float ey = by;
         float middleX = sstep.y * this.getWidth();
         float endX = sstep.y * this.getWidth();
         float endY = sstep.x * this.getHeight();
-        if(endX > bx || endX < ex)
-            middleX = (bx + ex) / 2f;
+        if(endX < bx) {
+            middleX = bx + (ex - bx) / 2 / (parentSteps.get(0).lineId - sstep.lineId);
+        }
+        else if(endX > ex) {
+            middleX = bx + (ex - bx) * (1f - 1f / 2 / (parentSteps.get(0).lineId - sstep.lineId));;
+        }
         if (invisible2Draw(bx, by, ex, ey))
         {
             myCanvas.drawLine(bx, by, ex, ey, linePaint);
@@ -399,15 +408,20 @@ public class MyFlowView extends View {
             if(minY > step.y)
                 minY = step.y;
         }
-        float by = (nextSteps.get(0).x + sstep.x) / 2 * this.getHeight();
+        float by = (sstep.x + (nextSteps.get(0).x - sstep.x) / 2 /
+                (sstep.lineId - nextSteps.get(0).lineId)) * this.getHeight();
         float bx = minY * this.getWidth();
         float ex = maxY * this.getWidth();
         float ey = by;
         float middleX = sstep.y * this.getWidth();
         float startX = sstep.y * this.getWidth();
         float startY = sstep.x * this.getHeight();
-        if(startX > bx || startX < ex)
-            middleX = (bx + ex) / 2f;
+        if(startX < bx) {
+            middleX = bx + (ex - bx) / 2f / (sstep.lineId - nextSteps.get(0).lineId);
+        }
+        else if(startX > ex) {
+            middleX = bx + (ex - bx) * (1f - 1f / 2f / (sstep.lineId - nextSteps.get(0).lineId));
+        }
         if (invisible2Draw(bx, by, ex, ey))
         {
             myCanvas.drawLine(bx, by, ex, ey, linePaint);
@@ -912,8 +926,8 @@ public class MyFlowView extends View {
      * @param ey   终点Y坐标
      */
     public void drawAL(float sx, float sy, float ex, float ey) {
-        double H = buttonRadius / 4f; // 箭头高度
-        double L = buttonRadius / 12f; // 底边的一半
+        double H = buttonRadius / 3f; // 箭头高度
+        double L = buttonRadius / 8f; // 底边的一半
         int x3,y3,x4,y4;
         double awrad = Math.atan(L / H); // 箭头角度
         double arraow_len = Math.sqrt(L * L + H * H); // 箭头的长度

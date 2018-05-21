@@ -185,6 +185,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     nsSetPointValueToSteps = new NSSetPointValueToSteps();
                     try {
                         nsSetPointValueToSteps.exampleSteps(result);
+                        nsSetPointValueToSteps.proveStepPosition();
                         my_flow_view.setData(nsSetPointValueToSteps);
                     } catch (Exception e) {
                         // TODO: handle exception
