@@ -120,7 +120,7 @@ public class MyFlowView extends View {
 
     public void setData(NSSetPointValueToSteps nsSetPointValueToSteps) {
         if(this.steplist.size() == 0)
-        this.steplist = nsSetPointValueToSteps.steplist;
+            this.steplist = nsSetPointValueToSteps.steplist;
         maxRow = nsSetPointValueToSteps.rowNum;
         maxColumn = nsSetPointValueToSteps.maxLineNum;
         if(defaultWidth == 0)
@@ -261,7 +261,7 @@ public class MyFlowView extends View {
             List<NSstep> parentSteps = findAllParentNodes(sstep);
             List<NSstep> nextSteps = findAllNextNodes(sstep);
             if (parentSteps.size() == 1) {
-                if(currentStep.stepId.equals(parentSteps.get(0).stepId))
+                if(currentStep.stepId != null && currentStep.stepId.equals(parentSteps.get(0).stepId))
                     linePaint.setColor(getResources().getColor(R.color.color_flow_line_green));
                 else
                     linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));
@@ -352,7 +352,7 @@ public class MyFlowView extends View {
                 minY = step.y;
         }
         float by = (parentSteps.get(0).x + (sstep.x - parentSteps.get(0).x) /
-                2 / (parentSteps.get(0).lineId - sstep.lineId)) * this.getHeight();
+                2 / (Math.abs(parentSteps.get(0).lineId - sstep.lineId))) * this.getHeight();
         float bx = minY * this.getWidth();
         float ex = maxY * this.getWidth();
         float ey = by;
@@ -360,10 +360,10 @@ public class MyFlowView extends View {
         float endX = sstep.y * this.getWidth();
         float endY = sstep.x * this.getHeight();
         if(endX < bx) {
-            middleX = bx + (ex - bx) / 2 / (parentSteps.get(0).lineId - sstep.lineId);
+            middleX = bx + (ex - bx) / 2 / (Math.abs(parentSteps.get(0).lineId - sstep.lineId));
         }
         else if(endX > ex) {
-            middleX = bx + (ex - bx) * (1f - 1f / 2 / (parentSteps.get(0).lineId - sstep.lineId));;
+            middleX = bx + (ex - bx) * (1f - 1f / 2 / (Math.abs(parentSteps.get(0).lineId - sstep.lineId)));;
         }
         if (invisible2Draw(bx, by, ex, ey))
         {
@@ -409,7 +409,7 @@ public class MyFlowView extends View {
                 minY = step.y;
         }
         float by = (sstep.x + (nextSteps.get(0).x - sstep.x) / 2 /
-                (sstep.lineId - nextSteps.get(0).lineId)) * this.getHeight();
+                (Math.abs(sstep.lineId - nextSteps.get(0).lineId))) * this.getHeight();
         float bx = minY * this.getWidth();
         float ex = maxY * this.getWidth();
         float ey = by;
@@ -417,10 +417,10 @@ public class MyFlowView extends View {
         float startX = sstep.y * this.getWidth();
         float startY = sstep.x * this.getHeight();
         if(startX < bx) {
-            middleX = bx + (ex - bx) / 2f / (sstep.lineId - nextSteps.get(0).lineId);
+            middleX = bx + (ex - bx) / 2f / (Math.abs(sstep.lineId - nextSteps.get(0).lineId));
         }
         else if(startX > ex) {
-            middleX = bx + (ex - bx) * (1f - 1f / 2f / (sstep.lineId - nextSteps.get(0).lineId));
+            middleX = bx + (ex - bx) * (1f - 1f / 2f / (Math.abs(sstep.lineId - nextSteps.get(0).lineId)));
         }
         if (invisible2Draw(bx, by, ex, ey))
         {

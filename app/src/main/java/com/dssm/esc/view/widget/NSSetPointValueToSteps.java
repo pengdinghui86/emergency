@@ -117,6 +117,7 @@ public class NSSetPointValueToSteps {
 	 */
 	public int findRowNumber(List<NSstep> steplist) {
 		List<NSstep> list = findLastStepId(steplist);
+//		List<NSstep> list = findFirstStepId(steplist);
 		if (list != null && list.size() > 0) {
 
 			return getRowNumber(list);
@@ -124,6 +125,23 @@ public class NSSetPointValueToSteps {
 			return 0;
 		}
 
+	}
+
+	/**
+	 * 查找第一级的点集合
+	 *
+	 * @param steplist
+	 * @return
+	 */
+	public List<NSstep> findFirstStepId(List<NSstep> steplist) {
+
+		List<NSstep> list = new ArrayList<NSstep>();
+		for (NSstep sstep : steplist) {
+			if (sstep.isTheFirstStep()) {
+				list.add(sstep);
+			}
+		}
+		return list;
 	}
 
 	/**
@@ -151,6 +169,7 @@ public class NSSetPointValueToSteps {
 	 */
 	private int getRowNumber(List<NSstep> steplist) {
 		List<NSstep> list = findParentStepsId(steplist);
+//		List<NSstep> list = findNextStepsId(steplist);
 		if (list != null && list.size() > 0)
 			return 1 + getRowNumber(list);
 		else
@@ -204,6 +223,7 @@ public class NSSetPointValueToSteps {
 					k++;
 					currentStep.stepNum = j;
 					currentStep.x = (1 - currentStep.x / (rowNum + 1));
+//					currentStep.x = currentStep.x / (rowNum + 1);
 					currentStep.y = k / (j + 1f);
 				}
 			}
@@ -245,16 +265,6 @@ public class NSSetPointValueToSteps {
 		return currentList;
 	}
 
-	private List<NSstep> findAllParentNodes(NSstep step) {
-		List<NSstep> parentList = new ArrayList<>();
-		for (NSstep oneStep : steplist) {
-			if (oneStep.isParentStep(step)) {
-				parentList.add(oneStep);
-			}
-		}
-		return parentList;
-	}
-
 	private NSstep findLeftParentNode(NSstep step) {
 		NSstep parent = null;
 		for (NSstep oneStep : steplist) {
@@ -281,6 +291,40 @@ public class NSSetPointValueToSteps {
 			}
 		}
 		return list;
+	}
+
+	/**
+	 * 根据当前级点集合查找下一级点集合
+	 *
+	 * @param currentStepList
+	 * @return
+	 */
+	private List<NSstep> findNextStepsId(List<NSstep> currentStepList) {
+		this.rowId++;
+		for (NSstep currentStep : currentStepList) {
+			currentStep.x = this.rowId;
+			currentStep.lineId = this.rowId;
+		}
+
+		if (this.maxLineNum < currentStepList.size()) {
+			this.maxLineNum = currentStepList.size();
+		}
+		List<NSstep> nextList = new ArrayList<NSstep>();
+		for (NSstep oneStep : steplist) {
+			for (NSstep currentStep : currentStepList) {
+				int count = 0;
+				for(String id : currentStep.nextStepIds) {
+					if (oneStep.stepId.equals(id)) {
+						nextList.add(oneStep);
+						count = 1;
+						break;
+					}
+				}
+				if(count == 1)
+					break;
+			}
+		}
+		return nextList;
 	}
 
 	/*

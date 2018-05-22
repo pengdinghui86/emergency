@@ -114,6 +114,19 @@ public class NSstep {
 	}
 
 	/**
+	 * 是否是第一级
+	 *
+	 * @return
+	 */
+	public boolean isTheFirstStep() {
+		// TODO Auto-generated method stub
+		if (this.nextStepIds.length > 0 && this.editOrderNum.equals("0")) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * 是否没有子级
 	 * 
 	 * @return
