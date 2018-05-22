@@ -1,5 +1,6 @@
 package com.dssm.esc.view.activity;
 
+import android.Manifest;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -37,6 +38,7 @@ import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DataCleanManager;
 import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.MySharePreferencesService;
+import com.dssm.esc.util.PermissionsChecker;
 import com.dssm.esc.util.SystemBarTintManager;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
@@ -164,6 +166,17 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      */
     private String[] roleCodes;
     private UserSevice userSevice;
+
+    private PermissionsChecker mPermissionsChecker; // 权限检测器
+    private static final int REQUEST_CODE = 0; // 请求码
+    // 所需的全部权限
+    static final String[] PERMISSIONS = new String[]{
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+    };
 
     /**
      * 检查当前用户是否被删除
@@ -301,7 +314,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 super.onDrawerOpened(drawerView);
             }
         });
-
+        mPermissionsChecker = new PermissionsChecker(this);
     }
 
     private MyConnectionListener connectionListener = null;
@@ -873,9 +886,27 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         EMNotifierEvent.Event.EventOfflineMessage,
                         EMNotifierEvent.Event.EventConversationListChanged});
 
+        // 缺少权限时, 进入权限配置页面
+        List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
+        if (permissionList.size() > 0) {
+            startPermissionsActivity(permissionList.toArray(new String[permissionList.size()]));
+        }
     }
 
-	/*
+    private void startPermissionsActivity(String[] permissions) {
+        PermissionsActivity.startActivityForResult(this, REQUEST_CODE, permissions);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
+        if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+            finish();
+        }
+    }
+
+    /*
 	 * // 创建服务用于捕获崩溃异常 private UncaughtExceptionHandler restartHandler = new
 	 * UncaughtExceptionHandler() { public void uncaughtException(Thread thread,
 	 * Throwable ex) { restartApp();// 发生崩溃异常时,重启应用 } };

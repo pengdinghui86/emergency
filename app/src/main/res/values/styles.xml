@@ -7,6 +7,13 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.NoActionBar.Permissions">
+        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+    </style>
     <!-- text -->
     <style name="text">
         <item name="android:gravity">center</item>
