@@ -1,4 +1,4 @@
-#Tue May 22 15:06:58 CST 2018
-base.0=D\:\\git_project\\emergency_newStyle\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\172
+#Tue May 22 19:40:46 CST 2018
+base.0=D\:\\git_project\\emergency_newStyle\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\210
 path.0=classes.dex
 renamed.0=classes.dex

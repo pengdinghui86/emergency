@@ -13,6 +13,7 @@
  */
 package com.easemob.chatuidemo.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -56,6 +57,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dssm.esc.R;
+import com.dssm.esc.util.PermissionsChecker;
+import com.dssm.esc.view.activity.PermissionsActivity;
 import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.applib.model.GroupRemoveListener;
 import com.easemob.chatuidemo.DemoApplication;
@@ -206,6 +209,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
     public EMChatRoom room;
     public boolean isRobot;
 
+    private PermissionsChecker mPermissionsChecker; // 权限检测器
+    private static final int REQUEST_AUDIO_RECODE_CODE = 0; // 请求录音
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -216,6 +222,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
         }
         initView();
         setUpView();
+        mPermissionsChecker = new PermissionsChecker(this);
     }
 
     /***
@@ -1225,7 +1232,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
         if (file.length() > 10 * 1024 * 1024) {
             String st6 = getResources().getString(
                     R.string.The_file_is_not_greater_than_10_m);
-            Toast.makeText(getApplicationContext(), st6, 0).show();
+            Toast.makeText(getApplicationContext(), st6, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -1416,17 +1423,28 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
                         return false;
                     }
                     try {
-                        v.setPressed(true);
-                        wakeLock.acquire();
-                        if (VoicePlayClickListener.isPlaying)
-                            VoicePlayClickListener.currentPlayListener
-                                    .stopPlayVoice();
-                        recordingContainer.setVisibility(View.VISIBLE);
-                        recordingHint
-                                .setText(getString(R.string.move_up_to_cancel));
-                        recordingHint.setBackgroundColor(Color.TRANSPARENT);
-                        voiceRecorder.startRecording(null, toChatUsername,
-                                getApplicationContext());
+                        // 缺少权限时, 进入权限配置页面
+                        final String[] PERMISSIONS = new String[]{
+                                Manifest.permission.RECORD_AUDIO,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        };
+                        List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
+                        if (permissionList.size() > 0) {
+                            startPermissionsActivity(permissionList.toArray(new String[permissionList.size()]), REQUEST_AUDIO_RECODE_CODE);
+                        }
+                        else {
+                            v.setPressed(true);
+                            wakeLock.acquire();
+                            if (VoicePlayClickListener.isPlaying)
+                                VoicePlayClickListener.currentPlayListener
+                                        .stopPlayVoice();
+                            recordingContainer.setVisibility(View.VISIBLE);
+                            recordingHint
+                                    .setText(getString(R.string.move_up_to_cancel));
+                            recordingHint.setBackgroundColor(Color.TRANSPARENT);
+                            voiceRecorder.startRecording(null, toChatUsername,
+                                    getApplicationContext());
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                         v.setPressed(false);
@@ -1472,6 +1490,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
                         String st3 = getResources().getString(
                                 R.string.send_failure_please);
                         try {
+                            if(!voiceRecorder.isRecording())
+                                return true;
                             int length = voiceRecorder.stopRecoding();
                             if (length > 0) {
                                 sendVoice(voiceRecorder.getVoiceFilePath(),
@@ -1500,6 +1520,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
                     return false;
             }
         }
+    }
+
+    private void startPermissionsActivity(String[] permissions, int requestCode) {
+        PermissionsActivity.startActivityForResult(this, requestCode, permissions);
     }
 
     /**

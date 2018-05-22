@@ -170,12 +170,11 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private PermissionsChecker mPermissionsChecker; // 权限检测器
     private static final int REQUEST_CODE = 0; // 请求码
     // 所需的全部权限
-    static final String[] PERMISSIONS = new String[]{
+    private static final String[] PERMISSIONS = new String[]{
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CALL_PHONE,
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-
     };
 
     /**
@@ -314,7 +313,13 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 super.onDrawerOpened(drawerView);
             }
         });
+
         mPermissionsChecker = new PermissionsChecker(this);
+        // 缺少权限时, 进入权限配置页面
+        List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
+        if (permissionList.size() > 0) {
+            startPermissionsActivity(permissionList.toArray(new String[permissionList.size()]));
+        }
     }
 
     private MyConnectionListener connectionListener = null;
@@ -885,12 +890,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         EMNotifierEvent.Event.EventNewMessage,
                         EMNotifierEvent.Event.EventOfflineMessage,
                         EMNotifierEvent.Event.EventConversationListChanged});
-
-        // 缺少权限时, 进入权限配置页面
-        List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
-        if (permissionList.size() > 0) {
-            startPermissionsActivity(permissionList.toArray(new String[permissionList.size()]));
-        }
     }
 
     private void startPermissionsActivity(String[] permissions) {
@@ -902,7 +901,14 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         super.onActivityResult(requestCode, resultCode, data);
         // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
         if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
-            finish();
+            final String[] PERMISSIONS = new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+            List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
+            if (permissionList.size() > 0) {
+                if(permissionList.get(0).equals(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                    finish();
+            }
         }
     }
 
