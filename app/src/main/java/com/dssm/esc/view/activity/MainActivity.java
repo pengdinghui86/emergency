@@ -171,10 +171,10 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private static final int REQUEST_CODE = 0; // 请求码
     // 所需的全部权限
     private static final String[] PERMISSIONS = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CALL_PHONE,
-            Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.CAMERA
     };
 
     /**
@@ -900,16 +900,16 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
-        if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
-            final String[] PERMISSIONS = new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-            };
-            List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
-            if (permissionList.size() > 0) {
-                if(permissionList.get(0).equals(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-                    finish();
-            }
-        }
+//        if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+//            final String[] PERMISSIONS = new String[]{
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+//            };
+//            List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
+//            if (permissionList.size() > 0) {
+//                if(permissionList.get(0).equals(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+//                    finish();
+//            }
+//        }
     }
 
     /*

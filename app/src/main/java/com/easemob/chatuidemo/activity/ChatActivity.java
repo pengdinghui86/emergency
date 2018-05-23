@@ -58,6 +58,7 @@ import android.widget.Toast;
 
 import com.dssm.esc.R;
 import com.dssm.esc.util.PermissionsChecker;
+import com.dssm.esc.util.VoiceRecorderUtil;
 import com.dssm.esc.view.activity.PermissionsActivity;
 import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.applib.model.GroupRemoveListener;
@@ -179,7 +180,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
     private String toChatUsername;
     // 显示esc的用户名而非环信的用户名
     public static String name;
-    private VoiceRecorder voiceRecorder;
+    private VoiceRecorderUtil voiceRecorder;
     private MessageAdapter adapter;
     private File cameraFile;
     static int resendPos;
@@ -288,7 +289,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
         views.add(gv2);
         expressionViewpager.setAdapter(new ExpressionPagerAdapter(views));
         edittext_layout.requestFocus();
-        voiceRecorder = new VoiceRecorder(micImageHandler);
+        voiceRecorder = new VoiceRecorderUtil(micImageHandler);
         buttonPressToSpeak.setOnTouchListener(new PressToSpeakListen());
         mEditTextContent.setOnFocusChangeListener(new OnFocusChangeListener() {
 
@@ -1431,6 +1432,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
                         List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
                         if (permissionList.size() > 0) {
                             startPermissionsActivity(permissionList.toArray(new String[permissionList.size()]), REQUEST_AUDIO_RECODE_CODE);
+                        return false;
                         }
                         else {
                             v.setPressed(true);
@@ -1490,8 +1492,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
                         String st3 = getResources().getString(
                                 R.string.send_failure_please);
                         try {
-                            if(!voiceRecorder.isRecording())
-                                return true;
+//                            if(!voiceRecorder.isRecording()) {
+//                                voiceRecorder.discardRecording();
+//                                return false;
+//                            }
                             int length = voiceRecorder.stopRecoding();
                             if (length > 0) {
                                 sendVoice(voiceRecorder.getVoiceFilePath(),
