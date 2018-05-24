@@ -143,7 +143,7 @@ public class ExpanListChexboxMulselectAdapter extends BaseExpandableListAdapter 
 		} else {
 			cHolder = (childViewHolder) convertView.getTag();
 		}
-		if(centity.getSex().equals("女"))
+		if(centity.getSex()== null ? false : centity.getSex().equals("女"))
 			cHolder.head.setImageResource(R.drawable.woman);
 		else
 			cHolder.head.setImageResource(R.drawable.man);

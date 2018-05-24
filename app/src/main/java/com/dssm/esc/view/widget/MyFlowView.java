@@ -119,8 +119,7 @@ public class MyFlowView extends View {
     }
 
     public void setData(NSSetPointValueToSteps nsSetPointValueToSteps) {
-        if(this.steplist.size() == 0)
-            this.steplist = nsSetPointValueToSteps.steplist;
+        this.steplist = nsSetPointValueToSteps.steplist;
         maxRow = nsSetPointValueToSteps.rowNum;
         maxColumn = nsSetPointValueToSteps.maxLineNum;
         if(defaultWidth == 0)
