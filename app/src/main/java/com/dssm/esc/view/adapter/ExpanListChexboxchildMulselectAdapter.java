@@ -8,6 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -91,6 +92,7 @@ public class ExpanListChexboxchildMulselectAdapter extends
 			cHolder = new childViewHolder();
 			convertView = LayoutInflater.from(context).inflate(
 					R.layout.child_checkbox, null);
+			cHolder.head = (ImageView) convertView.findViewById(R.id.iv_head);
 			cHolder.name = (TextView) convertView.findViewById(R.id.name);
 			cHolder.zhizhe = (TextView) convertView.findViewById(R.id.zhizhe);
 			cHolder.phonenumber = (TextView) convertView
@@ -101,6 +103,10 @@ public class ExpanListChexboxchildMulselectAdapter extends
 		} else {
 			cHolder = (childViewHolder) convertView.getTag();
 		}
+		if(centity.getSex()== null ? false : centity.getSex().equals("女"))
+			cHolder.head.setImageResource(R.drawable.woman);
+		else
+			cHolder.head.setImageResource(R.drawable.man);
 		cHolder.name.setText(centity.getName());
 		cHolder.zhizhe.setText(centity.getZhiwei());
 		cHolder.phonenumber.setText(centity.getPhoneNumber());
@@ -136,6 +142,7 @@ public class ExpanListChexboxchildMulselectAdapter extends
 	}
 
 	final static class childViewHolder {
+		private ImageView head;
 		private TextView name;
 		private TextView zhizhe;
 		private TextView phonenumber;

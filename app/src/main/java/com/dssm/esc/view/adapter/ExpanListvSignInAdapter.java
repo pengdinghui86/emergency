@@ -84,6 +84,7 @@ private	String tag;
 			cHolder = new childViewHolder();
 			convertView = LayoutInflater.from(context).inflate(R.layout.child_sigin,
 					null);
+			cHolder.head = (ImageView) convertView.findViewById(R.id.iv_head);
 			cHolder.name = (TextView) convertView.findViewById(R.id.name);
 			cHolder.zhizhe = (TextView) convertView.findViewById(R.id.zhizhe);
 			cHolder.phonenumber = (TextView) convertView
@@ -93,6 +94,10 @@ private	String tag;
 		} else {
 			cHolder = (childViewHolder) convertView.getTag();
 		}
+		if(centity.getSex()==null?false:centity.getSex().equals("女"))
+			cHolder.head.setImageResource(R.drawable.woman);
+		else
+			cHolder.head.setImageResource(R.drawable.man);
 		cHolder.name.setText(centity.getName());
 		cHolder.zhizhe.setText(centity.getZhiwei());
 		cHolder.phonenumber.setText(centity.getPhoneNumber());
@@ -130,6 +135,7 @@ private	String tag;
 	}
 
 	class childViewHolder {
+		private ImageView head;
 		private TextView name;
 		private TextView zhizhe;
 		private TextView phonenumber;

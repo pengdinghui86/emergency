@@ -4,6 +4,7 @@
     android:background="@color/contact_child_bg" >
 
     <ImageView
+        android:id="@+id/iv_head"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
@@ -14,7 +15,7 @@
         android:src="@drawable/touxiang" />
 
     <RelativeLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left|center"
         android:layout_weight="5"
@@ -62,15 +63,14 @@
 
     <TextView
         android:id="@+id/signin"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
         android:layout_marginLeft="5dp"
         android:gravity="left"
         android:text="TextView"
-        style="@style/normal_text"
-        android:textStyle="bold" />
+        style="@style/normal_text"/>
 
     <CheckBox
         android:id="@+id/child_chexkbox"

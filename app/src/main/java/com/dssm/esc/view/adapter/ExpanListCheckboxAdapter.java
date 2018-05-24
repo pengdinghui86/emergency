@@ -9,6 +9,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -93,6 +94,7 @@ public class ExpanListCheckboxAdapter extends BaseExpandableListAdapter {
 		// ChildViewHolder viewHolder =null;
 		convertView = LayoutInflater.from(context).inflate(
 				R.layout.child_checkbox_sigin, null);
+		ImageView head = (ImageView) convertView.findViewById(R.id.iv_head);
 		TextView name = (TextView) convertView.findViewById(R.id.name);
 		TextView zhizhe = (TextView) convertView.findViewById(R.id.zhizhe);
 		TextView phonenumber = (TextView) convertView
@@ -121,7 +123,10 @@ public class ExpanListCheckboxAdapter extends BaseExpandableListAdapter {
 		 * convertView.setTag(viewHolder); }else { viewHolder =
 		 * (ChildViewHolder) convertView.getTag(); }
 		 */
-
+		if(centity.getSex()== null ? false : centity.getSex().equals("女"))
+			head.setImageResource(R.drawable.woman);
+		else
+			head.setImageResource(R.drawable.man);
 		name.setText(centity.getName());
 		zhizhe.setText(centity.getZhiwei());
 		phonenumber.setText(centity.getPhoneNumber());
