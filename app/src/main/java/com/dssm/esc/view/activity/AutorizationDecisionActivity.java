@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl.ControlServiceImplBackValueListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
@@ -290,7 +291,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
      * 判断用户是否签到
      */
     private void checkUserSignin(int position) {
-        esevice.checkEmergencySign(list.get(position - 1).getId(),
+        Control.getinstance().getEmergencyService().checkEmergencySign(list.get(position - 1).getId(),
                 new EmergencySeviceImplBackBooleanListenser() {
 
                     @Override
@@ -417,7 +418,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
      */
     private void getAuthList(int tag) {
 //		Utils.getInstance().showProgressDialog(AutorizationDecisionActivity.this, "", Const.LOAD_MESSAGE);
-        esevice.getAuthlist(tag, new EmergencySeviceImplListListenser() {
+        Control.getinstance().getEmergencyService().getAuthlist(tag, new EmergencySeviceImplListListenser() {
             @Override
             public void setEmergencySeviceImplListListenser(Object object,
                                                             String stRerror, String Exceptionerror) {
@@ -477,7 +478,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
      */
     private void getControlData() {
 //		Utils.getInstance().showProgressDialog(AutorizationDecisionActivity.this, "", Const.LOAD_MESSAGE);
-        csevice.getPlanlist(new ControlServiceImplBackValueListenser<List<PlanEntity>>() {
+        Control.getinstance().getControlSevice().getPlanlist(new ControlServiceImplBackValueListenser<List<PlanEntity>>() {
 
             @Override
             public void setControlServiceImplListenser(

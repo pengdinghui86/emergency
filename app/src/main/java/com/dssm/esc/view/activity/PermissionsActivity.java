@@ -99,7 +99,9 @@ public class PermissionsActivity extends AppCompatActivity {
             allPermissionsGranted();
         } else {
             isRequireCheck = false;
-            showMissingPermissionDialog();
+//            showMissingPermissionDialog();
+            setResult(PERMISSIONS_DENIED);
+            finish();
         }
     }
 

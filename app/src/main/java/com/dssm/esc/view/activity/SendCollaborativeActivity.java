@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.BusinessTypeEntity;
 import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
@@ -416,7 +417,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 						send_object.setText(sendString);
 
 						if (!sendString.equals("") && !stageString.equals("")) {
-							esevice.getNotiConfigContent(precautionId, type,
+							Control.getinstance().getEmergencyService().getNotiConfigContent(precautionId, type,
 									stage,
 									new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
@@ -482,7 +483,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 							Log.i("precautionId", precautionId);
 							Log.i("type", type);
 							Log.i("stage", stage);
-							esevice.getNotiConfigContent(precautionId, type,
+							Control.getinstance().getEmergencyService().getNotiConfigContent(precautionId, type,
 									stage,
 									new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
@@ -618,7 +619,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 	}
 
 	private void initContent() {
-		esevice.sendNotice(entity,
+		Control.getinstance().getEmergencyService().sendNotice(entity,
 				new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
 					@Override

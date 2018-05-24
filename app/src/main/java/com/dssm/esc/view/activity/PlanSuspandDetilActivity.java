@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.PlanDetailEntity;
 import com.dssm.esc.model.entity.emergency.PlanDetailObjEntity;
@@ -242,7 +243,7 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 	private void intData() {
 		Utils.getInstance().showProgressDialog(PlanSuspandDetilActivity.this,
 				"", Const.SUBMIT_MESSAGE);
-		esevice.getPlanDetail(id, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+		Control.getinstance().getEmergencyService().getPlanDetail(id, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 			@Override
 			public void setEmergencySeviceImplListListenser(Object object,
@@ -326,7 +327,7 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 		if (stop.equals("0")) {// 预案启动列表
 			Utils.getInstance().showProgressDialog(
 					PlanSuspandDetilActivity.this, "", Const.SUBMIT_MESSAGE);
-			esevice.suspand(suspandEntity,
+			Control.getinstance().getEmergencyService().suspand(suspandEntity,
 					new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
 						@Override
@@ -365,7 +366,7 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 		} else if (stop.equals("1")) {// 预案授权列表
 			Utils.getInstance().showProgressDialog(
 					PlanSuspandDetilActivity.this, "", Const.SUBMIT_MESSAGE);
-			esevice.planSuspand(suspandEntity,
+			Control.getinstance().getEmergencyService().planSuspand(suspandEntity,
 					new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
 						@Override

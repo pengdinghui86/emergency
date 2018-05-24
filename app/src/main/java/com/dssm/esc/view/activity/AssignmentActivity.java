@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.BusinessTypeEntity;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
@@ -176,7 +177,7 @@ public class AssignmentActivity extends BaseActivity implements
 				if (!executePeopleId.equals("")) {
 					Utils.getInstance().showProgressDialog(
 							AssignmentActivity.this, "", Const.SUBMIT_MESSAGE);
-					esevice.assign(id, planInfoId, executePeopleId,
+					Control.getinstance().getEmergencyService().assign(id, planInfoId, executePeopleId,
 							executePeople,
 							new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
@@ -337,7 +338,7 @@ public class AssignmentActivity extends BaseActivity implements
 	private void initExpandListData() {
 		Utils.getInstance().showProgressDialog(AssignmentActivity.this, "",
 				Const.LOAD_MESSAGE);
-		esevice.getSignEmergencyInfo(planInfoId,
+		Control.getinstance().getEmergencyService().getSignEmergencyInfo(planInfoId,
 				new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 					@Override

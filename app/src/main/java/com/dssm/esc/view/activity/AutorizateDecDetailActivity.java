@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
 import com.dssm.esc.model.entity.emergency.PlanDetailEntity;
@@ -422,7 +423,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	private void planSuspand() {
 		Utils.getInstance().showProgressDialog(
 				AutorizateDecDetailActivity.this, "", Const.SUBMIT_MESSAGE);
-		esevice.planSuspand(suspandEntity,
+		Control.getinstance().getEmergencyService().planSuspand(suspandEntity,
 				new EmergencySeviceImplBackBooleanListenser() {
 
 					@Override
@@ -462,7 +463,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	private void planAuth() {
 		Utils.getInstance().showProgressDialog(
 				AutorizateDecDetailActivity.this, "", Const.SUBMIT_MESSAGE);
-		esevice.planAuth(id, planSuspendOpition2, planName, planResName,
+		Control.getinstance().getEmergencyService().planAuth(id, planSuspendOpition2, planName, planResName,
 				planResType, planId, planStarterId, submitterId,
 				new EmergencySeviceImplBackBooleanListenser() {
 
@@ -503,7 +504,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	private void getPlanDetail() {
 		// TODO Auto-generated method stub
 		Utils.getInstance().showProgressDialog(AutorizateDecDetailActivity.this, "", Const.LOAD_MESSAGE);
-		esevice.getPlanDetail(id, new EmergencySeviceImplListListenser() {
+		Control.getinstance().getEmergencyService().getPlanDetail(id, new EmergencySeviceImplListListenser() {
 
 			@Override
 			public void setEmergencySeviceImplListListenser(Object object,
@@ -536,7 +537,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	 */
 	private void getEventDetail() {
 		// TODO Auto-generated method stub
-		esevice.getPlanStarListDetail(planResId,
+		Control.getinstance().getEmergencyService().getPlanStarListDetail(planResId,
 				new EmergencySeviceImplListListenser() {
 
 					@Override

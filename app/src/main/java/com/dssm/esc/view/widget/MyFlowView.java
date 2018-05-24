@@ -166,7 +166,6 @@ public class MyFlowView extends View {
                     //准备执行
                     if (step.statusId.equals("6")) {
                         flag = 1;
-                        currentStep = step;
                         smoothMoveX = step.y * width - defaultWidth / 2f;
                         smoothMoveY = step.x * height - defaultHeight / 2f;
                         break;
@@ -175,7 +174,6 @@ public class MyFlowView extends View {
             }
         }
         if(flag == 0) {
-            currentStep = steplist.get(2);
             smoothMoveX = steplist.get(0).y * width - defaultWidth / 2f;
             smoothMoveY = steplist.get(2).x * height - defaultHeight / 2f;
         }
@@ -278,7 +276,7 @@ public class MyFlowView extends View {
                 }
             }
             else if(parentSteps.size() > 1){
-                if(currentStep.stepId.equals(parentSteps.get(0).stepId))
+                if(currentStep.stepId != null && currentStep.stepId.equals(parentSteps.get(0).stepId))
                     linePaint.setColor(getResources().getColor(R.color.color_flow_line_green));
                 else
                     linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));
@@ -300,7 +298,7 @@ public class MyFlowView extends View {
             }
 
             if(nextSteps.size() > 1) {
-                if(currentStep.stepId.equals(sstep.stepId))
+                if(currentStep.stepId != null && currentStep.stepId.equals(sstep.stepId))
                     linePaint.setColor(getResources().getColor(R.color.color_flow_line_green));
                 else
                     linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));

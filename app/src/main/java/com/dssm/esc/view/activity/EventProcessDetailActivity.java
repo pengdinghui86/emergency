@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.entity.control.ProgressDetailEntity;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
@@ -69,7 +70,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	}
 
 	private void initData() {
-		csevice.getProgressDetail(boHuiListEntity.getId(), new ControlServiceImpl.ControlServiceImplBackValueListenser<ProgressDetailEntity>() {
+		Control.getinstance().getControlSevice().getProgressDetail(boHuiListEntity.getId(), new ControlServiceImpl.ControlServiceImplBackValueListenser<ProgressDetailEntity>() {
 			
 			@Override
 			public void setControlServiceImplListenser(ProgressDetailEntity backValue,

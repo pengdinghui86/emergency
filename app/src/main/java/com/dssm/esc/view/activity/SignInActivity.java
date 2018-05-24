@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
@@ -218,7 +219,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	 * 获取预案详情
 	 */
 	private void getPlanDetail() {
-		esevice.getPlanDetail(id, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+		Control.getinstance().getEmergencyService().getPlanDetail(id, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 			@Override
 			public void setEmergencySeviceImplListListenser(Object object,
@@ -291,7 +292,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	private void initListData() {
 		Utils.getInstance().showProgressDialog(SignInActivity.this, "",
 				Const.LOAD_MESSAGE);
-		esevice.getSignEmergencyInfo(id,
+		Control.getinstance().getEmergencyService().getSignEmergencyInfo(id,
 				new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 					@Override
@@ -369,7 +370,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	 * 签到
 	 */
 	private void siginin() {
-		esevice.signIn(id, new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+		Control.getinstance().getEmergencyService().signIn(id, new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
 			@Override
 			public void setEmergencySeviceImplListenser(Boolean backflag,

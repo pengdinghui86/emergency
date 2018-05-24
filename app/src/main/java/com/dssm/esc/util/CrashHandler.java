@@ -91,7 +91,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @param e Throwable
      * @return true:已处理 false:未处理
      */
-    private boolean handleException(Throwable e) {
+    private boolean handleException(final Throwable e) {
         if (e == null) {// 异常是否为空
             return false;
         }
@@ -99,7 +99,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();
-                Toast.makeText(mContext, "捕获到异常", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "捕获到异常:" + e.toString(), Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }
         }.start();

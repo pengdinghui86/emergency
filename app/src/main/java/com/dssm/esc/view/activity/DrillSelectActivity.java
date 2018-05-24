@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.DrillProcationDetailEntity;
 import com.dssm.esc.model.entity.emergency.DrillProcationDetailObjEntity;
@@ -123,7 +124,7 @@ public class DrillSelectActivity extends BaseActivity implements
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		esevice.getDrillProjectName(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+		Control.getinstance().getEmergencyService().getDrillProjectName(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 			@Override
 			public void setEmergencySeviceImplListListenser(Object object,
@@ -175,7 +176,7 @@ public class DrillSelectActivity extends BaseActivity implements
 					e.printStackTrace();
 				}
 
-				esevice.getDrillProjectNameDetail(drillPlanId, drillPlanName,
+				Control.getinstance().getEmergencyService().getDrillProjectNameDetail(drillPlanId, drillPlanName,
 						new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 							@Override

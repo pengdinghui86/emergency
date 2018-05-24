@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.BusinessTypeEntity;
 import com.dssm.esc.model.entity.emergency.EmergencyPlanEvaAddEntity;
@@ -780,7 +781,7 @@ public class AddeValuationActivity extends BaseActivity implements
 		Log.i("添加评估referplan", referPlan);
 		Log.i("添加评估otherReferPlan", otherReferPlan);
 		Log.i("添加评估categoryPlan", categoryPlan);
-		esevice.addEmergencyPlanevent(tag, addEntity,
+		Control.getinstance().getEmergencyService().addEmergencyPlanevent(tag, addEntity,
 				new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
 					@Override
@@ -823,7 +824,7 @@ public class AddeValuationActivity extends BaseActivity implements
 	private void reValuation() {
 		Utils.getInstance().showProgressDialog(AddeValuationActivity.this, "",
 				Const.SUBMIT_MESSAGE);
-		esevice.reValuationEvent(entity,
+		Control.getinstance().getEmergencyService().reValuationEvent(entity,
 				new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
 					@Override

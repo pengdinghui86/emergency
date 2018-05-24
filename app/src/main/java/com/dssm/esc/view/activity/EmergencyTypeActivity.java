@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.BusinessTypeEntity;
 import com.dssm.esc.util.Const;
@@ -137,7 +138,7 @@ public class EmergencyTypeActivity extends BaseActivity implements
 			
 			Utils.getInstance().showProgressDialog(EmergencyTypeActivity.this,
 					"", Const.LOAD_MESSAGE);
-			esevice.getBusinessType(1, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+				Control.getinstance().getEmergencyService().getBusinessType(1, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 				@Override
 				public void setEmergencySeviceImplListListenser(Object object,
@@ -177,7 +178,7 @@ public class EmergencyTypeActivity extends BaseActivity implements
 			if (businessTypeList!=null&&businessTypeList.size()==0) {//只访问一次网络
 			Utils.getInstance().showProgressDialog(EmergencyTypeActivity.this,
 					"", Const.LOAD_MESSAGE);
-			esevice.getBusinessType(2, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+				Control.getinstance().getEmergencyService().getBusinessType(2, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 				@Override
 				public void setEmergencySeviceImplListListenser(Object object,
@@ -215,7 +216,7 @@ public class EmergencyTypeActivity extends BaseActivity implements
 			if (businessTypeList!=null&&businessTypeList.size()==0) {//只访问一次网络
 			Utils.getInstance().showProgressDialog(EmergencyTypeActivity.this,
 					"", Const.LOAD_MESSAGE);
-			esevice.getEventScene(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+				Control.getinstance().getEmergencyService().getEventScene(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 				@Override
 				public void setEmergencySeviceImplListListenser(Object object,

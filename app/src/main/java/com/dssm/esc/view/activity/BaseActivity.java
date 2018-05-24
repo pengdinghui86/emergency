@@ -44,18 +44,7 @@ import com.easemob.chatuidemo.activity.LoginActivity;
  *             Ltd. Inc. All rights reserved.
  */
 public class BaseActivity extends FinalActivity {
-	/**
-	 * 用户模块接口
-	 */
-	protected UserSevice usevice;
-	/**
-	 * 应急管理模块接口
-	 */
-	protected EmergencyService esevice;
-	/**
-	 * 控制中心模块接口
-	 */
-	protected ControlSevice csevice;
+
 	/** 4.4版本以上的沉浸式 */
 	protected SystemBarTintManager mTintManager;
 	public Context context;
@@ -67,14 +56,13 @@ public class BaseActivity extends FinalActivity {
 
 	protected Map<String, String> map;
 	protected String reloginString = "";
-	MySharePreferencesService service;
 
 	/**
 	 * 重新登录
 	 */
 	public void relogin() {
-		map = service.getPreferences();
-		usevice.relogin(map.get("loginName"), map.get("password"),
+		map = MySharePreferencesService.getInstance(getApplicationContext()).getPreferences();
+		Control.getinstance().getUserSevice().relogin(map.get("loginName"), map.get("password"),
 				map.get("selectedRolem"), new UserSeviceImplListListenser() {
 
 					@Override
@@ -116,7 +104,7 @@ public class BaseActivity extends FinalActivity {
 		this.netListener = netListener;
 	}
 
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -125,10 +113,6 @@ public class BaseActivity extends FinalActivity {
 		setStatusBarState();
 		//Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程
 		if (MyCookieStore.cookieStore != null) {
-			usevice = Control.getinstance().getUserSevice();
-			esevice = Control.getinstance().getEmergencyService();
-			csevice = Control.getinstance().getControlSevice();
-			service = MySharePreferencesService.getInstance(context);
 
 			if (useEventBus()) {
 				EventBus.getDefault().register(this);

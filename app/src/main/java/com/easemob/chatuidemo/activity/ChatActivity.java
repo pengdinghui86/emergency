@@ -59,6 +59,7 @@ import android.widget.Toast;
 import com.dssm.esc.R;
 import com.dssm.esc.util.PermissionsChecker;
 import com.dssm.esc.util.VoiceRecorderUtil;
+import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.activity.PermissionsActivity;
 import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.applib.model.GroupRemoveListener;
@@ -1741,6 +1742,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
         if (chatType == CHATTYPE_CHATROOM) {
             EMChatManager.getInstance().leaveChatRoom(toChatUsername);
         }
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 

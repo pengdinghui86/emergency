@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.mainEvent;
 
@@ -157,14 +158,14 @@ public class IntroductionActivity extends BaseActivity {
 			Log.i("userId", id);
 
 			if (!id.equals("")) {
-				if (!service.getPreferences().get("userId").equals(id)) {
+				if (!MySharePreferencesService.getInstance(getApplicationContext()).getPreferences().get("userId").equals(id)) {
 					String hxuserid = id.replace("-", "_");
 
 					intent3.putExtra("userId", hxuserid);// 环信的用户id:李佳的用户id，去掉中划线
 					intent3.putExtra("name", name);// 环信用户名：李佳
 
 					startActivity(intent3);
-					service.saveContactName(id, name);// 将此联系人存到本地
+					MySharePreferencesService.getInstance(getApplicationContext()).saveContactName(id, name);// 将此联系人存到本地
 					EventBus.getDefault().post(new mainEvent("userid"));
 				} else {
 					ToastUtil.showToast(context, "不能跟自己聊天");

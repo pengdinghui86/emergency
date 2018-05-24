@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
@@ -218,7 +219,7 @@ public class PlanExecutionActivity extends BaseActivity implements
     private void initListData() {
         Utils.getInstance().showProgressDialog(PlanExecutionActivity.this, "",
                 Const.LOAD_MESSAGE);
-        esevice.getPlanExecute(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+        Control.getinstance().getEmergencyService().getPlanExecute(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
             @Override
             public void setEmergencySeviceImplListListenser(Object object,

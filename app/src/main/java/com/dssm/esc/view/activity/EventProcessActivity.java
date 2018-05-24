@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.util.Const;
@@ -133,7 +134,7 @@ public class EventProcessActivity extends BaseActivity implements
 			private int num = 20;// 每次显示20条
 	private void loadData(final int what) {
 		if (what==0) {
-		csevice.getEvalist(new ControlServiceImpl.ControlServiceImplBackValueListenser<List<BoHuiListEntity>>() {
+			Control.getinstance().getControlSevice().getEvalist(new ControlServiceImpl.ControlServiceImplBackValueListenser<List<BoHuiListEntity>>() {
 
 			@Override
 			public void setControlServiceImplListenser(

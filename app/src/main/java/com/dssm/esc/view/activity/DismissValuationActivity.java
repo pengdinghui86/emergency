@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
@@ -194,7 +195,7 @@ public class DismissValuationActivity extends BaseActivity implements
 		// dataList.add("驳回事件" + (i + 1));
 		// }
 		if (what == 0) {// 刷新和第一次加载
-			esevice.getBoHuiList(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+			Control.getinstance().getEmergencyService().getBoHuiList(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 				@Override
 				public void setEmergencySeviceImplListListenser(Object object,
@@ -271,7 +272,7 @@ public class DismissValuationActivity extends BaseActivity implements
 	 * 删除驳回事件
 	 */
 	private void deleteData(final int position) {
-		esevice.deleteEvent(list.get(position - 1).getId(),
+		Control.getinstance().getEmergencyService().deleteEvent(list.get(position - 1).getId(),
 				new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
 					@Override
@@ -308,7 +309,7 @@ public class DismissValuationActivity extends BaseActivity implements
 	 */
 	private void getValuation(int position) {
 		// 获取评估信息
-		esevice.getEventInfo(list.get(position - 1).getId(),
+		Control.getinstance().getEmergencyService().getEventInfo(list.get(position - 1).getId(),
 				new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 					@Override

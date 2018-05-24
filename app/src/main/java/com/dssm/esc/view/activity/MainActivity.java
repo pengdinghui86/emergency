@@ -173,8 +173,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private static final String[] PERMISSIONS = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.CALL_PHONE,
-            Manifest.permission.CAMERA
+            Manifest.permission.CALL_PHONE
     };
 
     /**
@@ -629,39 +628,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         return super.dispatchKeyEvent(event);
     }
 
-    /**
-     * 判断某一个类是否存在任务栈里面
-     *
-     * @return
-     */
-    private boolean isExsitMianActivity(Class<?> cls) {
-        Intent intent = new Intent(this, cls);
-        ComponentName cmpName = intent.resolveActivity(getPackageManager());
-        boolean flag = false;
-        if (cmpName != null) { // 说明系统中存在这个activity
-            ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-            List<ActivityManager.RunningTaskInfo> taskInfoList = am.getRunningTasks(10);
-            for (ActivityManager.RunningTaskInfo taskInfo : taskInfoList) {
-                if (taskInfo.baseActivity.equals(cmpName)) { // 说明它已经启动了
-                    flag = true;
-                    break;  //跳出循环，优化效率
-                }
-            }
-        }
-        return flag;
-    }
-
-    /**
-     * 进行逻辑处理
-     */
-    public void dealWithIntent() {
-        if (isExsitMianActivity(SplashActivity.class)) {//存在这个类
-            //进行操作
-        } else {//不存在这个类
-            //进行操作
-        }
-    }
-
     /***
      *
      * 沉浸式
@@ -892,6 +858,13 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         EMNotifierEvent.Event.EventConversationListChanged});
     }
 
+    //防止用户按下home键后到系统设置里修改程序申请的权限，然后再点击程序图标进入程序里引起程序崩溃
+    //在application被销毁后，系统要回收Fragment时，我们告诉系统：不要再保存Fragment
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
+    }
+
     private void startPermissionsActivity(String[] permissions) {
         PermissionsActivity.startActivityForResult(this, REQUEST_CODE, permissions);
     }
@@ -900,16 +873,16 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
-//        if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
-//            final String[] PERMISSIONS = new String[]{
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-//            };
-//            List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
-//            if (permissionList.size() > 0) {
-//                if(permissionList.get(0).equals(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-//                    finish();
-//            }
-//        }
+        if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+            final String[] PERMISSIONS = new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+            List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
+            if (permissionList.size() > 0) {
+                if(permissionList.get(0).equals(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                    MainActivity.this.finish();
+            }
+        }
     }
 
     /*

@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.entity.emergency.PlanNameRowEntity;
@@ -168,7 +169,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		Utils.getInstance().showProgressDialog(PlanNameActivity.this, "",
 				Const.LOAD_MESSAGE);
 		// 解决传到服务器的中文字符串是乱码
-		usevice.getSearchPlanList(
+		Control.getinstance().getUserSevice().getSearchPlanList(
 				URLEncoder.encode(URLEncoder.encode(name), "UTF-8"), id,
 				new UserSeviceImpl.UserSeviceImplListListenser() {
 
@@ -209,7 +210,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		if (list != null && list.size() == 0) {// 只访问一次网络
 			Utils.getInstance().showProgressDialog(PlanNameActivity.this, "",
 					Const.LOAD_MESSAGE);
-			esevice.getPlanName(plantags, id,
+			Control.getinstance().getEmergencyService().getPlanName(plantags, id,
 					new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 						@Override

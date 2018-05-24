@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.PlanProcessEntity;
 import com.dssm.esc.util.Const;
@@ -123,7 +124,7 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 		// TODO Auto-generated method stub
 		Utils.getInstance().showProgressDialog(
 				PersonnelAssignmentActivity.this, "", Const.LOAD_MESSAGE);
-		esevice.getPlanProcessList(planInfoId,
+		Control.getinstance().getEmergencyService().getPlanProcessList(planInfoId,
 				new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 					@Override

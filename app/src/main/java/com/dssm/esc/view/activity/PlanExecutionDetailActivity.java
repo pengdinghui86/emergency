@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.BusinessTypeEntity;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
@@ -222,7 +223,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     }
 
     private void initData() {
-        esevice.getPlanDetail(planInfoId,
+        Control.getinstance().getEmergencyService().getPlanDetail(planInfoId,
                 new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
                     @Override
@@ -293,7 +294,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             case R.id.execute:// 执行
                 Utils.getInstance().showProgressDialog(
                         PlanExecutionDetailActivity.this, "", Const.SUBMIT_MESSAGE);
-                esevice.getBeginPlan(id, planInfoId,
+                Control.getinstance().getEmergencyService().getBeginPlan(id, planInfoId,
                         new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
                             @Override
@@ -367,7 +368,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         Utils.getInstance().showProgressDialog(
                                 PlanExecutionDetailActivity.this, "",
                                 Const.SUBMIT_MESSAGE);
-                        esevice.swichOver(id, planInfoId, changeStatus, message, childEntity.getNodeStepType(), branchId,
+                        Control.getinstance().getEmergencyService().swichOver(id, planInfoId, changeStatus, message, childEntity.getNodeStepType(), branchId,
                                 new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
                                     @Override

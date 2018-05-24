@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
@@ -374,7 +375,7 @@ public class GroupSigninDetail extends BaseActivity implements
 	private void initListData() {
 		Utils.getInstance().showProgressDialog(GroupSigninDetail.this, "",
 				Const.LOAD_MESSAGE);
-		csevice.getSignDetailInfo(id,
+		Control.getinstance().getControlSevice().getSignDetailInfo(id,
 				new ControlServiceImpl.ControlServiceImplBackValueListenser<List<GroupEntity>>() {
 					@Override
 					public void setControlServiceImplListenser(

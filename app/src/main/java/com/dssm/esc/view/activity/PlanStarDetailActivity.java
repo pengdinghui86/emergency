@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.PlanNameRowEntity;
 import com.dssm.esc.model.entity.emergency.PlanStarListDetailEntity;
@@ -380,7 +381,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
             plan_ll_2.setVisibility(View.VISIBLE);
         }
 
-        esevice.getPlanStarListDetail(id,
+        Control.getinstance().getEmergencyService().getPlanStarListDetail(id,
                 new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
                     @Override
@@ -815,7 +816,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
         Utils.getInstance().showProgressDialog(PlanStarDetailActivity.this, "",
                 Const.SUBMIT_MESSAGE);
         Log.i("预案启动选的预案ids", usePlan);
-        esevice.planStar(id, usePlan, obj,
+        Control.getinstance().getEmergencyService().planStar(id, usePlan, obj,
                 new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
                     @Override
@@ -850,7 +851,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
     private void bohuiPlan() {
         Utils.getInstance().showProgressDialog(PlanStarDetailActivity.this, "",
                 Const.SUBMIT_MESSAGE);
-        esevice.planStarBohui(id, planEveName, submitterId, eveType,
+        Control.getinstance().getEmergencyService().planStarBohui(id, planEveName, submitterId, eveType,
                 new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
                     @Override

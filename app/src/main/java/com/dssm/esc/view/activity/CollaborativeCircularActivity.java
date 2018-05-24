@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
@@ -302,7 +303,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	private void initData() {
 		Utils.getInstance().showProgressDialog(
 				CollaborativeCircularActivity.this, "", Const.LOAD_MESSAGE);
-		esevice.getEmergencyGropData(planInfoId, precautionId,
+		Control.getinstance().getEmergencyService().getEmergencyGropData(planInfoId, precautionId,
 				new EmergencySeviceImplListListenser() {
 
 					@Override
@@ -381,7 +382,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 				Utils.getInstance().showProgressDialog(
 						CollaborativeCircularActivity.this, "",
 						Const.SUBMIT_MESSAGE);
-				esevice.sendNotice(entity,
+				Control.getinstance().getEmergencyService().sendNotice(entity,
 						new EmergencySeviceImplBackBooleanListenser() {
 
 							@Override

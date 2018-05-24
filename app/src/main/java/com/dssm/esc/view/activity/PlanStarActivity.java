@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
@@ -206,7 +207,7 @@ public class PlanStarActivity extends BaseActivity implements
 				 * message.obj = subList; } else { message.obj = datalist; }
 				 * handler.sendMessage(message);
 				 */
-				esevice.getPlanStarList(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+				Control.getinstance().getEmergencyService().getPlanStarList(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 					@Override
 					public void setEmergencySeviceImplListListenser(
@@ -268,7 +269,7 @@ public class PlanStarActivity extends BaseActivity implements
 				 * message.obj = subList; } else { message.obj = datalist; }
 				 * handler.sendMessage(message);
 				 */
-				esevice.getStarList(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+				Control.getinstance().getEmergencyService().getStarList(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 					@Override
 					public void setEmergencySeviceImplListListenser(

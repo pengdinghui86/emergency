@@ -21,7 +21,7 @@ import com.easemob.chatuidemo.DemoApplication;
  */
 public class MySharePreferencesService {
 	private static SharedPreferences preferences;
-	private static MySharePreferencesService instance;
+	private static MySharePreferencesService instance = null;
 
 	public MySharePreferencesService() {
 	}
