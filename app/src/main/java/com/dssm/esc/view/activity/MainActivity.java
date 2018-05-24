@@ -6,8 +6,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -138,7 +140,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private TextView tv_item_info2;
     private TextView tv_item_exit;
     private TextView tv_item_exchange;
-
+    private boolean permissionDetect = false;
     private ProgressDialog pd;
     /**
      * 当前被选中的角色id
@@ -852,6 +854,16 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         EMNotifierEvent.Event.EventNewMessage,
                         EMNotifierEvent.Event.EventOfflineMessage,
                         EMNotifierEvent.Event.EventConversationListChanged});
+        if(permissionDetect) {
+            permissionDetect = false;
+            final String[] PERMISSIONS = new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+            List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
+            if (permissionList.size() > 0) {
+                startPermissionsActivity(permissionList.toArray(new String[permissionList.size()]));
+            }
+        }
     }
 
     //防止用户按下home键后到系统设置里修改程序申请的权限，然后再点击程序图标进入程序里引起程序崩溃
@@ -886,7 +898,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private void showMissingPermissionDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.tip);
-        builder.setMessage(R.string.permission_granted_tip);
+        builder.setMessage(R.string.permission_granted_save_tip);
 
         // 拒绝, 退出应用
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -898,12 +910,19 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override public void onClick(DialogInterface dialog, int which) {
-                MainActivity.this.finish();
-                System.exit(0);
+                permissionDetect = true;
+                startAppSettings();
             }
         });
 
         builder.show();
+    }
+
+    // 启动应用的设置
+    private void startAppSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + getPackageName()));
+        startActivity(intent);
     }
 
     /*

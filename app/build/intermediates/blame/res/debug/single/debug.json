@@ -1908,6 +1908,10 @@
         "source": "D:\\git_project\\emergency_newStyle\\app\\src\\main\\res\\drawable-xhdpi\\create_group.png"
     },
     {
+        "merged": "D:\\git_project\\emergency_newStyle\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_woman.png.flat",
+        "source": "D:\\git_project\\emergency_newStyle\\app\\src\\main\\res\\drawable-xhdpi\\woman.png"
+    },
+    {
         "merged": "D:\\git_project\\emergency_newStyle\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_record_animate_07.png.flat",
         "source": "D:\\git_project\\emergency_newStyle\\app\\src\\main\\res\\drawable-mdpi\\record_animate_07.png"
     },
@@ -2334,6 +2338,10 @@
     {
         "merged": "D:\\git_project\\emergency_newStyle\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_record_animate_04.png.flat",
         "source": "D:\\git_project\\emergency_newStyle\\app\\src\\main\\res\\drawable-mdpi\\record_animate_04.png"
+    },
+    {
+        "merged": "D:\\git_project\\emergency_newStyle\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_man.png.flat",
+        "source": "D:\\git_project\\emergency_newStyle\\app\\src\\main\\res\\drawable-xhdpi\\man.png"
     },
     {
         "merged": "D:\\git_project\\emergency_newStyle\\app\\build\\intermediates\\res\\merged\\debug\\layout_row_received_picture.xml.flat",

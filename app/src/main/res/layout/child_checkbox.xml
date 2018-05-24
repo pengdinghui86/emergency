@@ -5,6 +5,7 @@
      >
 
     <ImageView
+        android:id="@+id/iv_head"
         android:layout_width="@dimen/we_listview_icon_size"
         android:layout_height="@dimen/we_listview_icon_size"
         android:layout_gravity="center"

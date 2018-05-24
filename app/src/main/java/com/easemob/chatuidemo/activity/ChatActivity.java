@@ -16,6 +16,7 @@ package com.easemob.chatuidemo.activity;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -29,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -778,6 +780,38 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
                 adapter.refresh();
             }
         }
+        // 缺少权限
+        if (requestCode == REQUEST_AUDIO_RECODE_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+            showMissingPermissionDialog();
+        }
+    }
+
+    // 显示缺失权限提示
+    private void showMissingPermissionDialog() {
+        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(ChatActivity.this);
+        builder.setTitle(R.string.tip);
+        builder.setMessage(R.string.permission_granted_audio_tip);
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int which) {
+                startAppSettings();
+            }
+        });
+
+        builder.show();
+    }
+
+    // 启动应用的设置
+    private void startAppSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + getPackageName()));
+        startActivity(intent);
     }
 
     /**

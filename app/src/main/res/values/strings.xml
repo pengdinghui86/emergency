@@ -18,7 +18,8 @@
     <string name="load_full">已加载全部</string>
     <string name="no_data">暂无数据</string>
     <string name="more">加载更多</string>
-    <string name="permission_granted_tip">请授予程序存储权限</string>
+    <string name="permission_granted_save_tip">请授予程序存储权限</string>
+    <string name="permission_granted_audio_tip">请授予程序录音权限</string>
 
     <string name="d">图片描述</string>
     <string name="lastUpdateTime">最近更新：%s</string>
