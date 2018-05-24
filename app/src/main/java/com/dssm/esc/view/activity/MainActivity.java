@@ -1,20 +1,16 @@
 package com.dssm.esc.view.activity;
 
 import android.Manifest;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -879,10 +875,35 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             };
             List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
             if (permissionList.size() > 0) {
-                if(permissionList.get(0).equals(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-                    MainActivity.this.finish();
+                if(permissionList.get(0).equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    showMissingPermissionDialog();
+                }
             }
         }
+    }
+
+    // 显示缺失权限提示
+    private void showMissingPermissionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.tip);
+        builder.setMessage(R.string.permission_granted_tip);
+
+        // 拒绝, 退出应用
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.finish();
+                System.exit(0);
+            }
+        });
+
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.finish();
+                System.exit(0);
+            }
+        });
+
+        builder.show();
     }
 
     /*

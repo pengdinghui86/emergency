@@ -61,7 +61,7 @@
         <!-- android:launchMode="singleTask"是为了账号在别处登录时，在此界面进行提醒，从而进行重新登录 -->
         <activity
             android:name="com.dssm.esc.view.activity.MainActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name="com.dssm.esc.view.activity.IntroductionActivity" />
