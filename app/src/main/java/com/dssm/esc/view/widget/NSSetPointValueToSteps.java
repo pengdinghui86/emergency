@@ -1,5 +1,6 @@
 package com.dssm.esc.view.widget;
 
+import com.dssm.esc.model.entity.control.FlowChartPlanEntity;
 import com.dssm.esc.model.entity.control.FlowChartPlanEntity.FlowChart;
 
 import java.util.ArrayList;
@@ -20,9 +21,28 @@ public class NSSetPointValueToSteps {
 	 * 测试用例
 	 */
 	public void exampleSteps(List<FlowChart> list) {
+		List<FlowChart> temp = new ArrayList<>(list);
+		Collections.sort(temp, new Comparator<FlowChartPlanEntity.FlowChart>() {
+			@Override
+			public int compare(FlowChartPlanEntity.FlowChart o1, FlowChartPlanEntity.FlowChart o2) {
+				if (o1.getEditOrderNum() == null || "".equals(o1.getEditOrderNum()))
+					o1.setEditOrderNum("0");
+				if (o2.getEditOrderNum() == null || "".equals(o2.getEditOrderNum()))
+					o2.setEditOrderNum("0");
+				if(Integer.parseInt(o1.getEditOrderNum()) > Integer.parseInt(o2.getEditOrderNum())) {
+					return 1;
+				}
+				else if(Integer.parseInt(o1.getEditOrderNum()) < Integer.parseInt(o2.getEditOrderNum())) {
+					return -1;
+				}
+				else {
+					return 0;
+				}
+			}
+		});
 		steplist = new ArrayList<NSstep>();
 
-		for (FlowChart chart : list) {
+		for (FlowChart chart : temp) {
 			String[] nextsetpids = new String[chart.getProcesslist().size()];
 			for (int i = 0; i < chart.getProcesslist().size(); i++) {
 				nextsetpids[i] = chart.getProcesslist().get(i).getNextid();

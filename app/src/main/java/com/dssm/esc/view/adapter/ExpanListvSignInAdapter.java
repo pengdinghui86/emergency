@@ -117,7 +117,7 @@ private	String tag;
 			if (signin.equals("1")) {//已签到
 				signin="已签到";
 				cHolder.sigin_tv.setTextColor(Color.GREEN);
-				cHolder.sigin_tv.setTextSize(16);
+				cHolder.sigin_tv.setTextSize(14);
 			}else if (signin.equals("0")) {//未签到
 				signin="未签到";
 				cHolder.sigin_tv.setTextColor(Color.RED);
