@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -177,18 +179,19 @@ public class SendCollaborativeActivity extends BaseActivity implements
 		rb_failsafe.setOnClickListener(this);
 		rb_show.setOnClickListener(this);
 		back.setOnClickListener(this);
-		listview.setOnTouchListener(new View.OnTouchListener() {  
-            
-            @Override  
-            public boolean onTouch(View v, MotionEvent event) {  
-                if(event.getAction() == MotionEvent.ACTION_UP){  
-                	scrollview.requestDisallowInterceptTouchEvent(false);  
-                }else{  
-                	scrollview.requestDisallowInterceptTouchEvent(true);  
-                }  
-                return false;  
-            }  
-        });  
+		//根据listView的item数量动态设置高度，因此不需要listView的滚动事件
+//		listview.setOnTouchListener(new View.OnTouchListener() {
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if(event.getAction() == MotionEvent.ACTION_UP){
+//                	scrollview.requestDisallowInterceptTouchEvent(false);
+//                }else{
+//                	scrollview.requestDisallowInterceptTouchEvent(true);
+//                }
+//                return false;
+//            }
+//        });
 	}
 
 	private void initMesgData(int sem_tags2) {
@@ -367,7 +370,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 						SendCollaborativeActivity.this, receviewdataList);
 				listview.setAdapter(mSelectAdapter);
 				mSelectAdapter.notifyDataSetChanged();
-
+				setListViewHeightBasedOnChildren(listview);
 				break;
 			case 5:
 				sendString = "";
@@ -616,6 +619,26 @@ public class SendCollaborativeActivity extends BaseActivity implements
 		} else {
 			ToastUtil.showToast(SendCollaborativeActivity.this, "发送内容不能为空");
 		}
+	}
+
+	/***
+	 * 根据item数量设置listView的高度
+	 */
+	public void setListViewHeightBasedOnChildren(ListView listView) {
+		ListAdapter listAdapter = listView.getAdapter();
+		if (listAdapter == null) {
+			return;
+		}
+		int totalHeight = 0;
+		for (int i = 0; i < listAdapter.getCount(); i++) {
+			View listItem = listAdapter.getView(i, null, listView);
+			listItem.measure(0, 0);
+			totalHeight += listItem.getMeasuredHeight();
+		}
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight
+				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		listView.setLayoutParams(params);
 	}
 
 	private void initContent() {

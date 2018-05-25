@@ -54,17 +54,18 @@
     <com.dssm.esc.view.widget.MyScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
             <LinearLayout
                 android:id="@+id/cooridiration_ll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="10dp"
                 android:background="#fff"
                 android:orientation="vertical"
@@ -109,7 +110,6 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_weight="0.5"
-                        android:clickable="true"
                         android:src="@drawable/right" />
                 </LinearLayout>
 
@@ -158,14 +158,14 @@
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_weight="0.5"
-                        android:clickable="true"
                         android:src="@drawable/right" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/pell"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:background="@color/emergency_fragment_bg"
                     android:orientation="vertical"
                     android:visibility="gone" >
@@ -187,7 +187,7 @@
                     <ListView
                         android:id="@+id/recieve_listview_a"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="160dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:paddingLeft="20dp"
