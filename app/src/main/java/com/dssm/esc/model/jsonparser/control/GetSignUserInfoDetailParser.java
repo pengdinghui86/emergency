@@ -110,6 +110,7 @@ public class GetSignUserInfoDetailParser {
 						JSONObject jsonObject = (JSONObject) jsonArray2.opt(j);
 						ChildEntity childEntity = new ChildEntity();
 
+						childEntity.setSex(jsonObject.getString("sex") == null ? "" : jsonObject.getString("sex"));
 						childEntity.setChild_id(jsonObject.getString("id"));
 						childEntity.setEmergTeam(jsonObject
 								.getString("emergTeam"));
