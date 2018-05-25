@@ -67,7 +67,7 @@ public class AssignmentActivity extends BaseActivity implements
 	/** 类型数据 */
 	private ArrayList<BusinessTypeEntity> list = new ArrayList<BusinessTypeEntity>();
 	/** ListView适配器 */
-	private ListviewCheckboxAdapter mSelectAdapter=null;
+	private ListviewCheckboxAdapter mSelectAdapter = null;
 	/** ListView被选中的选项 */
 	//private ArrayList<BusinessTypeEntity> beSelectedData = new ArrayList<BusinessTypeEntity>();
 	/** ListView用来控制CheckBox的选中状况 */
@@ -226,9 +226,10 @@ public class AssignmentActivity extends BaseActivity implements
 			mListView.setVisibility(View.VISIBLE);
 			// 清除已经选择的项
 			if (beSelectId[0]!=null&& beSelectId[1]!=null) {// 应急小组若有已选的，则清空
-				mSelectAdapter.beSelectedData.clear();
-				mSelectAdapter.notifyDataSetChanged();// 通知数据发生了变化
-
+				if(mSelectAdapter != null) {
+					mSelectAdapter.beSelectedData.clear();
+					mSelectAdapter.notifyDataSetChanged();// 通知数据发生了变化
+				}
 				// statusHashMap.put(adapter.getGroup(i).getcList().get(k)
 				// .getChild_id(), false);
 			}

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class ListviewCheckboxAdapter extends BaseAdapter {
 	/** 数据源 */
-	public static List<BusinessTypeEntity> list;
+	public static List<BusinessTypeEntity> list = new ArrayList<>();
 	/** 用来控制CheckBox的选中状况 */
 	public static HashMap<Integer, Boolean> isSelected = new HashMap<Integer, Boolean>();
 	private Context context;
