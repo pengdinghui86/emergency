@@ -632,9 +632,21 @@ public class SendCollaborativeActivity extends BaseActivity implements
 		int totalHeight = 0;
 		for (int i = 0; i < listAdapter.getCount(); i++) {
 			View listItem = listAdapter.getView(i, null, listView);
-			listItem.measure(0, 0);
-			totalHeight += listItem.getMeasuredHeight();
+			if(listItem == null)
+				continue;
+			if (listItem instanceof LinearLayout){
+				listItem.measure(0, 0);
+				totalHeight += listItem.getMeasuredHeight();
+			}else {
+				try {
+					listItem.measure(0, 0);
+					totalHeight += listItem.getMeasuredHeight();
+				}catch (NullPointerException e){
+					totalHeight += 50; //这里随便写个大小做容错处理
+				}
+			}
 		}
+
 		ViewGroup.LayoutParams params = listView.getLayoutParams();
 		params.height = totalHeight
 				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
