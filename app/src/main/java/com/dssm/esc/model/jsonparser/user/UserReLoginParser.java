@@ -66,8 +66,8 @@ public class UserReLoginParser {
 				Log.i("onFailure", "strMsg" + strMsg);
 				if (errorNo==518) {
 					Utils.getInstance().relogin();
-					request(userName,password,roleId);
-					}
+//					request(userName, password, roleId);
+				}
 			}
 
 			@Override

@@ -381,18 +381,18 @@ public class UserSeviceImpl implements UserSevice {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						UserEntity userEntity = null;
+						Map<String, String> map = null;
 						String stRerror = null;
 						String Exceptionerror = null;
-						if (object != null && (object instanceof UserEntity)) {
-							userEntity = (UserEntity) object;
+						if (object != null && (object instanceof Map)) {
+							map = (Map<String, String>) object;
 						} else if (error != null) {
 							Exceptionerror = error;
 						} else {
 							stRerror = "重新登录失败";
 						}
 
-						listenser.setUserSeviceImplListListenser(userEntity,
+						listenser.setUserSeviceImplListListenser(map,
 								stRerror, Exceptionerror);
 					}
 				});
