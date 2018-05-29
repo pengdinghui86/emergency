@@ -955,13 +955,12 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     public void setUserSeviceImplListListenser(Object object,
                                                                String stRerror, String Exceptionerror) {
                         // TODO Auto-generated method stub
-                        String str = null;
-                        String string = "";
+                        String str;
                         // 若登陆成功，直接进入主界面
                         if (object != null) {
-                            UserEntity userEntity = (UserEntity) object;
-                            if (userEntity.getSuccess().equals("true")) {
-                                str = "MainActivity重新登陆";
+                            Map<String, String> map = (Map<String, String>) object;
+                            if (map.get("success").equals("true")) {
+                                str = "重新登陆";
                                 ToastUtil.showLongToast(context, str);
                                 netListener.initNetData();
                             } else {

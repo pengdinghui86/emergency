@@ -73,9 +73,9 @@ public class BaseActivity extends FinalActivity {
 						String string = "";
 						// 若登陆成功，直接进入主界面
 						if (object != null) {
-							UserEntity userEntity = (UserEntity) object;
-							if (userEntity.getSuccess().equals("true")) {
-								str = "BaseActivity重新登陆成功";
+							Map<String, String> map = (Map<String, String>) object;
+							if (map.get("success").equals("true")) {
+								str = "重新登陆成功";
 								ToastUtil.showLongToast(context, str);
 								netListener.initNetData();
 							} else {
