@@ -69,9 +69,8 @@ public class GetMessageListParser {
 				Log.i("onFailure", "strMsg" + strMsg);
 				if (errorNo==518) {
 					Utils.getInstance().relogin();
-					request(context,msgType,isconfirm,tag);
-					}
-
+					request(context, msgType, isconfirm, tag);
+				}
 			}
 
 			@Override

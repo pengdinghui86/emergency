@@ -348,6 +348,7 @@ public class DemoHXSDKHelper extends HXSDKHelper {
                         
                     }
                 }
+                Log.i("onFailure", "demoHXSDKHelper");
                 return intent;
             }
         };

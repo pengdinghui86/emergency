@@ -434,6 +434,7 @@ public class Utils implements Serializable {
                                 // netListener.initNetData();
                             } else {
                                 str = "密码已失效,请重新登陆";
+                                Log.i("onFailure", "utils, " + str);
                                 ToastUtil
                                         .showLongToast(
                                                 DemoApplication.applicationContext,

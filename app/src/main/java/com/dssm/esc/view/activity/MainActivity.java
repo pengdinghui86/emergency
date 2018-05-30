@@ -31,7 +31,6 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.database.DataBaseManage;
-import com.dssm.esc.model.entity.user.UserEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DataCleanManager;
 import com.dssm.esc.util.MyCookieStore;
@@ -40,6 +39,7 @@ import com.dssm.esc.util.PermissionsChecker;
 import com.dssm.esc.util.SystemBarTintManager;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
+import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.fragment.AdrressListFragment;
 import com.dssm.esc.view.fragment.ControlCenterFragment;
@@ -57,13 +57,18 @@ import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMConversation.EMConversationType;
 import com.easemob.chat.EMMessage;
 import com.easemob.chatuidemo.Constant;
+import com.easemob.chatuidemo.DemoApplication;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.activity.LoginActivity;
 import com.easemob.chatuidemo.activity.SplashActivity;
 import com.easemob.util.EMLog;
 import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushClickedResult;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
@@ -181,6 +186,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         return isCurrentAccountRemoved;
     }
 
+    //通知栏点击事件获取的消息类型
+    private String msgType = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -248,34 +256,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 
         // 创建数据库
         DataBaseManage.createDataBase(table1, table2, table3, table4);
-        if (MyCookieStore.cookieStore != null) {
-            XGPushConfig.enableDebug(this, true);
-            context = getApplicationContext();
-            Log.i("postFlag岗位标识", map.get("postFlag"));
-            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用 */
-            XGPushManager.registerPush(context, map.get("postFlag"),
-                    new XGIOperateCallback() {
-                        @Override
-                        public void onSuccess(Object data, int flag) {
-                            Log.d("TPush", "注册成功，设备token为：" + data);
-                        }
-
-                        @Override
-                        public void onFail(Object data, int errCode, String msg) {
-                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
-                                    + msg);
-                        }
-                    });
-
-            initView();
-            init();
-        } else {
-            // Intent intent = new Intent(getApplicationContext(),
-            // LoginActivity.class);
-            // ToastUtil.showToast(getApplicationContext(), "请求实效，请重新登陆");
-            // startActivity(intent);
-            relogin();
-        }
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerlayout);
         tv_item_info1 = (TextView) findViewById(R.id.tv_item_info1);
@@ -402,6 +382,13 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 && !isAccountRemovedDialogShow) {
             showAccountRemovedDialog();
         }
+        if(!msgType.equals("")) {
+            //MainActivity发送通知，让其显示MessageFragment界面
+            EventBus.getDefault().post(new mainEvent("t"));
+            //给MessageFragment发送通知
+            EventBus.getDefault().post(new PushMessageEvent(Integer.parseInt(msgType)));
+            msgType = "";
+        }
         // setIntent(intent);// 必须要调用这句
     }
 
@@ -522,13 +509,15 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 } else {
                     transaction.show(messageFragment);
                 }
-                redPointView.setText(String.valueOf(unReadCount));
-                Log.i("unReadCount", String.valueOf(unReadCount));
-                if (unReadCount > 0) {
+                if(redPointView != null) {
+                    redPointView.setText(String.valueOf(unReadCount));
+                    Log.i("unReadCount", String.valueOf(unReadCount));
+                    if (unReadCount > 0) {
 
-                    redPointView.show();
-                } else {
-                    redPointView.hide();
+                        redPointView.show();
+                    } else {
+                        redPointView.hide();
+                    }
                 }
                 break;
             case 1:// 添加 并展示 通讯录碎片
@@ -836,24 +825,72 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         // TODO Auto-generated method stub
         super.onResume();
         Log.i("MainActivity", "onResume");
-        if (!isConflict && !isCurrentAccountRemoved) {
-            // msgcount=updateUnreadLabel();
-            EMChatManager.getInstance().activityResumed();
+        if (MyCookieStore.cookieStore != null) {
+            XGPushConfig.enableDebug(this, true);
+            context = getApplicationContext();
+            Log.i("postFlag岗位标识", map.get("postFlag"));
+            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用 */
+            XGPushManager.registerPush(context, map.get("postFlag"),
+                    new XGIOperateCallback() {
+                        @Override
+                        public void onSuccess(Object data, int flag) {
+                            Log.d("TPush", "注册成功，设备token为：" + data);
+                        }
+
+                        @Override
+                        public void onFail(Object data, int errCode, String msg) {
+                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
+                                    + msg);
+                        }
+                    });
+
+            initView();
+            init();
+        } else {
+            // 判断是否从推送通知栏打开的
+            XGPushClickedResult message = XGPushManager.onActivityStarted(this);
+            if (message != null) {
+                // 获取自定义key-value
+                String customContent = message.getCustomContent();
+                // 拿到数据自行处理
+                if (customContent != null && customContent.length() != 0) {
+                    try {
+                        JSONObject obj = new JSONObject(customContent);
+                        // key1为前台配置的key
+                        if (!obj.isNull("msgType")) {
+                            msgType = obj.getString("msgType");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (isTaskRoot()) {
+                if (!isConflict && !isCurrentAccountRemoved) {
+                    // msgcount=updateUnreadLabel();
+                    EMChatManager.getInstance().activityResumed();
+                }
+
+                // unregister this event listener when this activity enters the
+                // background
+                DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
+                        .getInstance();
+                sdkHelper.pushActivity(this);
+
+                // register the event listener when enter the foreground
+                EMChatManager.getInstance().registerEventListener(
+                        this,
+                        new EMNotifierEvent.Event[]{
+                                EMNotifierEvent.Event.EventNewMessage,
+                                EMNotifierEvent.Event.EventOfflineMessage,
+                                EMNotifierEvent.Event.EventConversationListChanged});
+            }
+            else {
+                relogin();
+                if (netListener != null)
+                    netListener.initNetData();
+            }
         }
-
-        // unregister this event listener when this activity enters the
-        // background
-        DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
-                .getInstance();
-        sdkHelper.pushActivity(this);
-
-        // register the event listener when enter the foreground
-        EMChatManager.getInstance().registerEventListener(
-                this,
-                new EMNotifierEvent.Event[]{
-                        EMNotifierEvent.Event.EventNewMessage,
-                        EMNotifierEvent.Event.EventOfflineMessage,
-                        EMNotifierEvent.Event.EventConversationListChanged});
         if(permissionDetect) {
             permissionDetect = false;
             final String[] PERMISSIONS = new String[]{
@@ -948,6 +985,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      * 重新登录
      */
     public void relogin() {
+        Log.i("onFailure", "main, relogin");
         usevice.relogin(map.get("loginName"), map.get("password"),
                 map.get("selectedRolem"), new UserSeviceImpl.UserSeviceImplListListenser() {
 
@@ -960,11 +998,13 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         if (object != null) {
                             Map<String, String> map = (Map<String, String>) object;
                             if (map.get("success").equals("true")) {
-                                str = "重新登陆";
+                                str = "重新登陆成功";
                                 ToastUtil.showLongToast(context, str);
-                                netListener.initNetData();
+                                if(netListener != null)
+                                    netListener.initNetData();
                             } else {
                                 str = "密码已失效,请重新登陆";
+                                Log.i("onFailure", "main, " + str);
                                 ToastUtil.showLongToast(context, str);
                                 Intent intent = new Intent(context,
                                         LoginActivity.class);

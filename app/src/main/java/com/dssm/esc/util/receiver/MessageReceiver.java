@@ -1,10 +1,15 @@
 package com.dssm.esc.util.receiver;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
+import com.dssm.esc.view.activity.MainActivity;
+import com.easemob.chatuidemo.DemoApplication;
+import com.easemob.chatuidemo.activity.LoginActivity;
+import com.easemob.chatuidemo.activity.SplashActivity;
 import com.tencent.android.tpush.XGPushBaseReceiver;
 import com.tencent.android.tpush.XGPushClickedResult;
 import com.tencent.android.tpush.XGPushRegisterResult;
@@ -104,37 +109,48 @@ public class MessageReceiver extends XGPushBaseReceiver {
 		if (context == null || message == null) {
 			return;
 		}
+		Intent intent = new Intent(context, MainActivity.class);
+		if (context.getPackageManager().resolveActivity(intent, 0) == null) {
+			// 说明系统中不存在这个activity
+			intent.setClass(context, SplashActivity.class);
+			intent.putExtra("mainActivity", "unLive");
+		}
+		else {
+			intent.setClass(context, SplashActivity.class);
+			intent.putExtra("mainActivity", "live");
+		}
 		String text = "";
 		if (message.getActionType() == XGPushClickedResult.NOTIFACTION_CLICKED_TYPE) {
 			// 通知在通知栏被点击啦。。。。。
 			// APP自己处理点击的相关动作
 			// 这个动作可以在activity的onResume也能监听，请看第3点相关内容
 			text = "通知被打开 :" + message;
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			context.startActivity(intent);
 		} else if (message.getActionType() == XGPushClickedResult.NOTIFACTION_DELETED_TYPE) {
 			// 通知被清除啦。。。。
 			// APP自己处理通知被清除后的相关动作
 			text = "通知被清除 :" + message;
 		}
-		
+
 		// 获取自定义key-value
-		String customContent = message.getCustomContent();
-		if (customContent != null && customContent.length() != 0) {
-			try {
-				JSONObject obj = new JSONObject(customContent);
-				// key1为前台配置的key
-				if (!obj.isNull("msgType")) {// 后台直接定义跳到MainActivity
-					String msgType = obj.getString("msgType");
-					EventBus.getDefault().post(
-					new mainEvent("t"));//MainActivity发送通知，让其显示MessageFragment界面
-					EventBus.getDefault().post(
-							new PushMessageEvent(Integer.parseInt(msgType)));//给MessageFragment发送通知
-					
-				}
-				// ...
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
+//		String customContent = message.getCustomContent();
+//		if (customContent != null && customContent.length() != 0) {
+//			try {
+//				JSONObject obj = new JSONObject(customContent);
+//				// key1为前台配置的key
+//				if (!obj.isNull("msgType")) {// 后台直接定义跳到MainActivity
+//					String msgType = obj.getString("msgType");
+//					//MainActivity发送通知，让其显示MessageFragment界面
+//					EventBus.getDefault().post(new mainEvent("t"));
+//					//给MessageFragment发送通知
+//					EventBus.getDefault().post(new PushMessageEvent(Integer.parseInt(msgType)));
+//				}
+//				// ...
+//			} catch (JSONException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		// APP自主处理的过程。。。
 		Log.d(LogTag, text);
 		show(context, text);

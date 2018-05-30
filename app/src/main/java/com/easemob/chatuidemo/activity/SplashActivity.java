@@ -96,17 +96,15 @@ public class SplashActivity extends BaseActivity {
 									Object object, String stRerror,
 									String Exceptionerror) {
 								// TODO Auto-generated method stub
-								String str = null;
+								String str;
 								// 若登陆成功，直接进入主界面
 								if (object != null) {
 									UserEntity userEntity = (UserEntity) object;
 									if (userEntity.getSuccess().equals("true")) {
-
 										str = "登陆成功";
 										sevice.loginRole(
 												map.get("selectedRolem"),
 												new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-
 													@Override
 													public void setUserSeviceImplListenser(
 															Boolean backflag,
@@ -272,7 +270,7 @@ public class SplashActivity extends BaseActivity {
 					Message msg = new Message();
 					msg.what = UPDATA_NONEED;
 					handler.sendMessage(msg);
-					// LoginMain();
+					 LoginMain();
 				} else {
 					Log.i(TAG, "版本号不相同 ");
 					Message msg = new Message();
@@ -382,13 +380,20 @@ public class SplashActivity extends BaseActivity {
 		// setContentView(R.layout.activity_splash);
 		setContentView(R.layout.activity_welcome);
 		super.onCreate(arg0);
-			finalHttp = Utils.getInstance().getFinalHttp();
-			sevice = Control.getinstance().getUserSevice();
-			service = MySharePreferencesService.getInstance(this);
-			AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
-			animation.setDuration(1500);
+		finalHttp = Utils.getInstance().getFinalHttp();
+		sevice = Control.getinstance().getUserSevice();
+		service = MySharePreferencesService.getInstance(this);
+		Intent intent = getIntent();
+		if(intent != null) {
+			String flag = intent.getStringExtra("mainActivity");
+			Log.i("onFailure", "mainActivity status: " + flag);
+			if(flag != null && flag.equals("live"))
+				finish();
+		}
+		AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
+		animation.setDuration(1500);
 		loing();
-			Log.i("===onCreate()===", "onCreate()");
+		Log.i("===onCreate()===", "onCreate()");
 	}
 
 	@Override

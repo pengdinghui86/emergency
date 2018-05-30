@@ -533,13 +533,18 @@ public class LoginActivity extends BaseActivity {
         title.setText("登录");
         usernameEditText = (EditText) findViewById(R.id.login_name_et);
         passwordEditText = (EditText) findViewById(R.id.login_psw_et);
+        Log.i("onFailure", "loginActivity");
         if (DemoHXSDKHelper.getInstance().isLogined()) {// 环信被登录过了就不用再登录了，只重新登陆下本地服务器
             currentUsername = usernameEditText.getText().toString().trim();
-
+            if (currentUsername == null || currentUsername.equals(""))
+                currentUsername = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("loginName");
             currentPassword = passwordEditText.getText().toString().trim();
+            if (currentPassword == null || currentPassword.equals(""))
+                currentPassword = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("password");
+            Log.i("onFailure", MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("loginName"));
+            Log.i("onFailure", MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("password"));
             sevice.login(currentUsername, currentPassword,
                     new UserSeviceImpl.UserSeviceImplListListenser() {
-
                         @Override
                         public void setUserSeviceImplListListenser(
                                 Object object, String stRerror,
@@ -549,6 +554,12 @@ public class LoginActivity extends BaseActivity {
                             // 若登陆成功，再访问环信服务器
                             if (object != null) {
                                 str = "登陆成功";
+                                if (object instanceof UserEntity) {
+                                    userEntity = (UserEntity) object;
+                                    str = userEntity.getSuccess() + ", " + userEntity.getObjString() + "," + userEntity.getMessage();
+                                } else if (object instanceof Map)
+                                    str = "Map";
+                                Log.i("onFailure", str);
                                 userEntity = (UserEntity) object;
                                 if (userEntity.getSuccess().equals("true")) {
 
@@ -728,6 +739,7 @@ public class LoginActivity extends BaseActivity {
                                 // 先去环信服务器注册（环信的用户名唯一，所以要用唯一标识去注册，这里用userID当环信的用户名和密码，即使本地的用户名和密码改变了也不用修改）
                                 hxuserid = userId.replace("-", "_");
                                 register(hxuserid, hxuserid);
+//                                userSelectRole();
 
                             } else if (userEntity.getSuccess().equals("false")
                                     && userEntity.getObjString() != null
