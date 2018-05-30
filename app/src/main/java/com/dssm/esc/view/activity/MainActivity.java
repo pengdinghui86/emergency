@@ -303,7 +303,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 
     private void init() {
         connectionListener = new MyConnectionListener();
-        ToastUtil.showToast(context, "登录成功");
+//        ToastUtil.showToast(context, "登录成功");
         EMChatManager.getInstance().addConnectionListener(connectionListener);
         /*
          * Log.i("MainActivity用户名--环信", DemoApplication.getInstance()

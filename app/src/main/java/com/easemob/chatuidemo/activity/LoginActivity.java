@@ -739,7 +739,6 @@ public class LoginActivity extends BaseActivity {
                                 // 先去环信服务器注册（环信的用户名唯一，所以要用唯一标识去注册，这里用userID当环信的用户名和密码，即使本地的用户名和密码改变了也不用修改）
                                 hxuserid = userId.replace("-", "_");
                                 register(hxuserid, hxuserid);
-//                                userSelectRole();
 
                             } else if (userEntity.getSuccess().equals("false")
                                     && userEntity.getObjString() != null
