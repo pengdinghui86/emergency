@@ -94,8 +94,8 @@ public class MyFlowView extends View {
         super.onDraw(canvas);
         this.myCanvas = canvas;
         setPaintDefaultStyle();
-        addButtonAndText();
         addArrowLine2();
+        addButtonAndText();
         setZoomAndMove(canvas);
         clearDrawLineFlag();
     }
@@ -1048,9 +1048,9 @@ public class MyFlowView extends View {
         linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));
         linePaint.setStyle(Paint.Style.STROKE);
         if(smoothZoom < 0.5f)
-            linePaint.setStrokeWidth(DisplayUtils.dp2px(1));
+            linePaint.setStrokeWidth(DisplayUtils.dp2px(0.8f));
         else
-            linePaint.setStrokeWidth(DisplayUtils.dp2px(2));
+            linePaint.setStrokeWidth(DisplayUtils.dp2px(1.6f));
 
         startFlowPaint.setAntiAlias(true);
         startFlowPaint.setColor(getResources().getColor(R.color.color_flow_start));
