@@ -125,6 +125,26 @@ public class MessageReceiver extends XGPushBaseReceiver {
 			// APP自己处理点击的相关动作
 			// 这个动作可以在activity的onResume也能监听，请看第3点相关内容
 			text = "通知被打开 :" + message;
+
+			String msgType = "";
+			// 判断是否从推送通知栏打开的
+			if (message != null) {
+				// 获取自定义key-value
+				String customContent = message.getCustomContent();
+				// 拿到数据自行处理
+				if (customContent != null && customContent.length() != 0) {
+					try {
+						JSONObject obj = new JSONObject(customContent);
+						// key1为前台配置的key
+						if (!obj.isNull("msgType")) {
+							msgType = obj.getString("msgType");
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			intent.putExtra("msgType", msgType);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(intent);
 		} else if (message.getActionType() == XGPushClickedResult.NOTIFACTION_DELETED_TYPE) {

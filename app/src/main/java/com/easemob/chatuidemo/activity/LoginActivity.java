@@ -309,6 +309,7 @@ public class LoginActivity extends BaseActivity {
 //				ToastUtil.showToast(getApplicationContext(), "不需要更新");
                     Intent intent = new Intent(LoginActivity.this,
                             MainActivity.class);
+                    intent.putExtra("newIntent", "true");
                     startActivity(intent);
                     finish();
                     break;
@@ -321,6 +322,7 @@ public class LoginActivity extends BaseActivity {
                 //    ToastUtil.showToast(getApplicationContext(), "获取服务器更新信息失败");
                     Intent intent2 = new Intent(LoginActivity.this,
                             MainActivity.class);
+                    intent2.putExtra("newIntent", "true");
                     startActivity(intent2);
                     finish();
                     break;
@@ -329,6 +331,7 @@ public class LoginActivity extends BaseActivity {
                     ToastUtil.showToast(getApplicationContext(), "下载新版本失败");
                     Intent intent3 = new Intent(LoginActivity.this,
                             MainActivity.class);
+                    intent3.putExtra("newIntent", "true");
                     startActivity(intent3);
                     break;
                 default:
@@ -495,6 +498,7 @@ public class LoginActivity extends BaseActivity {
      */
     private void LoginMain() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.putExtra("newIntent", "true");
         startActivity(intent);
         // 结束掉当前的activity
         this.finish();

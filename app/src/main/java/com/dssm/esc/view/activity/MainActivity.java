@@ -170,6 +170,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private String[] roleCodes;
     private UserSevice userSevice;
 
+    //从启动或登录页面跳转过来的标记
+    private boolean flag = false;
+
     private PermissionsChecker mPermissionsChecker; // 权限检测器
     private static final int REQUEST_CODE = 0; // 请求码
     // 所需的全部权限
@@ -185,9 +188,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     public static boolean getCurrentAccountRemoved() {
         return isCurrentAccountRemoved;
     }
-
-    //通知栏点击事件获取的消息类型
-    private String msgType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +235,12 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         findViewById.setFitsSystemWindows(true);
         // 标题栏和状态栏风格一致
         setStatusBarState();
+
+        String flag = getIntent().getStringExtra("newIntent");
+        Log.i("MainActivity--", flag == null ? "false" : "true");
+        if(flag != null && flag.equals("true"))
+            this.flag = true;
+
         // Thread.setDefaultUncaughtExceptionHandler(restartHandler); //
         // 程序崩溃时触发线程
         preferencesService = new MySharePreferencesService(this);
@@ -290,7 +296,27 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 super.onDrawerOpened(drawerView);
             }
         });
+        if (MyCookieStore.cookieStore != null) {
+            XGPushConfig.enableDebug(this, true);
+            context = getApplicationContext();
+            Log.i("postFlag岗位标识", map.get("postFlag"));
+            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用 */
+            XGPushManager.registerPush(context, map.get("postFlag"),
+                    new XGIOperateCallback() {
+                        @Override
+                        public void onSuccess(Object data, int flag) {
+                            Log.d("TPush", "注册成功，设备token为：" + data);
+                        }
 
+                        @Override
+                        public void onFail(Object data, int errCode, String msg) {
+                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
+                                    + msg);
+                        }
+                    });
+            initView();
+            init();
+        }
         mPermissionsChecker = new PermissionsChecker(this);
         // 缺少权限时, 进入权限配置页面
         List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
@@ -303,7 +329,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 
     private void init() {
         connectionListener = new MyConnectionListener();
-//        ToastUtil.showToast(context, "登录成功");
         EMChatManager.getInstance().addConnectionListener(connectionListener);
         /*
          * Log.i("MainActivity用户名--环信", DemoApplication.getInstance()
@@ -317,7 +342,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         rdb3 = (RadioButton) findViewById(R.id.rdb3);
         button = (TextView) findViewById(R.id.bt);
         remind(button, unReadCount);
-        switchView(0);
         // tabGroup.check(TabTypeEnum.message.getId());
         tabGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -381,13 +405,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         } else if (getIntent().getBooleanExtra(Constant.ACCOUNT_REMOVED, false)
                 && !isAccountRemovedDialogShow) {
             showAccountRemovedDialog();
-        }
-        if(!msgType.equals("")) {
-            //MainActivity发送通知，让其显示MessageFragment界面
-            EventBus.getDefault().post(new mainEvent("t"));
-            //给MessageFragment发送通知
-            EventBus.getDefault().post(new PushMessageEvent(Integer.parseInt(msgType)));
-            msgType = "";
         }
         // setIntent(intent);// 必须要调用这句
     }
@@ -825,71 +842,32 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         // TODO Auto-generated method stub
         super.onResume();
         Log.i("MainActivity", "onResume");
-        if (MyCookieStore.cookieStore != null) {
-            XGPushConfig.enableDebug(this, true);
-            context = getApplicationContext();
-            Log.i("postFlag岗位标识", map.get("postFlag"));
-            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用 */
-            XGPushManager.registerPush(context, map.get("postFlag"),
-                    new XGIOperateCallback() {
-                        @Override
-                        public void onSuccess(Object data, int flag) {
-                            Log.d("TPush", "注册成功，设备token为：" + data);
-                        }
-
-                        @Override
-                        public void onFail(Object data, int errCode, String msg) {
-                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
-                                    + msg);
-                        }
-                    });
-
-            initView();
-            init();
-        } else {
-            // 判断是否从推送通知栏打开的
-            XGPushClickedResult message = XGPushManager.onActivityStarted(this);
-            if (message != null) {
-                // 获取自定义key-value
-                String customContent = message.getCustomContent();
-                // 拿到数据自行处理
-                if (customContent != null && customContent.length() != 0) {
-                    try {
-                        JSONObject obj = new JSONObject(customContent);
-                        // key1为前台配置的key
-                        if (!obj.isNull("msgType")) {
-                            msgType = obj.getString("msgType");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+        if (MyCookieStore.cookieStore == null){
+            if (!isConflict && !isCurrentAccountRemoved) {
+                // msgcount=updateUnreadLabel();
+                EMChatManager.getInstance().activityResumed();
             }
-            if (isTaskRoot()) {
-                if (!isConflict && !isCurrentAccountRemoved) {
-                    // msgcount=updateUnreadLabel();
-                    EMChatManager.getInstance().activityResumed();
-                }
 
-                // unregister this event listener when this activity enters the
-                // background
-                DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
-                        .getInstance();
-                sdkHelper.pushActivity(this);
+            // unregister this event listener when this activity enters the
+            // background
+            DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
+                    .getInstance();
+            sdkHelper.pushActivity(this);
 
-                // register the event listener when enter the foreground
-                EMChatManager.getInstance().registerEventListener(
-                        this,
-                        new EMNotifierEvent.Event[]{
-                                EMNotifierEvent.Event.EventNewMessage,
-                                EMNotifierEvent.Event.EventOfflineMessage,
-                                EMNotifierEvent.Event.EventConversationListChanged});
-            }
-            else {
-                relogin();
-                if (netListener != null)
-                    netListener.initNetData();
-            }
+            // register the event listener when enter the foreground
+            EMChatManager.getInstance().registerEventListener(
+                    this,
+                    new EMNotifierEvent.Event[]{
+                            EMNotifierEvent.Event.EventNewMessage,
+                            EMNotifierEvent.Event.EventOfflineMessage,
+                            EMNotifierEvent.Event.EventConversationListChanged});
+            relogin();
+            if (netListener != null)
+                netListener.initNetData();
+        }
+        if(flag) {
+            switchView(0);
+            flag = false;
         }
         if(permissionDetect) {
             permissionDetect = false;
