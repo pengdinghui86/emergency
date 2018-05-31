@@ -57,18 +57,13 @@ import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMConversation.EMConversationType;
 import com.easemob.chat.EMMessage;
 import com.easemob.chatuidemo.Constant;
-import com.easemob.chatuidemo.DemoApplication;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.activity.LoginActivity;
 import com.easemob.chatuidemo.activity.SplashActivity;
 import com.easemob.util.EMLog;
 import com.tencent.android.tpush.XGIOperateCallback;
-import com.tencent.android.tpush.XGPushClickedResult;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
@@ -169,6 +164,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      */
     private String[] roleCodes;
     private UserSevice userSevice;
+    private boolean flag = true;
 
     private PermissionsChecker mPermissionsChecker; // 权限检测器
     private static final int REQUEST_CODE = 0; // 请求码
@@ -287,27 +283,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 super.onDrawerOpened(drawerView);
             }
         });
-        if (MyCookieStore.cookieStore != null) {
-            XGPushConfig.enableDebug(this, true);
-            context = getApplicationContext();
-            Log.i("postFlag岗位标识", map.get("postFlag"));
-            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用 */
-            XGPushManager.registerPush(context, map.get("postFlag"),
-                    new XGIOperateCallback() {
-                        @Override
-                        public void onSuccess(Object data, int flag) {
-                            Log.d("TPush", "注册成功，设备token为：" + data);
-                        }
-
-                        @Override
-                        public void onFail(Object data, int errCode, String msg) {
-                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
-                                    + msg);
-                        }
-                    });
-            initView();
-            init();
-        }
         mPermissionsChecker = new PermissionsChecker(this);
         // 缺少权限时, 进入权限配置页面
         List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
@@ -353,7 +328,10 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 }
             }
         });
-        switchView(0);
+        if(flag) {
+            switchView(0);
+            flag = false;
+        }
     }
 
     public void setNetListener(onInitNetListener netListener) {
@@ -834,7 +812,28 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         // TODO Auto-generated method stub
         super.onResume();
         Log.i("MainActivity", "onResume");
-        if (MyCookieStore.cookieStore == null){
+        if (MyCookieStore.cookieStore != null) {
+            XGPushConfig.enableDebug(this, true);
+            context = getApplicationContext();
+            Log.i("postFlag岗位标识", map.get("postFlag"));
+            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用 */
+            XGPushManager.registerPush(context, map.get("postFlag"),
+                    new XGIOperateCallback() {
+                        @Override
+                        public void onSuccess(Object data, int flag) {
+                            Log.d("TPush", "注册成功，设备token为：" + data);
+                        }
+
+                        @Override
+                        public void onFail(Object data, int errCode, String msg) {
+                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
+                                    + msg);
+                        }
+                    });
+            initView();
+            init();
+        }
+        else {
             if (!isConflict && !isCurrentAccountRemoved) {
                 // msgcount=updateUnreadLabel();
                 EMChatManager.getInstance().activityResumed();

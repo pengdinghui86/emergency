@@ -94,7 +94,7 @@ public class MyFlowView extends View {
         super.onDraw(canvas);
         this.myCanvas = canvas;
         setPaintDefaultStyle();
-        addArrowLine2();
+        addArrowLine();
         addButtonAndText();
         setZoomAndMove(canvas);
         clearDrawLineFlag();
