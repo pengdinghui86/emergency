@@ -170,9 +170,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private String[] roleCodes;
     private UserSevice userSevice;
 
-    //从启动或登录页面跳转过来的标记
-    private boolean flag = false;
-
     private PermissionsChecker mPermissionsChecker; // 权限检测器
     private static final int REQUEST_CODE = 0; // 请求码
     // 所需的全部权限
@@ -235,12 +232,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         findViewById.setFitsSystemWindows(true);
         // 标题栏和状态栏风格一致
         setStatusBarState();
-
-        String flag = getIntent().getStringExtra("newIntent");
-        Log.i("MainActivity--", flag == null ? "false" : "true");
-        if(flag != null && flag.equals("true"))
-            this.flag = true;
-
         // Thread.setDefaultUncaughtExceptionHandler(restartHandler); //
         // 程序崩溃时触发线程
         preferencesService = new MySharePreferencesService(this);
@@ -362,6 +353,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 }
             }
         });
+        switchView(0);
     }
 
     public void setNetListener(onInitNetListener netListener) {
@@ -864,10 +856,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             relogin();
             if (netListener != null)
                 netListener.initNetData();
-        }
-        if(flag) {
-            switchView(0);
-            flag = false;
         }
         if(permissionDetect) {
             permissionDetect = false;

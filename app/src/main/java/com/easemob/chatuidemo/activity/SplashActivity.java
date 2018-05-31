@@ -180,7 +180,6 @@ public class SplashActivity extends BaseActivity {
 //				ToastUtil.showToast(getApplicationContext(), "不需要更新");
 				Intent intent = new Intent(SplashActivity.this,
 						MainActivity.class);
-                intent.putExtra("newIntent", "true");
 				startActivity(intent);
 				finish();
 				break;
@@ -193,7 +192,6 @@ public class SplashActivity extends BaseActivity {
 			//	ToastUtil.showToast(getApplicationContext(), "获取服务器更新信息失败");
 				Intent intent2 = new Intent(SplashActivity.this,
 						MainActivity.class);
-                intent2.putExtra("newIntent", "true");
 				startActivity(intent2);
 				break;
 			case DOWN_ERROR:
@@ -201,7 +199,6 @@ public class SplashActivity extends BaseActivity {
 				ToastUtil.showToast(getApplicationContext(), "下载新版本失败");
 				Intent intent3 = new Intent(SplashActivity.this,
 						MainActivity.class);
-                intent3.putExtra("newIntent", "true");
 				startActivity(intent3);
 				break;
 
@@ -365,7 +362,6 @@ public class SplashActivity extends BaseActivity {
 	 */
 	private void LoginMain() {
 		Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-		intent.putExtra("newIntent", "true");
 		startActivity(intent);
 		// 结束掉当前的activity
 		this.finish();
@@ -403,7 +399,6 @@ public class SplashActivity extends BaseActivity {
 				EventBus.getDefault().post(new mainEvent("t"));
 				//给MessageFragment发送通知
 				EventBus.getDefault().post(new PushMessageEvent(Integer.parseInt(msgType)));
-				msgType = "";
 			}
 			if(flag != null && flag.equals("live"))
 				finish();
