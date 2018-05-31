@@ -94,7 +94,10 @@ public class MyFlowView extends View {
         super.onDraw(canvas);
         this.myCanvas = canvas;
         setPaintDefaultStyle();
-        addArrowLine();
+        if(steplist.size() > 50)
+            addArrowLine2();
+        else
+            addArrowLine();
         addButtonAndText();
         setZoomAndMove(canvas);
         clearDrawLineFlag();
@@ -213,6 +216,10 @@ public class MyFlowView extends View {
 
     private void addArrowLine() {
         for (NSstep onesstep : steplist) {
+            if(currentStep.stepId != null && currentStep.stepId.equals(onesstep.stepId))
+                linePaint.setColor(getResources().getColor(R.color.color_flow_line_green));
+            else
+                linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));
             for (NSstep sstep : steplist) {
                 if (onesstep.isParentStep(sstep)) {
                     float by = (int) (onesstep.x * this.getHeight());

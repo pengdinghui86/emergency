@@ -90,7 +90,7 @@ public class BaseActivity extends FinalActivity {
 						} else if (Exceptionerror != null) {
 
 							str = Const.NETWORKERROR + Exceptionerror;
-							ToastUtil.showLongToast(context, str);
+//							ToastUtil.showLongToast(context, str);
 						}
 					}
 				});

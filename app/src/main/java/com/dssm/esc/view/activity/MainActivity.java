@@ -984,7 +984,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         } else if (Exceptionerror != null) {
 
                             str = Const.NETWORKERROR + Exceptionerror;
-                            ToastUtil.showLongToast(context, str);
+//                            ToastUtil.showLongToast(context, str);
                         }
                     }
                 });
