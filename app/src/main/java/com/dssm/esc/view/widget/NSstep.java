@@ -48,6 +48,10 @@ public class NSstep {
 	 */
 	public String type;
 	/**
+	 * 节点类型
+	 */
+	public String nodeStepType;
+	/**
 	 * 执行人
 	 */
 	public String executePeople;
@@ -81,23 +85,23 @@ public class NSstep {
 	public List<String> nextDrawLine = new ArrayList<>();
 
 	public NSstep setStep(String stepId, String[] nextsetpids, String name,
-			String editOrderNum, String type, String executePeople,
+			String editOrderNum, String type, String nodeStepType, String executePeople,
 			String beginTime, String endTime,String color) {
 
-		return setStep(stepId, nextsetpids, "0", name, editOrderNum, type,
-				executePeople, beginTime, endTime,color);
+		return setStep(stepId, nextsetpids, "0", name, editOrderNum, type, nodeStepType,
+				executePeople, beginTime, endTime, color);
 	}
 
 	public NSstep setStep(String stepId, String[] nextsetpids, String statusId,
-			String name, String editOrderNum, String type,
+			String name, String editOrderNum, String type, String nodeStepType,
 			String executePeople, String beginTime, String endTime,String color) {
 
 		return setStep(stepId, nextsetpids, statusId, "0001", name,
-				editOrderNum, type, executePeople, beginTime, endTime,color);
+				editOrderNum, type, nodeStepType, executePeople, beginTime, endTime,color);
 	}
 
 	public NSstep setStep(String stepId, String[] nextsetpids, String statusId,
-			String timenote, String name, String editOrderNum, String type,
+			String timenote, String name, String editOrderNum, String type, String nodeStepType,
 			String executePeople, String beginTime, String endTime,String color) {
 		this.stepId = stepId;
 		this.nextStepIds = nextsetpids;
@@ -106,6 +110,7 @@ public class NSstep {
 		this.name = name;
 		this.editOrderNum = editOrderNum;
 		this.type = type;
+		this.nodeStepType = nodeStepType;
 		this.beginTime = beginTime;
 		this.endTime = endTime;
 		this.executePeople = executePeople;

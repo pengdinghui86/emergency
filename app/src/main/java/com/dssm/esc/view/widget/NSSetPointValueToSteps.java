@@ -49,7 +49,7 @@ public class NSSetPointValueToSteps {
 			}
 			steplist.add(new NSstep().setStep(chart.getId(), nextsetpids,
 					chart.getStatus(), chart.getBeginTime(), chart.getName(),
-					chart.getEditOrderNum(), chart.getType(),
+					chart.getEditOrderNum(), chart.getType(), chart.getNodeStepType(),
 					chart.getExecutePeople(), chart.getBeginTime(),
 					chart.getEndTime(),chart.getCode()));
 		}
