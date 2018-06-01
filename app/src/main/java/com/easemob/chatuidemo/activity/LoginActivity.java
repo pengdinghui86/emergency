@@ -562,9 +562,31 @@ public class LoginActivity extends BaseActivity {
                                 Log.i("onFailure", str);
                                 userEntity = (UserEntity) object;
                                 if (userEntity.getSuccess().equals("true")) {
-
                                     userId = userEntity.getAttributes().getId();
-                                    userSelectRole();
+                                    if(map.get("selectedRolem") != null && !map.get("selectedRolem").equals("")) {
+                                        sevice.loginRole(map.get("selectedRolem"),
+                                            new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+                                                @Override
+                                                public void setUserSeviceImplListenser(Boolean backflag, String stRerror, String Exceptionerror) {
+                                                    // TODO Auto-generated
+                                                    // method stub
+                                                    if (backflag) {
+                                                        keepCookie();
+                                                    } else if (backflag == false) {
+
+                                                    } else if (stRerror != null) {
+                                                        ToastUtil
+                                                                .showLongToast(
+                                                                        LoginActivity.this,
+                                                                        stRerror);
+                                                    } else if (Exceptionerror != null) {
+                                                        ToastUtil.showLongToast(LoginActivity.this, Const.NETWORKERROR + Exceptionerror);
+                                                    }
+                                                }
+                                        });
+                                    }
+                                    else
+                                        userSelectRole();
 
                                 } else if (userEntity.getSuccess().equals(
                                         "false")
@@ -604,7 +626,6 @@ public class LoginActivity extends BaseActivity {
                                 ToastUtil
                                         .showLongToast(LoginActivity.this, str);
                             }
-
                         }
                     });
 
