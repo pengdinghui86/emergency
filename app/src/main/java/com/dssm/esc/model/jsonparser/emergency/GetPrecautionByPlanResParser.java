@@ -161,6 +161,7 @@ public class GetPrecautionByPlanResParser {
                                 .getString("planInfoId")));
                         childEntity.setManualDetailId(isNull(jsonObject
                                 .getString("manualDetailId")));
+                        childEntity.setParentProcessStepId(isNull(jsonObject.getString("parentProcessStepId")));
                         childList.add(childEntity);
                     }
                     listEntity.setcList(childList);

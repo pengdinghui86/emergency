@@ -334,6 +334,7 @@
             android:value="A91IJE8B3M6G" />
 
         <activity android:name=".view.activity.EditIPActivity"></activity>
+        <activity android:name=".view.activity.ProcessMonitoringSubMissionActivity"></activity>
     </application>
 
 </manifest>

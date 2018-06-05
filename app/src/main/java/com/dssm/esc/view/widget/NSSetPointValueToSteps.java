@@ -3,14 +3,17 @@ package com.dssm.esc.view.widget;
 import com.dssm.esc.model.entity.control.FlowChartPlanEntity;
 import com.dssm.esc.model.entity.control.FlowChartPlanEntity.FlowChart;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class NSSetPointValueToSteps {
+public class NSSetPointValueToSteps{
 
 	public List<NSstep> steplist;
+
+	public List<FlowChart> subFlowChart;
 
 	public int rowId;
 
@@ -20,7 +23,7 @@ public class NSSetPointValueToSteps {
 	/**
 	 * 测试用例
 	 */
-	public void exampleSteps(List<FlowChart> list) {
+	public void exampleSteps(List<FlowChart> list, String parentId) {
 		List<FlowChart> temp = new ArrayList<>(list);
 		Collections.sort(temp, new Comparator<FlowChartPlanEntity.FlowChart>() {
 			@Override
@@ -40,18 +43,23 @@ public class NSSetPointValueToSteps {
 				}
 			}
 		});
-		steplist = new ArrayList<NSstep>();
+		steplist = new ArrayList<>();
+		subFlowChart = new ArrayList<>();
 
 		for (FlowChart chart : temp) {
-			String[] nextsetpids = new String[chart.getProcesslist().size()];
-			for (int i = 0; i < chart.getProcesslist().size(); i++) {
-				nextsetpids[i] = chart.getProcesslist().get(i).getNextid();
+			if(chart.getParentProcessStepId().equals(parentId)) {
+				String[] nextsetpids = new String[chart.getProcesslist().size()];
+				for (int i = 0; i < chart.getProcesslist().size(); i++) {
+					nextsetpids[i] = chart.getProcesslist().get(i).getNextid();
+				}
+				steplist.add(new NSstep().setStep(chart.getId(), nextsetpids,
+						chart.getStatus(), chart.getBeginTime(), chart.getName(),
+						chart.getEditOrderNum(), chart.getType(), chart.getNodeStepType(),
+						chart.getExecutePeople(), chart.getBeginTime(),
+						chart.getEndTime(), chart.getCode()));
 			}
-			steplist.add(new NSstep().setStep(chart.getId(), nextsetpids,
-					chart.getStatus(), chart.getBeginTime(), chart.getName(),
-					chart.getEditOrderNum(), chart.getType(), chart.getNodeStepType(),
-					chart.getExecutePeople(), chart.getBeginTime(),
-					chart.getEndTime(),chart.getCode()));
+			else
+				subFlowChart.add(chart);
 		}
 
 		// /*steplist.add(new NSstep().setStep(10001, new int[]{1}, 10,

@@ -340,6 +340,7 @@
             android:value="A91IJE8B3M6G" />
 
         <activity android:name="com.dssm.esc.view.activity.EditIPActivity" />
+        <activity android:name="com.dssm.esc.view.activity.ProcessMonitoringSubMissionActivity" />
     </application>
 
 </manifest>

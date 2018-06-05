@@ -136,6 +136,7 @@ public class QueryProcessTrackParser {
 					entity.setPlanInfoId(jsonObject.getString("planInfoId"));
 					entity.setExecutePeopleType(jsonObject.getString("executePeopleType"));
 					entity.setNodeStepType(jsonObject.getString("nodeStepType"));
+					entity.setParentProcessStepId(isNull(jsonObject.getString("parentProcessStepId")));
 					entity.setStatus(jsonObject.getString("status"));//完成状态
 					entity.setOrderNum(jsonObject.getString("orderNum"));
 					entity.setEditOrderNum(jsonObject.getString("editOrderNum"));

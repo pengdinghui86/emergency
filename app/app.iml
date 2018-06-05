@@ -133,6 +133,7 @@
     <orderEntry type="library" name="Gradle: __local_aars__:D.\git_project\emergency_newStyle\app\libs\afinal_0.5.1_bin.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:D.\git_project\emergency_newStyle\app\libs\google-play-services.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:D.\git_project\emergency_newStyle\app\libs\mid-core-sdk-3.7.2.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:1.7.2@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12@jar" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:D.\git_project\emergency_newStyle\app\libs\wup-1.0.0.E-SNAPSHOT.jar:unspecified@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3@jar" level="project" />

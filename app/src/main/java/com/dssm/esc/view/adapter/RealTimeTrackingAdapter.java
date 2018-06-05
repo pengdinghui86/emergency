@@ -631,7 +631,9 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
             mhHolder.ll_time.setVisibility(View.VISIBLE);
         }
-
+        if(entity.getIndex() > 0) {
+            convertView.setPadding(entity.getIndex() * 5, 0, 0, 0);
+        }
         return convertView;
     }
 

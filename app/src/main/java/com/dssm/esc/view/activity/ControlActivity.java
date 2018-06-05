@@ -119,6 +119,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      */
     private List<FlowChartPlanEntity.FlowChart> list = new ArrayList<FlowChartPlanEntity.FlowChart>();
     private List<FlowChartPlanEntity.FlowChart> alist = new ArrayList<FlowChartPlanEntity.FlowChart>();
+    private List<FlowChartPlanEntity.FlowChart> flowCharts = new ArrayList<>();
     /** 实时跟踪的列表当前页面 */
     // private int i = 1;
     /**
@@ -163,8 +164,13 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     rlistview.onRefreshComplete();
                     /** 总集合清理 */
                     list.clear();
+                    flowCharts.clear();
+                    //增加子预案层级标记
+                    addIndex(result);
+                    //根据子预案层级关系重新排序
+                    reSort(result, "", 0);
                     /** 总集合添加 */
-                    list.addAll(result);
+                    list.addAll(flowCharts);
                     rlistview.setResultSize(result.size(), i);
                     radapter = new RealTimeTrackingAdapter(ControlActivity.this, planEntity.getState(),
                             list, sevice, roleCode, csevice, curDate, service);
@@ -182,7 +188,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                             .getSystemService(Context.WINDOW_SERVICE);
                     nsSetPointValueToSteps = new NSSetPointValueToSteps();
                     try {
-                        nsSetPointValueToSteps.exampleSteps(result);
+                        nsSetPointValueToSteps.exampleSteps(result, "");
                         nsSetPointValueToSteps.proveStepPosition();
                         my_flow_view.setData(nsSetPointValueToSteps);
                     } catch (Exception e) {
@@ -290,6 +296,35 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             }
         });
         segmentControlListDate();
+    }
+
+    private void addIndex(List<FlowChartPlanEntity.FlowChart> result) {
+        for(FlowChartPlanEntity.FlowChart flowChart : result) {
+            int index = 0;
+            String parentId = flowChart.getParentProcessStepId();
+            while (parentId != null && !"".equals(parentId)) {
+                index++;
+                for (FlowChartPlanEntity.FlowChart flowChart1 : result) {
+                    if(flowChart1.getId().equals(parentId)) {
+                        parentId = flowChart1.getParentProcessStepId();
+                        break;
+                    }
+                }
+            }
+            flowChart.setIndex(index);
+        }
+    }
+
+    private void reSort(List<FlowChartPlanEntity.FlowChart> result, String parentId, int index) {
+        for(FlowChartPlanEntity.FlowChart flowChart : result) {
+            if(flowChart.getIndex() == index
+                    && parentId.equals(flowChart.getParentProcessStepId())) {
+                flowCharts.add(flowChart);
+                if("CallActivity".equals(flowChart.getNodeStepType())) {
+                    reSort(result, flowChart.getId(), index + 1);
+                }
+            }
+        }
     }
 
     private void initView() {

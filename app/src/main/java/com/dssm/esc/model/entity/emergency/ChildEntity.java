@@ -58,6 +58,16 @@ public class ChildEntity implements Serializable {
     private String onlyId;
     private String pId;
 
+    private String parentProcessStepId;
+
+    public String getParentProcessStepId() {
+        return parentProcessStepId;
+    }
+
+    public void setParentProcessStepId(String parentProcessStepId) {
+        this.parentProcessStepId = parentProcessStepId;
+    }
+
     /**
      * 新增颜色节点
      * 2017/10/13

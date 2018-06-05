@@ -1,12 +1,16 @@
 package com.dssm.esc.view.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -14,8 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dssm.esc.R;
+import com.dssm.esc.model.entity.control.FlowChartPlanEntity;
 import com.dssm.esc.status.RealTimeTrackingStatus;
 import com.dssm.esc.util.DisplayUtils;
+import com.dssm.esc.view.activity.ProcessMonitoringSubMissionActivity;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +33,7 @@ import java.util.List;
 
 public class MyFlowView extends View {
 
-    private List<NSstep> steplist = new ArrayList<>();
+    private NSSetPointValueToSteps nsSetPointValueToSteps = new NSSetPointValueToSteps();
     private NSstep currentStep = new NSstep();
     private int maxRow, maxColumn;
     private Canvas myCanvas;
@@ -94,13 +101,15 @@ public class MyFlowView extends View {
         super.onDraw(canvas);
         this.myCanvas = canvas;
         setPaintDefaultStyle();
-        if(steplist.size() > 50)
-            addArrowLine2();
-        else
-            addArrowLine();
-        addButtonAndText();
-        setZoomAndMove(canvas);
-        clearDrawLineFlag();
+        if(nsSetPointValueToSteps.steplist != null) {
+            if (nsSetPointValueToSteps.steplist.size() > 50)
+                addArrowLine2();
+            else
+                addArrowLine();
+            addButtonAndText();
+            setZoomAndMove(canvas);
+            clearDrawLineFlag();
+        }
     }
 
     private void setZoomAndMove(Canvas canvas) {
@@ -121,7 +130,7 @@ public class MyFlowView extends View {
     }
 
     public void setData(NSSetPointValueToSteps nsSetPointValueToSteps) {
-        this.steplist = nsSetPointValueToSteps.steplist;
+        this.nsSetPointValueToSteps = nsSetPointValueToSteps;
         maxRow = nsSetPointValueToSteps.rowNum;
         maxColumn = nsSetPointValueToSteps.maxLineNum;
         if(defaultWidth == 0)
@@ -146,10 +155,10 @@ public class MyFlowView extends View {
      * 定位到正在执行的节点
      */
     private void setPoisition2ExcuteNode(int width, int height) {
-        if(steplist.size() < 6)
+        if(nsSetPointValueToSteps.steplist.size() < 6)
             return;
         int flag = 0;
-        for (NSstep step : steplist) {
+        for (NSstep step : nsSetPointValueToSteps.steplist) {
             if(null != step.statusId) {
                 //正在执行
                 if (step.statusId.equals("4")) {
@@ -162,7 +171,7 @@ public class MyFlowView extends View {
             }
         }
         if(flag == 0) {
-            for (NSstep step : steplist) {
+            for (NSstep step : nsSetPointValueToSteps.steplist) {
                 if (null != step.statusId) {
                     //准备执行
                     if (step.statusId.equals("6")) {
@@ -175,8 +184,8 @@ public class MyFlowView extends View {
             }
         }
         if(flag == 0) {
-            smoothMoveX = steplist.get(0).y * width - defaultWidth / 2f;
-            smoothMoveY = steplist.get(2).x * height - defaultHeight / 2f;
+            smoothMoveX = nsSetPointValueToSteps.steplist.get(0).y * width - defaultWidth / 2f;
+            smoothMoveY = nsSetPointValueToSteps.steplist.get(2).x * height - defaultHeight / 2f;
         }
         smoothMoveX = (smoothMoveX > 0 ? smoothMoveX: 0);
         smoothMoveY = (smoothMoveY > 0 ? smoothMoveY: 0);
@@ -193,7 +202,7 @@ public class MyFlowView extends View {
 
     private List<NSstep> findAllParentNodes(NSstep step) {
         List<NSstep> parentList = new ArrayList<>();
-        for (NSstep oneStep : steplist) {
+        for (NSstep oneStep : nsSetPointValueToSteps.steplist) {
             if (oneStep.isParentStep(step)) {
                 parentList.add(oneStep);
             }
@@ -203,7 +212,7 @@ public class MyFlowView extends View {
 
     private List<NSstep> findAllNextNodes(NSstep step) {
         List<NSstep> list = new ArrayList<>();
-        for (NSstep oneStep : steplist) {
+        for (NSstep oneStep : nsSetPointValueToSteps.steplist) {
             for(String id : step.nextStepIds) {
                 if (oneStep.stepId.equals(id)) {
                     list.add(oneStep);
@@ -215,12 +224,12 @@ public class MyFlowView extends View {
     }
 
     private void addArrowLine() {
-        for (NSstep onesstep : steplist) {
+        for (NSstep onesstep : nsSetPointValueToSteps.steplist) {
             if(currentStep.stepId != null && currentStep.stepId.equals(onesstep.stepId))
                 linePaint.setColor(getResources().getColor(R.color.color_flow_line_green));
             else
                 linePaint.setColor(getResources().getColor(R.color.color_flow_line_red));
-            for (NSstep sstep : steplist) {
+            for (NSstep sstep : nsSetPointValueToSteps.steplist) {
                 if (onesstep.isParentStep(sstep)) {
                     float by = (int) (onesstep.x * this.getHeight());
                     float bx = (int) (onesstep.y * this.getWidth());
@@ -240,7 +249,7 @@ public class MyFlowView extends View {
     }
 
     private void clearDrawLineFlag() {
-        for (NSstep step : steplist) {
+        for (NSstep step : nsSetPointValueToSteps.steplist) {
             if(step.parentDrawLine != null)
                 step.parentDrawLine.clear();
             if(step.nextDrawLine != null)
@@ -260,7 +269,7 @@ public class MyFlowView extends View {
     }
 
     private void addArrowLine2() {
-        for (NSstep sstep : steplist) {
+        for (NSstep sstep : nsSetPointValueToSteps.steplist) {
             List<NSstep> parentSteps = findAllParentNodes(sstep);
             List<NSstep> nextSteps = findAllNextNodes(sstep);
             if (parentSteps.size() == 1) {
@@ -683,7 +692,7 @@ public class MyFlowView extends View {
     private void addButtonAndText() {
         Paint paint;
         String str;
-        for (final NSstep step : steplist) {
+        for (final NSstep step : nsSetPointValueToSteps.steplist) {
             float w = step.x * this.getHeight();
             float h = step.y * this.getWidth();
             if((h + buttonRadius < smoothMoveX || h - buttonRadius > smoothMoveX + defaultWidth)
@@ -755,6 +764,8 @@ public class MyFlowView extends View {
             } else {
                 circlePaint.setColor(0xFFf00); // 边框内部颜色
             }
+            if(step.nodeStepType.equals("CallActivity"))
+                paint = otherFlowPaint;
             drawCircleAndWord(h, w, paint, textFlowPaint, circlePaint, str);
         }
     }
@@ -913,11 +924,26 @@ public class MyFlowView extends View {
     private void detectClicked(float x, float y) {
         x = x + smoothMoveX;
         y = y + smoothMoveY;
-        for(NSstep step : steplist) {
+        for(NSstep step : nsSetPointValueToSteps.steplist) {
             float w = step.x * this.getHeight();
             float h = step.y * this.getWidth();
             if(w - buttonRadius <= y && w + buttonRadius >= y && h - buttonRadius <= x && h + buttonRadius >= x) {
-                showDialog(step);
+                //子预案
+                if(step.nodeStepType.equals("CallActivity")) {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), ProcessMonitoringSubMissionActivity.class);
+                    intent.putExtra("name", step.name);
+                    intent.putExtra("stepId", step.stepId);
+                    Gson gson = new Gson();
+                    String jsonStr = gson.toJson(this.nsSetPointValueToSteps.subFlowChart); //将List转换成Json
+                    SharedPreferences sp = getContext().getSharedPreferences("SP_MISSION_LIST", Activity.MODE_PRIVATE);//创建sp对象
+                    SharedPreferences.Editor editor = sp.edit() ;
+                    editor.putString("KEY_MISSION_LIST_DATA", jsonStr) ; //存入json串
+                    editor.commit() ;  //提交
+                    getContext().startActivity(intent);
+                }
+                else
+                    showDialog(step);
                 break;
             }
         }

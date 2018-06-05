@@ -73,7 +73,6 @@ public class FlowChartPlanEntity implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
-
         /**
          * 节点颜色值
          */
@@ -93,6 +92,19 @@ public class FlowChartPlanEntity implements Serializable {
          * ExclusiveGateway=判断节点，UserTask=其他节点
          */
         private String nodeStepType;
+
+        public String getParentProcessStepId() {
+            return parentProcessStepId;
+        }
+
+        public void setParentProcessStepId(String parentProcessStepId) {
+            this.parentProcessStepId = parentProcessStepId;
+        }
+
+        /**
+         * 当前节点所属预案的编号
+         */
+        private String parentProcessStepId;
 
         public String getNodeStepType() {
             return nodeStepType;
@@ -213,6 +225,17 @@ public class FlowChartPlanEntity implements Serializable {
          */
         private String updateUser;
         private String editOrderNum;
+
+        //节点所属预案层级，多一级子预案数值加1
+        private int index = 0;
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
 
         public String getCode(){
             return code;

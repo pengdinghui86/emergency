@@ -170,6 +170,7 @@ public class FlowChartPlanParser {
 					entity.setStyle(isNull(jsonObject.getString("style")));
 					entity.setType(isNull(jsonObject.getString("type")));
 					entity.setNodeStepType(isNull(jsonObject.getString("nodeStepType")));
+					entity.setParentProcessStepId(isNull(jsonObject.getString("parentProcessStepId")));
 					entity.setUpdateTime(isNull(jsonObject
 							.getString("updateTime")));
 					entity.setUpdateUser(isNull(jsonObject

@@ -28,15 +28,6 @@
         segmentcontrol:texts="实时跟踪|流程监控|资源筹备"
         segmentcontrol:verticalGap="8dp" />
 
-    <LinearLayout
-        android:id="@+id/myscrollview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-    </LinearLayout>
-
     <com.dssm.esc.view.widget.MyFlowView
         android:id="@+id/my_flow_view"
         android:layout_width="match_parent"
