@@ -256,8 +256,7 @@ public class ExpandListvPlanExecuteAdapter extends BaseExpandableListAdapter {
                 }
                 break;
         }
-
-
+        convertView.setPadding(centity.getIndex() * 20, 0, 0, 0);
         return convertView;
         // }
     }

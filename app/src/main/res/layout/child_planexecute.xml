@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.3" />
+        android:layout_weight="0.2" />
 
     <TextView
         android:id="@+id/child_step"

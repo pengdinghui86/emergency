@@ -88,6 +88,13 @@ public class PlanExecutionActivity extends BaseActivity implements
             switch (msg.what) {
                 case 0:
                     groupList = (List<GroupEntity>) msg.obj;
+                    for(GroupEntity groupEntity : groupList) {
+                        childList.clear();
+                        addIndex(groupEntity.getcList());
+                        reSort(groupEntity.getcList(), "", 0);
+                        List<ChildEntity> temp = new ArrayList<>(childList);
+                        groupEntity.setcList(temp);
+                    }
                     adapter = new ExpandListvPlanExecuteAdapter(groupList,
                             PlanExecutionActivity.this);
                     expandableList.setAdapter(adapter);
@@ -108,6 +115,13 @@ public class PlanExecutionActivity extends BaseActivity implements
                 case 1:
                     List<GroupEntity> result = (List<GroupEntity>) msg.obj;
                     groupList.clear();
+                    for(GroupEntity groupEntity : result) {
+                        childList.clear();
+                        addIndex(groupEntity.getcList());
+                        reSort(groupEntity.getcList(), "", 0);
+                        List<ChildEntity> temp = new ArrayList<>(childList);
+                        groupEntity.setcList(temp);
+                    }
                     groupList.addAll(result);
                     adapter.notifyDataSetChanged();
                     mSwipeLayout.setRefreshing(false);
@@ -158,6 +172,34 @@ public class PlanExecutionActivity extends BaseActivity implements
         }
     }
 
+    private void addIndex(List<ChildEntity> childEntities) {
+        for(ChildEntity childEntity : childEntities) {
+            int index = 0;
+            String parentId = childEntity.getParentProcessStepId();
+            while (parentId != null && !"".equals(parentId)) {
+                index++;
+                for (ChildEntity childEntity1 : childEntities) {
+                    if(childEntity1.getChild_id().equals(parentId)) {
+                        parentId = childEntity1.getParentProcessStepId();
+                        break;
+                    }
+                }
+            }
+            childEntity.setIndex(index);
+        }
+    }
+
+    private void reSort(List<ChildEntity> childEntities, String parentId, int index) {
+        for(ChildEntity childEntity : childEntities) {
+            if(childEntity.getIndex() == index
+                    && parentId.equals(childEntity.getParentProcessStepId())) {
+                childList.add(childEntity);
+                if("CallActivity".equals(childEntity.getNodeStepType())) {
+                    reSort(childEntities, childEntity.getChild_id(), index + 1);
+                }
+            }
+        }
+    }
 
     private void initView() {
         back.setVisibility(View.VISIBLE);

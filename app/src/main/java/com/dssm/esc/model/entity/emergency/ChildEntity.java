@@ -58,7 +58,17 @@ public class ChildEntity implements Serializable {
     private String onlyId;
     private String pId;
 
+    //预案层级，多一层预案数值加1
+    private int index;
     private String parentProcessStepId;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     public String getParentProcessStepId() {
         return parentProcessStepId;
