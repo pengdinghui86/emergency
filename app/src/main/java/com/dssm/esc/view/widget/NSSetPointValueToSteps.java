@@ -43,8 +43,14 @@ public class NSSetPointValueToSteps{
 				}
 			}
 		});
-		steplist = new ArrayList<>();
-		subFlowChart = new ArrayList<>();
+		if(steplist != null)
+			steplist.clear();
+		else
+			steplist = new ArrayList<>();
+		if(subFlowChart != null)
+			subFlowChart.clear();
+		else
+			subFlowChart = new ArrayList<>();
 
 		for (FlowChart chart : temp) {
 			if(chart.getParentProcessStepId().equals(parentId)) {

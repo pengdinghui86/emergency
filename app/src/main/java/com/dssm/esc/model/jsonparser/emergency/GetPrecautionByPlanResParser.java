@@ -132,7 +132,7 @@ public class GetPrecautionByPlanResParser {
                          * 2018/5/2
                          */
                         if(jsonObject.has("nodeStepType")){
-                            childEntity.setNodeStepType(jsonObject.getString("nodeStepType"));
+                            childEntity.setNodeStepType(isNull(jsonObject.getString("nodeStepType")));
                             if("ExclusiveGateway".equals(jsonObject.getString("nodeStepType")))
                             {
                                 if(jsonObject.has("branches")&&!"".equals(jsonObject.getString("branches"))) {

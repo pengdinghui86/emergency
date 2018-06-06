@@ -155,8 +155,6 @@ public class MyFlowView extends View {
      * 定位到正在执行的节点
      */
     private void setPoisition2ExcuteNode(int width, int height) {
-        if(nsSetPointValueToSteps.steplist.size() < 6)
-            return;
         int flag = 0;
         for (NSstep step : nsSetPointValueToSteps.steplist) {
             if(null != step.statusId) {
@@ -164,8 +162,10 @@ public class MyFlowView extends View {
                 if (step.statusId.equals("4")) {
                     flag = 1;
                     currentStep = step;
-                    smoothMoveX = step.y * width - defaultWidth / 2f;
-                    smoothMoveY = step.x * height - defaultHeight / 2f;
+                    if(nsSetPointValueToSteps.steplist.size() > 6) {
+                        smoothMoveX = step.y * width - defaultWidth / 2f;
+                        smoothMoveY = step.x * height - defaultHeight / 2f;
+                    }
                     break;
                 }
             }
@@ -176,19 +176,25 @@ public class MyFlowView extends View {
                     //准备执行
                     if (step.statusId.equals("6")) {
                         flag = 1;
-                        smoothMoveX = step.y * width - defaultWidth / 2f;
-                        smoothMoveY = step.x * height - defaultHeight / 2f;
+                        if(nsSetPointValueToSteps.steplist.size() > 6) {
+                            smoothMoveX = step.y * width - defaultWidth / 2f;
+                            smoothMoveY = step.x * height - defaultHeight / 2f;
+                        }
                         break;
                     }
                 }
             }
         }
         if(flag == 0) {
-            smoothMoveX = nsSetPointValueToSteps.steplist.get(0).y * width - defaultWidth / 2f;
-            smoothMoveY = nsSetPointValueToSteps.steplist.get(2).x * height - defaultHeight / 2f;
+            if (nsSetPointValueToSteps.steplist.size() > 6) {
+                smoothMoveX = nsSetPointValueToSteps.steplist.get(0).y * width - defaultWidth / 2f;
+                smoothMoveY = nsSetPointValueToSteps.steplist.get(2).x * height - defaultHeight / 2f;
+            }
         }
-        smoothMoveX = (smoothMoveX > 0 ? smoothMoveX: 0);
-        smoothMoveY = (smoothMoveY > 0 ? smoothMoveY: 0);
+        if(nsSetPointValueToSteps.steplist.size() > 6) {
+            smoothMoveX = (smoothMoveX > 0 ? smoothMoveX : 0);
+            smoothMoveY = (smoothMoveY > 0 ? smoothMoveY : 0);
+        }
     }
 
     public void setMinZoom(float minZoom) {

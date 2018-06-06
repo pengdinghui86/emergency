@@ -48,6 +48,8 @@ public class ProcessMonitoringSubMissionActivity extends BaseActivity {
 		}
 		SharedPreferences sp = getSharedPreferences("SP_MISSION_LIST", Activity.MODE_PRIVATE);//创建sp对象,如果有key为"SP_PEOPLE"的sp就取出
 		String listJson = sp.getString("KEY_MISSION_LIST_DATA","");  //取出key为"KEY_PEOPLE_DATA"的值，如果值为空，则将第二个参数作为默认值赋值
+		nsSetPointValueToSteps.steplist = new ArrayList<>();
+		nsSetPointValueToSteps.subFlowChart = new ArrayList<>();
 		if(listJson != "")  //防空判断
 		{
 			Gson gson = new Gson();
