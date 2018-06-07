@@ -431,9 +431,9 @@ ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:17
 	android:name
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:171:13-83
 meta-data#EASEMOB_APPKEY
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:185:9-187:48
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:185:9-187:44
 	android:value
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:187:13-45
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:187:13-41
 	android:name
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:186:13-42
 service#com.easemob.chat.EMChatService
