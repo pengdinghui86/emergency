@@ -123,7 +123,13 @@ public class PlanExecutionActivity extends BaseActivity implements
                         groupEntity.setcList(temp);
                     }
                     groupList.addAll(result);
-                    adapter.notifyDataSetChanged();
+                    if(adapter == null) {
+                        adapter = new ExpandListvPlanExecuteAdapter(groupList,
+                                PlanExecutionActivity.this);
+                        expandableList.setAdapter(adapter);
+                    }
+                    else
+                        adapter.notifyDataSetChanged();
                     mSwipeLayout.setRefreshing(false);
                     if (result.size() == 0) {
                         mSwipeLayout.setVisibility(View.GONE);

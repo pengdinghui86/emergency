@@ -17,6 +17,7 @@ import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.entity.emergency.PlanDetailEntity;
 import com.dssm.esc.model.entity.emergency.PlanDetailObjEntity;
+import com.dssm.esc.status.RealTimeTrackingStatus;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
@@ -212,6 +213,20 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             execute_ll.setVisibility(View.GONE);
         } else if (status.equals("5") && groupEntity.getState().equals("3")) {
             change_ll.setVisibility(View.GONE);
+            execute.setText(getString(R.string.execute_start));
+            execute_ll.setVisibility(View.VISIBLE);
+
+        } else if ((status.equals(RealTimeTrackingStatus.EXCEPTION_EXCEED)
+                || status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT))
+                && groupEntity.getState().equals("3")) {
+            change_ll.setVisibility(View.GONE);
+            execute.setText(getString(R.string.execute_error));
+            execute_ll.setVisibility(View.VISIBLE);
+
+        } else if (status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_STOP)
+                && groupEntity.getState().equals("3")) {
+            change_ll.setVisibility(View.GONE);
+            execute.setText(getString(R.string.error_cancel));
             execute_ll.setVisibility(View.VISIBLE);
 
         } else {
@@ -305,6 +320,12 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                                 String str = null;
                                 if (backflag) {
                                     str = stRerror;
+//                                    if(execute.getText().toString().equals(getString(R.string.error_cancel))) {
+//
+//                                    }
+//                                    else {
+//
+//                                    }
                                     execute_ll.setVisibility(View.GONE);
                                     change_ll.setVisibility(View.VISIBLE);
                                     EventBus.getDefault().post(

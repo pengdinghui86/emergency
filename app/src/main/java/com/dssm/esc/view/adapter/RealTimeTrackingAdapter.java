@@ -503,7 +503,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         }
 
         if ((roleCode.equals("R001") || roleCode.equals("R002")
-                || roleCode.equals("R003")) && entity.getStatus().equals("25")
+                || roleCode.equals("R003")) && (entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT)
+                || entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_STOP))
                 && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.jumptv.setVisibility(View.VISIBLE);
             mhHolder.jumptv.setOnClickListener(new OnClickListener() {
@@ -631,6 +632,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
             mhHolder.ll_time.setVisibility(View.VISIBLE);
         }
+        //根据子预案层级设置缩进幅度
         convertView.setPadding(entity.getIndex() * 20, 0, 0, 0);
         return convertView;
     }
