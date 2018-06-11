@@ -11,9 +11,9 @@ import java.util.List;
 
 public class NSSetPointValueToSteps{
 
-	public List<NSstep> steplist;
+	public List<NSstep> steplist = new ArrayList<>();
 
-	public List<FlowChart> subFlowChart;
+	public List<FlowChart> subFlowChart = new ArrayList<>();
 
 	public int rowId;
 

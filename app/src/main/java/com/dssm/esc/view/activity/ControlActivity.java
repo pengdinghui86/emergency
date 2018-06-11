@@ -164,13 +164,8 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     rlistview.onRefreshComplete();
                     /** 总集合清理 */
                     list.clear();
-                    flowCharts.clear();
-                    //增加子预案层级标记
-                    addIndex(result);
-                    //根据子预案层级关系重新排序
-                    reSort(result, "", 0);
                     /** 总集合添加 */
-                    list.addAll(flowCharts);
+                    list.addAll(result);
                     rlistview.setResultSize(result.size(), i);
                     radapter = new RealTimeTrackingAdapter(ControlActivity.this, planEntity.getState(),
                             list, sevice, roleCode, csevice, curDate, service);
@@ -304,12 +299,16 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             String parentId = flowChart.getParentProcessStepId();
             while (parentId != null && !"".equals(parentId)) {
                 index++;
+                int i = 0;
                 for (FlowChartPlanEntity.FlowChart flowChart1 : result) {
                     if(flowChart1.getId().equals(parentId)) {
                         parentId = flowChart1.getParentProcessStepId();
+                        i++;
                         break;
                     }
                 }
+                if(i == 0)
+                    break;
             }
             flowChart.setIndex(index);
         }
@@ -758,6 +757,13 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                             message.what = 0;
                             if(data == null)
                                 return;
+                            flowCharts.clear();
+                            //增加子预案层级标记
+                            addIndex(data);
+                            //根据子预案层级关系重新排序
+                            reSort(data, "", 0);
+                            data.clear();
+                            data.addAll(flowCharts);
                             if (data.size() > 20) {// 如果超过20条，则分页
                                 List<FlowChartPlanEntity.FlowChart> subList = data.subList(0, 20);
                                 message.obj = subList;
