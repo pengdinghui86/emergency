@@ -392,40 +392,38 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      * 显示帐号在别处登录dialog
      */
     private void showConflictDialog() {
+        if(isConflictDialogShow)
+            return;
         isConflictDialogShow = true;
         DemoHXSDKHelper.getInstance().logout(false, null);
         String st = getResources().getString(R.string.Logoff_notification);
-        if (!MainActivity.this.isFinishing()) {
-            // clear up global variables
-            try {
-                if (conflictBuilder == null)
-                    conflictBuilder = new android.app.AlertDialog.Builder(
-                            MainActivity.this);
-                conflictBuilder.setTitle(st);
-                conflictBuilder.setMessage(R.string.connect_conflict);
-                conflictBuilder.setPositiveButton(R.string.ok,
-                        new DialogInterface.OnClickListener() {
+        // clear up global variables
+        try {
+            if (conflictBuilder == null)
+                conflictBuilder = new android.app.AlertDialog.Builder(
+                        MainActivity.this);
+            conflictBuilder.setTitle(st);
+            conflictBuilder.setMessage(R.string.connect_conflict);
+            conflictBuilder.setPositiveButton(R.string.ok,
+                    new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                dialog.dismiss();
-                                conflictBuilder = null;
-                                finish();
-                                startActivity(new Intent(MainActivity.this,
-                                        LoginActivity.class));
-                            }
-                        });
-                conflictBuilder.setCancelable(false);
-                conflictBuilder.create().show();
-                isConflict = true;
-            } catch (Exception e) {
-                EMLog.e("MainActivity", "---------color conflictBuilder error"
-                        + e.getMessage());
-            }
-
+                        @Override
+                        public void onClick(DialogInterface dialog,
+                                            int which) {
+                            dialog.dismiss();
+                            conflictBuilder = null;
+                            finish();
+                            startActivity(new Intent(MainActivity.this,
+                                    LoginActivity.class));
+                        }
+                    });
+            conflictBuilder.setCancelable(false);
+            conflictBuilder.create().show();
+            isConflict = true;
+        } catch (Exception e) {
+            EMLog.e("MainActivity", "---------color conflictBuilder error"
+                    + e.getMessage());
         }
-
     }
 
     /**

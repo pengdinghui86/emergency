@@ -185,10 +185,10 @@
         <!-- </activity> -->
 
 
-        <!-- 设置环信应用的appkey 原来的key：dssm-zsj#esc -->
+        <!-- 设置环信应用的appkey 原来的key：dssm-zsj#esc 新的key：escxj#escchinaxj -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="escxj#escchinaxj" />
+            android:value="dssm-zsj#esc" />
         <!-- 声明sdk所需的service SDK核心功能 -->
         <service android:name="com.easemob.chat.EMChatService" />
 
@@ -340,6 +340,7 @@
             android:value="A91IJE8B3M6G" />
 
         <activity android:name="com.dssm.esc.view.activity.EditIPActivity" />
+        <activity android:name="com.dssm.esc.view.activity.ProcessMonitoringSubMissionActivity" />
 
         <provider
             android:name="com.android.tools.ir.server.InstantRunContentProvider"
