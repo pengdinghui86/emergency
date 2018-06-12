@@ -95,6 +95,16 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     @ViewInject(id = R.id.operation_menu)
     private TextView operation_menu;
     /**
+     * 操作手册布局下方的分隔线
+     */
+    @ViewInject(id = R.id.view_operation)
+    private View view_operation;
+    /**
+     * 操作手册布局
+     */
+    @ViewInject(id = R.id.ll_operation_menu)
+    private LinearLayout ll_operation_menu;
+    /**
      * 操作手册
      */
     @ViewInject(id = R.id.operation_menu2)
@@ -233,6 +243,16 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             change_ll.setVisibility(View.GONE);
             execute_ll.setVisibility(View.GONE);
 
+        }
+
+        if(childEntity.getNodeStepType().equals("CallActivity")) {
+            ll_operation_menu.setVisibility(View.GONE);
+            view_operation.setVisibility(View.GONE);
+            execute.setVisibility(View.GONE);
+            change.setVisibility(View.GONE);
+            done_status_ll.setVisibility(View.GONE);
+            submit_infomation_ll.setVisibility(View.GONE);
+            done_ok_ll.setVisibility(View.GONE);
         }
 //		setNetListener(this);
     }

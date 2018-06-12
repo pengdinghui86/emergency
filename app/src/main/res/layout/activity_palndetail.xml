@@ -291,9 +291,10 @@
                                 android:layout_marginTop="10dp" />
 
                             <LinearLayout
+                                android:id="@+id/ll_operation_menu"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="10dp" >
+                                android:layout_margin="10dp">
 
                                 <TextView
                                     android:layout_width="0dp"
@@ -324,6 +325,7 @@
                             </LinearLayout>
 
                             <View
+                                android:id="@+id/view_operation"
                                 style="@style/horizontal_gray_style"
                                 android:layout_marginTop="10dp" />
 

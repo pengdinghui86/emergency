@@ -4273,18 +4273,19 @@ public final class R {
     public static final int view_addresslist=0x7f07028d;
     public static final int view_message=0x7f07028e;
     public static final int view_offset_helper=0x7f07028f;
-    public static final int view_parent=0x7f070290;
-    public static final int webView=0x7f070291;
-    public static final int who_task=0x7f070292;
-    public static final int whodone_name=0x7f070293;
-    public static final int withText=0x7f070294;
-    public static final int wrap_content=0x7f070295;
-    public static final int xitong_ll=0x7f070296;
-    public static final int xitong_ll1=0x7f070297;
-    public static final int xitong_tg=0x7f070298;
-    public static final int xttg=0x7f070299;
-    public static final int yaqd=0x7f07029a;
-    public static final int zhizhe=0x7f07029b;
+    public static final int view_operation=0x7f070290;
+    public static final int view_parent=0x7f070291;
+    public static final int webView=0x7f070292;
+    public static final int who_task=0x7f070293;
+    public static final int whodone_name=0x7f070294;
+    public static final int withText=0x7f070295;
+    public static final int wrap_content=0x7f070296;
+    public static final int xitong_ll=0x7f070297;
+    public static final int xitong_ll1=0x7f070298;
+    public static final int xitong_tg=0x7f070299;
+    public static final int xttg=0x7f07029a;
+    public static final int yaqd=0x7f07029b;
+    public static final int zhizhe=0x7f07029c;
   }
   public static final class integer {
     public static final int abc_config_activityDefaultDur=0x7f080000;
