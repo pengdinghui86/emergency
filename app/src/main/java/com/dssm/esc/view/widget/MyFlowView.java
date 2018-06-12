@@ -771,8 +771,9 @@ public class MyFlowView extends View {
                 circlePaint.setColor(0xFFf00); // 边框内部颜色
             }
             if(step.nodeStepType.equals("CallActivity"))
-                paint = otherFlowPaint;
-            drawCircleAndWord(h, w, paint, textFlowPaint, circlePaint, str);
+                drawRectangleAndWord(h, w, paint, textFlowPaint, circlePaint, str);
+            else
+                drawCircleAndWord(h, w, paint, textFlowPaint, circlePaint, str);
         }
     }
 
@@ -1145,6 +1146,17 @@ public class MyFlowView extends View {
     public void drawCircleAndWord(float x, float y, Paint buttonPaint, Paint textPaint, Paint circlePaint, String str) {
         myCanvas.drawCircle(x, y, buttonRadius, buttonPaint);
         myCanvas.drawCircle(x, y, buttonRadius, circlePaint);
+        Rect rect = new Rect();
+        //返回包围整个字符串的最小的一个Rect区域
+        textPaint.getTextBounds(str, 0, str.length(), rect);
+        int strWidth = rect.width();
+        int strHeight = rect.height();
+        myCanvas.drawText(str, x - strWidth / 2f, y + strHeight / 2f, textPaint);
+    }
+
+    public void drawRectangleAndWord(float x, float y, Paint buttonPaint, Paint textPaint, Paint circlePaint, String str) {
+        myCanvas.drawRect(x - buttonRadius, y - buttonRadius, x + buttonRadius, y + buttonRadius, buttonPaint);
+        myCanvas.drawRect(x - buttonRadius, y - buttonRadius, x + buttonRadius, y + buttonRadius, circlePaint);
         Rect rect = new Rect();
         //返回包围整个字符串的最小的一个Rect区域
         textPaint.getTextBounds(str, 0, str.length(), rect);
