@@ -274,7 +274,7 @@ public class GroupSigninDetail extends BaseActivity implements
 		expandable_list_signin.setEmptyView(emyptytv);
 		adapter = new ExpanListvSignInAdapter(groupList,
 				GroupSigninDetail.this, tag);
-		mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);

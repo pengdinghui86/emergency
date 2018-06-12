@@ -71,10 +71,10 @@ public class SearchOtherscenPlanParser {
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
 				super.onSuccess(t);
-				Log.i("SearchOtherscenPlanParser", t);
+				Log.i("SearchOtherscenPlan", t);
 				MyCookieStore.setcookieStore(finalHttp);
 				 planNameSelectEntity= getSearchPlanlistParser(t);
-				Log.i("SearchOtherscenPlanParser", "SearchOtherscenPlanParser" + planNameSelectEntity);
+				Log.i("SearchOtherscenPlan", "SearchOtherscenPlanParser" + planNameSelectEntity);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(planNameSelectEntity,
 						null);
 

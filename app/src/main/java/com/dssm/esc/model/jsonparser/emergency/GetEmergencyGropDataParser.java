@@ -79,10 +79,10 @@ public class GetEmergencyGropDataParser {
 					public void onSuccess(String t) {
 						// TODO Auto-generated method stub
 						super.onSuccess(t);
-						Log.i("GetEmergencyGropDataParser", t);
+						Log.i("GetEmergencyGropData", t);
 						MyCookieStore.setcookieStore(finalHttp);
 						list = planStarListParser(t);
-						Log.i("GetEmergencyGropDataParser", "GetEmergencyGropDataParser"
+						Log.i("GetEmergencyGropData", "GetEmergencyGropDataParser"
 								+ list);
 						OnEmergencyCompleterListener.onEmergencyParserComplete(
 								list, null);

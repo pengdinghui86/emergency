@@ -183,7 +183,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 		back.setVisibility(View.VISIBLE);
 		title.setText("人员签到");
 		expandable_list_signin.setGroupIndicator(null);
-		mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);

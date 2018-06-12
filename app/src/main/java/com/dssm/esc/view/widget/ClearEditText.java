@@ -3,6 +3,7 @@ package com.dssm.esc.view.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -23,7 +24,7 @@ import com.dssm.esc.R;
  * @date 2015-9-9
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co., Ltd. Inc. All rights reserved.
  */
-public class ClearEditText extends EditText implements  
+public class ClearEditText extends AppCompatEditText implements
         OnFocusChangeListener, TextWatcher { 
 	/**
 	 * 删除按钮的引用

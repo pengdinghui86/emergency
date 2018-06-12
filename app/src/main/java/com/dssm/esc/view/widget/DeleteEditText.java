@@ -3,6 +3,7 @@ package com.dssm.esc.view.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -26,7 +27,7 @@ import com.dssm.esc.R;
  * @Copyright: Copyright (c) 2016 ShenZhen DENGINE Technology Co., Ltd. Inc. All
  *             rights reserved.
  */
-public class DeleteEditText extends EditText implements OnFocusChangeListener,
+public class DeleteEditText extends AppCompatEditText implements OnFocusChangeListener,
 		TextWatcher {
 
 	/** 删除按钮的引用 */

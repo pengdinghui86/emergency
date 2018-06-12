@@ -75,10 +75,10 @@ public class GetNotiConfigContentParser {
 					public void onSuccess(String t) {
 						// TODO Auto-generated method stub
 						super.onSuccess(t);
-						Log.i("GetNotiConfigContentParser", t);
+						Log.i("GetNotiConfigContent", t);
 						MyCookieStore.setcookieStore(finalHttp);
 						entity = getEventValuationParser(t);
-						Log.i("GetNotiConfigContentParser",
+						Log.i("GetNotiConfigContent",
 								"GetNotiConfigContentParser" + entity);
 						OnEmergencyCompleterListener.onEmergencyParserComplete(
 								entity, null);

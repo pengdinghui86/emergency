@@ -81,9 +81,9 @@ public class DrillPrecautionDetailParser {
 				// TODO Auto-generated method stub
 				super.onSuccess(t);
 				MyCookieStore.setcookieStore(finalHttp);
-				Log.i("DrillPrecautionDetailParser", t);
+				Log.i("DrillPrecautionDetail", t);
 				userEntity = getDrillProjectDetail(t);
-				Log.i("DrillPrecautionDetailParser", "DrillPrecautionDetailParser" + userEntity);
+				Log.i("DrillPrecautionDetail", "DrillPrecautionDetailParser" + userEntity);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(
 						userEntity, null);
 

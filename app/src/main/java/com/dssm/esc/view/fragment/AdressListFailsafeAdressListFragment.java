@@ -187,7 +187,7 @@ public class AdressListFailsafeAdressListFragment extends BaseFragment
 				.findViewById(R.id.no_search_result_tv);
 		mSwipeLayout = (SwipeRefreshLayout) view_Parent
 				.findViewById(R.id.id_swipe_ly);
-		mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);

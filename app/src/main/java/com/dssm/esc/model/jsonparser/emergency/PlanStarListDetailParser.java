@@ -80,9 +80,9 @@ public class PlanStarListDetailParser {
 				// TODO Auto-generated method stub
 				super.onSuccess(t);
 				MyCookieStore.setcookieStore(finalHttp);
-				Log.i("PlanStarListDetailParser", "PlanStarListDetailParser" + t);
+				Log.i("PlanStarListDetail", "PlanStarListDetailParser" + t);
 				detailEntity = getPlanStarListDetail(t);
-				Log.i("PlanStarListDetailParser", "PlanStarListDetailParser" + detailEntity);
+				Log.i("PlanStarListDetail", "PlanStarListDetailParser" + detailEntity);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(
 						detailEntity, null);
 

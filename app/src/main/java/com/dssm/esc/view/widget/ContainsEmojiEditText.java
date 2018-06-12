@@ -1,6 +1,7 @@
 package com.dssm.esc.view.widget;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
@@ -9,7 +10,7 @@ import android.util.AttributeSet;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ContainsEmojiEditText extends EditText {
+public class ContainsEmojiEditText extends AppCompatEditText {
 	// 输入表情前的光标位置
 	private int cursorPos; // 输入表情前EditText中的文本
 	private String inputAfterText; // 是否重置了EditText的内容
@@ -69,7 +70,7 @@ public class ContainsEmojiEditText extends EditText {
 							|| s.toString().contains("}")
 							|| s.toString().contains("\"")
 							|| s.toString().contains("{")) {
-						Toast.makeText(mContext, "请输入合法字符", 0).show();
+						Toast.makeText(mContext, "请输入合法字符", Toast.LENGTH_SHORT).show();
 						setText(inputAfterText);
 						CharSequence text = getText();
 						if (text instanceof Spannable) {

@@ -74,11 +74,11 @@ public class GetEmergencyContactListParser {
 					public void onSuccess(String t) {
 						// TODO Auto-generated method stub
 						super.onSuccess(t);
-						Log.i("GetEmergencyContactListParser", t);
+						Log.i("GetEmergencyContactList", t);
 						MyCookieStore.setcookieStore(finalHttp);
 						list = emergencyContactListParser(t);
 						
-						Log.i("GetEmergencyContactListParser",
+						Log.i("GetEmergencyContactList",
 								"GetEmergencyContactListParser" + list);
 						OnEmergencyCompleterListener.onEmergencyParserComplete(
 								list, null);

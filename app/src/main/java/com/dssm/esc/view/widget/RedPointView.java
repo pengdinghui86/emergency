@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -24,7 +25,7 @@ import android.widget.TextView;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
-public class RedPointView extends TextView {
+public class RedPointView extends AppCompatTextView {
 	// 设置默认的对齐排列方式
 	private static final int DEFAULT_MARGIN_DIP = 5;
 	private static final int DEFAULT_PADDING_DIP = 5;
