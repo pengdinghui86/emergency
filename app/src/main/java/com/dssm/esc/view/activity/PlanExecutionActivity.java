@@ -89,13 +89,6 @@ public class PlanExecutionActivity extends BaseActivity implements
                 case 0:
                     try {
                         List<GroupEntity> result = (List<GroupEntity>) msg.obj;
-                        for (GroupEntity groupEntity : result) {
-                            childList.clear();
-                            addIndex(groupEntity.getcList());
-                            reSort(groupEntity.getcList(), "", 0);
-                            List<ChildEntity> temp = new ArrayList<>(childList);
-                            groupEntity.setcList(temp);
-                        }
                         groupList.addAll(result);
                         adapter = new ExpandListvPlanExecuteAdapter(groupList,
                                 PlanExecutionActivity.this);
@@ -121,13 +114,6 @@ public class PlanExecutionActivity extends BaseActivity implements
                 case 1:
                     List<GroupEntity> result1 = (List<GroupEntity>) msg.obj;
                     groupList.clear();
-                    for(GroupEntity groupEntity : result1) {
-                        childList.clear();
-                        addIndex(groupEntity.getcList());
-                        reSort(groupEntity.getcList(), "", 0);
-                        List<ChildEntity> temp = new ArrayList<>(childList);
-                        groupEntity.setcList(temp);
-                    }
                     groupList.addAll(result1);
                     if(adapter == null) {
                         adapter = new ExpandListvPlanExecuteAdapter(groupList,
@@ -295,6 +281,16 @@ public class PlanExecutionActivity extends BaseActivity implements
                         ToastUtil.showToast(PlanExecutionActivity.this,
                                 Const.NETWORKERROR + ":" + Exceptionerror);
                     }
+                    List<GroupEntity> result = new ArrayList<>(dataList);
+                    for (GroupEntity groupEntity : result) {
+                        childList.clear();
+                        addIndex(groupEntity.getcList());
+                        reSort(groupEntity.getcList(), "", 0);
+                        List<ChildEntity> temp = new ArrayList<>(childList);
+                        groupEntity.setcList(temp);
+                    }
+                    dataList.clear();
+                    dataList.addAll(result);
                     Message message = new Message();
                     message.what = 0;
                     message.obj = dataList;
@@ -312,6 +308,16 @@ public class PlanExecutionActivity extends BaseActivity implements
                         ToastUtil.showToast(PlanExecutionActivity.this,
                                 Const.NETWORKERROR + ":" + Exceptionerror);
                     }
+                    List<GroupEntity> result = new ArrayList<>(dataList);
+                    for (GroupEntity groupEntity : result) {
+                        childList.clear();
+                        addIndex(groupEntity.getcList());
+                        reSort(groupEntity.getcList(), "", 0);
+                        List<ChildEntity> temp = new ArrayList<>(childList);
+                        groupEntity.setcList(temp);
+                    }
+                    dataList.clear();
+                    dataList.addAll(result);
                     Message message = new Message();
                     message.what = 1;
                     message.obj = dataList;
