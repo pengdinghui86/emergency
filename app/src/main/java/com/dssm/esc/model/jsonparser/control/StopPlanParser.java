@@ -5,6 +5,7 @@ import android.util.Log;
 import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.jsonparser.ControlCompleterListenter;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -42,6 +43,20 @@ public class StopPlanParser {
 		public void request(final PlanEntity entity,final String planSuspendOpition) {
 
 			RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.STAR_PLAN);
+			//增加session
+			if(!MySharePreferencesService.getInstance(
+					DemoApplication.getInstance().getApplicationContext()).getcontectName(
+					"JSESSIONID").equals("")) {
+				StringBuilder sbSession = new StringBuilder();
+				sbSession.append("JSESSIONID").append("=")
+						.append(MySharePreferencesService.getInstance(
+								DemoApplication.getInstance().getApplicationContext()).getcontectName(
+								"JSESSIONID")).append("; path=/; domain=")
+						.append(MySharePreferencesService.getInstance(
+								DemoApplication.getInstance().getApplicationContext()).getcontectName(
+								"DOMAIN"));
+				params.addHeader("Cookie", sbSession.toString());
+			}
 			params.addParameter("id", entity.getId());
 			params.addParameter("planResType", entity.getPlanResType());
 				// planSuspendOpition 预案终止原因
@@ -86,9 +101,10 @@ public class StopPlanParser {
 							request(entity,planSuspendOpition);
 						}
 						responseMsg = httpEx.getMessage();
-						errorResult = httpEx.getResult();
+						//					errorResult = httpEx.getResult();
+						errorResult = "网络错误";
 					} else { //其他错误
-
+						errorResult = "其他错误";
 					}
 					completerListenter.controlParserComplete(null, errorResult);
 				}

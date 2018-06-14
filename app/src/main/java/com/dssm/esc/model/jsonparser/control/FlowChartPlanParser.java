@@ -6,6 +6,7 @@ import android.util.Log;
 import com.dssm.esc.model.entity.control.FlowChartPlanEntity;
 import com.dssm.esc.model.jsonparser.ControlCompleterListenter;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -39,6 +40,20 @@ public class FlowChartPlanParser {
 	 */
 	public void request(final String planInfoId) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.FLOW_CHART_PLAN);
+        //增加session
+        if(!MySharePreferencesService.getInstance(
+                DemoApplication.getInstance().getApplicationContext()).getcontectName(
+                "JSESSIONID").equals("")) {
+            StringBuilder sbSession = new StringBuilder();
+            sbSession.append("JSESSIONID").append("=")
+                    .append(MySharePreferencesService.getInstance(
+                            DemoApplication.getInstance().getApplicationContext()).getcontectName(
+                            "JSESSIONID")).append("; path=/; domain=")
+                    .append(MySharePreferencesService.getInstance(
+                            DemoApplication.getInstance().getApplicationContext()).getcontectName(
+                            "DOMAIN"));
+            params.addHeader("Cookie", sbSession.toString());
+        }
 		params.addParameter("planInfoId", planInfoId);
 		Log.i("流程监控url", DemoApplication.getInstance().getUrl()+HttpUrl.FLOW_CHART_PLAN + "?planInfoId=" + planInfoId);
 		x.http().get(params, new Callback.CommonCallback<String>() {
@@ -66,10 +81,11 @@ public class FlowChartPlanParser {
 						request(planInfoId);
 					}
 					responseMsg = httpEx.getMessage();
-					errorResult = httpEx.getResult();
-				} else { //其他错误
-
-				}
+                    //					errorResult = httpEx.getResult();
+                    errorResult = "网络错误";
+                } else { //其他错误
+                    errorResult = "其他错误";
+                }
 				completeListener.controlParserComplete(null, errorResult);
 			}
 

@@ -7,6 +7,7 @@ import com.dssm.esc.model.entity.user.UserEntity;
 import com.dssm.esc.model.entity.user.UserLoginObjEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -16,8 +17,10 @@ import org.json.JSONObject;
 import org.xutils.common.Callback;
 import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
+import org.xutils.http.cookie.DbCookieStore;
 import org.xutils.x;
 
+import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +58,24 @@ public class UserLoginParse {
 				// TODO Auto-generated method stub
 				Log.i("LoginParse", t);
 				userEntity = loginParse(t, userName, password);
+				// 保存cookie的值
+				DbCookieStore instance = DbCookieStore.INSTANCE;
+				List<HttpCookie> cookies = instance.getCookies();
+				for (int i = 0; i < cookies.size(); i++) {
+					HttpCookie cookie = cookies.get(i);
+					if (cookie.getName() != null && cookie.getName().equals("JSESSIONID")) {
+						MySharePreferencesService.getInstance(
+								DemoApplication.getInstance().getApplicationContext()).saveContactName(
+								"JSESSIONID", cookie.getValue());
+						MySharePreferencesService.getInstance(
+								DemoApplication.getInstance().getApplicationContext()).saveContactName(
+								"DOMAIN", cookie.getDomain());
+						Log.i("session name --> ", cookie.getName());
+						Log.i("session value --> ", cookie.getValue());
+						Log.i("session domain --> ", cookie.getDomain());
+						break;
+					}
+				}
 				Log.i("LoginParse", "LoginParse" + userEntity);
 				OnUserParseLoadCompleteListener.onEmergencyParserComplete(
 						userEntity, null);
@@ -68,14 +89,15 @@ public class UserLoginParse {
 				if (ex instanceof HttpException) { //网络错误
 					HttpException httpEx = (HttpException) ex;
 					int responseCode = httpEx.getCode();
-					if(responseCode == 518) {
-						Utils.getInstance().relogin();
-						request(userName,password);
-					}
+//					if(responseCode == 518) {
+//						Utils.getInstance().relogin();
+//						request(userName,password);
+//					}
 					responseMsg = httpEx.getMessage();
-					errorResult = httpEx.getResult();
+					//					errorResult = httpEx.getResult();
+					errorResult = "网络错误";
 				} else { //其他错误
-
+					errorResult = "其他错误";
 				}
 				OnUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}

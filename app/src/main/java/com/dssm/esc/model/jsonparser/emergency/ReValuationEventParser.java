@@ -5,6 +5,7 @@ import android.util.Log;
 import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -42,17 +43,31 @@ public class ReValuationEventParser {
 	 */
 	public void request(final GetProjectEveInfoEntity entity) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.RE_VALUTEEVENT);
-//		id	事件编号	
-//		tradeType	行业类型ID	
-//		eveLevel	事件等级ID	
-//		eveDescription	事件描述	
-//		eveScenarioId	事件场景ID	可不选
-//		eveScenarioName	事件场景名称	可为空
-//		eveName	事件名称	
-//		dealAdvice	处置建议	
-//		referPlan	参考预案	可以多选，以“|”隔开
-//		otherReferPlan	其他预案	可以多选，以“|”隔开
-//		categoryPlan	分类预案	可以多选，以“|”隔开
+		//增加session
+		if(!MySharePreferencesService.getInstance(
+				DemoApplication.getInstance().getApplicationContext()).getcontectName(
+				"JSESSIONID").equals("")) {
+			StringBuilder sbSession = new StringBuilder();
+			sbSession.append("JSESSIONID").append("=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"JSESSIONID")).append("; path=/; domain=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"DOMAIN"));
+			params.addHeader("Cookie", sbSession.toString());
+		}
+		//		id	事件编号
+		//		tradeType	行业类型ID
+		//		eveLevel	事件等级ID
+		//		eveDescription	事件描述
+		//		eveScenarioId	事件场景ID	可不选
+		//		eveScenarioName	事件场景名称	可为空
+		//		eveName	事件名称
+		//		dealAdvice	处置建议
+		//		referPlan	参考预案	可以多选，以“|”隔开
+		//		otherReferPlan	其他预案	可以多选，以“|”隔开
+		//		categoryPlan	分类预案	可以多选，以“|”隔开
 		params.addParameter("id", entity.getId());
 		params.addParameter("tradeType", entity.getTradeTypeId());
 		params.addParameter("eveLevel", entity.getEveLevelId());
@@ -92,9 +107,10 @@ public class ReValuationEventParser {
 						request(entity);
 					}
 					responseMsg = httpEx.getMessage();
-					errorResult = httpEx.getResult();
+					//					errorResult = httpEx.getResult();
+					errorResult = "网络错误";
 				} else { //其他错误
-
+					errorResult = "其他错误";
 				}
 				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
 			}

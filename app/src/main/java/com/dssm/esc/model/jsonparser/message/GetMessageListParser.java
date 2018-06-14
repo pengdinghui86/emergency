@@ -6,6 +6,7 @@ import android.util.Log;
 import com.dssm.esc.model.entity.message.MessageInfoEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -51,6 +52,20 @@ public class GetMessageListParser {
 			final String isconfirm,final String tag) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETMESSAGE + "?isconfirm=" + isconfirm + "&msgType=" + msgType);
+		//增加session
+		if(!MySharePreferencesService.getInstance(
+				DemoApplication.getInstance().getApplicationContext()).getcontectName(
+				"JSESSIONID").equals("")) {
+			StringBuilder sbSession = new StringBuilder();
+			sbSession.append("JSESSIONID").append("=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"JSESSIONID")).append("; path=/; domain=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"DOMAIN"));
+			params.addHeader("Cookie", sbSession.toString());
+		}
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -67,7 +82,7 @@ public class GetMessageListParser {
 			@Override
 			public void onError(Throwable ex, boolean isOnCallback) {
 				String responseMsg = "";
-				String errorResult = ex.toString();
+				String errorResult = "";
 				if (ex instanceof HttpException) { //网络错误
 					HttpException httpEx = (HttpException) ex;
 					int responseCode = httpEx.getCode();
@@ -75,10 +90,11 @@ public class GetMessageListParser {
 						Utils.getInstance().relogin();
 						request(context, msgType, isconfirm, tag);
 					}
-					responseMsg = httpEx.getMessage();
-					errorResult = httpEx.getResult();
+//					responseMsg = httpEx.getMessage();
+//					errorResult = httpEx.getResult();
+					errorResult = "网络错误";
 				} else { //其他错误
-
+					errorResult = "其他错误";
 				}
 				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
 			}

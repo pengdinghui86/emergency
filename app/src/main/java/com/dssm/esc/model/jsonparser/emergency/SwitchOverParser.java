@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -45,6 +46,20 @@ public class SwitchOverParser {
 			final String message, final String nodeStepType, final String branch) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SWITHOVER);
+		//增加session
+		if(!MySharePreferencesService.getInstance(
+				DemoApplication.getInstance().getApplicationContext()).getcontectName(
+				"JSESSIONID").equals("")) {
+			StringBuilder sbSession = new StringBuilder();
+			sbSession.append("JSESSIONID").append("=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"JSESSIONID")).append("; path=/; domain=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"DOMAIN"));
+			params.addHeader("Cookie", sbSession.toString());
+		}
 		if (id != null) {
 			// id 流程节点编号
 			// planInfoId 预案执行编号
@@ -84,9 +99,10 @@ public class SwitchOverParser {
 								message, nodeStepType, branch);
 					}
 					responseMsg = httpEx.getMessage();
-					errorResult = httpEx.getResult();
+					//					errorResult = httpEx.getResult();
+					errorResult = "网络错误";
 				} else { //其他错误
-
+					errorResult = "其他错误";
 				}
 				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
 			}

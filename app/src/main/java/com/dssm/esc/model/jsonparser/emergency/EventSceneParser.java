@@ -5,6 +5,7 @@ import android.util.Log;
 import com.dssm.esc.model.entity.emergency.BusinessTypeEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -43,6 +44,20 @@ public class EventSceneParser {
 	@SuppressWarnings("unchecked")
 	public void request() {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GET_EVENTSCENCE_FIELDS);
+		//增加session
+		if(!MySharePreferencesService.getInstance(
+				DemoApplication.getInstance().getApplicationContext()).getcontectName(
+				"JSESSIONID").equals("")) {
+			StringBuilder sbSession = new StringBuilder();
+			sbSession.append("JSESSIONID").append("=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"JSESSIONID")).append("; path=/; domain=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"DOMAIN"));
+			params.addHeader("Cookie", sbSession.toString());
+		}
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -69,9 +84,10 @@ public class EventSceneParser {
 						request();
 					}
 					responseMsg = httpEx.getMessage();
-					errorResult = httpEx.getResult();
+					//					errorResult = httpEx.getResult();
+					errorResult = "网络错误";
 				} else { //其他错误
-
+					errorResult = "其他错误";
 				}
 				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
 			}

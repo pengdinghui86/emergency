@@ -5,6 +5,7 @@ import android.util.Log;
 import com.dssm.esc.model.entity.emergency.PlanSuspandEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -46,18 +47,32 @@ public class SuspandParser {
 	public void request(final PlanSuspandEntity suspandEntity) {
 		String url=DemoApplication.getInstance().getUrl()+HttpUrl.SUSPAND;
 		RequestParams params = new RequestParams(url);
-//		id	预案ID	
-//		suspendType	中止类型	启动时中止，类型为null
-//		planSuspendOpition	中止原因	
-//		planName	预案名称	发送通知使用
-//		planResName	预案来源名称	发送通知使用
-//		planResType	预案来源类型	发送通知使用
-//		planId	预案ID	发送通知使用
-//		tradeTypeId	业务类型ID	发送通知使用
-//		eveLevelId	事件等级ID	发送通知使用
-//		planStarterId	预案启动人	发送通知使用
-//		planAuthorId	预案授权人	发送通知使用
-//		submitterId	事件提交人	发送通知使用
+		//增加session
+		if(!MySharePreferencesService.getInstance(
+				DemoApplication.getInstance().getApplicationContext()).getcontectName(
+				"JSESSIONID").equals("")) {
+			StringBuilder sbSession = new StringBuilder();
+			sbSession.append("JSESSIONID").append("=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"JSESSIONID")).append("; path=/; domain=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"DOMAIN"));
+			params.addHeader("Cookie", sbSession.toString());
+		}
+		//		id	预案ID
+		//		suspendType	中止类型	启动时中止，类型为null
+		//		planSuspendOpition	中止原因
+		//		planName	预案名称	发送通知使用
+		//		planResName	预案来源名称	发送通知使用
+		//		planResType	预案来源类型	发送通知使用
+		//		planId	预案ID	发送通知使用
+		//		tradeTypeId	业务类型ID	发送通知使用
+		//		eveLevelId	事件等级ID	发送通知使用
+		//		planStarterId	预案启动人	发送通知使用
+		//		planAuthorId	预案授权人	发送通知使用
+		//		submitterId	事件提交人	发送通知使用
 		params.addParameter("id", suspandEntity.getId());
 		params.addParameter("suspendType", suspandEntity.getSuspendType());
 		params.addParameter("planSuspendOpition", suspandEntity.getPlanSuspendOpition());
@@ -96,9 +111,10 @@ public class SuspandParser {
 						request(suspandEntity);
 					}
 					responseMsg = httpEx.getMessage();
-					errorResult = httpEx.getResult();
+					//					errorResult = httpEx.getResult();
+					errorResult = "网络错误";
 				} else { //其他错误
-
+					errorResult = "其他错误";
 				}
 				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
 

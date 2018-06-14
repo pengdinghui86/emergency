@@ -476,7 +476,7 @@ public class LoginActivity extends BaseActivity {
         View findViewById = findViewById(R.id.login);
         findViewById.setFitsSystemWindows(true);
         sevice = Control.getinstance().getUserSevice();
-        service = MySharePreferencesService.getInstance(this);
+        service = MySharePreferencesService.getInstance(getApplicationContext());
         // 回显
         map = service.getPreferences();
         utils = Utils.getInstance();

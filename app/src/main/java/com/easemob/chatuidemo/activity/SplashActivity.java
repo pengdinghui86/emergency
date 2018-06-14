@@ -153,7 +153,7 @@ public class SplashActivity extends BaseActivity {
 
 									str = Const.NETWORKERROR + Exceptionerror;
 									ToastUtil.showLongToast(
-											SplashActivity.this, str);
+											SplashActivity.this, "网络连接超时，请检查网络设置或IP地址是否正确");
 									Intent intent = new Intent(
 											SplashActivity.this,
 											LoginActivity.class);
@@ -266,7 +266,7 @@ public class SplashActivity extends BaseActivity {
 		builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				LoginMain();
-//				loing();
+//				login();
 			}
 		});
 		AlertDialog dialog = builer.create();
@@ -346,7 +346,7 @@ public class SplashActivity extends BaseActivity {
 		setContentView(R.layout.activity_welcome);
 		super.onCreate(arg0);
 		sevice = Control.getinstance().getUserSevice();
-		service = MySharePreferencesService.getInstance(this);
+		service = MySharePreferencesService.getInstance(getApplicationContext());
 		Intent intent = getIntent();
 		if(intent != null) {
 			String flag = intent.getStringExtra("mainActivity");
@@ -365,18 +365,18 @@ public class SplashActivity extends BaseActivity {
 		}
 		AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
 		animation.setDuration(1500);
-		loing();
+		login();
 		Log.i("===onCreate()===", "onCreate()");
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-//		loing();
+//		login();
 		Log.i("===SplashonStart()===", "onStart()");
 	}
 
-	private void loing() {
+	private void login() {
 		// TODO Auto-generated method stub
 		new Thread(new Runnable() {
 			public void run() {

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.dssm.esc.model.entity.emergency.SendNoticyEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -42,14 +43,28 @@ public class SendNoticeParser {
 	public void request(final SendNoticyEntity noticyEntity) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SENDNOTICE);
-//		id	接收人岗位标识	逗号隔开
-//		sendType	发送方式	0系统，1邮件，2短信，3 APP，逗号隔开
-//		content	通知内容	
-//		busType	通知类型	协同:busType='collaborNotice',
-//		通告:busType='displayNotice'
-//		planInfoId	预案执行编号	
-//		coorStage	协同--阶段	
-//		sendObj	协同—对象	发送对象为对监管时启用，JSONArray类型，包含输入的联系号码和邮箱
+		//增加session
+		if(!MySharePreferencesService.getInstance(
+				DemoApplication.getInstance().getApplicationContext()).getcontectName(
+				"JSESSIONID").equals("")) {
+			StringBuilder sbSession = new StringBuilder();
+			sbSession.append("JSESSIONID").append("=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"JSESSIONID")).append("; path=/; domain=")
+					.append(MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).getcontectName(
+							"DOMAIN"));
+			params.addHeader("Cookie", sbSession.toString());
+		}
+		//		id	接收人岗位标识	逗号隔开
+		//		sendType	发送方式	0系统，1邮件，2短信，3 APP，逗号隔开
+		//		content	通知内容
+		//		busType	通知类型	协同:busType='collaborNotice',
+		//		通告:busType='displayNotice'
+		//		planInfoId	预案执行编号
+		//		coorStage	协同--阶段
+		//		sendObj	协同—对象	发送对象为对监管时启用，JSONArray类型，包含输入的联系号码和邮箱
 		params.addParameter("id", noticyEntity.getId());
 		params.addParameter("sendType", noticyEntity.getSendType());
 		params.addParameter("content", noticyEntity.getContent());
@@ -86,9 +101,10 @@ public class SendNoticeParser {
 						request(noticyEntity);
 					}
 					responseMsg = httpEx.getMessage();
-					errorResult = httpEx.getResult();
+					//					errorResult = httpEx.getResult();
+					errorResult = "网络错误";
 				} else { //其他错误
-
+					errorResult = "其他错误";
 				}
 				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
 			}
