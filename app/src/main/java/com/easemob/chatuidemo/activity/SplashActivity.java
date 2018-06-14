@@ -122,8 +122,7 @@ public class SplashActivity extends BaseActivity {
 															ToastUtil
 																	.showLongToast(
 																			SplashActivity.this,
-																			Const.NETWORKERROR
-																					+ Exceptionerror);
+																			"网络连接超时，请检查网络设置或IP地址是否正确");
 														}
 													}
 
