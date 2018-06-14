@@ -25,7 +25,8 @@ import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.DismissValuationListviewAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,16 +41,17 @@ import java.util.List;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_dismissvaluation)
 public class DismissValuationActivity extends BaseActivity implements
 		AutoListView.OnRefreshListener, AutoListView.OnLoadListener,MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	/** ListView */
-	@ViewInject(id = R.id.dismissv_listview)
+	@ViewInject(R.id.dismissv_listview)
 	AutoListView listView;
 	/** 适配器 */
 	private DismissValuationListviewAdapter adapter;
@@ -98,7 +100,7 @@ public class DismissValuationActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_dismissvaluation);
+//		setContentView(R.layout.activity_dismissvaluation);
 		View findViewById = findViewById(R.id.dismissvaluation);
 		findViewById.setFitsSystemWindows(true);
 		//tag = getIntent().getStringExtra("tag");

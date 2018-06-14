@@ -23,7 +23,8 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,120 +41,121 @@ import de.greenrobot.event.EventBus;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  * Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_palndetail)
 public class PlanExecutionDetailActivity extends BaseActivity implements
         OnClickListener, MainActivity.onInitNetListener {
     /**
      * 标题
      */
-    @ViewInject(id = R.id.tv_actionbar_title)
+    @ViewInject(R.id.tv_actionbar_title)
     private TextView title;
     /**
      * 返回按钮
      */
-    @ViewInject(id = R.id.iv_actionbar_back)
+    @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
     /** 1，应急；2，演练 */
     // private String tag;
     /**
      * 预案名称
      */
-    @ViewInject(id = R.id.event_name)
+    @ViewInject(R.id.event_name)
     private TextView event_name;
     /**
      * 预案类型
      */
-    @ViewInject(id = R.id.planTypeNametv)
+    @ViewInject(R.id.planTypeNametv)
     private TextView event_desc;
     /**
      * 所属事件
      */
-    @ViewInject(id = R.id.planResTypetv)
+    @ViewInject(R.id.planResTypetv)
     private TextView planResTypetv;
     /**
      * 预案来源
      */
-    @ViewInject(id = R.id.planResNametv)
+    @ViewInject(R.id.planResNametv)
     private TextView planResNametv;
     /**
      * 执行总布局
      */
-    @ViewInject(id = R.id.execute_ll)
+    @ViewInject(R.id.execute_ll)
     private LinearLayout execute_ll;
     /**
      * 切换总布局
      */
-    @ViewInject(id = R.id.change_ll)
+    @ViewInject(R.id.change_ll)
     private LinearLayout change_ll;
     /**
      * 执行按钮
      */
-    @ViewInject(id = R.id.execute)
+    @ViewInject(R.id.execute)
     private TextView execute;
     /**
      * 操作手册
      */
-    @ViewInject(id = R.id.operation_menu)
+    @ViewInject(R.id.operation_menu)
     private TextView operation_menu;
     /**
      * 操作手册布局下方的分隔线
      */
-    @ViewInject(id = R.id.view_operation)
+    @ViewInject(R.id.view_operation)
     private View view_operation;
     /**
      * 操作手册布局
      */
-    @ViewInject(id = R.id.ll_operation_menu)
+    @ViewInject(R.id.ll_operation_menu)
     private LinearLayout ll_operation_menu;
     /**
      * 操作手册
      */
-    @ViewInject(id = R.id.operation_menu2)
+    @ViewInject(R.id.operation_menu2)
     private ImageView operation_menu2;
 
     /**
      * 切换的完成状态布局
      */
-    @ViewInject(id = R.id.done_status_ll)
+    @ViewInject(R.id.done_status_ll)
     private LinearLayout done_status_ll;
     /**
      * 切换的完成状态
      */
-    @ViewInject(id = R.id.done_status)
+    @ViewInject(R.id.done_status)
     private TextView done_status;
     /**
      * 提交信息布局
      */
-    @ViewInject(id = R.id.submit_infomation_ll)
+    @ViewInject(R.id.submit_infomation_ll)
     private LinearLayout submit_infomation_ll;
     /**
      * 提交信息
      */
-    @ViewInject(id = R.id.submit_infomation)
+    @ViewInject(R.id.submit_infomation)
     private TextView submit_infomation;
     /**
      * 切换按钮
      */
-    @ViewInject(id = R.id.change)
+    @ViewInject(R.id.change)
     private TextView change;
     /**
      * 已完成总布局
      */
-    @ViewInject(id = R.id.done_ok_ll)
+    @ViewInject(R.id.done_ok_ll)
     private LinearLayout done_ok_ll;
     /**
      * 提交信息
      */
-    @ViewInject(id = R.id.alltime)
+    @ViewInject(R.id.alltime)
     private TextView alltime;
     /**
      * 已完成的 完成状态
      */
-    @ViewInject(id = R.id.done_status_done)
+    @ViewInject(R.id.done_status_done)
     private TextView done_status_done;
     /**
      * 已完成按钮
      */
-    @ViewInject(id = R.id.okdone)
+    @ViewInject(R.id.okdone)
     private TextView okdone;
     private String planInfoId = "";
     private String id = "";
@@ -172,30 +174,30 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     /**
      * 预案启动人
      */
-    @ViewInject(id = R.id.planstarter)
+    @ViewInject(R.id.planstarter)
     private TextView planstarter;
 
     /**
      * 预案启动时间
      */
-    @ViewInject(id = R.id.startime)
+    @ViewInject(R.id.startime)
     private TextView startime;
     /**
      * 预案摘要
      */
-    @ViewInject(id = R.id.plansummary)
+    @ViewInject(R.id.plansummary)
     private TextView plansummary;
     /**
      * 预案启动人
      */
-    @ViewInject(id = R.id.advice)
+    @ViewInject(R.id.advice)
     private TextView advice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_palndetail);
+//        setContentView(R.layout.activity_palndetail);
         View findViewById = findViewById(R.id.palndetail);
         findViewById.setFitsSystemWindows(true);
         Intent intent = getIntent();

@@ -7,16 +7,16 @@ import com.dssm.esc.model.entity.message.FirstAllMessagesEntity;
 import com.dssm.esc.model.entity.message.MessageInfoEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +30,11 @@ import java.util.List;
  */
 public class GetFirstAllMessageListParser {
 	private List<FirstAllMessagesEntity> list;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public GetFirstAllMessageListParser(Context context,String msgType, String isconfirm,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(context,msgType, isconfirm);
 	}
@@ -45,44 +42,20 @@ public class GetFirstAllMessageListParser {
 	/**
 	 * 发送请求
 	 * 
-	 * @param msgTypea
+	 * @param context
+	 * @param msgType
 	 *            1,任务通知2,系统通知3,紧急通知4,我的消息
 	 * @param isconfirm
 	 *            是否收到通知,true：查询已经接收确认过的消息，false：查询没有接收确认过的消息，不传递此参数查询全部
 	 */
 	public void request(final Context context,final String msgType, final String isconfirm) {
-
-		finalHttp.get(DemoApplication.getInstance().getUrl()+HttpUrl.GETFIRSTALLMESSAGES + "?isconfirm=" + isconfirm
-				, new AjaxCallBack<String>() {
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
-
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "t" + t);
-				Log.i("onFailure", "strMsg" + strMsg);
-				Log.i("onFailure", "errorNo" + errorNo);
-				//strMsgresponse status error code:518
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request(context,msgType,isconfirm);
-					}
-			}
-
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETFIRSTALLMESSAGES + "?isconfirm=" + isconfirm);
+		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
 				Log.i("GetMessageListParser", t);
-				MyCookieStore.setcookieStore(finalHttp);
 //				boolean save = Utils.getInstance()
 //						.save(context, t,Const.TOAST_TEXT);// 将json字符串保存到文件中
 //				if (save) {
@@ -95,7 +68,36 @@ public class GetFirstAllMessageListParser {
 
 			}
 
-		});
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                String responseMsg = "";
+                String errorResult = ex.toString();
+                if (ex instanceof HttpException) { //网络错误
+                    HttpException httpEx = (HttpException) ex;
+                    int responseCode = httpEx.getCode();
+                    if(responseCode == 518) {
+                        Utils.getInstance().relogin();
+                        request(context,msgType,isconfirm);
+                    }
+                    responseMsg = httpEx.getMessage();
+                    errorResult = httpEx.getResult();
+                } else { //其他错误
+
+                }
+                OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+
+        });
 	}
 	/**
 	 * 获取消息列表数据解析

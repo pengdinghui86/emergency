@@ -35,7 +35,8 @@ import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.widget.MyScrollView;
 import com.dssm.esc.view.widget.SegmentControl;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
@@ -50,94 +51,95 @@ import de.greenrobot.event.EventBus;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_autorizatdetail)
 public class AutorizateDecDetailActivity extends BaseActivity implements
 		OnClickListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
-	@ViewInject(id = R.id.segment_control_plandetail)
+	@ViewInject(R.id.segment_control_plandetail)
 	SegmentControl mSegmentControl;
 	/** 事件编号 */
-	@ViewInject(id = R.id.event_number)
+	@ViewInject(R.id.event_number)
 	private TextView event_number;
 	/** 事件名称 */
-	@ViewInject(id = R.id.event_name)
+	@ViewInject(R.id.event_name)
 	private TextView event_name;
 	/** 事件提交人 */
-	@ViewInject(id = R.id.event_people)
+	@ViewInject(R.id.event_people)
 	private TextView eventpeople;
 	/** 提交时间 */
-	@ViewInject(id = R.id.event_time)
+	@ViewInject(R.id.event_time)
 	private TextView event_time;
 	/** 已用时 */
-	@ViewInject(id = R.id.event_over_time)
+	@ViewInject(R.id.event_over_time)
 	private TextView event_over_time;
 
 	/** 行业类型 */
-	@ViewInject(id = R.id.business_type)
+	@ViewInject(R.id.business_type)
 	private TextView business_type;
 	/** 事件等级 */
-	@ViewInject(id = R.id.event_level)
+	@ViewInject(R.id.event_level)
 	private TextView event_level;
 	/** 事件类型 */
-	@ViewInject(id = R.id.event_type)
+	@ViewInject(R.id.event_type)
 	private TextView event_type;
 	/** 事件场景 */
-	@ViewInject(id = R.id.event_background)
+	@ViewInject(R.id.event_background)
 	private TextView event_background;
 	/** 预案名称 */
-	@ViewInject(id = R.id.plan_name)
+	@ViewInject(R.id.plan_name)
 	private TextView plan_name;
 	/** 事件描述 */
-	@ViewInject(id = R.id.event_des)
+	@ViewInject(R.id.event_des)
 	private TextView event_des;
 	/** 应对建议 */
-	@ViewInject(id = R.id.suggestion)
+	@ViewInject(R.id.suggestion)
 	private TextView suggestion;
 	/** 事件详情的总布局 */
-	@ViewInject(id = R.id.event_detail_ll)
+	@ViewInject(R.id.event_detail_ll)
 	MyScrollView event_detail_ll;
 	/** 预案详情的总布局 */
-	@ViewInject(id = R.id.plan_detail_ll)
+	@ViewInject(R.id.plan_detail_ll)
 	MyScrollView plan_detail_ll;
 	/** 预案名称 */
-	@ViewInject(id = R.id.plan_detail_name)
+	@ViewInject(R.id.plan_detail_name)
 	private TextView plan_detail_name;
 	/** 预案启动人 */
-	@ViewInject(id = R.id.plan_people)
+	@ViewInject(R.id.plan_people)
 	private TextView plan_people;
 	/** 启动时间 */
-	@ViewInject(id = R.id.startime)
+	@ViewInject(R.id.startime)
 	private TextView startime;
 	/** 已用时 */
-	@ViewInject(id = R.id.plan_over_time)
+	@ViewInject(R.id.plan_over_time)
 	private TextView plan_over_time;
 	/** 预案类型 */
-	@ViewInject(id = R.id.plan_type)
+	@ViewInject(R.id.plan_type)
 	private TextView plan_type;
 	/** 预案摘要 */
-	@ViewInject(id = R.id.plan_des)
+	@ViewInject(R.id.plan_des)
 	private TextView plan_des;
 	/** 处理意见 */
-	@ViewInject(id = R.id.plan_donesug)
+	@ViewInject(R.id.plan_donesug)
 	private TextView plan_donesug;
 	/** 预案授权的总布局 */
-	@ViewInject(id = R.id.plan_autro_ll)
+	@ViewInject(R.id.plan_autro_ll)
 	private LinearLayout plan_autro_ll;
 	/** 预案授权的编辑框 */
-	@ViewInject(id = R.id.etc_plan)
+	@ViewInject(R.id.etc_plan)
 	private EditText etc_plan;
 	/** 预案授权的编辑框的删除按钮 */
-	@ViewInject(id = R.id.img_delete_plan)
+	@ViewInject(R.id.img_delete_plan)
 	private ImageView img_delete_plan;
 	/** 终止按钮 */
-	@ViewInject(id = R.id.stop)
+	@ViewInject(R.id.stop)
 	private Button stop;
 	/** 授权按钮 */
-	@ViewInject(id = R.id.auth)
+	@ViewInject(R.id.auth)
 	private Button auth;
 	/** 1,应急;2,演练 */
 	// private String tag;
@@ -257,7 +259,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_autorizatdetail);
+//		setContentView(R.layout.activity_autorizatdetail);
 		View findViewById = findViewById(R.id.autorizatdetail);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();

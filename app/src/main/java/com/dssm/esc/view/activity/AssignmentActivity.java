@@ -26,8 +26,8 @@ import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.ExpanListCheckboxAdapter;
 import com.dssm.esc.view.adapter.ListviewCheckboxAdapter;
 import com.dssm.esc.view.widget.SegmentControl;
-
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,25 +44,26 @@ import de.greenrobot.event.EventBus;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_assignment)
 public class AssignmentActivity extends BaseActivity implements
 		MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** 确定 */
-	@ViewInject(id = R.id.tv_actionbar_editData)
+	@ViewInject(R.id.tv_actionbar_editData)
 	private TextView sure;
 	/** 1，应急；2，演练 */
 	// private String tag;
 	/** 1，相关人员；2，应急小组 (SegmentControl点击) */
 	private int sem_tags;
-	@ViewInject(id = R.id.segment_control_assign)
+	@ViewInject(R.id.segment_control_assign)
 	private SegmentControl mSegment;
 	/** ListView */
-	@ViewInject(id = R.id.assign_listview)
+	@ViewInject(R.id.assign_listview)
 	private ListView mListView;
 	/** 类型数据 */
 	private ArrayList<BusinessTypeEntity> list = new ArrayList<BusinessTypeEntity>();
@@ -73,7 +74,7 @@ public class AssignmentActivity extends BaseActivity implements
 	/** ListView用来控制CheckBox的选中状况 */
 //	private HashMap<Integer, Boolean> isSelected;
 	/** 可扩展ListView */
-	@ViewInject(id = R.id.assign_expandlistview)
+	@ViewInject(R.id.assign_expandlistview)
 	private ExpandableListView expandableList;
 	/** 可扩展ListView适配器 */
 	private ExpanListCheckboxAdapter adapter;
@@ -119,7 +120,7 @@ public class AssignmentActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_assignment);
+//		setContentView(R.layout.activity_assignment);
 		View findViewById = findViewById(R.id.assignment);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();

@@ -1,20 +1,17 @@
 package com.dssm.esc.model.jsonparser.emergency;
 
-import android.util.Log;
-
 import com.dssm.esc.model.entity.emergency.EmergencyPlanEvaAddEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,15 +25,12 @@ import java.util.Map;
  */
 public class EmergencyPlanEvaAddParser {
 	public Map<String, String> map;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public EmergencyPlanEvaAddParser(String tag,
 			EmergencyPlanEvaAddEntity addEntity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(tag, addEntity);
 	}
@@ -47,60 +41,69 @@ public class EmergencyPlanEvaAddParser {
 	 * 
 	 */
 	public void request(final String tag, final EmergencyPlanEvaAddEntity addEntity) {
-		AjaxParams params = new AjaxParams();
-		params.put("tradeType", addEntity.getTradeType());
-		params.put("eveLevel", addEntity.getEveLevel());
-		params.put("eveDescription", addEntity.getEveDescription());
-		params.put("eveScenarioId", addEntity.getEveScenarioId());
-		params.put("eveScenarioName", addEntity.getEveScenarioName());
-		params.put("emergType", addEntity.getEmergType());
-		params.put("eveName", addEntity.getEveName());
-		String drillPlanName = addEntity.getDrillPlanName();
-		params.put("drillPlanName", drillPlanName);
-		params.put("dealAdvice", addEntity.getDealAdvice());
-		params.put("referPlan", addEntity.getReferPlan());
-		params.put("otherReferPlan", addEntity.getOtherReferPlan());
-		params.put("categoryPlan", addEntity.getCategoryPlan());
-		params.put("eveType", addEntity.getEveType());
-		params.put("drillPlanId", addEntity.getDrillPlanId());
-		params.put("exPlanId", addEntity.getExPlanId());
 		String url = null;
 		if (tag.equals("1")) {// 应急
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.EMERGENCY_PLANEVA_ADD;
 		} else if (tag.equals("2")) {// 演练
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.DRILL_ADD;
 		}
-		finalHttp.post(url, params, new AjaxCallBack<String>() {
+		RequestParams params = new RequestParams(url);
+		params.addParameter("tradeType", addEntity.getTradeType());
+		params.addParameter("eveLevel", addEntity.getEveLevel());
+		params.addParameter("eveDescription", addEntity.getEveDescription());
+		params.addParameter("eveScenarioId", addEntity.getEveScenarioId());
+		params.addParameter("eveScenarioName", addEntity.getEveScenarioName());
+		params.addParameter("emergType", addEntity.getEmergType());
+		params.addParameter("eveName", addEntity.getEveName());
+		String drillPlanName = addEntity.getDrillPlanName();
+		params.addParameter("drillPlanName", drillPlanName);
+		params.addParameter("dealAdvice", addEntity.getDealAdvice());
+		params.addParameter("referPlan", addEntity.getReferPlan());
+		params.addParameter("otherReferPlan", addEntity.getOtherReferPlan());
+		params.addParameter("categoryPlan", addEntity.getCategoryPlan());
+		params.addParameter("eveType", addEntity.getEveType());
+		params.addParameter("drillPlanId", addEntity.getDrillPlanId());
+		params.addParameter("exPlanId", addEntity.getExPlanId());
 
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
-
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "strMsg" + strMsg);
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request(tag,addEntity);
-					}
-			}
-
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
-				MyCookieStore.setcookieStore(finalHttp);
 				map = emergencyPlaneveAddParser(t);
 
 				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
 						null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(tag,addEntity);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
 
 			}
 

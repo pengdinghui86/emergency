@@ -6,6 +6,7 @@ INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
 INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
 MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\b91b16cd09d6792ae7ec0f8063d41471\AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\eb50a5152ba7674cdd35ef301318af8e\AndroidManifest.xml:17:1-27:12
+MERGED from [org.xutils:xutils:3.5.0] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\xutils-3.5.0.aar\3c39976f1d59f44b092a19ba7de3d51d\AndroidManifest.xml:2:1-14:12
 MERGED from [com.android.support:support-v4:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-v4-24.2.1.aar\9defd972972296b7fd912b1405b8e7b5\AndroidManifest.xml:17:1-27:12
 MERGED from [com.android.support:animated-vector-drawable:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.2.1.aar\04c87e38557960db9fcb4178dbe93bd7\AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:support-vector-drawable:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.2.1.aar\13ea271d7df28af62d35712c0f3a16a8\AndroidManifest.xml:17:1-25:12
@@ -40,6 +41,8 @@ MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches
 MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\b91b16cd09d6792ae7ec0f8063d41471\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\eb50a5152ba7674cdd35ef301318af8e\AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\eb50a5152ba7674cdd35ef301318af8e\AndroidManifest.xml:21:5-23:78
+MERGED from [org.xutils:xutils:3.5.0] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\xutils-3.5.0.aar\3c39976f1d59f44b092a19ba7de3d51d\AndroidManifest.xml:8:5-10:41
+MERGED from [org.xutils:xutils:3.5.0] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\xutils-3.5.0.aar\3c39976f1d59f44b092a19ba7de3d51d\AndroidManifest.xml:8:5-10:41
 MERGED from [com.android.support:support-v4:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-v4-24.2.1.aar\9defd972972296b7fd912b1405b8e7b5\AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-v4:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-v4-24.2.1.aar\9defd972972296b7fd912b1405b8e7b5\AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:animated-vector-drawable:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.2.1.aar\04c87e38557960db9fcb4178dbe93bd7\AndroidManifest.xml:20:5-44
@@ -172,6 +175,8 @@ MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches
 MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\b91b16cd09d6792ae7ec0f8063d41471\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\eb50a5152ba7674cdd35ef301318af8e\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\eb50a5152ba7674cdd35ef301318af8e\AndroidManifest.xml:25:5-20
+MERGED from [org.xutils:xutils:3.5.0] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\xutils-3.5.0.aar\3c39976f1d59f44b092a19ba7de3d51d\AndroidManifest.xml:12:5-20
+MERGED from [org.xutils:xutils:3.5.0] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\xutils-3.5.0.aar\3c39976f1d59f44b092a19ba7de3d51d\AndroidManifest.xml:12:5-20
 MERGED from [com.android.support:support-v4:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-v4-24.2.1.aar\9defd972972296b7fd912b1405b8e7b5\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-v4:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-v4-24.2.1.aar\9defd972972296b7fd912b1405b8e7b5\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:animated-vector-drawable:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.2.1.aar\04c87e38557960db9fcb4178dbe93bd7\AndroidManifest.xml:22:5-20

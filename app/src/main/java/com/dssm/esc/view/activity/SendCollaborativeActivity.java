@@ -3,7 +3,6 @@ package com.dssm.esc.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -29,7 +28,8 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.view.adapter.RecieveListAdapter;
 import com.dssm.esc.view.widget.MyScrollView;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,57 +43,58 @@ import java.util.List;
  * @author zsj
  * 
  */
+@ContentView(R.layout.activity_sendcollaborate)
 public class SendCollaborativeActivity extends BaseActivity implements
 		OnClickListener, MainActivity.onInitNetListener {
 	/** 1，协同；2，通告(SegmentControl点击) */
 	private int sem_tags2;
-	@ViewInject(id = R.id.rb_failsafe)
+	@ViewInject(R.id.rb_failsafe)
 	private RadioButton rb_failsafe;
-	@ViewInject(id = R.id.rb_show)
+	@ViewInject(R.id.rb_show)
 	private RadioButton rb_show;
 	/** 协同布局 */
-	@ViewInject(id = R.id.cooridiration_ll)
+	@ViewInject(R.id.cooridiration_ll)
 	private LinearLayout cooridiration_ll;
 	/** 发送对象布局 */
-	@ViewInject(id = R.id.send_object_ll)
+	@ViewInject(R.id.send_object_ll)
 	private LinearLayout send_object_ll;
 	/** 发送对象 */
-	@ViewInject(id = R.id.send_object)
+	@ViewInject(R.id.send_object)
 	private TextView send_object;
 
 	/** 添加联系人的布局 */
-	@ViewInject(id = R.id.pell)
+	@ViewInject(R.id.pell)
 	private LinearLayout pell;
 
 	/** 阶段布局 */
-	@ViewInject(id = R.id.stage_ll)
+	@ViewInject(R.id.stage_ll)
 	private LinearLayout stage_ll;
 	/** 阶段 */
-	@ViewInject(id = R.id.stage)
+	@ViewInject(R.id.stage)
 	private TextView stagetv;
 	/** 系统的布局 */
-	@ViewInject(id = R.id.xitong_ll1)
+	@ViewInject(R.id.xitong_ll1)
 	private LinearLayout xitong_ll;
 	/** 短信的布局 */
-	@ViewInject(id = R.id.message_ll1)
+	@ViewInject(R.id.message_ll1)
 	private LinearLayout message_ll;
 	/** 邮件的布局 */
-	@ViewInject(id = R.id.email_ll1)
+	@ViewInject(R.id.email_ll1)
 	private LinearLayout email_ll;
 	/** APP的布局 */
-	@ViewInject(id = R.id.APP_ll1)
+	@ViewInject(R.id.APP_ll1)
 	private LinearLayout APP_ll;
 	/** 系统 */
-	@ViewInject(id = R.id.xitong_tg)
+	@ViewInject(R.id.xitong_tg)
 	private ToggleButton xitong;
 	/** 短信 */
-	@ViewInject(id = R.id.shortmessage_tg)
+	@ViewInject(R.id.shortmessage_tg)
 	private ToggleButton message;
 	/** 邮件 */
-	@ViewInject(id = R.id.email_tg)
+	@ViewInject(R.id.email_tg)
 	private ToggleButton email;
 	/** APP */
-	@ViewInject(id = R.id.app_tg)
+	@ViewInject(R.id.app_tg)
 	private ToggleButton APP;
 	/** 被选中的人员的id */
 	// public ArrayList<String> selectId = new ArrayList<String>();
@@ -104,7 +105,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 	private String sendString = "";
 	private String precautionId = "";
 	private String stageString = "";
-	@ViewInject(id = R.id.edit_message)
+	@ViewInject(R.id.edit_message)
 	private EditText edit_message;
 
 	/** 发送方式 */
@@ -127,33 +128,33 @@ public class SendCollaborativeActivity extends BaseActivity implements
 	private SendNoticyEntity entity = new SendNoticyEntity();
 	/** 预案名 */
 	private String name = "";
-	@ViewInject(id = R.id.next_tv)
+	@ViewInject(R.id.next_tv)
 	private TextView next_tv;
 	/** 选择的发送对象 */
 	private String selectObj = "";
 	/** 选择的阶段 */
 	private String selectStage = "";
 	/** 添加联系人按钮 */
-	@ViewInject(id = R.id.add)
+	@ViewInject(R.id.add)
 	private TextView add;
 	// /** 无联系人时 */
-	@ViewInject(id = R.id.emptytv)
+	@ViewInject(R.id.emptytv)
 	private TextView empty;
 	/** 联系人 */
-	@ViewInject(id = R.id.recieve_listview_a)
+	@ViewInject(R.id.recieve_listview_a)
 	private ListView listview;
 	/** 适配器 */
 	private RecieveListAdapter mSelectAdapter;
-	@ViewInject(id = R.id.back)
+	@ViewInject(R.id.back)
 	private ImageView back;
-	@ViewInject(id = R.id.scrollview)
+	@ViewInject(R.id.scrollview)
 	private MyScrollView scrollview;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sendcollaborate);
+//		setContentView(R.layout.activity_sendcollaborate);
 		View findViewById = findViewById(R.id.sendcollaborate);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();

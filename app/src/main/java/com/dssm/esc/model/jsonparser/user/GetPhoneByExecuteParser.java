@@ -6,15 +6,15 @@ import com.dssm.esc.model.entity.user.UserObjEntity;
 import com.dssm.esc.model.entity.user.UserPersonIdEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 
 /**
@@ -26,14 +26,11 @@ public class GetPhoneByExecuteParser {
 
 
 	public UserPersonIdEntity entity;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnUserParseLoadCompleteListener;
 
 	public GetPhoneByExecuteParser(String executePeopleId,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnUserParseLoadCompleteListener = completeListener;
 		request(executePeopleId);
 	}
@@ -42,43 +39,50 @@ public class GetPhoneByExecuteParser {
 	 * 
 	 * 发送请求
 	 * 
-	 * @param userEntity
+	 * @param executePeopleId
 	 */
 	public void request(final String executePeopleId) {
 
-		
-		finalHttp.get(DemoApplication.getInstance().getUrl()+HttpUrl.QUERYUSERBYEXECUTEPEOPELID+executePeopleId, new AjaxCallBack<String>() {
-
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
-
-				OnUserParseLoadCompleteListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "strMsg" + strMsg);
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request(executePeopleId);
-					}
-			}
-
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.QUERYUSERBYEXECUTEPEOPELID+executePeopleId);
+		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
 				Log.i("GetPhoneByExecuteParser", t);
-				MyCookieStore.setcookieStore(finalHttp);
 				entity = getUserMessage(t);
 				Log.i("GetPhoneByExecuteParser", "GetPhoneByExecuteParser" + entity);
 				OnUserParseLoadCompleteListener.onEmergencyParserComplete(
 						entity, null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(executePeopleId);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
 
 			}
 

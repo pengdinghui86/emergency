@@ -14,7 +14,8 @@ import com.dssm.esc.view.widget.NSSetPointValueToSteps;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +23,13 @@ import java.util.List;
 /**
  * 流程监控子预案流程图界面
  */
+@ContentView(R.layout.activity_process_monitoring_sub_mission)
 public class ProcessMonitoringSubMissionActivity extends BaseActivity {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	private MyFlowView my_flow_view;
 	private String name = "";
@@ -38,7 +40,7 @@ public class ProcessMonitoringSubMissionActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_process_monitoring_sub_mission);
+//		setContentView(R.layout.activity_process_monitoring_sub_mission);
 		View findViewById = findViewById(R.id.ll_sub_mission);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();

@@ -23,8 +23,8 @@ import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.DrillselectListviewAdapter;
-
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -41,19 +41,20 @@ import java.util.List;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_drillselect)
 public class DrillSelectActivity extends BaseActivity implements
 		MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView mSelectTypeTitle;
 	/** 返回 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** ListView */
-	@ViewInject(id = R.id.drill_type_listview)
+	@ViewInject(R.id.drill_type_listview)
 	private ListView mListView;
 	/** emptytv */
-	@ViewInject(id = R.id.emptytv)
+	@ViewInject(R.id.emptytv)
 	private TextView emptytv;
 	/** 类型数据 */
 	private ArrayList<DrillProjectNameEntity> list = new ArrayList<DrillProjectNameEntity>();
@@ -83,7 +84,7 @@ public class DrillSelectActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_drillselect);
+//		setContentView(R.layout.activity_drillselect);
 		View findViewById = findViewById(R.id.drillselect);
 		findViewById.setFitsSystemWindows(true);
 		initView();

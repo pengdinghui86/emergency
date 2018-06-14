@@ -24,7 +24,8 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.ExpandListvPlanExecuteAdapter;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,24 +40,25 @@ import java.util.List;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  * Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_plan_execute)
 public class PlanExecutionActivity extends BaseActivity implements
         OnRefreshListener, MainActivity.onInitNetListener {
     /**
      * 标题
      */
-    @ViewInject(id = R.id.tv_actionbar_title)
+    @ViewInject(R.id.tv_actionbar_title)
     private TextView title;
     /**
      * 返回按钮
      */
-    @ViewInject(id = R.id.iv_actionbar_back)
+    @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
     /** 1，应急；2，演练 */
     // private String tag;
     /**
      * 可扩展ListView
      */
-    @ViewInject(id = R.id.plan_excute_expandablelist)
+    @ViewInject(R.id.plan_excute_expandablelist)
     private ExpandableListView expandableList;
     /**
      * 可扩展ListView 适配器
@@ -75,12 +77,12 @@ public class PlanExecutionActivity extends BaseActivity implements
     /**
      * 暂无数据
      */
-    @ViewInject(id = R.id.pemptytv)
+    @ViewInject(R.id.pemptytv)
     private TextView emptytv;
     /**
      * 刷新
      */
-    @ViewInject(id = R.id.id_swipe_ly)
+    @ViewInject(R.id.id_swipe_ly)
     private SwipeRefreshLayout mSwipeLayout;
 
     private Handler handler = new Handler() {
@@ -141,7 +143,7 @@ public class PlanExecutionActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plan_execute);
+//        setContentView(R.layout.activity_plan_execute);
         View findViewById = findViewById(R.id.plan_execute);
         findViewById.setFitsSystemWindows(true);
         // tag = getIntent().getStringExtra("tag");

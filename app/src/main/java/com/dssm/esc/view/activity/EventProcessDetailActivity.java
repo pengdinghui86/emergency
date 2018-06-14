@@ -17,7 +17,8 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.adapter.TimeLineListviewAdapter;
 import com.dssm.esc.view.widget.MyProgressBar;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,23 +33,24 @@ import java.util.List;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_eventprocessdetail)
 public class EventProcessDetailActivity extends BaseActivity implements MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	/** 传过来的事件实体 */
 	BoHuiListEntity boHuiListEntity  ;
 	/** 进度条 */
-	@ViewInject(id = R.id.progressBar)
+	@ViewInject(R.id.progressBar)
 	private MyProgressBar progressBar;
 	/** 已用时 */
-	@ViewInject(id = R.id.overtime)
+	@ViewInject(R.id.overtime)
 	private TextView overtime;
 	/** 时间轴 */
-	@ViewInject(id = R.id.listview)
+	@ViewInject(R.id.listview)
 	private ListView listview;
 	/** 时间轴数据源 */
 	private List<ProgressDetailEntity.EvenDetail> list = new ArrayList<ProgressDetailEntity.EvenDetail>();
@@ -61,7 +63,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_eventprocessdetail);
+//		setContentView(R.layout.activity_eventprocessdetail);
 		View findViewById = findViewById(R.id.eventprocessdetail);
 		findViewById.setFitsSystemWindows(true);
 		boHuiListEntity = (BoHuiListEntity) getIntent().getSerializableExtra("BoHuiListEntity");

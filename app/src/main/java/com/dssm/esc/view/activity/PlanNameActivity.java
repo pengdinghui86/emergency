@@ -23,7 +23,8 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.adapter.ListvCheckboxMulselectAdapter;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -41,19 +42,20 @@ import java.util.List;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_plan_name)
 public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView mSelectTypeTitle;
 	/** 确定 */
-	@ViewInject(id = R.id.tv_actionbar_editData)
+	@ViewInject(R.id.tv_actionbar_editData)
 	private TextView mSelectConfirm;
 	/** 返回 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** ListView */
-	@ViewInject(id = R.id.planname_type_listview)
+	@ViewInject(R.id.planname_type_listview)
 	private ListView mListView;
 	private PlanNameSelectEntity entity;
 	/** 类型数据的数据源 */
@@ -69,7 +71,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 	private int plantags;
 	/** 事件场景id */
 	private String id = "";
-	@ViewInject(id = R.id.emptytv)
+	@ViewInject(R.id.emptytv)
 	private TextView emptytv;
 	/** 预案名称 */
 	private String name = "";
@@ -112,7 +114,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_plan_name);
+//		setContentView(R.layout.activity_plan_name);
 		View findViewById = findViewById(R.id.plan_name);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();

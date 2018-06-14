@@ -22,30 +22,31 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.adapter.ExpanListvSignInAdapter;
 import com.dssm.esc.view.widget.SegmentControl;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@ContentView(R.layout.activity_groupsignin)
 public class GroupSigninDetail extends BaseActivity implements
 		SwipeRefreshLayout.OnRefreshListener, MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
-	@ViewInject(id = R.id.segment_control_sign_grop)
+	@ViewInject(R.id.segment_control_sign_grop)
 	private SegmentControl mSegmentControl;
-	@ViewInject(id = R.id.segment_control_sign_grop2)
+	@ViewInject(R.id.segment_control_sign_grop2)
 	private SegmentControl mSegmentControl2;
 	/** 人员签到可扩展listview */
-	@ViewInject(id = R.id.expandable_signin_grop)
+	@ViewInject(R.id.expandable_signin_grop)
 	private ExpandableListView expandable_list_signin;
 	private ExpanListvSignInAdapter adapter;
 	/** 暂无数据 */
-	@ViewInject(id = R.id.emyptytv)
+	@ViewInject(R.id.emyptytv)
 	private TextView emyptytv;
 
 	/** 签到，未签到列表 */
@@ -61,7 +62,7 @@ public class GroupSigninDetail extends BaseActivity implements
 	private int sem_tags = 1;
 	/** 预案执行编号 */
 	private String id;
-	@ViewInject(id = R.id.id_swipe_ly)
+	@ViewInject(R.id.id_swipe_ly)
 	private SwipeRefreshLayout mSwipeLayout;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -248,7 +249,7 @@ public class GroupSigninDetail extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_groupsignin);
+//		setContentView(R.layout.activity_groupsignin);
 		View findViewById = findViewById(R.id.groupsignin);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();

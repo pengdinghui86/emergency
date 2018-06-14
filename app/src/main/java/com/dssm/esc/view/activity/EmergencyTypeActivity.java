@@ -20,7 +20,9 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.adapter.ListviewCheckboxAdapter;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,19 +38,19 @@ import java.util.List;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
-public class EmergencyTypeActivity extends BaseActivity implements
-		OnClickListener {
+@ContentView(R.layout.activity_emergency_type)
+public class EmergencyTypeActivity extends BaseActivity{
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView mSelectTypeTitle;
 	/** 确定 */
-	@ViewInject(id = R.id.tv_actionbar_editData, click = "onClick")
+	@ViewInject(R.id.tv_actionbar_editData)
 	private TextView mSelectConfirm;
 	/** 返回 */
-	@ViewInject(id = R.id.iv_actionbar_back, click = "onClick")
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** ListView */
-	@ViewInject(id = R.id.select_type_listview)
+	@ViewInject(R.id.select_type_listview)
 	private ListView mListView;
 	/** 适配器 */
 	private ListviewCheckboxAdapter mSelectAdapter;
@@ -81,7 +83,7 @@ public class EmergencyTypeActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_emergency_type);
+//		setContentView(R.layout.activity_emergency_type);
 		View findViewById = findViewById(R.id.emergency_type);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();
@@ -343,27 +345,31 @@ public class EmergencyTypeActivity extends BaseActivity implements
 
 	}
 
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
+	/**
+	 * 单击事件
+	 * type默认View.OnClickListener.class，故此处可以简化不写，@Event(R.id.bt_main)
+	 */
+	@Event(type = View.OnClickListener.class,
+			value = {R.id.tv_actionbar_editData, R.id.iv_actionbar_back})
+	private void onClick(View v){
 		switch (v.getId()) {
-		case R.id.tv_actionbar_editData:
-			Intent intent = new Intent();
+			case R.id.tv_actionbar_editData:
+				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("arrlist", (Serializable) mSelectAdapter.list);
 				intent.putExtras(bundle);
 				EmergencyTypeActivity.this.setResult(RESULT_OK, intent);
-			EmergencyTypeActivity.this.finish();
-			break;
+				EmergencyTypeActivity.this.finish();
+				break;
 
-		case R.id.iv_actionbar_back:
-			// EmergencyTypeActivity.this.setResult(RESULT_CANCELED);
-			EmergencyTypeActivity.this.finish();
+			case R.id.iv_actionbar_back:
+				// EmergencyTypeActivity.this.setResult(RESULT_CANCELED);
+				EmergencyTypeActivity.this.finish();
 
-			break;
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 

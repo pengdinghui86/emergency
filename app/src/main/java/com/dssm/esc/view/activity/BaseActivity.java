@@ -1,5 +1,6 @@
 package com.dssm.esc.view.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,18 +16,17 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl.UserSeviceImplListListenser;
 import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.Const;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.SystemBarTintManager;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 
-import net.tsz.afinal.FinalActivity;
-
 import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import com.easemob.chatuidemo.activity.LoginActivity;
+
+import org.xutils.x;
 
 /**
  * 基类Activity
@@ -39,7 +39,7 @@ import com.easemob.chatuidemo.activity.LoginActivity;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
-public class BaseActivity extends FinalActivity {
+public class BaseActivity extends Activity {
 
 	/** 4.4版本以上的沉浸式 */
 	protected SystemBarTintManager mTintManager;
@@ -106,35 +106,11 @@ public class BaseActivity extends FinalActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		x.view().inject(this);
 		setStatusBarState();
-		//Thread.setDefaultUncaughtExceptionHandler(restartHandler); // 程序崩溃时触发线程
-		if (MyCookieStore.cookieStore != null) {
-
-			if (useEventBus()) {
-				EventBus.getDefault().register(this);
-			}
-			// if (savedInstanceState != null
-			// && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED,
-			// false)) {
-			// // 防止被移除后，没点确定按钮然后按了home键，长期在后台又进app导致的crash
-			// // 三个fragment里加的判断同理
-			// DemoHXSDKHelper.getInstance().logout(true, null);
-			// finish();
-			// startActivity(new Intent(this, LoginActivity.class));
-			// return;
-			// } else if (savedInstanceState != null
-			// && savedInstanceState.getBoolean("isConflict", false)) {
-			// // 防止被T后，没点确定按钮然后按了home键，长期在后台又进app导致的crash
-			// // 三个fragment里加的判断同理
-			// finish();
-			// startActivity(new Intent(this, LoginActivity.class));
-			// return;
-			// }
-
-		} else {
-			relogin();
+		if (useEventBus()) {
+			EventBus.getDefault().register(this);
 		}
-
 		context = getApplicationContext();
 	}
 

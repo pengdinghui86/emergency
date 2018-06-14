@@ -4,16 +4,15 @@ import android.util.Log;
 
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,14 +25,11 @@ import java.util.Map;
  */
 public class SendMessageParser {
 	public Map<String, String> map;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public SendMessageParser(String postId, String sendType, 
 			String content, OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(postId, sendType,content);
 	}
@@ -46,47 +42,55 @@ public class SendMessageParser {
 	public void request(final String postId, final String sendType,
 			final String content) {
 
-		AjaxParams params = new AjaxParams();
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SENDMESSAGE);
 		if (postId != null) {
 //			id	接收人岗位标识	用逗号隔开
 //			sendType	发送方式	0系统，1邮件，2短信，3 APP，逗号隔开
 //			content	通知内容	
-			params.put("id", postId);
-			params.put("sendType", sendType);
-			params.put("content", content);
+			params.addParameter("id", postId);
+			params.addParameter("sendType", sendType);
+			params.addParameter("content", content);
 		}
-		finalHttp.post(DemoApplication.getInstance().getUrl()+HttpUrl.SENDMESSAGE, params, new AjaxCallBack<String>() {
-
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
-
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "strMsg" + strMsg);
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request(postId,sendType,content);
-					}
-			}
-
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
-				MyCookieStore.setcookieStore(finalHttp);
 				Log.i("SendMessageParser", "SendMessageParser" + t);
 				map = sendMessageParse(t);
 				Log.i("SendMessageParser", "SendMessageParser" + map);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
 						null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(postId,sendType,content);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
 
 			}
 

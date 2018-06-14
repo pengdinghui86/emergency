@@ -4,10 +4,6 @@ import android.util.Xml;
 
 import com.dssm.esc.model.entity.user.UpdataInfo;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
-import com.dssm.esc.util.MyCookieStore;
-import com.dssm.esc.util.Utils;
-
-import net.tsz.afinal.FinalHttp;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -23,14 +19,11 @@ import java.io.InputStream;
 public class UpdataInfoParser {
 	
 	public UpdataInfo info;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnUserParseLoadCompleteListener;
 
 	public UpdataInfoParser(
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnUserParseLoadCompleteListener = completeListener;
 	}
 

@@ -5,16 +5,15 @@ import android.util.Log;
 import com.dssm.esc.model.entity.emergency.SendNoticyEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,14 +27,11 @@ import java.util.Map;
  */
 public class SendNoticeParser {
 	public Map<String, String> map;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public SendNoticeParser(SendNoticyEntity noticyEntity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(noticyEntity);
 	}
@@ -45,7 +41,7 @@ public class SendNoticeParser {
 	 */
 	public void request(final SendNoticyEntity noticyEntity) {
 
-		AjaxParams params = new AjaxParams();
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SENDNOTICE);
 //		id	接收人岗位标识	逗号隔开
 //		sendType	发送方式	0系统，1邮件，2短信，3 APP，逗号隔开
 //		content	通知内容	
@@ -54,49 +50,56 @@ public class SendNoticeParser {
 //		planInfoId	预案执行编号	
 //		coorStage	协同--阶段	
 //		sendObj	协同—对象	发送对象为对监管时启用，JSONArray类型，包含输入的联系号码和邮箱
-			params.put("id", noticyEntity.getId());
-			params.put("sendType", noticyEntity.getSendType());
-			params.put("content", noticyEntity.getContent());
-			
-			params.put("busType", noticyEntity.getBusType());
-			params.put("planInfoId", noticyEntity.getPlanInfoId());
-			
-			params.put("coorStage", noticyEntity.getCoorStage());
-			params.put("sendObj", noticyEntity.getSendObj());
-			
+		params.addParameter("id", noticyEntity.getId());
+		params.addParameter("sendType", noticyEntity.getSendType());
+		params.addParameter("content", noticyEntity.getContent());
 
-		finalHttp.post(DemoApplication.getInstance().getUrl()+HttpUrl.SENDNOTICE, params, new AjaxCallBack<String>() {
+		params.addParameter("busType", noticyEntity.getBusType());
+		params.addParameter("planInfoId", noticyEntity.getPlanInfoId());
 
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
+		params.addParameter("coorStage", noticyEntity.getCoorStage());
+		params.addParameter("sendObj", noticyEntity.getSendObj());
 
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "strMsg" + strMsg);
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request(noticyEntity);
-					}
-			}
-
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
-				MyCookieStore.setcookieStore(finalHttp);
 				Log.i("SendNoticeParser", "SendNoticeParser" + t);
 				map = assignParser(t);
 				Log.i("SendNoticeParser", "SendNoticeParser" + map);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
 						null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(noticyEntity);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
 
 			}
 

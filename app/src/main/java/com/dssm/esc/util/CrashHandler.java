@@ -95,14 +95,14 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (e == null) {// 异常是否为空
             return false;
         }
-        new Thread() {// 在主线程中弹出提示
-            @Override
-            public void run() {
-                Looper.prepare();
-                Toast.makeText(mContext, "捕获到异常:" + e.toString(), Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            }
-        }.start();
+//        new Thread() {// 在主线程中弹出提示
+//            @Override
+//            public void run() {
+//                Looper.prepare();
+//                Toast.makeText(mContext, "捕获到异常:" + e.toString(), Toast.LENGTH_SHORT).show();
+//                Looper.loop();
+//            }
+//        }.start();
         collectErrorMessages();
         saveErrorMessages(e);
         return false;

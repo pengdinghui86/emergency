@@ -13,10 +13,11 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.mainEvent;
 
-import net.tsz.afinal.annotation.view.ViewInject;
-
 import de.greenrobot.event.EventBus;
 import com.easemob.chatuidemo.activity.ChatActivity;
+
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * 个人简介界面
@@ -27,6 +28,7 @@ import com.easemob.chatuidemo.activity.ChatActivity;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_introduce)
 public class IntroductionActivity extends BaseActivity {
 	/** 从上一级传过来的值 */
 	private String id = "";
@@ -38,41 +40,41 @@ public class IntroductionActivity extends BaseActivity {
 	private String sex="";
 	private String email="";
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	/** 名称 */
-	@ViewInject(id = R.id.name)
+	@ViewInject(R.id.name)
 	private TextView nametv;
 	/** 性别 */
-	@ViewInject(id = R.id.sex)
+	@ViewInject(R.id.sex)
 	private TextView sextv;
 	/** 岗位 */
-	@ViewInject(id = R.id.gangwei)
+	@ViewInject(R.id.gangwei)
 	private TextView gangwei;
 	/** 联系电话 */
-	@ViewInject(id = R.id.phonenumber)
+	@ViewInject(R.id.phonenumber)
 	private TextView phonenumber;
 	/** 备用电话 */
-	@ViewInject(id = R.id.phonenumber2)
+	@ViewInject(R.id.phonenumber2)
 	private TextView phonenumber2;
 	/** 邮箱 */
-	@ViewInject(id = R.id.email)
+	@ViewInject(R.id.email)
 	private TextView emailtv;
 	/** 部门 */
-	@ViewInject(id = R.id.bumen)
+	@ViewInject(R.id.bumen)
 	private TextView bumen;
 	/** 发消息 */
-	@ViewInject(id = R.id.send_message)
+	@ViewInject(R.id.send_message)
 	private TextView send_message;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_introduce);
+//		setContentView(R.layout.activity_introduce);
 		if (useEventBus()) {
 			EventBus.getDefault().register(this);
 		}

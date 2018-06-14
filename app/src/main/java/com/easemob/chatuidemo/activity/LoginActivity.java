@@ -33,8 +33,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,7 +50,6 @@ import com.dssm.esc.model.jsonparser.user.UpdataInfoParser;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DownLoadManager;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.SystemBarTintManager;
 import com.dssm.esc.util.ToastUtil;
@@ -71,10 +68,6 @@ import com.easemob.chatuidemo.db.UserDao;
 import com.easemob.chatuidemo.domain.User;
 import com.easemob.chatuidemo.utils.CommonUtils;
 import com.easemob.exceptions.EaseMobException;
-
-import net.tsz.afinal.FinalHttp;
-
-import org.apache.http.cookie.Cookie;
 
 import java.io.File;
 import java.io.InputStream;
@@ -173,7 +166,6 @@ public class LoginActivity extends BaseActivity {
     private Button getVersion;
 
     private UpdataInfo info;
-    private FinalHttp finalHttp;
     private String localVersion;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -236,7 +228,7 @@ public class LoginActivity extends BaseActivity {
 //															startActivity(intent);
 //
 //															finish();
-                                                                keepCookie();
+                                                                versionUpdate();
                                                             } else if (stRerror != null) {
                                                                 if (pd != null) {
                                                                     pd.dismiss();
@@ -276,15 +268,7 @@ public class LoginActivity extends BaseActivity {
                                         String Exceptionerror) {
                                     String str = null;
                                     if (backflag) {
-                                        str = "登陆成功";
-//									// 进入主页面
-//									Intent intent = new Intent(
-//											LoginActivity.this,
-//											MainActivity.class);
-//									startActivity(intent);
-//
-//									finish();
-                                        keepCookie();
+                                        versionUpdate();
                                     } else if (stRerror != null) {
                                         if (pd != null) {
                                             pd.dismiss();
@@ -338,34 +322,6 @@ public class LoginActivity extends BaseActivity {
 
         ;
     };
-
-    /**
-     * 保持cookie一直有效
-     */
-    private void keepCookie() {
-        Cookie appCookie = null;
-        List<Cookie> cookies = MyCookieStore.cookieStore.getCookies();
-        if (!cookies.isEmpty()) {
-            for (int i = cookies.size(); i > 0; i--) {
-                Cookie cookie = cookies.get(i - 1);
-                if (cookie.getName().equalsIgnoreCase("jsessionid")) {
-                    appCookie = cookie; // 使用一个常量来保存这个cookie，用于做session共享之用
-                    MyCookieStore.setcookieStore(finalHttp);
-                }
-            }
-        }
-        CookieSyncManager.createInstance(this);
-        CookieManager cookieManager = CookieManager.getInstance();
-        Cookie sessionCookie = appCookie;
-        if (sessionCookie != null) {
-            String cookieString = sessionCookie.getName() + "="
-                    + sessionCookie.getValue() + "; domain="
-                    + sessionCookie.getDomain();
-            cookieManager.setCookie(DemoApplication.getInstance().getUrl() + HttpUrl.VERSIONUPDATE, cookieString);
-            CookieSyncManager.getInstance().sync();
-        }
-        versionUpdate();
-    }
 
     /***
      * 检测版本更新
@@ -520,7 +476,6 @@ public class LoginActivity extends BaseActivity {
         View findViewById = findViewById(R.id.login);
         findViewById.setFitsSystemWindows(true);
         sevice = Control.getinstance().getUserSevice();
-        finalHttp = Utils.getInstance().getFinalHttp();
         service = MySharePreferencesService.getInstance(this);
         // 回显
         map = service.getPreferences();
@@ -571,7 +526,7 @@ public class LoginActivity extends BaseActivity {
                                                     // TODO Auto-generated
                                                     // method stub
                                                     if (backflag) {
-                                                        keepCookie();
+                                                        versionUpdate();
                                                     } else if (backflag == false) {
 
                                                     } else if (stRerror != null) {

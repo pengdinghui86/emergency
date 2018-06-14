@@ -3,8 +3,6 @@ package com.dssm.esc.view.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.annotation.view.ViewInject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,7 +24,6 @@ import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
-import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.BaseActivity.onInitNetListener;
 import com.dssm.esc.view.adapter.DismissValuationListviewAdapter;
@@ -34,6 +31,9 @@ import com.dssm.esc.view.adapter.PlanAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.AutoListView.OnLoadListener;
 import com.dssm.esc.view.widget.AutoListView.OnRefreshListener;
+
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * 决策授权界面
@@ -44,22 +44,23 @@ import com.dssm.esc.view.widget.AutoListView.OnRefreshListener;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  * Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_dismissvaluation)
 public class AutorizationDecisionActivity extends BaseActivity implements
         OnRefreshListener, OnLoadListener, onInitNetListener {
     /**
      * 标题
      */
-    @ViewInject(id = R.id.tv_actionbar_title)
+    @ViewInject(R.id.tv_actionbar_title)
     private TextView title;
     /**
      * 返回按钮
      */
-    @ViewInject(id = R.id.iv_actionbar_back)
+    @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
     /**
      * ListView
      */
-    @ViewInject(id = R.id.dismissv_listview)
+    @ViewInject(R.id.dismissv_listview)
     AutoListView listView;
     /**
      * 适配器
@@ -130,7 +131,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         // 与驳回事件用同一个布局，都是个简单的列表
-        setContentView(R.layout.activity_dismissvaluation);
+//        setContentView(R.layout.activity_dismissvaluation);
         View findViewById = findViewById(R.id.dismissvaluation);
         findViewById.setFitsSystemWindows(true);
 

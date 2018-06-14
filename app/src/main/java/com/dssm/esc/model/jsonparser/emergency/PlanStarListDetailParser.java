@@ -7,17 +7,15 @@ import com.dssm.esc.model.entity.emergency.PlanStarListDetailObjEntity;
 import com.dssm.esc.model.entity.emergency.PlanStarListDetailObjListEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +28,11 @@ import java.util.List;
  */
 public class PlanStarListDetailParser {
 	public PlanStarListDetailEntity detailEntity;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public PlanStarListDetailParser(String id,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(id);
 	}
@@ -48,43 +43,51 @@ public class PlanStarListDetailParser {
 	 */
 	public void request(final String id) {
 
-		AjaxParams params = new AjaxParams();
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARDETAIL+"?id="+id);
 		// params.put("userName",userEntity.getUsername());
 		// params.put("password", userEntity.getPassword());
-		params.put("id", id);
+		params.addParameter("id", id);
 		Log.i("未启动事件详情id", DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARDETAIL+"?id="+id);
-		finalHttp.post(DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARDETAIL, params, new AjaxCallBack<String>() {
-
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
-
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "strMsg" + strMsg);
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request(id);
-					}
-			}
-
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
-				MyCookieStore.setcookieStore(finalHttp);
 				Log.i("PlanStarListDetail", "PlanStarListDetailParser" + t);
 				detailEntity = getPlanStarListDetail(t);
 				Log.i("PlanStarListDetail", "PlanStarListDetailParser" + detailEntity);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(
 						detailEntity, null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(id);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
 
 			}
 

@@ -5,15 +5,15 @@ import android.util.Log;
 import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 
 /**
@@ -24,14 +24,11 @@ import org.json.JSONObject;
  */
 public class GetNotiConfigContentParser {
 	private GetProjectEveInfoEntity entity;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public GetNotiConfigContentParser(String precautionId, String type,
 			String stage, OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(precautionId, type, stage);
 	}
@@ -39,44 +36,20 @@ public class GetNotiConfigContentParser {
 	/**
 	 * 
 	 * 发送请求
-	 * 
-	 * @param id
-	 *            事件编号
+	 *
 	 */
 	public void request(final String precautionId, final String type, final String stage) {
 		// precautionId 预案id
 		// type 发送对象
 		// stage 阶段
-		finalHttp.get(DemoApplication.getInstance().getUrl()+HttpUrl.GETNOTICONFIGCONTENT + "?precautionId="
-				+ precautionId + "&type=" + type + "&stage=" + stage,
-				new AjaxCallBack<String>() {
-					@Override
-					public void onFailure(Throwable t, int errorNo,
-							String strMsg) {
-						// TODO Auto-generated method stub
-						super.onFailure(t, errorNo, strMsg);
-
-						OnEmergencyCompleterListener.onEmergencyParserComplete(
-								null, strMsg);
-						Log.i("onFailure", "strMsg" + strMsg);
-						if (errorNo==518) {
-							Utils.getInstance().relogin();
-							request(precautionId,type,stage);
-							}
-					}
-
-					@Override
-					public void onStart() {
-						// TODO Auto-generated method stub
-						super.onStart();
-					}
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETNOTICONFIGCONTENT + "?precautionId="
+				+ precautionId + "&type=" + type + "&stage=" + stage);
+		x.http().get(params, new Callback.CommonCallback<String>() {
 
 					@Override
 					public void onSuccess(String t) {
 						// TODO Auto-generated method stub
-						super.onSuccess(t);
 						Log.i("GetNotiConfigContent", t);
-						MyCookieStore.setcookieStore(finalHttp);
 						entity = getEventValuationParser(t);
 						Log.i("GetNotiConfigContent",
 								"GetNotiConfigContentParser" + entity);
@@ -85,7 +58,37 @@ public class GetNotiConfigContentParser {
 
 					}
 
-				});
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(precautionId,type,stage);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
+
+			}
+
+		});
 	}
 
 	/**

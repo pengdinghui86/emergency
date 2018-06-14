@@ -22,7 +22,8 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,83 +41,84 @@ import de.greenrobot.event.EventBus;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_addvaluation)
 public class AddeValuationActivity extends BaseActivity implements
 		OnClickListener {
 	/** 事件名称 */
-	@ViewInject(id = R.id.event_name)
+	@ViewInject(R.id.event_name)
 	private EditText event_name;
 	/** 行业类型布局 */
-	@ViewInject(id = R.id.business_type_ll)
+	@ViewInject(R.id.business_type_ll)
 	private LinearLayout business_type_ll;
 	/** 行业类型 */
-	@ViewInject(id = R.id.business_type)
+	@ViewInject(R.id.business_type)
 	private TextView business_type;
 	/** 事件等级布局 */
-	@ViewInject(id = R.id.event_level_ll)
+	@ViewInject(R.id.event_level_ll)
 	private LinearLayout event_level_ll;
 	/** 事件等级 */
-	@ViewInject(id = R.id.event_level)
+	@ViewInject(R.id.event_level)
 	private TextView event_level;
 	/** 事件场景布局 */
-	@ViewInject(id = R.id.event_background_ll)
+	@ViewInject(R.id.event_background_ll)
 	private LinearLayout event_background_ll;
 	/** 事件场景 */
-	@ViewInject(id = R.id.event_background)
+	@ViewInject(R.id.event_background)
 	private TextView event_background;
 
 	/** 事件类型布局 */
-	@ViewInject(id = R.id.event_type_ll)
+	@ViewInject(R.id.event_type_ll)
 	private LinearLayout event_type_ll;
 	/** 事件类型 */
-	@ViewInject(id = R.id.event_type)
+	@ViewInject(R.id.event_type)
 	private TextView event_type;
 
 	/** 应急预案布局 */
-	@ViewInject(id = R.id.plan_ll)
+	@ViewInject(R.id.plan_ll)
 	private LinearLayout plan_ll;
 	/** 演练预案布局 */
-	@ViewInject(id = R.id.emergType_ll)
+	@ViewInject(R.id.emergType_ll)
 	private LinearLayout emergType_ll;
 	/** 演练预案名称 */
-	@ViewInject(id = R.id.emergType)
+	@ViewInject(R.id.emergType)
 	private TextView emergTypetv;
 	/** 演练类型布局 */
-	@ViewInject(id = R.id.plan_ll_2)
+	@ViewInject(R.id.plan_ll_2)
 	private LinearLayout plan_ll_2;
 	/** 演练类型 */
-	@ViewInject(id = R.id.plan_name)
+	@ViewInject(R.id.plan_name)
 	private TextView plan_name;
-	@ViewInject(id = R.id.line)
+	@ViewInject(R.id.line)
 	private View line;
 
 	/** 参考预案布局 */
-	@ViewInject(id = R.id.referPlan_name_ll)
+	@ViewInject(R.id.referPlan_name_ll)
 	private LinearLayout referPlan_name_ll;
 	/** 参考预案 */
-	@ViewInject(id = R.id.referPlan_name)
+	@ViewInject(R.id.referPlan_name)
 	private TextView referPlan_name;
 	/** 其他预案布局 */
-	@ViewInject(id = R.id.otherReferPlan_name_ll)
+	@ViewInject(R.id.otherReferPlan_name_ll)
 	private LinearLayout otherReferPlan_name_ll;
 	/** 其他预案 */
-	@ViewInject(id = R.id.otherReferPlan_name)
+	@ViewInject(R.id.otherReferPlan_name)
 	private TextView otherReferPlan_name;
 	/** 分类预案布局 */
-	@ViewInject(id = R.id.categoryPlan_name_ll)
+	@ViewInject(R.id.categoryPlan_name_ll)
 	private LinearLayout categoryPlan_name_ll;
 	/** 分类预案 */
-	@ViewInject(id = R.id.categoryPlan_name)
+	@ViewInject(R.id.categoryPlan_name)
 	private TextView categoryPlan_name;
 	/** 事件描述 */
-	@ViewInject(id = R.id.event_des)
+	@ViewInject(R.id.event_des)
 	private EditText event_des;
 	/** 应对建议 */
-	@ViewInject(id = R.id.suggestion)
+	@ViewInject(R.id.suggestion)
 	private EditText suggestion;
 	/** 1,应急;2,演练 */
 	private String tag = "";
 	/** 提交 */
-	@ViewInject(id = R.id.submittv)
+	@ViewInject(R.id.submittv)
 	private TextView submit;
 	/** 业务类型 */
 	private String tradeType = "";
@@ -168,9 +170,9 @@ public class AddeValuationActivity extends BaseActivity implements
 	private String otherPlanIds = "";
 	private String categrayPlanNames = "";
 	private String categrayPlanIds = "";
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	/** 被选的预案id */
 	private ArrayList<PlanNameRowEntity> selectedIds = new ArrayList<PlanNameRowEntity>();
@@ -179,7 +181,7 @@ public class AddeValuationActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_addvaluation);
+//		setContentView(R.layout.activity_addvaluation);
 		View findViewById = findViewById(R.id.addvaluation);
 		findViewById.setFitsSystemWindows(true);
 		intent = getIntent();

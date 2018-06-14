@@ -6,19 +6,21 @@ import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.jsonparser.ControlCompleterListenter;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.dssm.esc.util.HttpUrl.SIGN_USER_LIST_COUNT_DETAIL;
 
 
 /**
@@ -28,14 +30,11 @@ import java.util.List;
  */
 public class GetSignUserInfoDetailParser {
 	private List<GroupEntity> list;
-	FinalHttp finalHttp;
 	private ControlCompleterListenter<List<GroupEntity>> completeListener;
 
 	public GetSignUserInfoDetailParser(String planInfoId,
 			ControlCompleterListenter<List<GroupEntity>> completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.completeListener = completeListener;
 		request(planInfoId);
 	}
@@ -47,35 +46,13 @@ public class GetSignUserInfoDetailParser {
 	 *            预案执行编号
 	 */
 	public void request(final String planInfoId) {
-
-		finalHttp.get(DemoApplication.getInstance().getUrl()+HttpUrl.SIGN_USER_LIST_COUNT_DETAIL + planInfoId,
-				new AjaxCallBack<String>() {
-					@Override
-					public void onFailure(Throwable t, int errorNo,
-							String strMsg) {
-						// TODO Auto-generated method stub
-						super.onFailure(t, errorNo, strMsg);
-
-						completeListener.controlParserComplete(null, strMsg);
-						Log.i("onFailure", "strMsg" + strMsg);
-						if (errorNo==518) {
-							Utils.getInstance().relogin();
-							request(planInfoId);
-							}
-					}
-
-					@Override
-					public void onStart() {
-						// TODO Auto-generated method stub
-						super.onStart();
-					}
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SIGN_USER_LIST_COUNT_DETAIL + planInfoId);
+		x.http().get(params, new Callback.CommonCallback<String>() {
 
 					@Override
 					public void onSuccess(String t) {
 						// TODO Auto-generated method stub
-						super.onSuccess(t);
 						Log.i("GetSignUserInfoParser", t);
-						MyCookieStore.setcookieStore(finalHttp);
 						list = planStarListParser(t);
 						Log.i("GetSignUserInfoParser", "GetSignUserInfoParser"
 								+ list);
@@ -83,7 +60,37 @@ public class GetSignUserInfoDetailParser {
 
 					}
 
-				});
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+				Log.i("onFailure", "strMsg" + ex.toString());
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(planInfoId);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				completeListener.controlParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
+
+			}
+
+		});
 	}
 
 	/**

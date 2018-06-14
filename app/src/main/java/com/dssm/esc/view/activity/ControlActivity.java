@@ -44,7 +44,8 @@ import com.dssm.esc.view.widget.NSSetPointValueToSteps;
 import com.dssm.esc.view.widget.SegmentControl;
 import com.dssm.esc.view.widget.Title_Layout;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,17 +62,18 @@ import de.greenrobot.event.EventBus;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  * Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_control)
 public class ControlActivity extends BaseActivity implements OnClickListener,
         MainActivity.onInitNetListener, AutoListView.OnRefreshListener, AutoListView.OnLoadListener {
     /**
      * 标题 布局
      */
-    @ViewInject(id = R.id.title)
+    @ViewInject(R.id.title)
     private Title_Layout title_ll;
     /**
      * 标题
      */
-    @ViewInject(id = R.id.tv_actionbar_title)
+    @ViewInject(R.id.tv_actionbar_title)
     private TextView title;
 
     private TextView tv_editData;
@@ -79,7 +81,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     /**
      * 返回按钮
      */
-    @ViewInject(id = R.id.iv_actionbar_back)
+    @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
     /**
      * 从上个页面带来的数据
@@ -88,7 +90,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     /**
      * 可点击转换界面的button
      */
-    @ViewInject(id = R.id.segment_control_control)
+    @ViewInject(R.id.segment_control_control)
     private SegmentControl msegment;
     /**
      * 点击button转换：1，实时跟踪2，流程监,3，资源筹
@@ -97,7 +99,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     /**
      * 实时跟踪的 include布局
      */
-    @ViewInject(id = R.id.realtime_tracking)
+    @ViewInject(R.id.realtime_tracking)
     private View realtime_tracking;
     /**
      * 实时跟踪的 终止按钮
@@ -125,7 +127,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     /**
      * 资源筹备 include布局
      */
-    @ViewInject(id = R.id.resource_preparation)
+    @ViewInject(R.id.resource_preparation)
     private View resource_preparation;
     /**
      * 资源筹备的应急接收情况查看详情
@@ -205,7 +207,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_control);
+//        setContentView(R.layout.activity_control);
         View findViewById = findViewById(R.id.control);
         findViewById.setFitsSystemWindows(true);
         my_flow_view = (MyFlowView) findViewById(R.id.my_flow_view);

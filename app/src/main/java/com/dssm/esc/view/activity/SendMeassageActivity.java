@@ -19,7 +19,8 @@ import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +32,14 @@ import java.util.List;
  * @author zsj
  * 
  */
+@ContentView(R.layout.contact_next)
 public class SendMeassageActivity extends BaseActivity implements
 		OnClickListener, MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView mSelectTypeTitle;
 	/** 返回 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** 系统的布局 */
 	private LinearLayout xitong_ll;
@@ -64,7 +66,7 @@ public class SendMeassageActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.contact_next);
+//		setContentView(R.layout.contact_next);
 		View findViewById = findViewById(R.id.sendmessage);
 		findViewById.setFitsSystemWindows(true);
 		contactListService = Control.getinstance().getContactSevice();

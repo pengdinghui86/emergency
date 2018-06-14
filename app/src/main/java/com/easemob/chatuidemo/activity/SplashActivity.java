@@ -14,8 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.widget.Button;
 
 import com.dssm.esc.R;
@@ -28,10 +26,8 @@ import com.dssm.esc.model.jsonparser.user.UpdataInfoParser;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DownLoadManager;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
-import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.MainActivity;
@@ -40,15 +36,10 @@ import com.easemob.chat.EMGroupManager;
 import com.easemob.chatuidemo.DemoApplication;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 
-import net.tsz.afinal.FinalHttp;
-
-import org.apache.http.cookie.Cookie;
-
 import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
 
 import de.greenrobot.event.EventBus;
@@ -84,7 +75,6 @@ public class SplashActivity extends BaseActivity {
 	private Button getVersion;
 
 	private UpdataInfo info;
-	private FinalHttp finalHttp;
 	private String localVersion;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -117,7 +107,7 @@ public class SplashActivity extends BaseActivity {
 														// TODO Auto-generated
 														// method stub
 														if (backflag) {
-															keepCookie();
+															versionUpdate();
 
 														} else if (backflag == false) {
 
@@ -205,34 +195,6 @@ public class SplashActivity extends BaseActivity {
 			}
 		};
 	};
-
-	/**
-	 * 保持cookie一直有效
-	 */
-	private void keepCookie() {
-		Cookie appCookie = null;
-		List<Cookie> cookies = MyCookieStore.cookieStore.getCookies();
-		if (!cookies.isEmpty()) {
-			for (int i = cookies.size(); i > 0; i--) {
-				Cookie cookie = cookies.get(i - 1);
-				if (cookie.getName().equalsIgnoreCase("jsessionid")) {
-					appCookie = cookie; // 使用一个常量来保存这个cookie，用于做session共享之用
-					MyCookieStore.setcookieStore(finalHttp);
-				}
-			}
-		}
-		CookieSyncManager.createInstance(this);
-		CookieManager cookieManager = CookieManager.getInstance();
-		Cookie sessionCookie = appCookie;
-		if (sessionCookie != null) {
-			String cookieString = sessionCookie.getName() + "="
-					+ sessionCookie.getValue() + "; domain="
-					+ sessionCookie.getDomain();
-			cookieManager.setCookie(DemoApplication.getInstance().getUrl()+HttpUrl.VERSIONUPDATE, cookieString);
-			CookieSyncManager.getInstance().sync();
-		}
-		versionUpdate();
-	}
 
 	/***
 	 * 检测版本更新
@@ -384,7 +346,6 @@ public class SplashActivity extends BaseActivity {
 		// setContentView(R.layout.activity_splash);
 		setContentView(R.layout.activity_welcome);
 		super.onCreate(arg0);
-		finalHttp = Utils.getInstance().getFinalHttp();
 		sevice = Control.getinstance().getUserSevice();
 		service = MySharePreferencesService.getInstance(this);
 		Intent intent = getIntent();

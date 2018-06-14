@@ -4,16 +4,15 @@ import android.util.Log;
 
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +26,11 @@ import java.util.Map;
  */
 public class PlanAuthParser {
 	public Map<String, String> map;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public PlanAuthParser(String id, String planAuthOpition, String planName,
 			String planResName,String planResType,String planId,String planStarterId,String submitterId, OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(id, planAuthOpition,planName,planResName,planResType, planId, planStarterId, submitterId);
 	}
@@ -48,52 +44,60 @@ public class PlanAuthParser {
 	public void request(final String id,final String planAuthOpition,final String planName,
 			final String planResName,final String planResType,final String planId,final String planStarterId,final String submitterId) {
 
-		AjaxParams params = new AjaxParams();
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.PLANAUTH);
 		if (id != null) {
 			// id 事件id
 			// planAuthOpition 预案授权处置意见
-			params.put("id", id);
-			params.put("planAuthOpition", planAuthOpition);
-			params.put("planName", planName);
-			params.put("planResName", planResName);
-			params.put("planResType", planResType);
-			params.put("planId", planId);
-			params.put("planStarterId", planStarterId);
-			params.put("submitterId", submitterId);
+			params.addParameter("id", id);
+			params.addParameter("planAuthOpition", planAuthOpition);
+			params.addParameter("planName", planName);
+			params.addParameter("planResName", planResName);
+			params.addParameter("planResType", planResType);
+			params.addParameter("planId", planId);
+			params.addParameter("planStarterId", planStarterId);
+			params.addParameter("submitterId", submitterId);
 		}
-		finalHttp.post(DemoApplication.getInstance().getUrl()+HttpUrl.PLANAUTH, params, new AjaxCallBack<String>() {
-
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
-
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "strMsg" + strMsg);
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request( id,  planAuthOpition,  planName,
-							 planResName, planResType, planId, planStarterId, submitterId);
-					}
-			}
-
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
-				MyCookieStore.setcookieStore(finalHttp);
 				Log.i("PlanAuthParser", "PlanAuthParser" + t);
 				map = planAuthParse(t);
 				Log.i("PlanAuthParser", "PlanAuthParser" + map);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
 						null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(id,  planAuthOpition,  planName,
+								planResName, planResType, planId, planStarterId, submitterId);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
 
 			}
 

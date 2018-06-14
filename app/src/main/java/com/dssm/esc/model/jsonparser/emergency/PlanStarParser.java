@@ -5,16 +5,15 @@ import android.util.Log;
 import com.dssm.esc.model.entity.emergency.PlanStarListDetailObjEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,15 +27,12 @@ import java.util.Map;
  */
 public class PlanStarParser {
 	public Map<String, String> map;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public PlanStarParser(String id, String usePlan,
 			PlanStarListDetailObjEntity detailObjEntity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(id, usePlan, detailObjEntity);
 	}
@@ -54,7 +50,8 @@ public class PlanStarParser {
 	public void request(final String id,final String usePlan,
 			final	PlanStarListDetailObjEntity detailObjEntity) {
 
-		AjaxParams params = new AjaxParams();
+		String url=DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARD;
+		RequestParams params = new RequestParams(url);
 		// usePlan 已选预案 可以多选，以“|”隔开
 		// opition 处置意见
 		// planEveId 事件ID
@@ -71,60 +68,68 @@ public class PlanStarParser {
 //		planName	预案名称	发送通知使用
 //		planId	预案ID	发送通知使用
 	
-			params.put("planEveId", id);
-			params.put("usePlan", usePlan);
+		params.addParameter("planEveId", id);
+		params.addParameter("usePlan", usePlan);
 
-			params.put("opition", detailObjEntity.getDealAdvice());// 处置建议
-			params.put("eveType", detailObjEntity.getEveType());// 事件类型
-			String eveName = detailObjEntity.getEveName();
-			
-			params.put("planEveName",eveName );// 事件名称
-			params.put("eveScenarioId", detailObjEntity.getEveScenarioId());// 事件场景id
-			params.put("drillPlanId", detailObjEntity.getDrillPlanId());// 演练详细计划ID
-			
-			params.put("submitterId", detailObjEntity.getSubmitterId());// 提交人ID
-			params.put("tradeTypeId", detailObjEntity.getTradeTypeId());// 业务类型ID
-			params.put("eveLevelId", detailObjEntity.getEveLevelId());// 事件等级ID
-			
-			
-			params.put("planResName", detailObjEntity.getPlanResName());// 预案来源名称	发送通知使用
-			params.put("planResType", detailObjEntity.getPlanResType());// 预案来源类型	发送通知使用
-			params.put("planName", detailObjEntity.getPlanName());// 预案名称	发送通知使用
-			params.put("planId", detailObjEntity.getPlanId());// 预案ID	发送通知使用
-		String url=DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARD;
-		finalHttp.post(url, params, new AjaxCallBack<String>() {
+		params.addParameter("opition", detailObjEntity.getDealAdvice());// 处置建议
+		params.addParameter("eveType", detailObjEntity.getEveType());// 事件类型
+		String eveName = detailObjEntity.getEveName();
 
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
+		params.addParameter("planEveName",eveName );// 事件名称
+		params.addParameter("eveScenarioId", detailObjEntity.getEveScenarioId());// 事件场景id
+		params.addParameter("drillPlanId", detailObjEntity.getDrillPlanId());// 演练详细计划ID
 
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "strMsg" + strMsg);
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request( id,  usePlan,
-							 detailObjEntity);
-					}
-			}
+		params.addParameter("submitterId", detailObjEntity.getSubmitterId());// 提交人ID
+		params.addParameter("tradeTypeId", detailObjEntity.getTradeTypeId());// 业务类型ID
+		params.addParameter("eveLevelId", detailObjEntity.getEveLevelId());// 事件等级ID
 
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+
+		params.addParameter("planResName", detailObjEntity.getPlanResName());// 预案来源名称	发送通知使用
+		params.addParameter("planResType", detailObjEntity.getPlanResType());// 预案来源类型	发送通知使用
+		params.addParameter("planName", detailObjEntity.getPlanName());// 预案名称	发送通知使用
+		params.addParameter("planId", detailObjEntity.getPlanId());// 预案ID	发送通知使用
+
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
-				MyCookieStore.setcookieStore(finalHttp);
 				Log.i("PlanStarParser", "PlanStarParser" + t);
 				map = planStarBohuiParser(t);
 				Log.i("PlanStarParser", "PlanStarParser" + map);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
 						null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(id,  usePlan,
+								detailObjEntity);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
 
 			}
 

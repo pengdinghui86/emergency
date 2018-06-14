@@ -29,8 +29,8 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.widget.MyScrollView;
 import com.dssm.esc.view.widget.SegmentControl;
-
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,159 +46,160 @@ import de.greenrobot.event.EventBus;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  * Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_planstar_detail)
 public class PlanStarDetailActivity extends BaseActivity implements
         OnClickListener, MainActivity.onInitNetListener {
     /**
      * 标题
      */
-    @ViewInject(id = R.id.tv_actionbar_title)
+    @ViewInject(R.id.tv_actionbar_title)
     private TextView title;
     /**
      * 返回按钮
      */
-    @ViewInject(id = R.id.iv_actionbar_back)
+    @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
-    @ViewInject(id = R.id.segment_control_plandetail)
+    @ViewInject(R.id.segment_control_plandetail)
     SegmentControl mSegmentControl;
     /**
      * 事件编号
      */
-    @ViewInject(id = R.id.event_number)
+    @ViewInject(R.id.event_number)
     private TextView event_number;
     /**
      * 事件名称
      */
-    @ViewInject(id = R.id.event_name)
+    @ViewInject(R.id.event_name)
     private TextView event_name;
     /**
      * 事件提交人
      */
-    @ViewInject(id = R.id.event_people)
+    @ViewInject(R.id.event_people)
     private TextView eventpeople;
     /**
      * 提交时间
      */
-    @ViewInject(id = R.id.event_time)
+    @ViewInject(R.id.event_time)
     private TextView event_time;
     /**
      * 已用时
      */
-    @ViewInject(id = R.id.event_over_time)
+    @ViewInject(R.id.event_over_time)
     private TextView event_over_time;
 
     /**
      * 行业类型
      */
-    @ViewInject(id = R.id.business_type)
+    @ViewInject(R.id.business_type)
     private TextView business_type;
     /**
      * 事件等级
      */
-    @ViewInject(id = R.id.event_level)
+    @ViewInject(R.id.event_level)
     private TextView event_level;
     /**
      * 事件类型
      */
-    @ViewInject(id = R.id.event_type)
+    @ViewInject(R.id.event_type)
     private TextView event_type;
 
     /**
      * 事件场景
      */
-    @ViewInject(id = R.id.event_background)
+    @ViewInject(R.id.event_background)
     private TextView event_background;
     /**
      * 预案名称
      */
-    @ViewInject(id = R.id.plan_name)
+    @ViewInject(R.id.plan_name)
     private TextView plan_name;
     /**
      * 事件描述
      */
-    @ViewInject(id = R.id.event_des)
+    @ViewInject(R.id.event_des)
     private TextView event_des;
     /**
      * 应对建议
      */
-    @ViewInject(id = R.id.suggestion)
+    @ViewInject(R.id.suggestion)
     private TextView suggestion;
     /**
      * 事件详情的总布局
      */
-    @ViewInject(id = R.id.event_detail_ll)
+    @ViewInject(R.id.event_detail_ll)
     MyScrollView event_detail_ll;
     /**
      * 预案处置的总布局
      */
-    @ViewInject(id = R.id.plan_done_ll)
+    @ViewInject(R.id.plan_done_ll)
     private LinearLayout plan_done_ll;
     /**
      * 应急预案布局
      */
-    @ViewInject(id = R.id.plan_ll)
+    @ViewInject(R.id.plan_ll)
     private LinearLayout plan_ll;
     /**
      * 演练预案布局
      */
-    @ViewInject(id = R.id.plan_ll_2)
+    @ViewInject(R.id.plan_ll_2)
     private LinearLayout plan_ll_2;
     /**
      * 演练预案名称
      */
-    @ViewInject(id = R.id.plan_name2)
+    @ViewInject(R.id.plan_name2)
     private TextView plan_name2;
     /**
      * 参考预案布局
      */
-    @ViewInject(id = R.id.referPlan_name_ll)
+    @ViewInject(R.id.referPlan_name_ll)
     private LinearLayout referPlan_name_ll;
     /**
      * 参考预案
      */
-    @ViewInject(id = R.id.referPlan_name)
+    @ViewInject(R.id.referPlan_name)
     private TextView referPlan_name;
     /**
      * 其他预案布局
      */
-    @ViewInject(id = R.id.otherReferPlan_name_ll)
+    @ViewInject(R.id.otherReferPlan_name_ll)
     private LinearLayout otherReferPlan_name_ll;
     /**
      * 其他预案
      */
-    @ViewInject(id = R.id.otherReferPlan_name)
+    @ViewInject(R.id.otherReferPlan_name)
     private TextView otherReferPlan_name;
     /**
      * 分类预案布局
      */
-    @ViewInject(id = R.id.categoryPlan_name_ll)
+    @ViewInject(R.id.categoryPlan_name_ll)
     private LinearLayout categoryPlan_name_ll;
     /**
      * 分类预案
      */
-    @ViewInject(id = R.id.categoryPlan_name)
+    @ViewInject(R.id.categoryPlan_name)
     private TextView categoryPlan_name;
     /**
      * 预案处置的编辑框
      */
-    @ViewInject(id = R.id.etc)
+    @ViewInject(R.id.etc)
     private EditText etc;
     /**
      * 预案处置的编辑框的删除按钮
      */
-    @ViewInject(id = R.id.img_delete)
+    @ViewInject(R.id.img_delete)
     private ImageView img_delete;
     /**
      * 预案处置的驳回按钮
      */
-    @ViewInject(id = R.id.dismisscount)
+    @ViewInject(R.id.dismisscount)
     private Button dismisscount;
-    @ViewInject(id = R.id.start_tv)
+    @ViewInject(R.id.start_tv)
     private TextView start_tv;
 
     /**
      * 预案处置的启动按钮
      */
-    @ViewInject(id = R.id.start)
+    @ViewInject(R.id.start)
     private Button start;
     /**
      * 预案id 可以多选，以“|”隔开
@@ -353,7 +354,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_planstar_detail);
+//        setContentView(R.layout.activity_planstar_detail);
         View findViewById = findViewById(R.id.planstar_detail);
         findViewById.setFitsSystemWindows(true);
         Intent intent = getIntent();

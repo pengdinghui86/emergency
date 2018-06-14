@@ -4,16 +4,15 @@ import android.util.Log;
 
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,15 +26,12 @@ import java.util.Map;
  */
 public class PlanStarBohuiParser {
 	public Map<String, String> map;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public PlanStarBohuiParser(String planEveId, String planEveName,
 			String submitterId, String eveType,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(planEveId, planEveName, submitterId, eveType);
 	}
@@ -58,44 +54,19 @@ public class PlanStarBohuiParser {
 //		planEveName	事件名称	
 //		submitterId	事件提交人	发送通知使用
 //		eveType	事件类型	发送通知使用
-		AjaxParams params = new AjaxParams();
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARD_BOHUI);
 		if (planEveId != null) {
 
-			params.put("planEveId", planEveId);
-			params.put("planEveName", planEveName);
-			params.put("submitterId", submitterId);
-			params.put("eveType", eveType);
+			params.addParameter("planEveId", planEveId);
+			params.addParameter("planEveName", planEveName);
+			params.addParameter("submitterId", submitterId);
+			params.addParameter("eveType", eveType);
 		}
-		finalHttp.post(DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARD_BOHUI, params,
-				new AjaxCallBack<String>() {
-
-					@Override
-					public void onFailure(Throwable t, int errorNo,
-							String strMsg) {
-						// TODO Auto-generated method stub
-						super.onFailure(t, errorNo, strMsg);
-
-						OnEmergencyCompleterListener
-								.onEmergencyParserComplete(null, strMsg);
-						Log.i("onFailure", "strMsg" + strMsg);
-						if (errorNo==518) {
-							Utils.getInstance().relogin();
-							request(  planEveId,  planEveName, submitterId,
-									  eveType);
-							}
-					}
-
-					@Override
-					public void onStart() {
-						// TODO Auto-generated method stub
-						super.onStart();
-					}
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
 					@Override
 					public void onSuccess(String t) {
 						// TODO Auto-generated method stub
-						super.onSuccess(t);
-						MyCookieStore.setcookieStore(finalHttp);
 						Log.i("PlanStarBohuiParser", "PlanStarBohuiParser" + t);
 						map = planStarBohuiParser(t);
 						Log.i("PlanStarBohuiParser", "PlanStarBohuiParser"
@@ -105,7 +76,38 @@ public class PlanStarBohuiParser {
 
 					}
 
-				});
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(planEveId,  planEveName, submitterId,
+								eveType);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
+
+			}
+
+		});
 
 	}
 

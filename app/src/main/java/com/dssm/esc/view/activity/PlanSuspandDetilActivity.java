@@ -29,8 +29,8 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.widget.MyScrollView;
-
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import de.greenrobot.event.EventBus;
 
@@ -40,61 +40,62 @@ import de.greenrobot.event.EventBus;
  * @author zsj
  * 
  */
+@ContentView(R.layout.activity_suspanddetail)
 public class PlanSuspandDetilActivity extends BaseActivity implements
 		OnClickListener, MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	/** 预案详情的总布局 */
-	@ViewInject(id = R.id.plan_detail_ll)
+	@ViewInject(R.id.plan_detail_ll)
 	MyScrollView plan_detail_ll;
 	/** 预案名称 */
-	@ViewInject(id = R.id.plan_detail_name)
+	@ViewInject(R.id.plan_detail_name)
 	private TextView plan_detail_name;
 	/** 预案启动人 */
-	@ViewInject(id = R.id.plan_people)
+	@ViewInject(R.id.plan_people)
 	private TextView plan_people;
 	/** 启动时间 */
-	@ViewInject(id = R.id.startime)
+	@ViewInject(R.id.startime)
 	private TextView startime;
 	/** 已用时 */
-	@ViewInject(id = R.id.plan_over_time)
+	@ViewInject(R.id.plan_over_time)
 	private TextView plan_over_time;
 
 	/** 预案授权人 */
-	@ViewInject(id = R.id.planAther)
+	@ViewInject(R.id.planAther)
 	private TextView planAther;
 	/** 预案授权时间 */
-	@ViewInject(id = R.id.planAuthTime)
+	@ViewInject(R.id.planAuthTime)
 	private TextView planAuthTime;
 	/** 预案授权意见 */
-	@ViewInject(id = R.id.planAuthOption)
+	@ViewInject(R.id.planAuthOption)
 	private TextView planAuthOption;
 
 	/** 预案类型 */
-	@ViewInject(id = R.id.plan_type)
+	@ViewInject(R.id.plan_type)
 	private TextView plan_type;
 	/** 预案摘要 */
-	@ViewInject(id = R.id.plan_des)
+	@ViewInject(R.id.plan_des)
 	private TextView plan_des;
 	/** 处理意见 布局 */
-	@ViewInject(id = R.id.ed_ll)
+	@ViewInject(R.id.ed_ll)
 	private LinearLayout suggestion_ll;
 
 	/** 处理意见 */
-	@ViewInject(id = R.id.plan_donesug)
+	@ViewInject(R.id.plan_donesug)
 	private TextView plan_donesug;
 	/** 中止按钮 */
-	@ViewInject(id = R.id.suspandbt)
+	@ViewInject(R.id.suspandbt)
 	private Button suspandbt;
 	/** 中止原因的编辑框 */
-	@ViewInject(id = R.id.etc)
+	@ViewInject(R.id.etc)
 	private EditText etc;
 	/** 中止原因的删除按钮 */
-	@ViewInject(id = R.id.img_delete)
+	@ViewInject(R.id.img_delete)
 	private ImageView img_delete;
 	private PlanDetailEntity planDetailEntity;
 	private PlanSuspandEntity suspandEntity;
@@ -178,7 +179,7 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_suspanddetail);
+//		setContentView(R.layout.activity_suspanddetail);
 		View findViewById = findViewById(R.id.plan_detail_all);
 		findViewById.setFitsSystemWindows(true);
 		intent = getIntent();

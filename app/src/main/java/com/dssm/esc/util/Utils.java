@@ -15,12 +15,8 @@ import android.widget.Toast;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
-import com.dssm.esc.model.entity.user.UserEntity;
 import com.easemob.chatuidemo.DemoApplication;
 import com.easemob.chatuidemo.activity.LoginActivity;
-
-import net.tsz.afinal.FinalHttp;
-
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -68,10 +64,6 @@ public class Utils implements Serializable {
         return getInstance();
     }
 
-    /**
-     * afinal框架访问网络对象；
-     */
-    private FinalHttp finalHttp = null;
     private String reg;
     private Toast toast = null;
     private Handler mHandler = new Handler();
@@ -208,22 +200,6 @@ public class Utils implements Serializable {
             }
         }
         return false;
-    }
-
-    /**
-     * 获取FinalHttp对象发送请求
-     *
-     * @return
-     */
-    public FinalHttp getFinalHttp() {
-        if (finalHttp != null) {
-            return finalHttp;
-        } else {
-            finalHttp = new FinalHttp();
-        }
-        finalHttp.configTimeout(300 * 1000);// 超时时间
-//		finalHttp.configRequestExecutionRetryCount(1);// 请求错误重试次数
-        return finalHttp;
     }
 
     /**

@@ -5,16 +5,15 @@ import android.util.Log;
 import com.dssm.esc.model.entity.emergency.PlanSuspandEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +26,6 @@ import java.util.Map;
  */
 public class SuspandParser {
 	public Map<String, String> map;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	// id 编号
@@ -36,8 +34,6 @@ public class SuspandParser {
 	public SuspandParser(PlanSuspandEntity suspandEntity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(suspandEntity);
 	}
@@ -48,8 +44,8 @@ public class SuspandParser {
 	 * @param suspandEntity 预案中止实体类
 	 */
 	public void request(final PlanSuspandEntity suspandEntity) {
-
-		AjaxParams params = new AjaxParams();
+		String url=DemoApplication.getInstance().getUrl()+HttpUrl.SUSPAND;
+		RequestParams params = new RequestParams(url);
 //		id	预案ID	
 //		suspendType	中止类型	启动时中止，类型为null
 //		planSuspendOpition	中止原因	
@@ -62,52 +58,59 @@ public class SuspandParser {
 //		planStarterId	预案启动人	发送通知使用
 //		planAuthorId	预案授权人	发送通知使用
 //		submitterId	事件提交人	发送通知使用
-			params.put("id", suspandEntity.getId());
-			params.put("suspendType", suspandEntity.getSuspendType());
-			params.put("planSuspendOpition", suspandEntity.getPlanSuspendOpition());
-			params.put("planName", suspandEntity.getPlanName());
-			params.put("planResName", suspandEntity.getPlanResName());
-			
-			params.put("planResType", suspandEntity.getPlanResType());
-			params.put("planId", suspandEntity.getPlanId());
-			params.put("eveLevelId", suspandEntity.getEveLevelId());
-			params.put("planStarterId", suspandEntity.getPlanStarterId());
-			params.put("planAuthorId", suspandEntity.getPlanAuthorId());
-			params.put("submitterId", suspandEntity.getSubmitterId());
-			String url=DemoApplication.getInstance().getUrl()+HttpUrl.SUSPAND;
-			
-		finalHttp.post(url, params, new AjaxCallBack<String>() {
+		params.addParameter("id", suspandEntity.getId());
+		params.addParameter("suspendType", suspandEntity.getSuspendType());
+		params.addParameter("planSuspendOpition", suspandEntity.getPlanSuspendOpition());
+		params.addParameter("planName", suspandEntity.getPlanName());
+		params.addParameter("planResName", suspandEntity.getPlanResName());
 
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
+		params.addParameter("planResType", suspandEntity.getPlanResType());
+		params.addParameter("planId", suspandEntity.getPlanId());
+		params.addParameter("eveLevelId", suspandEntity.getEveLevelId());
+		params.addParameter("planStarterId", suspandEntity.getPlanStarterId());
+		params.addParameter("planAuthorId", suspandEntity.getPlanAuthorId());
+		params.addParameter("submitterId", suspandEntity.getSubmitterId());
 
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "strMsg" + strMsg);
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request(suspandEntity);
-					}
-			}
-
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
-				MyCookieStore.setcookieStore(finalHttp);
 				Log.i("SuspandParser", "SuspandParser" + t);
 				map = loginRoleParse(t);
 				Log.i("SuspandParser", "SuspandParser" + map);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
 						null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(suspandEntity);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
 
 			}
 

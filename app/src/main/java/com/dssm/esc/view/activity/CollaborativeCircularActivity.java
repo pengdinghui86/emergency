@@ -2,8 +2,6 @@ package com.dssm.esc.view.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import net.tsz.afinal.annotation.view.ViewInject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +31,9 @@ import com.dssm.esc.view.activity.BaseActivity.onInitNetListener;
 import com.dssm.esc.view.adapter.ExpanListChexboxMulselectAdapter;
 import com.dssm.esc.view.widget.ClearEditText;
 
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+
 /**
  * 协同通告界面
  * 
@@ -42,19 +43,20 @@ import com.dssm.esc.view.widget.ClearEditText;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_collaborativecircular)
 public class CollaborativeCircularActivity extends BaseActivity implements
 		OnClickListener, onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView mSelectTypeTitle;
 	/** 确定 */
-	@ViewInject(id = R.id.tv_actionbar_editData)
+	@ViewInject(R.id.tv_actionbar_editData)
 	private TextView mSelectConfirm;
 	/** 返回 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** 可扩展ListView */
-	@ViewInject(id = R.id.collab_expandlistview)
+	@ViewInject(R.id.collab_expandlistview)
 	private ExpandableListView expandableList;
 	/** 可扩展ListView适配器 */
 	private ExpanListChexboxMulselectAdapter adapter;
@@ -65,10 +67,10 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	/** 被选中的人员的id */
 	public List<String> selectId = new ArrayList<String>();
 	/** 可清除的EditText */
-	@ViewInject(id = R.id.filter_edit_c)
+	@ViewInject(R.id.filter_edit_c)
 	private ClearEditText myClearEt;
 	/** 显示未搜索到 */
-	@ViewInject(id = R.id.no_search_result_tv_c)
+	@ViewInject(R.id.no_search_result_tv_c)
 	private TextView noSearchResultTv;
 	private String planInfoId = "";
 	private String precautionId = "";
@@ -107,7 +109,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_collaborativecircular);
+//		setContentView(R.layout.activity_collaborativecircular);
 		View findViewById = findViewById(R.id.collaborativecircular);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();

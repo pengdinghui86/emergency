@@ -17,8 +17,8 @@ import android.widget.Toast;
 import com.dssm.esc.R;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
-
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * 提交信息界面
@@ -29,31 +29,32 @@ import net.tsz.afinal.annotation.view.ViewInject;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_submitinfomation)
 public class SubmitInfomationActivity extends BaseActivity implements
 		OnClickListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	/** 确定 */
-	@ViewInject(id = R.id.tv_actionbar_editData)
+	@ViewInject(R.id.tv_actionbar_editData)
 	private TextView mSelectConfirm;
 	/** 1，预案执行5,控制中心 */
 	private String tag;
 	/** 提交信息的编辑框 */
-	@ViewInject(id = R.id.etc_submit)
+	@ViewInject(R.id.etc_submit)
 	private EditText etc_submit;
 	/** 提交信息的编辑框的删除按钮 */
-	@ViewInject(id = R.id.img_delete_submit)
+	@ViewInject(R.id.img_delete_submit)
 	private ImageView img_delete_submit;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_submitinfomation);
+//		setContentView(R.layout.activity_submitinfomation);
 		View findViewById = findViewById(R.id.submitinfomation);
 		findViewById.setFitsSystemWindows(true);
 		tag = getIntent().getStringExtra("tag");

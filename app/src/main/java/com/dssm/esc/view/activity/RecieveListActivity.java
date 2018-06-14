@@ -18,8 +18,8 @@ import com.dssm.esc.model.entity.emergency.RecieveListEntity;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.adapter.ReceveListAdapter;
-
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,16 +34,17 @@ import java.util.ArrayList;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_recieve)
 public class RecieveListActivity extends BaseActivity implements
 		OnClickListener,MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView mSelectTypeTitle;
 	/** 返回 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** ListView */
-	@ViewInject(id = R.id.recieve_listview)
+	@ViewInject(R.id.recieve_listview)
 	private ListView mListView;
 	/** 类型数据 */
 	private ArrayList<RecieveListEntity> list = new ArrayList<RecieveListEntity>();
@@ -52,10 +53,10 @@ public class RecieveListActivity extends BaseActivity implements
 	private ReceveListAdapter mSelectAdapter;
 	
 	/** 添加*/
-	@ViewInject(id = R.id.submit)
+	@ViewInject(R.id.submit)
 	private TextView submit;
 	/** 提交 */
-	@ViewInject(id = R.id.ok)
+	@ViewInject(R.id.ok)
 	private TextView ok;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -78,7 +79,7 @@ public class RecieveListActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_recieve);
+//		setContentView(R.layout.activity_recieve);
 		View findViewById = findViewById(R.id.recieve);
 		findViewById.setFitsSystemWindows(true);
 		list= (ArrayList<RecieveListEntity>) getIntent().getExtras().getSerializable("list");

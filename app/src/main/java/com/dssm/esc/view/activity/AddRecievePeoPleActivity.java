@@ -13,7 +13,8 @@ import com.dssm.esc.R;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * 新增联系人界面
@@ -24,27 +25,28 @@ import net.tsz.afinal.annotation.view.ViewInject;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_addrecieve)
 public class AddRecievePeoPleActivity extends BaseActivity implements
 		OnClickListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView mSelectTypeTitle;
 	/** 确定 */
-	@ViewInject(id = R.id.tv_actionbar_editData)
+	@ViewInject(R.id.tv_actionbar_editData)
 	private TextView mSelectConfirm;
 	/** 返回 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** 1,应急;2,演练 */
 	// private String tag;
 	/** 姓名 */
-	@ViewInject(id = R.id.name)
+	@ViewInject(R.id.name)
 	private EditText name;
 	/** 电话 */
-	@ViewInject(id = R.id.phonenumber)
+	@ViewInject(R.id.phonenumber)
 	private EditText phonenumber;
 	/** 邮箱 */
-	@ViewInject(id = R.id.email)
+	@ViewInject(R.id.email)
 	private EditText email;
 	/** 要传送过去的数据 */
 	private String data;
@@ -60,7 +62,7 @@ public class AddRecievePeoPleActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_addrecieve);
+//		setContentView(R.layout.activity_addrecieve);
 		View findViewById = findViewById(R.id.addrecieve);
 		findViewById.setFitsSystemWindows(true);
 		Bundle bundle = getIntent().getExtras();

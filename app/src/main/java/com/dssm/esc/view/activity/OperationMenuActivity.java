@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -14,17 +12,10 @@ import android.widget.TextView;
 
 import com.dssm.esc.R;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
-import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.annotation.view.ViewInject;
-
-import org.apache.http.cookie.Cookie;
-
-import java.util.List;
-
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * 操作手册界面（webview）
@@ -35,23 +26,24 @@ import java.util.List;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  * Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_operationmenu)
 public class OperationMenuActivity extends BaseActivity {
     /** 1，应急；2，演练 */
     // private String tag;
     /**
      * 标题
      */
-    @ViewInject(id = R.id.tv_actionbar_title)
+    @ViewInject(R.id.tv_actionbar_title)
     private TextView title;
     /**
      * 返回按钮
      */
-    @ViewInject(id = R.id.iv_actionbar_back)
+    @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
     /**
      * WebView
      */
-    @ViewInject(id = R.id.webView)
+    @ViewInject(R.id.webView)
     private WebView webView;
     // manualDetailId 操作手册详细内容记录id
     // planResType 演练计划类型 1、事件 2、演练计划
@@ -62,9 +54,7 @@ public class OperationMenuActivity extends BaseActivity {
     private String drillPrecautionId = "";
     private String name = "";
     private String planInfoId = "";
-    private FinalHttp finalHttp;
     private String url;
-    private String jsessionid = "";// session的id
     /**
      * 1.预案列表2，预案步骤
      */
@@ -75,11 +65,9 @@ public class OperationMenuActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_operationmenu);
+//        setContentView(R.layout.activity_operationmenu);
         View findViewById = findViewById(R.id.operationmenu);
         findViewById.setFitsSystemWindows(true);
-        finalHttp = Utils.getInstance().getFinalHttp();
-
         intent = getIntent();
         tag = intent.getStringExtra("tag");
         planResType = intent.getStringExtra("planResType");
@@ -114,27 +102,6 @@ public class OperationMenuActivity extends BaseActivity {
         // 设置支持缩放
         webSettings.setBuiltInZoomControls(true);
 
-        Cookie appCookie = null;
-        List<Cookie> cookies = MyCookieStore.cookieStore.getCookies();
-        if (!cookies.isEmpty()) {
-            for (int i = cookies.size(); i > 0; i--) {
-                Cookie cookie = cookies.get(i - 1);
-                if (cookie.getName().equalsIgnoreCase("jsessionid")) {
-                    appCookie = cookie; // 使用一个常量来保存这个cookie，用于做session共享之用
-                    MyCookieStore.setcookieStore(finalHttp);
-                }
-            }
-        }
-        CookieSyncManager.createInstance(this);
-        CookieManager cookieManager = CookieManager.getInstance();
-        Cookie sessionCookie = appCookie;
-        if (sessionCookie != null) {
-            String cookieString = sessionCookie.getName() + "="
-                    + sessionCookie.getValue() + "; domain="
-                    + sessionCookie.getDomain();
-            cookieManager.setCookie(url, cookieString);
-            CookieSyncManager.getInstance().sync();
-        }
         Log.i("操作手册url", url);
         webView.loadUrl(url);
 

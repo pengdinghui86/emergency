@@ -25,6 +25,8 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.utils.SpUtil;
 
+import org.xutils.x;
+
 import java.io.File;
 import java.util.Map;
 
@@ -86,6 +88,10 @@ public class DemoApplication extends Application implements
         hxSDKHelper.onInit(applicationContext);
         //注册异常捕获工具类
         CrashHandler.getInstance().init(this);
+
+        //xUtils初始化
+        x.Ext.init(this);
+        x.Ext.setDebug(false); //输出debug日志，开启会影响性能
     }
 
     public static DemoApplication getInstance() {

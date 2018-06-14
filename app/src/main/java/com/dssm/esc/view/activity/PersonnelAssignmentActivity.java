@@ -20,13 +20,10 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.PersonAssignListvAdapter;
-
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
-
-
-
 /**
  * 人员指派界面
  * 
@@ -36,20 +33,21 @@ import java.util.ArrayList;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_person_assignment)
 public class PersonnelAssignmentActivity extends BaseActivity implements MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** 1，应急；2，演练 */
 	// private String tag;
 	/** ListView */
-	@ViewInject(id = R.id.assign_step_listview)
+	@ViewInject(R.id.assign_step_listview)
 	private ListView listView;
 	/** 暂无数据 */
-	@ViewInject(id = R.id.pemptytv)
+	@ViewInject(R.id.pemptytv)
 	private TextView emptytv;
 	/** 类型数据 */
 	private ArrayList<PlanProcessEntity> list = new ArrayList<PlanProcessEntity>();
@@ -83,7 +81,7 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_person_assignment);
+//		setContentView(R.layout.activity_person_assignment);
 		View findViewById = findViewById(R.id.person_assignment);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();

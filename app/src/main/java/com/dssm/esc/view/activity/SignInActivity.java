@@ -29,13 +29,11 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.adapter.ExpanListvSignInAdapter;
 import com.dssm.esc.view.widget.MyScrollView;
 import com.dssm.esc.view.widget.SegmentControl;
-
-import net.tsz.afinal.annotation.view.ViewInject;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 /**
  * 签到界面
@@ -46,54 +44,55 @@ import java.util.List;
  * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
  *             Ltd. Inc. All rights reserved.
  */
+@ContentView(R.layout.activity_singin)
 public class SignInActivity extends BaseActivity implements OnClickListener,
 		OnRefreshListener, MainActivity.onInitNetListener {
 	/** 标题 */
-	@ViewInject(id = R.id.tv_actionbar_title)
+	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
-	@ViewInject(id = R.id.iv_actionbar_back)
+	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	/** 1,应急;2,演练 */
 	// private String tag;
 	/** 1,预案详情;2,签到详情 (SegmentControl点击) */
 	private int sem_tags;
-	@ViewInject(id = R.id.segment_control_sign)
+	@ViewInject(R.id.segment_control_sign)
 	private SegmentControl mSegmentControl;
 	/** 预案详情总布局 */
-	@ViewInject(id = R.id.plandesc_ll)
+	@ViewInject(R.id.plandesc_ll)
 	private MyScrollView plandesc_ll;
 
 	/** 事件名称 */
-	@ViewInject(id = R.id.eventname)
+	@ViewInject(R.id.eventname)
 	private TextView eventname;
 	// /** 预案场景 */
 	// @ViewInject(id = R.id.planbackground)
 	// private TextView planbackground;
 	/** 事件详情 */
-	@ViewInject(id = R.id.eventdesc)
+	@ViewInject(R.id.eventdesc)
 	private TextView eventdesc;
 
 	/** 事件类型 */
-	@ViewInject(id = R.id.eventType)
+	@ViewInject(R.id.eventType)
 	private TextView eventType;
 	/** 预案名称 */
-	@ViewInject(id = R.id.planname)
+	@ViewInject(R.id.planname)
 	private TextView planname;
 	/** 预案摘要 */
-	@ViewInject(id = R.id.plansummary)
+	@ViewInject(R.id.plansummary)
 	private TextView plansummary;
 
 	/** 签到按钮 */
-	@ViewInject(id = R.id.sign_in)
+	@ViewInject(R.id.sign_in)
 	private Button sign_in;
 	/** 人员签到总布局 */
-	@ViewInject(id = R.id.sigin_ll)
+	@ViewInject(R.id.sigin_ll)
 	private LinearLayout sigin_ll;
 	/** 人员签到可扩展listview */
-	@ViewInject(id = R.id.expandable_list_signin)
+	@ViewInject(R.id.expandable_list_signin)
 	private ExpandableListView expandable_list_signin;
-	@ViewInject(id = R.id.emptytv)
+	@ViewInject(R.id.emptytv)
 	private TextView emptytv;
 
 	private ExpanListvSignInAdapter adapter;
@@ -106,7 +105,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	private String signState = "";// 签到状态0:未签到 1：已签到
 	private List<UserSignInfoEntity> list;
 	private String eventName = "";
-	@ViewInject(id = R.id.id_swipe_ly)
+	@ViewInject(R.id.id_swipe_ly)
 	private SwipeRefreshLayout mSwipeLayout;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -155,7 +154,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_singin);
+//		setContentView(R.layout.activity_singin);
 		View findViewById = findViewById(R.id.singin);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();

@@ -7,17 +7,16 @@ import com.dssm.esc.model.entity.emergency.DrillProcationDetailObjEntity;
 import com.dssm.esc.model.entity.emergency.DrillProjectDetailObjPreinfoEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +30,11 @@ import java.util.List;
  */
 public class DrillPrecautionDetailParser {
 	public DrillProcationDetailEntity userEntity;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public DrillPrecautionDetailParser(String detailPlanId,String drillPlanName,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(detailPlanId,drillPlanName);
 	}
@@ -49,43 +45,51 @@ public class DrillPrecautionDetailParser {
 	 */
 	public void request(final String detailPlanId,final String drillPlanName) {
 
-		AjaxParams params = new AjaxParams();
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.DRILLPROJECTNAMEDETAIL);
 		// params.put("userName",userEntity.getUsername());
 		// params.put("password", userEntity.getPassword());
-		params.put("drillPlanId", detailPlanId);
-		params.put("drillPlanName", drillPlanName);
-		finalHttp.post(DemoApplication.getInstance().getUrl()+HttpUrl.DRILLPROJECTNAMEDETAIL, params, new AjaxCallBack<String>() {
-
-			@Override
-			public void onFailure(Throwable t, int errorNo, String strMsg) {
-				// TODO Auto-generated method stub
-				super.onFailure(t, errorNo, strMsg);
-
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null,
-						strMsg);
-				Log.i("onFailure", "strMsg" + strMsg);
-				if (errorNo==518) {
-					Utils.getInstance().relogin();
-					request(detailPlanId,drillPlanName);
-					}
-			}
-
-			@Override
-			public void onStart() {
-				// TODO Auto-generated method stub
-				super.onStart();
-			}
+		params.addParameter("drillPlanId", detailPlanId);
+		params.addParameter("drillPlanName", drillPlanName);
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				super.onSuccess(t);
-				MyCookieStore.setcookieStore(finalHttp);
 				Log.i("DrillPrecautionDetail", t);
 				userEntity = getDrillProjectDetail(t);
 				Log.i("DrillPrecautionDetail", "DrillPrecautionDetailParser" + userEntity);
 				OnEmergencyCompleterListener.onEmergencyParserComplete(
 						userEntity, null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(detailPlanId, drillPlanName);
+					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
+
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
+
+			@Override
+			public void onCancelled(CancelledException cex) {
+
+			}
+
+			@Override
+			public void onFinished() {
 
 			}
 

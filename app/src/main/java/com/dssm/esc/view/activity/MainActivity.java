@@ -33,7 +33,6 @@ import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.database.DataBaseManage;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DataCleanManager;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.PermissionsChecker;
 import com.dssm.esc.util.SystemBarTintManager;
@@ -283,6 +282,28 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 super.onDrawerOpened(drawerView);
             }
         });
+
+        if (!isConflict && !isCurrentAccountRemoved) {
+            // msgcount=updateUnreadLabel();
+            EMChatManager.getInstance().activityResumed();
+        }
+
+        // unregister this event listener when this activity enters the
+        // background
+        DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
+                .getInstance();
+        sdkHelper.pushActivity(this);
+
+        // register the event listener when enter the foreground
+        EMChatManager.getInstance().registerEventListener(
+                this,
+                new EMNotifierEvent.Event[]{
+                        EMNotifierEvent.Event.EventNewMessage,
+                        EMNotifierEvent.Event.EventOfflineMessage,
+                        EMNotifierEvent.Event.EventConversationListChanged});
+        if (netListener != null)
+            netListener.initNetData();
+
         mPermissionsChecker = new PermissionsChecker(this);
         // 缺少权限时, 进入权限配置页面
         List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
@@ -810,50 +831,27 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         // TODO Auto-generated method stub
         super.onResume();
         Log.i("MainActivity", "onResume");
-        if (MyCookieStore.cookieStore != null) {
-            XGPushConfig.enableDebug(this, true);
-            context = getApplicationContext();
-            Log.i("postFlag岗位标识", map.get("postFlag"));
-            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用 */
-            XGPushManager.registerPush(context, map.get("postFlag"),
-                    new XGIOperateCallback() {
-                        @Override
-                        public void onSuccess(Object data, int flag) {
-                            Log.d("TPush", "注册成功，设备token为：" + data);
-                        }
 
-                        @Override
-                        public void onFail(Object data, int errCode, String msg) {
-                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
-                                    + msg);
-                        }
-                    });
-            initView();
-            init();
-        }
-        else {
-            if (!isConflict && !isCurrentAccountRemoved) {
-                // msgcount=updateUnreadLabel();
-                EMChatManager.getInstance().activityResumed();
-            }
+        XGPushConfig.enableDebug(this, true);
+        context = getApplicationContext();
+        Log.i("postFlag岗位标识", map.get("postFlag"));
+        /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用 */
+        XGPushManager.registerPush(context, map.get("postFlag"),
+                new XGIOperateCallback() {
+                    @Override
+                    public void onSuccess(Object data, int flag) {
+                        Log.d("TPush", "注册成功，设备token为：" + data);
+                    }
 
-            // unregister this event listener when this activity enters the
-            // background
-            DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
-                    .getInstance();
-            sdkHelper.pushActivity(this);
+                    @Override
+                    public void onFail(Object data, int errCode, String msg) {
+                        Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
+                                + msg);
+                    }
+                });
+        initView();
+        init();
 
-            // register the event listener when enter the foreground
-            EMChatManager.getInstance().registerEventListener(
-                    this,
-                    new EMNotifierEvent.Event[]{
-                            EMNotifierEvent.Event.EventNewMessage,
-                            EMNotifierEvent.Event.EventOfflineMessage,
-                            EMNotifierEvent.Event.EventConversationListChanged});
-            relogin();
-            if (netListener != null)
-                netListener.initNetData();
-        }
         if(permissionDetect) {
             permissionDetect = false;
             final String[] PERMISSIONS = new String[]{

@@ -5,16 +5,15 @@ import android.util.Log;
 import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
-import com.dssm.esc.util.MyCookieStore;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +26,11 @@ import java.util.Map;
  */
 public class ReValuationEventParser {
 	public Map<String, String> map;
-	FinalHttp finalHttp;
 	OnDataCompleterListener OnEmergencyCompleterListener;
 
 	public ReValuationEventParser(GetProjectEveInfoEntity entity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		finalHttp = Utils.getInstance().getFinalHttp();
-		MyCookieStore.getcookieStore(finalHttp);
 		this.OnEmergencyCompleterListener = completeListener;
 		request(entity);
 	}
@@ -45,7 +41,7 @@ public class ReValuationEventParser {
 	 * 
 	 */
 	public void request(final GetProjectEveInfoEntity entity) {
-		AjaxParams params = new AjaxParams();
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.RE_VALUTEEVENT);
 //		id	事件编号	
 //		tradeType	行业类型ID	
 //		eveLevel	事件等级ID	
@@ -57,57 +53,63 @@ public class ReValuationEventParser {
 //		referPlan	参考预案	可以多选，以“|”隔开
 //		otherReferPlan	其他预案	可以多选，以“|”隔开
 //		categoryPlan	分类预案	可以多选，以“|”隔开
-		params.put("id", entity.getId());
-		params.put("tradeType", entity.getTradeTypeId());
-		params.put("eveLevel", entity.getEveLevelId());
-		params.put("eveDescription",entity.getEveDescription());
-		params.put("eveScenarioId",entity.getEveScenarioId());
-		params.put("eveScenarioName", entity.getEveScenarioName());
-		params.put("eveName", entity.getEveName());
-		params.put("dealAdvice", entity.getDealAdvice());
-		params.put("referPlan", entity.getReferPlanIds());
-		params.put("otherReferPlan", entity.getOtherReferPlanIds());
-		params.put("categoryPlan", entity.getCategoryPlanIds());
-		
-		finalHttp.post(DemoApplication.getInstance().getUrl()+HttpUrl.RE_VALUTEEVENT, params,
-				new AjaxCallBack<String>() {
+		params.addParameter("id", entity.getId());
+		params.addParameter("tradeType", entity.getTradeTypeId());
+		params.addParameter("eveLevel", entity.getEveLevelId());
+		params.addParameter("eveDescription",entity.getEveDescription());
+		params.addParameter("eveScenarioId",entity.getEveScenarioId());
+		params.addParameter("eveScenarioName", entity.getEveScenarioName());
+		params.addParameter("eveName", entity.getEveName());
+		params.addParameter("dealAdvice", entity.getDealAdvice());
+		params.addParameter("referPlan", entity.getReferPlanIds());
+		params.addParameter("otherReferPlan", entity.getOtherReferPlanIds());
+		params.addParameter("categoryPlan", entity.getCategoryPlanIds());
 
-					@Override
-					public void onFailure(Throwable t, int errorNo,
-							String strMsg) {
-						// TODO Auto-generated method stub
-						super.onFailure(t, errorNo, strMsg);
+		x.http().post(params, new Callback.CommonCallback<String>() {
 
-						OnEmergencyCompleterListener
-								.onEmergencyParserComplete(null, strMsg);
-						Log.i("onFailure", "strMsg" + strMsg);
-						if (errorNo==518) {
-							Utils.getInstance().relogin();
-							request(entity);
-							}
+			@Override
+			public void onSuccess(String t) {
+				// TODO Auto-generated method stub
+				Log.i("ReValuationEventParser", t);
+				map = reValuationEventParser(t);
+				Log.i("ReValuationEventParser",
+						"ReValuationEventParser" + map);
+				OnEmergencyCompleterListener
+						.onEmergencyParserComplete(map, null);
+
+			}
+
+			@Override
+			public void onError(Throwable ex, boolean isOnCallback) {
+
+				String responseMsg = "";
+				String errorResult = ex.toString();
+				if (ex instanceof HttpException) { //网络错误
+					HttpException httpEx = (HttpException) ex;
+					int responseCode = httpEx.getCode();
+					if(responseCode == 518) {
+						Utils.getInstance().relogin();
+						request(entity);
 					}
+					responseMsg = httpEx.getMessage();
+					errorResult = httpEx.getResult();
+				} else { //其他错误
 
-					@Override
-					public void onStart() {
-						// TODO Auto-generated method stub
-						super.onStart();
-					}
+				}
+				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+			}
 
-					@Override
-					public void onSuccess(String t) {
-						// TODO Auto-generated method stub
-						super.onSuccess(t);
-						Log.i("ReValuationEventParser", t);
-						MyCookieStore.setcookieStore(finalHttp);
-						map = reValuationEventParser(t);
-						Log.i("ReValuationEventParser",
-								"ReValuationEventParser" + map);
-						OnEmergencyCompleterListener
-								.onEmergencyParserComplete(map, null);
+			@Override
+			public void onCancelled(CancelledException cex) {
 
-					}
+			}
 
-				});
+			@Override
+			public void onFinished() {
+
+			}
+
+		});
 
 	}
 
