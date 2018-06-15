@@ -771,7 +771,7 @@ public class MyFlowView extends View {
                 circlePaint.setColor(0xFFf00); // 边框内部颜色
             }
             if(step.nodeStepType.equals("CallActivity"))
-                drawRectangleAndWord(h, w, paint, textFlowPaint, circlePaint, str);
+                drawCircleAndPlus(h, w, paint, textFlowPaint, circlePaint, str);
             else
                 drawCircleAndWord(h, w, paint, textFlowPaint, circlePaint, str);
         }
@@ -1163,6 +1163,14 @@ public class MyFlowView extends View {
         int strWidth = rect.width();
         int strHeight = rect.height();
         myCanvas.drawText(str, x - strWidth / 2f, y + strHeight / 2f, textPaint);
+    }
+
+    public void drawCircleAndPlus(float x, float y, Paint buttonPaint, Paint textPaint, Paint circlePaint, String str) {
+        myCanvas.drawCircle(x, y, buttonRadius, buttonPaint);
+        myCanvas.drawCircle(x, y, buttonRadius, circlePaint);
+        Rect rect = new Rect();
+        myCanvas.drawLine(x - buttonRadius / 3, y, x + buttonRadius / 3, y, textPaint);
+        myCanvas.drawLine(x, y - buttonRadius / 3, x, y + buttonRadius / 3, textPaint);
     }
 
     private void drawText(float x, float y, Paint textPaint, String str) {
