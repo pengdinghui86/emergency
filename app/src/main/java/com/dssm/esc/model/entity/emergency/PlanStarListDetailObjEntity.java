@@ -1,6 +1,7 @@
 package com.dssm.esc.model.entity.emergency;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 public class PlanStarListDetailObjEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private List<PlanStarListDetailObjListEntity> list;
+	private List<PlanStarListDetailObjListEntity> list = new ArrayList<>();
 	private String id;// 事件编号
 	private String submitter;// 事件提交人
 	private String subTime;// 事件提交时间

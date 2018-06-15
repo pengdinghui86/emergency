@@ -44,7 +44,7 @@ public class PlanStarListDetailParser {
 	 */
 	public void request(final String id) {
 
-		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARDETAIL+"?id="+id);
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARDETAIL);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(
@@ -62,7 +62,7 @@ public class PlanStarListDetailParser {
 		// params.put("userName",userEntity.getUsername());
 		// params.put("password", userEntity.getPassword());
 		params.addParameter("id", id);
-		Log.i("未启动事件详情id", DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARDETAIL+"?id="+id);
+		Log.i("未启动事件详情id", DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARDETAIL);
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override

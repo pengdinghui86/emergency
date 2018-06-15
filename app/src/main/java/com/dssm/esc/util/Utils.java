@@ -43,11 +43,13 @@ public class Utils implements Serializable {
         /**
          * 单例对象实例
          */
-        static final Utils INSTANCE = new Utils();
+        static Utils INSTANCE = null;
 
     }
 
     public static Utils getInstance() {
+        if(SingletonHolder.INSTANCE == null)
+            SingletonHolder.INSTANCE = new Utils();
         return SingletonHolder.INSTANCE;
     }
 

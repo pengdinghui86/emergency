@@ -266,7 +266,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
     private String opition = "";// 处置建议
     private String eveName = "";// 事件名称
     Runnable runnable = null;
-    private PlanStarListDetailObjEntity obj;
+    private PlanStarListDetailObjEntity obj = new PlanStarListDetailObjEntity();
     private String tradeTypeId = "";// 业务类型ID
     private String eveLevelId = "";// 事件等级ID
     private String planResType = "";// 预案来源类型 发送通知使用
@@ -283,7 +283,12 @@ public class PlanStarDetailActivity extends BaseActivity implements
             PlanStarListDetailEntity detailEntity = (PlanStarListDetailEntity) msg.obj;
             switch (msg.what) {
                 case 0:
-                    obj = detailEntity.getObj();
+                    if(detailEntity != null) {
+                        if (detailEntity.getObj() != null)
+                            obj = detailEntity.getObj();
+                    }
+                    else
+                        return;
                     List<PlanStarListDetailObjListEntity> list = obj.getList();
                     for (int i = 0; i < list.size(); i++) {
                         name = name + "," + list.get(i).getName();
