@@ -24,6 +24,7 @@ import com.easemob.chatuidemo.activity.SplashActivity;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.utils.SpUtil;
+import com.squareup.leakcanary.LeakCanary;
 
 import org.xutils.x;
 
@@ -92,6 +93,12 @@ public class DemoApplication extends Application implements
         //xUtils初始化
         x.Ext.init(this);
         x.Ext.setDebug(false); //输出debug日志，开启会影响性能
+
+        //初始化LeakCanary
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 
     public static DemoApplication getInstance() {

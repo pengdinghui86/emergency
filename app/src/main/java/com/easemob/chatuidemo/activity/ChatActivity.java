@@ -178,7 +178,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
     private Drawable[] micImages;
     private int chatType;
     private EMConversation conversation;
-    public static ChatActivity activityInstance = null;
+    public ChatActivity activityInstance = null;
     // 给谁发送消息
     private String toChatUsername;
     // 显示esc的用户名而非环信的用户名
