@@ -92,11 +92,14 @@ public class AssignParser {
 					int responseCode = httpEx.getCode();
 					if(responseCode == 518) {
 						Utils.getInstance().relogin();
-						request(id, planInfoId , executePeopleId,  executePeople);
+						request(id, planInfoId, executePeopleId, executePeople);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
 					errorResult = "网络错误";
+				} else if(errorResult.equals("java.lang.NullPointerException")) {
+					Utils.getInstance().relogin();
+					request(id, planInfoId, executePeopleId, executePeople);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

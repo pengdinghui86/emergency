@@ -92,6 +92,9 @@ public class DeleteEventParser {
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
 					errorResult = "网络错误";
+				} else if(errorResult.equals("java.lang.NullPointerException")) {
+					Utils.getInstance().relogin();
+					request(id);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

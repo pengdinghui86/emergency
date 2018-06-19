@@ -83,7 +83,10 @@ public class FlowChartPlanParser {
 					responseMsg = httpEx.getMessage();
                     //					errorResult = httpEx.getResult();
                     errorResult = "网络错误";
-                } else { //其他错误
+                } else if(errorResult.equals("java.lang.NullPointerException")) {
+					Utils.getInstance().relogin();
+					request(planInfoId);
+				} else { //其他错误
                     errorResult = "其他错误";
                 }
 				completeListener.controlParserComplete(null, errorResult);
