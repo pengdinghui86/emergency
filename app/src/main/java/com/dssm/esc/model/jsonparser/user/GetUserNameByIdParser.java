@@ -15,6 +15,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +28,12 @@ import java.util.Map;
  */
 public class GetUserNameByIdParser {
 	private Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public GetUserNameByIdParser(String userId,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(userId);
 	}
 
@@ -59,6 +60,7 @@ public class GetUserNameByIdParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onUserParseLoadCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 					@Override
@@ -67,7 +69,8 @@ public class GetUserNameByIdParser {
 						Log.i("GetUserNameById", t);
 						 map = getUserNameByid(t);
 						Log.i("GetUserNameById", "GetUserNameById" + map);
-						OnEmergencyCompleterListener.onEmergencyParserComplete(
+						if(onUserParseLoadCompleteListener != null)
+							onUserParseLoadCompleteListener.onEmergencyParserComplete(
 								map, null);
 
 					}
@@ -92,7 +95,8 @@ public class GetUserNameByIdParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

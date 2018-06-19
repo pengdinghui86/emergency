@@ -16,6 +16,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.http.cookie.DbCookieStore;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.net.HttpCookie;
 import java.util.HashMap;
 import java.util.List;
@@ -29,12 +30,12 @@ import java.util.Map;
  */
 public class UserReLoginParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnUserParseLoadCompleteListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public UserReLoginParser(String userName, String password,String roleId,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnUserParseLoadCompleteListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(userName,password,roleId);
 	}
 
@@ -54,6 +55,7 @@ public class UserReLoginParser {
 			params.addParameter("password", password);
 			params.addParameter("roleId", roleId);
 		}
+		final OnDataCompleterListener onUserParseLoadCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -80,7 +82,8 @@ public class UserReLoginParser {
 					}
 				}
 				Log.i("UserReLoginParser", "UserReLoginParser" + map);
-				OnUserParseLoadCompleteListener.onEmergencyParserComplete(map,
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -101,7 +104,8 @@ public class UserReLoginParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

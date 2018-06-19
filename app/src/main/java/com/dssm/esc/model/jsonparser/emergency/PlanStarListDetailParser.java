@@ -18,6 +18,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +30,12 @@ import java.util.List;
  */
 public class PlanStarListDetailParser {
 	public PlanStarListDetailEntity detailEntity;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public PlanStarListDetailParser(String id,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(id);
 	}
 
@@ -63,6 +64,7 @@ public class PlanStarListDetailParser {
 		// params.put("password", userEntity.getPassword());
 		params.addParameter("id", id);
 		Log.i("未启动事件详情id", DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARDETAIL);
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -71,7 +73,8 @@ public class PlanStarListDetailParser {
 				Log.i("PlanStarListDetail", "PlanStarListDetailParser" + t);
 				detailEntity = getPlanStarListDetail(t);
 				Log.i("PlanStarListDetail", "PlanStarListDetailParser" + detailEntity);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(
 						detailEntity, null);
 
 			}
@@ -97,7 +100,8 @@ public class PlanStarListDetailParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

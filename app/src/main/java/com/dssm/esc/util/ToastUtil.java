@@ -25,8 +25,8 @@ public class ToastUtil {
 	 *            提示内容
 	 */
 	public static void showToast(Context context, String text) {
-		if (toast == null) {
-			toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+		if (toast == null && context != null) {
+			toast = Toast.makeText(context.getApplicationContext(), text, Toast.LENGTH_SHORT);
 		} else {
 			toast.setText(text);
 		}
@@ -50,8 +50,8 @@ public class ToastUtil {
 	 *            提示内容
 	 */
 	public static void showLongToast(Context context, String text) {
-		if (toast == null) {
-			toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+		if (toast == null && context != null) {
+			toast = Toast.makeText(context.getApplicationContext(), text, Toast.LENGTH_LONG);
 		} else {
 			toast.setText(text);
 		}

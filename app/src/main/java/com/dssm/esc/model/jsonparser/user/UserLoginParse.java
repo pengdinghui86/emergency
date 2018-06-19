@@ -20,6 +20,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.http.cookie.DbCookieStore;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +34,12 @@ import java.util.List;
  */
 public class UserLoginParse {
 	public UserEntity userEntity;
-	OnDataCompleterListener OnUserParseLoadCompleteListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public UserLoginParse(String userName, String password,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnUserParseLoadCompleteListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(userName, password);
 	}
 
@@ -51,6 +52,7 @@ public class UserLoginParse {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.LOGIN);
 		params.addParameter("loginName", userName);
 		params.addParameter("password", password);
+		final OnDataCompleterListener onUserParseLoadCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -77,7 +79,8 @@ public class UserLoginParse {
 					}
 				}
 				Log.i("LoginParse", "LoginParse" + userEntity);
-				OnUserParseLoadCompleteListener.onEmergencyParserComplete(
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(
 						userEntity, null);
 			}
 
@@ -99,7 +102,8 @@ public class UserLoginParse {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

@@ -19,6 +19,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +32,12 @@ import java.util.List;
  */
 public class GetFirstAllMessageListParser {
 	private List<FirstAllMessagesEntity> list;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public GetFirstAllMessageListParser(Context context,String msgType, String isconfirm,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(context,msgType, isconfirm);
 	}
 
@@ -65,6 +66,7 @@ public class GetFirstAllMessageListParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -78,7 +80,8 @@ public class GetFirstAllMessageListParser {
 //				}
 				list = getFirstMessageListParser(msgType,t);
 				Log.i("GetMessageListParser", "GetMessageListParser" + list);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(list,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(list,
 						null);
 
 			}
@@ -103,7 +106,8 @@ public class GetFirstAllMessageListParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-                OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
             }
 
             @Override

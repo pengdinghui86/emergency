@@ -16,6 +16,8 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
+
 
 /**
  * 5.1.2	展示事件流程
@@ -25,11 +27,11 @@ import org.xutils.x;
 public class GetProgressDetailParser {
 	String TAG="GetProgressDetailParser";
 	private ProgressDetailEntity entity;
-	private ControlCompleterListenter<ProgressDetailEntity> completeListener;
-	
+	private final WeakReference<ControlCompleterListenter<ProgressDetailEntity>> wr;
+
 	public GetProgressDetailParser(String id,ControlCompleterListenter<ProgressDetailEntity> completeListener) {
 		// TODO Auto-generated constructor stub
-		this.completeListener=completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(id);
 	}
 	
@@ -55,6 +57,7 @@ public class GetProgressDetailParser {
 			params.addHeader("Cookie", sbSession.toString());
 		}
 		params.addParameter("id", id);
+		final ControlCompleterListenter<ProgressDetailEntity> completeListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -63,7 +66,8 @@ public class GetProgressDetailParser {
 				Log.i(TAG, TAG+t);
 				entity=getProgressDetailParser(t);
 				Log.i(TAG, TAG+entity);
-				completeListener.controlParserComplete(entity, null);
+				if(completeListener != null)
+					completeListener.controlParserComplete(entity, null);
 				
 			}
 
@@ -88,7 +92,8 @@ public class GetProgressDetailParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				completeListener.controlParserComplete(null, errorResult);
+				if(completeListener != null)
+					completeListener.controlParserComplete(null, errorResult);
 			}
 
 			@Override

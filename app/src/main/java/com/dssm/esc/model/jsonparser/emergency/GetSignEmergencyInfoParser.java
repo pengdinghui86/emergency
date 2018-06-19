@@ -18,6 +18,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +31,12 @@ import java.util.List;
  */
 public class GetSignEmergencyInfoParser {
 	private List<GroupEntity> list;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public GetSignEmergencyInfoParser(String planInfoId,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(planInfoId);
 	}
 
@@ -62,6 +63,7 @@ public class GetSignEmergencyInfoParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 					@Override
@@ -71,7 +73,8 @@ public class GetSignEmergencyInfoParser {
 						list = planStarListParser(t);
 						Log.i("GetSignUserInfoParser", "GetSignUserInfoParser"
 								+ list);
-						OnEmergencyCompleterListener.onEmergencyParserComplete(
+						if(onEmergencyCompleteListener != null)
+							onEmergencyCompleteListener.onEmergencyParserComplete(
 								list, null);
 
 					}
@@ -97,7 +100,8 @@ public class GetSignEmergencyInfoParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

@@ -16,6 +16,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,11 @@ import java.util.List;
 public class GetEventlistParser {
 	String TAG="GetEvalistParser";
 	private  List<BoHuiListEntity>list;
-	private ControlCompleterListenter<List<BoHuiListEntity>> completeListener;
-	
+	private final WeakReference<ControlCompleterListenter<List<BoHuiListEntity>>> wr;
+
 	public GetEventlistParser(ControlCompleterListenter<List<BoHuiListEntity>> controlCompleterListenter) {
 		// TODO Auto-generated constructor stub
-		this.completeListener=controlCompleterListenter;
+		wr = new WeakReference<>(controlCompleterListenter);
 		request();
 	}
 	
@@ -57,6 +58,7 @@ public class GetEventlistParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final ControlCompleterListenter<List<BoHuiListEntity>> completeListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -66,7 +68,8 @@ public class GetEventlistParser {
 				list=getGetEvalistParser(t);
 				//map=loginParse(t);
 				Log.i(TAG, TAG+list);
-				completeListener.controlParserComplete(list, null);
+				if(completeListener != null)
+					completeListener.controlParserComplete(list, null);
 				
 			}
 
@@ -90,7 +93,8 @@ public class GetEventlistParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				completeListener.controlParserComplete(null, errorResult);
+				if(completeListener != null)
+					completeListener.controlParserComplete(null, errorResult);
 			}
 
 			@Override

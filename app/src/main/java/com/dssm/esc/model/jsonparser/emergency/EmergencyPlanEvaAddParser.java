@@ -14,6 +14,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,13 +27,13 @@ import java.util.Map;
  */
 public class EmergencyPlanEvaAddParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public EmergencyPlanEvaAddParser(String tag,
 			EmergencyPlanEvaAddEntity addEntity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(tag, addEntity);
 	}
 
@@ -79,7 +80,7 @@ public class EmergencyPlanEvaAddParser {
 		params.addParameter("eveType", addEntity.getEveType());
 		params.addParameter("drillPlanId", addEntity.getDrillPlanId());
 		params.addParameter("exPlanId", addEntity.getExPlanId());
-
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -87,7 +88,8 @@ public class EmergencyPlanEvaAddParser {
 				// TODO Auto-generated method stub
 				map = emergencyPlaneveAddParser(t);
 
-				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -113,7 +115,8 @@ public class EmergencyPlanEvaAddParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

@@ -17,6 +17,8 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
+
 
 /**
  * 实时跟踪查询执行人电话
@@ -25,14 +27,13 @@ import org.xutils.x;
  */
 public class GetPhoneByExecuteParser {
 
-
 	public UserPersonIdEntity entity;
-	OnDataCompleterListener OnUserParseLoadCompleteListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public GetPhoneByExecuteParser(String executePeopleId,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnUserParseLoadCompleteListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(executePeopleId);
 	}
 
@@ -59,6 +60,7 @@ public class GetPhoneByExecuteParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onUserParseLoadCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -67,7 +69,8 @@ public class GetPhoneByExecuteParser {
 				Log.i("GetPhoneByExecuteParser", t);
 				entity = getUserMessage(t);
 				Log.i("GetPhoneByExecuteParser", "GetPhoneByExecuteParser" + entity);
-				OnUserParseLoadCompleteListener.onEmergencyParserComplete(
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(
 						entity, null);
 
 			}
@@ -92,7 +95,8 @@ public class GetPhoneByExecuteParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

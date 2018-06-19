@@ -16,6 +16,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +28,12 @@ import java.util.Map;
  */
 public class ReValuationEventParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public ReValuationEventParser(GetProjectEveInfoEntity entity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(entity);
 	}
 
@@ -79,7 +80,7 @@ public class ReValuationEventParser {
 		params.addParameter("referPlan", entity.getReferPlanIds());
 		params.addParameter("otherReferPlan", entity.getOtherReferPlanIds());
 		params.addParameter("categoryPlan", entity.getCategoryPlanIds());
-
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -89,7 +90,8 @@ public class ReValuationEventParser {
 				map = reValuationEventParser(t);
 				Log.i("ReValuationEventParser",
 						"ReValuationEventParser" + map);
-				OnEmergencyCompleterListener
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener
 						.onEmergencyParserComplete(map, null);
 
 			}
@@ -115,7 +117,8 @@ public class ReValuationEventParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

@@ -18,6 +18,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +32,12 @@ import static com.dssm.esc.util.HttpUrl.SIGN_USER_LIST_COUNT_DETAIL;
  */
 public class GetSignUserInfoDetailParser {
 	private List<GroupEntity> list;
-	private ControlCompleterListenter<List<GroupEntity>> completeListener;
+	private final WeakReference<ControlCompleterListenter<List<GroupEntity>>> wr;
 
 	public GetSignUserInfoDetailParser(String planInfoId,
 			ControlCompleterListenter<List<GroupEntity>> completeListener) {
 		// TODO Auto-generated constructor stub
-		this.completeListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(planInfoId);
 	}
 
@@ -62,6 +63,7 @@ public class GetSignUserInfoDetailParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final ControlCompleterListenter<List<GroupEntity>> completeListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 					@Override
@@ -71,7 +73,8 @@ public class GetSignUserInfoDetailParser {
 						list = planStarListParser(t);
 						Log.i("GetSignUserInfoParser", "GetSignUserInfoParser"
 								+ list);
-						completeListener.controlParserComplete(list, null);
+						if(completeListener != null)
+							completeListener.controlParserComplete(list, null);
 
 					}
 
@@ -96,7 +99,8 @@ public class GetSignUserInfoDetailParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				completeListener.controlParserComplete(null, errorResult);
+				if(completeListener != null)
+					completeListener.controlParserComplete(null, errorResult);
 			}
 
 			@Override

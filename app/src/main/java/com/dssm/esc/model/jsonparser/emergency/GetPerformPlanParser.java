@@ -17,6 +17,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class GetPerformPlanParser {
 	private List<ChildEntity> list;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	// precautionId 预案id
 	// planResId 演练计划id
@@ -37,7 +38,7 @@ public class GetPerformPlanParser {
 	public GetPerformPlanParser(String planInfoId,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(planInfoId);
 	}
 
@@ -64,6 +65,7 @@ public class GetPerformPlanParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -72,7 +74,8 @@ public class GetPerformPlanParser {
 				Log.i("GetPerformPlanParser", t);
 				list = planExecuteListParser(t);
 				Log.i("GetPerformPlanParser", "GetPerformPlanParser" + list);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(list,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(list,
 						null);
 
 			}
@@ -98,7 +101,8 @@ public class GetPerformPlanParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

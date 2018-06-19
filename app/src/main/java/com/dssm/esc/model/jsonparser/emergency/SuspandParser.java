@@ -16,6 +16,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 public class SuspandParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	// id 编号
 	// suspendType 中止类型 类型为authSuspend
@@ -35,7 +36,7 @@ public class SuspandParser {
 	public SuspandParser(PlanSuspandEntity suspandEntity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(suspandEntity);
 	}
 
@@ -85,7 +86,7 @@ public class SuspandParser {
 		params.addParameter("planStarterId", suspandEntity.getPlanStarterId());
 		params.addParameter("planAuthorId", suspandEntity.getPlanAuthorId());
 		params.addParameter("submitterId", suspandEntity.getSubmitterId());
-
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -94,7 +95,8 @@ public class SuspandParser {
 				Log.i("SuspandParser", "SuspandParser" + t);
 				map = loginRoleParse(t);
 				Log.i("SuspandParser", "SuspandParser" + map);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -119,7 +121,8 @@ public class SuspandParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 
 			}
 

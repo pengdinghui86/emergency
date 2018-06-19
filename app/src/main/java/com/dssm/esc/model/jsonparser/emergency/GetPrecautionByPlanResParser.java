@@ -19,6 +19,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +31,11 @@ import java.util.List;
  */
 public class GetPrecautionByPlanResParser {
     private List<GroupEntity> list;
-    OnDataCompleterListener OnEmergencyCompleterListener;
+    private final WeakReference<OnDataCompleterListener> wr;
 
     public GetPrecautionByPlanResParser(OnDataCompleterListener completeListener) {
         // TODO Auto-generated constructor stub
-        this.OnEmergencyCompleterListener = completeListener;
+        wr = new WeakReference<>(completeListener);
         request();
     }
 
@@ -58,16 +59,18 @@ public class GetPrecautionByPlanResParser {
                             "DOMAIN"));
             params.addHeader("Cookie", sbSession.toString());
         }
+        final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
         x.http().get(params, new Callback.CommonCallback<String>() {
 
-                    @Override
-                    public void onSuccess(String t) {
-                        // TODO Auto-generated method stub
-                        list = planExecuteListParser(t);
-                        OnEmergencyCompleterListener.onEmergencyParserComplete(
-                                list, null);
+            @Override
+            public void onSuccess(String t) {
+                // TODO Auto-generated method stub
+                list = planExecuteListParser(t);
+                if(onEmergencyCompleteListener != null)
+                    onEmergencyCompleteListener.onEmergencyParserComplete(
+                        list, null);
 
-                    }
+            }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
@@ -91,7 +94,8 @@ public class GetPrecautionByPlanResParser {
                 else { //其他错误
                     errorResult = "其他错误";
                 }
-                OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+                if(onEmergencyCompleteListener != null)
+                    onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
             }
 
             @Override

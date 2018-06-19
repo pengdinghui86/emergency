@@ -19,6 +19,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +32,12 @@ import java.util.List;
  */
 public class DrillPrecautionDetailParser {
 	public DrillProcationDetailEntity userEntity;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public DrillPrecautionDetailParser(String detailPlanId,String drillPlanName,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(detailPlanId,drillPlanName);
 	}
 
@@ -65,6 +66,7 @@ public class DrillPrecautionDetailParser {
 		// params.put("password", userEntity.getPassword());
 		params.addParameter("drillPlanId", detailPlanId);
 		params.addParameter("drillPlanName", drillPlanName);
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -73,7 +75,8 @@ public class DrillPrecautionDetailParser {
 				Log.i("DrillPrecautionDetail", t);
 				userEntity = getDrillProjectDetail(t);
 				Log.i("DrillPrecautionDetail", "DrillPrecautionDetailParser" + userEntity);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(
 						userEntity, null);
 
 			}
@@ -99,7 +102,8 @@ public class DrillPrecautionDetailParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

@@ -17,6 +17,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +30,11 @@ import java.util.List;
  */
 public class GetToastListParser {
 	private List<GroupEntity> list;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public GetToastListParser(OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request();
 	}
 
@@ -58,6 +59,7 @@ public class GetToastListParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onEmergencyCompleterListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -66,7 +68,8 @@ public class GetToastListParser {
 				Log.i("GetToastListParser", t);
 				list = emergencyContactListParser(t);
 				Log.i("GetToastListParser", "GetToastListParser" + list);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(list,
+				if(onEmergencyCompleterListener != null)
+					onEmergencyCompleterListener.onEmergencyParserComplete(list,
 						null);
 
 			}
@@ -91,7 +94,8 @@ public class GetToastListParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleterListener != null)
+					onEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

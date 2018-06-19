@@ -15,6 +15,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +28,12 @@ import java.util.Map;
  */
 public class DeleteEventParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public DeleteEventParser(String id,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(id);
 	}
 
@@ -64,6 +65,7 @@ public class DeleteEventParser {
 		if (id != null ) {
 			params.addParameter("ids", id);
 		}
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -72,7 +74,8 @@ public class DeleteEventParser {
 				Log.i("DeleteEventParser", "DeleteEventParser" + t);
 				map = deleteEventParser(t);
 				Log.i("DeleteEventParser", "DeleteEventParser" + map);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -98,7 +101,8 @@ public class DeleteEventParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

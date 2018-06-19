@@ -15,6 +15,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,12 +27,12 @@ import java.util.Map;
  */
 public class SendNoticeParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public SendNoticeParser(String postId, String sendType, 
 			String content, OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(postId, sendType,content);
 	}
 
@@ -68,6 +69,7 @@ public class SendNoticeParser {
 			params.addParameter("sendType", sendType);
 			params.addParameter("content", content);
 		}
+		final OnDataCompleterListener onEmergencyCompleterListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -76,7 +78,8 @@ public class SendNoticeParser {
 				Log.i("SendNoticeParser", "SendNoticeParser" + t);
 				map = sendMessageParse(t);
 				Log.i("SendNoticeParser", "SendNoticeParser" + map);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
+				if(onEmergencyCompleterListener != null)
+					onEmergencyCompleterListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -102,7 +105,8 @@ public class SendNoticeParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleterListener != null)
+					onEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

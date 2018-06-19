@@ -18,6 +18,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +30,11 @@ import java.util.List;
  */
 public class SearchOtherscenPlanParser {
 	private PlanNameSelectEntity planNameSelectEntity;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public SearchOtherscenPlanParser(String name,String id,OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(name,id);
 	}
 
@@ -59,6 +60,7 @@ public class SearchOtherscenPlanParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onUserParseLoadCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -67,7 +69,8 @@ public class SearchOtherscenPlanParser {
 				Log.i("SearchOtherscenPlan", t);
 				 planNameSelectEntity= getSearchPlanlistParser(t);
 				Log.i("SearchOtherscenPlan", "SearchOtherscenPlanParser" + planNameSelectEntity);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(planNameSelectEntity,
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(planNameSelectEntity,
 						null);
 
 			}
@@ -92,7 +95,8 @@ public class SearchOtherscenPlanParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

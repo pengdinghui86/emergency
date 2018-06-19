@@ -14,6 +14,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,12 +26,12 @@ import java.util.Map;
  */
 public class CheckEmergencySignParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public CheckEmergencySignParser(String planInfoId,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(planInfoId);
 	}
 
@@ -58,6 +59,7 @@ public class CheckEmergencySignParser {
 		if (planInfoId != null ) {
 			params.addParameter("planInfoId", planInfoId);
 		}
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -66,7 +68,8 @@ public class CheckEmergencySignParser {
 				Log.i("CheckUserSignParser", "CheckUserSignParser" + t);
 				map = checkUserSignParser(t);
 				Log.i("CheckUserSignParser", "CheckUserSignParser" + map);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -92,7 +95,8 @@ public class CheckEmergencySignParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

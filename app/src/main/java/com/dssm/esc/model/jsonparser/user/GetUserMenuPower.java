@@ -19,6 +19,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +33,12 @@ import java.util.List;
 public class GetUserMenuPower {
 
 	public UserPowerEntity powerEntity;
-	OnDataCompleterListener OnUserParseLoadCompleteListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public GetUserMenuPower(
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnUserParseLoadCompleteListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request();
 	}
 
@@ -63,6 +64,7 @@ public class GetUserMenuPower {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onUserParseLoadCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -71,7 +73,8 @@ public class GetUserMenuPower {
 				Log.i("GetUserMenuPower", t);
 				powerEntity = getUserMenuPower(t);
 				Log.i("GetUserMenuPower", "GetUserMenuPower" + powerEntity);
-				OnUserParseLoadCompleteListener.onEmergencyParserComplete(
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(
 						powerEntity, null);
 
 			}
@@ -96,7 +99,8 @@ public class GetUserMenuPower {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

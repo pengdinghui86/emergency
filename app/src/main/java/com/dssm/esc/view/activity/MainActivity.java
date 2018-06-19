@@ -64,6 +64,7 @@ import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 
@@ -291,7 +292,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         }
     }
 
-    private MyConnectionListener connectionListener = null;
+    private static MyConnectionListener connectionListener = null;
 
     private void init() {
         connectionListener = new MyConnectionListener();
@@ -689,7 +690,13 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     /**
      * 连接监听listener
      */
-    public class MyConnectionListener implements EMConnectionListener {
+    public static class MyConnectionListener implements EMConnectionListener {
+
+        private WeakReference<Context> wr;
+
+        public void MyConnectionListener(Context context) {
+            wr = new WeakReference<>(context);
+        }
 
         @Override
         public void onConnected() {
@@ -698,19 +705,22 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 
         @Override
         public void onDisconnected(final int error) {
-            runOnUiThread(new Runnable() {
+            final MainActivity activity = (MainActivity) wr.get();
+            if(activity == null)
+                return;
+            activity.runOnUiThread(new Runnable() {
 
                 @Override
                 public void run() {
                     if (error == EMError.USER_REMOVED) {
                         // 显示帐号已经被移除
-                        showAccountRemovedDialog();
+                        activity.showAccountRemovedDialog();
                     } else if (error == EMError.CONNECTION_CONFLICT) {
                         // 显示帐号在其他设备登陆dialog
-                        showConflictDialog();
+                        activity.showConflictDialog();
                     }
                     /** 信鸽推送，账号在其他地方登录时解除账号绑定 */
-                    XGPushManager.registerPush(context, "*");
+                    XGPushManager.registerPush(activity, "*");
                 }
 
             });
@@ -726,6 +736,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         if (connectionListener != null) {
             EMChatManager.getInstance().removeConnectionListener(
                     connectionListener);
+            connectionListener = null;
         }
         // 清除本地的sharepreference缓存
         DataCleanManager.cleanSharedPreference(context);

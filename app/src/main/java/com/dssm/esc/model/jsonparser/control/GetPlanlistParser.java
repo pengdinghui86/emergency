@@ -17,6 +17,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,11 @@ import java.util.List;
 public class GetPlanlistParser {
 	String TAG="GetPlanlistParser";
 	private List<PlanEntity> list;
-	private ControlCompleterListenter<List<PlanEntity>> completeListener;
-	
+	private final WeakReference<ControlCompleterListenter<List<PlanEntity>>> wr;
+
 	public GetPlanlistParser(ControlCompleterListenter<List<PlanEntity>> completeListener) {
 		// TODO Auto-generated constructor stub
-		this.completeListener=completeListener;
+		wr = new WeakReference<>(completeListener);
 		request();
 	}
 	
@@ -57,6 +58,7 @@ public class GetPlanlistParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final ControlCompleterListenter<List<PlanEntity>> completeListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@SuppressWarnings("unchecked")
@@ -66,7 +68,8 @@ public class GetPlanlistParser {
 				Log.i(TAG, TAG+t);
 				list=getPlanListParse(t);
 				Log.i(TAG, TAG+list);
-				completeListener.controlParserComplete(list, null);
+				if(completeListener != null)
+					completeListener.controlParserComplete(list, null);
 				
 			}
 
@@ -90,7 +93,8 @@ public class GetPlanlistParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				completeListener.controlParserComplete(null, errorResult);
+				if(completeListener != null)
+					completeListener.controlParserComplete(null, errorResult);
 			}
 
 			@Override

@@ -17,6 +17,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +31,12 @@ import java.util.List;
 public class PlanNameParser {
 	private PlanNameSelectEntity planNameSelectEntity;
 	private List<PlanNameRowEntity> list;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public PlanNameParser(int tags, String id,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(tags, id);
 	}
 
@@ -75,6 +76,7 @@ public class PlanNameParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -84,14 +86,16 @@ public class PlanNameParser {
 				if (tags == 1 || tags == 3) {
 					list = businessTypeParser2(t);
 					Log.i("PlanNameParser", "PlanNameParser" + list);
-					OnEmergencyCompleterListener.onEmergencyParserComplete(
+					if(onEmergencyCompleteListener != null)
+						onEmergencyCompleteListener.onEmergencyParserComplete(
 							list, null);
 
 				} else if (tags == 2) {
 					planNameSelectEntity = businessTypeParser(t);
 					Log.i("PlanNameParser", "PlanNameParser"
 							+ planNameSelectEntity);
-					OnEmergencyCompleterListener.onEmergencyParserComplete(
+					if(onEmergencyCompleteListener != null)
+						onEmergencyCompleteListener.onEmergencyParserComplete(
 							planNameSelectEntity, null);
 				}
 
@@ -118,7 +122,8 @@ public class PlanNameParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

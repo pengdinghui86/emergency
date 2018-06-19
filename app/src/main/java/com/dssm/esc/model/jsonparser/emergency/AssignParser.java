@@ -15,6 +15,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,12 +27,12 @@ import java.util.Map;
  */
 public class AssignParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public AssignParser(String id,String planInfoId ,String executePeopleId, String executePeople,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(id,planInfoId,executePeopleId,executePeople);
 	}
 
@@ -65,10 +66,9 @@ public class AssignParser {
 			params.addParameter("planInfoId", planInfoId);
 			params.addParameter("executePeopleId", executePeopleId);
 			params.addParameter("executePeople", executePeople);
-			
-			
 
 		}
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -77,7 +77,8 @@ public class AssignParser {
 				Log.i("AssignParser", "AssignParser" + t);
 				map = assignParser(t);
 				Log.i("AssignParser", "AssignParser" + map);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -103,7 +104,8 @@ public class AssignParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

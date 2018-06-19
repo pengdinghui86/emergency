@@ -17,6 +17,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +31,12 @@ import java.util.List;
 public class QueryProcessTrackParser {
 	String TAG = "QueryProcessTrackParser";
 	private FlowChartPlanEntity flowChartPlanEntity;
-	private ControlCompleterListenter<FlowChartPlanEntity> completeListener;
+	private final WeakReference<ControlCompleterListenter<FlowChartPlanEntity>> wr;
 
 	public QueryProcessTrackParser(String planInfoId,
 			ControlCompleterListenter<FlowChartPlanEntity> completeListener) {
 		// TODO Auto-generated constructor stub
-		this.completeListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(planInfoId);
 	}
 
@@ -61,6 +62,7 @@ public class QueryProcessTrackParser {
 		}
 		params.addParameter("planInfoId", planInfoId);
 		Log.i("实时跟踪url", DemoApplication.getInstance().getUrl()+HttpUrl.QUERYPROCESSTRACK+"?planInfoId="+planInfoId);
+		final ControlCompleterListenter<FlowChartPlanEntity> completeListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 					@SuppressWarnings("unchecked")
@@ -70,7 +72,8 @@ public class QueryProcessTrackParser {
 						Log.i(TAG, TAG + t);
 						flowChartPlanEntity = getPlanListParse(t);
 						Log.i(TAG, TAG + flowChartPlanEntity);
-						completeListener.controlParserComplete(
+						if(completeListener != null)
+							completeListener.controlParserComplete(
 								flowChartPlanEntity, null);
 
 					}
@@ -96,7 +99,8 @@ public class QueryProcessTrackParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				completeListener.controlParserComplete(null, errorResult);
+				if(completeListener != null)
+					completeListener.controlParserComplete(null, errorResult);
 			}
 
 			@Override

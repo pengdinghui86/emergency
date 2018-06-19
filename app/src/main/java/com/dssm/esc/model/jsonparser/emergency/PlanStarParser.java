@@ -16,6 +16,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,13 +29,13 @@ import java.util.Map;
  */
 public class PlanStarParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public PlanStarParser(String id, String usePlan,
 			PlanStarListDetailObjEntity detailObjEntity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(id, usePlan, detailObjEntity);
 	}
 
@@ -103,7 +104,7 @@ public class PlanStarParser {
 		params.addParameter("planResType", detailObjEntity.getPlanResType());// 预案来源类型	发送通知使用
 		params.addParameter("planName", detailObjEntity.getPlanName());// 预案名称	发送通知使用
 		params.addParameter("planId", detailObjEntity.getPlanId());// 预案ID	发送通知使用
-
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -112,7 +113,8 @@ public class PlanStarParser {
 				Log.i("PlanStarParser", "PlanStarParser" + t);
 				map = planStarBohuiParser(t);
 				Log.i("PlanStarParser", "PlanStarParser" + map);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -140,7 +142,8 @@ public class PlanStarParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

@@ -15,6 +15,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +28,12 @@ import java.util.Map;
 public class JumpPlan2Parser {
 	String TAG = "JumpPlan2Parser";
 	public Map<String, String> map;
-	private ControlCompleterListenter<Map<String, String>> completerListenter;
+	private final WeakReference<ControlCompleterListenter<Map<String, String>>> wr;
 
 	public JumpPlan2Parser(String id, String planInfoId,String stopOrStart,
                            ControlCompleterListenter<Map<String, String>> completeListener) {
 		// TODO Auto-generated constructor stub
-		this.completerListenter = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(id, planInfoId,stopOrStart);
 	}
 
@@ -67,6 +68,7 @@ public class JumpPlan2Parser {
 		params.addParameter("stopOrStart", stopOrStart);
 //		params.put("status", "3");
 //		params.put("message", "流程控制管理员跳过执行");
+		final ControlCompleterListenter<Map<String, String>> completeListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -75,7 +77,8 @@ public class JumpPlan2Parser {
 				Log.i(TAG, TAG + t);
 				map = setStarPlanParser(t);
 				Log.i(TAG, TAG + map);
-				completerListenter.controlParserComplete(map, null);
+				if(completeListener != null)
+					completeListener.controlParserComplete(map, null);
 
 			}
 
@@ -100,7 +103,8 @@ public class JumpPlan2Parser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				completerListenter.controlParserComplete(null, errorResult);
+				if(completeListener != null)
+					completeListener.controlParserComplete(null, errorResult);
 			}
 
 			@Override

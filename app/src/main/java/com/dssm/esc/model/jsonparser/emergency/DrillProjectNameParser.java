@@ -17,6 +17,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +30,12 @@ import java.util.List;
  */
 public class DrillProjectNameParser {
 	private List<DrillProjectNameEntity> list;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public DrillProjectNameParser(
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request();
 	}
 
@@ -60,6 +61,7 @@ public class DrillProjectNameParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -68,7 +70,8 @@ public class DrillProjectNameParser {
 				Log.i("DrillProjectNameParser", t);
 				list = drillProjectNameParser(t);
 				Log.i("DrillProjectNameParser", "DrillProjectNameParser" + list);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(list,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(list,
 						null);
 
 			}
@@ -94,7 +97,8 @@ public class DrillProjectNameParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

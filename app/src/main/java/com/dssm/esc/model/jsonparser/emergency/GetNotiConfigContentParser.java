@@ -16,6 +16,8 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
+
 
 /**
  * 根据对象和阶段获取对应的配置内容解析
@@ -25,12 +27,12 @@ import org.xutils.x;
  */
 public class GetNotiConfigContentParser {
 	private GetProjectEveInfoEntity entity;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public GetNotiConfigContentParser(String precautionId, String type,
 			String stage, OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(precautionId, type, stage);
 	}
 
@@ -59,19 +61,21 @@ public class GetNotiConfigContentParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
-					@Override
-					public void onSuccess(String t) {
-						// TODO Auto-generated method stub
-						Log.i("GetNotiConfigContent", t);
-						entity = getEventValuationParser(t);
-						Log.i("GetNotiConfigContent",
-								"GetNotiConfigContentParser" + entity);
-						OnEmergencyCompleterListener.onEmergencyParserComplete(
-								entity, null);
+			@Override
+			public void onSuccess(String t) {
+				// TODO Auto-generated method stub
+				Log.i("GetNotiConfigContent", t);
+				entity = getEventValuationParser(t);
+				Log.i("GetNotiConfigContent",
+						"GetNotiConfigContentParser" + entity);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(
+						entity, null);
 
-					}
+			}
 
 			@Override
 			public void onError(Throwable ex, boolean isOnCallback) {
@@ -94,7 +98,8 @@ public class GetNotiConfigContentParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

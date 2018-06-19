@@ -15,6 +15,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,12 +27,12 @@ import java.util.Map;
  */
 public class SendMessageParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	public SendMessageParser(String postId, String sendType, 
 			String content, OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(postId, sendType,content);
 	}
 
@@ -66,6 +67,7 @@ public class SendMessageParser {
 			params.addParameter("sendType", sendType);
 			params.addParameter("content", content);
 		}
+		final OnDataCompleterListener onEmergencyCompleterListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -74,7 +76,8 @@ public class SendMessageParser {
 				Log.i("SendMessageParser", "SendMessageParser" + t);
 				map = sendMessageParse(t);
 				Log.i("SendMessageParser", "SendMessageParser" + map);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
+				if(onEmergencyCompleterListener != null)
+					onEmergencyCompleterListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -100,7 +103,8 @@ public class SendMessageParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleterListener != null)
+					onEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

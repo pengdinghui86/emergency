@@ -16,6 +16,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ import java.util.Map;
  */
 public class PlanSuspandParser {
 	public Map<String, String> map;
-	OnDataCompleterListener OnEmergencyCompleterListener;
+	private final WeakReference<OnDataCompleterListener> wr;
 
 	// id 编号
 	// suspendType 中止类型 类型为authSuspend
@@ -36,7 +37,7 @@ public class PlanSuspandParser {
 	public PlanSuspandParser(PlanSuspandEntity suspandEntity,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
-		this.OnEmergencyCompleterListener = completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(suspandEntity);
 	}
 
@@ -74,6 +75,7 @@ public class PlanSuspandParser {
 		params.addParameter("planStarterId", suspandEntity.getPlanStarterId());
 		params.addParameter("planAuthorId", suspandEntity.getPlanAuthorId());
 		params.addParameter("submitterId", suspandEntity.getSubmitterId());
+		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -82,7 +84,8 @@ public class PlanSuspandParser {
 				Log.i("PlanSuspandParser", "PlanSuspandParser" + t);
 				map = loginRoleParse(t);
 				Log.i("UserLoginRoleParser", "UserLoginRoleParser" + map);
-				OnEmergencyCompleterListener.onEmergencyParserComplete(map,
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(map,
 						null);
 
 			}
@@ -108,7 +111,8 @@ public class PlanSuspandParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				OnEmergencyCompleterListener.onEmergencyParserComplete(null, errorResult);
+				if(onEmergencyCompleteListener != null)
+					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override

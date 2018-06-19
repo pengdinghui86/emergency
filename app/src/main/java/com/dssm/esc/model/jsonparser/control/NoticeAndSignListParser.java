@@ -17,6 +17,7 @@ import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +30,11 @@ import java.util.List;
 public class NoticeAndSignListParser {
 	String TAG="NoticeAndSignListParser";
 	private SignUserEntity entity;
-	private ControlCompleterListenter<SignUserEntity> completeListener;
-	
+	private final WeakReference<ControlCompleterListenter<SignUserEntity>> wr;
+
 	public NoticeAndSignListParser(String planInfoId,ControlCompleterListenter<SignUserEntity> completeListener) {
 		// TODO Auto-generated constructor stub
-		this.completeListener=completeListener;
+		wr = new WeakReference<>(completeListener);
 		request(planInfoId);
 	}
 	
@@ -59,6 +60,7 @@ public class NoticeAndSignListParser {
 			params.addHeader("Cookie", sbSession.toString());
 		}
 		params.addParameter("planInfoId", planInfoId);
+		final ControlCompleterListenter<SignUserEntity> completeListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
 			@SuppressWarnings("unchecked")
@@ -68,7 +70,8 @@ public class NoticeAndSignListParser {
 				Log.i(TAG, TAG+t);
 				entity=getNoticeAndSignListParser(t);
 				Log.i(TAG, TAG+entity);
-				completeListener.controlParserComplete(entity, null);
+				if(completeListener != null)
+					completeListener.controlParserComplete(entity, null);
 				
 			}
 
@@ -93,7 +96,8 @@ public class NoticeAndSignListParser {
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				completeListener.controlParserComplete(null, errorResult);
+				if(completeListener != null)
+					completeListener.controlParserComplete(null, errorResult);
 			}
 
 			@Override
