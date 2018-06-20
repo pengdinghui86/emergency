@@ -193,7 +193,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		if (what == 2) {// 第一次加载
 			// Log.i("getActivity()", getActivity()+"");
 			// 任务通知
-			sevice.getMessageList(getActivity(), "1", "false",
+			sevice.getMessageList("1", "false",
 					new UserSeviceImpl.UserSeviceImplListListenser() {
 
 						@Override

@@ -1,5 +1,6 @@
 package com.dssm.esc.model.analytical.implSevice;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public class UserSeviceImpl implements UserSevice {
 	 * @param error
 	 */
 	private void setUserBooleanListenser(
-			final UserSeviceImplBackBooleanListenser listenser, Object object,
+			UserSeviceImplBackBooleanListenser listenser, Object object,
 			String error) {
 		boolean flag = false;
 		String stRerror = null;
@@ -152,9 +153,11 @@ public class UserSeviceImpl implements UserSevice {
 	 */
 	@Override
 	public void login(String userName, String password,
-			final UserSeviceImplListListenser listenser) {
+			UserSeviceImplListListenser listenser) {
+		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
 		if (userName == null) {
-			listenser.setUserSeviceImplListListenser(null, Const.PARAMETER_NULL, null);
+			if(wr.get() != null)
+				wr.get().setUserSeviceImplListListenser(null, Const.PARAMETER_NULL, null);
 			return;
 		}
 		new UserLoginParse(userName, password, new OnDataCompleterListener() {
@@ -172,8 +175,8 @@ public class UserSeviceImpl implements UserSevice {
 				} else {
 					stRerror = "登录失败";
 				}
-
-				listenser.setUserSeviceImplListListenser(userEntity, stRerror,
+				if(wr.get() != null)
+					wr.get().setUserSeviceImplListListenser(userEntity, stRerror,
 						Exceptionerror);
 			}
 		});
@@ -184,10 +187,12 @@ public class UserSeviceImpl implements UserSevice {
 	 */
 	@Override
 	public void loginRole(String roleId,
-			final UserSeviceImplBackBooleanListenser listenser) {
+			UserSeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<UserSeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
 		if (roleId == null) {
-			listenser.setUserSeviceImplListenser(null, Const.PARAMETER_NULL,
+			if(wr.get() != null)
+				wr.get().setUserSeviceImplListenser(null, Const.PARAMETER_NULL,
 					null);
 			return;
 		}
@@ -196,7 +201,8 @@ public class UserSeviceImpl implements UserSevice {
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setUserBooleanListenser(listenser, object, error);
+				if(wr.get() != null)
+					setUserBooleanListenser(wr.get(), object, error);
 			}
 
 		});
@@ -206,17 +212,19 @@ public class UserSeviceImpl implements UserSevice {
 	 * 获取消息列表
 	 */
 	@Override
-	public void getMessageList(Context context, String msgType,
-			String isconfirm, final UserSeviceImplListListenser listenser) {
+	public void getMessageList(String msgType,
+			String isconfirm, UserSeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
-		new GetFirstAllMessageListParser(context, msgType, isconfirm,
+		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
+		new GetFirstAllMessageListParser(msgType, isconfirm,
 				new OnDataCompleterListener() {
 
 					@Override
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setUserListListenser(listenser, object, error);
+						if(wr.get() != null)
+							setUserListListenser(wr.get(), object, error);
 					}
 				});
 	}
@@ -226,10 +234,12 @@ public class UserSeviceImpl implements UserSevice {
 	 */
 	@Override
 	public void confirMsg(String msgType,
-			final UserSeviceImplBackBooleanListenser listenser) {
+			UserSeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<UserSeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
 		if (msgType == null) {
-			listenser.setUserSeviceImplListenser(null, Const.PARAMETER_NULL,
+			if(wr.get() != null)
+				wr.get().setUserSeviceImplListenser(null, Const.PARAMETER_NULL,
 					null);
 			return;
 		}
@@ -238,7 +248,8 @@ public class UserSeviceImpl implements UserSevice {
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setUserBooleanListenser(listenser, object, error);
+				if(wr.get() != null)
+					setUserBooleanListenser(wr.get(), object, error);
 			}
 		});
 
@@ -250,8 +261,9 @@ public class UserSeviceImpl implements UserSevice {
 	@Override
 	public void getFrashMessageList(Context context, String msgType,
 			String isconfirm, String tag,
-			final UserSeviceImplListListenser listenser) {
+			UserSeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
 		new GetMessageListParser(context, msgType, isconfirm, tag,
 				new OnDataCompleterListener() {
 
@@ -259,7 +271,8 @@ public class UserSeviceImpl implements UserSevice {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setUserListListenser(listenser, object, error);
+						if(wr.get() != null)
+							setUserListListenser(wr.get(), object, error);
 					}
 				});
 	}
@@ -272,8 +285,9 @@ public class UserSeviceImpl implements UserSevice {
 	 */
 	@Override
 	public void getUserNameByID(String userId,
-			final UserSeviceImplBackValueListenser listenser) {
+			UserSeviceImplBackValueListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<UserSeviceImplBackValueListenser> wr = new WeakReference<>(listenser);
 		new GetUserNameByIdParser(userId, new OnDataCompleterListener() {
 
 			@Override
@@ -295,7 +309,8 @@ public class UserSeviceImpl implements UserSevice {
 				} else {
 					Exceptionerror = error;
 				}
-				listenser.setUserSeviceImplListenser(name, stRerror,
+				if(wr.get() != null)
+					wr.get().setUserSeviceImplListenser(name, stRerror,
 						Exceptionerror);
 
 			}
@@ -307,7 +322,8 @@ public class UserSeviceImpl implements UserSevice {
 	 */
 	@Override
 	public void getSearchPlanList(String name, String id,
-			final UserSeviceImplListListenser listenser) {
+			UserSeviceImplListListenser listenser) {
+		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
 		new SearchOtherscenPlanParser(name, id, new OnDataCompleterListener() {
 
 			@Override
@@ -324,8 +340,8 @@ public class UserSeviceImpl implements UserSevice {
 					} else {
 						stRerror = Const.NO_MSG;
 					}
-
-					listenser.setUserSeviceImplListListenser(
+					if(wr.get() != null)
+						wr.get().setUserSeviceImplListListenser(
 							planNameSelectEntity, stRerror, Exceptionerror);
 				}
 			}
@@ -336,8 +352,9 @@ public class UserSeviceImpl implements UserSevice {
 	 * 1.1.6用户权限控制
 	 */
 	@Override
-	public void getUserPower(final UserSeviceImplListListenser listenser) {
+	public void getUserPower(UserSeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
 		new GetUserMenuPower(new OnDataCompleterListener() {
 
 			@Override
@@ -354,8 +371,8 @@ public class UserSeviceImpl implements UserSevice {
 					} else {
 						stRerror = Const.NO_MSG;
 					}
-
-					listenser.setUserSeviceImplListListenser(powerEntity,
+					if(wr.get() != null)
+						wr.get().setUserSeviceImplListListenser(powerEntity,
 							stRerror, Exceptionerror);
 				}
 			}
@@ -367,10 +384,12 @@ public class UserSeviceImpl implements UserSevice {
 	 */
 	@Override
 	public void relogin(String userName, String password, String roleId,
-			final UserSeviceImplListListenser listenser) {
+			UserSeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
 		if (userName == null) {
-			listenser.setUserSeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setUserSeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -391,8 +410,8 @@ public class UserSeviceImpl implements UserSevice {
 						} else {
 							stRerror = "重新登录失败";
 						}
-
-						listenser.setUserSeviceImplListListenser(map,
+						if(wr.get() != null)
+							wr.get().setUserSeviceImplListListenser(map,
 								stRerror, Exceptionerror);
 					}
 				});
@@ -402,10 +421,12 @@ public class UserSeviceImpl implements UserSevice {
 	 * 获取执行人信息
 	 */
 	@Override
-	public void getUserMessageByPersonalId(String executePeopleId,final UserSeviceImplListListenser listenser) {
+	public void getUserMessageByPersonalId(String executePeopleId, UserSeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
 		if (executePeopleId == null) {
-			listenser.setUserSeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setUserSeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -424,8 +445,8 @@ public class UserSeviceImpl implements UserSevice {
 				} else {
 					stRerror = "未查找到数据！";
 				}
-
-				listenser.setUserSeviceImplListListenser(entity,
+				if(wr.get() != null)
+					wr.get().setUserSeviceImplListListenser(entity,
 						stRerror, Exceptionerror);
 			}
 		});

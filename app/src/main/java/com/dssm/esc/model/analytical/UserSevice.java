@@ -48,7 +48,7 @@ void relogin(String userName, String password, String roleId,
 	 *            是否收到通知,true：查询已经接收确认过的消息，false：查询没有接收确认过的消息，不传递此参数查询全部
 	 * @param listenser
 	 */
-	void getMessageList(Context context, String msgType, String isconfirm,
+	void getMessageList(String msgType, String isconfirm,
 						UserSeviceImpl.UserSeviceImplListListenser listenser);
 
 	/**

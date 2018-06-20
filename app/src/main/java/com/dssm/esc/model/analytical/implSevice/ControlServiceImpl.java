@@ -1,5 +1,6 @@
 package com.dssm.esc.model.analytical.implSevice;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,6 @@ import com.dssm.esc.model.entity.control.SignUserEntity;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.jsonparser.ControlCompleterListenter;
-import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.model.jsonparser.control.FlowChartPlanParser;
 import com.dssm.esc.model.jsonparser.control.GetEventlistParser;
 import com.dssm.esc.model.jsonparser.control.GetPlanlistParser;
@@ -26,8 +26,6 @@ import com.dssm.esc.model.jsonparser.control.PausePlanParser;
 import com.dssm.esc.model.jsonparser.control.QueryProcessTrackParser;
 import com.dssm.esc.model.jsonparser.control.StarPlanParser;
 import com.dssm.esc.model.jsonparser.control.StopPlanParser;
-import com.dssm.esc.model.jsonparser.emergency.GetSignEmergencyInfoParser;
-import com.dssm.esc.util.Const;
 
 public class ControlServiceImpl implements ControlSevice {
 
@@ -53,7 +51,6 @@ public class ControlServiceImpl implements ControlSevice {
          * 当Exceptionerror！=null时backValue，stRerror都为null； backValue回调得到值
          * stRerror回调得到接口返回错误信息 Exceptionerror回调得到接口返回异常信息
          *
-         * @param code
          * @param stRerror
          * @param Exceptionerror
          */
@@ -65,11 +62,11 @@ public class ControlServiceImpl implements ControlSevice {
      * 设置集合返回数据
      *
      * @param listenser
-     * @param object
+     * @param list1
      * @param error
      */
     private void setContorlListListenser(
-            final ControlServiceImplBackValueListenser<List<?>> listenser,
+            ControlServiceImplBackValueListenser<List<?>> listenser,
             List<?> list1, String error) {
         List<?> list = null;
         String Exceptionerror = null;
@@ -87,11 +84,11 @@ public class ControlServiceImpl implements ControlSevice {
      * 设置Boolean值返回数据
      *
      * @param listenser
-     * @param object
+     * @param map
      * @param error
      */
     private void setContorlBooleanListenser(
-            final ControlServiceImplBackValueListenser<Boolean> listenser,
+            ControlServiceImplBackValueListenser<Boolean> listenser,
             Map<String, String> map, String error) {
         boolean flag = false;
         String stRerror = null;
@@ -123,8 +120,9 @@ public class ControlServiceImpl implements ControlSevice {
      */
     @Override
     public void getEvalist(
-            final ControlServiceImplBackValueListenser<?> listenser) {
+            ControlServiceImplBackValueListenser<?> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
         new GetEventlistParser(
                 new ControlCompleterListenter<List<BoHuiListEntity>>() {
 
@@ -133,8 +131,9 @@ public class ControlServiceImpl implements ControlSevice {
                     public void controlParserComplete(
                             List<BoHuiListEntity> object, String error) {
                         // TODO Auto-generated method stub
-                        setContorlListListenser(
-                                (ControlServiceImplBackValueListenser<List<?>>) listenser,
+                        if(wr.get() != null)
+                            setContorlListListenser(
+                                (ControlServiceImplBackValueListenser<List<?>>) wr.get(),
                                 object, error);
                     }
                 });
@@ -147,8 +146,9 @@ public class ControlServiceImpl implements ControlSevice {
      */
     @Override
     public void getPlanlist(
-            final ControlServiceImplBackValueListenser<?> listenser) {
+            ControlServiceImplBackValueListenser<?> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
         new GetPlanlistParser(
                 new ControlCompleterListenter<List<PlanEntity>>() {
 
@@ -157,8 +157,9 @@ public class ControlServiceImpl implements ControlSevice {
                     public void controlParserComplete(List<PlanEntity> object,
                                                       String error) {
                         // TODO Auto-generated method stub
-                        setContorlListListenser(
-                                (ControlServiceImplBackValueListenser<List<?>>) listenser,
+                        if(wr.get() != null)
+                            setContorlListListenser(
+                                (ControlServiceImplBackValueListenser<List<?>>) wr.get(),
                                 object, error);
                     }
                 });
@@ -172,8 +173,9 @@ public class ControlServiceImpl implements ControlSevice {
      */
     @Override
     public void stopPlan(PlanEntity entity, String planSuspendOpition,
-                         final ControlServiceImplBackValueListenser<?> listenser) {
+                         ControlServiceImplBackValueListenser<?> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
         new StopPlanParser(entity, planSuspendOpition,
                 new ControlCompleterListenter<Map<String, String>>() {
 
@@ -182,8 +184,9 @@ public class ControlServiceImpl implements ControlSevice {
                     public void controlParserComplete(
                             Map<String, String> object, String error) {
                         // TODO Auto-generated method stub
-                        setContorlBooleanListenser(
-                                (ControlServiceImplBackValueListenser<Boolean>) listenser,
+                        if(wr.get() != null)
+                            setContorlBooleanListenser(
+                                (ControlServiceImplBackValueListenser<Boolean>) wr.get(),
                                 object, error);
                     }
                 });
@@ -197,8 +200,9 @@ public class ControlServiceImpl implements ControlSevice {
      */
     @Override
     public void starPlan(String id,
-                         final ControlServiceImplBackValueListenser<?> listenser) {
+                         ControlServiceImplBackValueListenser<?> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
         new StarPlanParser(id,
                 new ControlCompleterListenter<Map<String, String>>() {
 
@@ -207,8 +211,9 @@ public class ControlServiceImpl implements ControlSevice {
                     public void controlParserComplete(
                             Map<String, String> object, String error) {
                         // TODO Auto-generated method stub
-                        setContorlBooleanListenser(
-                                (ControlServiceImplBackValueListenser<Boolean>) listenser,
+                        if(wr.get() != null)
+                            setContorlBooleanListenser(
+                                (ControlServiceImplBackValueListenser<Boolean>) wr.get(),
                                 object, error);
                     }
                 });
@@ -220,8 +225,10 @@ public class ControlServiceImpl implements ControlSevice {
     @Override
     public void flowChartPlan(
             String planInfoId,
-            final ControlServiceImplBackValueListenser<FlowChartPlanEntity> listenser) {
+            ControlServiceImplBackValueListenser<FlowChartPlanEntity> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<FlowChartPlanEntity>> wr = new WeakReference<>(listenser);
+
         new FlowChartPlanParser(planInfoId,
                 new ControlCompleterListenter<FlowChartPlanEntity>() {
 
@@ -236,7 +243,8 @@ public class ControlServiceImpl implements ControlSevice {
                         } else if (error != null) {
                             Exceptionerror = error;
                         }
-                        listenser.setControlServiceImplListenser(entity, null,
+                        if(wr.get() != null)
+                            wr.get().setControlServiceImplListenser(entity, null,
                                 Exceptionerror);
                     }
                 });
@@ -249,8 +257,9 @@ public class ControlServiceImpl implements ControlSevice {
      */
     @Override
     public void getNoticeAndSignList(String planInfoId,
-                                     final ControlServiceImplBackValueListenser<SignUserEntity> listenser) {
+                                     ControlServiceImplBackValueListenser<SignUserEntity> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<SignUserEntity>> wr = new WeakReference<>(listenser);
         new NoticeAndSignListParser(planInfoId,
                 new ControlCompleterListenter<SignUserEntity>() {
 
@@ -265,7 +274,8 @@ public class ControlServiceImpl implements ControlSevice {
                         } else if (error != null) {
                             Exceptionerror = error;
                         }
-                        listenser.setControlServiceImplListenser(entity, null,
+                        if(wr.get() != null)
+                            wr.get().setControlServiceImplListenser(entity, null,
                                 Exceptionerror);
                     }
                 });
@@ -280,8 +290,9 @@ public class ControlServiceImpl implements ControlSevice {
     @Override
     public void getProgressDetail(
             String id,
-            final ControlServiceImplBackValueListenser<ProgressDetailEntity> listenser) {
+            ControlServiceImplBackValueListenser<ProgressDetailEntity> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<ProgressDetailEntity>> wr = new WeakReference<>(listenser);
         new GetProgressDetailParser(id,
                 new ControlCompleterListenter<ProgressDetailEntity>() {
 
@@ -296,7 +307,8 @@ public class ControlServiceImpl implements ControlSevice {
                         } else if (error != null) {
                             Exceptionerror = error;
                         }
-                        listenser.setControlServiceImplListenser(entity, null,
+                        if(wr.get() != null)
+                            wr.get().setControlServiceImplListenser(entity, null,
                                 Exceptionerror);
                     }
                 });
@@ -307,8 +319,9 @@ public class ControlServiceImpl implements ControlSevice {
      */
     @Override
     public void getSignDetailInfo(String planInfoId,
-                                  final ControlServiceImplBackValueListenser<?> listenser) {
+                                  ControlServiceImplBackValueListenser<?> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
         new GetSignUserInfoDetailParser(planInfoId,
                 new ControlCompleterListenter<List<GroupEntity>>() {
 
@@ -317,8 +330,9 @@ public class ControlServiceImpl implements ControlSevice {
                     public void controlParserComplete(List<GroupEntity> object,
                                                       String error) {
                         // TODO Auto-generated method stub
-                        setContorlListListenser(
-                                (ControlServiceImplBackValueListenser<List<?>>) listenser,
+                        if(wr.get() != null)
+                            setContorlListListenser(
+                                (ControlServiceImplBackValueListenser<List<?>>) wr.get(),
                                 object, error);
 
                     }
@@ -333,8 +347,9 @@ public class ControlServiceImpl implements ControlSevice {
      */
     @Override
     public void queryProcessTrack(String planInfoId,
-                                  final ControlServiceImplBackValueListenser<FlowChartPlanEntity> listenser) {
+                                  ControlServiceImplBackValueListenser<FlowChartPlanEntity> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<FlowChartPlanEntity>> wr = new WeakReference<>(listenser);
         new QueryProcessTrackParser(planInfoId, new ControlCompleterListenter<FlowChartPlanEntity>() {
 
             @Override
@@ -348,7 +363,8 @@ public class ControlServiceImpl implements ControlSevice {
                 } else if (error != null) {
                     Exceptionerror = error;
                 }
-                listenser.setControlServiceImplListenser(entity, null,
+                if(wr.get() != null)
+                    wr.get().setControlServiceImplListenser(entity, null,
                         Exceptionerror);
             }
         });
@@ -360,16 +376,18 @@ public class ControlServiceImpl implements ControlSevice {
      */
     @Override
     public void jumpplan(String id, String planInfoId,
-                         final ControlServiceImplBackValueListenser<?> listenser) {
+                         ControlServiceImplBackValueListenser<?> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
         new JumpPlanParser(id, planInfoId, new ControlCompleterListenter<Map<String, String>>() {
 
             @Override
             public void controlParserComplete(Map<String, String> object,
                                               String error) {
                 // TODO Auto-generated method stub
-                setContorlBooleanListenser(
-                        (ControlServiceImplBackValueListenser<Boolean>) listenser,
+                if(wr.get() != null)
+                    setContorlBooleanListenser(
+                        (ControlServiceImplBackValueListenser<Boolean>) wr.get(),
                         object, error);
             }
         });
@@ -380,16 +398,18 @@ public class ControlServiceImpl implements ControlSevice {
      */
     @Override
     public void jumpplan2(String id, String planInfoId, String stopOrStart,
-                          final ControlServiceImplBackValueListenser<?> listenser) {
+                          ControlServiceImplBackValueListenser<?> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
         new JumpPlan2Parser(id, planInfoId, stopOrStart, new ControlCompleterListenter<Map<String, String>>() {
 
             @Override
             public void controlParserComplete(Map<String, String> object,
                                               String error) {
                 // TODO Auto-generated method stub
-                setContorlBooleanListenser(
-                        (ControlServiceImplBackValueListenser<Boolean>) listenser,
+                if(wr.get() != null)
+                    setContorlBooleanListenser(
+                        (ControlServiceImplBackValueListenser<Boolean>) wr.get(),
                         object, error);
             }
         });
@@ -397,16 +417,18 @@ public class ControlServiceImpl implements ControlSevice {
 
     @Override
     public void pauseplan(String id, String planInfoId, String stopOrStart,
-                          final ControlServiceImplBackValueListenser<?> listenser) {
+                          ControlServiceImplBackValueListenser<?> listenser) {
         // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
         new PausePlanParser(id, planInfoId, stopOrStart, new ControlCompleterListenter<Map<String, String>>() {
 
             @Override
             public void controlParserComplete(Map<String, String> object,
                                               String error) {
                 // TODO Auto-generated method stub
-                setContorlBooleanListenser(
-                        (ControlServiceImplBackValueListenser<Boolean>) listenser,
+                if(wr.get() != null)
+                    setContorlBooleanListenser(
+                        (ControlServiceImplBackValueListenser<Boolean>) wr.get(),
                         object, error);
             }
         });

@@ -1,8 +1,6 @@
 package com.dssm.esc.model.jsonparser.message;
 
-import android.content.Context;
 import android.util.Log;
-
 import com.dssm.esc.model.entity.message.FirstAllMessagesEntity;
 import com.dssm.esc.model.entity.message.MessageInfoEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
@@ -10,7 +8,6 @@ import com.dssm.esc.util.HttpUrl;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,23 +31,22 @@ public class GetFirstAllMessageListParser {
 	private List<FirstAllMessagesEntity> list;
 	private final WeakReference<OnDataCompleterListener> wr;
 
-	public GetFirstAllMessageListParser(Context context,String msgType, String isconfirm,
+	public GetFirstAllMessageListParser(String msgType, String isconfirm,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
 		wr = new WeakReference<>(completeListener);
-		request(context,msgType, isconfirm);
+		request(msgType, isconfirm);
 	}
 
 	/**
 	 * 发送请求
-	 * 
-	 * @param context
+	 *
 	 * @param msgType
 	 *            1,任务通知2,系统通知3,紧急通知4,我的消息
 	 * @param isconfirm
 	 *            是否收到通知,true：查询已经接收确认过的消息，false：查询没有接收确认过的消息，不传递此参数查询全部
 	 */
-	public void request(final Context context,final String msgType, final String isconfirm) {
+	public void request(final String msgType, final String isconfirm) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETFIRSTALLMESSAGES + "?isconfirm=" + isconfirm);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
@@ -97,7 +93,7 @@ public class GetFirstAllMessageListParser {
                     if(responseCode == 518) {
 						errorResult = "登录超时";
                         Utils.getInstance().relogin();
-                        request(context,msgType,isconfirm);
+                        request(msgType, isconfirm);
                     }
                     responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -105,7 +101,7 @@ public class GetFirstAllMessageListParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
                 	Utils.getInstance().relogin();
-					request(context,msgType,isconfirm);
+					request(msgType, isconfirm);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

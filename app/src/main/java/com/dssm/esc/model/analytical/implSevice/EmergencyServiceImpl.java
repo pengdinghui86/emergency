@@ -45,6 +45,7 @@ import com.dssm.esc.model.jsonparser.emergency.SuspandParser;
 import com.dssm.esc.model.jsonparser.emergency.SwitchOverParser;
 import com.dssm.esc.util.Const;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 
@@ -80,7 +81,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * @param error
 	 */
 	private void setEmergencyBooleanListenser(
-			final EmergencySeviceImplBackBooleanListenser listenser,
+			EmergencySeviceImplBackBooleanListenser listenser,
 			Object object, String error) {
 		boolean flag = false;
 		String stRerror = null;
@@ -114,7 +115,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * @param error
 	 */
 	private void setEmergencyListListenser(
-			final EmergencySeviceImplListListenser listenser, Object object,
+			EmergencySeviceImplListListenser listenser, Object object,
 			String error) {
 		List<Object> list = null;
 		String Exceptionerror = null;
@@ -178,14 +179,16 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getBusinessType(int tag,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
 		new BusinessTypeParser(tag, new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 
@@ -195,14 +198,16 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * 获取事件场景
 	 */
 	@Override
-	public void getEventScene(final EmergencySeviceImplListListenser listenser) {
+	public void getEventScene(EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
 		new EventSceneParser(new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 
@@ -213,10 +218,12 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getPlanName(final int tags, String id,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
 		if (id == null) {
-			listenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -237,11 +244,12 @@ public class EmergencyServiceImpl implements EmergencyService {
 					} else {
 						stRerror = Const.NO_MSG;
 					}
-
-					listenser.setEmergencySeviceImplListListenser(
+					if(wr.get() != null)
+						wr.get().setEmergencySeviceImplListListenser(
 							planNameSelectEntity, stRerror, Exceptionerror);
 				} else if (tags == 1 || tags == 3) {
-					setEmergencyListListenser(listenser, object, error);
+					if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 				}
 			}
 		});
@@ -253,14 +261,17 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getDrillProjectName(
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		new DrillProjectNameParser(new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 
@@ -272,10 +283,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public void getDrillProjectNameDetail(String detailPlanId,
 			String drillPlanName,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		if (detailPlanId == null) {
-			listenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -297,8 +311,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 						} else {
 							stRerror = Const.NO_MSG;
 						}
-
-						listenser.setEmergencySeviceImplListListenser(
+						if(wr.get() != null)
+							wr.get().setEmergencySeviceImplListListenser(
 								detailEntity, stRerror, Exceptionerror);
 					}
 				});
@@ -315,8 +329,10 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public void addEmergencyPlanevent(String tag,
 			EmergencyPlanEvaAddEntity addEntity,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		new EmergencyPlanEvaAddParser(tag, addEntity,
 				new OnDataCompleterListener() {
 
@@ -324,7 +340,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setEmergencyBooleanListenser(listenser, object, error);
+						if(wr.get() != null)
+							setEmergencyBooleanListenser(wr.get(), object, error);
 					}
 				});
 	}
@@ -333,14 +350,17 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * 获取事件未启动列表
 	 */
 	@Override
-	public void getPlanStarList(final EmergencySeviceImplListListenser listenser) {
+	public void getPlanStarList(EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		new PlanStarEventListParser(new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 	}
@@ -353,11 +373,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getPlanStarListDetail(final String id,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
 
 		if (id == null) {
-			listenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -376,8 +398,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 				} else {
 					stRerror = Const.NO_MSG;
 				}
-
-				listenser.setEmergencySeviceImplListListenser(detailEntity,
+				if(wr.get() != null)
+					wr.get().setEmergencySeviceImplListListenser(detailEntity,
 						stRerror, Exceptionerror);
 			}
 		});
@@ -390,8 +412,10 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public void planStarBohui(String planEveId, String planEveName,
 			String submitterId, String eveType,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		new PlanStarBohuiParser(planEveId, planEveName, submitterId, eveType,
 				new OnDataCompleterListener() {
 
@@ -399,7 +423,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setEmergencyBooleanListenser(listenser, object, error);
+						if(wr.get() != null)
+							setEmergencyBooleanListenser(wr.get(), object, error);
 					}
 				});
 	}
@@ -410,10 +435,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public void planStar(String id, String usePlan,
 			PlanStarListDetailObjEntity detailObjEntity,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		if (id == null) {
-			listenser.setEmergencySeviceImplListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -424,7 +452,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setEmergencyBooleanListenser(listenser, object, error);
+						if(wr.get() != null)
+							setEmergencyBooleanListenser(wr.get(), object, error);
 					}
 				});
 	}
@@ -433,14 +462,17 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * 获取驳回事件列表
 	 */
 	@Override
-	public void getBoHuiList(final EmergencySeviceImplListListenser listenser) {
+	public void getBoHuiList(EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		new BoHuiEventListParser(new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 	}
@@ -450,10 +482,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getEventInfo(String id,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		if (id == null) {
-			listenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -472,8 +507,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 				} else {
 					stRerror = Const.NO_MSG;
 				}
-
-				listenser.setEmergencySeviceImplListListenser(entity, stRerror,
+				if(wr.get() != null)
+					wr.get().setEmergencySeviceImplListListenser(entity, stRerror,
 						Exceptionerror);
 
 			}
@@ -485,10 +520,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void reValuationEvent(GetProjectEveInfoEntity entity,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		if (entity == null) {
-			listenser.setEmergencySeviceImplListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -497,7 +535,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyBooleanListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyBooleanListenser(wr.get(), object, error);
 			}
 		});
 
@@ -508,10 +547,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void deleteEvent(String id,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		if (id == null) {
-			listenser.setEmergencySeviceImplListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -520,7 +562,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyBooleanListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyBooleanListenser(wr.get(), object, error);
 			}
 		});
 	}
@@ -530,10 +573,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getPlanDetail(String id,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		if (id == null) {
-			listenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -552,8 +598,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 				} else {
 					stRerror = Const.NO_MSG;
 				}
-
-				listenser.setEmergencySeviceImplListListenser(entity, stRerror,
+				if(wr.get() != null)
+					wr.get().setEmergencySeviceImplListListenser(entity, stRerror,
 						Exceptionerror);
 
 			}
@@ -566,15 +612,17 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void planSuspand(PlanSuspandEntity suspandEntity,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
 
 		new PlanSuspandParser(suspandEntity, new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyBooleanListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyBooleanListenser(wr.get(), object, error);
 			}
 		});
 
@@ -587,10 +635,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	public void planAuth(String id, String planAuthOpition, String planName,
 			String planResName, String planResType, String planId,
 			String planStarterId, String submitterId,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		if (id == null) {
-			listenser.setEmergencySeviceImplListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -602,7 +653,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setEmergencyBooleanListenser(listenser, object, error);
+						if(wr.get() != null)
+							setEmergencyBooleanListenser(wr.get(), object, error);
 					}
 				});
 
@@ -613,10 +665,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getSignEmergencyInfo(String planInfoId,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		if (planInfoId == null) {
-			listenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -627,7 +682,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setEmergencyListListenser(listenser, object, error);
+						if(wr.get() != null)
+							setEmergencyListListenser(wr.get(), object, error);
 					}
 				});
 
@@ -638,10 +694,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void checkEmergencySign(String planInfoId,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		if (planInfoId == null) {
-			listenser.setEmergencySeviceImplListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -650,7 +709,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyBooleanListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyBooleanListenser(wr.get(), object, error);
 			}
 		});
 
@@ -661,10 +721,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void signIn(String planInfoId,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		if (planInfoId == null) {
-			listenser.setEmergencySeviceImplListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -673,7 +736,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyBooleanListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyBooleanListenser(wr.get(), object, error);
 			}
 		});
 
@@ -684,10 +748,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getPlanProcessList(String planInfoId,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		if (planInfoId == null) {
-			listenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -696,7 +763,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 
@@ -708,10 +776,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public void assign(String id, String planInfoId, String executePeopleId,
 			String executePeople,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		if (id == null) {
-			listenser.setEmergencySeviceImplListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -722,7 +793,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setEmergencyBooleanListenser(listenser, object, error);
+						if(wr.get() != null)
+							setEmergencyBooleanListenser(wr.get(), object, error);
 					}
 				});
 	}
@@ -731,14 +803,17 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * 获取执行列表
 	 */
 	@Override
-	public void getPlanExecute(final EmergencySeviceImplListListenser listenser) {
+	public void getPlanExecute(EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		new GetPrecautionByPlanResParser(new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 	}
@@ -748,10 +823,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getBeginPlan(String id, String planInfoId,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		if (id == null) {
-			listenser.setEmergencySeviceImplListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -762,7 +840,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setEmergencyBooleanListenser(listenser, object, error);
+						if(wr.get() != null)
+							setEmergencyBooleanListenser(wr.get(), object, error);
 					}
 				});
 
@@ -774,10 +853,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public void swichOver(String id, String planInfoId, String status,
 			String message, String nodeStepType, String branch,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		if (id == null) {
-			listenser.setEmergencySeviceImplListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -788,7 +870,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setEmergencyBooleanListenser(listenser, object, error);
+						if(wr.get() != null)
+							setEmergencyBooleanListenser(wr.get(), object, error);
 					}
 				});
 
@@ -799,10 +882,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getPerformPlanExcute(String planInfoId,
-			final EmergencySeviceImplListListenser listListenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		if (planInfoId == null) {
-			listListenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -811,7 +897,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listListenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 
@@ -822,14 +909,17 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void sendNotice(SendNoticyEntity noticyEntity,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		new SendNoticeParser(noticyEntity, new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyBooleanListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyBooleanListenser(wr.get(), object, error);
 			}
 		});
 	}
@@ -839,15 +929,17 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getAuthlist(int a,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
 
 		new GetAuthPlanListParser(a, new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 	}
@@ -862,10 +954,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getEmergencyGropData(String planInfoId, String precautionId,
-			final EmergencySeviceImplListListenser listenser) {
+			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		if (planInfoId == null) {
-			listenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -876,7 +971,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setEmergencyListListenser(listenser, object, error);
+						if(wr.get() != null)
+							setEmergencyListListenser(wr.get(), object, error);
 					}
 				});
 
@@ -887,10 +983,13 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void getNotiConfigContent(String precautionId, String type,
-			String stage, final EmergencySeviceImplListListenser listenser) {
+			String stage, EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		if (precautionId == null) {
-			listenser.setEmergencySeviceImplListListenser(null,
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListListenser(null,
 					Const.PARAMETER_NULL, null);
 			return;
 		}
@@ -912,8 +1011,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 							} else {
 								stRerror = Const.NO_MSG;
 							}
-
-							listenser.setEmergencySeviceImplListListenser(
+							if(wr.get() != null)
+								wr.get().setEmergencySeviceImplListListenser(
 									entity, stRerror, Exceptionerror);
 						}
 					}
@@ -925,14 +1024,17 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * 获取已启动预案列表
 	 */
 	@Override
-	public void getStarList(final EmergencySeviceImplListListenser listenser) {
+	public void getStarList(EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+
 		new PlanStarPlanListParser(new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
 			}
 		});
 
@@ -943,14 +1045,17 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 */
 	@Override
 	public void suspand(PlanSuspandEntity entity,
-			final EmergencySeviceImplBackBooleanListenser listenser) {
+			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
 		new SuspandParser(entity, new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setEmergencyBooleanListenser(listenser, object, error);
+				if(wr.get() != null)
+					setEmergencyBooleanListenser(wr.get(), object, error);
 			}
 		});
 	}

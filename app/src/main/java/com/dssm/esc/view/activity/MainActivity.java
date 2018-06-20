@@ -38,7 +38,6 @@ import com.dssm.esc.util.PermissionsChecker;
 import com.dssm.esc.util.SystemBarTintManager;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
-import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.fragment.AdrressListFragment;
 import com.dssm.esc.view.fragment.ControlCenterFragment;

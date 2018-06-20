@@ -10,6 +10,7 @@ import com.dssm.esc.model.jsonparser.contact.SendMessageParser;
 import com.dssm.esc.model.jsonparser.contact.SendNoticeParser;
 import com.dssm.esc.util.Const;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class ContactListServiceImpl implements ContactListService {
 	 * @param error
 	 */
 	private void setContactBooleanListenser(
-			final ContactSeviceImplBackBooleanListenser listenser,
+			ContactSeviceImplBackBooleanListenser listenser,
 			Object object, String error) {
 		boolean flag = false;
 		String stRerror = null;
@@ -75,7 +76,7 @@ public class ContactListServiceImpl implements ContactListService {
 	 * @param error
 	 */
 	private void setContactListListenser(
-			final ContactSeviceImplListListenser listenser, Object object,
+			ContactSeviceImplListListenser listenser, Object object,
 			String error) {
 		List<Object> list = null;
 		String Exceptionerror = null;
@@ -139,22 +140,24 @@ public class ContactListServiceImpl implements ContactListService {
 	 */
 	@Override
 	public void sendMessage(String postId, String sendType, String content,
-			final ContactSeviceImplBackBooleanListenser listenser) {
+			ContactSeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<ContactSeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
 		if (postId == null) {
-			listenser.setContactSeviceImplListenser(null, Const.PARAMETER_NULL,
+			if(wr.get() != null)
+				wr.get().setContactSeviceImplListenser(null, Const.PARAMETER_NULL,
 					null);
 		}
 		new SendMessageParser(postId, sendType, content,
-				new OnDataCompleterListener() {
-
-					@Override
-					public void onEmergencyParserComplete(Object object,
-							String error) {
-						// TODO Auto-generated method stub
-						setContactBooleanListenser(listenser, object, error);
-					}
-				});
+			new OnDataCompleterListener() {
+				@Override
+				public void onEmergencyParserComplete(Object object,
+						String error) {
+					// TODO Auto-generated method stub
+					if(wr.get() != null)
+						setContactBooleanListenser(wr.get(), object, error);
+				}
+			});
 	}
 
 	/**
@@ -162,14 +165,16 @@ public class ContactListServiceImpl implements ContactListService {
 	 */
 	@Override
 	public void getEmergencyContactList(
-			final ContactSeviceImplListListenser listenser) {
+			ContactSeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<ContactSeviceImplListListenser> wr = new WeakReference<>(listenser);
 		new GetEmergencyContactListParser(new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setContactListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setContactListListenser(wr.get(), object, error);
 			}
 		});
 	}
@@ -179,14 +184,16 @@ public class ContactListServiceImpl implements ContactListService {
 	 */
 	@Override
 	public void getToastContactList(
-			final ContactSeviceImplListListenser listenser) {
+			ContactSeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<ContactSeviceImplListListenser> wr = new WeakReference<>(listenser);
 		new GetToastListParser(new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
 				// TODO Auto-generated method stub
-				setContactListListenser(listenser, object, error);
+				if(wr.get() != null)
+					setContactListListenser(wr.get(), object, error);
 			}
 		});
 	}
@@ -196,10 +203,12 @@ public class ContactListServiceImpl implements ContactListService {
 	 */
 	@Override
 	public void sendNotice(String postId, String sendType, String content,
-			final ContactSeviceImplBackBooleanListenser listenser) {
+			ContactSeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
+		final WeakReference<ContactSeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
 		if (postId == null) {
-			listenser.setContactSeviceImplListenser(null, Const.PARAMETER_NULL,
+			if(wr.get() != null)
+				wr.get().setContactSeviceImplListenser(null, Const.PARAMETER_NULL,
 					null);
 		}
 		new SendNoticeParser(postId, sendType, content,
@@ -209,7 +218,8 @@ public class ContactListServiceImpl implements ContactListService {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
-						setContactBooleanListenser(listenser, object, error);
+						if(wr.get() != null)
+							setContactBooleanListenser(wr.get(), object, error);
 					}
 				});
 	}
