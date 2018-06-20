@@ -94,17 +94,20 @@ public class PlanAuthParser {
 				String responseMsg = "";
 				String errorResult = ex.toString();
 				if (ex instanceof HttpException) { //网络错误
+					errorResult = "网络错误";
 					HttpException httpEx = (HttpException) ex;
 					int responseCode = httpEx.getCode();
 					if(responseCode == 518) {
+						errorResult = "登录超时";
 						Utils.getInstance().relogin();
 						request(id,  planAuthOpition,  planName,
 								planResName, planResType, planId, planStarterId, submitterId);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
-					errorResult = "网络错误";
+
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
+					errorResult = "登录超时";
 					Utils.getInstance().relogin();
 					request(id,  planAuthOpition,  planName,
 							planResName, planResType, planId, planStarterId, submitterId);
