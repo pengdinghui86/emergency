@@ -167,6 +167,101 @@ public class LoginActivity extends BaseActivity {
 
     private UpdataInfo info;
     private String localVersion;
+
+    private int curWhich;
+    private UserSeviceImpl.UserSeviceImplBackBooleanListenser loginRoleListener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setUserSeviceImplListenser(
+                Boolean backflag,
+                String stRerror,
+                String Exceptionerror) {
+            String str = null;
+            if (backflag) {
+                str = stRerror;
+                // 被选中的角色id
+                selectedRolem = rolesId[curWhich];
+                selectedRolemName = identity[curWhich];
+                roleCode = roleCodes[curWhich];
+                // service.save(selectedRolem);
+                userId = userEntity.getAttributes().getId();
+                name = userEntity.getAttributes().getName();
+                service.save(
+                        currentUsername,
+                        currentPassword,
+                        converToString(rolesId),
+                        converToString(identity),
+                        converToString(roleCodes),
+                        selectedRolem,
+                        userEntity
+                                .getAttributes()
+                                .getPostFlag(), userId, selectedRolemName, roleCode, name);
+                Log.i("LoginActivity被选中的角色id",
+                        selectedRolem);
+                Log.i("LoginActivity被选中的角色名称",
+                        selectedRolemName);
+                Log.i("LoginActivity被选中的角色编号",
+                        roleCode);
+                // 进入主页面
+//															Intent intent = new Intent(
+//																	LoginActivity.this,
+//																	MainActivity.class);
+//															startActivity(intent);
+//
+//															finish();
+                versionUpdate();
+            } else if (stRerror != null) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                str = stRerror;
+                ToastUtil
+                        .showLongToast(
+                                LoginActivity.this,
+                                str);
+            } else if (Exceptionerror != null) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                str = Const.NETWORKERROR
+                        + Exceptionerror;
+                ToastUtil
+                        .showLongToast(
+                                LoginActivity.this,
+                                str);
+            }
+
+        }
+    };
+
+    private UserSeviceImpl.UserSeviceImplBackBooleanListenser loginRoleListener2 = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setUserSeviceImplListenser(
+                Boolean backflag, String stRerror,
+                String Exceptionerror) {
+            String str = null;
+            if (backflag) {
+                versionUpdate();
+            } else if (stRerror != null) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                str = stRerror;
+                ToastUtil.showLongToast(LoginActivity.this,
+                        str);
+            } else if (Exceptionerror != null) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                str = Const.NETWORKERROR + Exceptionerror;
+                ToastUtil.showLongToast(LoginActivity.this,
+                        str);
+            }
+
+        }
+    };
+
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
 
@@ -184,74 +279,10 @@ public class LoginActivity extends BaseActivity {
                                             Toast.makeText(LoginActivity.this,
                                                     "你选择了: " + identity[which], Toast.LENGTH_SHORT)
                                                     .show();
-
+                                            curWhich = which;
                                             // 选择角色
                                             sevice.loginRole(
-                                                    rolesId[which],
-                                                    new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-
-                                                        @Override
-                                                        public void setUserSeviceImplListenser(
-                                                                Boolean backflag,
-                                                                String stRerror,
-                                                                String Exceptionerror) {
-                                                            String str = null;
-                                                            if (backflag) {
-                                                                str = stRerror;
-                                                                // 被选中的角色id
-                                                                selectedRolem = rolesId[which];
-                                                                selectedRolemName = identity[which];
-                                                                roleCode = roleCodes[which];
-                                                                // service.save(selectedRolem);
-                                                                userId = userEntity.getAttributes().getId();
-                                                                name = userEntity.getAttributes().getName();
-                                                                service.save(
-                                                                        currentUsername,
-                                                                        currentPassword,
-                                                                        converToString(rolesId),
-                                                                        converToString(identity),
-                                                                        converToString(roleCodes),
-                                                                        selectedRolem,
-                                                                        userEntity
-                                                                                .getAttributes()
-                                                                                .getPostFlag(), userId, selectedRolemName, roleCode, name);
-                                                                Log.i("LoginActivity被选中的角色id",
-                                                                        selectedRolem);
-                                                                Log.i("LoginActivity被选中的角色名称",
-                                                                        selectedRolemName);
-                                                                Log.i("LoginActivity被选中的角色编号",
-                                                                        roleCode);
-                                                                // 进入主页面
-//															Intent intent = new Intent(
-//																	LoginActivity.this,
-//																	MainActivity.class);
-//															startActivity(intent);
-//
-//															finish();
-                                                                versionUpdate();
-                                                            } else if (stRerror != null) {
-                                                                if (pd != null) {
-                                                                    pd.dismiss();
-                                                                }
-                                                                str = stRerror;
-                                                                ToastUtil
-                                                                        .showLongToast(
-                                                                                LoginActivity.this,
-                                                                                str);
-                                                            } else if (Exceptionerror != null) {
-                                                                if (pd != null) {
-                                                                    pd.dismiss();
-                                                                }
-                                                                str = Const.NETWORKERROR
-                                                                        + Exceptionerror;
-                                                                ToastUtil
-                                                                        .showLongToast(
-                                                                                LoginActivity.this,
-                                                                                str);
-                                                            }
-
-                                                        }
-                                                    });
+                                                    rolesId[which], loginRoleListener);
 
                                         }
 
@@ -259,34 +290,7 @@ public class LoginActivity extends BaseActivity {
 
                     break;
                 case 12:
-                    sevice.loginRole(rolesId[0],
-                            new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-
-                                @Override
-                                public void setUserSeviceImplListenser(
-                                        Boolean backflag, String stRerror,
-                                        String Exceptionerror) {
-                                    String str = null;
-                                    if (backflag) {
-                                        versionUpdate();
-                                    } else if (stRerror != null) {
-                                        if (pd != null) {
-                                            pd.dismiss();
-                                        }
-                                        str = stRerror;
-                                        ToastUtil.showLongToast(LoginActivity.this,
-                                                str);
-                                    } else if (Exceptionerror != null) {
-                                        if (pd != null) {
-                                            pd.dismiss();
-                                        }
-                                        str = Const.NETWORKERROR + Exceptionerror;
-                                        ToastUtil.showLongToast(LoginActivity.this,
-                                                str);
-                                    }
-
-                                }
-                            });
+                    sevice.loginRole(rolesId[0], loginRoleListener2);
 
                     break;
                 case UPDATA_NONEED:
@@ -468,6 +472,72 @@ public class LoginActivity extends BaseActivity {
         return packInfo.versionName;
     }
 
+    private UserSeviceImpl.UserSeviceImplListListenser listener = new UserSeviceImpl.UserSeviceImplListListenser() {
+        @Override
+        public void setUserSeviceImplListListenser(
+                Object object, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str = null;
+            // 若登陆成功，再访问环信服务器
+            if (object != null) {
+                str = "登陆成功";
+                if (object instanceof UserEntity) {
+                    userEntity = (UserEntity) object;
+                    str = userEntity.getSuccess() + ", " + userEntity.getObjString() + "," + userEntity.getMessage();
+                } else if (object instanceof Map)
+                    str = "Map";
+                Log.i("onFailure", str);
+                userEntity = (UserEntity) object;
+                if (userEntity.getSuccess().equals("true")) {
+                    userId = userEntity.getAttributes().getId();
+                    if(map.get("selectedRolem") != null && !map.get("selectedRolem").equals("")) {
+                        sevice.loginRole(map.get("selectedRolem"), loginRoleListener2);
+                    }
+                    else
+                        userSelectRole();
+
+                } else if (userEntity.getSuccess().equals(
+                        "false")
+                        && userEntity.getObjString() != null
+                        && userEntity.getObjString()
+                        .equals("1")) {
+                    if (pd != null) {
+                        pd.dismiss();
+                    }
+                    ToastUtil.showLongToast(LoginActivity.this,
+                            userEntity.getMessage());
+                } else if (userEntity.getSuccess().equals(
+                        "false")
+                        && userEntity.getObjString() != null
+                        && userEntity.getObjString()
+                        .equals("2")) {
+                    if (pd != null) {
+                        pd.dismiss();
+                    }
+                    ToastUtil.showLongToast(LoginActivity.this,
+                            userEntity.getMessage());
+                } else {
+                    ToastUtil.showLongToast(LoginActivity.this, "登录失败");
+                }
+            } else if (stRerror != null) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                str = stRerror;
+                ToastUtil
+                        .showLongToast(LoginActivity.this, str);
+            } else if (Exceptionerror != null) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                str = Const.NETWORKERROR + Exceptionerror;
+                ToastUtil
+                        .showLongToast(LoginActivity.this, str);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -498,91 +568,7 @@ public class LoginActivity extends BaseActivity {
                 currentPassword = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("password");
             Log.i("onFailure", MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("loginName"));
             Log.i("onFailure", MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("password"));
-            sevice.login(currentUsername, currentPassword,
-                    new UserSeviceImpl.UserSeviceImplListListenser() {
-                        @Override
-                        public void setUserSeviceImplListListenser(
-                                Object object, String stRerror,
-                                String Exceptionerror) {
-                            // TODO Auto-generated method stub
-                            String str = null;
-                            // 若登陆成功，再访问环信服务器
-                            if (object != null) {
-                                str = "登陆成功";
-                                if (object instanceof UserEntity) {
-                                    userEntity = (UserEntity) object;
-                                    str = userEntity.getSuccess() + ", " + userEntity.getObjString() + "," + userEntity.getMessage();
-                                } else if (object instanceof Map)
-                                    str = "Map";
-                                Log.i("onFailure", str);
-                                userEntity = (UserEntity) object;
-                                if (userEntity.getSuccess().equals("true")) {
-                                    userId = userEntity.getAttributes().getId();
-                                    if(map.get("selectedRolem") != null && !map.get("selectedRolem").equals("")) {
-                                        sevice.loginRole(map.get("selectedRolem"),
-                                            new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-                                                @Override
-                                                public void setUserSeviceImplListenser(Boolean backflag, String stRerror, String Exceptionerror) {
-                                                    // TODO Auto-generated
-                                                    // method stub
-                                                    if (backflag) {
-                                                        versionUpdate();
-                                                    } else if (backflag == false) {
-
-                                                    } else if (stRerror != null) {
-                                                        ToastUtil
-                                                                .showLongToast(
-                                                                        LoginActivity.this,
-                                                                        stRerror);
-                                                    } else if (Exceptionerror != null) {
-                                                        ToastUtil.showLongToast(LoginActivity.this, Const.NETWORKERROR + Exceptionerror);
-                                                    }
-                                                }
-                                        });
-                                    }
-                                    else
-                                        userSelectRole();
-
-                                } else if (userEntity.getSuccess().equals(
-                                        "false")
-                                        && userEntity.getObjString() != null
-                                        && userEntity.getObjString()
-                                        .equals("1")) {
-                                    if (pd != null) {
-                                        pd.dismiss();
-                                    }
-                                    ToastUtil.showLongToast(LoginActivity.this,
-                                            userEntity.getMessage());
-                                } else if (userEntity.getSuccess().equals(
-                                        "false")
-                                        && userEntity.getObjString() != null
-                                        && userEntity.getObjString()
-                                        .equals("2")) {
-                                    if (pd != null) {
-                                        pd.dismiss();
-                                    }
-                                    ToastUtil.showLongToast(LoginActivity.this,
-                                            userEntity.getMessage());
-                                } else {
-                                    ToastUtil.showLongToast(LoginActivity.this, "登录失败");
-                                }
-                            } else if (stRerror != null) {
-                                if (pd != null) {
-                                    pd.dismiss();
-                                }
-                                str = stRerror;
-                                ToastUtil
-                                        .showLongToast(LoginActivity.this, str);
-                            } else if (Exceptionerror != null) {
-                                if (pd != null) {
-                                    pd.dismiss();
-                                }
-                                str = Const.NETWORKERROR + Exceptionerror;
-                                ToastUtil
-                                        .showLongToast(LoginActivity.this, str);
-                            }
-                        }
-                    });
+            sevice.login(currentUsername, currentPassword, listener);
 
             return;
         }
@@ -649,6 +635,68 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+        @Override
+        public void setUserSeviceImplListListenser(Object object,
+                String stRerror, String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str = null;
+            // 若登陆成功，再访问环信服务器
+            if (object != null) {
+                str = "登陆成功";
+                userEntity = (UserEntity) object;
+                if (userEntity.getSuccess().equals("true")) {
+                    // 把户名和密码角色保存到PreferencesService中
+
+                    Log.i("LoginActivity角色", map.get("roleNames"));
+                    Log.i("LoginActivity用户名", map.get("loginName"));
+                    Log.i("LoginActivity密码", map.get("password"));
+                    userId = userEntity.getAttributes().getId();
+                    // 先去环信服务器注册（环信的用户名唯一，所以要用唯一标识去注册，这里用userID当环信的用户名和密码，即使本地的用户名和密码改变了也不用修改）
+                    hxuserid = userId.replace("-", "_");
+                    register(hxuserid, hxuserid);
+
+                } else if (userEntity.getSuccess().equals("false")
+                        && userEntity.getObjString() != null
+                        && userEntity.getObjString().equals("1")) {
+                    if (pd != null) {
+                        pd.dismiss();
+                    }
+                    ToastUtil.showLongToast(LoginActivity.this,
+                            userEntity.getMessage());
+                } else if (userEntity.getSuccess().equals("false")
+                        && userEntity.getObjString() != null
+                        && userEntity.getObjString().equals("2")) {
+                    if (pd != null) {
+                        pd.dismiss();
+                    }
+                    ToastUtil.showLongToast(LoginActivity.this,
+                            userEntity.getMessage());
+                } else {
+                    if (pd != null) {
+                        pd.dismiss();
+                    }
+                    ToastUtil.showLongToast(LoginActivity.this, "登录失败");
+                }
+            } else if (stRerror != null) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                str = stRerror;
+                ToastUtil.showLongToast(LoginActivity.this, str);
+            } else if (Exceptionerror != null) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                str = Const.NETWORKERROR + Exceptionerror;
+                //ToastUtil.showLongToast(LoginActivity.this, str);
+                ToastUtil.showLongToast(LoginActivity.this, "网络连接超时，请检查网络设置或IP地址是否正确");
+            }
+
+        }
+    };
+
     /**
      * 登陆ESC服务器
      *
@@ -693,68 +741,7 @@ public class LoginActivity extends BaseActivity {
 
         // 先访问ESC服务器
 
-        sevice.login(currentUsername, currentPassword,
-                new UserSeviceImpl.UserSeviceImplListListenser() {
-
-                    @Override
-                    public void setUserSeviceImplListListenser(Object object,
-                                                               String stRerror, String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        String str = null;
-                        // 若登陆成功，再访问环信服务器
-                        if (object != null) {
-                            str = "登陆成功";
-                            userEntity = (UserEntity) object;
-                            if (userEntity.getSuccess().equals("true")) {
-                                // 把户名和密码角色保存到PreferencesService中
-
-                                Log.i("LoginActivity角色", map.get("roleNames"));
-                                Log.i("LoginActivity用户名", map.get("loginName"));
-                                Log.i("LoginActivity密码", map.get("password"));
-                                userId = userEntity.getAttributes().getId();
-                                // 先去环信服务器注册（环信的用户名唯一，所以要用唯一标识去注册，这里用userID当环信的用户名和密码，即使本地的用户名和密码改变了也不用修改）
-                                hxuserid = userId.replace("-", "_");
-                                register(hxuserid, hxuserid);
-
-                            } else if (userEntity.getSuccess().equals("false")
-                                    && userEntity.getObjString() != null
-                                    && userEntity.getObjString().equals("1")) {
-                                if (pd != null) {
-                                    pd.dismiss();
-                                }
-                                ToastUtil.showLongToast(LoginActivity.this,
-                                        userEntity.getMessage());
-                            } else if (userEntity.getSuccess().equals("false")
-                                    && userEntity.getObjString() != null
-                                    && userEntity.getObjString().equals("2")) {
-                                if (pd != null) {
-                                    pd.dismiss();
-                                }
-                                ToastUtil.showLongToast(LoginActivity.this,
-                                        userEntity.getMessage());
-                            } else {
-                                if (pd != null) {
-                                    pd.dismiss();
-                                }
-                                ToastUtil.showLongToast(LoginActivity.this, "登录失败");
-                            }
-                        } else if (stRerror != null) {
-                            if (pd != null) {
-                                pd.dismiss();
-                            }
-                            str = stRerror;
-                            ToastUtil.showLongToast(LoginActivity.this, str);
-                        } else if (Exceptionerror != null) {
-                            if (pd != null) {
-                                pd.dismiss();
-                            }
-                            str = Const.NETWORKERROR + Exceptionerror;
-                            //ToastUtil.showLongToast(LoginActivity.this, str);
-                            ToastUtil.showLongToast(LoginActivity.this, "网络连接超时，请检查网络设置或IP地址是否正确");
-                        }
-
-                    }
-                });
+        sevice.login(currentUsername, currentPassword, listListener);
 
     }
 

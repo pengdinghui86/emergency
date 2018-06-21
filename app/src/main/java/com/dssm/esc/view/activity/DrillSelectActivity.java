@@ -123,34 +123,113 @@ public class DrillSelectActivity extends BaseActivity implements
 		// setNetListener(this);
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser emergencySeviceImplListListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (object != null) {
+				list = (ArrayList<DrillProjectNameEntity>) object;
+			} else if (stRerror != null) {
+				list = new ArrayList<DrillProjectNameEntity>();
+
+			} else if (Exceptionerror != null) {
+				list = new ArrayList<DrillProjectNameEntity>();
+				ToastUtil.showToast(DrillSelectActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+
+			}
+			mSelectAdapter = new DrillselectListviewAdapter(
+					DrillSelectActivity.this, list);
+			mListView.setAdapter(mSelectAdapter);
+			mSelectAdapter.notifyDataSetChanged();
+		}
+	};
+
 	private void initData() {
 		// TODO Auto-generated method stub
-		Control.getinstance().getEmergencyService().getDrillProjectName(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-			@Override
-			public void setEmergencySeviceImplListListenser(Object object,
-					String stRerror, String Exceptionerror) {
-				// TODO Auto-generated method stub
-				if (object != null) {
-					list = (ArrayList<DrillProjectNameEntity>) object;
-				} else if (stRerror != null) {
-					list = new ArrayList<DrillProjectNameEntity>();
-
-				} else if (Exceptionerror != null) {
-					list = new ArrayList<DrillProjectNameEntity>();
-					ToastUtil.showToast(DrillSelectActivity.this,
-							Const.NETWORKERROR + ":" + Exceptionerror);
-
-				}
-				mSelectAdapter = new DrillselectListviewAdapter(
-						DrillSelectActivity.this, list);
-				mListView.setAdapter(mSelectAdapter);
-				mSelectAdapter.notifyDataSetChanged();
-			}
-		});
+		Control.getinstance().getEmergencyService().getDrillProjectName(emergencySeviceImplListListenser);
 
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser detailEmergencySeviceImplListListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (object != null) {
+				DrillProcationDetailEntity detailEntity = (DrillProcationDetailEntity) object;
+				DrillProcationDetailObjEntity obj = detailEntity
+						.getObj();
+				List<DrillProjectDetailObjPreinfoEntity> preInfo = obj
+						.getPreInfo();
+				Intent intent = new Intent(
+						DrillSelectActivity.this,
+						AddeValuationActivity.class);
+				intent.putExtra("type", "0");// 添加评估
+				intent.putExtra("tag", "2");
+				intent.putExtra("emergType",
+						obj.getEmergType());
+				intent.putExtra("drillPlanId",
+						obj.getDrillPlanId());
+				intent.putExtra("drillPlanName",
+						obj.getDrillPlanName());
+				String precautionName = "";
+				String precautionId = "";
+				// String detailPlanId="";
+				for (int i = 0; i < preInfo.size(); i++) {
+					precautionName = precautionName
+							+ "|"
+							+ preInfo.get(i)
+							.getPrecautionName();
+					precautionId = precautionId
+							+ "|"
+							+ preInfo.get(i)
+							.getPrecautionId();
+					// detailPlanId=detailPlanId+"|"+preInfo.get(i).getDetailPlanId();
+
+				}
+				if (precautionName.subSequence(0, 1)
+						.equals("|")) {
+					precautionName = (String) precautionName
+							.subSequence(1,
+									precautionName.length());
+				}
+				if (precautionId.subSequence(0, 1).equals(
+						"|")) {
+					precautionId = (String) precautionId
+							.subSequence(1,
+									precautionId.length());
+				}
+				// if (detailPlanId.subSequence(0,
+				// 1).equals("|")) {
+				// detailPlanId = (String)
+				// detailPlanId.subSequence(1,
+				// detailPlanId.length());
+				// }
+				// intent.putExtra("detailPlanId",detailPlanId);
+				intent.putExtra("precautionName",
+						precautionName);// 预案名称
+				intent.putExtra("precautionId",
+						precautionId);// 预案名称
+				intent.putExtra("exPlanId",
+						obj.getExPlanId());
+				Log.i("演练预案名称", precautionName);
+				Log.i("演练预案名称id", precautionId);
+				startActivity(intent);
+			} else if (stRerror != null) {
+
+			} else if (Exceptionerror != null) {
+				ToastUtil.showToast(
+						DrillSelectActivity.this,
+						Const.NETWORKERROR + ":"
+								+ Exceptionerror);
+			}
+		}
+	};
 
 	/**
 	 * 监听ListView
@@ -177,84 +256,7 @@ public class DrillSelectActivity extends BaseActivity implements
 					e.printStackTrace();
 				}
 
-				Control.getinstance().getEmergencyService().getDrillProjectNameDetail(drillPlanId, drillPlanName,
-						new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-							@Override
-							public void setEmergencySeviceImplListListenser(
-									Object object, String stRerror,
-									String Exceptionerror) {
-								// TODO Auto-generated method stub
-								if (object != null) {
-									DrillProcationDetailEntity detailEntity = (DrillProcationDetailEntity) object;
-									DrillProcationDetailObjEntity obj = detailEntity
-											.getObj();
-									List<DrillProjectDetailObjPreinfoEntity> preInfo = obj
-											.getPreInfo();
-									Intent intent = new Intent(
-											DrillSelectActivity.this,
-											AddeValuationActivity.class);
-									intent.putExtra("type", "0");// 添加评估
-									intent.putExtra("tag", "2");
-									intent.putExtra("emergType",
-											obj.getEmergType());
-									intent.putExtra("drillPlanId",
-											obj.getDrillPlanId());
-									intent.putExtra("drillPlanName",
-											obj.getDrillPlanName());
-									String precautionName = "";
-									String precautionId = "";
-									// String detailPlanId="";
-									for (int i = 0; i < preInfo.size(); i++) {
-										precautionName = precautionName
-												+ "|"
-												+ preInfo.get(i)
-														.getPrecautionName();
-										precautionId = precautionId
-												+ "|"
-												+ preInfo.get(i)
-														.getPrecautionId();
-										// detailPlanId=detailPlanId+"|"+preInfo.get(i).getDetailPlanId();
-
-									}
-									if (precautionName.subSequence(0, 1)
-											.equals("|")) {
-										precautionName = (String) precautionName
-												.subSequence(1,
-														precautionName.length());
-									}
-									if (precautionId.subSequence(0, 1).equals(
-											"|")) {
-										precautionId = (String) precautionId
-												.subSequence(1,
-														precautionId.length());
-									}
-									// if (detailPlanId.subSequence(0,
-									// 1).equals("|")) {
-									// detailPlanId = (String)
-									// detailPlanId.subSequence(1,
-									// detailPlanId.length());
-									// }
-									// intent.putExtra("detailPlanId",detailPlanId);
-									intent.putExtra("precautionName",
-											precautionName);// 预案名称
-									intent.putExtra("precautionId",
-											precautionId);// 预案名称
-									intent.putExtra("exPlanId",
-											obj.getExPlanId());
-									Log.i("演练预案名称", precautionName);
-									Log.i("演练预案名称id", precautionId);
-									startActivity(intent);
-								} else if (stRerror != null) {
-
-								} else if (Exceptionerror != null) {
-									ToastUtil.showToast(
-											DrillSelectActivity.this,
-											Const.NETWORKERROR + ":"
-													+ Exceptionerror);
-								}
-							}
-						});
+				Control.getinstance().getEmergencyService().getDrillProjectNameDetail(drillPlanId, drillPlanName, detailEmergencySeviceImplListListenser);
 			}
 		});
 

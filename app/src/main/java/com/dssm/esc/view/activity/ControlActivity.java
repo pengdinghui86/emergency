@@ -203,6 +203,71 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      */
     private String roleCode;
 
+    private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+        @Override
+        public void setUserSeviceImplListListenser(Object object,
+                String stRerror, String Exceptionerror) {
+            // TODO Auto-generated method stub
+            if (object != null) {
+                UserPowerEntity entity = (UserPowerEntity) object;
+                List<ButtonEntity> btns = entity.getBtns();
+                // 指挥与展示启动终止按钮：BTN_QDZZ
+                for (int i = 0; i < btns.size(); i++) {
+                    ButtonEntity buttonEntity = btns.get(i);
+                    if (buttonEntity.getBtnMark().equals("BTN_QDZZ")) {
+                        if (!planEntity.getState().equals("null")
+                                && !planEntity.getState().equals("")) {
+                            String status = "";
+                            switch (Integer.parseInt(planEntity.getState())) {
+                                case 0:
+                                    status = "待启动";
+                                    stop.setVisibility(View.GONE);
+                                    break;
+                                case 1:
+                                    status = "已启动";
+                                    // mhHolder.statetv.setTextColor(Color.RED);
+                                    stop.setVisibility(View.GONE);
+                                    break;
+                                case 2:
+                                    status = "已授权 ";
+                                    // mhHolder.statetv.setTextColor(Color.RED);
+                                    stop.setVisibility(View.VISIBLE);
+                                    stop.setText("启动");
+                                    break;
+                                case 3:
+                                    status = "执行中";
+                                    // mhHolder.statetv.setTextColor(R.color.green_my);
+                                    stop.setVisibility(View.VISIBLE);
+                                    stop.setText("中止");
+                                    break;
+                                case 4:
+                                    status = "完成";
+                                    // mhHolder.statetv.setTextColor(R.color.green_my);
+                                    stop.setVisibility(View.GONE);
+                                    break;
+                                case 5:
+                                    status = "强行中止";
+                                    // mhHolder.statetv.setTextColor(Color.RED);
+                                    stop.setVisibility(View.GONE);
+                                    break;
+//                                    case 6:
+//                                        status = "暂停中";
+//                                        // mhHolder.statetv.setTextColor(Color.RED);
+//                                        stop.setVisibility(View.VISIBLE);
+//                                        stop.setBackgroundResource(R.drawable.btbg_green);
+//                                        stop.setText("启动");
+//                                        break;
+                            }
+                        }
+                    } else {
+                        stop.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -228,70 +293,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         roleCode = map.get("roleCode");
         Log.i("roleCode", roleCode);
         initView();
-        sevice.getUserPower(new UserSeviceImpl.UserSeviceImplListListenser() {
-
-            @Override
-            public void setUserSeviceImplListListenser(Object object,
-                                                       String stRerror, String Exceptionerror) {
-                // TODO Auto-generated method stub
-                if (object != null) {
-                    UserPowerEntity entity = (UserPowerEntity) object;
-                    List<ButtonEntity> btns = entity.getBtns();
-                    // 指挥与展示启动终止按钮：BTN_QDZZ
-                    for (int i = 0; i < btns.size(); i++) {
-                        ButtonEntity buttonEntity = btns.get(i);
-                        if (buttonEntity.getBtnMark().equals("BTN_QDZZ")) {
-                            if (!planEntity.getState().equals("null")
-                                    && !planEntity.getState().equals("")) {
-                                String status = "";
-                                switch (Integer.parseInt(planEntity.getState())) {
-                                    case 0:
-                                        status = "待启动";
-                                        stop.setVisibility(View.GONE);
-                                        break;
-                                    case 1:
-                                        status = "已启动";
-                                        // mhHolder.statetv.setTextColor(Color.RED);
-                                        stop.setVisibility(View.GONE);
-                                        break;
-                                    case 2:
-                                        status = "已授权 ";
-                                        // mhHolder.statetv.setTextColor(Color.RED);
-                                        stop.setVisibility(View.VISIBLE);
-                                        stop.setText("启动");
-                                        break;
-                                    case 3:
-                                        status = "执行中";
-                                        // mhHolder.statetv.setTextColor(R.color.green_my);
-                                        stop.setVisibility(View.VISIBLE);
-                                        stop.setText("中止");
-                                        break;
-                                    case 4:
-                                        status = "完成";
-                                        // mhHolder.statetv.setTextColor(R.color.green_my);
-                                        stop.setVisibility(View.GONE);
-                                        break;
-                                    case 5:
-                                        status = "强行中止";
-                                        // mhHolder.statetv.setTextColor(Color.RED);
-                                        stop.setVisibility(View.GONE);
-                                        break;
-//                                    case 6:
-//                                        status = "暂停中";
-//                                        // mhHolder.statetv.setTextColor(Color.RED);
-//                                        stop.setVisibility(View.VISIBLE);
-//                                        stop.setBackgroundResource(R.drawable.btbg_green);
-//                                        stop.setText("启动");
-//                                        break;
-                                }
-                            }
-                        } else {
-                            stop.setVisibility(View.GONE);
-                        }
-                    }
-                }
-            }
-        });
+        sevice.getUserPower(listListener);
         segmentControlListDate();
     }
 
@@ -382,6 +384,59 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         }
     }
 
+    private ControlServiceImpl.ControlServiceImplBackValueListenser<SignUserEntity> signUserEntityControlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<SignUserEntity>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                SignUserEntity backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            lin_group.removeAllViews();
+            lin_group_sign.removeAllViews();
+            if (backValue != null) {
+                no_sigin_number.setText(backValue.getTotalNoSignNum() + "人");
+                sigin_number.setText(backValue.getTotalSignNum() + "人");
+                emergency_grop_number.setText(backValue.getTotalNeedSignNum() + "人");
+                for (SignUserEntity.Notice notice : backValue.getNoticeList()) {
+                    View view = getLayoutInflater().inflate(R.layout.progress_percent, null);
+                    TextView emergency_grop_name = (TextView) view.findViewById(R.id.gropname_tv);
+                    TextView emergency_grop_percent = (TextView) view.findViewById(R.id.percent_tv);
+                    MyProgressBar emergency_grop_progressBar = (MyProgressBar) view.findViewById(R.id.progressBar);
+                    emergency_grop_name.setText(notice.getEmergTeam());
+                    emergency_grop_percent.setText(notice.getNoticeNum()
+                            + "/"
+                            + notice.getNeedNoticeNum());
+                    emergency_grop_progressBar.setMax(Integer
+                            .parseInt(notice.getNeedNoticeNum()));
+                    emergency_grop_progressBar.setProgress(Integer
+                            .parseInt(notice.getNoticeNum()));
+                    lin_group.addView(view);
+                }
+                for (SignUserEntity.Sign sign : backValue.getSignList()) {
+                    View view = getLayoutInflater().inflate(
+                            R.layout.progress_percent, null);
+                    TextView emergency_grop_name2 = (TextView) view.findViewById(R.id.gropname_tv);
+                    TextView emergency_grop_percent2 = (TextView) view.findViewById(R.id.percent_tv);
+                    MyProgressBar emergency_grop_progressBar2 = (MyProgressBar) view.findViewById(R.id.progressBar);
+                    emergency_grop_name2.setText(sign
+                            .getEmergTeam());
+                    emergency_grop_percent2.setText(sign
+                            .getSignNum()
+                            + "/"
+                            + sign.getNeedSignNum());
+                    emergency_grop_progressBar2.setMax(Integer
+                            .parseInt(sign.getNeedSignNum()));
+                    emergency_grop_progressBar2.setProgress(Integer
+                            .parseInt(sign.getSignNum()));
+                    lin_group_sign.addView(view);
+                }
+            }
+            // if (Utils.getInstance().progressDialog.isShowing()) {
+            Utils.getInstance().hideProgressDialog();
+            // }
+        }
+    };
+
     /**
      * 资源筹备数据初始化
      *
@@ -397,59 +452,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         // TODO Auto-generated method stub
         Utils.getInstance().showProgressDialog(ControlActivity.this, "",
                 Const.LOAD_MESSAGE);
-        csevice.getNoticeAndSignList(planEntity.getId(),
-                new ControlServiceImpl.ControlServiceImplBackValueListenser<SignUserEntity>() {
-
-                    @Override
-                    public void setControlServiceImplListenser(
-                            SignUserEntity backValue, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        lin_group.removeAllViews();
-                        lin_group_sign.removeAllViews();
-                        if (backValue != null) {
-                            no_sigin_number.setText(backValue.getTotalNoSignNum() + "人");
-                            sigin_number.setText(backValue.getTotalSignNum() + "人");
-                            emergency_grop_number.setText(backValue.getTotalNeedSignNum() + "人");
-                            for (SignUserEntity.Notice notice : backValue.getNoticeList()) {
-                                View view = getLayoutInflater().inflate(R.layout.progress_percent, null);
-                                TextView emergency_grop_name = (TextView) view.findViewById(R.id.gropname_tv);
-                                TextView emergency_grop_percent = (TextView) view.findViewById(R.id.percent_tv);
-                                MyProgressBar emergency_grop_progressBar = (MyProgressBar) view.findViewById(R.id.progressBar);
-                                emergency_grop_name.setText(notice.getEmergTeam());
-                                emergency_grop_percent.setText(notice.getNoticeNum()
-                                        + "/"
-                                        + notice.getNeedNoticeNum());
-                                emergency_grop_progressBar.setMax(Integer
-                                        .parseInt(notice.getNeedNoticeNum()));
-                                emergency_grop_progressBar.setProgress(Integer
-                                        .parseInt(notice.getNoticeNum()));
-                                lin_group.addView(view);
-                            }
-                            for (SignUserEntity.Sign sign : backValue.getSignList()) {
-                                View view = getLayoutInflater().inflate(
-                                        R.layout.progress_percent, null);
-                                TextView emergency_grop_name2 = (TextView) view.findViewById(R.id.gropname_tv);
-                                TextView emergency_grop_percent2 = (TextView) view.findViewById(R.id.percent_tv);
-                                MyProgressBar emergency_grop_progressBar2 = (MyProgressBar) view.findViewById(R.id.progressBar);
-                                emergency_grop_name2.setText(sign
-                                        .getEmergTeam());
-                                emergency_grop_percent2.setText(sign
-                                        .getSignNum()
-                                        + "/"
-                                        + sign.getNeedSignNum());
-                                emergency_grop_progressBar2.setMax(Integer
-                                        .parseInt(sign.getNeedSignNum()));
-                                emergency_grop_progressBar2.setProgress(Integer
-                                        .parseInt(sign.getSignNum()));
-                                lin_group_sign.addView(view);
-                            }
-                        }
-                        // if (Utils.getInstance().progressDialog.isShowing()) {
-                        Utils.getInstance().hideProgressDialog();
-                        // }
-                    }
-                });
+        csevice.getNoticeAndSignList(planEntity.getId(), signUserEntityControlServiceImplBackValueListenser);
 
     }
 
@@ -624,6 +627,37 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         }
     }
 
+    private ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                Boolean backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated
+            // method stub
+            if (backValue) {
+                ToastUtil.showToast(ControlActivity.this, "中止成功");
+                stop.setBackgroundResource(R.drawable.btbg_blue);
+                stop.setText("启动");
+                stop.setVisibility(View.GONE);
+                EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
+                // 终止操作
+                ControlActivity.this.finish();
+
+            } else if (stRerror != null) {
+                Toast.makeText(ControlActivity.this, stRerror,
+                        Toast.LENGTH_SHORT).show();
+            } else if (Exceptionerror != null) {
+                Toast.makeText(ControlActivity.this,
+                        Const.NETWORKERROR + Exceptionerror,
+                        Toast.LENGTH_SHORT).show();
+            }
+            // if (Utils.getInstance().progressDialog.isShowing()) {
+            Utils.getInstance().hideProgressDialog();
+            // }
+        }
+    };
+
     /**
      * 预案中止
      */
@@ -632,38 +666,38 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         Utils.getInstance().showProgressDialog(ControlActivity.this, "",
                 Const.SUBMIT_MESSAGE);
         // 此处要传终止终止意见，没有输入框
-        csevice.stopPlan(planEntity, stopcause,
-                new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
-
-                    @Override
-                    public void setControlServiceImplListenser(
-                            Boolean backValue, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated
-                        // method stub
-                        if (backValue) {
-                            ToastUtil.showToast(ControlActivity.this, "中止成功");
-                            stop.setBackgroundResource(R.drawable.btbg_blue);
-                            stop.setText("启动");
-                            stop.setVisibility(View.GONE);
-                            EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
-                            // 终止操作
-                            ControlActivity.this.finish();
-
-                        } else if (stRerror != null) {
-                            Toast.makeText(ControlActivity.this, stRerror,
-                                    Toast.LENGTH_SHORT).show();
-                        } else if (Exceptionerror != null) {
-                            Toast.makeText(ControlActivity.this,
-                                    Const.NETWORKERROR + Exceptionerror,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        // if (Utils.getInstance().progressDialog.isShowing()) {
-                        Utils.getInstance().hideProgressDialog();
-                        // }
-                    }
-                });
+        csevice.stopPlan(planEntity, stopcause, controlServiceImplBackValueListenser);
     }
+
+    private ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean> controlServiceImplBackValueStartListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                Boolean backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated
+            // method stub
+            if (backValue) {
+                ToastUtil.showToast(ControlActivity.this, "启动成功");
+                stop.setBackgroundResource(R.drawable.btbg_red);
+                stop.setText("中止");
+                EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
+                // 终止操作
+                ControlActivity.this.finish();
+                // queryProcessTrack();
+            } else if (stRerror != null) {
+                Toast.makeText(ControlActivity.this, stRerror,
+                        Toast.LENGTH_SHORT).show();
+            } else if (Exceptionerror != null) {
+                Toast.makeText(ControlActivity.this,
+                        Const.NETWORKERROR + Exceptionerror,
+                        Toast.LENGTH_SHORT).show();
+            }
+            // if (Utils.getInstance().progressDialog.isShowing()) {
+            Utils.getInstance().hideProgressDialog();
+            // }
+        }
+    };
 
     /**
      * 预案启动
@@ -672,37 +706,69 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         // TODO Auto-generated method stub
         Utils.getInstance().showProgressDialog(ControlActivity.this, "",
                 Const.LOAD_MESSAGE);
-        csevice.starPlan(planEntity.getId(),
-                new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
-
-                    @Override
-                    public void setControlServiceImplListenser(
-                            Boolean backValue, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated
-                        // method stub
-                        if (backValue) {
-                            ToastUtil.showToast(ControlActivity.this, "启动成功");
-                            stop.setBackgroundResource(R.drawable.btbg_red);
-                            stop.setText("中止");
-                            EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
-                            // 终止操作
-                            ControlActivity.this.finish();
-                            // queryProcessTrack();
-                        } else if (stRerror != null) {
-                            Toast.makeText(ControlActivity.this, stRerror,
-                                    Toast.LENGTH_SHORT).show();
-                        } else if (Exceptionerror != null) {
-                            Toast.makeText(ControlActivity.this,
-                                    Const.NETWORKERROR + Exceptionerror,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        // if (Utils.getInstance().progressDialog.isShowing()) {
-                        Utils.getInstance().hideProgressDialog();
-                        // }
-                    }
-                });
+        csevice.starPlan(planEntity.getId(), controlServiceImplBackValueStartListenser);
     }
+
+    private ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity> flowChartPlanEntityControlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                FlowChartPlanEntity backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+
+            List<FlowChartPlanEntity.FlowChart> data = null;
+            if (backValue != null) {
+                data = (List<FlowChartPlanEntity.FlowChart>) backValue.getData();
+                curDate = backValue.getCurDate();
+                alist = data;
+                if (backValue.getState().equals("2")) {
+                    stop.setText("启动");
+                    stop.setBackgroundResource(R.drawable.btbg_green);
+                } else if (backValue.getState().equals("3")) {
+                    stop.setText("中止");
+                    stop.setBackgroundResource(R.drawable.btbg_red);
+                } else if (backValue.getState().equals("6")) {
+                    stop.setText("启动");
+                    stop.setBackgroundResource(R.drawable.btbg_green);
+                } else {
+                    stop.setVisibility(View.GONE);
+                }
+            } else if (Exceptionerror != null) {
+                data = new ArrayList<FlowChartPlanEntity.FlowChart>();
+                Toast.makeText(ControlActivity.this,
+                        Const.NETWORKERROR + Exceptionerror,
+                        Toast.LENGTH_SHORT).show();
+            }
+            Message message = handler.obtainMessage();
+            // message.obj = data;
+            // handler.sendMessage(message);
+            message.what = 0;
+            if(data == null)
+                return;
+            flowCharts.clear();
+            //增加子预案层级标记
+            addIndex(data);
+            //根据子预案层级关系重新排序
+            reSort(data, "", 0);
+            data.clear();
+            data.addAll(flowCharts);
+            if (data.size() > 20) {// 如果超过20条，则分页
+                List<FlowChartPlanEntity.FlowChart> subList = data.subList(0, 20);
+                message.obj = subList;
+            } else {
+                message.obj = data;
+            }
+            handler.sendMessage(message);
+            allList = data;
+            // if
+            // (Utils.getInstance().progressDialog.isShowing())
+            // {
+            // Utils.getInstance().hideProgressDialog();
+            // }
+
+        }
+    };
 
     // 从网络获取的总的list
     private List<FlowChartPlanEntity.FlowChart> allList = new ArrayList<FlowChartPlanEntity.FlowChart>();
@@ -721,67 +787,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         // }
         if (what == 0) {// 刷新和第一次加载
             csevice.queryProcessTrack(
-                    planEntity.getId(),
-                    new ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity>() {
-
-                        @Override
-                        public void setControlServiceImplListenser(
-                                FlowChartPlanEntity backValue, String stRerror,
-                                String Exceptionerror) {
-                            // TODO Auto-generated method stub
-
-                            List<FlowChartPlanEntity.FlowChart> data = null;
-                            if (backValue != null) {
-                                data = (List<FlowChartPlanEntity.FlowChart>) backValue.getData();
-                                curDate = backValue.getCurDate();
-                                alist = data;
-                                if (backValue.getState().equals("2")) {
-                                    stop.setText("启动");
-                                    stop.setBackgroundResource(R.drawable.btbg_green);
-                                } else if (backValue.getState().equals("3")) {
-                                    stop.setText("中止");
-                                    stop.setBackgroundResource(R.drawable.btbg_red);
-                                } else if (backValue.getState().equals("6")) {
-                                    stop.setText("启动");
-                                    stop.setBackgroundResource(R.drawable.btbg_green);
-                                } else {
-                                    stop.setVisibility(View.GONE);
-                                }
-                            } else if (Exceptionerror != null) {
-                                data = new ArrayList<FlowChartPlanEntity.FlowChart>();
-                                Toast.makeText(ControlActivity.this,
-                                        Const.NETWORKERROR + Exceptionerror,
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                            Message message = handler.obtainMessage();
-                            // message.obj = data;
-                            // handler.sendMessage(message);
-                            message.what = 0;
-                            if(data == null)
-                                return;
-                            flowCharts.clear();
-                            //增加子预案层级标记
-                            addIndex(data);
-                            //根据子预案层级关系重新排序
-                            reSort(data, "", 0);
-                            data.clear();
-                            data.addAll(flowCharts);
-                            if (data.size() > 20) {// 如果超过20条，则分页
-                                List<FlowChartPlanEntity.FlowChart> subList = data.subList(0, 20);
-                                message.obj = subList;
-                            } else {
-                                message.obj = data;
-                            }
-                            handler.sendMessage(message);
-                            allList = data;
-                            // if
-                            // (Utils.getInstance().progressDialog.isShowing())
-                            // {
-                            // Utils.getInstance().hideProgressDialog();
-                            // }
-
-                        }
-                    });
+                    planEntity.getId(), flowChartPlanEntityControlServiceImplBackValueListenser);
         } else if (what == 1) {// 加载更多
             // 本地做分页，加载20条以后的数据，默认每20条分一页
             Log.i("list测试长度", allList.size() + "");
@@ -801,48 +807,49 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         }
     }
 
+    private ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity> chartPlanEntityControlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                FlowChartPlanEntity backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+
+            List<FlowChartPlanEntity.FlowChart> data = null;
+            if (backValue != null) {
+                data = (ArrayList<FlowChartPlanEntity.FlowChart>) backValue.getData();
+            } else if (Exceptionerror != null) {
+                data = new ArrayList<FlowChartPlanEntity.FlowChart>();
+                Toast.makeText(ControlActivity.this,
+                        Const.NETWORKERROR + Exceptionerror,
+                        Toast.LENGTH_SHORT).show();
+            } else if (stRerror != null) {
+                data = new ArrayList<FlowChartPlanEntity.FlowChart>();
+                Toast.makeText(ControlActivity.this, stRerror,
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                data = new ArrayList<FlowChartPlanEntity.FlowChart>();
+                Toast.makeText(ControlActivity.this,
+                        "流程节点错误，请联系管理员。", Toast.LENGTH_SHORT)
+                        .show();
+            }
+            Message message = handler.obtainMessage();
+            message.what = 2;
+            message.obj = data;
+            handler.sendMessage(message);
+
+            // if (Utils.getInstance().progressDialog.isShowing()) {
+            Utils.getInstance().hideProgressDialog();
+            // }
+        }
+    };
+
     /**
      * 流程监控数据初始化
      */
     private void flowChartPlanData() {
         Utils.getInstance().showProgressDialog(ControlActivity.this, "", Const.LOAD_MESSAGE);
-        csevice.flowChartPlan(planEntity.getId(),
-                new ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity>() {
-
-                    @Override
-                    public void setControlServiceImplListenser(
-                            FlowChartPlanEntity backValue, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-
-                        List<FlowChartPlanEntity.FlowChart> data = null;
-                        if (backValue != null) {
-                            data = (ArrayList<FlowChartPlanEntity.FlowChart>) backValue.getData();
-                        } else if (Exceptionerror != null) {
-                            data = new ArrayList<FlowChartPlanEntity.FlowChart>();
-                            Toast.makeText(ControlActivity.this,
-                                    Const.NETWORKERROR + Exceptionerror,
-                                    Toast.LENGTH_SHORT).show();
-                        } else if (stRerror != null) {
-                            data = new ArrayList<FlowChartPlanEntity.FlowChart>();
-                            Toast.makeText(ControlActivity.this, stRerror,
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            data = new ArrayList<FlowChartPlanEntity.FlowChart>();
-                            Toast.makeText(ControlActivity.this,
-                                    "流程节点错误，请联系管理员。", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                        Message message = handler.obtainMessage();
-                        message.what = 2;
-                        message.obj = data;
-                        handler.sendMessage(message);
-
-                        // if (Utils.getInstance().progressDialog.isShowing()) {
-                        Utils.getInstance().hideProgressDialog();
-                        // }
-                    }
-                });
+        csevice.flowChartPlan(planEntity.getId(), chartPlanEntityControlServiceImplBackValueListenser);
 
     }
 

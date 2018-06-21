@@ -129,6 +129,66 @@ public class EmergencyTypeActivity extends BaseActivity{
 
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser emergencySeviceImplListListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<BusinessTypeEntity> businessTypeList = null;
+			if (object != null) {
+				businessTypeList = (List<BusinessTypeEntity>) object;
+				Log.i("业务类型businessTypeList", businessTypeList.size()
+						+ "");
+
+				// setData(businessTypeList);
+			} else if (stRerror != null) {
+				businessTypeList = new ArrayList<BusinessTypeEntity>();
+
+			} else if (Exceptionerror != null) {
+				businessTypeList = new ArrayList<BusinessTypeEntity>();
+				ToastUtil.showToast(EmergencyTypeActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+			}
+			Message message = new Message();
+			message.what = 0;
+			message.obj = businessTypeList;
+			handler.sendMessage(message);
+//					if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//					}
+		}
+	};
+
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser eventScEneemergencySeviceImplListListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<BusinessTypeEntity> businessTypeList = null;
+			if (object != null) {
+				businessTypeList = (List<BusinessTypeEntity>) object;
+
+				// setData(businessTypeList);
+			} else if (stRerror != null) {
+				businessTypeList = new ArrayList<BusinessTypeEntity>();
+
+			} else if (Exceptionerror != null) {
+				businessTypeList = new ArrayList<BusinessTypeEntity>();
+				ToastUtil.showToast(EmergencyTypeActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+			}
+			Message message = new Message();
+			message.what = 0;
+			message.obj = businessTypeList;
+			handler.sendMessage(message);
+//					if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//					}
+		}
+	};
+
 	private void initData() {
 		// TODO Auto-generated method stub
 //		if (businessTypeList!=null) {
@@ -140,36 +200,7 @@ public class EmergencyTypeActivity extends BaseActivity{
 			
 			Utils.getInstance().showProgressDialog(EmergencyTypeActivity.this,
 					"", Const.LOAD_MESSAGE);
-				Control.getinstance().getEmergencyService().getBusinessType(1, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-				@Override
-				public void setEmergencySeviceImplListListenser(Object object,
-						String stRerror, String Exceptionerror) {
-					// TODO Auto-generated method stub
-					List<BusinessTypeEntity> businessTypeList = null;
-					if (object != null) {
-						businessTypeList = (List<BusinessTypeEntity>) object;
-						Log.i("业务类型businessTypeList", businessTypeList.size()
-								+ "");
-
-						// setData(businessTypeList);
-					} else if (stRerror != null) {
-						businessTypeList = new ArrayList<BusinessTypeEntity>();
-
-					} else if (Exceptionerror != null) {
-						businessTypeList = new ArrayList<BusinessTypeEntity>();
-						ToastUtil.showToast(EmergencyTypeActivity.this,
-								Const.NETWORKERROR + ":" + Exceptionerror);
-					}
-					Message message = new Message();
-					message.what = 0;
-					message.obj = businessTypeList;
-					handler.sendMessage(message);
-//					if (Utils.getInstance().progressDialog.isShowing()) {
-						Utils.getInstance().hideProgressDialog();
-//					}
-				}
-			});
+				Control.getinstance().getEmergencyService().getBusinessType(1, emergencySeviceImplListListenser);
 			}else if (businessTypeList!=null&&businessTypeList.size()>0) {
 				Message message = new Message();
 				message.what = 0;
@@ -180,34 +211,7 @@ public class EmergencyTypeActivity extends BaseActivity{
 			if (businessTypeList!=null&&businessTypeList.size()==0) {//只访问一次网络
 			Utils.getInstance().showProgressDialog(EmergencyTypeActivity.this,
 					"", Const.LOAD_MESSAGE);
-				Control.getinstance().getEmergencyService().getBusinessType(2, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-				@Override
-				public void setEmergencySeviceImplListListenser(Object object,
-						String stRerror, String Exceptionerror) {
-					// TODO Auto-generated method stub
-					List<BusinessTypeEntity> businessTypeList = null;
-					if (object != null) {
-						businessTypeList = (List<BusinessTypeEntity>) object;
-
-						// setData(businessTypeList);
-					} else if (stRerror != null) {
-						businessTypeList = new ArrayList<BusinessTypeEntity>();
-
-					} else if (Exceptionerror != null) {
-						businessTypeList = new ArrayList<BusinessTypeEntity>();
-						ToastUtil.showToast(EmergencyTypeActivity.this,
-								Const.NETWORKERROR + ":" + Exceptionerror);
-					}
-					Message message = new Message();
-					message.what = 0;
-					message.obj = businessTypeList;
-					handler.sendMessage(message);
-//					if (Utils.getInstance().progressDialog.isShowing()) {
-						Utils.getInstance().hideProgressDialog();
-//					}
-				}
-			});
+				Control.getinstance().getEmergencyService().getBusinessType(2, emergencySeviceImplListListenser);
 			}else if (businessTypeList!=null&&businessTypeList.size()>0) {
 				Message message = new Message();
 				message.what = 0;
@@ -218,34 +222,7 @@ public class EmergencyTypeActivity extends BaseActivity{
 			if (businessTypeList!=null&&businessTypeList.size()==0) {//只访问一次网络
 			Utils.getInstance().showProgressDialog(EmergencyTypeActivity.this,
 					"", Const.LOAD_MESSAGE);
-				Control.getinstance().getEmergencyService().getEventScene(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-				@Override
-				public void setEmergencySeviceImplListListenser(Object object,
-						String stRerror, String Exceptionerror) {
-					// TODO Auto-generated method stub
-					List<BusinessTypeEntity> businessTypeList = null;
-					if (object != null) {
-						businessTypeList = (List<BusinessTypeEntity>) object;
-
-						// setData(businessTypeList);
-					} else if (stRerror != null) {
-						businessTypeList = new ArrayList<BusinessTypeEntity>();
-
-					} else if (Exceptionerror != null) {
-						businessTypeList = new ArrayList<BusinessTypeEntity>();
-						ToastUtil.showToast(EmergencyTypeActivity.this,
-								Const.NETWORKERROR + ":" + Exceptionerror);
-					}
-					Message message = new Message();
-					message.what = 0;
-					message.obj = businessTypeList;
-					handler.sendMessage(message);
-//					if (Utils.getInstance().progressDialog.isShowing()) {
-						Utils.getInstance().hideProgressDialog();
-//					}
-				}
-			});
+				Control.getinstance().getEmergencyService().getEventScene(eventScEneemergencySeviceImplListListenser);
 			}else if (businessTypeList!=null&&businessTypeList.size()>0) {
 				Message message = new Message();
 				message.what = 0;

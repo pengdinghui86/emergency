@@ -177,6 +177,113 @@ public class MessageTaskToastFragment extends BaseFragment implements
 
 	}
 
+	private UserSeviceImpl.UserSeviceImplBackBooleanListenser listener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+		@Override
+		public void setUserSeviceImplListenser(
+				Boolean backflag,
+				String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated
+			// method stub
+			if (backflag) {
+				listview.onRefreshComplete();
+				EventBus.getDefault().post(
+						new Toast("0"));
+			} else if (stRerror != null) {
+				ToastUtil.showToast(
+						getActivity(),
+						stRerror);
+			} else if (Exceptionerror != null) {
+				ToastUtil
+						.showToast(
+								getActivity(),
+								Const.NETWORKERROR
+										+ ":"
+										+ Exceptionerror);
+			}
+		}
+	};
+
+	private int curWhat;
+	private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+		@Override
+		public void setUserSeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<MessageInfoEntity> dataList = null;
+			if (object != null) {
+				ArrayList<FirstAllMessagesEntity> list = (ArrayList<FirstAllMessagesEntity>) object;
+				if(list.size() == 0)
+					return;
+				Log.i("消息类型1", list.get(0).getMsgType());
+				Log.i("消息长度1", list.get(0).getList().size()
+						+ "");
+				Log.i("未读消息长度1", list.get(0).getUnreadCount());
+				count1 = list.get(0).getUnreadCount();
+				count2 = list.get(1).getUnreadCount();
+				count3 = list.get(3).getUnreadCount();// 应急
+				count4 = list.get(2).getUnreadCount();// 个人
+				dataList = list.get(0).getList();
+
+				// EventBus.getDefault().post(new
+				// AllUnReadMessageCount(Integer.parseInt(count2)+Integer.parseInt(count3)));
+				if (Integer.parseInt(list.get(0)
+						.getUnreadCount()) > 0 && curWhat == 2) {//
+					// 保存数据到数据库
+					saveData(dataList);
+					// 未读消息显示在对应的tab上
+					// 有未读消息(点击任务通知按钮的时候)
+				}
+				sevice.confirMsg("1", listener);
+
+			} else if (stRerror != null) {
+				dataList = new ArrayList<MessageInfoEntity>();
+			} else if (Exceptionerror != null) {
+				dataList = new ArrayList<MessageInfoEntity>();
+				ToastUtil.showToast(getActivity(),
+						Const.NETWORKERROR + ":"
+								+ Exceptionerror);
+			} else {
+				dataList = new ArrayList<MessageInfoEntity>();
+			}
+
+			getDBData(dataList, curWhat);
+			EventBus.getDefault().post(
+					new MessagCountEvent(count1, count2,
+							count3, count4));
+		}
+	};
+
+	private int curMessageListWhat;
+	private UserSeviceImpl.UserSeviceImplListListenser curMessageListListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+		@Override
+		public void setUserSeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<MessageInfoEntity> dataList = null;
+			if (object != null) {
+				dataList = (List<MessageInfoEntity>) object;
+
+				EventBus.getDefault().post(new Toast("0"));
+			} else if (stRerror != null) {
+				dataList = new ArrayList<MessageInfoEntity>();
+			} else if (Exceptionerror != null) {
+				dataList = new ArrayList<MessageInfoEntity>();
+				ToastUtil.showToast(getActivity(),
+						Const.NETWORKERROR + ":"
+								+ Exceptionerror);
+			} else {
+				dataList = new ArrayList<MessageInfoEntity>();
+			}
+
+			getDBData(dataList, curMessageListWhat);
+		}
+	};
+
 	/**
 	 * 
 	 * 加载数据
@@ -190,117 +297,16 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	 * @param what
 	 */
 	private void loadData(final int what) {
+		curMessageListWhat = what;
 		if (what == 2) {// 第一次加载
 			// Log.i("getActivity()", getActivity()+"");
 			// 任务通知
-			sevice.getMessageList("1", "false",
-					new UserSeviceImpl.UserSeviceImplListListenser() {
-
-						@Override
-						public void setUserSeviceImplListListenser(
-								Object object, String stRerror,
-								String Exceptionerror) {
-							// TODO Auto-generated method stub
-							List<MessageInfoEntity> dataList = null;
-							if (object != null) {
-								ArrayList<FirstAllMessagesEntity> list = (ArrayList<FirstAllMessagesEntity>) object;
-								if(list.size() == 0)
-									return;
-								Log.i("消息类型1", list.get(0).getMsgType());
-								Log.i("消息长度1", list.get(0).getList().size()
-										+ "");
-								Log.i("未读消息长度1", list.get(0).getUnreadCount());
-								count1 = list.get(0).getUnreadCount();
-								count2 = list.get(1).getUnreadCount();
-								count3 = list.get(3).getUnreadCount();// 应急
-								count4 = list.get(2).getUnreadCount();// 个人
-								dataList = list.get(0).getList();
-
-								// EventBus.getDefault().post(new
-								// AllUnReadMessageCount(Integer.parseInt(count2)+Integer.parseInt(count3)));
-								if (Integer.parseInt(list.get(0)
-										.getUnreadCount()) > 0 && what == 2) {//
-									// 保存数据到数据库
-									saveData(dataList);
-									// 未读消息显示在对应的tab上
-									// 有未读消息(点击任务通知按钮的时候)
-								}
-								sevice.confirMsg(
-										"1",
-										new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-											@Override
-											public void setUserSeviceImplListenser(
-													Boolean backflag,
-													String stRerror,
-													String Exceptionerror) {
-												// TODO Auto-generated
-												// method stub
-												if (backflag) {
-													listview.onRefreshComplete();
-													EventBus.getDefault().post(
-															new Toast("0"));
-												} else if (stRerror != null) {
-													ToastUtil.showToast(
-															getActivity(),
-															stRerror);
-												} else if (Exceptionerror != null) {
-													ToastUtil
-															.showToast(
-																	getActivity(),
-																	Const.NETWORKERROR
-																			+ ":"
-																			+ Exceptionerror);
-												}
-											}
-										});
-
-							} else if (stRerror != null) {
-								dataList = new ArrayList<MessageInfoEntity>();
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<MessageInfoEntity>();
-								ToastUtil.showToast(getActivity(),
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							} else {
-								dataList = new ArrayList<MessageInfoEntity>();
-							}
-
-							getDBData(dataList, what);
-							EventBus.getDefault().post(
-									new MessagCountEvent(count1, count2,
-											count3, count4));
-						}
-					});
+			sevice.getMessageList("1", "false", listListener);
 
 		} else if (what == 0) {// 刷新
 			Log.i("44", what + "");
-			sevice.getFrashMessageList(getActivity(), "1", "false", "",
-					new UserSeviceImpl.UserSeviceImplListListenser() {
-
-						@Override
-						public void setUserSeviceImplListListenser(
-								Object object, String stRerror,
-								String Exceptionerror) {
-							// TODO Auto-generated method stub
-							List<MessageInfoEntity> dataList = null;
-							if (object != null) {
-								dataList = (List<MessageInfoEntity>) object;
-
-								EventBus.getDefault().post(new Toast("0"));
-							} else if (stRerror != null) {
-								dataList = new ArrayList<MessageInfoEntity>();
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<MessageInfoEntity>();
-								ToastUtil.showToast(getActivity(),
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							} else {
-								dataList = new ArrayList<MessageInfoEntity>();
-							}
-
-							getDBData(dataList, what);
-						}
-					});
+			curWhat = what;
+			sevice.getFrashMessageList(getActivity(), "1", "false", "", curMessageListListener);
 
 		} else if (what == 1) {// 加载更多(从数据库中拿数据)
 			onLoadDta(what);

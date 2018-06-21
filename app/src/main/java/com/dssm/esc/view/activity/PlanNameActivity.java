@@ -160,6 +160,37 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
+	private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+		@Override
+		public void setUserSeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<PlanNameRowEntity> list = null;
+			if (object != null) {
+				PlanNameSelectEntity entity = (PlanNameSelectEntity) object;
+				list = (ArrayList<PlanNameRowEntity>) entity
+						.getRows();
+
+			} else if (stRerror != null) {
+				list = new ArrayList<PlanNameRowEntity>();
+
+			} else if (Exceptionerror != null) {
+				list = new ArrayList<PlanNameRowEntity>();
+				ToastUtil.showToast(PlanNameActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+			}
+
+			Message message = new Message();
+			message.obj = list;
+			message.what = 0;
+			handler.sendMessage(message);
+//						if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//						}
+		}
+	};
+
 	/**
 	 * 获取预案列表
 	 * 
@@ -172,39 +203,51 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 				Const.LOAD_MESSAGE);
 		// 解决传到服务器的中文字符串是乱码
 		Control.getinstance().getUserSevice().getSearchPlanList(
-				URLEncoder.encode(URLEncoder.encode(name), "UTF-8"), id,
-				new UserSeviceImpl.UserSeviceImplListListenser() {
-
-					@Override
-					public void setUserSeviceImplListListenser(Object object,
-							String stRerror, String Exceptionerror) {
-						// TODO Auto-generated method stub
-						List<PlanNameRowEntity> list = null;
-						if (object != null) {
-							PlanNameSelectEntity entity = (PlanNameSelectEntity) object;
-							list = (ArrayList<PlanNameRowEntity>) entity
-									.getRows();
-
-						} else if (stRerror != null) {
-							list = new ArrayList<PlanNameRowEntity>();
-
-						} else if (Exceptionerror != null) {
-							list = new ArrayList<PlanNameRowEntity>();
-							ToastUtil.showToast(PlanNameActivity.this,
-									Const.NETWORKERROR + ":" + Exceptionerror);
-						}
-
-						Message message = new Message();
-						message.obj = list;
-						message.what = 0;
-						handler.sendMessage(message);
-//						if (Utils.getInstance().progressDialog.isShowing()) {
-							Utils.getInstance().hideProgressDialog();
-//						}
-					}
-				});
+				URLEncoder.encode(URLEncoder.encode(name), "UTF-8"), id, listListener);
 
 	}
+
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser emergencySeviceImplListListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<PlanNameRowEntity> list = null;
+			if (object != null) {
+				if (plantags == 2) {
+
+					PlanNameSelectEntity entity = (PlanNameSelectEntity) object;
+					list = (ArrayList<PlanNameRowEntity>) entity
+							.getRows();
+
+				} else if (plantags == 1 || plantags == 3) {
+					list = (ArrayList<PlanNameRowEntity>) object;
+					// Message message = new Message();
+					// message.obj = list;
+					// message.what = 0;
+					// handler.sendMessage(message);
+				}
+			} else if (stRerror != null) {
+				list = new ArrayList<PlanNameRowEntity>();
+
+			} else if (Exceptionerror != null) {
+				list = new ArrayList<PlanNameRowEntity>();
+				ToastUtil.showToast(PlanNameActivity.this,
+						Const.NETWORKERROR + ":"
+								+ Exceptionerror);
+			}
+
+			Message message = new Message();
+			message.obj = list;
+			message.what = 0;
+			handler.sendMessage(message);
+//							if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//							}
+		}
+	};
 
 	private void initData(final int plantags) {
 		// TODO Auto-generated method stub
@@ -212,48 +255,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		if (list != null && list.size() == 0) {// 只访问一次网络
 			Utils.getInstance().showProgressDialog(PlanNameActivity.this, "",
 					Const.LOAD_MESSAGE);
-			Control.getinstance().getEmergencyService().getPlanName(plantags, id,
-					new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-						@Override
-						public void setEmergencySeviceImplListListenser(
-								Object object, String stRerror,
-								String Exceptionerror) {
-							// TODO Auto-generated method stub
-							List<PlanNameRowEntity> list = null;
-							if (object != null) {
-								if (plantags == 2) {
-
-									PlanNameSelectEntity entity = (PlanNameSelectEntity) object;
-									list = (ArrayList<PlanNameRowEntity>) entity
-											.getRows();
-
-								} else if (plantags == 1 || plantags == 3) {
-									list = (ArrayList<PlanNameRowEntity>) object;
-									// Message message = new Message();
-									// message.obj = list;
-									// message.what = 0;
-									// handler.sendMessage(message);
-								}
-							} else if (stRerror != null) {
-								list = new ArrayList<PlanNameRowEntity>();
-
-							} else if (Exceptionerror != null) {
-								list = new ArrayList<PlanNameRowEntity>();
-								ToastUtil.showToast(PlanNameActivity.this,
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							}
-
-							Message message = new Message();
-							message.obj = list;
-							message.what = 0;
-							handler.sendMessage(message);
-//							if (Utils.getInstance().progressDialog.isShowing()) {
-								Utils.getInstance().hideProgressDialog();
-//							}
-						}
-					});
+			Control.getinstance().getEmergencyService().getPlanName(plantags, id, emergencySeviceImplListListenser);
 		} else if (list != null && list.size() > 0) {
 			Message message = new Message();
 			message.obj = list;

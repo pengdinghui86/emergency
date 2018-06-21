@@ -353,6 +353,33 @@ public class SendCollaborativeActivity extends BaseActivity implements
 		}
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			GetProjectEveInfoEntity entity = null;
+			if (object != null) {
+				entity = (GetProjectEveInfoEntity) object;
+				edit_message.setText(entity
+						.getTradeTypeName());
+			} else if (stRerror != null) {
+				entity = new GetProjectEveInfoEntity();
+
+			} else if (Exceptionerror != null) {
+				entity = new GetProjectEveInfoEntity();
+				ToastUtil
+						.showToast(
+								SendCollaborativeActivity.this,
+								Const.NETWORKERROR
+										+ ":"
+										+ Exceptionerror);
+			}
+		}
+	};
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -422,33 +449,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 
 						if (!sendString.equals("") && !stageString.equals("")) {
 							Control.getinstance().getEmergencyService().getNotiConfigContent(precautionId, type,
-									stage,
-									new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-										@Override
-										public void setEmergencySeviceImplListListenser(
-												Object object, String stRerror,
-												String Exceptionerror) {
-											// TODO Auto-generated method stub
-											GetProjectEveInfoEntity entity = null;
-											if (object != null) {
-												entity = (GetProjectEveInfoEntity) object;
-												edit_message.setText(entity
-														.getTradeTypeName());
-											} else if (stRerror != null) {
-												entity = new GetProjectEveInfoEntity();
-
-											} else if (Exceptionerror != null) {
-												entity = new GetProjectEveInfoEntity();
-												ToastUtil
-														.showToast(
-																SendCollaborativeActivity.this,
-																Const.NETWORKERROR
-																		+ ":"
-																		+ Exceptionerror);
-											}
-										}
-									});
+									stage, listListener);
 						}
 					}
 				}
@@ -488,21 +489,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 							Log.i("type", type);
 							Log.i("stage", stage);
 							Control.getinstance().getEmergencyService().getNotiConfigContent(precautionId, type,
-									stage,
-									new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-										@Override
-										public void setEmergencySeviceImplListListenser(
-												Object object, String stRerror,
-												String Exceptionerror) {
-											// TODO Auto-generated method stub
-											if (object != null) {
-												GetProjectEveInfoEntity entity = (GetProjectEveInfoEntity) object;
-												edit_message.setText(entity
-														.getTradeTypeName());
-											}
-										}
-									});
+									stage, listListener);
 						}
 					}
 				}
@@ -654,40 +641,41 @@ public class SendCollaborativeActivity extends BaseActivity implements
 		listView.setLayoutParams(params);
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated
+			// method
+			// stub
+			if (backflag) {
+				ToastUtil.showToast(SendCollaborativeActivity.this,
+						stRerror);
+				// SendCollaborativeActivity.this.finish();
+
+			} else if (backflag == false) {
+				ToastUtil.showToast(SendCollaborativeActivity.this,
+						stRerror);
+				resetting();
+			} else if (stRerror != null) {
+
+				ToastUtil.showToast(SendCollaborativeActivity.this,
+						stRerror);
+				resetting();
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showToast(SendCollaborativeActivity.this,
+						Exceptionerror);
+				resetting();
+			}
+
+		}
+	};
+
 	private void initContent() {
-		Control.getinstance().getEmergencyService().sendNotice(entity,
-				new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListenser(
-							Boolean backflag, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated
-						// method
-						// stub
-						if (backflag) {
-							ToastUtil.showToast(SendCollaborativeActivity.this,
-									stRerror);
-							// SendCollaborativeActivity.this.finish();
-
-						} else if (backflag == false) {
-							ToastUtil.showToast(SendCollaborativeActivity.this,
-									stRerror);
-							resetting();
-						} else if (stRerror != null) {
-
-							ToastUtil.showToast(SendCollaborativeActivity.this,
-									stRerror);
-							resetting();
-						} else if (Exceptionerror != null) {
-
-							ToastUtil.showToast(SendCollaborativeActivity.this,
-									Exceptionerror);
-							resetting();
-						}
-
-					}
-				});
+		Control.getinstance().getEmergencyService().sendNotice(entity, listener);
 
 	}
 

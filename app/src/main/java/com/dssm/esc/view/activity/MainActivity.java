@@ -294,7 +294,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private static MyConnectionListener connectionListener = null;
 
     private void init() {
-        connectionListener = new MyConnectionListener();
+        connectionListener = new MyConnectionListener(this);
         EMChatManager.getInstance().addConnectionListener(connectionListener);
         /*
          * Log.i("MainActivity用户名--环信", DemoApplication.getInstance()
@@ -691,9 +691,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      */
     public static class MyConnectionListener implements EMConnectionListener {
 
-        private WeakReference<Context> wr;
+        private final WeakReference<Context> wr;
 
-        public void MyConnectionListener(Context context) {
+        public MyConnectionListener(Context context) {
             wr = new WeakReference<>(context);
         }
 
@@ -958,48 +958,50 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 	 * }
 	 */
 
+    private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+        @Override
+        public void setUserSeviceImplListListenser(Object object,
+                String stRerror, String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str;
+            // 若登陆成功，直接进入主界面
+            if (object != null) {
+                Map<String, String> map = (Map<String, String>) object;
+                if (map.get("success").equals("true")) {
+                    str = "重新登陆成功";
+                    ToastUtil.showLongToast(context, str);
+                    if(netListener != null)
+                        netListener.initNetData();
+                } else {
+                    str = "密码已失效,请重新登陆";
+                    Log.i("onFailure", "main, " + str);
+                    ToastUtil.showLongToast(context, str);
+                    Intent intent = new Intent(context,
+                            LoginActivity.class);
+                    context.startActivity(intent);
+
+                }
+
+            } else if (stRerror != null) {
+
+                str = stRerror;
+                ToastUtil.showLongToast(context, str);
+            } else if (Exceptionerror != null) {
+
+                str = Const.NETWORKERROR + Exceptionerror;
+                ToastUtil.showLongToast(context, "网络连接超时，请检查网络设置或IP地址是否正确");
+            }
+        }
+    };
+
     /**
      * 重新登录
      */
     public void relogin() {
         Log.i("onFailure", "main, relogin");
         usevice.relogin(map.get("loginName"), map.get("password"),
-                map.get("selectedRolem"), new UserSeviceImpl.UserSeviceImplListListenser() {
-
-                    @Override
-                    public void setUserSeviceImplListListenser(Object object,
-                                                               String stRerror, String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        String str;
-                        // 若登陆成功，直接进入主界面
-                        if (object != null) {
-                            Map<String, String> map = (Map<String, String>) object;
-                            if (map.get("success").equals("true")) {
-                                str = "重新登陆成功";
-                                ToastUtil.showLongToast(context, str);
-                                if(netListener != null)
-                                    netListener.initNetData();
-                            } else {
-                                str = "密码已失效,请重新登陆";
-                                Log.i("onFailure", "main, " + str);
-                                ToastUtil.showLongToast(context, str);
-                                Intent intent = new Intent(context,
-                                        LoginActivity.class);
-                                context.startActivity(intent);
-
-                            }
-
-                        } else if (stRerror != null) {
-
-                            str = stRerror;
-                            ToastUtil.showLongToast(context, str);
-                        } else if (Exceptionerror != null) {
-
-                            str = Const.NETWORKERROR + Exceptionerror;
-                            ToastUtil.showLongToast(context, "网络连接超时，请检查网络设置或IP地址是否正确");
-                        }
-                    }
-                });
+                map.get("selectedRolem"), listListener);
     }
 
     @Override
@@ -1061,6 +1063,48 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         });
     }
 
+    private int curWhich;
+    private UserSeviceImpl.UserSeviceImplBackBooleanListenser listener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setUserSeviceImplListenser(
+                Boolean backflag,
+                String stRerror,
+                String Exceptionerror) {
+            String str = null;
+            if (backflag) {
+                str = stRerror;
+                // 被选中的角色id,再次保存
+                selectedRolem = rolesId[curWhich];
+                selectedRolemName = identity[curWhich];
+                roleCode = roleCodes[curWhich];
+
+                preferencesService.save(
+                        map.get("loginName"),
+                        map.get("password"),
+                        map.get("roleIds"),
+                        map.get("roleNames"),
+                        map.get("roleCodes"),
+                        selectedRolem,
+                        map.get("postFlag"),
+                        map.get("userId"),
+                        selectedRolemName,
+                        roleCode,
+                        name);
+                tv_item_info1.setText(name);
+                tv_item_info2.setText(selectedRolemName);
+            } else if (stRerror != null) {
+                str = stRerror;
+                ToastUtil
+                        .showLongToast(
+                                context,
+                                str);
+            } else if (Exceptionerror != null) {
+                str = Const.NETWORKERROR + Exceptionerror;
+                ToastUtil.showLongToast(context, str);
+            }
+        }
+    };
 
     /**
      * 切换角色
@@ -1078,49 +1122,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                                     Toast.makeText(context,
                                             "你选择了: " + identity[which], Toast.LENGTH_SHORT)
                                             .show();
+                                    curWhich = which;
                                     // 选择角色
-                                    userSevice.loginRole(rolesId[which],
-                                            new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-
-                                                @Override
-                                                public void setUserSeviceImplListenser(
-                                                        Boolean backflag,
-                                                        String stRerror,
-                                                        String Exceptionerror) {
-                                                    String str = null;
-                                                    if (backflag) {
-                                                        str = stRerror;
-                                                        // 被选中的角色id,再次保存
-                                                        selectedRolem = rolesId[which];
-                                                        selectedRolemName = identity[which];
-                                                        roleCode = roleCodes[which];
-
-                                                        preferencesService.save(
-                                                                map.get("loginName"),
-                                                                map.get("password"),
-                                                                map.get("roleIds"),
-                                                                map.get("roleNames"),
-                                                                map.get("roleCodes"),
-                                                                selectedRolem,
-                                                                map.get("postFlag"),
-                                                                map.get("userId"),
-                                                                selectedRolemName,
-                                                                roleCode,
-                                                                name);
-                                                        tv_item_info1.setText(name);
-                                                        tv_item_info2.setText(selectedRolemName);
-                                                    } else if (stRerror != null) {
-                                                        str = stRerror;
-                                                        ToastUtil
-                                                                .showLongToast(
-                                                                        context,
-                                                                        str);
-                                                    } else if (Exceptionerror != null) {
-                                                        str = Const.NETWORKERROR + Exceptionerror;
-                                                        ToastUtil.showLongToast(context, str);
-                                                    }
-                                                }
-                                            });
+                                    userSevice.loginRole(rolesId[which], listener);
                                 }
 
                             }).setNegativeButton("取消", null).show();

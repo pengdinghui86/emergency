@@ -191,6 +191,72 @@ public class PlanStarActivity extends BaseActivity implements
 	private List<PlanStarListEntity> allList = new ArrayList<PlanStarListEntity>();
 	private int num = 20;// 每次显示20条
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<PlanStarListEntity> datalist=null;
+			if (object != null) {// 没有做分页，一次性加载所有的数据，本地做分页显示
+				datalist = (List<PlanStarListEntity>) object;
+				Log.i("待启动预案列表的长度", datalist.size() + "");
+
+			}else if (stRerror!=null) {
+				datalist=new ArrayList<PlanStarListEntity>();
+
+			}else if (Exceptionerror!=null) {
+				datalist=new ArrayList<PlanStarListEntity>();
+				ToastUtil.showToast(PlanStarActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
+			}
+			Message message = handler.obtainMessage();
+			message.what = 0;
+			if (datalist.size() > 20) {// 如果超过20条，则分页
+				List<PlanStarListEntity> subList = datalist
+						.subList(0, 20);
+				message.obj = subList;
+			} else {
+				message.obj = datalist;
+			}
+			handler.sendMessage(message);
+			allList = datalist;
+		}
+	};
+
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<PlanStarListEntity> datalist=null;
+			if (object != null) {
+				datalist = (List<PlanStarListEntity>) object;
+				Log.i("已启动预案列表的长度", datalist.size() + "");
+
+			}else if (stRerror!=null) {
+				datalist=new ArrayList<PlanStarListEntity>();
+
+			}else if (Exceptionerror!=null) {
+				datalist=new ArrayList<PlanStarListEntity>();
+				ToastUtil.showToast(PlanStarActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
+			}
+			Message message = handler.obtainMessage();
+			message.what = 0;
+			if (datalist.size() > 20) {// 如果超过20条，则分页
+				List<PlanStarListEntity> subList = datalist
+						.subList(0, 20);
+				message.obj = subList;
+			} else {
+				message.obj = datalist;
+			}
+			handler.sendMessage(message);
+			allList = datalist;
+		}
+	};
+
 	private void loadData(final int what) {
 		if (tags.equals("1")) {
 			if (what == 0) {// 刷新和第一次加载
@@ -205,38 +271,7 @@ public class PlanStarActivity extends BaseActivity implements
 				 * message.obj = subList; } else { message.obj = datalist; }
 				 * handler.sendMessage(message);
 				 */
-				Control.getinstance().getEmergencyService().getPlanStarList(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListListenser(
-							Object object, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						List<PlanStarListEntity> datalist=null;
-						if (object != null) {// 没有做分页，一次性加载所有的数据，本地做分页显示
-							 datalist = (List<PlanStarListEntity>) object;
-							Log.i("待启动预案列表的长度", datalist.size() + "");
-							
-						}else if (stRerror!=null) {
-							datalist=new ArrayList<PlanStarListEntity>();
-							
-						}else if (Exceptionerror!=null) {
-							datalist=new ArrayList<PlanStarListEntity>();
-							ToastUtil.showToast(PlanStarActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
-						}
-						Message message = handler.obtainMessage();
-						message.what = 0;
-						if (datalist.size() > 20) {// 如果超过20条，则分页
-							List<PlanStarListEntity> subList = datalist
-									.subList(0, 20);
-							message.obj = subList;
-						} else {
-							message.obj = datalist;
-						}
-						handler.sendMessage(message);
-						allList = datalist;
-					}
-				});
+				Control.getinstance().getEmergencyService().getPlanStarList(listListenser);
 			} else if (what == 1) {// 加载更多
 				// 本地做分页，加载20条以后的数据，默认每20条分一页
 				Log.i("list测试长度", allList.size() + "");
@@ -267,38 +302,7 @@ public class PlanStarActivity extends BaseActivity implements
 				 * message.obj = subList; } else { message.obj = datalist; }
 				 * handler.sendMessage(message);
 				 */
-				Control.getinstance().getEmergencyService().getStarList(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListListenser(
-							Object object, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						List<PlanStarListEntity> datalist=null;
-						if (object != null) {
-							datalist = (List<PlanStarListEntity>) object;
-							Log.i("已启动预案列表的长度", datalist.size() + "");
-							
-						}else if (stRerror!=null) {
-							datalist=new ArrayList<PlanStarListEntity>();
-							
-						}else if (Exceptionerror!=null) {
-							datalist=new ArrayList<PlanStarListEntity>();
-							ToastUtil.showToast(PlanStarActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
-						}
-						Message message = handler.obtainMessage();
-						message.what = 0;
-						if (datalist.size() > 20) {// 如果超过20条，则分页
-							List<PlanStarListEntity> subList = datalist
-									.subList(0, 20);
-							message.obj = subList;
-						} else {
-							message.obj = datalist;
-						}
-						handler.sendMessage(message);
-						allList = datalist;
-					}
-				});
+				Control.getinstance().getEmergencyService().getStarList(listListener);
 			} else if (what == 1) {
 				List<PlanStarListEntity> datalist2;
 				if ((num + 20) <= allList.size()) {

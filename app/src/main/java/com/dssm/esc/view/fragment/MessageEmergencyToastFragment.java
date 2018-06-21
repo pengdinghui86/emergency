@@ -177,6 +177,65 @@ public class MessageEmergencyToastFragment extends BaseFragment implements
 
 	}
 
+	private UserSeviceImpl.UserSeviceImplBackBooleanListenser listener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+		@Override
+		public void setUserSeviceImplListenser(
+				Boolean backflag,
+				String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated
+			// method stub
+			if (backflag) {
+				listview.onRefreshComplete();
+				EventBus.getDefault().post(
+						new Emergenct("0"));
+			} else if (backflag == false) {
+
+			} else if (stRerror != null) {
+				ToastUtil.showToast(
+						getActivity(),
+						stRerror);
+			} else if (Exceptionerror != null) {
+				ToastUtil
+						.showToast(
+								getActivity(),
+								Const.NETWORKERROR
+										+ ":"
+										+ Exceptionerror);
+			}
+		}
+
+	};
+
+	private int curWhat;
+	private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+		@Override
+		public void setUserSeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<MessageInfoEntity> dataList = null;
+			if (object != null) {
+				dataList = (List<MessageInfoEntity>) object;
+				Log.i("===紧急消息刷新条数===", dataList.size() + "");
+				if (dataList.size() > 0) {
+					saveData(dataList);// 保存到数据库
+				}
+				sevice.confirMsg("4", listener);
+
+			} else if (stRerror != null) {
+				dataList = new ArrayList<MessageInfoEntity>();
+			} else if (Exceptionerror != null) {
+				dataList = new ArrayList<MessageInfoEntity>();
+				ToastUtil.showToast(getActivity(),
+						Const.NETWORKERROR + ":"
+								+ Exceptionerror);
+			}
+			getDBData(dataList, curWhat);
+		}
+	};
+
 	/**
 	 * 
 	 * 加载数据
@@ -192,64 +251,8 @@ public class MessageEmergencyToastFragment extends BaseFragment implements
 	private void loadData(final int what) {
 		// 系统通知
 		if (what == 0 || what == 2) {// 刷新和第一次加载
-			sevice.getFrashMessageList(getActivity(), "4", "false", "",
-					new UserSeviceImpl.UserSeviceImplListListenser() {
-
-						@Override
-						public void setUserSeviceImplListListenser(
-								Object object, String stRerror,
-								String Exceptionerror) {
-							// TODO Auto-generated method stub
-							List<MessageInfoEntity> dataList = null;
-							if (object != null) {
-								dataList = (List<MessageInfoEntity>) object;
-								Log.i("===紧急消息刷新条数===", dataList.size() + "");
-								if (dataList.size() > 0) {
-									saveData(dataList);// 保存到数据库
-								}
-								sevice.confirMsg(
-										"4",
-										new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-											@Override
-											public void setUserSeviceImplListenser(
-													Boolean backflag,
-													String stRerror,
-													String Exceptionerror) {
-												// TODO Auto-generated
-												// method stub
-												if (backflag) {
-													listview.onRefreshComplete();
-													EventBus.getDefault().post(
-															new Emergenct("0"));
-												} else if (backflag == false) {
-
-												} else if (stRerror != null) {
-													ToastUtil.showToast(
-															getActivity(),
-															stRerror);
-												} else if (Exceptionerror != null) {
-													ToastUtil
-															.showToast(
-																	getActivity(),
-																	Const.NETWORKERROR
-																			+ ":"
-																			+ Exceptionerror);
-												}
-											}
-
-										});
-
-							} else if (stRerror != null) {
-								dataList = new ArrayList<MessageInfoEntity>();
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<MessageInfoEntity>();
-								ToastUtil.showToast(getActivity(),
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							}
-							getDBData(dataList, what);
-						}
-					});
+			curWhat = what;
+			sevice.getFrashMessageList(getActivity(), "4", "false", "", listListener);
 		} else if (what == 1) {// 加载更多(从数据库中拿数据)
 			onLoadDta(what);
 		}

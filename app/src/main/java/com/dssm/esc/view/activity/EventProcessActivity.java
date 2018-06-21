@@ -132,38 +132,41 @@ public class EventProcessActivity extends BaseActivity implements
 		loadData(AutoListView.REFRESH);
 	}
 	// 从网络获取的总的list
-			private List<BoHuiListEntity> allList = new ArrayList<BoHuiListEntity>();
-			private int num = 20;// 每次显示20条
-	private void loadData(final int what) {
-		if (what==0) {
-			Control.getinstance().getControlSevice().getEvalist(new ControlServiceImpl.ControlServiceImplBackValueListenser<List<BoHuiListEntity>>() {
+	private List<BoHuiListEntity> allList = new ArrayList<BoHuiListEntity>();
+	private int num = 20;// 每次显示20条
 
-			@Override
-			public void setControlServiceImplListenser(
-					List<BoHuiListEntity> backValue, String stRerror,
-					String Exceptionerror) {
-				// TODO Auto-generated method stub
-                //List<EvaProgressEntity>list;
-				Message message = handler.obtainMessage();
-				List<BoHuiListEntity> list =null;
-				if (backValue!=null) {
-					list=backValue;
-				}else if (Exceptionerror!=null) {
-					list=new ArrayList<BoHuiListEntity>();
+	private ControlServiceImpl.ControlServiceImplBackValueListenser<List<BoHuiListEntity>> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<List<BoHuiListEntity>>() {
+
+		@Override
+		public void setControlServiceImplListenser(
+				List<BoHuiListEntity> backValue, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			//List<EvaProgressEntity>list;
+			Message message = handler.obtainMessage();
+			List<BoHuiListEntity> list =null;
+			if (backValue!=null) {
+				list=backValue;
+			}else if (Exceptionerror!=null) {
+				list=new ArrayList<BoHuiListEntity>();
 				Toast.makeText(EventProcessActivity.this, Const.NETWORKERROR+Exceptionerror, Toast.LENGTH_SHORT).show();
 			}
-				message.what = 0;
-				if (list.size() > 20) {// 如果超过20条，则分页
-					List<BoHuiListEntity> subList = list.subList(0,
-							20);
-					message.obj = subList;
-				} else {
-					message.obj = list;
-				}
-				handler.sendMessage(message);
-				allList = list;
+			message.what = 0;
+			if (list.size() > 20) {// 如果超过20条，则分页
+				List<BoHuiListEntity> subList = list.subList(0,
+						20);
+				message.obj = subList;
+			} else {
+				message.obj = list;
 			}
-		});
+			handler.sendMessage(message);
+			allList = list;
+		}
+	};
+
+	private void loadData(final int what) {
+		if (what==0) {
+			Control.getinstance().getControlSevice().getEvalist(controlServiceImplBackValueListenser);
 		}else if (what==1) {
 			// 本地做分页，加载20条以后的数据，默认每20条分一页
 						Log.i("list测试长度", allList.size() + "");

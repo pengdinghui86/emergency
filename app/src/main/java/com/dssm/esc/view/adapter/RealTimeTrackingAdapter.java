@@ -654,53 +654,54 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         }
     }
 
+    private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+        @Override
+        public void setUserSeviceImplListListenser(
+                Object object, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+
+            UserPersonIdEntity entity = null;
+            if (object != null) {
+                entity = (UserPersonIdEntity) object;
+                UserObjEntity obj = entity.getObj();
+                Intent intent = new Intent(context,
+                        IntroductionActivity.class);
+                //保存联系人
+                service.saveContactName(obj.getUserId(), obj.getName());
+                intent.putExtra("id", obj.getUserId());
+                intent.putExtra("name", obj.getName());
+                intent.putExtra("phonenumberOne",
+                        obj.getPhoneNumOne());
+                intent.putExtra("phonenumberTwo",
+                        obj.getPhoneNumTwo());
+                intent.putExtra("gangwei",
+                        obj.getPostName());
+                intent.putExtra("bumen", obj.getDepName());
+                intent.putExtra("sex", obj.getSex());
+                intent.putExtra("postFlag", obj.getPostFlag());
+                intent.putExtra("email", obj.getEmail());
+                context.startActivity(intent);
+            } else if (stRerror != null) {
+                Toast.makeText(context, stRerror,
+                        Toast.LENGTH_SHORT).show();
+            } else if (Exceptionerror != null) {
+                Toast.makeText(
+                        context,
+                        Const.NETWORKERROR + Exceptionerror,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
     private void peopleClick(ViewHolder mhHolder, final String executePeopleId) {
         mhHolder.executePeople.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
-                sevice.getUserMessageByPersonalId(executePeopleId,
-                        new UserSeviceImpl.UserSeviceImplListListenser() {
-
-                            @Override
-                            public void setUserSeviceImplListListenser(
-                                    Object object, String stRerror,
-                                    String Exceptionerror) {
-                                // TODO Auto-generated method stub
-
-                                UserPersonIdEntity entity = null;
-                                if (object != null) {
-                                    entity = (UserPersonIdEntity) object;
-                                    UserObjEntity obj = entity.getObj();
-                                    Intent intent = new Intent(context,
-                                            IntroductionActivity.class);
-                                    //保存联系人
-                                    service.saveContactName(obj.getUserId(), obj.getName());
-                                    intent.putExtra("id", obj.getUserId());
-                                    intent.putExtra("name", obj.getName());
-                                    intent.putExtra("phonenumberOne",
-                                            obj.getPhoneNumOne());
-                                    intent.putExtra("phonenumberTwo",
-                                            obj.getPhoneNumTwo());
-                                    intent.putExtra("gangwei",
-                                            obj.getPostName());
-                                    intent.putExtra("bumen", obj.getDepName());
-                                    intent.putExtra("sex", obj.getSex());
-                                    intent.putExtra("postFlag", obj.getPostFlag());
-                                    intent.putExtra("email", obj.getEmail());
-                                    context.startActivity(intent);
-                                } else if (stRerror != null) {
-                                    Toast.makeText(context, stRerror,
-                                            Toast.LENGTH_SHORT).show();
-                                } else if (Exceptionerror != null) {
-                                    Toast.makeText(
-                                            context,
-                                            Const.NETWORKERROR + Exceptionerror,
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                sevice.getUserMessageByPersonalId(executePeopleId, listListener);
             }
         });
     }
@@ -728,75 +729,107 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         private TextView tv_cancel_jump;// 取消跳过按钮
     }
 
+    private ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                Boolean backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            if (backValue) {
+                ToastUtil.showToast(context, "已成功跳过此步骤");
+
+                EventBus.getDefault().post(new mainEvent("jump"));
+
+            } else if (stRerror != null) {
+                Toast.makeText(context, stRerror,
+                        Toast.LENGTH_SHORT).show();
+            } else if (Exceptionerror != null) {
+                Toast.makeText(context,
+                        Const.NETWORKERROR + Exceptionerror,
+                        Toast.LENGTH_SHORT).show();
+            }
+            // if (Utils.getInstance().progressDialog.isShowing()) {
+            Utils.getInstance().hideProgressDialog();
+            // }
+        }
+    };
+
     /**
      * 跳过预案
      */
     private void planjump(String id, String planInfoId) {
         // TODO Auto-generated method stub
         Utils.getInstance().showProgressDialog(context, "", Const.LOAD_MESSAGE);
-        csevice.jumpplan(id, planInfoId,
-                new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
-
-                    @Override
-                    public void setControlServiceImplListenser(
-                            Boolean backValue, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        if (backValue) {
-                            ToastUtil.showToast(context, "已成功跳过此步骤");
-
-                            EventBus.getDefault().post(new mainEvent("jump"));
-
-                        } else if (stRerror != null) {
-                            Toast.makeText(context, stRerror,
-                                    Toast.LENGTH_SHORT).show();
-                        } else if (Exceptionerror != null) {
-                            Toast.makeText(context,
-                                    Const.NETWORKERROR + Exceptionerror,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        // if (Utils.getInstance().progressDialog.isShowing()) {
-                        Utils.getInstance().hideProgressDialog();
-                        // }
-                    }
-                });
+        csevice.jumpplan(id, planInfoId, controlServiceImplBackValueListenser);
     }
+
+    private String strStopOrStart = "0";
+    private ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean> controlServiceImplBackValueListenser1 = new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                Boolean backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            if (backValue) {
+                if (strStopOrStart.equals("0")) {
+                    ToastUtil.showToast(context, "已成功跳过此步骤");
+                } else {
+                    ToastUtil.showToast(context, "已成功取消跳过此步骤");
+                }
+
+                EventBus.getDefault().post(new mainEvent("jump"));
+
+            } else if (stRerror != null) {
+                Toast.makeText(context, stRerror,
+                        Toast.LENGTH_SHORT).show();
+            } else if (Exceptionerror != null) {
+                Toast.makeText(context,
+                        Const.NETWORKERROR + Exceptionerror,
+                        Toast.LENGTH_SHORT).show();
+            }
+            Utils.getInstance().hideProgressDialog();
+        }
+    };
 
     /**
      * 非“执行中”跳过预案
      */
     private void planjump2(String id, String planInfoId, final String stopOrStart) {
         // TODO Auto-generated method stub
+        strStopOrStart = stopOrStart;
         Utils.getInstance().showProgressDialog(context, "", Const.LOAD_MESSAGE);
-        csevice.jumpplan2(id, planInfoId, stopOrStart,
-                new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
-
-                    @Override
-                    public void setControlServiceImplListenser(
-                            Boolean backValue, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        if (backValue) {
-                            if (stopOrStart.equals("0")) {
-                                ToastUtil.showToast(context, "已成功跳过此步骤");
-                            } else {
-                                ToastUtil.showToast(context, "已成功取消跳过此步骤");
-                            }
-
-                            EventBus.getDefault().post(new mainEvent("jump"));
-
-                        } else if (stRerror != null) {
-                            Toast.makeText(context, stRerror,
-                                    Toast.LENGTH_SHORT).show();
-                        } else if (Exceptionerror != null) {
-                            Toast.makeText(context,
-                                    Const.NETWORKERROR + Exceptionerror,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        Utils.getInstance().hideProgressDialog();
-                    }
-                });
+        csevice.jumpplan2(id, planInfoId, stopOrStart, controlServiceImplBackValueListenser1);
     }
+
+    private ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean> planPauseControlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                Boolean backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            if (backValue) {
+                if (strStopOrStart.equals("0")) {
+                    ToastUtil.showToast(context, "已成功暂停此步骤");
+                } else {
+                    ToastUtil.showToast(context, "已成功开启此步骤");
+                }
+
+                EventBus.getDefault().post(new mainEvent("jump"));
+
+            } else if (stRerror != null) {
+                Toast.makeText(context, stRerror,
+                        Toast.LENGTH_SHORT).show();
+            } else if (Exceptionerror != null) {
+                Toast.makeText(context,
+                        Const.NETWORKERROR + Exceptionerror,
+                        Toast.LENGTH_SHORT).show();
+            }
+            Utils.getInstance().hideProgressDialog();
+        }
+    };
 
     /**
      * 暂停和开启
@@ -804,35 +837,9 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
      */
     private void planPause(String id, String planInfoId, final String stopOrStart) {
         // TODO Auto-generated method stub
+        strStopOrStart = stopOrStart;
         Utils.getInstance().showProgressDialog(context, "", Const.LOAD_MESSAGE);
-        csevice.pauseplan(id, planInfoId, stopOrStart,
-                new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
-
-                    @Override
-                    public void setControlServiceImplListenser(
-                            Boolean backValue, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        if (backValue) {
-                            if (stopOrStart.equals("0")) {
-                                ToastUtil.showToast(context, "已成功暂停此步骤");
-                            } else {
-                                ToastUtil.showToast(context, "已成功开启此步骤");
-                            }
-
-                            EventBus.getDefault().post(new mainEvent("jump"));
-
-                        } else if (stRerror != null) {
-                            Toast.makeText(context, stRerror,
-                                    Toast.LENGTH_SHORT).show();
-                        } else if (Exceptionerror != null) {
-                            Toast.makeText(context,
-                                    Const.NETWORKERROR + Exceptionerror,
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        Utils.getInstance().hideProgressDialog();
-                    }
-                });
+        csevice.pauseplan(id, planInfoId, stopOrStart, planPauseControlServiceImplBackValueListenser);
     }
 
 }

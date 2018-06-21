@@ -117,42 +117,43 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 			initData();
 		}
 	}
-	
+
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			ArrayList<PlanProcessEntity> result = null;
+			if (object != null) {
+
+				result = (ArrayList<PlanProcessEntity>) object;
+
+			} else if (stRerror != null) {
+				result = new ArrayList<PlanProcessEntity>();
+
+			} else if (Exceptionerror != null) {
+				result = new ArrayList<PlanProcessEntity>();
+				ToastUtil.showToast(
+						PersonnelAssignmentActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+			}
+			Message msg = new Message();
+			msg.what = 0;
+			msg.obj = result;
+			handler.sendMessage(msg);
+//						if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//						}
+		}
+	};
+
 	private void initData() {
 		// TODO Auto-generated method stub
 		Utils.getInstance().showProgressDialog(
 				PersonnelAssignmentActivity.this, "", Const.LOAD_MESSAGE);
-		Control.getinstance().getEmergencyService().getPlanProcessList(planInfoId,
-				new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListListenser(
-							Object object, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						ArrayList<PlanProcessEntity> result = null;
-						if (object != null) {
-
-							result = (ArrayList<PlanProcessEntity>) object;
-
-						} else if (stRerror != null) {
-							result = new ArrayList<PlanProcessEntity>();
-
-						} else if (Exceptionerror != null) {
-							result = new ArrayList<PlanProcessEntity>();
-							ToastUtil.showToast(
-									PersonnelAssignmentActivity.this,
-									Const.NETWORKERROR + ":" + Exceptionerror);
-						}
-						Message msg = new Message();
-						msg.what = 0;
-						msg.obj = result;
-						handler.sendMessage(msg);
-//						if (Utils.getInstance().progressDialog.isShowing()) {
-							Utils.getInstance().hideProgressDialog();
-//						}
-					}
-				});
+		Control.getinstance().getEmergencyService().getPlanProcessList(planInfoId, listListener);
 
 	}
 

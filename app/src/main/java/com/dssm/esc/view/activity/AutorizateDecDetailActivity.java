@@ -419,45 +419,77 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		}
 	}
 
+	private EmergencySeviceImplBackBooleanListenser listener = new EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (backflag) {
+				ToastUtil.showToast(
+						AutorizateDecDetailActivity.this, stRerror);
+				EventBus.getDefault().post(
+						new mainEvent("r"));//刷新列表界面
+				finish();
+			} else if (backflag == false) {
+				ToastUtil.showToast(AutorizateDecDetailActivity.this,
+						stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
+						stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
+						Const.NETWORKERROR + Exceptionerror);
+			}
+//						if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//						}
+		}
+	};
+
 	/**
 	 * 预案中止
 	 */
 	private void planSuspand() {
 		Utils.getInstance().showProgressDialog(
 				AutorizateDecDetailActivity.this, "", Const.SUBMIT_MESSAGE);
-		Control.getinstance().getEmergencyService().planSuspand(suspandEntity,
-				new EmergencySeviceImplBackBooleanListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListenser(
-							Boolean backflag, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						if (backflag) {
-							ToastUtil.showToast(
-									AutorizateDecDetailActivity.this, stRerror);
-							EventBus.getDefault().post(
-									new mainEvent("r"));//刷新列表界面
-							finish();
-						} else if (backflag == false) {
-							ToastUtil.showToast(AutorizateDecDetailActivity.this,
-									stRerror);
-						} else if (stRerror != null) {
-
-							ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
-									stRerror);
-						} else if (Exceptionerror != null) {
-
-							ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
-									Const.NETWORKERROR + Exceptionerror);
-						}
-//						if (Utils.getInstance().progressDialog.isShowing()) {
-							Utils.getInstance().hideProgressDialog();
-//						}
-					}
-				});
+		Control.getinstance().getEmergencyService().planSuspand(suspandEntity, listener);
 
 	}
+
+	private EmergencySeviceImplBackBooleanListenser planAuthListener = new EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (backflag) {
+				ToastUtil.showToast(
+						AutorizateDecDetailActivity.this, stRerror);
+				EventBus.getDefault().post(
+						new mainEvent("r"));//刷新列表界面
+				finish();
+			} else if (backflag == false) {
+				ToastUtil.showToast(AutorizateDecDetailActivity.this,
+						stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
+						stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
+						Const.NETWORKERROR + Exceptionerror);
+			}
+//						if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//						}
+		}
+	};
 
 	/**
 	 * 预案授权
@@ -466,39 +498,36 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		Utils.getInstance().showProgressDialog(
 				AutorizateDecDetailActivity.this, "", Const.SUBMIT_MESSAGE);
 		Control.getinstance().getEmergencyService().planAuth(id, planSuspendOpition2, planName, planResName,
-				planResType, planId, planStarterId, submitterId,
-				new EmergencySeviceImplBackBooleanListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListenser(
-							Boolean backflag, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						if (backflag) {
-							ToastUtil.showToast(
-									AutorizateDecDetailActivity.this, stRerror);
-							EventBus.getDefault().post(
-									new mainEvent("r"));//刷新列表界面
-							finish();
-						} else if (backflag == false) {
-							ToastUtil.showToast(AutorizateDecDetailActivity.this,
-									stRerror);
-						} else if (stRerror != null) {
-
-							ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
-									stRerror);
-						} else if (Exceptionerror != null) {
-
-							ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
-									Const.NETWORKERROR + Exceptionerror);
-						}
-//						if (Utils.getInstance().progressDialog.isShowing()) {
-							Utils.getInstance().hideProgressDialog();
-//						}
-					}
-				});
+				planResType, planId, planStarterId, submitterId, planAuthListener);
 
 	}
+
+	private EmergencySeviceImplListListenser listListener = new EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (object != null) {
+				planDetailEntity = (PlanDetailEntity) object;
+
+			} else if (stRerror != null) {
+				planDetailEntity = new PlanDetailEntity();
+
+			} else if (Exceptionerror != null) {
+				planDetailEntity = new PlanDetailEntity();
+				ToastUtil.showToast(AutorizateDecDetailActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+			}
+			Message message = new Message();
+			message.what = 1;
+			message.obj = planDetailEntity;
+			handler.sendMessage(message);
+//				if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//				}
+		}
+	};
 
 	/**
 	 * 获取预案详情
@@ -506,65 +535,41 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	private void getPlanDetail() {
 		// TODO Auto-generated method stub
 		Utils.getInstance().showProgressDialog(AutorizateDecDetailActivity.this, "", Const.LOAD_MESSAGE);
-		Control.getinstance().getEmergencyService().getPlanDetail(id, new EmergencySeviceImplListListenser() {
-
-			@Override
-			public void setEmergencySeviceImplListListenser(Object object,
-					String stRerror, String Exceptionerror) {
-				// TODO Auto-generated method stub
-				if (object != null) {
-					planDetailEntity = (PlanDetailEntity) object;
-
-				} else if (stRerror != null) {
-					planDetailEntity = new PlanDetailEntity();
-
-				} else if (Exceptionerror != null) {
-					planDetailEntity = new PlanDetailEntity();
-					ToastUtil.showToast(AutorizateDecDetailActivity.this,
-							Const.NETWORKERROR + ":" + Exceptionerror);
-				}
-				Message message = new Message();
-				message.what = 1;
-				message.obj = planDetailEntity;
-				handler.sendMessage(message);
-//				if (Utils.getInstance().progressDialog.isShowing()) {
-					Utils.getInstance().hideProgressDialog();
-//				}
-			}
-		});
+		Control.getinstance().getEmergencyService().getPlanDetail(id, listListener);
 	}
+
+	private EmergencySeviceImplListListenser listListenser = new EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (object != null) {
+				detailEntity = (PlanStarListDetailEntity) object;
+
+			} else if (stRerror != null) {
+				detailEntity = new PlanStarListDetailEntity();
+
+			} else if (Exceptionerror != null) {
+				detailEntity = new PlanStarListDetailEntity();
+				ToastUtil.showToast(
+						AutorizateDecDetailActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+			}
+			Message message = new Message();
+			message.what = 0;
+			message.obj = detailEntity;
+			handler.sendMessage(message);
+		}
+	};
 
 	/**
 	 * 获取事件详情
 	 */
 	private void getEventDetail() {
 		// TODO Auto-generated method stub
-		Control.getinstance().getEmergencyService().getPlanStarListDetail(planResId,
-				new EmergencySeviceImplListListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListListenser(
-							Object object, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						if (object != null) {
-							detailEntity = (PlanStarListDetailEntity) object;
-
-						} else if (stRerror != null) {
-							detailEntity = new PlanStarListDetailEntity();
-
-						} else if (Exceptionerror != null) {
-							detailEntity = new PlanStarListDetailEntity();
-							ToastUtil.showToast(
-									AutorizateDecDetailActivity.this,
-									Const.NETWORKERROR + ":" + Exceptionerror);
-						}
-						Message message = new Message();
-						message.what = 0;
-						message.obj = detailEntity;
-						handler.sendMessage(message);
-					}
-				});
+		Control.getinstance().getEmergencyService().getPlanStarListDetail(planResId, listListenser);
 	}
 
 }

@@ -271,58 +271,59 @@ public class AdressListFailsafeAdressListFragment extends BaseFragment
 	private void initData() {
 		Utils.getInstance().showProgressDialog(getActivity(), "",
 				Const.LOAD_MESSAGE);
-		contactListService
-				.getEmergencyContactList(new ContactListServiceImpl.ContactSeviceImplListListenser() {
-
-					@Override
-					public void setContactSeviceImplListListenser(
-							Object object, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						List<GroupEntity> dataList = null;
-						if (i != 1) {
-							if (object != null) {
-								dataList = (List<GroupEntity>) object;
-
-							} else if (stRerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-								ToastUtil.showToast(getActivity(),
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							}
-							Message message = new Message();
-							message.what = 1;
-							message.obj = dataList;
-							handler.sendMessage(message);
-						} else if (i == 1) {
-							if (object != null) {
-								dataList = (List<GroupEntity>) object;
-
-							} else if (stRerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-								ToastUtil.showToast(getActivity(),
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							}
-							Message message = new Message();
-							message.what = 0;
-							message.obj = dataList;
-							handler.sendMessage(message);
-						}
-						// if (Utils.getInstance().progressDialog.isShowing()) {
-
-						Utils.getInstance().hideProgressDialog();
-						// }
-					}
-				});
+		contactListService.getEmergencyContactList(contactSeviceImplListListenser);
 
 	}
+
+	private ContactListServiceImpl.ContactSeviceImplListListenser contactSeviceImplListListenser = new ContactListServiceImpl.ContactSeviceImplListListenser() {
+
+		@Override
+		public void setContactSeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<GroupEntity> dataList = null;
+			if (i != 1) {
+				if (object != null) {
+					dataList = (List<GroupEntity>) object;
+
+				} else if (stRerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+
+				} else if (Exceptionerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+					ToastUtil.showToast(getActivity(),
+							Const.NETWORKERROR + ":"
+									+ Exceptionerror);
+				}
+				Message message = new Message();
+				message.what = 1;
+				message.obj = dataList;
+				handler.sendMessage(message);
+			} else if (i == 1) {
+				if (object != null) {
+					dataList = (List<GroupEntity>) object;
+
+				} else if (stRerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+
+				} else if (Exceptionerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+					ToastUtil.showToast(getActivity(),
+							Const.NETWORKERROR + ":"
+									+ Exceptionerror);
+				}
+				Message message = new Message();
+				message.what = 0;
+				message.obj = dataList;
+				handler.sendMessage(message);
+			}
+			// if (Utils.getInstance().progressDialog.isShowing()) {
+
+			Utils.getInstance().hideProgressDialog();
+			// }
+		}
+	};
 
 	/**
 	 * 

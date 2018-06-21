@@ -381,6 +381,63 @@ public class Utils implements Serializable {
     protected String reloginString = "";
     protected UserSevice usevice;
 
+    private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+        @Override
+        public void setUserSeviceImplListListenser(Object object,
+                String stRerror, String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str = null;
+            String string = "";
+            // 若登陆成功，直接进入主界面
+            if (object != null) {
+                Map<String, String> map = (Map<String, String>) object;
+                if (map.get("success").equals("true")) {
+                    str = "登陆成功";
+                    ToastUtil
+                            .showLongToast(
+                                    DemoApplication.applicationContext,
+                                    str);
+                    // netListener.initNetData();
+                } else {
+                    str = "密码已失效,请重新登陆";
+                    Log.i("onFailure", "utils, " + str);
+                    ToastUtil
+                            .showLongToast(
+                                    DemoApplication.applicationContext,
+                                    str);
+                    Intent intent = new Intent(
+                            DemoApplication.applicationContext,
+                            LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    DemoApplication.applicationContext
+                            .startActivity(intent);
+                }
+
+            } else if (stRerror != null) {
+                str = stRerror;
+                ToastUtil.showLongToast(
+                        DemoApplication.applicationContext, str);
+                Intent intent = new Intent(
+                        DemoApplication.applicationContext,
+                        LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                DemoApplication.applicationContext
+                        .startActivity(intent);
+            } else if (Exceptionerror != null) {
+                str = Const.NETWORKERROR + Exceptionerror;
+//                            ToastUtil.showLongToast(
+//                                    DemoApplication.applicationContext, str);
+                Intent intent = new Intent(
+                        DemoApplication.applicationContext,
+                        LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                DemoApplication.applicationContext
+                        .startActivity(intent);
+            }
+        }
+    };
+
     /**
      * 重新登录
      */
@@ -392,62 +449,7 @@ public class Utils implements Serializable {
                     "登录超时,自动重新登陆");
         }
         usevice.relogin(map.get("loginName"), map.get("password"),
-                map.get("selectedRolem"), new UserSeviceImpl.UserSeviceImplListListenser() {
-
-                    @Override
-                    public void setUserSeviceImplListListenser(Object object,
-                                                               String stRerror, String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        String str = null;
-                        String string = "";
-                        // 若登陆成功，直接进入主界面
-                        if (object != null) {
-                            Map<String, String> map = (Map<String, String>) object;
-                            if (map.get("success").equals("true")) {
-                                str = "登陆成功";
-                                ToastUtil
-                                        .showLongToast(
-                                                DemoApplication.applicationContext,
-                                                str);
-                                // netListener.initNetData();
-                            } else {
-                                str = "密码已失效,请重新登陆";
-                                Log.i("onFailure", "utils, " + str);
-                                ToastUtil
-                                        .showLongToast(
-                                                DemoApplication.applicationContext,
-                                                str);
-                                Intent intent = new Intent(
-                                        DemoApplication.applicationContext,
-                                        LoginActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                DemoApplication.applicationContext
-                                        .startActivity(intent);
-                            }
-
-                        } else if (stRerror != null) {
-                            str = stRerror;
-                            ToastUtil.showLongToast(
-                                    DemoApplication.applicationContext, str);
-                            Intent intent = new Intent(
-                                    DemoApplication.applicationContext,
-                                    LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            DemoApplication.applicationContext
-                                    .startActivity(intent);
-                        } else if (Exceptionerror != null) {
-                            str = Const.NETWORKERROR + Exceptionerror;
-//                            ToastUtil.showLongToast(
-//                                    DemoApplication.applicationContext, str);
-                            Intent intent = new Intent(
-                                    DemoApplication.applicationContext,
-                                    LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            DemoApplication.applicationContext
-                                    .startActivity(intent);
-                        }
-                    }
-                });
+                map.get("selectedRolem"), listListener);
     }
 
     /**

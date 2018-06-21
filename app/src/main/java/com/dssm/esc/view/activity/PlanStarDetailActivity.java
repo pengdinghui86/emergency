@@ -373,6 +373,32 @@ public class PlanStarDetailActivity extends BaseActivity implements
         initData(sem_tags);
     }
 
+    private EmergencyServiceImpl.EmergencySeviceImplListListenser listListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListListenser(
+                Object object, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            PlanStarListDetailEntity detailEntity = null;
+            if (object != null) {
+                detailEntity = (PlanStarListDetailEntity) object;
+
+            } else if (stRerror != null) {
+                detailEntity = new PlanStarListDetailEntity();
+
+            } else if (Exceptionerror != null) {
+                detailEntity = new PlanStarListDetailEntity();
+                ToastUtil.showToast(PlanStarDetailActivity.this,
+                        Const.NETWORKERROR + ":" + Exceptionerror);
+            }
+            Message message = new Message();
+            message.what = 0;
+            message.obj = detailEntity;
+            handler.sendMessage(message);
+        }
+    };
+
     private void initview() {
         // TODO Auto-generated method stub
         back.setVisibility(View.VISIBLE);
@@ -387,32 +413,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
             plan_ll_2.setVisibility(View.VISIBLE);
         }
 
-        Control.getinstance().getEmergencyService().getPlanStarListDetail(id,
-                new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-                    @Override
-                    public void setEmergencySeviceImplListListenser(
-                            Object object, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        PlanStarListDetailEntity detailEntity = null;
-                        if (object != null) {
-                            detailEntity = (PlanStarListDetailEntity) object;
-
-                        } else if (stRerror != null) {
-                            detailEntity = new PlanStarListDetailEntity();
-
-                        } else if (Exceptionerror != null) {
-                            detailEntity = new PlanStarListDetailEntity();
-                            ToastUtil.showToast(PlanStarDetailActivity.this,
-                                    Const.NETWORKERROR + ":" + Exceptionerror);
-                        }
-                        Message message = new Message();
-                        message.what = 0;
-                        message.obj = detailEntity;
-                        handler.sendMessage(message);
-                    }
-                });
+        Control.getinstance().getEmergencyService().getPlanStarListDetail(id, listListenser);
 
         referPlan_name_ll.setOnClickListener(this);// 参考预案布局
         otherReferPlan_name_ll.setOnClickListener(this);// 其他预案布局
@@ -815,6 +816,33 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
     }
 
+    private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser startListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListenser(
+                Boolean backflag, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str = null;
+            if (backflag) {
+                str = stRerror;
+                ToastUtil.showToast(PlanStarDetailActivity.this, str);
+                EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
+                finish();
+            } else if (backflag == false) {
+                ToastUtil.showToast(PlanStarDetailActivity.this, stRerror);
+            } else if (stRerror != null) {
+                ToastUtil.showToast(PlanStarDetailActivity.this, stRerror);
+            } else if (Exceptionerror != null) {
+                ToastUtil.showToast(PlanStarDetailActivity.this, Exceptionerror);
+            }
+
+            // if (Utils.getInstance().progressDialog.isShowing()) {
+            Utils.getInstance().hideProgressDialog();
+            // }
+        }
+    };
+
     /**
      * 预案启动
      */
@@ -822,34 +850,41 @@ public class PlanStarDetailActivity extends BaseActivity implements
         Utils.getInstance().showProgressDialog(PlanStarDetailActivity.this, "",
                 Const.SUBMIT_MESSAGE);
         Log.i("预案启动选的预案ids", usePlan);
-        Control.getinstance().getEmergencyService().planStar(id, usePlan, obj,
-                new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-                    @Override
-                    public void setEmergencySeviceImplListenser(
-                            Boolean backflag, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        String str = null;
-                        if (backflag) {
-                            str = stRerror;
-                            ToastUtil.showToast(PlanStarDetailActivity.this, str);
-                            EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
-                            finish();
-                        } else if (backflag == false) {
-                            ToastUtil.showToast(PlanStarDetailActivity.this, stRerror);
-                        } else if (stRerror != null) {
-                            ToastUtil.showToast(PlanStarDetailActivity.this, stRerror);
-                        } else if (Exceptionerror != null) {
-                            ToastUtil.showToast(PlanStarDetailActivity.this, Exceptionerror);
-                        }
-
-                        // if (Utils.getInstance().progressDialog.isShowing()) {
-                        Utils.getInstance().hideProgressDialog();
-                        // }
-                    }
-                });
+        Control.getinstance().getEmergencyService().planStar(id, usePlan, obj, startListener);
     }
+
+    private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listenser = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListenser(
+                Boolean backflag, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str = null;
+            if (backflag) {
+                str = stRerror;
+                ToastUtil.showToast(PlanStarDetailActivity.this,
+                        str);
+                EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
+                finish();
+            } else if (backflag == false) {
+                ToastUtil.showToast(PlanStarDetailActivity.this,
+                        stRerror);
+            } else if (stRerror != null) {
+
+                ToastUtil.showToast(PlanStarDetailActivity.this,
+                        stRerror);
+            } else if (Exceptionerror != null) {
+
+                ToastUtil.showToast(PlanStarDetailActivity.this,
+                        Exceptionerror);
+            }
+
+            // if (Utils.getInstance().progressDialog.isShowing()) {
+            Utils.getInstance().hideProgressDialog();
+            // }
+        }
+    };
 
     /**
      * 预案驳回
@@ -857,39 +892,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
     private void bohuiPlan() {
         Utils.getInstance().showProgressDialog(PlanStarDetailActivity.this, "",
                 Const.SUBMIT_MESSAGE);
-        Control.getinstance().getEmergencyService().planStarBohui(id, planEveName, submitterId, eveType,
-                new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-                    @Override
-                    public void setEmergencySeviceImplListenser(
-                            Boolean backflag, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        String str = null;
-                        if (backflag) {
-                            str = stRerror;
-                            ToastUtil.showToast(PlanStarDetailActivity.this,
-                                    str);
-                            EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
-                            finish();
-                        } else if (backflag == false) {
-                            ToastUtil.showToast(PlanStarDetailActivity.this,
-                                    stRerror);
-                        } else if (stRerror != null) {
-
-                            ToastUtil.showToast(PlanStarDetailActivity.this,
-                                    stRerror);
-                        } else if (Exceptionerror != null) {
-
-                            ToastUtil.showToast(PlanStarDetailActivity.this,
-                                    Exceptionerror);
-                        }
-
-                        // if (Utils.getInstance().progressDialog.isShowing()) {
-                        Utils.getInstance().hideProgressDialog();
-                        // }
-                    }
-                });
+        Control.getinstance().getEmergencyService().planStarBohui(id, planEveName, submitterId, eveType, listenser);
     }
 
     @Override

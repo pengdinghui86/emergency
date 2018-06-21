@@ -657,6 +657,84 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		});
 	}
 
+	private int curWhich;
+	private UserSeviceImpl.UserSeviceImplBackBooleanListenser listener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setUserSeviceImplListenser(
+				Boolean backflag,
+				String stRerror,
+				String Exceptionerror) {
+			String str = null;
+			if (backflag) {
+				str = stRerror;
+				// 被选中的角色id,再次保存
+				selectedRolem = rolesId[curWhich];
+				selectedRolemName = identity[curWhich];
+				roleCode = roleCodes[curWhich];
+				// service.save(selectedRolem);
+				// String
+				// loginName,
+				// String
+				// password,
+				// String
+				// roleIds,
+				// String
+				// roleNames,
+				// String
+				// roleCodes,String
+				// selectedRolem,
+				// String
+				// postFlag,
+				// String
+				// userId,
+				// String
+				// selectedRolemName,
+				// String
+				// roleCode)
+				service.save(
+						map.get("loginName"),
+						map.get("password"),
+						map.get("roleIds"),
+						map.get("roleNames"),
+						map.get("roleCodes"),
+						selectedRolem,
+						map.get("postFlag"),
+						map.get("userId"),
+						selectedRolemName,
+						roleCode,
+						name);
+				Log.i("messageFragment被选中的角色id",
+						selectedRolem);
+				Log.i("messageFragment被选中的角色名称",
+						selectedRolemName);
+				t1.setText(name);
+				// t1.setText(loginName);
+				t2.setText(selectedRolemName);
+			} else if (stRerror != null) {
+				if (pd != null) {
+					pd.dismiss();
+				}
+				str = stRerror;
+				ToastUtil
+						.showLongToast(
+								context,
+								str);
+			} else if (Exceptionerror != null) {
+				if (pd != null) {
+					pd.dismiss();
+				}
+				str = Const.NETWORKERROR
+						+ Exceptionerror;
+				ToastUtil
+						.showLongToast(
+								context,
+								str);
+			}
+
+		}
+	};
+
 	/**
 	 * 切换角色
 	 */
@@ -676,85 +754,9 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 											"你选择了: " + identity[which], Toast.LENGTH_SHORT)
 											.show();
 									Log.i("rolesId[which]", rolesId[which]);
+									curWhich = which;
 									// 选择角色
-									userSevice.loginRole(
-													rolesId[which],
-													new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-
-														@Override
-														public void setUserSeviceImplListenser(
-																Boolean backflag,
-																String stRerror,
-																String Exceptionerror) {
-															String str = null;
-															if (backflag) {
-																str = stRerror;
-																// 被选中的角色id,再次保存
-																selectedRolem = rolesId[which];
-																selectedRolemName = identity[which];
-																roleCode = roleCodes[which];
-																// service.save(selectedRolem);
-																// String
-																// loginName,
-																// String
-																// password,
-																// String
-																// roleIds,
-																// String
-																// roleNames,
-																// String
-																// roleCodes,String
-																// selectedRolem,
-																// String
-																// postFlag,
-																// String
-																// userId,
-																// String
-																// selectedRolemName,
-																// String
-																// roleCode)
-																service.save(
-																		map.get("loginName"),
-																		map.get("password"),
-																		map.get("roleIds"),
-																		map.get("roleNames"),
-																		map.get("roleCodes"),
-																		selectedRolem,
-																		map.get("postFlag"),
-																		map.get("userId"),
-																		selectedRolemName,
-																		roleCode,
-																		name);
-																Log.i("messageFragment被选中的角色id",
-																		selectedRolem);
-																Log.i("messageFragment被选中的角色名称",
-																		selectedRolemName);
-																t1.setText(name);
-																// t1.setText(loginName);
-																t2.setText(selectedRolemName);
-															} else if (stRerror != null) {
-																if (pd != null) {
-																	pd.dismiss();
-																}
-																str = stRerror;
-																ToastUtil
-																		.showLongToast(
-																				context,
-																				str);
-															} else if (Exceptionerror != null) {
-																if (pd != null) {
-																	pd.dismiss();
-																}
-																str = Const.NETWORKERROR
-																		+ Exceptionerror;
-																ToastUtil
-																		.showLongToast(
-																				context,
-																				str);
-															}
-
-														}
-													});
+									userSevice.loginRole(rolesId[which], listener);
 
 								}
 

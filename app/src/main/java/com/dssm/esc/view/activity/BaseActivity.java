@@ -53,47 +53,49 @@ public class BaseActivity extends Activity {
 	protected Map<String, String> map;
 	protected String reloginString = "";
 
+	private UserSeviceImplListListenser listListener = new UserSeviceImplListListenser() {
+
+		@Override
+		public void setUserSeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			String str = null;
+			String string = "";
+			// 若登陆成功，直接进入主界面
+			if (object != null) {
+				Map<String, String> map = (Map<String, String>) object;
+				if (map.get("success").equals("true")) {
+					str = "重新登陆成功";
+					ToastUtil.showLongToast(context, str);
+					netListener.initNetData();
+				} else {
+					str = "密码已失效,请重新登陆";
+					ToastUtil.showLongToast(context, str);
+					Intent intent = new Intent(context,
+							LoginActivity.class);
+					context.startActivity(intent);
+
+				}
+
+			} else if (stRerror != null) {
+
+				str = stRerror;
+				ToastUtil.showLongToast(context, str);
+			} else if (Exceptionerror != null) {
+
+				str = Const.NETWORKERROR + Exceptionerror;
+//							ToastUtil.showLongToast(context, str);
+			}
+		}
+	};
+
 	/**
 	 * 重新登录
 	 */
 	public void relogin() {
 		map = MySharePreferencesService.getInstance(getApplicationContext()).getPreferences();
 		Control.getinstance().getUserSevice().relogin(map.get("loginName"), map.get("password"),
-				map.get("selectedRolem"), new UserSeviceImplListListenser() {
-
-					@Override
-					public void setUserSeviceImplListListenser(Object object,
-							String stRerror, String Exceptionerror) {
-						// TODO Auto-generated method stub
-						String str = null;
-						String string = "";
-						// 若登陆成功，直接进入主界面
-						if (object != null) {
-							Map<String, String> map = (Map<String, String>) object;
-							if (map.get("success").equals("true")) {
-								str = "重新登陆成功";
-								ToastUtil.showLongToast(context, str);
-								netListener.initNetData();
-							} else {
-								str = "密码已失效,请重新登陆";
-								ToastUtil.showLongToast(context, str);
-								Intent intent = new Intent(context,
-										LoginActivity.class);
-								context.startActivity(intent);
-
-							}
-
-						} else if (stRerror != null) {
-
-							str = stRerror;
-							ToastUtil.showLongToast(context, str);
-						} else if (Exceptionerror != null) {
-
-							str = Const.NETWORKERROR + Exceptionerror;
-//							ToastUtil.showLongToast(context, str);
-						}
-					}
-				});
+				map.get("selectedRolem"), listListener);
 	}
 
 	public void setNetListener(onInitNetListener netListener) {

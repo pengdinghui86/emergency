@@ -774,6 +774,41 @@ public class AddeValuationActivity extends BaseActivity implements
 		return sb.toString();
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listenser = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			String str = "";
+			if (backflag) {
+				ToastUtil.showToast(AddeValuationActivity.this,
+						stRerror);
+				if (tag.equals("2")) {
+					EventBus.getDefault()
+							.post(new mainEvent("ref"));// 刷新演练列表
+
+				}
+				finish();
+				// } else if (backflag == false) {
+				// ToastUtil.showToast(AddeValuationActivity.this,
+				// stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil.showLongToast(AddeValuationActivity.this,
+						stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showLongToast(AddeValuationActivity.this,
+						Const.NETWORKERROR + Exceptionerror);
+			}
+			// if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+			// }
+		}
+	};
+
 	/**
 	 * 添加评估
 	 */
@@ -783,42 +818,38 @@ public class AddeValuationActivity extends BaseActivity implements
 		Log.i("添加评估referplan", referPlan);
 		Log.i("添加评估otherReferPlan", otherReferPlan);
 		Log.i("添加评估categoryPlan", categoryPlan);
-		Control.getinstance().getEmergencyService().addEmergencyPlanevent(tag, addEntity,
-				new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListenser(
-							Boolean backflag, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						String str = "";
-						if (backflag) {
-							ToastUtil.showToast(AddeValuationActivity.this,
-									stRerror);
-							if (tag.equals("2")) {
-								EventBus.getDefault()
-										.post(new mainEvent("ref"));// 刷新演练列表
-
-							}
-							finish();
-							// } else if (backflag == false) {
-							// ToastUtil.showToast(AddeValuationActivity.this,
-							// stRerror);
-						} else if (stRerror != null) {
-
-							ToastUtil.showLongToast(AddeValuationActivity.this,
-									stRerror);
-						} else if (Exceptionerror != null) {
-
-							ToastUtil.showLongToast(AddeValuationActivity.this,
-									Const.NETWORKERROR + Exceptionerror);
-						}
-						// if (Utils.getInstance().progressDialog.isShowing()) {
-						Utils.getInstance().hideProgressDialog();
-						// }
-					}
-				});
+		Control.getinstance().getEmergencyService().addEmergencyPlanevent(tag, addEntity, listenser);
 	}
+
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser eventListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (backflag) {
+				ToastUtil.showToast(AddeValuationActivity.this,
+						stRerror);
+				EventBus.getDefault().post(new mainEvent("re"));// 刷新驳回事件的列表
+				finish();
+			} else if (backflag == false) {
+				ToastUtil.showToast(AddeValuationActivity.this,
+						stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil.showLongToast(AddeValuationActivity.this,
+						stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showLongToast(AddeValuationActivity.this,
+						Const.NETWORKERROR + Exceptionerror);
+			}
+			// if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+			// }
+		}
+	};
 
 	/**
 	 * 重新评估
@@ -826,35 +857,6 @@ public class AddeValuationActivity extends BaseActivity implements
 	private void reValuation() {
 		Utils.getInstance().showProgressDialog(AddeValuationActivity.this, "",
 				Const.SUBMIT_MESSAGE);
-		Control.getinstance().getEmergencyService().reValuationEvent(entity,
-				new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListenser(
-							Boolean backflag, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						if (backflag) {
-							ToastUtil.showToast(AddeValuationActivity.this,
-									stRerror);
-							EventBus.getDefault().post(new mainEvent("re"));// 刷新驳回事件的列表
-							finish();
-						} else if (backflag == false) {
-							ToastUtil.showToast(AddeValuationActivity.this,
-									stRerror);
-						} else if (stRerror != null) {
-
-							ToastUtil.showLongToast(AddeValuationActivity.this,
-									stRerror);
-						} else if (Exceptionerror != null) {
-
-							ToastUtil.showLongToast(AddeValuationActivity.this,
-									Const.NETWORKERROR + Exceptionerror);
-						}
-						// if (Utils.getInstance().progressDialog.isShowing()) {
-						Utils.getInstance().hideProgressDialog();
-						// }
-					}
-				});
+		Control.getinstance().getEmergencyService().reValuationEvent(entity, eventListener);
 	}
 }

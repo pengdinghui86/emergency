@@ -214,35 +214,37 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 		sign_in.setOnClickListener(this);
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (object != null) {
+				PlanDetailEntity planDetailEntity = (PlanDetailEntity) object;
+				PlanDetailObjEntity obj = planDetailEntity.getObj();
+				eventName = obj.getEveName();
+				eventname.setText(eventName);
+				// planbackground.setText(obj.getSceneName());
+				eventdesc.setText(obj.getEveDescription());
+				String eveType = obj.getEveType();
+				if (eveType.equals("1")) {
+					eventType.setText("应急");
+				} else if (eveType.equals("2")) {
+					eventType.setText("演练");
+				}
+				planname.setText(obj.getPlanName());
+				plansummary.setText(obj.getSummary());
+
+			}
+		}
+	};
+
 	/**
 	 * 获取预案详情
 	 */
 	private void getPlanDetail() {
-		Control.getinstance().getEmergencyService().getPlanDetail(id, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-			@Override
-			public void setEmergencySeviceImplListListenser(Object object,
-					String stRerror, String Exceptionerror) {
-				// TODO Auto-generated method stub
-				if (object != null) {
-					PlanDetailEntity planDetailEntity = (PlanDetailEntity) object;
-					PlanDetailObjEntity obj = planDetailEntity.getObj();
-					eventName = obj.getEveName();
-					eventname.setText(eventName);
-					// planbackground.setText(obj.getSceneName());
-					eventdesc.setText(obj.getEveDescription());
-					String eveType = obj.getEveType();
-					if (eveType.equals("1")) {
-						eventType.setText("应急");
-					} else if (eveType.equals("2")) {
-						eventType.setText("演练");
-					}
-					planname.setText(obj.getPlanName());
-					plansummary.setText(obj.getSummary());
-
-				}
-			}
-		});
+		Control.getinstance().getEmergencyService().getPlanDetail(id, listListener);
 	}
 
 	/**
@@ -277,6 +279,58 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				});
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser signEmergencyInfoListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<GroupEntity> dataList = null;
+			if (i != 1) {
+				if (object != null) {
+					dataList = (List<GroupEntity>) object;
+
+				} else if (stRerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+
+				} else if (Exceptionerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+					ToastUtil.showToast(SignInActivity.this,
+							Const.NETWORKERROR + ":"
+									+ Exceptionerror);
+				}
+				Message message = new Message();
+				message.what = 0;
+				message.obj = dataList;
+				handler.sendMessage(message);
+				// if
+				// (Utils.getInstance().progressDialog.isShowing())
+				// {
+				Utils.getInstance().hideProgressDialog();
+				// }
+			} else if (i == 1) {
+				if (object != null) {
+					dataList = (List<GroupEntity>) object;
+
+				} else if (stRerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+
+				} else if (Exceptionerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+					ToastUtil.showToast(SignInActivity.this,
+							Const.NETWORKERROR + ":"
+									+ Exceptionerror);
+				}
+				Message message = new Message();
+				message.what = 1;
+				message.obj = dataList;
+				handler.sendMessage(message);
+				Utils.getInstance().hideProgressDialog();
+			}
+		}
+	};
+
 	/**
 	 * 
 	 * 获取签到详情
@@ -291,58 +345,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	private void initListData() {
 		Utils.getInstance().showProgressDialog(SignInActivity.this, "",
 				Const.LOAD_MESSAGE);
-		Control.getinstance().getEmergencyService().getSignEmergencyInfo(id,
-				new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListListenser(
-							Object object, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						List<GroupEntity> dataList = null;
-						if (i != 1) {
-							if (object != null) {
-								dataList = (List<GroupEntity>) object;
-
-							} else if (stRerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-								ToastUtil.showToast(SignInActivity.this,
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							}
-							Message message = new Message();
-							message.what = 0;
-							message.obj = dataList;
-							handler.sendMessage(message);
-							// if
-							// (Utils.getInstance().progressDialog.isShowing())
-							// {
-							Utils.getInstance().hideProgressDialog();
-							// }
-						} else if (i == 1) {
-							if (object != null) {
-								dataList = (List<GroupEntity>) object;
-
-							} else if (stRerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-								ToastUtil.showToast(SignInActivity.this,
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							}
-							Message message = new Message();
-							message.what = 1;
-							message.obj = dataList;
-							handler.sendMessage(message);
-							Utils.getInstance().hideProgressDialog();
-						}
-					}
-				});
+		Control.getinstance().getEmergencyService().getSignEmergencyInfo(id, signEmergencyInfoListener);
 
 	}
 
@@ -365,34 +368,36 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(Boolean backflag,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (backflag) {
+				ToastUtil.showToast(SignInActivity.this, stRerror);
+				sign_in.setBackgroundResource(R.drawable.btbg_gray);
+				signState = "1";
+				initListData();
+			} else if (backflag == false) {
+
+				ToastUtil.showToast(SignInActivity.this, stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil.showLongToast(SignInActivity.this, stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showLongToast(SignInActivity.this,
+						Const.NETWORKERROR + Exceptionerror);
+			}
+		}
+	};
+
 	/**
 	 * 签到
 	 */
 	private void siginin() {
-		Control.getinstance().getEmergencyService().signIn(id, new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-			@Override
-			public void setEmergencySeviceImplListenser(Boolean backflag,
-					String stRerror, String Exceptionerror) {
-				// TODO Auto-generated method stub
-				if (backflag) {
-					ToastUtil.showToast(SignInActivity.this, stRerror);
-					sign_in.setBackgroundResource(R.drawable.btbg_gray);
-					signState = "1";
-					initListData();
-				} else if (backflag == false) {
-
-					ToastUtil.showToast(SignInActivity.this, stRerror);
-				} else if (stRerror != null) {
-
-					ToastUtil.showLongToast(SignInActivity.this, stRerror);
-				} else if (Exceptionerror != null) {
-
-					ToastUtil.showLongToast(SignInActivity.this,
-							Const.NETWORKERROR + Exceptionerror);
-				}
-			}
-		});
+		Control.getinstance().getEmergencyService().signIn(id, listener);
 	}
 
 	@Override

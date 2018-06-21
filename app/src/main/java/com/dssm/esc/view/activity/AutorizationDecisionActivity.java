@@ -288,44 +288,45 @@ public class AutorizationDecisionActivity extends BaseActivity implements
         list.clear();
     }
 
+    private EmergencySeviceImplBackBooleanListenser listener = new EmergencySeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListenser(
+                Boolean backflag, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str = null;
+            if (backflag) {
+                str = "已签到";
+                signState = "1";
+                Log.i("signState", signState);
+                intent.putExtra("signState", "1");
+                startActivity(intent);
+            } else if (backflag == false) {
+                str = "未签到";
+                signState = "0";
+                Log.i("signState", signState);
+                intent.putExtra("signState", "0");
+                startActivity(intent);
+            } else if (stRerror != null) {
+
+                str = stRerror;
+                ToastUtil.showLongToast(
+                        AutorizationDecisionActivity.this, str);
+            } else if (Exceptionerror != null) {
+
+                str = Const.NETWORKERROR + Exceptionerror;
+                ToastUtil.showLongToast(
+                        AutorizationDecisionActivity.this, str);
+            }
+        }
+    };
+
     /**
      * 判断用户是否签到
      */
     private void checkUserSignin(int position) {
-        Control.getinstance().getEmergencyService().checkEmergencySign(list.get(position - 1).getId(),
-                new EmergencySeviceImplBackBooleanListenser() {
-
-                    @Override
-                    public void setEmergencySeviceImplListenser(
-                            Boolean backflag, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        String str = null;
-                        if (backflag) {
-                            str = "已签到";
-                            signState = "1";
-                            Log.i("signState", signState);
-                            intent.putExtra("signState", "1");
-                            startActivity(intent);
-                        } else if (backflag == false) {
-                            str = "未签到";
-                            signState = "0";
-                            Log.i("signState", signState);
-                            intent.putExtra("signState", "0");
-                            startActivity(intent);
-                        } else if (stRerror != null) {
-
-                            str = stRerror;
-                            ToastUtil.showLongToast(
-                                    AutorizationDecisionActivity.this, str);
-                        } else if (Exceptionerror != null) {
-
-                            str = Const.NETWORKERROR + Exceptionerror;
-                            ToastUtil.showLongToast(
-                                    AutorizationDecisionActivity.this, str);
-                        }
-                    }
-                });
+        Control.getinstance().getEmergencyService().checkEmergencySign(list.get(position - 1).getId(), listener);
     }
 
     /**
@@ -414,44 +415,46 @@ public class AutorizationDecisionActivity extends BaseActivity implements
         });
     }
 
+    private EmergencySeviceImplListListenser listListener = new EmergencySeviceImplListListenser() {
+        @Override
+        public void setEmergencySeviceImplListListenser(Object object,
+                String stRerror, String Exceptionerror) {
+            // TODO Auto-generated method stub
+            List<BoHuiListEntity> dataList = null;
+            Message message = handler.obtainMessage();
+            if (object != null) {
+                dataList = (List<BoHuiListEntity>) object;
+                Log.i("决策授权列表的长度", dataList.size() + "");
+
+            } else if (stRerror != null) {
+                dataList = new ArrayList<BoHuiListEntity>();
+
+            } else if (Exceptionerror != null) {
+                dataList = new ArrayList<BoHuiListEntity>();
+                ToastUtil.showToast(AutorizationDecisionActivity.this,
+                        Const.NETWORKERROR + ":" + Exceptionerror);
+            }
+            if (dataList.size() > 20) {// 如果超过20条，则分页
+                List<BoHuiListEntity> subList = dataList.subList(0, 20);
+                message.obj = subList;
+            } else {
+                message.obj = dataList;
+            }
+            message.what = 0;
+            handler.sendMessage(message);
+            allList = dataList;
+//				if (Utils.getInstance().progressDialog.isShowing()) {
+//					Utils.getInstance().hideProgressDialog();
+//				}
+        }
+    };
+
     /**
      * 获取授权列表
      */
     private void getAuthList(int tag) {
 //		Utils.getInstance().showProgressDialog(AutorizationDecisionActivity.this, "", Const.LOAD_MESSAGE);
-        Control.getinstance().getEmergencyService().getAuthlist(tag, new EmergencySeviceImplListListenser() {
-            @Override
-            public void setEmergencySeviceImplListListenser(Object object,
-                                                            String stRerror, String Exceptionerror) {
-                // TODO Auto-generated method stub
-                List<BoHuiListEntity> dataList = null;
-                Message message = handler.obtainMessage();
-                if (object != null) {
-                    dataList = (List<BoHuiListEntity>) object;
-                    Log.i("决策授权列表的长度", dataList.size() + "");
-
-                } else if (stRerror != null) {
-                    dataList = new ArrayList<BoHuiListEntity>();
-
-                } else if (Exceptionerror != null) {
-                    dataList = new ArrayList<BoHuiListEntity>();
-                    ToastUtil.showToast(AutorizationDecisionActivity.this,
-                            Const.NETWORKERROR + ":" + Exceptionerror);
-                }
-                if (dataList.size() > 20) {// 如果超过20条，则分页
-                    List<BoHuiListEntity> subList = dataList.subList(0, 20);
-                    message.obj = subList;
-                } else {
-                    message.obj = dataList;
-                }
-                message.what = 0;
-                handler.sendMessage(message);
-                allList = dataList;
-//				if (Utils.getInstance().progressDialog.isShowing()) {
-//					Utils.getInstance().hideProgressDialog();
-//				}
-            }
-        });
+        Control.getinstance().getEmergencyService().getAuthlist(tag, listListener);
     }
 
     /**
@@ -474,46 +477,48 @@ public class AutorizationDecisionActivity extends BaseActivity implements
         handler.sendMessage(message);
     }
 
+    private ControlServiceImplBackValueListenser<List<PlanEntity>> controlServiceImplBackValueListenser = new ControlServiceImplBackValueListenser<List<PlanEntity>>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                List<PlanEntity> backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            Message message = handler.obtainMessage();
+            message.what = 0;
+            List<PlanEntity> dataList = null;
+            if (backValue != null) {
+                dataList = backValue;
+
+            } else if (stRerror != null) {
+                dataList = new ArrayList<PlanEntity>();
+
+            } else if (Exceptionerror != null) {
+                dataList = new ArrayList<PlanEntity>();
+                Toast.makeText(AutorizationDecisionActivity.this,
+                        Const.NETWORKERROR + Exceptionerror,
+                        Toast.LENGTH_SHORT).show();
+            }
+            if (dataList.size() > 20) {// 如果超过20条，则分页
+                List<PlanEntity> subList = dataList.subList(0, 20);
+                message.obj = subList;
+            } else {
+                message.obj = dataList;
+            }
+            allList2 = dataList;
+            handler.sendMessage(message);
+//				if (Utils.getInstance().progressDialog.isShowing()) {
+//					Utils.getInstance().hideProgressDialog();
+//				}
+        }
+    };
+
     /**
      * 获取指挥与展示的数据
      */
     private void getControlData() {
 //		Utils.getInstance().showProgressDialog(AutorizationDecisionActivity.this, "", Const.LOAD_MESSAGE);
-        Control.getinstance().getControlSevice().getPlanlist(new ControlServiceImplBackValueListenser<List<PlanEntity>>() {
-
-            @Override
-            public void setControlServiceImplListenser(
-                    List<PlanEntity> backValue, String stRerror,
-                    String Exceptionerror) {
-                // TODO Auto-generated method stub
-                Message message = handler.obtainMessage();
-                message.what = 0;
-                List<PlanEntity> dataList = null;
-                if (backValue != null) {
-                    dataList = backValue;
-
-                } else if (stRerror != null) {
-                    dataList = new ArrayList<PlanEntity>();
-
-                } else if (Exceptionerror != null) {
-                    dataList = new ArrayList<PlanEntity>();
-                    Toast.makeText(AutorizationDecisionActivity.this,
-                            Const.NETWORKERROR + Exceptionerror,
-                            Toast.LENGTH_SHORT).show();
-                }
-                if (dataList.size() > 20) {// 如果超过20条，则分页
-                    List<PlanEntity> subList = dataList.subList(0, 20);
-                    message.obj = subList;
-                } else {
-                    message.obj = dataList;
-                }
-                allList2 = dataList;
-                handler.sendMessage(message);
-//				if (Utils.getInstance().progressDialog.isShowing()) {
-//					Utils.getInstance().hideProgressDialog();
-//				}
-            }
-        });
+        Control.getinstance().getControlSevice().getPlanlist(controlServiceImplBackValueListenser);
     }
 
     @Override

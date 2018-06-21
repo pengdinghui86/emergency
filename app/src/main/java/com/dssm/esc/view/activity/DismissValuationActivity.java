@@ -192,42 +192,44 @@ public class DismissValuationActivity extends BaseActivity implements
 	private List<BoHuiListEntity> allList = new ArrayList<BoHuiListEntity>();
 	private int num = 20;// 每次显示20条
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<BoHuiListEntity> dataList=null;
+			Message message = handler.obtainMessage();
+			if (object != null) {
+				dataList = (List<BoHuiListEntity>) object;
+				Log.i("驳回事件的长度", dataList.size() + "");
+
+			}else if (stRerror!=null) {
+				dataList=new ArrayList<BoHuiListEntity>();
+
+			}else if (Exceptionerror!=null) {
+				dataList=new ArrayList<BoHuiListEntity>();
+				ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
+			}
+			message.what = 0;
+			if (dataList.size() > 20) {// 如果超过20条，则分页
+				List<BoHuiListEntity> subList = dataList.subList(0,
+						20);
+				message.obj = subList;
+			} else {
+				message.obj = dataList;
+			}
+			handler.sendMessage(message);
+			allList = dataList;
+		}
+	};
+
 	private void loadData(final int what) {
 		// for (int i = 0; i < 5; i++) {
 		// dataList.add("驳回事件" + (i + 1));
 		// }
 		if (what == 0) {// 刷新和第一次加载
-			Control.getinstance().getEmergencyService().getBoHuiList(new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-				@Override
-				public void setEmergencySeviceImplListListenser(Object object,
-						String stRerror, String Exceptionerror) {
-					// TODO Auto-generated method stub
-					List<BoHuiListEntity> dataList=null;
-					Message message = handler.obtainMessage();
-					if (object != null) {
-						 dataList = (List<BoHuiListEntity>) object;
-						Log.i("驳回事件的长度", dataList.size() + "");
-						
-					}else if (stRerror!=null) {
-						dataList=new ArrayList<BoHuiListEntity>();
-						
-					}else if (Exceptionerror!=null) {
-						dataList=new ArrayList<BoHuiListEntity>();
-						ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
-					}
-					message.what = 0;
-					if (dataList.size() > 20) {// 如果超过20条，则分页
-						List<BoHuiListEntity> subList = dataList.subList(0,
-								20);
-						message.obj = subList;
-					} else {
-						message.obj = dataList;
-					}
-					handler.sendMessage(message);
-					allList = dataList;
-				}
-			});
+			Control.getinstance().getEmergencyService().getBoHuiList(listListenser);
 		} else if (what == 1) {// 加载更多
 			// 本地做分页，加载20条以后的数据，默认每20条分一页
 			Log.i("list测试长度", allList.size() + "");
@@ -270,73 +272,77 @@ public class DismissValuationActivity extends BaseActivity implements
 		allList.clear();
 	}
 
+	private int curPosition = 1;
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser deleteEventListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO
+			// Auto-generated
+			// method stub
+			if (backflag) {
+				list.remove(curPosition - 1);
+				adapter.notifyDataSetChanged();
+				ToastUtil.showToast(DismissValuationActivity.this,
+						stRerror);
+			} else if (backflag == false) {
+				ToastUtil.showToast(DismissValuationActivity.this,
+						stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil.showLongToast(DismissValuationActivity.this,
+						stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showLongToast(DismissValuationActivity.this,
+						Const.NETWORKERROR + Exceptionerror);
+			}
+		}
+	};
+
 	/**
 	 * 删除驳回事件
 	 */
 	private void deleteData(final int position) {
-		Control.getinstance().getEmergencyService().deleteEvent(list.get(position - 1).getId(),
-				new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListenser(
-							Boolean backflag, String stRerror,
-							String Exceptionerror) {
-						// TODO
-						// Auto-generated
-						// method stub
-						if (backflag) {
-							list.remove(position - 1);
-							adapter.notifyDataSetChanged();
-							ToastUtil.showToast(DismissValuationActivity.this,
-									stRerror);
-						} else if (backflag == false) {
-							ToastUtil.showToast(DismissValuationActivity.this,
-									stRerror);
-						} else if (stRerror != null) {
-
-							ToastUtil.showLongToast(DismissValuationActivity.this,
-									stRerror);
-						} else if (Exceptionerror != null) {
-
-							ToastUtil.showLongToast(DismissValuationActivity.this,
-									Const.NETWORKERROR + Exceptionerror);
-						}
-					}
-				});
+		curPosition = position;
+		Control.getinstance().getEmergencyService().deleteEvent(list.get(position - 1).getId(), deleteEventListener);
 
 	}
+
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (object != null) {
+				entity = (GetProjectEveInfoEntity) object;
+				Intent intent = new Intent(
+						DismissValuationActivity.this,
+						AddeValuationActivity.class);
+				//	intent.putExtra("tag", tag);
+				intent.putExtra("type", "1");// 重新评估
+				intent.putExtra("entity", entity);
+				startActivity(intent);
+			}else if (stRerror!=null) {
+				entity = new GetProjectEveInfoEntity();
+
+			}else if (Exceptionerror!=null) {
+				entity = new GetProjectEveInfoEntity();
+				ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
+			}
+		}
+	};
 
 	/**
 	 * 获取评估信息
 	 */
 	private void getValuation(int position) {
 		// 获取评估信息
-		Control.getinstance().getEmergencyService().getEventInfo(list.get(position - 1).getId(),
-				new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListListenser(
-							Object object, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						if (object != null) {
-							entity = (GetProjectEveInfoEntity) object;
-							Intent intent = new Intent(
-									DismissValuationActivity.this,
-									AddeValuationActivity.class);
-						//	intent.putExtra("tag", tag);
-							intent.putExtra("type", "1");// 重新评估
-							intent.putExtra("entity", entity);
-							startActivity(intent);
-						}else if (stRerror!=null) {
-							entity = new GetProjectEveInfoEntity();
-							
-						}else if (Exceptionerror!=null) {
-							entity = new GetProjectEveInfoEntity();
-							ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
-						}
-					}
-				});
+		Control.getinstance().getEmergencyService().getEventInfo(list.get(position - 1).getId(), listener);
 
 	}
 	@Override

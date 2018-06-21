@@ -259,45 +259,149 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
 //		setNetListener(this);
     }
 
+    private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListListenser(
+                Object object, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            if (object != null) {
+                PlanDetailEntity planDetailEntity = (PlanDetailEntity) object;
+                obj = planDetailEntity.getObj();
+                event_name.setText(obj.getPlanName());
+
+                planstarter.setText(obj.getPlanStarter());
+                startime.setText(obj.getPlanStartTime());
+                plansummary.setText(obj.getSummary());
+                advice.setText(obj.getPlanStartOpition());
+                event_desc.setText(obj.getPlanTypeName());
+                String planResType2 = obj.getPlanResType();
+                if (planResType2.equals("1")) {
+                    planResTypetv.setText("应急");
+                } else if (planResType2.equals("2")) {
+                    planResTypetv.setText("演练");
+                }
+                planResNametv.setText(obj.getPlanResName());
+                // if (tag.equals("2")) {
+                planResType = obj.getPlanResType();
+                drillPrecautionId = obj.getDrillPrecautionId();
+            } else if (stRerror != null) {
+                ToastUtil.showToast(
+                        PlanExecutionDetailActivity.this, stRerror);
+            } else if (Exceptionerror != null) {
+                ToastUtil.showToast(PlanExecutionDetailActivity.this,
+                        Const.NETWORKERROR + ":" + Exceptionerror);
+            }
+        }
+    };
+
     private void initData() {
-        Control.getinstance().getEmergencyService().getPlanDetail(planInfoId,
-                new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-                    @Override
-                    public void setEmergencySeviceImplListListenser(
-                            Object object, String stRerror,
-                            String Exceptionerror) {
-                        // TODO Auto-generated method stub
-                        if (object != null) {
-                            PlanDetailEntity planDetailEntity = (PlanDetailEntity) object;
-                            obj = planDetailEntity.getObj();
-                            event_name.setText(obj.getPlanName());
-
-                            planstarter.setText(obj.getPlanStarter());
-                            startime.setText(obj.getPlanStartTime());
-                            plansummary.setText(obj.getSummary());
-                            advice.setText(obj.getPlanStartOpition());
-                            event_desc.setText(obj.getPlanTypeName());
-                            String planResType2 = obj.getPlanResType();
-                            if (planResType2.equals("1")) {
-                                planResTypetv.setText("应急");
-                            } else if (planResType2.equals("2")) {
-                                planResTypetv.setText("演练");
-                            }
-                            planResNametv.setText(obj.getPlanResName());
-                            // if (tag.equals("2")) {
-                            planResType = obj.getPlanResType();
-                            drillPrecautionId = obj.getDrillPrecautionId();
-                        } else if (stRerror != null) {
-                            ToastUtil.showToast(
-                                    PlanExecutionDetailActivity.this, stRerror);
-                        } else if (Exceptionerror != null) {
-                            ToastUtil.showToast(PlanExecutionDetailActivity.this,
-                                    Const.NETWORKERROR + ":" + Exceptionerror);
-                        }
-                    }
-                });
+        Control.getinstance().getEmergencyService().getPlanDetail(planInfoId, listListener);
     }
+
+    private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListenser(
+                Boolean backflag, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str = null;
+            if (backflag) {
+                str = stRerror;
+//                                    if(execute.getText().toString().equals(getString(R.string.error_cancel))) {
+//
+//                                    }
+//                                    else {
+//
+//                                    }
+                execute_ll.setVisibility(View.GONE);
+                change_ll.setVisibility(View.VISIBLE);
+                EventBus.getDefault().post(
+                        new mainEvent("refre"));// 刷新预案执行列表
+                ToastUtil.showLongToast(
+                        PlanExecutionDetailActivity.this, str);
+            } else if (backflag == false) {
+                str = stRerror;
+                ToastUtil.showLongToast(
+                        PlanExecutionDetailActivity.this, str);
+            } else if (stRerror != null) {
+
+                str = stRerror;
+                ToastUtil.showLongToast(
+                        PlanExecutionDetailActivity.this, str);
+            } else if (Exceptionerror != null) {
+
+                str = Const.NETWORKERROR + Exceptionerror;
+                ToastUtil.showLongToast(
+                        PlanExecutionDetailActivity.this, str);
+            }
+//							if (Utils.getInstance().progressDialog.isShowing()) {
+            Utils.getInstance().hideProgressDialog();
+//							}
+        }
+    };
+
+    private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser switchOverListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListenser(
+                Boolean backflag, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str = null;
+            if (backflag) {
+                str = stRerror;
+                ToastUtil
+                        .showLongToast(
+                                PlanExecutionDetailActivity.this,
+                                str);
+                change_ll.setVisibility(View.GONE);
+                done_ok_ll.setVisibility(View.VISIBLE);
+                // String overTime2 =
+                // getOverTime(executeTime);
+                // Log.i("overTime2", overTime2);
+                alltime.setText(message);
+                if (changeStatus.equals("2")) {//
+                    done_status_done.setText("部分完成");
+                } else if (changeStatus.equals("1")) {
+                    done_status_done.setText("全部完成");
+                } else if (changeStatus.equals("3")) {
+                    done_status_done.setText("跳过");
+                }
+                else
+                    done_status_done.setText(changeStatus);
+                EventBus.getDefault().post(
+                        new mainEvent("refre"));// 刷新预案执行列表
+            } else if (backflag == false) {
+                str = stRerror;
+                ToastUtil
+                        .showLongToast(
+                                PlanExecutionDetailActivity.this,
+                                str);
+            } else if (stRerror != null) {
+                str = stRerror;
+                ToastUtil
+                        .showLongToast(
+                                PlanExecutionDetailActivity.this,
+                                str);
+            } else if (Exceptionerror != null) {
+
+                str = Const.NETWORKERROR
+                        + Exceptionerror;
+                ToastUtil
+                        .showLongToast(
+                                PlanExecutionDetailActivity.this,
+                                str);
+            }
+            if (Utils.getInstance().progressDialog
+                    .isShowing()) {
+                Utils.getInstance()
+                        .hideProgressDialog();
+            }
+        }
+    };
 
     /**
      * 带回来的集合
@@ -331,49 +435,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             case R.id.execute:// 执行
                 Utils.getInstance().showProgressDialog(
                         PlanExecutionDetailActivity.this, "", Const.SUBMIT_MESSAGE);
-                Control.getinstance().getEmergencyService().getBeginPlan(id, planInfoId,
-                        new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-                            @Override
-                            public void setEmergencySeviceImplListenser(
-                                    Boolean backflag, String stRerror,
-                                    String Exceptionerror) {
-                                // TODO Auto-generated method stub
-                                String str = null;
-                                if (backflag) {
-                                    str = stRerror;
-//                                    if(execute.getText().toString().equals(getString(R.string.error_cancel))) {
-//
-//                                    }
-//                                    else {
-//
-//                                    }
-                                    execute_ll.setVisibility(View.GONE);
-                                    change_ll.setVisibility(View.VISIBLE);
-                                    EventBus.getDefault().post(
-                                            new mainEvent("refre"));// 刷新预案执行列表
-                                    ToastUtil.showLongToast(
-                                            PlanExecutionDetailActivity.this, str);
-                                } else if (backflag == false) {
-                                    str = stRerror;
-                                    ToastUtil.showLongToast(
-                                            PlanExecutionDetailActivity.this, str);
-                                } else if (stRerror != null) {
-
-                                    str = stRerror;
-                                    ToastUtil.showLongToast(
-                                            PlanExecutionDetailActivity.this, str);
-                                } else if (Exceptionerror != null) {
-
-                                    str = Const.NETWORKERROR + Exceptionerror;
-                                    ToastUtil.showLongToast(
-                                            PlanExecutionDetailActivity.this, str);
-                                }
-//							if (Utils.getInstance().progressDialog.isShowing()) {
-                                Utils.getInstance().hideProgressDialog();
-//							}
-                            }
-                        });
+                Control.getinstance().getEmergencyService().getBeginPlan(id, planInfoId, listener);
                 break;
             case R.id.submit_infomation_ll:// 提交信息布局
                 Intent intent2 = new Intent(PlanExecutionDetailActivity.this,
@@ -411,66 +473,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         Utils.getInstance().showProgressDialog(
                                 PlanExecutionDetailActivity.this, "",
                                 Const.SUBMIT_MESSAGE);
-                        Control.getinstance().getEmergencyService().swichOver(id, planInfoId, changeStatus, message, childEntity.getNodeStepType(), branchId,
-                                new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-                                    @Override
-                                    public void setEmergencySeviceImplListenser(
-                                            Boolean backflag, String stRerror,
-                                            String Exceptionerror) {
-                                        // TODO Auto-generated method stub
-                                        String str = null;
-                                        if (backflag) {
-                                            str = stRerror;
-                                            ToastUtil
-                                                    .showLongToast(
-                                                            PlanExecutionDetailActivity.this,
-                                                            str);
-                                            change_ll.setVisibility(View.GONE);
-                                            done_ok_ll.setVisibility(View.VISIBLE);
-                                            // String overTime2 =
-                                            // getOverTime(executeTime);
-                                            // Log.i("overTime2", overTime2);
-                                            alltime.setText(message);
-                                            if (changeStatus.equals("2")) {//
-                                                done_status_done.setText("部分完成");
-                                            } else if (changeStatus.equals("1")) {
-                                                done_status_done.setText("全部完成");
-                                            } else if (changeStatus.equals("3")) {
-                                                done_status_done.setText("跳过");
-                                            }
-                                            else
-                                                done_status_done.setText(changeStatus);
-                                            EventBus.getDefault().post(
-                                                    new mainEvent("refre"));// 刷新预案执行列表
-                                        } else if (backflag == false) {
-                                            str = stRerror;
-                                            ToastUtil
-                                                    .showLongToast(
-                                                            PlanExecutionDetailActivity.this,
-                                                            str);
-                                        } else if (stRerror != null) {
-                                            str = stRerror;
-                                            ToastUtil
-                                                    .showLongToast(
-                                                            PlanExecutionDetailActivity.this,
-                                                            str);
-                                        } else if (Exceptionerror != null) {
-
-                                            str = Const.NETWORKERROR
-                                                    + Exceptionerror;
-                                            ToastUtil
-                                                    .showLongToast(
-                                                            PlanExecutionDetailActivity.this,
-                                                            str);
-                                        }
-                                        if (Utils.getInstance().progressDialog
-                                                .isShowing()) {
-                                            Utils.getInstance()
-                                                    .hideProgressDialog();
-                                        }
-                                    }
-                                });
+                        Control.getinstance().getEmergencyService().swichOver(id, planInfoId, changeStatus, message, childEntity.getNodeStepType(), branchId, switchOverListener);
                     } else {
                         ToastUtil.showLongToast(PlanExecutionDetailActivity.this,
                                 "提交信息不完整");

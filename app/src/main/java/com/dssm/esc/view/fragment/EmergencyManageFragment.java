@@ -335,59 +335,61 @@ public class EmergencyManageFragment extends BaseFragment implements
 		}
 	}
 
+	private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+		@Override
+		public void setUserSeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (object != null) {
+				UserPowerEntity entity = (UserPowerEntity) object;
+				List<MenuEntity> menu = entity.getMenu();
+				// 事件评估：SJPG
+				// 预案启动：YAQDCD
+				// 决策授权：JCSQCD
+				// 人员指派：RYZP
+				// 协同与通告:XTYTG
+				// 指挥与展示启动终止按钮：BTN_QDZZ
+				for (int i = 0; i < menu.size(); i++) {
+					MenuEntity menuEntity = menu.get(i);
+					String mark = menuEntity.getMark();
+					if (mark.equals("SJPG")) {
+						sjpg.setVisibility(View.VISIBLE);
+					}
+					if (mark.equals("YAQD")) {
+						yaqd.setVisibility(View.VISIBLE);
+					}
+					if (mark.equals("JCSQ")) {
+						jcsq.setVisibility(View.VISIBLE);
+					}
+					if (mark.equals("RYZP")) {
+						personnel_assignment_ll.setVisibility(View.VISIBLE);
+					}
+					if (mark.equals("XTYTG")) {
+						collaborative_circular_ll
+								.setVisibility(View.VISIBLE);
+					}
+					if (yaqd.getVisibility() == View.GONE) {
+						jcsq_line.setVisibility(View.VISIBLE);
+					}
+					else
+						jcsq_line.setVisibility(View.GONE);
+					if (xttg.getVisibility() == View.VISIBLE) {
+						xttg.setVisibility(View.VISIBLE);
+					}
+				}
+
+			}
+		}
+	};
+
 	public void getUserPower() {
 		sjpg.setVisibility(View.GONE);
 		yaqd.setVisibility(View.GONE);
 		jcsq.setVisibility(View.GONE);
 		personnel_assignment_ll.setVisibility(View.GONE);
 		//collaborative_circular_ll.setVisibility(View.GONE);
-		sevice.getUserPower(new UserSeviceImpl.UserSeviceImplListListenser() {
-
-			@Override
-			public void setUserSeviceImplListListenser(Object object,
-					String stRerror, String Exceptionerror) {
-				// TODO Auto-generated method stub
-				if (object != null) {
-					UserPowerEntity entity = (UserPowerEntity) object;
-					List<MenuEntity> menu = entity.getMenu();
-					// 事件评估：SJPG
-					// 预案启动：YAQDCD
-					// 决策授权：JCSQCD
-					// 人员指派：RYZP
-					// 协同与通告:XTYTG
-					// 指挥与展示启动终止按钮：BTN_QDZZ
-					for (int i = 0; i < menu.size(); i++) {
-						MenuEntity menuEntity = menu.get(i);
-						String mark = menuEntity.getMark();
-						if (mark.equals("SJPG")) {
-							sjpg.setVisibility(View.VISIBLE);
-						}
-						if (mark.equals("YAQD")) {
-							yaqd.setVisibility(View.VISIBLE);
-						}
-						if (mark.equals("JCSQ")) {
-							jcsq.setVisibility(View.VISIBLE);
-						}
-						if (mark.equals("RYZP")) {
-							personnel_assignment_ll.setVisibility(View.VISIBLE);
-						}
-						if (mark.equals("XTYTG")) {
-							collaborative_circular_ll
-									.setVisibility(View.VISIBLE);
-						}
-						if (yaqd.getVisibility() == View.GONE) {
-							jcsq_line.setVisibility(View.VISIBLE);
-						}
-						else
-							jcsq_line.setVisibility(View.GONE);
-						if (xttg.getVisibility() == View.VISIBLE) {
-							xttg.setVisibility(View.VISIBLE);
-						}
-					}
-
-				}
-			}
-		});
+		sevice.getUserPower(listListener);
 	}
 
 }

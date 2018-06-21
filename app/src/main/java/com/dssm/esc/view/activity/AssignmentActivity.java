@@ -134,6 +134,36 @@ public class AssignmentActivity extends BaseActivity implements
 		segmentControlListDate();
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (backflag) {
+				ToastUtil
+						.showToast(
+								AssignmentActivity.this,
+								stRerror);
+				EventBus.getDefault().post(
+						new mainEvent("refr"));//刷新指派列表
+				finish();
+			} else if (backflag == false) {
+
+				ToastUtil
+						.showToast(
+								AssignmentActivity.this,
+								stRerror);
+			}
+			if (Utils.getInstance().progressDialog
+					.isShowing()) {
+				Utils.getInstance()
+						.hideProgressDialog();
+			}
+		}
+	};
+
 	private void initview() {
 		mBack.setVisibility(View.VISIBLE);
 		// if (tag.equals("1")) {
@@ -179,36 +209,7 @@ public class AssignmentActivity extends BaseActivity implements
 					Utils.getInstance().showProgressDialog(
 							AssignmentActivity.this, "", Const.SUBMIT_MESSAGE);
 					Control.getinstance().getEmergencyService().assign(id, planInfoId, executePeopleId,
-							executePeople,
-							new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-								@Override
-								public void setEmergencySeviceImplListenser(
-										Boolean backflag, String stRerror,
-										String Exceptionerror) {
-									// TODO Auto-generated method stub
-									if (backflag) {
-										ToastUtil
-												.showToast(
-														AssignmentActivity.this,
-														stRerror);
-										EventBus.getDefault().post(
-												new mainEvent("refr"));//刷新指派列表
-										finish();
-									} else if (backflag == false) {
-
-										ToastUtil
-												.showToast(
-														AssignmentActivity.this,
-														stRerror);
-									}
-									if (Utils.getInstance().progressDialog
-											.isShowing()) {
-										Utils.getInstance()
-												.hideProgressDialog();
-									}
-								}
-							});
+							executePeople, listener);
 
 				} else {
 					ToastUtil.showToast(AssignmentActivity.this, "请选择指派人员");
@@ -326,6 +327,35 @@ public class AssignmentActivity extends BaseActivity implements
 
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<GroupEntity> dataList = null;
+			if (object != null) {
+				dataList = (List<GroupEntity>) object;
+
+			} else if (stRerror != null) {
+				dataList = new ArrayList<GroupEntity>();
+
+			} else if (Exceptionerror != null) {
+				dataList = new ArrayList<GroupEntity>();
+				ToastUtil.showToast(AssignmentActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+			}
+			Message message = new Message();
+			message.what = 1;
+			message.obj = dataList;
+			handler.sendMessage(message);
+//						if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//						}
+		}
+	};
+
 	/**
 	 * 
 	 * 初始化数据（expandlistview）
@@ -340,35 +370,7 @@ public class AssignmentActivity extends BaseActivity implements
 	private void initExpandListData() {
 		Utils.getInstance().showProgressDialog(AssignmentActivity.this, "",
 				Const.LOAD_MESSAGE);
-		Control.getinstance().getEmergencyService().getSignEmergencyInfo(planInfoId,
-				new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListListenser(
-							Object object, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						List<GroupEntity> dataList = null;
-						if (object != null) {
-							dataList = (List<GroupEntity>) object;
-
-						} else if (stRerror != null) {
-							dataList = new ArrayList<GroupEntity>();
-
-						} else if (Exceptionerror != null) {
-							dataList = new ArrayList<GroupEntity>();
-							ToastUtil.showToast(AssignmentActivity.this,
-									Const.NETWORKERROR + ":" + Exceptionerror);
-						}
-						Message message = new Message();
-						message.what = 1;
-						message.obj = dataList;
-						handler.sendMessage(message);
-//						if (Utils.getInstance().progressDialog.isShowing()) {
-							Utils.getInstance().hideProgressDialog();
-//						}
-					}
-				});
+		Control.getinstance().getEmergencyService().getSignEmergencyInfo(planInfoId, listListener);
 	}
 
 	/**

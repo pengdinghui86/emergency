@@ -56,7 +56,6 @@ import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.utils.UserUtils;
 
-
 /**
  * 显示所有聊天记录adpater
  * 
@@ -86,7 +85,31 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 		userSevice = Control.getinstance().getUserSevice();
 		this.context = context;
 	}
-	 ViewHolder holder;
+
+	ViewHolder holder;
+
+	private String curUserid = "";
+	private UserSeviceImpl.UserSeviceImplBackValueListenser listener = new UserSeviceImpl.UserSeviceImplBackValueListenser() {
+
+		@Override
+		public void setUserSeviceImplListenser(
+				String backValue, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (backValue != null) {
+				UserUtils.setUserNick(backValue, holder.name);// 根据userId取网络的name
+				service.saveContactName(curUserid, backValue);// 将此联系人存到本地
+			} else if (stRerror != null) {
+				ToastUtil.showLongToast(context,
+						stRerror);
+			} else if (Exceptionerror != null) {
+				ToastUtil.showLongToast(context,
+						Const.NETWORKERROR
+								+ Exceptionerror);
+			}
+		}
+	};
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
@@ -160,30 +183,9 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 
 					UserUtils.setUserNick(getcontectName, holder.name);// 根据userId取本地的name
 				} else {
+					curUserid = userId;
 					// 程序第一次安装，发送人的信息没有保存在本地要去网络获取
-					userSevice.getUserNameByID(userId,
-							new UserSeviceImpl.UserSeviceImplBackValueListenser() {
-
-								@Override
-								public void setUserSeviceImplListenser(
-										String backValue, String stRerror,
-										String Exceptionerror) {
-									// TODO Auto-generated method stub
-									if (backValue != null) {
-										UserUtils.setUserNick(backValue, holder.name);// 根据userId取网络的name
-										service.saveContactName(userId, backValue);// 将此联系人存到本地
-									} else if (stRerror != null) {
-										ToastUtil.showLongToast(context,
-												stRerror);
-									} else if (Exceptionerror != null) {
-										ToastUtil.showLongToast(context,
-												Const.NETWORKERROR
-														+ Exceptionerror);
-									}
-								}
-							});
-					
-					
+					userSevice.getUserNameByID(userId, listener);
 				}
 			}
 		}

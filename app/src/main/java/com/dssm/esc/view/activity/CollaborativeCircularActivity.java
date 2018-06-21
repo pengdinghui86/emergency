@@ -302,39 +302,40 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 		}
 	}
 
+	private EmergencySeviceImplListListenser listListener = new EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<GroupEntity> dataList = null;
+			if (object != null) {
+				dataList = (List<GroupEntity>) object;
+
+			} else if (stRerror != null) {
+				dataList = new ArrayList<GroupEntity>();
+
+			} else if (Exceptionerror != null) {
+				dataList = new ArrayList<GroupEntity>();
+				ToastUtil.showToast(
+						CollaborativeCircularActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+			}
+			Message message = new Message();
+			message.what = 0;
+			message.obj = dataList;
+			handler.sendMessage(message);
+//						if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//						}
+		}
+	};
+
 	private void initData() {
 		Utils.getInstance().showProgressDialog(
 				CollaborativeCircularActivity.this, "", Const.LOAD_MESSAGE);
-		Control.getinstance().getEmergencyService().getEmergencyGropData(planInfoId, precautionId,
-				new EmergencySeviceImplListListenser() {
-
-					@Override
-					public void setEmergencySeviceImplListListenser(
-							Object object, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						List<GroupEntity> dataList = null;
-						if (object != null) {
-							dataList = (List<GroupEntity>) object;
-
-						} else if (stRerror != null) {
-							dataList = new ArrayList<GroupEntity>();
-
-						} else if (Exceptionerror != null) {
-							dataList = new ArrayList<GroupEntity>();
-							ToastUtil.showToast(
-									CollaborativeCircularActivity.this,
-									Const.NETWORKERROR + ":" + Exceptionerror);
-						}
-						Message message = new Message();
-						message.what = 0;
-						message.obj = dataList;
-						handler.sendMessage(message);
-//						if (Utils.getInstance().progressDialog.isShowing()) {
-							Utils.getInstance().hideProgressDialog();
-//						}
-					}
-				});
+		Control.getinstance().getEmergencyService().getEmergencyGropData(planInfoId, precautionId, listListener);
 	}
 
 	/**
@@ -364,6 +365,37 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 		return checkedChildren;
 	}
 
+	private EmergencySeviceImplBackBooleanListenser listener = new EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (backflag) {
+				ToastUtil.showToast(
+						CollaborativeCircularActivity.this,
+						stRerror);
+				finish();
+			} else if (backflag == false) {
+				ToastUtil.showToast(CollaborativeCircularActivity.this,
+						stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil.showLongToast(CollaborativeCircularActivity.this,
+						stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showLongToast(CollaborativeCircularActivity.this,
+						Const.NETWORKERROR + Exceptionerror);
+			}
+//								if (Utils.getInstance().progressDialog
+//										.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+//								}
+		}
+	};
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -384,37 +416,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 				Utils.getInstance().showProgressDialog(
 						CollaborativeCircularActivity.this, "",
 						Const.SUBMIT_MESSAGE);
-				Control.getinstance().getEmergencyService().sendNotice(entity,
-						new EmergencySeviceImplBackBooleanListenser() {
-
-							@Override
-							public void setEmergencySeviceImplListenser(
-									Boolean backflag, String stRerror,
-									String Exceptionerror) {
-								// TODO Auto-generated method stub
-								if (backflag) {
-									ToastUtil.showToast(
-											CollaborativeCircularActivity.this,
-											stRerror);
-									finish();
-								} else if (backflag == false) {
-									ToastUtil.showToast(CollaborativeCircularActivity.this,
-											stRerror);
-								} else if (stRerror != null) {
-
-									ToastUtil.showLongToast(CollaborativeCircularActivity.this,
-											stRerror);
-								} else if (Exceptionerror != null) {
-
-									ToastUtil.showLongToast(CollaborativeCircularActivity.this,
-											Const.NETWORKERROR + Exceptionerror);
-								}
-//								if (Utils.getInstance().progressDialog
-//										.isShowing()) {
-									Utils.getInstance().hideProgressDialog();
-//								}
-							}
-						});
+				Control.getinstance().getEmergencyService().sendNotice(entity, listener);
 			} else {
 				ToastUtil.showToast(CollaborativeCircularActivity.this,
 						"发送人不能为空");

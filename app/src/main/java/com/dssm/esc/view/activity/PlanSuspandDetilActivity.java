@@ -241,36 +241,38 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 		// setNetListener(this);
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(Object object,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (object != null) {
+				planDetailEntity = (PlanDetailEntity) object;
+
+			} else if (stRerror != null) {
+				planDetailEntity = new PlanDetailEntity();
+				ToastUtil
+						.showToast(PlanSuspandDetilActivity.this, stRerror);
+			} else if (Exceptionerror != null) {
+				planDetailEntity = new PlanDetailEntity();
+				ToastUtil.showToast(PlanSuspandDetilActivity.this,
+						Const.NETWORKERROR + ":" + Exceptionerror);
+			}
+			Message message = new Message();
+			message.what = 1;
+			message.obj = planDetailEntity;
+			handler.sendMessage(message);
+			// if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+			// }
+		}
+	};
+
 	private void intData() {
 		Utils.getInstance().showProgressDialog(PlanSuspandDetilActivity.this,
 				"", Const.SUBMIT_MESSAGE);
-		Control.getinstance().getEmergencyService().getPlanDetail(id, new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-			@Override
-			public void setEmergencySeviceImplListListenser(Object object,
-					String stRerror, String Exceptionerror) {
-				// TODO Auto-generated method stub
-				if (object != null) {
-					planDetailEntity = (PlanDetailEntity) object;
-
-				} else if (stRerror != null) {
-					planDetailEntity = new PlanDetailEntity();
-					ToastUtil
-							.showToast(PlanSuspandDetilActivity.this, stRerror);
-				} else if (Exceptionerror != null) {
-					planDetailEntity = new PlanDetailEntity();
-					ToastUtil.showToast(PlanSuspandDetilActivity.this,
-							Const.NETWORKERROR + ":" + Exceptionerror);
-				}
-				Message message = new Message();
-				message.what = 1;
-				message.obj = planDetailEntity;
-				handler.sendMessage(message);
-				// if (Utils.getInstance().progressDialog.isShowing()) {
-				Utils.getInstance().hideProgressDialog();
-				// }
-			}
-		});
+		Control.getinstance().getEmergencyService().getPlanDetail(id, listListener);
 	}
 
 	private AlertDialog selfdialog;
@@ -324,85 +326,87 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 		intData();
 	}
 
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated
+			// method stub
+			if (backflag) {
+				ToastUtil.showToast(
+						PlanSuspandDetilActivity.this, stRerror);
+				EventBus.getDefault().post(new mainEvent("r"));// 刷新已授权列表界面
+				finish();
+			} else if (backflag == false) {
+				ToastUtil.showToast(
+						PlanSuspandDetilActivity.this,stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil
+						.showToast(
+								PlanSuspandDetilActivity.this,
+								stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showToast(
+						PlanSuspandDetilActivity.this,
+						Exceptionerror);
+			}
+			// if
+			// (Utils.getInstance().progressDialog
+			// .isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+			// }
+		}
+	};
+
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser suspandListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated
+			// method stub
+			if (backflag) {
+				ToastUtil.showToast(
+						PlanSuspandDetilActivity.this, stRerror);
+				EventBus.getDefault().post(
+						new mainEvent("refres"));// 刷新已启动预案列表界面
+				finish();
+			} else if (backflag == false) {
+				ToastUtil.showToast(
+						PlanSuspandDetilActivity.this,stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil
+						.showToast(
+								PlanSuspandDetilActivity.this,
+								stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showToast(
+						PlanSuspandDetilActivity.this,
+						Exceptionerror);
+			}
+			if (Utils.getInstance().progressDialog.isShowing()) {
+				Utils.getInstance().hideProgressDialog();
+			}
+		}
+	};
+
 	private void stopPlan() {
 		if (stop.equals("0")) {// 预案启动列表
 			Utils.getInstance().showProgressDialog(
 					PlanSuspandDetilActivity.this, "", Const.SUBMIT_MESSAGE);
-			Control.getinstance().getEmergencyService().suspand(suspandEntity,
-					new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-						@Override
-						public void setEmergencySeviceImplListenser(
-								Boolean backflag, String stRerror,
-								String Exceptionerror) {
-							// TODO Auto-generated
-							// method stub
-							if (backflag) {
-								ToastUtil.showToast(
-										PlanSuspandDetilActivity.this, stRerror);
-								EventBus.getDefault().post(
-										new mainEvent("refres"));// 刷新已启动预案列表界面
-								finish();
-							} else if (backflag == false) {
-								ToastUtil.showToast(
-										PlanSuspandDetilActivity.this,stRerror);
-							} else if (stRerror != null) {
-
-								ToastUtil
-										.showToast(
-												PlanSuspandDetilActivity.this,
-												stRerror);
-							} else if (Exceptionerror != null) {
-
-								ToastUtil.showToast(
-										PlanSuspandDetilActivity.this,
-										Exceptionerror);
-							}
-							if (Utils.getInstance().progressDialog.isShowing()) {
-								Utils.getInstance().hideProgressDialog();
-							}
-						}
-					});
+			Control.getinstance().getEmergencyService().suspand(suspandEntity, suspandListener);
 
 		} else if (stop.equals("1")) {// 预案授权列表
 			Utils.getInstance().showProgressDialog(
 					PlanSuspandDetilActivity.this, "", Const.SUBMIT_MESSAGE);
-			Control.getinstance().getEmergencyService().planSuspand(suspandEntity,
-					new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
-
-						@Override
-						public void setEmergencySeviceImplListenser(
-								Boolean backflag, String stRerror,
-								String Exceptionerror) {
-							// TODO Auto-generated
-							// method stub
-							if (backflag) {
-								ToastUtil.showToast(
-										PlanSuspandDetilActivity.this, stRerror);
-								EventBus.getDefault().post(new mainEvent("r"));// 刷新已授权列表界面
-								finish();
-							} else if (backflag == false) {
-								ToastUtil.showToast(
-										PlanSuspandDetilActivity.this,stRerror);
-							} else if (stRerror != null) {
-
-								ToastUtil
-										.showToast(
-												PlanSuspandDetilActivity.this,
-												stRerror);
-							} else if (Exceptionerror != null) {
-
-								ToastUtil.showToast(
-										PlanSuspandDetilActivity.this,
-										Exceptionerror);
-							}
-							// if
-							// (Utils.getInstance().progressDialog
-							// .isShowing()) {
-							Utils.getInstance().hideProgressDialog();
-							// }
-						}
-					});
+			Control.getinstance().getEmergencyService().planSuspand(suspandEntity, listener);
 		}
 	}
 }

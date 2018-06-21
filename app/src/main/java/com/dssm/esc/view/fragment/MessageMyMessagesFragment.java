@@ -172,6 +172,66 @@ public class MessageMyMessagesFragment extends BaseFragment implements
 
 	}
 
+	private UserSeviceImpl.UserSeviceImplBackBooleanListenser listener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+		@Override
+		public void setUserSeviceImplListenser(
+				Boolean backflag,
+				String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated
+			// method stub
+			if (backflag) {
+				listview.onRefreshComplete();
+				EventBus.getDefault().post(new
+						My("0"));
+			}else if (stRerror != null) {
+				ToastUtil
+						.showToast(
+								getActivity(),
+								stRerror);
+			} else if (Exceptionerror != null) {
+				ToastUtil
+						.showToast(
+								getActivity(),
+								Const.NETWORKERROR
+										+ ":"
+										+ Exceptionerror);
+			}
+		}
+	};
+
+	private int curWhat;
+	private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+		@Override
+		public void setUserSeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<MessageInfoEntity> dataList=null;
+			if (object != null) {
+
+				dataList = (List<MessageInfoEntity>) object;
+				Log.i("===系统消息刷新条数===", dataList.size() + "");
+				if (dataList.size()>0) {
+					saveData(dataList);
+				}
+				sevice.confirMsg("3", listener);
+			} else if (stRerror != null) {
+				dataList = new ArrayList<MessageInfoEntity>();
+			} else if (Exceptionerror != null) {
+				dataList = new ArrayList<MessageInfoEntity>();
+				ToastUtil.showToast(getActivity(),
+						Const.NETWORKERROR + ":"
+								+ Exceptionerror);
+			}else {
+				dataList = new ArrayList<MessageInfoEntity>();
+			}
+
+
+			getDBData(dataList, curWhat);
+		}
+	};
+
 	/**
 	 * 
 	 * 加载数据
@@ -186,65 +246,8 @@ public class MessageMyMessagesFragment extends BaseFragment implements
 	 */
 	private void loadData(final int what) {
 		if (what == 0 || what == 2) {// 刷新和第一次加载
-			sevice.getFrashMessageList(getActivity(), "3", "false","4",
-					new UserSeviceImpl.UserSeviceImplListListenser() {
-						@Override
-						public void setUserSeviceImplListListenser(
-								Object object, String stRerror,
-								String Exceptionerror) {
-							// TODO Auto-generated method stub
-							List<MessageInfoEntity> dataList=null;
-							if (object != null) {
-
-								dataList = (List<MessageInfoEntity>) object;
-								Log.i("===系统消息刷新条数===", dataList.size() + "");
-								if (dataList.size()>0) {
-									saveData(dataList);
-								}
-								sevice.confirMsg(
-										"3",
-										new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-											@Override
-											public void setUserSeviceImplListenser(
-													Boolean backflag,
-													String stRerror,
-													String Exceptionerror) {
-												// TODO Auto-generated
-												// method stub
-												if (backflag) {
-													listview.onRefreshComplete();
-													EventBus.getDefault().post(new
-															My("0"));
-												}else if (stRerror != null) {
-													ToastUtil
-													.showToast(
-															getActivity(),
-															stRerror);
-												} else if (Exceptionerror != null) {
-													ToastUtil
-															.showToast(
-																	getActivity(),
-																	Const.NETWORKERROR
-																			+ ":"
-																			+ Exceptionerror);
-												}
-											}
-										});
-							} else if (stRerror != null) {
-								dataList = new ArrayList<MessageInfoEntity>();
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<MessageInfoEntity>();
-								ToastUtil.showToast(getActivity(),
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							}else {
-								dataList = new ArrayList<MessageInfoEntity>();
-							}
-							
-							
-							getDBData(dataList, what);
-						}
-					});
+			curWhat = what;
+			sevice.getFrashMessageList(getActivity(), "3", "false","4", listListener);
 
 		} else if (what == 1) {// 加载更多(从数据库中拿数据)
 			onLoadDta(what);

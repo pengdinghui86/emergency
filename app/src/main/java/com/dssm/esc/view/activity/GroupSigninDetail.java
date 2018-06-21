@@ -362,6 +362,52 @@ public class GroupSigninDetail extends BaseActivity implements
 				});
 	}
 
+	private ControlServiceImpl.ControlServiceImplBackValueListenser<List<GroupEntity>> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<List<GroupEntity>>() {
+		@Override
+		public void setControlServiceImplListenser(
+				List<GroupEntity> backValue, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<GroupEntity> dataList = null;
+			if (i != 1) {
+				Log.i("========", "initListData()0");
+				if (backValue != null) {
+					dataList = backValue;
+				} else if (stRerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+				} else if (Exceptionerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+					ToastUtil.showToast(GroupSigninDetail.this,
+							Const.NETWORKERROR + ":"
+									+ Exceptionerror);
+				}
+				Message message = handler.obtainMessage();
+				message.what = 0;
+				message.obj = dataList;
+				handler.sendMessage(message);
+			} else if (i == 1) {
+				Log.i("=========", "initListData()1");
+				if (backValue != null) {
+					dataList = backValue;
+				} else if (stRerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+				} else if (Exceptionerror != null) {
+					dataList = new ArrayList<GroupEntity>();
+					ToastUtil.showToast(GroupSigninDetail.this,
+							Const.NETWORKERROR + ":"
+									+ Exceptionerror);
+				}
+				Message message = handler.obtainMessage();
+				message.what = 1;
+				message.obj = dataList;
+				handler.sendMessage(message);
+			}
+			// if (Utils.getInstance().progressDialog.isShowing()) {
+			Utils.getInstance().hideProgressDialog();
+			// }
+		}
+	};
+
 	/**
 	 * 
 	 * 初始化数据
@@ -376,52 +422,7 @@ public class GroupSigninDetail extends BaseActivity implements
 	private void initListData() {
 		Utils.getInstance().showProgressDialog(GroupSigninDetail.this, "",
 				Const.LOAD_MESSAGE);
-		Control.getinstance().getControlSevice().getSignDetailInfo(id,
-				new ControlServiceImpl.ControlServiceImplBackValueListenser<List<GroupEntity>>() {
-					@Override
-					public void setControlServiceImplListenser(
-							List<GroupEntity> backValue, String stRerror,
-							String Exceptionerror) {
-						// TODO Auto-generated method stub
-						List<GroupEntity> dataList = null;
-						if (i != 1) {
-							Log.i("========", "initListData()0");
-							if (backValue != null) {
-								dataList = backValue;
-							} else if (stRerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-								ToastUtil.showToast(GroupSigninDetail.this,
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							}
-							Message message = handler.obtainMessage();
-							message.what = 0;
-							message.obj = dataList;
-							handler.sendMessage(message);
-						} else if (i == 1) {
-							Log.i("=========", "initListData()1");
-							if (backValue != null) {
-								dataList = backValue;
-							} else if (stRerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-							} else if (Exceptionerror != null) {
-								dataList = new ArrayList<GroupEntity>();
-								ToastUtil.showToast(GroupSigninDetail.this,
-										Const.NETWORKERROR + ":"
-												+ Exceptionerror);
-							}
-							Message message = handler.obtainMessage();
-							message.what = 1;
-							message.obj = dataList;
-							handler.sendMessage(message);
-						}
-						// if (Utils.getInstance().progressDialog.isShowing()) {
-						Utils.getInstance().hideProgressDialog();
-						// }
-					}
-				});
+		Control.getinstance().getControlSevice().getSignDetailInfo(id, controlServiceImplBackValueListenser);
 	}
 
 	int i;

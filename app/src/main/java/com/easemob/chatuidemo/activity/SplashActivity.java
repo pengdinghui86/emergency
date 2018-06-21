@@ -76,93 +76,96 @@ public class SplashActivity extends BaseActivity {
 
 	private UpdataInfo info;
 	private String localVersion;
+
+	private UserSeviceImpl.UserSeviceImplBackBooleanListenser listener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+		@Override
+		public void setUserSeviceImplListenser(
+				Boolean backflag,
+				String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated
+			// method stub
+			if (backflag) {
+				versionUpdate();
+
+			} else if (backflag == false) {
+
+			} else if (stRerror != null) {
+
+				ToastUtil
+						.showLongToast(
+								SplashActivity.this,
+								stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil
+						.showLongToast(
+								SplashActivity.this,
+								"网络连接超时，请检查网络设置或IP地址是否正确");
+			}
+		}
+
+	};
+
+	private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+		@Override
+		public void setUserSeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			String str;
+			// 若登陆成功，直接进入主界面
+			if (object != null) {
+				UserEntity userEntity = (UserEntity) object;
+				if (userEntity.getSuccess().equals("true")) {
+					str = "登陆成功";
+					sevice.loginRole(
+							map.get("selectedRolem"), listener);
+
+				} else {
+					str = "密码已失效,请重新登陆";
+					ToastUtil.showLongToast(
+							SplashActivity.this, str);
+					Intent intent = new Intent(
+							SplashActivity.this,
+							LoginActivity.class);
+					startActivity(intent);
+					finish();
+				}
+
+			} else if (stRerror != null) {
+
+				str = stRerror;
+				ToastUtil.showLongToast(
+						SplashActivity.this, str);
+				Intent intent = new Intent(
+						SplashActivity.this,
+						LoginActivity.class);
+				startActivity(intent);
+				finish();
+			} else if (Exceptionerror != null) {
+
+				str = Const.NETWORKERROR + Exceptionerror;
+				ToastUtil.showLongToast(
+						SplashActivity.this, "网络连接超时，请检查网络设置或IP地址是否正确");
+				Intent intent = new Intent(
+						SplashActivity.this,
+						LoginActivity.class);
+				startActivity(intent);
+				finish();
+			}
+
+		}
+	};
+
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 11:// （如果已经登录过）每次进入都要访问登录接口，看本地保存的用户名和密码是否和服务器上的一致
 				// 回显
 				map = service.getPreferences();
-				sevice.login(map.get("loginName"), map.get("password"),
-						new UserSeviceImpl.UserSeviceImplListListenser() {
-
-							@Override
-							public void setUserSeviceImplListListenser(
-									Object object, String stRerror,
-									String Exceptionerror) {
-								// TODO Auto-generated method stub
-								String str;
-								// 若登陆成功，直接进入主界面
-								if (object != null) {
-									UserEntity userEntity = (UserEntity) object;
-									if (userEntity.getSuccess().equals("true")) {
-										str = "登陆成功";
-										sevice.loginRole(
-												map.get("selectedRolem"),
-												new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-													@Override
-													public void setUserSeviceImplListenser(
-															Boolean backflag,
-															String stRerror,
-															String Exceptionerror) {
-														// TODO Auto-generated
-														// method stub
-														if (backflag) {
-															versionUpdate();
-
-														} else if (backflag == false) {
-
-														} else if (stRerror != null) {
-
-															ToastUtil
-																	.showLongToast(
-																			SplashActivity.this,
-																			stRerror);
-														} else if (Exceptionerror != null) {
-
-															ToastUtil
-																	.showLongToast(
-																			SplashActivity.this,
-																			"网络连接超时，请检查网络设置或IP地址是否正确");
-														}
-													}
-
-												});
-
-									} else {
-										str = "密码已失效,请重新登陆";
-										ToastUtil.showLongToast(
-												SplashActivity.this, str);
-										Intent intent = new Intent(
-												SplashActivity.this,
-												LoginActivity.class);
-										startActivity(intent);
-										finish();
-									}
-
-								} else if (stRerror != null) {
-
-									str = stRerror;
-									ToastUtil.showLongToast(
-											SplashActivity.this, str);
-									Intent intent = new Intent(
-											SplashActivity.this,
-											LoginActivity.class);
-									startActivity(intent);
-									finish();
-								} else if (Exceptionerror != null) {
-
-									str = Const.NETWORKERROR + Exceptionerror;
-									ToastUtil.showLongToast(
-											SplashActivity.this, "网络连接超时，请检查网络设置或IP地址是否正确");
-									Intent intent = new Intent(
-											SplashActivity.this,
-											LoginActivity.class);
-									startActivity(intent);
-									finish();
-								}
-
-							}
-						});
+				sevice.login(map.get("loginName"), map.get("password"), listListener);
 
 				break;
 			case UPDATA_NONEED:

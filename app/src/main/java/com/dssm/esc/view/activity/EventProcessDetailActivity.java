@@ -71,31 +71,33 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 		initData();
 	}
 
-	private void initData() {
-		Control.getinstance().getControlSevice().getProgressDetail(boHuiListEntity.getId(), new ControlServiceImpl.ControlServiceImplBackValueListenser<ProgressDetailEntity>() {
-			
-			@Override
-			public void setControlServiceImplListenser(ProgressDetailEntity backValue,
-					String stRerror, String Exceptionerror) {
-				// TODO Auto-generated method stub
-				if (backValue!=null) {
-					progressBar.setMax(6);
-					progressBar.setProgress(Integer.parseInt(backValue.getProgressNum()));
-					overtime.setText(Utils.getInstance().setTtimeline(backValue.getNowTime(),backValue.getEveStartTime()));
-				   list.add(backValue.getEveAssess()) ;//事件评估
-				   list.add(backValue.getPlanStart()) ;//预案启动
-				   list.add(backValue.getPlanAuth()) ;//决策授权
-				   list.add(backValue.getPersonSign()) ;//人员签到与指派
-				   list.add(backValue.getPlanPerform()) ;//预案执行
-				   list.add(backValue.getEveClose()) ;//时间关闭
-				   adapter = new TimeLineListviewAdapter(EventProcessDetailActivity.this,
-							list,backValue.getNowTime());
-					listview.setAdapter(adapter);
-				}else if (Exceptionerror!=null) {
-					Toast.makeText(EventProcessDetailActivity.this, Const.NETWORKERROR+Exceptionerror, Toast.LENGTH_SHORT).show();
-				}
+	private ControlServiceImpl.ControlServiceImplBackValueListenser<ProgressDetailEntity> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<ProgressDetailEntity>() {
+
+		@Override
+		public void setControlServiceImplListenser(ProgressDetailEntity backValue,
+				String stRerror, String Exceptionerror) {
+			// TODO Auto-generated method stub
+			if (backValue!=null) {
+				progressBar.setMax(6);
+				progressBar.setProgress(Integer.parseInt(backValue.getProgressNum()));
+				overtime.setText(Utils.getInstance().setTtimeline(backValue.getNowTime(),backValue.getEveStartTime()));
+				list.add(backValue.getEveAssess()) ;//事件评估
+				list.add(backValue.getPlanStart()) ;//预案启动
+				list.add(backValue.getPlanAuth()) ;//决策授权
+				list.add(backValue.getPersonSign()) ;//人员签到与指派
+				list.add(backValue.getPlanPerform()) ;//预案执行
+				list.add(backValue.getEveClose()) ;//时间关闭
+				adapter = new TimeLineListviewAdapter(EventProcessDetailActivity.this,
+						list,backValue.getNowTime());
+				listview.setAdapter(adapter);
+			}else if (Exceptionerror!=null) {
+				Toast.makeText(EventProcessDetailActivity.this, Const.NETWORKERROR+Exceptionerror, Toast.LENGTH_SHORT).show();
 			}
-		});
+		}
+	};
+
+	private void initData() {
+		Control.getinstance().getControlSevice().getProgressDetail(boHuiListEntity.getId(), controlServiceImplBackValueListenser);
 		
 	}
 
