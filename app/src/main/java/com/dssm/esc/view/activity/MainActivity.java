@@ -204,6 +204,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)) { //
             // 防止被移除后，没点确定按钮然后按了home键，长期在后台又进app导致的crash // 三个fragment里加的判断同理
             DemoHXSDKHelper.getInstance().logout(true, null);
+            // 清除本地的sharepreference缓存
+            DataCleanManager.cleanSharedPreference(context);
             finish();
             startActivity(new Intent(this, LoginActivity.class));
             return;
@@ -283,6 +285,30 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             }
         });
 
+        //cookie不为空
+        if(!MySharePreferencesService.getInstance(getApplicationContext()).getcontectName(
+                "JSESSIONID").equals("")) {
+            XGPushConfig.enableDebug(this, true);
+            context = getApplicationContext();
+            Log.i("postFlag岗位标识", map.get("postFlag"));
+            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用
+             * 此接口会覆盖之前绑定的id*/
+            XGPushManager.bindAccount(context, map.get("postFlag"),
+                    new XGIOperateCallback() {
+                        @Override
+                        public void onSuccess(Object data, int flag) {
+                            Log.d("TPush", "注册成功，设备token为：" + data);
+                        }
+
+                        @Override
+                        public void onFail(Object data, int errCode, String msg) {
+                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
+                                    + msg);
+                        }
+                    });
+            initView();
+            init();
+        }
         mPermissionsChecker = new PermissionsChecker(this);
         // 缺少权限时, 进入权限配置页面
         List<String> permissionList = mPermissionsChecker.lacksPermissions(PERMISSIONS);
@@ -395,7 +421,41 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         if(isConflictDialogShow)
             return;
         isConflictDialogShow = true;
-        DemoHXSDKHelper.getInstance().logout(false, null);
+//        DemoHXSDKHelper.getInstance().logout(false, null);
+        DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        /** 信鸽推送，在退出登录时解除账号绑定 */
+                        //XGPushManager.registerPush(context, "*");
+                        XGPushManager.delAccount(context, map.get("postFlag"));
+                        // 清除本地的sharepreference缓存
+                        DataCleanManager.cleanSharedPreference(context);
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(MainActivity.this,
+                                "unbind devicetokens failed",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
         String st = getResources().getString(R.string.Logoff_notification);
         // clear up global variables
         try {
@@ -431,7 +491,42 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      */
     private void showAccountRemovedDialog() {
         isAccountRemovedDialogShow = true;
-        DemoHXSDKHelper.getInstance().logout(true, null);
+//        DemoHXSDKHelper.getInstance().logout(false, null);
+        DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        /** 信鸽推送，在退出登录时解除账号绑定 */
+                        //XGPushManager.registerPush(context, "*");
+                        XGPushManager.delAccount(context, map.get("postFlag"));
+                        // 清除本地的sharepreference缓存
+                        DataCleanManager.cleanSharedPreference(context);
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(MainActivity.this,
+                                "unbind devicetokens failed",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
         String st5 = getResources().getString(R.string.Remove_the_notification);
         if (!MainActivity.this.isFinishing()) {
             // clear up global variables
@@ -719,7 +814,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         activity.showConflictDialog();
                     }
                     /** 信鸽推送，账号在其他地方登录时解除账号绑定 */
-                    XGPushManager.registerPush(activity, "*");
+                    //XGPushManager.registerPush(activity, "*");
+                    XGPushManager.delAccount(activity, activity.map.get("postFlag"));
                 }
 
             });
@@ -845,28 +941,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             if (netListener != null)
                 netListener.initNetData();
             relogin();
-        }
-        //cookie不为空
-        else {
-            XGPushConfig.enableDebug(this, true);
-            context = getApplicationContext();
-            Log.i("postFlag岗位标识", map.get("postFlag"));
-            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用 */
-            XGPushManager.registerPush(context, map.get("postFlag"),
-                    new XGIOperateCallback() {
-                        @Override
-                        public void onSuccess(Object data, int flag) {
-                            Log.d("TPush", "注册成功，设备token为：" + data);
-                        }
-
-                        @Override
-                        public void onFail(Object data, int errCode, String msg) {
-                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
-                                    + msg);
-                        }
-                    });
-            initView();
-            init();
         }
         if(permissionDetect) {
             permissionDetect = false;
@@ -1031,7 +1105,11 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     public void run() {
                         pd.dismiss();
                         /** 信鸽推送，在退出登录时解除账号绑定 */
-                        XGPushManager.registerPush(context, "*");
+                        //XGPushManager.registerPush(context, "*");
+                        //信鸽3.2.2版本后使用这个接口反注册
+                        XGPushManager.delAccount(context, map.get("postFlag"));
+                        // 清除本地的sharepreference缓存
+                        DataCleanManager.cleanSharedPreference(context);
                         // 重新显示登陆页面
                         finish();
                         startActivity(new Intent(MainActivity.this,
