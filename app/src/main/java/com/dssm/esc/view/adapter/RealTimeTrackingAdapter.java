@@ -157,6 +157,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             }
 
         }
+        else
+            mhHolder.executePeople.setText("");
         if (!entity.getName().equals("null")) {
             mhHolder.name_step.setText(entity.getName());
         }

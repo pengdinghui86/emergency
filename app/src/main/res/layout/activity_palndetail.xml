@@ -446,7 +446,7 @@
                                     android:background="@drawable/btbg_blue"
                                     android:clickable="true"
                                     android:padding="10dp"
-                                    android:text="@string/change"
+                                    android:text="@string/execute_complete"
                                     android:textColor="#fff"
                                     android:textSize="@dimen/we_title_textsize" />
                             </LinearLayout>

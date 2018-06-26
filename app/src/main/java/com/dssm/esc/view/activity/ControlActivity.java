@@ -543,7 +543,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                                                             int which) {
                                             for (FlowChartPlanEntity.FlowChart entity : alist) {
                                                 if (entity.getExecutePeople()
-                                                        .equals("null")) {
+                                                        .equals("null") && !entity.getNodeStepType().equals("CallActivity")) {
                                                     Toast.makeText(
                                                             ControlActivity.this,
                                                             entity.getName()

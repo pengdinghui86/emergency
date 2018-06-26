@@ -236,6 +236,9 @@ public class PlanExecutionActivity extends BaseActivity implements
                 // TODO Auto-generated method stub
                 ChildEntity child = adapter.getChild(groupPosition,
                         childPosition);
+                //子预案节点
+                if(child.getNodeStepType().equals("CallActivity"))
+                    return true;
                 GroupEntity groupEntity = adapter.getGroup(groupPosition);
                 // if (child.getStatus().equals("立即执行")) {
                 Intent intent = new Intent(PlanExecutionActivity.this,

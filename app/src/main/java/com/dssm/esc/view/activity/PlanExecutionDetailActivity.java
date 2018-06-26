@@ -220,7 +220,9 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
         okdone.setOnClickListener(this);
         change.setOnClickListener(this);
         initData();
-        if (status.equals("4") && groupEntity.getState().equals("3")) {
+        if ((status.equals("4") ||
+                status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT))
+                && groupEntity.getState().equals("3")) {
             change_ll.setVisibility(View.VISIBLE);
             execute_ll.setVisibility(View.GONE);
         } else if (status.equals("5") && groupEntity.getState().equals("3")) {
@@ -228,8 +230,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             execute.setText(getString(R.string.execute_start));
             execute_ll.setVisibility(View.VISIBLE);
 
-        } else if ((status.equals(RealTimeTrackingStatus.EXCEPTION_EXCEED)
-                || status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT))
+        } else if (status.equals(RealTimeTrackingStatus.EXCEPTION_EXCEED)
                 && groupEntity.getState().equals("3")) {
             change_ll.setVisibility(View.GONE);
             execute.setText(getString(R.string.execute_error));
@@ -247,15 +248,22 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
 
         }
 
-        if(childEntity.getNodeStepType().equals("CallActivity")) {
+        //判断节点
+        if(childEntity.getNodeStepType().equals("ExclusiveGateway")) {
             ll_operation_menu.setVisibility(View.GONE);
             view_operation.setVisibility(View.GONE);
-            execute.setVisibility(View.GONE);
-            change.setVisibility(View.GONE);
-            done_status_ll.setVisibility(View.GONE);
-            submit_infomation_ll.setVisibility(View.GONE);
-            done_ok_ll.setVisibility(View.GONE);
         }
+
+        //子预案节点
+//        if(childEntity.getNodeStepType().equals("CallActivity")) {
+//            ll_operation_menu.setVisibility(View.GONE);
+//            view_operation.setVisibility(View.GONE);
+//            execute.setVisibility(View.GONE);
+//            change.setVisibility(View.GONE);
+//            done_status_ll.setVisibility(View.GONE);
+//            submit_infomation_ll.setVisibility(View.GONE);
+//            done_ok_ll.setVisibility(View.GONE);
+//        }
 //		setNetListener(this);
     }
 

@@ -1134,6 +1134,7 @@ public class MyFlowView extends View {
         textPaint.setColor(getResources().getColor(R.color.black));
         textPaint.setStyle(Paint.Style.STROKE);
         textPaint.setTextSize(DisplayUtils.dp2px(descriptionTextSize));
+        textPaint.setStrokeWidth(1.5f);
     }
 
 

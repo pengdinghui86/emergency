@@ -93,6 +93,7 @@
     <string name="operation_menu">操作手册</string>
     <string name="execute">执行</string>
     <string name="change">切换</string>
+    <string name="execute_complete">执行完成</string>
     <string name="execute_start">开始执行</string>
     <string name="execute_error">执行异常</string>
     <string name="error_cancel">异常解除</string>
