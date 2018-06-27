@@ -10,7 +10,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="postFlag岗位标识" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
@@ -18,41 +17,89 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/design/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/design/R.java" />
       <change beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
+      <change beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/recyclerview/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/recyclerview/R.java" />
       <change beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/dssm/esc/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/dssm/esc/R.java" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/debug.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values.json" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/debug.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/design/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/design/R$string.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$string.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/design/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/design/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/recyclerview/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/recyclerview/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$id.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$integer.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$layout.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$menu.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$menu.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$mipmap.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$mipmap.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$raw.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$raw.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$string.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$style.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$styleable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/R$styleable.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/model/entity/control/FlowChartPlanEntity$FlowChart$ProcessEntity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/model/entity/control/FlowChartPlanEntity$FlowChart$ProcessEntity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/model/entity/control/FlowChartPlanEntity$FlowChart.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/model/entity/control/FlowChartPlanEntity$FlowChart.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/model/jsonparser/control/StopPlanParser.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/model/jsonparser/control/StopPlanParser.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/util/Utils$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/util/Utils$2.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/util/Utils.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/util/Utils.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AddRecievePeoPleActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AddRecievePeoPleActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AddeValuationActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AddeValuationActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AssignmentActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AssignmentActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AutorizateDecDetailActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AutorizateDecDetailActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AutorizationDecisionActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AutorizationDecisionActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/CollaborativeCircularActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/CollaborativeCircularActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$10.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$10.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$11.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$11.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$12.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$12.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$4.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$5.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$6.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$7.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$8.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$8.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$9.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity$9.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/ControlActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/DismissValuationActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/DismissValuationActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/DrillSelectActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/DrillSelectActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EditIPActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EditIPActivity$2.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EditIPActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EditIPActivity.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EmergencyTypeActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EmergencyTypeActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EventProcessActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EventProcessActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EventProcessDetailActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/EventProcessDetailActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/GroupSigninDetail.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/GroupSigninDetail.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/IntroductionActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/IntroductionActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$10.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$10.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$11.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$11.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$12.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$12.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionActivity$3.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionActivity$4.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/OperationMenuActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/OperationMenuActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PersonnelAssignmentActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PersonnelAssignmentActivity.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionActivity.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionDetailActivity$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionDetailActivity$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionDetailActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionDetailActivity$2.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionDetailActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionDetailActivity$3.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionDetailActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanExecutionDetailActivity.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanNameActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanNameActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanStarActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanStarActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanStarDetailActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanStarDetailActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanSuspandDetilActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/PlanSuspandDetilActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/RecieveListActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/RecieveListActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/SendCollaborativeActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/SendCollaborativeActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/SendMeassageActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/SendMeassageActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/SignInActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/SignInActivity.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/SubmitInfomationActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/SubmitInfomationActivity.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$1$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$1$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$1$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$1$2.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$1.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/DismissValuationListviewAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/DismissValuationListviewAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/DrillselectListviewAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/DrillselectListviewAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpanListCheckboxAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpanListCheckboxAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpanListChexboxMulselectAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpanListChexboxMulselectAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpanListChexboxchildMulselectAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpanListChexboxchildMulselectAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpanListvSignInAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpanListvSignInAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter$1.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter$GropViewHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter$GropViewHolder.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter$childViewHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter$childViewHolder.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ListvCheckboxMulselectAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ListvCheckboxMulselectAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ListviewCheckboxAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ListviewCheckboxAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/MessageToastAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/MessageToastAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/MyMessagesAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/MyMessagesAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/PersonAssignListvAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/PersonAssignListvAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/PlanAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/PlanAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/PlanStarAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/PlanStarAdapter.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$10.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$10.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$11.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$11.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$12.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$12.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$2$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$2$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$2$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$2$2.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$2.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$3$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$3$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$3$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$3$2.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$3.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$4$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$4$1.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$4$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$4$2.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$4.class" />
@@ -71,42 +118,76 @@
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$9.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$9.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$ViewHolder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter$ViewHolder.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ReceveListAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ReceveListAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RecieveListAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/RecieveListAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ThreeListCheckboxMulAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/ThreeListCheckboxMulAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/TimeLineListviewAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/adapter/TimeLineListviewAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/AdressListFailsafeAdressListFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/AdressListFailsafeAdressListFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/AdressListFailsafeToastFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/AdressListFailsafeToastFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/AdrressListFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/AdrressListFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/ControlCenterFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/ControlCenterFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/EmergencyManageFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/EmergencyManageFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageEmergencyToastFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageEmergencyToastFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageMyMessagesFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageMyMessagesFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageSystemToastFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageSystemToastFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageTaskToastFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageTaskToastFragment.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/widget/AutoListView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/widget/AutoListView.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/DemoHXSDKHelper$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/DemoHXSDKHelper$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$5$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$5$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$GroupListener$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$GroupListener$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$GroupListener$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$GroupListener$2.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$PressToSpeakListen.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$PressToSpeakListen.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/widget/CustomDialog$Builder.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/widget/CustomDialog$Builder.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/widget/Title_Layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/widget/Title_Layout.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/AlertDialog.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/AlertDialog.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$8$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity$8$1.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatAllHistoryFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatAllHistoryFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatHistoryFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/ChatHistoryFragment.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/DiagnoseActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/DiagnoseActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/EditActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/EditActivity.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/LoginActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/LoginActivity.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/RegisterActivity$1$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/RegisterActivity$1$2.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/OfflinePushNickActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/OfflinePushNickActivity.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/RegisterActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/activity/RegisterActivity.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/ChatAllHistoryAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/ChatAllHistoryAdapter.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$10$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$10$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$14$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$14$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$18$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$18$2.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$19.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$19.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$2.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$8$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter$8$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/utils/CommonUtils.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/utils/CommonUtils.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/ChatHistoryAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/ChatHistoryAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/ExpressionAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/ExpressionAdapter.class" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/adapter/MessageAdapter.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/widget/Sidebar.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/widget/Sidebar.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/debug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/debug/dex-renamer-state.txt" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/debug/zip-cache/Ae+aS7ybqP0UhRzTFge7N4nuVHo=" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/debug/zip-cache/Ae+aS7ybqP0UhRzTFge7N4nuVHo=" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/resources-debug.ap_" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_palndetail.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_palndetail.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values_values.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values_values.arsc.flat" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_child_planexecute.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_child_planexecute.xml.flat" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/10.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/10.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/11.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/11.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/12.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/12.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/13.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/13.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/14.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/14.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/15.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/15.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/16.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/16.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/17.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/17.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/18.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/18.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/19.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/19.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/21.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/21.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/24.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/24.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/25.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/25.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/3.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/3.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/4.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/4.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/5.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/5.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/6.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/6.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/7.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/7.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/8.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/8.jar" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/9.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/9.jar" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/__content__.json" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/__content__.json" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/__content__.json" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/__content__.json" />
+      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/externalLibsDexMerger/debug/0/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/externalLibsDexMerger/debug/0/classes.dex" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/entity/control/FlowChartPlanEntity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/entity/control/FlowChartPlanEntity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/StopPlanParser.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/StopPlanParser.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/Utils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/Utils.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanExecutionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanExecutionActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanExecutionDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanExecutionDetailActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_palndetail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_palndetail.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/child_planexecute.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/child_planexecute.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -170,18 +251,18 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/activity/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="561" column="0" lean-forward="false" selection-start-line="561" selection-start-column="0" selection-end-line="561" selection-end-column="0" />
+            <state relative-caret-position="14610">
+              <caret line="562" column="0" lean-forward="false" selection-start-line="562" selection-start-column="0" selection-end-line="562" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserSeviceImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/UserSeviceImpl.java">
+      <file leaf-file-name="UserLoginParse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/user/UserLoginParse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="389" column="31" lean-forward="true" selection-start-line="389" selection-start-column="31" selection-end-line="389" selection-end-column="31" />
+            <state relative-caret-position="810">
+              <caret line="50" column="16" lean-forward="false" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -190,51 +271,38 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
-              <folding>
-                <element signature="e#27391#27392#0" expanded="true" />
-                <element signature="e#27448#27449#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GetSignUserInfoDetailParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/GetSignUserInfoDetailParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="72" column="26" lean-forward="false" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
+            <state relative-caret-position="18870">
+              <caret line="708" column="7" lean-forward="false" selection-start-line="708" selection-start-column="7" selection-end-line="708" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ControlServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/ControlServiceImpl.java">
+      <file leaf-file-name="SplashActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/activity/SplashActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="333" column="0" lean-forward="false" selection-start-line="333" selection-start-column="0" selection-end-line="333" selection-end-column="0" />
+            <state relative-caret-position="10620">
+              <caret line="396" column="52" lean-forward="false" selection-start-line="396" selection-start-column="52" selection-end-line="396" selection-end-column="52" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QueryProcessTrackParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/QueryProcessTrackParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RealTimeTrackingAdapter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RealTimeTrackingAdapter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="104" column="46" lean-forward="false" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="46" />
+            <state relative-caret-position="68">
+              <caret line="631" column="42" lean-forward="true" selection-start-line="631" selection-start-column="42" selection-end-line="631" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExpandListvPlanExecuteAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-82">
+              <caret line="126" column="63" lean-forward="false" selection-start-line="126" selection-start-column="58" selection-end-line="126" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -243,40 +311,71 @@
       <file leaf-file-name="ControlActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="543" column="84" lean-forward="false" selection-start-line="543" selection-start-column="84" selection-end-line="543" selection-end-column="84" />
+            <state relative-caret-position="147">
+              <caret line="766" column="67" lean-forward="false" selection-start-line="766" selection-start-column="67" selection-end-line="766" selection-end-column="67" />
               <folding>
-                <element signature="e#21183#25376#0" expanded="true" />
-                <element signature="e#23492#25149#0" expanded="true" />
-                <element signature="e#25148#25149#0" expanded="true" />
-                <element signature="e#25375#25376#0" expanded="true" />
+                <element signature="e#3406#3437#0" expanded="true" />
+                <element signature="e#3510#3541#0" expanded="true" />
+                <element signature="e#4435#6248#0" expanded="true" />
+                <element signature="e#6247#6248#0" expanded="true" />
+                <element signature="e#6401#9727#0" expanded="true" />
+                <element signature="e#9726#9727#0" expanded="true" />
+                <element signature="e#10264#10415#0" expanded="true" />
+                <element signature="e#10414#10415#0" expanded="true" />
+                <element signature="e#15080#18081#0" expanded="true" />
+                <element signature="e#18080#18081#0" expanded="true" />
+                <element signature="e#18756#19511#0" expanded="true" />
+                <element signature="e#19510#19511#0" expanded="true" />
+                <element signature="e#20339#21010#0" expanded="true" />
+                <element signature="e#21009#21010#0" expanded="true" />
+                <element signature="e#21725#25918#0" expanded="true" />
+                <element signature="e#21805#21837#0" expanded="true" />
+                <element signature="e#24034#25691#0" expanded="true" />
+                <element signature="e#25690#25691#0" expanded="true" />
+                <element signature="e#25917#25918#0" expanded="true" />
+                <element signature="e#27389#28620#0" expanded="true" />
+                <element signature="e#28619#28620#0" expanded="true" />
+                <element signature="e#29095#30317#0" expanded="true" />
+                <element signature="e#30316#30317#0" expanded="true" />
+                <element signature="e#30775#33179#0" expanded="true" />
+                <element signature="e#33178#33179#0" expanded="true" />
+                <element signature="e#33273#33304#0" expanded="true" />
+                <element signature="e#34632#36210#0" expanded="true" />
+                <element signature="e#36209#36210#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_autorizatdetail.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_autorizatdetail.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="FlowChartPlanEntity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/entity/control/FlowChartPlanEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="638" column="28" lean-forward="false" selection-start-line="638" selection-start-column="28" selection-end-line="638" selection-end-column="28" />
+            <state relative-caret-position="146">
+              <caret line="407" column="0" lean-forward="false" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
+              <folding>
+                <element signature="e#8246#8247#0" expanded="true" />
+                <element signature="e#8291#8292#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/Utils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="9510">
+              <caret line="356" column="41" lean-forward="false" selection-start-line="356" selection-start-column="41" selection-end-line="356" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlanExecutionActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanExecutionActivity.java">
+      <file leaf-file-name="MyDate.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/MyDate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="239" column="63" lean-forward="false" selection-start-line="239" selection-start-column="51" selection-end-line="239" selection-end-column="63" />
-              <folding>
-                <element signature="e#8011#8998#0" expanded="true" />
-                <element signature="e#8997#8998#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="120">
+              <caret line="4" column="18" lean-forward="false" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -292,36 +391,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>showconfi</find>
-      <find>DemoHXSDKHelper.getInstance()</find>
-      <find>pd</find>
       <find>ondes</find>
-      <find>registerPush</find>
-      <find>postfl</find>
-      <find>register</find>
-      <find>logout</find>
-      <find>disc</find>
-      <find>bindAccount</find>
-      <find>XGPushManager.</find>
-      <find>XGPushManager</find>
-      <find>login</find>
-      <find>onre</find>
-      <find>应急通知接收</find>
-      <find>id.change</find>
-      <find>切换</find>
-      <find>change</find>
-      <find>string/change</find>
-      <find>execute_err</find>
-      <find>draw</find>
-      <find>textPaint</find>
-      <find>判断节点</find>
-      <find>nodeStepType</find>
-      <find>detail</find>
-      <find>done_status_ll</find>
-      <find>子预案没有执行人</find>
-      <find>启动</find>
-      <find>realtime_tracking</find>
+      <find>oncr</find>
+      <find>&quot;4&quot;</find>
+      <find>flowCharts</find>
+      <find>allList</find>
+      <find>flowChartPlan</find>
+      <find>setControlServiceImplListenser</find>
+      <find>Duration</find>
       <find>stop</find>
+      <find>startActivityForResult</find>
+      <find>ActivityForResult</find>
+      <find>STAR_PLAN</find>
+      <find>密码已失效</find>
+      <find>onac</find>
+      <find>stopPlan</find>
+      <find>onre</find>
+      <find>usevice</find>
+      <find>relogin</find>
+      <find>onEmergencyParserComplete</find>
+      <find>onkey</find>
+      <find>再</find>
+      <find>login</find>
+      <find>退出</find>
+      <find>parse</find>
+      <find>radapter</find>
+      <find>list</find>
+      <find>resort</find>
+      <find>orderNum</find>
+      <find>postiontv</find>
+      <find>overtime</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -2233,10 +2332,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/user/UserLoginRoleParser.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/message/GetFirstAllMessageListParser.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/UserSevice.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/user/UserLoginParse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/UserSeviceImpl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/EmergencyServiceImpl.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/ControlServiceImpl.java" />
@@ -2271,19 +2366,23 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/adapter/ChatAllHistoryAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanNameActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/fragment/EmergencyManageFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/Utils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/BaseActivity.java" />
         <option value="$PROJECT_DIR$/app/proguard-rules.pro" />
         <option value="$PROJECT_DIR$/gradle.properties" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_palndetail.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanExecutionActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanExecutionDetailActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/child_planexecute.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/StopPlanParser.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/Utils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/entity/control/FlowChartPlanEntity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java" />
       </list>
     </option>
   </component>
@@ -2311,9 +2410,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2572,10 +2668,46 @@
               <item name="view" type="462c0819:PsiDirectoryNode" />
               <item name="widget" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="emergency_newStyle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="emergency_newStyle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="easemob" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="emergency_newStyle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="emergency_newStyle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="easemob" type="462c0819:PsiDirectoryNode" />
+              <item name="chatuidemo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="emergency_newStyle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="emergency_newStyle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="easemob" type="462c0819:PsiDirectoryNode" />
+              <item name="chatuidemo" type="462c0819:PsiDirectoryNode" />
+              <item name="activity" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2584,8 +2716,8 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-hdpi" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1530006336179" />
-    <property name="sync.plugin.last.upgrade.timestamp" value="1529888891973" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1530099085047" />
+    <property name="sync.plugin.last.upgrade.timestamp" value="1530061676758" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="ExportApk.ApkPath" value="D:\git_project\emergency_newStyle\app" />
@@ -2593,6 +2725,10 @@
     <property name="ExportApk.BuildType" value="release" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="ExportApk.SignV2" value="true" />
+    <property name="DEBUGGABLE_DEVICE" value="genymotion-google_nexus_5x___8_0___api_26___1080x1920-192.168.31.101:5555" />
+    <property name="DEBUGGABLE_PROCESS" value="com.dssm.esc" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="DEBUGGER_ID" value="Auto" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -3072,7 +3208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1529916964204</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fix">
+      <created>1530006432900</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1530006432900</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3094,11 +3237,10 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924962" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6884328" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47574627" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -3107,9 +3249,9 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32649255" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924962" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24961948" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39738807" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39738807" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21993911" sideWeight="0.50701755" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -3119,6 +3261,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32807016" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924962" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
@@ -3175,7 +3318,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update xgPush" />
     <MESSAGE value="update xgPush libs" />
-    <MESSAGE value="fix" />
     <MESSAGE value="add leakCanary tool" />
     <MESSAGE value="fix xUtils3.0 在Android4.4以下在session超时后使用http请求时返回nullPointer的错误" />
     <MESSAGE value="update" />
@@ -3183,7 +3325,8 @@
     <MESSAGE value="增加代码混淆" />
     <MESSAGE value="增加gradle正式打包配置" />
     <MESSAGE value="更新信鸽推送最新版本的注册和反注册接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新信鸽推送最新版本的注册和反注册接口" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3304,7 +3447,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
-          <line>1076</line>
+          <line>1074</line>
           <properties />
           <option name="timeStamp" value="367" />
         </line-breakpoint>
@@ -3442,13 +3585,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
-          <line>929</line>
+          <line>927</line>
           <properties />
           <option name="timeStamp" value="535" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
-          <line>931</line>
+          <line>929</line>
           <properties />
           <option name="timeStamp" value="536" />
         </line-breakpoint>
@@ -3464,163 +3607,30 @@
           <properties />
           <option name="timeStamp" value="547" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java</url>
+          <line>764</line>
+          <properties />
+          <option name="timeStamp" value="552" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java</url>
+          <line>169</line>
+          <properties />
+          <option name="timeStamp" value="555" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java</url>
+          <line>752</line>
+          <properties />
+          <option name="timeStamp" value="556" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="548" />
+      <option name="time" value="560" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/app/libs/google-play-services.jar!/com/google/android/gms/maps/GoogleMap.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/httpclient-4.2.5.jar!/org/apache/http/client/AuthCache.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/jg_filter_sdk_1.1.jar!/com/jg/JgBlockChecked.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/mid-core-sdk-4.0.6.jar!/com/tencent/mid/api/MidCallback.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/Parse-1.9.4.jar!/com/parse/ConfigCallback.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/wup-1.0.0.E-SNAPSHOT.jar!/com/qq/taf/jce/JceStruct.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/Xg_sdk_v3.2.3_20180403_1839.jar!/com/tencent/android/tpush/aa.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="5" column="8" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/task/DownloadImageTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/applib/model/HXNotifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-282">
-          <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/applib/model/GroupRemoveListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/applib/model/DefaultHXSDKModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/applib/model/HXSDKModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2344">
-          <caret line="20" column="22" lean-forward="false" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/entity/contact/GrandChildEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/status/CommandDisplayStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="8" lean-forward="true" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/bolts-android-1.2.0.jar!/bolts/AggregateException.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/activity/AlertDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="13" column="8" lean-forward="false" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/support-fragment/24.2.1/support-fragment-24.2.1-sources.jar!/android/support/v4/app/BaseFragmentActivityGingerbread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="33" column="15" lean-forward="false" selection-start-line="33" selection-start-column="15" selection-end-line="33" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/support-fragment/24.2.1/support-fragment-24.2.1-sources.jar!/android/support/v4/app/BaseFragmentActivityHoneycomb.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="28" column="67" lean-forward="true" selection-start-line="28" selection-start-column="67" selection-end-line="28" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/support-fragment/24.2.1/support-fragment-24.2.1-sources.jar!/android/support/v4/app/BaseFragmentActivityJB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="28" column="64" lean-forward="true" selection-start-line="28" selection-start-column="64" selection-end-line="28" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/support-fragment/24.2.1/support-fragment-24.2.1-sources.jar!/android/support/v4/app/FragmentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="74" column="48" lean-forward="false" selection-start-line="74" selection-start-column="48" selection-end-line="74" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/fragment/BaseFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/fragment/AdressListFailsafeAdressListFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -3649,7 +3659,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
           <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3657,7 +3666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2927">
           <caret line="190" column="20" lean-forward="false" selection-start-line="190" selection-start-column="20" selection-end-line="190" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3685,13 +3693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/UserSevice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/app/libs/Xg_sdk_v3.2.3_20180403_1839.jar!/com/tencent/android/tpush/XGPushManager.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -3703,14 +3704,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2100">
           <caret line="73" column="24" lean-forward="false" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/HttpUrl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="335" column="42" lean-forward="false" selection-start-line="335" selection-start-column="31" selection-end-line="335" selection-end-column="58" />
           <folding />
         </state>
       </provider>
@@ -3730,25 +3723,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="450" column="82" lean-forward="false" selection-start-line="450" selection-start-column="82" selection-end-line="450" selection-end-column="82" />
-          <folding>
-            <element signature="e#21238#21264#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/status/RealTimeTrackingStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="38" column="25" lean-forward="false" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="1131" column="0" lean-forward="false" selection-start-line="1131" selection-start-column="0" selection-end-line="1131" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3765,18 +3739,23 @@
         <state relative-caret-position="-29">
           <caret line="118" column="0" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_listview_realtimetrack.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/GetSignUserInfoDetailParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="1500">
+          <caret line="72" column="26" lean-forward="false" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/QueryProcessTrackParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1950">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3786,91 +3765,309 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
+        <state relative-caret-position="19140">
           <caret line="638" column="28" lean-forward="false" selection-start-line="638" selection-start-column="28" selection-end-line="638" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanExecutionActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
-          <caret line="239" column="63" lean-forward="false" selection-start-line="239" selection-start-column="51" selection-end-line="239" selection-end-column="63" />
+          <caret line="65" column="32" lean-forward="false" selection-start-line="65" selection-start-column="32" selection-end-line="65" selection-end-column="32" />
           <folding>
-            <element signature="e#8011#8998#0" expanded="true" />
-            <element signature="e#8997#8998#0" expanded="true" />
+            <element signature="e#7459#7961#0" expanded="false" />
+            <element signature="e#7960#7961#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/group_planexcute.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="104" column="46" lean-forward="false" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="46" />
+        <state relative-caret-position="267">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="13" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="29" column="17" lean-forward="false" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/right.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/rightlist.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/child_planexecute.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="543" column="84" lean-forward="false" selection-start-line="543" selection-start-column="84" selection-end-line="543" selection-end-column="84" />
+        <state relative-caret-position="177">
+          <caret line="16" column="34" lean-forward="false" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/status/RealTimeTrackingStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="10" column="25" lean-forward="false" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="1055" column="64" lean-forward="true" selection-start-line="1055" selection-start-column="64" selection-end-line="1055" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/NSSetPointValueToSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_eventprocessdetail.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="52" column="24" lean-forward="false" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/color.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="12" column="23" lean-forward="true" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_listview_realtimetrack.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="194" column="43" lean-forward="false" selection-start-line="194" selection-start-column="43" selection-end-line="194" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/SubmitInfomationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/ControlSevice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="29" column="31" lean-forward="false" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="22" column="67" lean-forward="true" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/HttpUrl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="310" column="31" lean-forward="false" selection-start-line="310" selection-start-column="31" selection-end-line="310" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/StopPlanParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="112" column="50" lean-forward="false" selection-start-line="112" selection-start-column="50" selection-end-line="112" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/ControlServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="178" column="23" lean-forward="false" selection-start-line="178" selection-start-column="23" selection-end-line="178" selection-end-column="23" />
           <folding>
-            <element signature="e#21183#25376#0" expanded="true" />
-            <element signature="e#23492#25149#0" expanded="true" />
-            <element signature="e#25148#25149#0" expanded="true" />
-            <element signature="e#25375#25376#0" expanded="true" />
+            <element signature="e#6583#7184#0" expanded="false" />
+            <element signature="e#7183#7184#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/activity/LoginActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/UserSevice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="561" column="0" lean-forward="false" selection-start-line="561" selection-start-column="0" selection-end-line="561" selection-end-column="0" />
+        <state relative-caret-position="100">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/user/UserReLoginParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="107" column="77" lean-forward="false" selection-start-line="107" selection-start-column="52" selection-end-line="107" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/UserSeviceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4170">
+          <caret line="162" column="24" lean-forward="false" selection-start-line="162" selection-start-column="24" selection-end-line="162" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/user/UserLoginParse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="50" column="16" lean-forward="false" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-24/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="798" column="16" lean-forward="false" selection-start-line="798" selection-start-column="16" selection-end-line="798" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/controler/Control.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="45" column="24" lean-forward="false" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/activity/SplashActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10620">
+          <caret line="396" column="52" lean-forward="false" selection-start-line="396" selection-start-column="52" selection-end-line="396" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
+        <state relative-caret-position="18870">
+          <caret line="708" column="7" lean-forward="false" selection-start-line="708" selection-start-column="7" selection-end-line="708" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/MyDate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="4" column="18" lean-forward="false" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9510">
+          <caret line="356" column="41" lean-forward="false" selection-start-line="356" selection-start-column="41" selection-end-line="356" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/activity/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14610">
+          <caret line="562" column="0" lean-forward="false" selection-start-line="562" selection-start-column="0" selection-end-line="562" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/ExpandListvPlanExecuteAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-82">
+          <caret line="126" column="63" lean-forward="false" selection-start-line="126" selection-start-column="58" selection-end-line="126" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/entity/control/FlowChartPlanEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="407" column="0" lean-forward="false" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
           <folding>
-            <element signature="e#27391#27392#0" expanded="true" />
-            <element signature="e#27448#27449#0" expanded="true" />
+            <element signature="e#8246#8247#0" expanded="true" />
+            <element signature="e#8291#8292#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/GetSignUserInfoDetailParser.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="72" column="26" lean-forward="false" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="147">
+          <caret line="766" column="67" lean-forward="false" selection-start-line="766" selection-start-column="67" selection-end-line="766" selection-end-column="67" />
+          <folding>
+            <element signature="e#3406#3437#0" expanded="true" />
+            <element signature="e#3510#3541#0" expanded="true" />
+            <element signature="e#4435#6248#0" expanded="true" />
+            <element signature="e#6247#6248#0" expanded="true" />
+            <element signature="e#6401#9727#0" expanded="true" />
+            <element signature="e#9726#9727#0" expanded="true" />
+            <element signature="e#10264#10415#0" expanded="true" />
+            <element signature="e#10414#10415#0" expanded="true" />
+            <element signature="e#15080#18081#0" expanded="true" />
+            <element signature="e#18080#18081#0" expanded="true" />
+            <element signature="e#18756#19511#0" expanded="true" />
+            <element signature="e#19510#19511#0" expanded="true" />
+            <element signature="e#20339#21010#0" expanded="true" />
+            <element signature="e#21009#21010#0" expanded="true" />
+            <element signature="e#21725#25918#0" expanded="true" />
+            <element signature="e#21805#21837#0" expanded="true" />
+            <element signature="e#24034#25691#0" expanded="true" />
+            <element signature="e#25690#25691#0" expanded="true" />
+            <element signature="e#25917#25918#0" expanded="true" />
+            <element signature="e#27389#28620#0" expanded="true" />
+            <element signature="e#28619#28620#0" expanded="true" />
+            <element signature="e#29095#30317#0" expanded="true" />
+            <element signature="e#30316#30317#0" expanded="true" />
+            <element signature="e#30775#33179#0" expanded="true" />
+            <element signature="e#33178#33179#0" expanded="true" />
+            <element signature="e#33273#33304#0" expanded="true" />
+            <element signature="e#34632#36210#0" expanded="true" />
+            <element signature="e#36209#36210#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/ControlServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="333" column="0" lean-forward="false" selection-start-line="333" selection-start-column="0" selection-end-line="333" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/UserSeviceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="389" column="31" lean-forward="true" selection-start-line="389" selection-start-column="31" selection-end-line="389" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/QueryProcessTrackParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        <state relative-caret-position="68">
+          <caret line="631" column="42" lean-forward="true" selection-start-line="631" selection-start-column="42" selection-end-line="631" selection-end-column="42" />
           <folding />
         </state>
       </provider>

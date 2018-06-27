@@ -833,8 +833,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     connectionListener);
             connectionListener = null;
         }
-        // 清除本地的sharepreference缓存
-        DataCleanManager.cleanSharedPreference(context);
         super.onDestroy();
     }
 

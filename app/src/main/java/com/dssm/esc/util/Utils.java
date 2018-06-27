@@ -331,6 +331,33 @@ public class Utils implements Serializable {
         return userTime;
     }
 
+
+    /**
+     * 计算已用秒
+     */
+    public long getOverSeconds(String nowTime, String subTime) {
+        String strDate2 = subTime.replace("-", "/");
+        long time = 0;
+        if (nowTime.contains("-")) {// 2015-11-18
+            long strDate = Date.parse(nowTime.replace("-", "/"));
+            time = strDate - Date.parse(strDate2);
+        } else {// 微秒
+            time = Long.parseLong(nowTime) - Date.parse(strDate2);
+        }
+        MyDate myDate2 = new MyDate();
+        return time / 1000;
+    }
+
+    /**
+     * 比较时间大小
+     */
+    public long compareTime(String strDate, String strDate2) {
+        long time1, time2;
+        time1 = Long.parseLong(strDate);
+        time2 = Long.parseLong(strDate2);
+        return time1 - time2;
+    }
+
     /**
      * 获取系统当前时间
      *

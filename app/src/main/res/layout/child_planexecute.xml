@@ -13,6 +13,14 @@
         android:layout_gravity="center"
         android:layout_weight="0.2" />
 
+    <ImageView
+        android:id="@+id/child_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/expandlist"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/child_step"
         android:layout_width="0dp"

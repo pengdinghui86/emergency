@@ -103,6 +103,8 @@ public class ExpandListvPlanExecuteAdapter extends BaseExpandableListAdapter {
             cHolder = new childViewHolder();
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.child_planexecute, null);
+            cHolder.child_img = (ImageView) convertView
+                    .findViewById(R.id.child_img);
             cHolder.child_step = (TextView) convertView
                     .findViewById(R.id.child_step);
             cHolder.execute_status = (TextView) convertView
@@ -256,12 +258,19 @@ public class ExpandListvPlanExecuteAdapter extends BaseExpandableListAdapter {
                 }
                 break;
         }
+        //根据层级设置缩进
         convertView.setPadding(centity.getIndex() * 20, 0, 0, 0);
+        //子预案节点
+        if(centity.getNodeStepType().equals("CallActivity"))
+            cHolder.child_img.setVisibility(View.VISIBLE);
+        else
+            cHolder.child_img.setVisibility(View.GONE);
         return convertView;
         // }
     }
 
     class childViewHolder {
+        private ImageView child_img;
         private TextView child_step;
         private TextView execute_status;
 

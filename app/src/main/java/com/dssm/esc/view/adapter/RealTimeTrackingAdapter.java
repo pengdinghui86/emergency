@@ -139,11 +139,11 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
          */
         //新增节点
         if (!entity.getEditOrderNum().equals("null")) {
-            mhHolder.postiontv.setText(entity.getEditOrderNum() + ".");
+            mhHolder.postiontv.setText(entity.getParentOrderNum() + entity.getEditOrderNum() + ".");
         }
         else {
             if (!entity.getOrderNum().equals("null")) {
-                mhHolder.postiontv.setText(entity.getOrderNum() + ".");
+                mhHolder.postiontv.setText(entity.getParentOrderNum() + entity.getOrderNum() + ".");
             }
         }
         if (!entity.getExecutePeople().equals("null")) {
@@ -447,30 +447,32 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     dialog.show(); // 显示对话框
                 }
             });
-            mhHolder.tv_pause.setVisibility(View.VISIBLE);
-            mhHolder.tv_pause.setOnClickListener(new OnClickListener() {
+            if(entity.getStatus().equals(RealTimeTrackingStatus.BEFORE)) {
+                mhHolder.tv_pause.setVisibility(View.VISIBLE);
+                mhHolder.tv_pause.setOnClickListener(new OnClickListener() {
 
-                @Override
-                public void onClick(View arg0) {
-                    Dialog dialog = null;
-                    dialog = new AlertDialog.Builder(parent.getContext())
-                            .setTitle("您确定要暂停？")
-                            .setPositiveButton("确定",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            //暂停传0，开启传1
-                                            planPause(entity.getId(), entity.getPlanInfoId(), "0");
-                                        }
-                                    })
+                    @Override
+                    public void onClick(View arg0) {
+                        Dialog dialog = null;
+                        dialog = new AlertDialog.Builder(parent.getContext())
+                                .setTitle("您确定要暂停？")
+                                .setPositiveButton("确定",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //暂停传0，开启传1
+                                                planPause(entity.getId(), entity.getPlanInfoId(), "0");
+                                            }
+                                        })
 
-                            .setNegativeButton("取消",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    }).create(); // 创建对话框
-                    dialog.show(); // 显示对话框
-                }
-            });
+                                .setNegativeButton("取消",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        }).create(); // 创建对话框
+                        dialog.show(); // 显示对话框
+                    }
+                });
+            }
         }
         else
             mhHolder.jumptv.setVisibility(View.GONE);
@@ -605,14 +607,27 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         } else {
             mhHolder.content.setText("");
         }
-        if (entity.getStatus().equals("4")) {// 执行中
+        if (entity.getStatus().equals("4")
+                || entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT)) {
+            // 执行中或执行超时
             mhHolder.overtime.setText(Utils.getInstance().setTtimeline(curDate,
                     entity.getBeginTime()));
+            if(entity.getStatus().equals("4"))
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
+            else
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.timeover));
             Log.i("entity.getBeginTime()", entity.getBeginTime());
         } else if (!entity.getEndTime().equals("null")
                 && !entity.getBeginTime().equals("")) {
-            mhHolder.overtime.setText(Utils.getInstance().setTtimeline(
+            String overSeconds = Utils.getInstance().getOverSeconds(
+                    entity.getEndTime(), entity.getBeginTime()) + "";
+            long result = Utils.getInstance().compareTime(overSeconds, entity.getDuration());
+            mhHolder.overtime.setText(Utils.getInstance().getOverTime(
                     entity.getEndTime(), entity.getBeginTime()));
+            if(result < 0)
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
+            else
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.timeover));
         } else {
             mhHolder.overtime.setText("");
         }

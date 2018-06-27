@@ -300,6 +300,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     private void addIndex(List<FlowChartPlanEntity.FlowChart> result) {
         for(FlowChartPlanEntity.FlowChart flowChart : result) {
             int index = 0;
+            String parentOrderNum = "";
             String parentId = flowChart.getParentProcessStepId();
             while (parentId != null && !"".equals(parentId)) {
                 index++;
@@ -307,6 +308,14 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 for (FlowChartPlanEntity.FlowChart flowChart1 : result) {
                     if(flowChart1.getId().equals(parentId)) {
                         parentId = flowChart1.getParentProcessStepId();
+                        String num = "";
+                        if (!flowChart1.getEditOrderNum().equals("null")) {
+                            num = flowChart1.getEditOrderNum() + ".";
+                        }
+                        else if (!flowChart1.getOrderNum().equals("null")) {
+                            num = flowChart1.getOrderNum() + ".";
+                        }
+                        parentOrderNum = num + parentOrderNum;
                         i++;
                         break;
                     }
@@ -315,6 +324,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     break;
             }
             flowChart.setIndex(index);
+            flowChart.setParentOrderNum(parentOrderNum);
         }
     }
 

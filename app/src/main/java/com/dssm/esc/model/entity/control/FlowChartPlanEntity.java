@@ -176,6 +176,11 @@ public class FlowChartPlanEntity implements Serializable {
          */
         private String orderNum;
         /**
+         * 父节点排序号
+         */
+        private String parentOrderNum;
+
+        /**
          * 开始时间
          */
         private String beginTime;
@@ -395,6 +400,14 @@ public class FlowChartPlanEntity implements Serializable {
 
         public void setOrderNum(String orderNum) {
             this.orderNum = orderNum;
+        }
+
+        public String getParentOrderNum() {
+            return parentOrderNum;
+        }
+
+        public void setParentOrderNum(String parentOrderNum) {
+            this.parentOrderNum = parentOrderNum;
         }
 
         public String getBeginTime() {
