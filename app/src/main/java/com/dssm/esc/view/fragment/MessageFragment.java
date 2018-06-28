@@ -185,7 +185,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		// 初始化，默认加载任务通知界面
 
 		userSevice = Control.getinstance().getUserSevice();
-		service = new MySharePreferencesService(context);
+		service = MySharePreferencesService.getInstance(context);
 		// 回显
 		map = service.getPreferences();
 		Log.i("角色", map.get("roleNames"));

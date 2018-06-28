@@ -495,9 +495,8 @@ public class AutorizationDecisionActivity extends BaseActivity implements
 
             } else if (Exceptionerror != null) {
                 dataList = new ArrayList<PlanEntity>();
-                Toast.makeText(AutorizationDecisionActivity.this,
-                        Const.NETWORKERROR + Exceptionerror,
-                        Toast.LENGTH_SHORT).show();
+                ToastUtil.showToast(AutorizationDecisionActivity.this,
+                        Const.NETWORKERROR + Exceptionerror);
             }
             if (dataList.size() > 20) {// 如果超过20条，则分页
                 List<PlanEntity> subList = dataList.subList(0, 20);

@@ -198,7 +198,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         if (useEventBus()) {
             EventBus.getDefault().register(this);
         }
-        context = this;
+        context = getApplicationContext();
 
         if (savedInstanceState != null
                 && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)) { //
@@ -289,7 +289,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         if(!MySharePreferencesService.getInstance(getApplicationContext()).getcontectName(
                 "JSESSIONID").equals("")) {
             XGPushConfig.enableDebug(this, true);
-            context = getApplicationContext();
             Log.i("postFlag岗位标识", map.get("postFlag"));
             /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用
              * 此接口会覆盖之前绑定的id*/
@@ -449,9 +448,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                        Toast.makeText(MainActivity.this,
-                                "unbind devicetokens failed",
-                                Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast(context,
+                                "unbind devicetokens failed");
                     }
                 });
             }
@@ -461,7 +459,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         try {
             if (conflictBuilder == null)
                 conflictBuilder = new android.app.AlertDialog.Builder(
-                        MainActivity.this);
+                        context);
             conflictBuilder.setTitle(st);
             conflictBuilder.setMessage(R.string.connect_conflict);
             conflictBuilder.setPositiveButton(R.string.ok,
@@ -473,7 +471,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                             dialog.dismiss();
                             conflictBuilder = null;
                             finish();
-                            startActivity(new Intent(MainActivity.this,
+                            startActivity(new Intent(context,
                                     LoginActivity.class));
                         }
                     });
@@ -519,9 +517,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                        Toast.makeText(MainActivity.this,
-                                "unbind devicetokens failed",
-                                Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast(context,
+                                "unbind devicetokens failed");
                     }
                 });
             }
@@ -533,7 +530,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             try {
                 if (accountRemovedBuilder == null)
                     accountRemovedBuilder = new android.app.AlertDialog.Builder(
-                            MainActivity.this);
+                            context);
                 accountRemovedBuilder.setTitle(st5);
                 accountRemovedBuilder.setMessage(R.string.em_user_remove);
                 accountRemovedBuilder.setPositiveButton(R.string.ok,
@@ -1130,9 +1127,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     public void run() {
                         // TODO Auto-generated method stub
                         pd.dismiss();
-                        Toast.makeText(MainActivity.this,
-                                "unbind devicetokens failed",
-                                Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast(context,
+                                "unbind devicetokens failed");
                     }
                 });
             }

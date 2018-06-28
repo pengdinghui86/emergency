@@ -161,7 +161,7 @@ public abstract class HXSDKHelper {
             return true;
         }
 
-        appContext = context;
+        appContext = context.getApplicationContext();
 
         // create HX SDK model
         hxModel = createModel();
@@ -187,7 +187,7 @@ public abstract class HXSDKHelper {
         }
 
         // 初始化环信SDK,一定要先调用init()
-        EMChat.getInstance().init(context);
+        EMChat.getInstance().init(appContext);
         
         // 设置sandbox测试环境
         if(hxModel.isSandboxMode()){

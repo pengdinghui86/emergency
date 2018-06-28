@@ -17,7 +17,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -31,7 +30,8 @@ import com.easemob.chatuidemo.activity.ChatActivity;
  * 自定义的textview，用来处理复制粘贴的消息
  *
  */
-public class PasteEditText extends AppCompatEditText {
+@SuppressLint("AppCompatCustomView")
+public class PasteEditText extends EditText {
     private Context context;
     
     
