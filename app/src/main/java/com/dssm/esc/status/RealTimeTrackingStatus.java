@@ -48,4 +48,6 @@ public class RealTimeTrackingStatus {
      * 演练中新增或合并节点  已执行 ,---该状态已被弃用，现暂时用作app端的状态以便节点颜色的展示--dt 2018-3-20
      */
     public static String NO_OPTION_CAN_DRILL_START = "26"; //"已执行"
+
+    public static String NO_CHOICE_TO_EXECUTE = "27"; //"未选择执行"
 }

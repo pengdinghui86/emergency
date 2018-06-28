@@ -186,6 +186,21 @@ public class MyFlowView extends View {
             }
         }
         if(flag == 0) {
+            for (NSstep step : nsSetPointValueToSteps.steplist) {
+                if (null != step.statusId) {
+                    //可执行
+                    if (step.statusId.equals("5")) {
+                        flag = 1;
+                        if(nsSetPointValueToSteps.steplist.size() > 6) {
+                            smoothMoveX = step.y * width - defaultWidth / 2f;
+                            smoothMoveY = step.x * height - defaultHeight / 2f;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        if(flag == 0) {
             if (nsSetPointValueToSteps.steplist.size() > 6) {
                 smoothMoveX = nsSetPointValueToSteps.steplist.get(0).y * width - defaultWidth / 2f;
                 smoothMoveY = nsSetPointValueToSteps.steplist.get(2).x * height - defaultHeight / 2f;
@@ -970,6 +985,8 @@ public class MyFlowView extends View {
                     step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
                 message += "执行状态：跳过";
             }
+            else if(step.statusId.equals(RealTimeTrackingStatus.NO_CHOICE_TO_EXECUTE))
+                message += "执行状态：未选择执行";
             if(!"".equals(message))
                 builder.setMessage(message);
             builder.setPositiveButton("ok",
@@ -1001,6 +1018,12 @@ public class MyFlowView extends View {
                 else
                     message += "执行状态：跳过";
             }
+            else if(step.statusId.equals(RealTimeTrackingStatus.NO_CHOICE_TO_EXECUTE)) {
+                if(!message.equals(""))
+                    message += "\n" + "执行状态：未选择执行";
+                else
+                    message += "执行状态：未选择执行";
+            }
             if(!"".equals(message))
                 builder.setMessage(message);
             builder.setTitle("步骤：" + step.name);
@@ -1022,6 +1045,12 @@ public class MyFlowView extends View {
                     step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
                     step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
                 message += "执行状态：跳过";
+            }
+            else if(step.statusId.equals(RealTimeTrackingStatus.NO_CHOICE_TO_EXECUTE)) {
+                if(!message.equals(""))
+                    message += "\n" + "执行状态：未选择执行";
+                else
+                    message += "执行状态：未选择执行";
             }
             if(!"".equals(message))
                 builder.setMessage(message);
@@ -1061,8 +1090,12 @@ public class MyFlowView extends View {
                 else
                     message += "执行状态：跳过";
             }
-//                            message = "执行人：" + executePeople + "\n" + "开始时间："
-//                                    + beginTime + "\n" + "完成时间：" + endTime;
+            else if(step.statusId.equals(RealTimeTrackingStatus.NO_CHOICE_TO_EXECUTE)) {
+                if(!message.equals(""))
+                    message += "\n" + "执行状态：未选择执行";
+                else
+                    message += "执行状态：未选择执行";
+            }
             if(!"".equals(message))
                 builder.setMessage(message);
             builder.setTitle("步骤：" + step.name);

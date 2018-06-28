@@ -163,7 +163,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.name_step.setText(entity.getName());
         }
         String status = "";
-        // 全部完成：1，部分完成：2，跳过：3，正在执行：4，可执行：5,准备执行：6，未执行：7
+        // 全部完成：1，部分完成：2，跳过：3，正在执行：4，可执行：5,准备执行：6，未执行：7，未选择执行：27
         if (!entity.getStatus().equals("null") && !entity.getStatus().equals("")) {
 
             /**
@@ -347,6 +347,24 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     mhHolder.status.setTextColor(Color.RED);
                     mhHolder.status.setText(status);
 
+                    setItemColor(entity, mhHolder);
+                    break;
+                /**
+                 * 新增
+                 * 2018/6/28
+                 */
+                case 27:
+                    status = "未选择执行";
+                    setDefaultBackground(mhHolder, R.color.green_b);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
+                    mhHolder.status.setText(status);
+
+                    setItemColor(entity, mhHolder);
+                    break;
+                default:
+                    setDefaultBackground(mhHolder, R.color.red);
+                    mhHolder.status.setTextColor(Color.RED);
+                    mhHolder.status.setText("状态未知");
                     setItemColor(entity, mhHolder);
                     break;
             }

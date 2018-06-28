@@ -87,54 +87,25 @@ public class PlanExecutionActivity extends BaseActivity implements
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    try {
-                        List<GroupEntity> result = (List<GroupEntity>) msg.obj;
-                        groupList.addAll(result);
-                        adapter = new ExpandListvPlanExecuteAdapter(groupList,
-                                PlanExecutionActivity.this);
-                        expandableList.setAdapter(adapter);
-                        for (int i = 0; i < adapter.getGroupCount(); i++) {
-                            expandableList.expandGroup(i);
-                        }
-                        if (result.size() == 0) {
-                            mSwipeLayout.setVisibility(View.GONE);
-                            expandableList.setVisibility(View.GONE);
-                            emptytv.setVisibility(View.VISIBLE);
-                        } else {
-                            mSwipeLayout.setVisibility(View.VISIBLE);
-                            expandableList.setVisibility(View.VISIBLE);
-                            emptytv.setVisibility(View.GONE);
-                        }
-                    }
-                    catch (Exception e) {
-                        String error = e.toString();
-                    }
-                    //mSwipeLayout.setRefreshing(false);
-                    break;
-                case 1:
-                    List<GroupEntity> result1 = (List<GroupEntity>) msg.obj;
-                    groupList.clear();
-                    groupList.addAll(result1);
-                    if(adapter == null) {
-                        adapter = new ExpandListvPlanExecuteAdapter(groupList,
-                                PlanExecutionActivity.this);
-                        expandableList.setAdapter(adapter);
-                    }
-                    else
-                        adapter.notifyDataSetChanged();
-                    mSwipeLayout.setRefreshing(false);
-                    if (result1.size() == 0) {
-                        mSwipeLayout.setVisibility(View.GONE);
-                        expandableList.setVisibility(View.GONE);
-                        emptytv.setVisibility(View.VISIBLE);
-                    } else {
-                        mSwipeLayout.setVisibility(View.VISIBLE);
-                        expandableList.setVisibility(View.VISIBLE);
-                        emptytv.setVisibility(View.GONE);
-                    }
-                    break;
+            List<GroupEntity> result1 = (List<GroupEntity>) msg.obj;
+            groupList.clear();
+            groupList.addAll(result1);
+            if(adapter == null) {
+                adapter = new ExpandListvPlanExecuteAdapter(groupList,
+                        PlanExecutionActivity.this);
+                expandableList.setAdapter(adapter);
+            }
+            else
+                adapter.notifyDataSetChanged();
+            mSwipeLayout.setRefreshing(false);
+            if (result1.size() == 0) {
+                mSwipeLayout.setVisibility(View.GONE);
+                expandableList.setVisibility(View.GONE);
+                emptytv.setVisibility(View.VISIBLE);
+            } else {
+                mSwipeLayout.setVisibility(View.VISIBLE);
+                expandableList.setVisibility(View.VISIBLE);
+                emptytv.setVisibility(View.GONE);
             }
         }
     };
@@ -165,7 +136,7 @@ public class PlanExecutionActivity extends BaseActivity implements
      */
     public void onEvent(mainEvent data) {
         if (data.getData().equals("refre")) {
-
+            i = 1;
             initListData();
         }
     }
