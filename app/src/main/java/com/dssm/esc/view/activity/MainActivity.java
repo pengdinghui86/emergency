@@ -459,7 +459,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         try {
             if (conflictBuilder == null)
                 conflictBuilder = new android.app.AlertDialog.Builder(
-                        context);
+                        MainActivity.this);
             conflictBuilder.setTitle(st);
             conflictBuilder.setMessage(R.string.connect_conflict);
             conflictBuilder.setPositiveButton(R.string.ok,
@@ -530,7 +530,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             try {
                 if (accountRemovedBuilder == null)
                     accountRemovedBuilder = new android.app.AlertDialog.Builder(
-                            context);
+                            MainActivity.this);
                 accountRemovedBuilder.setTitle(st5);
                 accountRemovedBuilder.setMessage(R.string.em_user_remove);
                 accountRemovedBuilder.setPositiveButton(R.string.ok,

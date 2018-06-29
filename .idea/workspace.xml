@@ -15,32 +15,9 @@
   <component name="ChangeListManager">
     <list default="true" id="eba0de00-8617-4e46-bd07-56c288df8d02" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AutorizationDecisionActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AutorizationDecisionActivity$5.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AutorizationDecisionActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/AutorizationDecisionActivity.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$10.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$10.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$11.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$11.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$12.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$12.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$4.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$5.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$6.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$7.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$8.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$8.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$9.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$9.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$MyConnectionListener$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$MyConnectionListener$1.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$MyConnectionListener.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity$MyConnectionListener.class" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/activity/MainActivity.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/dssm/esc/view/fragment/MessageFragment.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/applib/controller/HXSDKHelper.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/applib/controller/HXSDKHelper.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/widget/PasteEditText.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/easemob/chatuidemo/widget/PasteEditText.class" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/debug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/debug/dex-renamer-state.txt" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/__content__.json" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/__content__.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/__content__.json" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/__content__.json" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/AutorizationDecisionActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/AutorizationDecisionActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/fragment/MessageFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/fragment/MessageFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/easemob/applib/controller/HXSDKHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/easemob/applib/controller/HXSDKHelper.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/widget/PasteEditText.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/widget/PasteEditText.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -101,12 +78,113 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RealTimeTrackingAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
-              <caret line="381" column="52" lean-forward="false" selection-start-line="381" selection-start-column="52" selection-end-line="381" selection-end-column="52" />
+            <state relative-caret-position="131">
+              <caret line="810" column="54" lean-forward="true" selection-start-line="810" selection-start-column="54" selection-end-line="810" selection-end-column="54" />
+              <folding>
+                <element signature="e#8724#8866#0" expanded="true" />
+                <element signature="e#8865#8866#0" expanded="true" />
+                <element signature="e#8989#9136#0" expanded="true" />
+                <element signature="e#9135#9136#0" expanded="true" />
+                <element signature="e#9300#9301#0" expanded="true" />
+                <element signature="e#9364#9365#0" expanded="true" />
+                <element signature="e#9445#9446#0" expanded="true" />
+                <element signature="e#9509#9510#0" expanded="true" />
+                <element signature="e#11763#12449#0" expanded="true" />
+                <element signature="e#12448#12449#0" expanded="true" />
+                <element signature="e#12603#12604#0" expanded="true" />
+                <element signature="e#12649#12650#0" expanded="true" />
+                <element signature="e#14628#15044#0" expanded="true" />
+                <element signature="e#15043#15044#0" expanded="true" />
+                <element signature="e#15278#15580#0" expanded="true" />
+                <element signature="e#15579#15580#0" expanded="true" />
+                <element signature="e#15629#15683#0" expanded="true" />
+                <element signature="e#15973#15998#0" expanded="true" />
+                <element signature="e#16047#16058#0" expanded="true" />
+                <element signature="e#16080#16584#0" expanded="true" />
+                <element signature="e#16583#16584#0" expanded="true" />
+                <element signature="e#17223#17639#0" expanded="true" />
+                <element signature="e#17638#17639#0" expanded="true" />
+                <element signature="e#17873#18175#0" expanded="true" />
+                <element signature="e#18174#18175#0" expanded="true" />
+                <element signature="e#18226#18284#0" expanded="true" />
+                <element signature="e#18675#18698#0" expanded="true" />
+                <element signature="e#18757#18768#0" expanded="true" />
+                <element signature="e#18794#19354#0" expanded="true" />
+                <element signature="e#19353#19354#0" expanded="true" />
+                <element signature="e#24075#24110#0" expanded="true" />
+                <element signature="e#26127#26128#0" expanded="true" />
+                <element signature="e#26154#26155#0" expanded="true" />
+                <element signature="e#27225#27226#0" expanded="true" />
+                <element signature="e#27282#27283#0" expanded="true" />
+                <element signature="e#27582#28242#0" expanded="true" />
+                <element signature="e#28241#28242#0" expanded="true" />
+                <element signature="e#29470#29864#0" expanded="true" />
+                <element signature="e#29863#29864#0" expanded="true" />
+                <element signature="e#33748#33760#0" expanded="true" />
+                <element signature="e#33790#33826#0" expanded="true" />
+                <element signature="e#33884#33899#0" expanded="true" />
+                <element signature="e#33901#34119#0" expanded="true" />
+                <element signature="e#34118#34119#0" expanded="true" />
+                <element signature="e#34157#34168#0" expanded="true" />
+                <element signature="e#34170#34389#0" expanded="true" />
+                <element signature="e#34388#34389#0" expanded="true" />
+                <element signature="e#35556#36907#0" expanded="true" />
+                <element signature="e#36906#36907#0" expanded="true" />
+                <element signature="e#37560#37609#0" expanded="true" />
+                <element signature="e#37863#38557#0" expanded="true" />
+                <element signature="e#38556#38557#0" expanded="true" />
+                <element signature="e#38791#39131#0" expanded="true" />
+                <element signature="e#39130#39131#0" expanded="true" />
+                <element signature="e#39266#40797#0" expanded="true" />
+                <element signature="e#40796#40797#0" expanded="true" />
+                <element signature="e#41082#41774#0" expanded="true" />
+                <element signature="e#41773#41774#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DemoHXSDKHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/DemoHXSDKHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HXSDKHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/applib/controller/HXSDKHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="55" column="7" lean-forward="false" selection-start-line="55" selection-start-column="7" selection-end-line="55" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyFlowView.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="1207" column="5" lean-forward="true" selection-start-line="1207" selection-start-column="5" selection-end-line="1207" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#7769#7770#0" expanded="true" />
+                <element signature="e#7807#7808#0" expanded="true" />
+                <element signature="e#41907#42187#0" expanded="true" />
+                <element signature="e#42186#42187#0" expanded="true" />
+                <element signature="e#43501#43781#0" expanded="true" />
+                <element signature="e#43780#43781#0" expanded="true" />
+                <element signature="e#44645#44925#0" expanded="true" />
+                <element signature="e#44924#44925#0" expanded="true" />
+                <element signature="e#46444#46724#0" expanded="true" />
+                <element signature="e#46723#46724#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -114,157 +192,61 @@
       <file leaf-file-name="NSSetPointValueToSteps.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/NSSetPointValueToSteps.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="991" column="11" lean-forward="false" selection-start-line="991" selection-start-column="11" selection-end-line="991" selection-end-column="11" />
+            <state relative-caret-position="210">
+              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding>
-                <element signature="e#34150#34369#0" expanded="true" />
-                <element signature="e#34368#34369#0" expanded="true" />
-                <element signature="e#37843#38537#0" expanded="true" />
-                <element signature="e#38536#38537#0" expanded="true" />
+                <element signature="e#683#1312#0" expanded="true" />
+                <element signature="e#1311#1312#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChatActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/activity/ChatActivity.java">
+      <file leaf-file-name="QueryProcessTrackParser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/QueryProcessTrackParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="310" column="21" lean-forward="false" selection-start-line="310" selection-start-column="21" selection-end-line="310" selection-end-column="21" />
-              <folding>
-                <element signature="e#8037#8231#0" expanded="true" />
-                <element signature="e#8230#8231#0" expanded="true" />
-                <element signature="e#11872#11878#0" expanded="true" />
-                <element signature="e#12312#12712#0" expanded="true" />
-                <element signature="e#12711#12712#0" expanded="true" />
-                <element signature="e#13256#13257#0" expanded="true" />
-                <element signature="e#14500#16785#0" expanded="true" />
-                <element signature="e#14629#16753#0" expanded="true" />
-                <element signature="e#16461#16557#0" expanded="true" />
-                <element signature="e#16752#16753#0" expanded="true" />
-                <element signature="e#16784#16785#0" expanded="true" />
-                <element signature="e#23183#23678#0" expanded="true" />
-                <element signature="e#23677#23678#0" expanded="true" />
-                <element signature="e#24694#25685#0" expanded="true" />
-                <element signature="e#25684#25685#0" expanded="true" />
-                <element signature="e#25984#26188#0" expanded="true" />
-                <element signature="e#26187#26188#0" expanded="true" />
-                <element signature="e#31299#31385#0" expanded="true" />
-                <element signature="e#33236#33248#0" expanded="true" />
-                <element signature="e#33278#33315#0" expanded="true" />
-                <element signature="e#33353#33368#0" expanded="true" />
-                <element signature="e#33551#33562#0" expanded="true" />
-                <element signature="e#33564#33742#0" expanded="true" />
-                <element signature="e#33741#33742#0" expanded="true" />
-                <element signature="e#34146#34202#0" expanded="true" />
-                <element signature="e#38732#38849#0" expanded="true" />
-                <element signature="e#38848#38849#0" expanded="true" />
-                <element signature="e#38974#39081#0" expanded="true" />
-                <element signature="e#39080#39081#0" expanded="true" />
-                <element signature="e#39229#39307#0" expanded="true" />
-                <element signature="e#46070#46123#0" expanded="true" />
-                <element signature="e#49055#49109#0" expanded="true" />
-                <element signature="e#49299#49388#0" expanded="true" />
-                <element signature="e#52539#52617#0" expanded="true" />
-                <element signature="e#53067#53091#0" expanded="true" />
-                <element signature="e#55229#55327#0" expanded="true" />
-                <element signature="e#56672#56709#0" expanded="true" />
-                <element signature="e#57434#57456#0" expanded="true" />
-                <element signature="e#57783#57820#0" expanded="true" />
-                <element signature="e#58060#58097#0" expanded="true" />
-                <element signature="e#58778#58874#0" expanded="true" />
-                <element signature="e#58913#59012#0" expanded="true" />
-                <element signature="e#59051#59138#0" expanded="true" />
-                <element signature="e#61286#61294#0" expanded="true" />
-                <element signature="e#61731#64041#0" expanded="true" />
-                <element signature="e#64040#64041#0" expanded="true" />
-                <element signature="e#64171#64179#0" expanded="true" />
-                <element signature="e#67254#67297#0" expanded="true" />
-                <element signature="e#67383#68487#0" expanded="true" />
-                <element signature="e#67604#67961#0" expanded="true" />
-                <element signature="e#67811#67847#0" expanded="true" />
-                <element signature="e#67960#67961#0" expanded="true" />
-                <element signature="e#68086#68443#0" expanded="true" />
-                <element signature="e#68293#68329#0" expanded="true" />
-                <element signature="e#68442#68443#0" expanded="true" />
-                <element signature="e#68486#68487#0" expanded="true" />
-                <element signature="e#72957#73005#0" expanded="true" />
-                <element signature="e#73607#73684#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GetEmergencyContactListParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/contact/GetEmergencyContactListParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="69" column="53" lean-forward="false" selection-start-line="69" selection-start-column="53" selection-end-line="69" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_chat.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="HttpUrl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/HttpUrl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="135" column="53" lean-forward="false" selection-start-line="135" selection-start-column="53" selection-end-line="135" selection-end-column="53" />
+            <state relative-caret-position="144">
+              <caret line="290" column="45" lean-forward="false" selection-start-line="290" selection-start-column="45" selection-end-line="290" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PasteEditText.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/widget/PasteEditText.java">
+      <file leaf-file-name="JumpPlan2Parser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/JumpPlan2Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="31" column="3" lean-forward="true" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AutorizationDecisionActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/AutorizationDecisionActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="143" column="0" lean-forward="true" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+            <state relative-caret-position="80">
+              <caret line="67" column="56" lean-forward="false" selection-start-line="67" selection-start-column="56" selection-end-line="67" selection-end-column="56" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdrressListFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/fragment/AdrressListFragment.java">
+      <file leaf-file-name="JumpPlanParser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/JumpPlanParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1072">
-              <caret line="48" column="20" lean-forward="false" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
+            <state relative-caret-position="260">
+              <caret line="68" column="43" lean-forward="false" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserSeviceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/UserSeviceImpl.java">
+      <file leaf-file-name="RealTimeTrackingStatus.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/status/RealTimeTrackingStatus.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="388" column="0" lean-forward="false" selection-start-line="388" selection-start-column="0" selection-end-line="388" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="16" column="55" lean-forward="false" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -281,20 +263,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>relogin</find>
-      <find>onEmergencyParserComplete</find>
-      <find>onkey</find>
-      <find>再</find>
-      <find>login</find>
-      <find>退出</find>
-      <find>parse</find>
-      <find>radapter</find>
-      <find>list</find>
-      <find>resort</find>
-      <find>orderNum</find>
-      <find>postiontv</find>
-      <find>overtime</find>
-      <find>EventBus</find>
       <find>Event</find>
       <find>toast</find>
       <find>resor</find>
@@ -303,14 +271,28 @@
       <find>onrefre</find>
       <find>logout</find>
       <find>status</find>
-      <find>appContext</find>
       <find>@</find>
       <find>editClick</find>
       <find>edittext_layout</find>
-      <find>context</find>
       <find>btn_press_to_speak</find>
       <find>buttonPressToSpeak</find>
       <find>mEditTextContent</find>
+      <find>greenFlowPaint</find>
+      <find>add</find>
+      <find>addButton</find>
+      <find>plus</find>
+      <find>textPaint</find>
+      <find>跳过</find>
+      <find>conne</find>
+      <find>this</find>
+      <find>context</find>
+      <find>contextthis</find>
+      <find>accountRemovedBuilder</find>
+      <find>onde</find>
+      <find>app</find>
+      <find>appContext</find>
+      <find>showac</find>
+      <find>disc</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -2264,15 +2246,15 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/ControlActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/PlanExecutionActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/status/RealTimeTrackingStatus.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/AutorizationDecisionActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/fragment/MessageFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/easemob/applib/controller/HXSDKHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/activity/ChatActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/widget/PasteEditText.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/easemob/applib/controller/HXSDKHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -2448,6 +2430,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2602,13 +2586,59 @@
               <item name="chatuidemo" type="462c0819:PsiDirectoryNode" />
               <item name="activity" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="emergency_newStyle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="emergency_newStyle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="easemob" type="462c0819:PsiDirectoryNode" />
+              <item name="chatuidemo" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="emergency_newStyle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="emergency_newStyle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="easemob" type="462c0819:PsiDirectoryNode" />
+              <item name="chatuidemo" type="462c0819:PsiDirectoryNode" />
+              <item name="receiver" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="emergency_newStyle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="emergency_newStyle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="easemob" type="462c0819:PsiDirectoryNode" />
+              <item name="chatuidemo" type="462c0819:PsiDirectoryNode" />
+              <item name="task" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="emergency_newStyle" type="b2602c69:ProjectViewProjectNode" />
+              <item name="emergency_newStyle" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="easemob" type="462c0819:PsiDirectoryNode" />
+              <item name="chatuidemo" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2617,8 +2647,8 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-hdpi" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1530172355945" />
-    <property name="sync.plugin.last.upgrade.timestamp" value="1530061676758" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1530242253346" />
+    <property name="sync.plugin.last.upgrade.timestamp" value="1530234509383" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="ExportApk.ApkPath" value="D:\git_project\emergency_newStyle\app" />
@@ -3130,7 +3160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1530154525285</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fix">
+      <created>1530172434215</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1530172434215</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView">
@@ -3147,13 +3184,13 @@
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32807016" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924962" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6884328" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.69962686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -3175,8 +3212,8 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991454" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32807016" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924962" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
@@ -3355,12 +3392,6 @@
           <option name="timeStamp" value="314" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
-          <line>1071</line>
-          <properties />
-          <option name="timeStamp" value="367" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/BaseActivity.java</url>
           <line>95</line>
           <properties />
@@ -3385,24 +3416,6 @@
           <option name="timeStamp" value="384" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
-          <line>398</line>
-          <properties />
-          <option name="timeStamp" value="414" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
-          <line>396</line>
-          <properties />
-          <option name="timeStamp" value="417" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
-          <line>478</line>
-          <properties />
-          <option name="timeStamp" value="423" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/emergency/PlanStarListDetailParser.java</url>
           <line>86</line>
           <properties />
@@ -3413,18 +3426,6 @@
           <line>80</line>
           <properties />
           <option name="timeStamp" value="502" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
-          <line>430</line>
-          <properties />
-          <option name="timeStamp" value="517" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
-          <line>500</line>
-          <properties />
-          <option name="timeStamp" value="539" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/GetSignUserInfoDetailParser.java</url>
@@ -3446,49 +3447,40 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java</url>
-          <line>158</line>
-          <properties />
-          <option name="timeStamp" value="568" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java</url>
           <line>192</line>
           <properties />
           <option name="timeStamp" value="569" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/NSSetPointValueToSteps.java</url>
+          <line>27</line>
+          <properties />
+          <option name="timeStamp" value="577" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/FlowChartPlanParser.java</url>
+          <line>67</line>
+          <properties />
+          <option name="timeStamp" value="579" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java</url>
+          <line>1205</line>
+          <properties />
+          <option name="timeStamp" value="580" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java</url>
+          <line>805</line>
+          <properties />
+          <option name="timeStamp" value="585" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="577" />
+      <option name="time" value="586" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/color.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="12" column="23" lean-forward="true" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_listview_realtimetrack.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="194" column="43" lean-forward="false" selection-start-line="194" selection-start-column="43" selection-end-line="194" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/SubmitInfomationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/ControlSevice.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -3537,7 +3529,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
           <caret line="45" column="24" lean-forward="false" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3569,10 +3560,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9120">
           <caret line="407" column="0" lean-forward="false" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
-          <folding>
-            <element signature="e#8246#8247#0" expanded="false" />
-            <element signature="e#8291#8292#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3580,7 +3567,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6930">
           <caret line="236" column="9" lean-forward="false" selection-start-line="236" selection-start-column="9" selection-end-line="236" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3608,14 +3594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/HttpUrl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="335" column="61" lean-forward="false" selection-start-line="335" selection-start-column="61" selection-end-line="335" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/activity/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73">
@@ -3632,22 +3610,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/QueryProcessTrackParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="71" column="24" lean-forward="false" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/status/RealTimeTrackingStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="12" column="40" lean-forward="false" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/NSstep.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2963">
@@ -3656,30 +3618,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1013">
-          <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
-          <folding>
-            <element signature="e#46448#46728#0" expanded="false" />
-            <element signature="e#46727#46728#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/analytical/implSevice/UserSeviceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="97">
           <caret line="388" column="0" lean-forward="false" selection-start-line="388" selection-start-column="0" selection-end-line="388" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="381" column="52" lean-forward="false" selection-start-line="381" selection-start-column="52" selection-end-line="381" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3714,7 +3656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="158" column="15" lean-forward="false" selection-start-line="158" selection-start-column="15" selection-end-line="158" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3722,7 +3663,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="203" column="38" lean-forward="false" selection-start-line="203" selection-start-column="38" selection-end-line="203" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3775,14 +3715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/NSSetPointValueToSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/fragment/AdrressListFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1072">
@@ -3795,27 +3727,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-8362">
           <caret line="97" column="11" lean-forward="false" selection-start-line="97" selection-start-column="11" selection-end-line="97" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/applib/controller/HXSDKHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="67" column="22" lean-forward="false" selection-start-line="67" selection-start-column="22" selection-end-line="67" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/DemoHXSDKHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8842">
-          <caret line="245" column="22" lean-forward="true" selection-start-line="245" selection-start-column="22" selection-end-line="245" selection-end-column="22" />
-          <folding>
-            <element signature="e#2614#2624#0" expanded="false" />
-            <element signature="e#8471#8798#0" expanded="false" />
-            <element signature="e#8797#8798#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3827,24 +3738,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="991" column="11" lean-forward="false" selection-start-line="991" selection-start-column="11" selection-end-line="991" selection-end-column="11" />
-          <folding>
-            <element signature="e#34150#34369#0" expanded="true" />
-            <element signature="e#34368#34369#0" expanded="true" />
-            <element signature="e#37843#38537#0" expanded="true" />
-            <element signature="e#38536#38537#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-24/android.jar!/android/text/ClipboardManager.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3936,7 +3833,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
+        <state relative-caret-position="4050">
           <caret line="135" column="53" lean-forward="false" selection-start-line="135" selection-start-column="53" selection-end-line="135" selection-end-column="53" />
           <folding />
         </state>
@@ -3946,25 +3843,194 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
           <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/widget/PasteEditText.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="31" column="3" lean-forward="true" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
+        <state relative-caret-position="240">
+          <caret line="31" column="3" lean-forward="false" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/AutorizationDecisionActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="143" column="0" lean-forward="true" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+        <state relative-caret-position="4530">
+          <caret line="186" column="16" lean-forward="false" selection-start-line="186" selection-start-column="16" selection-end-line="186" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/adapter/RealTimeTrackingAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/FlowChartPlanParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="67" column="54" lean-forward="false" selection-start-line="67" selection-start-column="54" selection-end-line="67" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/NSSetPointValueToSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="e#683#1312#0" expanded="true" />
+            <element signature="e#1311#1312#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/QueryProcessTrackParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="69" column="53" lean-forward="false" selection-start-line="69" selection-start-column="53" selection-end-line="69" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/JumpPlanParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="68" column="43" lean-forward="false" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/status/RealTimeTrackingStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="16" column="55" lean-forward="false" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/model/jsonparser/control/JumpPlan2Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="67" column="56" lean-forward="false" selection-start-line="67" selection-start-column="56" selection-end-line="67" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/util/HttpUrl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="290" column="45" lean-forward="false" selection-start-line="290" selection-start-column="45" selection-end-line="290" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/chatuidemo/DemoHXSDKHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/easemob/applib/controller/HXSDKHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="55" column="7" lean-forward="false" selection-start-line="55" selection-start-column="7" selection-end-line="55" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="810" column="54" lean-forward="true" selection-start-line="810" selection-start-column="54" selection-end-line="810" selection-end-column="54" />
+          <folding>
+            <element signature="e#8724#8866#0" expanded="true" />
+            <element signature="e#8865#8866#0" expanded="true" />
+            <element signature="e#8989#9136#0" expanded="true" />
+            <element signature="e#9135#9136#0" expanded="true" />
+            <element signature="e#9300#9301#0" expanded="true" />
+            <element signature="e#9364#9365#0" expanded="true" />
+            <element signature="e#9445#9446#0" expanded="true" />
+            <element signature="e#9509#9510#0" expanded="true" />
+            <element signature="e#11763#12449#0" expanded="true" />
+            <element signature="e#12448#12449#0" expanded="true" />
+            <element signature="e#12603#12604#0" expanded="true" />
+            <element signature="e#12649#12650#0" expanded="true" />
+            <element signature="e#14628#15044#0" expanded="true" />
+            <element signature="e#15043#15044#0" expanded="true" />
+            <element signature="e#15278#15580#0" expanded="true" />
+            <element signature="e#15579#15580#0" expanded="true" />
+            <element signature="e#15629#15683#0" expanded="true" />
+            <element signature="e#15973#15998#0" expanded="true" />
+            <element signature="e#16047#16058#0" expanded="true" />
+            <element signature="e#16080#16584#0" expanded="true" />
+            <element signature="e#16583#16584#0" expanded="true" />
+            <element signature="e#17223#17639#0" expanded="true" />
+            <element signature="e#17638#17639#0" expanded="true" />
+            <element signature="e#17873#18175#0" expanded="true" />
+            <element signature="e#18174#18175#0" expanded="true" />
+            <element signature="e#18226#18284#0" expanded="true" />
+            <element signature="e#18675#18698#0" expanded="true" />
+            <element signature="e#18757#18768#0" expanded="true" />
+            <element signature="e#18794#19354#0" expanded="true" />
+            <element signature="e#19353#19354#0" expanded="true" />
+            <element signature="e#24075#24110#0" expanded="true" />
+            <element signature="e#26127#26128#0" expanded="true" />
+            <element signature="e#26154#26155#0" expanded="true" />
+            <element signature="e#27225#27226#0" expanded="true" />
+            <element signature="e#27282#27283#0" expanded="true" />
+            <element signature="e#27582#28242#0" expanded="true" />
+            <element signature="e#28241#28242#0" expanded="true" />
+            <element signature="e#29470#29864#0" expanded="true" />
+            <element signature="e#29863#29864#0" expanded="true" />
+            <element signature="e#33748#33760#0" expanded="true" />
+            <element signature="e#33790#33826#0" expanded="true" />
+            <element signature="e#33884#33899#0" expanded="true" />
+            <element signature="e#33901#34119#0" expanded="true" />
+            <element signature="e#34118#34119#0" expanded="true" />
+            <element signature="e#34157#34168#0" expanded="true" />
+            <element signature="e#34170#34389#0" expanded="true" />
+            <element signature="e#34388#34389#0" expanded="true" />
+            <element signature="e#35556#36907#0" expanded="true" />
+            <element signature="e#36906#36907#0" expanded="true" />
+            <element signature="e#37560#37609#0" expanded="true" />
+            <element signature="e#37863#38557#0" expanded="true" />
+            <element signature="e#38556#38557#0" expanded="true" />
+            <element signature="e#38791#39131#0" expanded="true" />
+            <element signature="e#39130#39131#0" expanded="true" />
+            <element signature="e#39266#40797#0" expanded="true" />
+            <element signature="e#40796#40797#0" expanded="true" />
+            <element signature="e#41082#41774#0" expanded="true" />
+            <element signature="e#41773#41774#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dssm/esc/view/widget/MyFlowView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="1207" column="5" lean-forward="true" selection-start-line="1207" selection-start-column="5" selection-end-line="1207" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7769#7770#0" expanded="true" />
+            <element signature="e#7807#7808#0" expanded="true" />
+            <element signature="e#41907#42187#0" expanded="true" />
+            <element signature="e#42186#42187#0" expanded="true" />
+            <element signature="e#43501#43781#0" expanded="true" />
+            <element signature="e#43780#43781#0" expanded="true" />
+            <element signature="e#44645#44925#0" expanded="true" />
+            <element signature="e#44924#44925#0" expanded="true" />
+            <element signature="e#46444#46724#0" expanded="true" />
+            <element signature="e#46723#46724#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

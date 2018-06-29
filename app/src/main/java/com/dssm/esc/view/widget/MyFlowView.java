@@ -781,9 +781,9 @@ public class MyFlowView extends View {
             if (!TextUtils.isEmpty(step.color)) {
                 tempFlowPaint.setColor(Color.parseColor(step.color));
                 paint = tempFlowPaint;
-                circlePaint.setColor(0xFF000000); // 边框内部颜色
+                circlePaint.setColor(0xFF000000); // 边框颜色
             } else {
-                circlePaint.setColor(0xFFf00); // 边框内部颜色
+                circlePaint.setColor(0xFFf00); // 边框颜色
             }
             if(step.nodeStepType.equals("CallActivity"))
                 drawCircleAndPlus(h, w, paint, textFlowPaint, circlePaint, str);
@@ -1167,7 +1167,7 @@ public class MyFlowView extends View {
         textPaint.setColor(getResources().getColor(R.color.black));
         textPaint.setStyle(Paint.Style.STROKE);
         textPaint.setTextSize(DisplayUtils.dp2px(descriptionTextSize));
-        textPaint.setStrokeWidth(1.5f);
+        textPaint.setStrokeWidth(2f);
     }
 
 
