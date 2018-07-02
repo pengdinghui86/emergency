@@ -508,43 +508,43 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
             }
         }
 
-        EMChatManager.getInstance().addChatRoomChangeListener(
-                new EMChatRoomChangeListener() {
-
-                    @Override
-                    public void onChatRoomDestroyed(String roomId,
-                                                    String roomName) {
-                        if (roomId.equals(toChatUsername)) {
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onMemberJoined(String roomId, String participant) {
-                    }
-
-                    @Override
-                    public void onMemberExited(String roomId, String roomName,
-                                               String participant) {
-
-                    }
-
-                    @Override
-                    public void onMemberKicked(String roomId, String roomName,
-                                               String participant) {
-                        if (roomId.equals(toChatUsername)) {
-                            String curUser = EMChatManager.getInstance()
-                                    .getCurrentUser();
-                            if (curUser.equals(participant)) {
-                                EMChatManager.getInstance().leaveChatRoom(
-                                        toChatUsername);
-                                finish();
-                            }
-                        }
-                    }
-
-                });
+        EMChatManager.getInstance().addChatRoomChangeListener(emChatRoomChangeListener);
     }
+
+    private EMChatRoomChangeListener emChatRoomChangeListener = new EMChatRoomChangeListener() {
+
+        @Override
+        public void onChatRoomDestroyed(String roomId,
+                String roomName) {
+            if (roomId.equals(toChatUsername)) {
+                finish();
+            }
+        }
+
+        @Override
+        public void onMemberJoined(String roomId, String participant) {
+        }
+
+        @Override
+        public void onMemberExited(String roomId, String roomName,
+                String participant) {
+
+        }
+
+        @Override
+        public void onMemberKicked(String roomId, String roomName,
+                String participant) {
+            if (roomId.equals(toChatUsername)) {
+                String curUser = EMChatManager.getInstance()
+                        .getCurrentUser();
+                if (curUser.equals(participant)) {
+                    EMChatManager.getInstance().leaveChatRoom(
+                            toChatUsername);
+                    finish();
+                }
+            }
+        }
+    };
 
     protected void onListViewCreation() {
         adapter = new MessageAdapter(ChatActivity.this, toChatUsername,
@@ -1654,6 +1654,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
             EMGroupManager.getInstance().removeGroupChangeListener(
                     groupListener);
         }
+        EMChatManager.getInstance().removeChatRoomChangeListener(emChatRoomChangeListener);
     }
 
     @Override
