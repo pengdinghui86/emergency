@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-345:12
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-345:12
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-345:12
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-345:12
 MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\AndroidManifest.xml:17:1-27:12
 MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\34fff6704c5445bc76c239a2b89575c6\AndroidManifest.xml:17:1-61:12
@@ -18,27 +18,29 @@ MERGED from [com.android.support:support-media-compat:24.2.1] C:\Users\pc-admin\
 MERGED from [com.android.support:support-core-utils:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-core-utils-24.2.1.aar\0e970eeb9dbf2dbbc0f4f2fb6943624e\AndroidManifest.xml:17:1-27:12
 MERGED from [com.android.support:support-core-ui:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-core-ui-24.2.1.aar\bb871a47a2eb5719fdf511af6ef68662\AndroidManifest.xml:17:1-27:12
 MERGED from [com.android.support:support-compat:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-compat-24.2.1.aar\efcdd24c1e3a08118b924a849c457b18\AndroidManifest.xml:17:1-27:12
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-345:12
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-345:12
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-345:12
 	package
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:3:5-27
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:4:5-27
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-345:12
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
+	xmlns:tools
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-340:12
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:1-345:12
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:2:11-69
 uses-sdk
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:5:5-7:41
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:5:5-7:41
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:5:5-7:41
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:6:5-8:41
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:6:5-8:41
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:6:5-8:41
 MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\AndroidManifest.xml:21:5-23:78
@@ -67,120 +69,128 @@ MERGED from [com.android.support:support-core-ui:24.2.1] C:\Users\pc-admin\.grad
 MERGED from [com.android.support:support-core-ui:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-core-ui-24.2.1.aar\bb871a47a2eb5719fdf511af6ef68662\AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-compat:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-compat-24.2.1.aar\efcdd24c1e3a08118b924a849c457b18\AndroidManifest.xml:21:5-23:58
 MERGED from [com.android.support:support-compat:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-compat-24.2.1.aar\efcdd24c1e3a08118b924a849c457b18\AndroidManifest.xml:21:5-23:58
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:5:5-7:41
-INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:5:5-7:41
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:6:5-8:41
+INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:6:5-8:41
 	tools:overrideLibrary
 		ADDED from [com.android.support:appcompat-v7:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\AndroidManifest.xml:23:9-75
 	android:targetSdkVersion
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:7:9-38
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:8:9-38
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:6:9-34
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:7:9-34
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
 		INJECTED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.VIBRATE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:10:5-66
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:11:5-66
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:10:22-63
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:11:22-63
 uses-permission#android.permission.INTERNET
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:11:5-67
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:12:5-67
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:11:22-64
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:12:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:12:5-79
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:13:5-79
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:12:22-76
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:13:22-76
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:13:5-81
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:14:5-81
 MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\34fff6704c5445bc76c239a2b89575c6\AndroidManifest.xml:24:5-81
 MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\34fff6704c5445bc76c239a2b89575c6\AndroidManifest.xml:24:5-81
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:13:22-78
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:14:22-78
 uses-permission#android.permission.CALL_PHONE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:14:5-69
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:15:5-69
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:14:22-66
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:15:22-66
 uses-permission#android.permission.GET_TASKS
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:15:5-68
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:16:5-68
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:15:22-65
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:16:22-65
 uses-permission#android.permission.ACCESS_WIFI_STATE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:16:5-76
-	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:16:22-73
-uses-permission#android.permission.CHANGE_WIFI_STATE
 ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:17:5-76
 	android:name
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:17:22-73
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:18:5-76
+	android:name
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:18:22-73
 uses-permission#android.permission.WAKE_LOCK
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:18:5-68
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:19:5-68
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:18:22-65
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:19:22-65
 uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:19:5-80
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:20:5-80
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:19:22-77
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:20:22-77
 uses-permission#android.permission.READ_PHONE_STATE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:20:5-75
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:21:5-75
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:20:22-72
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:21:22-72
 uses-permission#android.permission.RECORD_AUDIO
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:21:5-71
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:22:5-71
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:21:22-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:22:22-68
 uses-permission#android.permission.CAMERA
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:22:5-65
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:23:5-65
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:22:22-62
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:23:22-62
 uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:23:5-84
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:24:5-25:47
+	tools:ignore
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:25:9-44
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:23:22-81
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:24:22-81
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:30:5-81
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:32:5-81
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:30:22-78
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:32:22-78
 uses-permission#android.permission.RESTART_PACKAGES
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:31:5-75
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:33:5-75
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:31:22-72
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:33:22-72
 uses-permission#android.permission.BROADCAST_STICKY
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:32:5-75
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:34:5-75
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:32:22-72
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:34:22-72
 uses-permission#android.permission.WRITE_SETTINGS
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:33:5-73
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:35:5-36:47
+	tools:ignore
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:36:9-44
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:33:22-70
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:35:22-70
 uses-permission#android.permission.RECEIVE_USER_PRESENT
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:34:5-79
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:37:5-79
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:34:22-76
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:37:22-76
 uses-permission#android.permission.KILL_BACKGROUND_PROCESSES
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:37:5-84
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:40:5-84
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:37:22-81
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:40:22-81
 uses-permission#android.permission.READ_LOGS
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:39:5-68
-	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:39:22-65
-uses-permission#android.permission.BLUETOOTH
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:42:5-68
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:42:5-43:47
+	tools:ignore
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:43:9-44
 	android:name
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:42:22-65
+uses-permission#android.permission.BLUETOOTH
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:46:5-68
+	android:name
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:46:22-65
 uses-permission#android.permission.BATTERY_STATS
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:43:5-72
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:47:5-48:47
+	tools:ignore
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:48:9-44
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:43:22-69
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:47:22-69
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:45:5-80
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:50:5-80
 MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\34fff6704c5445bc76c239a2b89575c6\AndroidManifest.xml:23:5-80
 MERGED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\34fff6704c5445bc76c239a2b89575c6\AndroidManifest.xml:23:5-80
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:45:22-77
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:50:22-77
 application
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:48:5-338:19
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:53:5-343:19
 MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:appcompat-v7:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\AndroidManifest.xml:25:5-20
@@ -208,210 +218,202 @@ MERGED from [com.android.support:support-core-ui:24.2.1] C:\Users\pc-admin\.grad
 MERGED from [com.android.support:support-compat:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-compat-24.2.1.aar\efcdd24c1e3a08118b924a849c457b18\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-compat:24.2.1] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-compat-24.2.1.aar\efcdd24c1e3a08118b924a849c457b18\AndroidManifest.xml:25:5-20
 	android:label
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:53:9-41
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:58:9-41
 	android:persistent
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:54:9-34
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:59:9-34
 	android:installLocation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:52:9-49
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:57:9-49
 	android:icon
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:51:9-38
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:56:9-38
 	android:allowBackup
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:50:9-35
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:55:9-35
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:55:9-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:60:9-68
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:49:9-62
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:54:9-62
 activity#com.dssm.esc.view.activity.MainActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:58:9-62:67
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:63:9-67:67
 	android:screenOrientation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:61:13-49
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:66:13-49
 	android:launchMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:60:13-44
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:65:13-44
 	android:windowSoftInputMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:62:13-64
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:67:13-64
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:59:13-55
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:64:13-55
 activity#com.dssm.esc.view.activity.IntroductionActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:63:9-72
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:68:9-72
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:63:19-69
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:68:19-69
 activity#com.dssm.esc.view.activity.DismissValuationActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:64:9-76
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:69:9-76
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:64:19-73
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:69:19-73
 activity#com.dssm.esc.view.activity.AddeValuationActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:65:9-67:83
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:70:9-72:83
 	android:windowSoftInputMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:67:13-80
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:72:13-80
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:66:13-64
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:71:13-64
 activity#com.dssm.esc.view.activity.EmergencyTypeActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:68:9-73
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:73:9-73
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:68:19-70
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:73:19-70
 activity#com.dssm.esc.view.activity.PlanNameActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:69:9-68
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:74:9-68
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:69:19-65
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:74:19-65
 activity#com.dssm.esc.view.activity.DrillSelectActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:70:9-71
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:75:9-71
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:70:19-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:75:19-68
 activity#com.dssm.esc.view.activity.PlanStarActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:71:9-68
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:76:9-68
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:71:19-65
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:76:19-65
 activity#com.dssm.esc.view.activity.PlanStarDetailActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:72:9-74
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:77:9-74
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:72:19-71
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:77:19-71
 activity#com.dssm.esc.view.activity.AutorizationDecisionActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:73:9-80
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:78:9-80
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:73:19-77
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:78:19-77
 activity#com.dssm.esc.view.activity.AutorizateDecDetailActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:74:9-79
-	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:74:19-76
-activity#com.dssm.esc.view.activity.SignInActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:75:9-66
-	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:75:19-63
-activity#com.dssm.esc.view.activity.PersonnelAssignmentActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:76:9-79
-	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:76:19-76
-activity#com.dssm.esc.view.activity.AssignmentActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:77:9-70
-	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:77:19-67
-activity#com.dssm.esc.view.activity.PlanExecutionActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:78:9-73
-	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:78:19-70
-activity#com.dssm.esc.view.activity.PlanExecutionDetailActivity
 ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:79:9-79
 	android:name
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:79:19-76
+activity#com.dssm.esc.view.activity.SignInActivity
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:80:9-66
+	android:name
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:80:19-63
+activity#com.dssm.esc.view.activity.PersonnelAssignmentActivity
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:81:9-79
+	android:name
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:81:19-76
+activity#com.dssm.esc.view.activity.AssignmentActivity
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:82:9-70
+	android:name
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:82:19-67
+activity#com.dssm.esc.view.activity.PlanExecutionActivity
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:83:9-73
+	android:name
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:83:19-70
+activity#com.dssm.esc.view.activity.PlanExecutionDetailActivity
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:84:9-79
+	android:name
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:84:19-76
 activity#com.dssm.esc.view.activity.SubmitInfomationActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:80:9-76
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:85:9-76
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:80:19-73
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:85:19-73
 activity#com.dssm.esc.view.activity.OperationMenuActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:81:9-73
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:86:9-73
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:81:19-70
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:86:19-70
 activity#com.dssm.esc.view.activity.CollaborativeCircularActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:82:9-81
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:87:9-81
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:82:19-78
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:87:19-78
 activity#com.dssm.esc.view.activity.RecieveListActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:83:9-71
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:88:9-71
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:83:19-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:88:19-68
 activity#com.dssm.esc.view.activity.AddRecievePeoPleActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:84:9-76
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:89:9-76
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:84:19-73
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:89:19-73
 activity#com.dssm.esc.view.activity.EventProcessActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:85:9-72
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:90:9-72
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:85:19-69
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:90:19-69
 activity#com.dssm.esc.view.activity.EventProcessDetailActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:86:9-78
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:91:9-78
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:86:19-75
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:91:19-75
 activity#com.dssm.esc.view.activity.ControlActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:87:9-67
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:92:9-67
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:87:19-64
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:92:19-64
 activity#com.dssm.esc.view.activity.GroupSigninDetail
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:88:9-69
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:93:9-69
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:88:19-66
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:93:19-66
 activity#com.dssm.esc.view.activity.SendCollaborativeActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:89:9-77
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:94:9-77
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:89:19-74
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:94:19-74
 activity#com.dssm.esc.view.activity.PlanSuspandDetilActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:90:9-92:83
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:95:9-97:83
 	android:windowSoftInputMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:92:13-80
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:97:13-80
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:91:13-67
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:96:13-67
 activity#com.dssm.esc.view.activity.SendMeassageActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:93:9-72
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:98:9-72
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:93:19-69
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:98:19-69
 activity#com.dssm.esc.view.activity.PermissionsActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:94:9-96:70
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:99:9-101:70
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:96:13-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:101:13-68
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:95:13-62
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:100:13-62
 activity#com.easemob.chatuidemo.activity.SplashActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:111:9-121:20
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:116:9-126:20
 	android:screenOrientation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:113:13-49
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:118:13-49
 	android:noHistory
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:114:13-37
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:119:13-37
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:115:13-83
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:120:13-83
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:112:13-74
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:117:13-74
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:116:13-120:29
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:121:13-125:29
 action#android.intent.action.MAIN
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:117:17-69
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:122:17-69
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:117:25-66
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:122:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:119:17-77
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:124:17-77
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:119:27-74
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:124:27-74
 activity#com.easemob.chatuidemo.activity.LoginActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:125:9-130:80
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:130:9-135:80
 	android:screenOrientation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:127:13-49
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:132:13-49
 	android:launchMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:129:13-43
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:134:13-43
 	android:windowSoftInputMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:130:13-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:135:13-68
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:128:13-52
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:133:13-52
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:126:13-73
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:131:13-73
 activity#com.easemob.chatuidemo.activity.RegisterActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:133:9-137:80
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:138:9-142:80
 	android:screenOrientation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:135:13-49
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:140:13-49
 	android:windowSoftInputMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:137:13-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:142:13-68
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:136:13-52
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:141:13-52
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:134:13-76
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:139:13-76
 activity#com.easemob.chatuidemo.activity.ChatActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:139:9-144:67
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:144:9-149:67
 	android:screenOrientation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:142:13-49
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:147:13-49
 	android:launchMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:141:13-43
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:146:13-43
 	android:windowSoftInputMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:144:13-55
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:149:13-55
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:143:13-52
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:148:13-52
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:140:13-72
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:145:13-72
 activity#com.easemob.chatuidemo.activity.ContextMenu
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:147:9-150:61
-	android:screenOrientation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:149:13-49
-	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:150:13-49
-	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:148:13-71
-activity#com.easemob.chatuidemo.activity.AlertDialog
 ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:152:9-155:61
 	android:screenOrientation
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:154:13-49
@@ -419,220 +421,228 @@ ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:15
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:155:13-49
 	android:name
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:153:13-71
+activity#com.easemob.chatuidemo.activity.AlertDialog
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:157:9-160:61
+	android:screenOrientation
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:159:13-49
+	android:theme
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:160:13-49
+	android:name
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:158:13-71
 activity#com.easemob.chatuidemo.activity.EditActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:156:9-160:67
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:161:9-165:67
 	android:screenOrientation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:158:13-49
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:163:13-49
 	android:windowSoftInputMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:160:13-55
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:165:13-55
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:159:13-52
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:164:13-52
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:157:13-72
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:162:13-72
 activity#com.easemob.chatuidemo.activity.DiagnoseActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:163:9-167:72
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:168:9-172:72
 	android:screenOrientation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:165:13-49
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:170:13-49
 	android:windowSoftInputMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:167:13-60
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:172:13-60
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:166:13-52
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:171:13-52
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:164:13-76
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:169:13-76
 activity#com.easemob.chatuidemo.activity.OfflinePushNickActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:170:9-174:72
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:175:9-179:72
 	android:screenOrientation
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:172:13-49
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:177:13-49
 	android:windowSoftInputMode
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:174:13-60
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:179:13-60
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:173:13-52
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:178:13-52
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:171:13-83
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:176:13-83
 meta-data#EASEMOB_APPKEY
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:185:9-187:44
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:190:9-192:44
 	android:value
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:187:13-41
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:192:13-41
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:186:13-42
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:191:13-42
 service#com.easemob.chat.EMChatService
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:189:9-66
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:194:9-66
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:189:18-63
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:194:18-63
 receiver#com.easemob.chat.EMMonitorReceiver
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:192:9-202:20
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:197:9-207:20
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:192:19-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:197:19-68
 intent-filter#android.intent.action.PACKAGE_REMOVED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:193:13-197:29
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:198:13-202:29
 action#android.intent.action.PACKAGE_REMOVED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:194:17-80
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:199:17-80
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:194:25-77
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:199:25-77
 data
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:196:17-50
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:201:17-50
 	android:scheme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:196:23-47
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:201:23-47
 intent-filter#android.intent.action.BOOT_COMPLETED+android.intent.action.USER_PRESENT
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:198:13-201:29
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:203:13-206:29
 action#android.intent.action.BOOT_COMPLETED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:199:17-79
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:204:17-79
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:199:25-76
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:204:25-76
 action#android.intent.action.USER_PRESENT
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:200:17-77
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:205:17-77
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:200:25-74
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:205:25-74
 meta-data#com.baidu.lbsapi.API_KEY
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:204:9-206:56
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:209:9-211:56
 	android:value
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:206:13-53
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:211:13-53
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:205:13-52
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:210:13-52
 receiver#com.tencent.android.tpush.XGPushReceiver
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:221:9-249:20
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:226:9-254:20
 	android:process
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:223:13-45
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:228:13-45
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:222:13-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:227:13-68
 intent-filter#android.bluetooth.adapter.action.STATE_CHANGED+android.intent.action.ACTION_POWER_CONNECTED+android.intent.action.ACTION_POWER_DISCONNECTED+android.intent.action.USER_PRESENT+android.net.conn.CONNECTIVITY_CHANGE+com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE+com.tencent.android.tpush.action.SDK
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:224:9-239:25
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:229:9-244:25
 	android:priority
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:224:24-53
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:229:24-53
 action#com.tencent.android.tpush.action.SDK
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:227:13-75
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:232:13-75
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:227:21-72
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:232:21-72
 action#com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:228:13-93
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:233:13-93
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:228:21-90
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:233:21-90
 action#android.net.conn.CONNECTIVITY_CHANGE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:230:13-75
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:235:13-75
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:230:21-72
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:235:21-72
 action#android.bluetooth.adapter.action.STATE_CHANGED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:236:13-85
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:241:13-85
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:236:21-82
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:241:21-82
 action#android.intent.action.ACTION_POWER_CONNECTED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:237:13-83
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:242:13-83
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:237:21-80
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:242:21-80
 action#android.intent.action.ACTION_POWER_DISCONNECTED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:238:13-86
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:243:13-86
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:238:21-83
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:243:21-83
 intent-filter#android.intent.action.MEDIA_CHECKING+android.intent.action.MEDIA_EJECT+android.intent.action.MEDIA_REMOVED+android.intent.action.MEDIA_UNMOUNTED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:241:9-248:25
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:246:9-253:25
 	android:priority
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:241:24-53
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:246:24-53
 action#android.intent.action.MEDIA_UNMOUNTED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:242:13-76
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:247:13-76
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:242:21-73
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:247:21-73
 action#android.intent.action.MEDIA_REMOVED
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:243:13-74
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:248:13-74
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:243:21-71
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:248:21-71
 action#android.intent.action.MEDIA_CHECKING
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:244:13-75
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:249:13-75
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:244:21-72
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:249:21-72
 action#android.intent.action.MEDIA_EJECT
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:245:13-72
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:250:13-72
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:245:21-69
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:250:21-69
 activity#com.tencent.android.tpush.XGPushActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:252:9-261:20
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:257:9-266:20
 	android:exported
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:255:13-36
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:260:13-36
 	android:theme
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:254:13-61
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:259:13-61
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:253:13-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:258:13-68
 intent-filter#android.intent.action
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:256:13-260:29
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:261:13-265:29
 action#android.intent.action
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:259:17-64
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:264:17-64
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:259:25-61
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:264:25-61
 service#com.tencent.android.tpush.service.XGPushServiceV3
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:280:9-284:48
-	android:process
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:284:13-45
-	android:exported
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:282:13-36
-	android:persistent
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:283:13-38
-	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:281:13-77
-service#com.tencent.android.tpush.service.XGDaemonService
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:287:9-289:48
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:285:9-289:48
 	android:process
 		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:289:13-45
+	android:exported
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:287:13-36
+	android:persistent
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:288:13-38
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:288:13-77
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:286:13-77
+service#com.tencent.android.tpush.service.XGDaemonService
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:292:9-294:48
+	android:process
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:294:13-45
+	android:name
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:293:13-77
 receiver#com.dssm.esc.util.receiver.MessageReceiver
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:292:9-301:20
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:297:9-306:20
 	android:exported
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:293:13-36
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:298:13-36
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:292:19-64
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:297:19-64
 intent-filter#com.tencent.android.tpush.action.FEEDBACK+com.tencent.android.tpush.action.PUSH_MESSAGE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:294:13-300:29
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:299:13-305:29
 action#com.tencent.android.tpush.action.PUSH_MESSAGE
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:297:17-88
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:302:17-88
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:297:25-85
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:302:25-85
 action#com.tencent.android.tpush.action.FEEDBACK
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:299:17-84
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:304:17-84
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:299:25-81
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:304:25-81
 provider#com.tencent.android.tpush.XGPushProvider
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:303:9-307:15
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:308:9-312:15
 	android:authorities
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:305:13-59
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:310:13-59
 	android:exported
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:306:13-36
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:311:13-36
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:304:13-68
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:309:13-68
 provider#com.tencent.android.tpush.SettingsContentProvider
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:310:9-313:40
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:315:9-318:40
 	android:authorities
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:312:13-62
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:317:13-62
 	android:exported
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:313:13-37
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:318:13-37
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:311:13-77
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:316:13-77
 provider#com.tencent.mid.api.MidProvider
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:316:9-320:20
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:321:9-325:20
 	android:authorities
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:318:13-62
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:323:13-62
 	android:exported
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:319:13-36
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:324:13-36
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:317:13-59
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:322:13-59
 meta-data#XG_V2_ACCESS_ID
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:328:9-330:42
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:333:9-335:42
 	android:value
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:330:13-39
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:335:13-39
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:329:13-43
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:334:13-43
 meta-data#XG_V2_ACCESS_KEY
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:332:9-334:44
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:337:9-339:44
 	android:value
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:334:13-41
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:339:13-41
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:333:13-44
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:338:13-44
 activity#com.dssm.esc.view.activity.EditIPActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:336:9-75
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:341:9-75
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:336:19-63
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:341:19-63
 activity#com.dssm.esc.view.activity.ProcessMonitoringSubMissionActivity
-ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:337:9-96
+ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:342:9-96
 	android:name
-		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:337:19-84
+		ADDED from D:\git_project\emergency_newStyle\app\src\main\AndroidManifest.xml:342:19-84
 service#com.squareup.leakcanary.internal.HeapAnalyzerService
 ADDED from [com.squareup.leakcanary:leakcanary-android:1.5.4] C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\leakcanary-android-1.5.4.aar\34fff6704c5445bc76c239a2b89575c6\AndroidManifest.xml:27:9-30:45
 	android:process

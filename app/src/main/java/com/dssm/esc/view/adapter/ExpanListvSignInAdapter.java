@@ -39,7 +39,7 @@ private	String tag;
 	/**
 	 * 当ListView数据发生变化时,调用此方法来更新ListView
 	 * 
-	 * @param list
+	 * @param dataList
 	 */
 	public void updateListView(List<GroupEntity> dataList,String tag) {
 		this.groupList = dataList;

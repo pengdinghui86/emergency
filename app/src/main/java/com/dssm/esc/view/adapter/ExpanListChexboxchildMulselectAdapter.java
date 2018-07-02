@@ -47,7 +47,7 @@ public class ExpanListChexboxchildMulselectAdapter extends
 	/**
 	 * 当ListView数据发生变化时,调用此方法来更新ListView
 	 * 
-	 * @param list
+	 * @param dataList
 	 */
 	public void updateListView(List<GroupEntity> dataList) {
 		this.groupList = dataList;
