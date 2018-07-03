@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\eventbus-2.4.0.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ddd166d01b3158d1c00576d29f7ed15c030df719">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\wup-1.0.0.E-SNAPSHOT.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d5a0917f8418b3726f89ae120182dfb6b884740d">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\leakcanary-android-no-op-1.5.4.aar\a71694741a30ec9ba8b9da0e0a171300\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d150745838e161c0c102671d957cadfdb03a0bf6">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-v4-24.2.1.aar\6a58555f4da65c35e42008ac71472684\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-core-utils-24.2.1.aar\0e970eeb9dbf2dbbc0f4f2fb6943624e\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-24.2.1.aar\6a178088dd3a126966bb27a9b41cfe56\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-core-ui-24.2.1.aar\bb871a47a2eb5719fdf511af6ef68662\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-media-compat-24.2.1.aar\6d69b69ed3ecb6e5f4aef953e1419d0e\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-fragment-24.2.1.aar\d0ade366fdffe71076dff8efb3afb162\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\21.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-fragment-24.2.1.aar\d0ade366fdffe71076dff8efb3afb162\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\xutils-3.5.0.aar\05ba149bbb809dd06b9a00a8e1f24a33\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="c70d3d4cb2d0b16c435c716fa169cb506929269b">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\Parse-1.9.4.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="56c22930b5d4f77015b6a40c7f14103d3e101001">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\google-play-services.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="f0d8e4a84fad131bc291c3c4850afcaa8ba0b299">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\1.7.2\112366d8158749e25532ebce162232c6e0fb20a5\gson-1.7.2.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="112366d8158749e25532ebce162232c6e0fb20a5">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\jg_filter_sdk_1.1.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="ebfc3cde0309ff27e9568757784eefefc71407a2">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\httpclient-4.2.5.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="3bfeb9062b12d5b340445336790dbc14c59c2d79">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-24.2.1.aar\9a7dc675292e65b36e76d4167a050125\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-media-compat-24.2.1.aar\6d69b69ed3ecb6e5f4aef953e1419d0e\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\easemobchat_2.2.2.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="6b9388b9b8895ac9551dcc58c70019a83e03204f">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-core-utils-24.2.1.aar\0e970eeb9dbf2dbbc0f4f2fb6943624e\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-core-ui-24.2.1.aar\bb871a47a2eb5719fdf511af6ef68662\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\bolts-android-1.2.0.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\Xg_sdk_v3.2.3_20180403_1839.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="df05999cd15f402e693d733938a31b08fa5f7a56">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\git_project\emergency_newStyle\app\libs\mid-core-sdk-4.0.6.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="7f02b306dee6d2dabaa11b94a4b14c37242a7d2a">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-24.2.1.aar\a7ff596637a409dd1505b6199c32dacb\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-compat-24.2.1.aar\efcdd24c1e3a08118b924a849c457b18\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\support-compat-24.2.1.aar\efcdd24c1e3a08118b924a849c457b18\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        min-sdk-version="14"
+        optimize="true"
+        revision="27.0.3"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="D:\git_project\emergency_newStyle\app\build\intermediates\transforms\preDex\release\29.jar" />
+    </item>
+
+</items>

@@ -51,11 +51,11 @@
         android:layout_height="match_parent"
         android:layout_marginTop="10dp" >
 
-        <ExpandableListView
-            android:id="@+id/expandable_signin_grop"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:indicatorLeft="1sp" />
+        <!--<ExpandableListView-->
+            <!--android:id="@+id/expandable_signin_grop"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:indicatorLeft="1sp" />-->
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView

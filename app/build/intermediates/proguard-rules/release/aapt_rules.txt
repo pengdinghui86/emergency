@@ -1,0 +1,444 @@
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\res\layout\design_navigation_item.xml:17
+-keep class android.support.design.internal.NavigationMenuItemView { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\res\layout\design_navigation_menu.xml:17
+-keep class android.support.design.internal.NavigationMenuView { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\res\layout\design_text_input_password_icon.xml:18
+-keep class android.support.design.widget.CheckableImageButton { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\res\layout\design_bottom_sheet_dialog.xml:17
+-keep class android.support.design.widget.CoordinatorLayout { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\res\layout-sw600dp-v13\design_layout_snackbar.xml:18
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\design-24.2.1.aar\9dfbc55209e11b789e89765c7700663f\res\layout\design_layout_snackbar.xml:18
+-keep class android.support.design.widget.Snackbar$SnackbarLayout { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:216
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_emojicon.xml:7
+-keep class android.support.v4.view.ViewPager { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_main.xml:1
+-keep class android.support.v4.widget.DrawerLayout { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_alert_dialog_material.xml:75
+-keep class android.support.v4.widget.NestedScrollView { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_alert_dialog_button_bar_material.xml:39
+-keep class android.support.v4.widget.Space { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:469
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_groupsignin.xml:48
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_plan_execute.xml:13
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_singin.xml:205
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_groups.xml:33
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_robots.xml:33
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\test.xml:45
+-keep class android.support.v4.widget.SwipeRefreshLayout { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_action_menu_item_layout.xml:17
+-keep class android.support.v7.view.menu.ActionMenuItemView { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_expanded_menu_layout.xml:17
+-keep class android.support.v7.view.menu.ExpandedMenuView { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_list_menu_item_layout.xml:17
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_popup_menu_item_layout.xml:17
+-keep class android.support.v7.view.menu.ListMenuItemView { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_screen_toolbar.xml:27
+-keep class android.support.v7.widget.ActionBarContainer { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_action_mode_bar.xml:19
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_screen_toolbar.xml:43
+-keep class android.support.v7.widget.ActionBarContextView { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_screen_toolbar.xml:17
+-keep class android.support.v7.widget.ActionBarOverlayLayout { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_action_menu_layout.xml:17
+-keep class android.support.v7.widget.ActionMenuView { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_activity_chooser_view.xml:19
+-keep class android.support.v7.widget.ActivityChooserView$InnerLayout { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_alert_dialog_button_bar_material.xml:18
+-keep class android.support.v7.widget.ButtonBarLayout { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_screen_content_include.xml:19
+-keep class android.support.v7.widget.ContentFrameLayout { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_alert_dialog_material.xml:48
+-keep class android.support.v7.widget.DialogTitle { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_screen_simple_overlay_action_mode.xml:23
+-keep class android.support.v7.widget.FitWindowsFrameLayout { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_dialog_title_material.xml:22
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_screen_simple.xml:17
+-keep class android.support.v7.widget.FitWindowsLinearLayout { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_search_view.xml:75
+-keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_screen_toolbar.xml:36
+-keep class android.support.v7.widget.Toolbar { <init>(...); }
+
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_screen_simple.xml:25
+# Referenced at C:\Users\pc-admin\.gradle\caches\transforms-1\files-1.1\appcompat-v7-24.2.1.aar\e43c0b8de71158cd195858a221ac88d5\res\layout\abc_screen_simple_overlay_action_mode.xml:32
+-keep class android.support.v7.widget.ViewStubCompat { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_baidumap.xml:39
+-keep class com.baidu.mapapi.map.MapView { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:296
+-keep class com.dssm.esc.util.receiver.MessageReceiver { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:86
+-keep class com.dssm.esc.view.activity.AddRecievePeoPleActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:67
+-keep class com.dssm.esc.view.activity.AddeValuationActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:79
+-keep class com.dssm.esc.view.activity.AssignmentActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:76
+-keep class com.dssm.esc.view.activity.AutorizateDecDetailActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:75
+-keep class com.dssm.esc.view.activity.AutorizationDecisionActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:84
+-keep class com.dssm.esc.view.activity.CollaborativeCircularActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:89
+-keep class com.dssm.esc.view.activity.ControlActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:66
+-keep class com.dssm.esc.view.activity.DismissValuationActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:72
+-keep class com.dssm.esc.view.activity.DrillSelectActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:340
+-keep class com.dssm.esc.view.activity.EditIPActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:70
+-keep class com.dssm.esc.view.activity.EmergencyTypeActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:87
+-keep class com.dssm.esc.view.activity.EventProcessActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:88
+-keep class com.dssm.esc.view.activity.EventProcessDetailActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:90
+-keep class com.dssm.esc.view.activity.GroupSigninDetail { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:65
+-keep class com.dssm.esc.view.activity.IntroductionActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:60
+-keep class com.dssm.esc.view.activity.MainActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:83
+-keep class com.dssm.esc.view.activity.OperationMenuActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:96
+-keep class com.dssm.esc.view.activity.PermissionsActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:78
+-keep class com.dssm.esc.view.activity.PersonnelAssignmentActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:80
+-keep class com.dssm.esc.view.activity.PlanExecutionActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:81
+-keep class com.dssm.esc.view.activity.PlanExecutionDetailActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:71
+-keep class com.dssm.esc.view.activity.PlanNameActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:73
+-keep class com.dssm.esc.view.activity.PlanStarActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:74
+-keep class com.dssm.esc.view.activity.PlanStarDetailActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:92
+-keep class com.dssm.esc.view.activity.PlanSuspandDetilActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:341
+-keep class com.dssm.esc.view.activity.ProcessMonitoringSubMissionActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:85
+-keep class com.dssm.esc.view.activity.RecieveListActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:91
+-keep class com.dssm.esc.view.activity.SendCollaborativeActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:95
+-keep class com.dssm.esc.view.activity.SendMeassageActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:77
+-keep class com.dssm.esc.view.activity.SignInActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:82
+-keep class com.dssm.esc.view.activity.SubmitInfomationActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_dismissvaluation.xml:14
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_eventprocess.xml:13
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_message_toast.xml:15
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\realtime_tarcking.xml:34
+-keep class com.dssm.esc.view.widget.AutoListView { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_collaborativecircular.xml:26
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\test.xml:16
+-keep class com.dssm.esc.view.widget.ClearEditText { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_addvaluation.xml:51
+-keep class com.dssm.esc.view.widget.ContainsEmojiEditText { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_edit_ip.xml:13
+-keep class com.dssm.esc.view.widget.DeleteEditText { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_control.xml:31
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_process_monitoring_sub_mission.xml:13
+-keep class com.dssm.esc.view.widget.MyFlowView { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_eventprocessdetail.xml:42
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\progress_percent.xml:21
+-keep class com.dssm.esc.view.widget.MyProgressBar { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_addvaluation.xml:16
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_autorizatdetail.xml:25
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_autorizatdetail.xml:361
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_palndetail.xml:30
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_planstar_detail.xml:24
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_sendcollaborate.xml:54
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_singin.xml:28
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_suspanddetail.xml:14
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\eventdetail.xml:2
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_emergency_failsafe.xml:2
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\resource_preparation.xml:2
+-keep class com.dssm.esc.view.widget.MyScrollView { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_assignment.xml:13
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_autorizatdetail.xml:13
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_control.xml:14
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_groupsignin.xml:14
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_groupsignin.xml:31
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_planstar_detail.xml:13
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_singin.xml:15
+-keep class com.dssm.esc.view.widget.SegmentControl { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_sendcollaborate.xml:23
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_addresslist.xml:23
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_message.xml:34
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\tab.xml:31
+-keep class com.dssm.esc.view.widget.SegmentedGroup { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_addrecieve.xml:10
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_addvaluation.xml:11
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_assignment.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_autorizatdetail.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_collaborativecircular.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_control.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_dismissvaluation.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_drillselect.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_edit_ip.xml:8
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_emergency_type.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_eventprocess.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_eventprocessdetail.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_groupsignin.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_introduce.xml:8
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_login.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_operationmenu.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_palndetail.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_person_assignment.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_plan_execute.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_plan_name.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_planstar_detail.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_process_monitoring_sub_mission.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_recieve.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_singin.xml:10
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_submitinfomation.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_suspanddetail.xml:9
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\contact_next.xml:7
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_control.xml:8
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_emergency.xml:9
+-keep class com.dssm.esc.view.widget.Title_Layout { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:191
+-keep class com.easemob.chat.EMChatService { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:194
+-keep class com.easemob.chat.EMMonitorReceiver { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:50
+-keep class com.easemob.chatuidemo.DemoApplication { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:154
+-keep class com.easemob.chatuidemo.activity.AlertDialog { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:141
+-keep class com.easemob.chatuidemo.activity.ChatActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:149
+-keep class com.easemob.chatuidemo.activity.ContextMenu { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:165
+-keep class com.easemob.chatuidemo.activity.DiagnoseActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:158
+-keep class com.easemob.chatuidemo.activity.EditActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:127
+-keep class com.easemob.chatuidemo.activity.LoginActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:172
+-keep class com.easemob.chatuidemo.activity.OfflinePushNickActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:135
+-keep class com.easemob.chatuidemo.activity.RegisterActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:113
+-keep class com.easemob.chatuidemo.activity.SplashActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\expression_gridview.xml:7
+-keep class com.easemob.chatuidemo.widget.ExpandGridView { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:136
+-keep class com.easemob.chatuidemo.widget.PasteEditText { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_group_pick_contacts.xml:64
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_pick_contact_no_checkbox.xml:42
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_contact_list.xml:82
+-keep class com.easemob.chatuidemo.widget.Sidebar { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\fragment_emojicon.xml:17
+-keep class com.easemob.chatuidemo.widget.emojicon.CirclePageIndicator { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_show_big_image.xml:8
+-keep class com.easemob.chatuidemo.widget.photoview.PhotoView { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:314
+-keep class com.tencent.android.tpush.SettingsContentProvider { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:254
+-keep class com.tencent.android.tpush.XGPushActivity { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:308
+-keep class com.tencent.android.tpush.XGPushProvider { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:223
+-keep class com.tencent.android.tpush.XGPushReceiver { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:291
+-keep class com.tencent.android.tpush.service.XGDaemonService { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:284
+-keep class com.tencent.android.tpush.service.XGPushServiceV3 { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\build\intermediates\manifests\full\release\AndroidManifest.xml:320
+-keep class com.tencent.mid.api.MidProvider { <init>(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_add_contact.xml:84
+-keepclassmembers class * { *** addContact(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_group_simle_details.xml:120
+-keepclassmembers class * { *** addToGroup(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_edit.xml:13
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_group_blacklist.xml:14
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_group_pick_contacts.xml:14
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\commom_back_btn.xml:2
+-keepclassmembers class * { *** back(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\alert_dialog.xml:60
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\logout_actionsheet.xml:41
+-keepclassmembers class * { *** cancel(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_introduce.xml:161
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_introduce.xml:209
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_introduce.xml:317
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_singin.xml:221
+-keepclassmembers class * { *** clickButton(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\context_menu_for_text.xml:10
+-keepclassmembers class * { *** copy(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\context_menu_for_image.xml:28
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\context_menu_for_location.xml:10
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\context_menu_for_text.xml:27
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\context_menu_for_video.xml:16
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\context_menu_for_voice.xml:16
+-keepclassmembers class * { *** delete(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:136
+-keepclassmembers class * { *** editClick(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\actionbar_title.xml:62
+-keepclassmembers class * { *** editip(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:26
+-keepclassmembers class * { *** emptyHistory(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\context_menu_for_image.xml:45
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\context_menu_for_text.xml:42
+-keepclassmembers class * { *** forward(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_login.xml:129
+-keepclassmembers class * { *** login(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\logout_actionsheet.xml:26
+-keepclassmembers class * { *** logout(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\alert_dialog.xml:74
+-keepclassmembers class * { *** ok(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:186
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:249
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:278
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:307
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:337
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:375
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:405
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:434
+-keepclassmembers class * { *** onClick(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_main_easemob.xml:23
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_main_easemob.xml:58
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_main_easemob.xml:88
+-keepclassmembers class * { *** onTabClicked(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_register.xml:127
+-keepclassmembers class * { *** register(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_edit.xml:37
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_group_pick_contacts.xml:37
+-keepclassmembers class * { *** save(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_public_groups.xml:33
+-keepclassmembers class * { *** search(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_add_contact.xml:26
+-keepclassmembers class * { *** searchContact(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_baidumap.xml:25
+-keepclassmembers class * { *** sendLocation(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:95
+-keepclassmembers class * { *** setModeKeyboard(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:86
+-keepclassmembers class * { *** setModeVoice(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_black_list.xml:44
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:44
+-keepclassmembers class * { *** toGroupDetails(...); }
+
+# Referenced at D:\git_project\emergency_newStyle\app\src\main\res\layout\activity_chat.xml:177
+-keepclassmembers class * { *** toggleMore(...); }
+

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,9 +17,13 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
+import com.dssm.esc.model.entity.emergency.PlanTreeEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
+import com.dssm.esc.util.treeview.TreeNode;
+import com.dssm.esc.util.treeview.TreeView;
+import com.dssm.esc.util.treeview.view.MyNodeViewFactory;
 import com.dssm.esc.view.adapter.ExpanListvSignInAdapter;
 import com.dssm.esc.view.widget.SegmentControl;
 
@@ -42,20 +47,22 @@ public class GroupSigninDetail extends BaseActivity implements
 	@ViewInject(R.id.segment_control_sign_grop2)
 	private SegmentControl mSegmentControl2;
 	/** 人员签到可扩展listview */
-	@ViewInject(R.id.expandable_signin_grop)
-	private ExpandableListView expandable_list_signin;
-	private ExpanListvSignInAdapter adapter;
+//	@ViewInject(R.id.expandable_signin_grop)
+//	private ExpandableListView expandable_list_signin;
+//	private ExpanListvSignInAdapter adapter;
 	/** 暂无数据 */
 	@ViewInject(R.id.emyptytv)
 	private TextView emyptytv;
 
 	/** 签到，未签到列表 */
-	private List<GroupEntity> list1 = new ArrayList<GroupEntity>();
-	private List<GroupEntity> list0 = new ArrayList<GroupEntity>();
-	/** 父list显示组 */
-	private List<GroupEntity> groupList = new ArrayList<GroupEntity>();
+	private List<PlanTreeEntity> list1 = new ArrayList<>();
+	private List<PlanTreeEntity> list0 = new ArrayList<>();
+	/** 父list显示预案 */
+	private List<PlanTreeEntity> planTreeList = new ArrayList<>();
+	/** 子list显示组 */
+	private List<GroupEntity> groupList = new ArrayList<>();
 	/** 子list显示人 */
-	private List<ChildEntity> childList = new ArrayList<ChildEntity>();
+	private List<ChildEntity> childList = new ArrayList<>();
 	/** 1,应急通知接收详情;2,应急小组签到情况 */
 	private String tag = "";
 	/** 1,全部;2,已接受3，未接收 (SegmentControl点击) */
@@ -64,186 +71,126 @@ public class GroupSigninDetail extends BaseActivity implements
 	private String id;
 	@ViewInject(R.id.id_swipe_ly)
 	private SwipeRefreshLayout mSwipeLayout;
+
+	private TreeNode root;
+	private TreeView treeView;
+
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				groupList = (List<GroupEntity>) msg.obj;
-				adapter.updateListView(groupList, tag);
-				adapter.notifyDataSetChanged();
-				if (groupList.size() == 0) {
+				planTreeList = (List<PlanTreeEntity>) msg.obj;
+				addTreeView();
+				if (planTreeList.size() == 0) {
 					mSwipeLayout.setVisibility(View.GONE);
-					expandable_list_signin.setVisibility(View.GONE);
 					emyptytv.setVisibility(View.VISIBLE);
 				} else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
-					expandable_list_signin.setVisibility(View.VISIBLE);
 					emyptytv.setVisibility(View.GONE);
 				}
-				for (int i = 0; i < groupList.size(); i++) {
-					GroupEntity groupEntity = groupList.get(i);
-					List<ChildEntity> getcList = groupEntity.getcList();
-					GroupEntity groupEntity1 = new GroupEntity();
-					GroupEntity groupEntity0 = new GroupEntity();
-					List<ChildEntity> getcList1 = new ArrayList<ChildEntity>();
-					List<ChildEntity> getcList0 = new ArrayList<ChildEntity>();
-					for (int j = 0; j < getcList.size(); j++) {
-						ChildEntity childEntity = getcList.get(j);
-						ChildEntity childEntity1 = new ChildEntity();
-						ChildEntity childEntity0 = new ChildEntity();
-						if (tag.equals("2")) {
-							String signin = childEntity.getSignin();
-
-							if (signin.equals("1")) {
-								childEntity1 = childEntity;
-								getcList1.add(childEntity1);
-								groupEntity1.setGroup_id(groupEntity
-										.getGroup_id());
-								groupEntity1.setGroupname(groupEntity
-										.getGroupname());
-								groupEntity1.setcList(getcList1);
-
-							} else if (signin.equals("0")) {
-								childEntity0 = childEntity;
-								getcList0.add(childEntity0);
-								groupEntity0.setGroup_id(groupEntity
-										.getGroup_id());
-								groupEntity0.setGroupname(groupEntity
-										.getGroupname());
-								groupEntity0.setcList(getcList0);
-
-							}
-						} else if (tag.equals("1")) {
-							String notice = childEntity.getNoticeState();
-
-							if (notice.equals("1")) {
-								childEntity1 = childEntity;
-								getcList1.add(childEntity1);
-								groupEntity1.setGroup_id(groupEntity
-										.getGroup_id());
-								groupEntity1.setGroupname(groupEntity
-										.getGroupname());
-								groupEntity1.setcList(getcList1);
-
-							} else {
-								childEntity0 = childEntity;
-								getcList0.add(childEntity0);
-								groupEntity0.setGroup_id(groupEntity
-										.getGroup_id());
-								groupEntity0.setGroupname(groupEntity
-										.getGroupname());
-								groupEntity0.setcList(getcList0);
-
-							}
-						}
-					}
-					if (getcList1.size() > 0) {
-
-						list1.add(groupEntity1);
-					}
-					if (getcList0.size() > 0) {
-
-						list0.add(groupEntity0);
-					}
-				}
+				separateData();
+				i = 1;
 				break;
 			case 1:
-				List<GroupEntity> result = (List<GroupEntity>) msg.obj;
-				groupList.clear();
-				groupList.addAll(result);
-				adapter.notifyDataSetChanged();
+				List<PlanTreeEntity> result = (List<PlanTreeEntity>) msg.obj;
+				planTreeList.clear();
+				planTreeList.addAll(result);
 				Log.i("========", "handler");
 				mSwipeLayout.setRefreshing(false);
-				if (groupList.size() == 0) {
+				if (planTreeList.size() == 0) {
 					mSwipeLayout.setVisibility(View.GONE);
-					expandable_list_signin.setVisibility(View.GONE);
 					emyptytv.setVisibility(View.VISIBLE);
 				} else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
-					expandable_list_signin.setVisibility(View.VISIBLE);
 					emyptytv.setVisibility(View.GONE);
 				}
 				if (list0.size() > 0) {
 					list0.clear();
-
 				}
 				if (list1.size() > 0) {
 					list1.clear();
-
 				}
-				for (int i = 0; i < groupList.size(); i++) {
-					GroupEntity groupEntity = groupList.get(i);
-					List<ChildEntity> getcList = groupEntity.getcList();
-					GroupEntity groupEntity1 = new GroupEntity();
-					GroupEntity groupEntity0 = new GroupEntity();
-					List<ChildEntity> getcList1 = new ArrayList<ChildEntity>();
-					List<ChildEntity> getcList0 = new ArrayList<ChildEntity>();
-					for (int j = 0; j < getcList.size(); j++) {
-						ChildEntity childEntity = getcList.get(j);
-						ChildEntity childEntity1 = new ChildEntity();
-						ChildEntity childEntity0 = new ChildEntity();
-						if (tag.equals("2")) {
-							String signin = childEntity.getSignin();
-
-							if (signin.equals("1")) {
-								childEntity1 = childEntity;
-								getcList1.add(childEntity1);
-								groupEntity1.setGroup_id(groupEntity
-										.getGroup_id());
-								groupEntity1.setGroupname(groupEntity
-										.getGroupname());
-								groupEntity1.setcList(getcList1);
-
-							} else if (signin.equals("0")) {
-								childEntity0 = childEntity;
-								getcList0.add(childEntity0);
-								groupEntity0.setGroup_id(groupEntity
-										.getGroup_id());
-								groupEntity0.setGroupname(groupEntity
-										.getGroupname());
-								groupEntity0.setcList(getcList0);
-
-							}
-						} else if (tag.equals("1")) {
-							String notice = childEntity.getNoticeState();
-
-							if (notice.equals("1")) {
-								childEntity1 = childEntity;
-								getcList1.add(childEntity1);
-								groupEntity1.setGroup_id(groupEntity
-										.getGroup_id());
-								groupEntity1.setGroupname(groupEntity
-										.getGroupname());
-								groupEntity1.setcList(getcList1);
-
-							} else {
-								childEntity0 = childEntity;
-								getcList0.add(childEntity0);
-								groupEntity0.setGroup_id(groupEntity
-										.getGroup_id());
-								groupEntity0.setGroupname(groupEntity
-										.getGroupname());
-								groupEntity0.setcList(getcList0);
-
-							}
-						}
-					}
-					if (getcList1.size() > 0) {
-
-						list1.add(groupEntity1);
-					}
-					if (getcList0.size() > 0) {
-
-						list0.add(groupEntity0);
-					}
-				}
-
+				separateData();
+				initData(sem_tags, tag);
 				break;
 			default:
 				break;
 			}
-		};
+		}
 	};
+
+	//分离已接收和未接收或已签到和未签到数据
+	private void separateData() {
+		for (int i = 0; i < planTreeList.size(); i++) {
+			PlanTreeEntity planTreeEntity1 = new PlanTreeEntity();
+			PlanTreeEntity planTreeEntity0 = new PlanTreeEntity();
+			List<GroupEntity> groupEntityList = planTreeList.get(i).getEmeGroups();
+			List<GroupEntity> groupEntityList1 = new ArrayList<>();
+			List<GroupEntity> groupEntityList0 = new ArrayList<>();
+			for (int j = 0; j < groupEntityList.size(); j++) {
+				GroupEntity groupEntity = groupEntityList.get(j);
+				List<ChildEntity> getcList = groupEntity.getcList();
+				GroupEntity groupEntity1 = new GroupEntity();
+				GroupEntity groupEntity0 = new GroupEntity();
+				List<ChildEntity> getcList1 = new ArrayList<>();
+				List<ChildEntity> getcList0 = new ArrayList<>();
+				for (int k = 0; k < getcList.size(); k++) {
+					ChildEntity childEntity = getcList.get(k);
+					if (tag.equals("2")) {
+						String signin = childEntity.getSignin();
+						if (signin.equals("1")) {
+							getcList1.add(childEntity);
+							groupEntity1.setGroup_id(groupEntity
+									.getGroup_id());
+							groupEntity1.setGroupname(groupEntity
+									.getGroupname());
+
+						} else if (signin.equals("0")) {
+							getcList0.add(childEntity);
+							groupEntity0.setGroup_id(groupEntity
+									.getGroup_id());
+							groupEntity0.setGroupname(groupEntity
+									.getGroupname());
+						}
+					} else if (tag.equals("1")) {
+						String notice = childEntity.getNoticeState();
+
+						if (notice.equals("1")) {
+							getcList1.add(childEntity);
+							groupEntity1.setGroup_id(groupEntity
+									.getGroup_id());
+							groupEntity1.setGroupname(groupEntity
+									.getGroupname());
+						} else {
+							getcList0.add(childEntity);
+							groupEntity0.setGroup_id(groupEntity
+									.getGroup_id());
+							groupEntity0.setGroupname(groupEntity
+									.getGroupname());
+						}
+					}
+				}
+				if(getcList1.size() > 0) {
+					groupEntity1.setcList(getcList1);
+					groupEntityList1.add(groupEntity1);
+				}
+				if(getcList0.size() > 0) {
+					groupEntity0.setcList(getcList0);
+					groupEntityList0.add(groupEntity0);
+				}
+			}
+			if(groupEntityList1.size() > 0) {
+				planTreeEntity1.setName(planTreeList.get(i).getName());
+				planTreeEntity1.setEmeGroups(groupEntityList1);
+				list1.add(planTreeEntity1);
+			}
+			if(groupEntityList0.size() > 0) {
+				planTreeEntity0.setName(planTreeList.get(i).getName());
+				planTreeEntity0.setEmeGroups(groupEntityList0);
+				list0.add(planTreeEntity0);
+			}
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -256,7 +203,7 @@ public class GroupSigninDetail extends BaseActivity implements
 		tag = intent.getStringExtra("tag");
 		id = intent.getStringExtra("id");
 		initview();
-		expandable_list_signin.setGroupIndicator(null);
+//		expandable_list_signin.setGroupIndicator(null);
 		segmentControlListDate();
 		mSwipeLayout.setOnRefreshListener(this);
 	}
@@ -272,52 +219,76 @@ public class GroupSigninDetail extends BaseActivity implements
 			mSegmentControl2.setVisibility(View.VISIBLE);
 			title.setText("应急小组签到情况");
 		}
-		expandable_list_signin.setEmptyView(emyptytv);
-		adapter = new ExpanListvSignInAdapter(groupList,
-				GroupSigninDetail.this, tag);
+//		expandable_list_signin.setEmptyView(emyptytv);
+//		adapter = new ExpanListvSignInAdapter(groupList,
+//				GroupSigninDetail.this, tag);
 		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
-		expandable_list_signin.setAdapter(adapter);
+//		expandable_list_signin.setAdapter(adapter);
 		sem_tags = 1;// 默认预案详情
-		initData(sem_tags, tag);
-
+		initListData();
 		// setNetListener(this);
 	}
 
 	private void initData(int sem_tags, String tag) {
 		if (sem_tags == 1) {
-			if (groupList.size() == 0) {
-				initListData();
-			} else {
-				adapter.updateListView(groupList, tag);
-			}
+			root.getChildren().clear();
+			buildTree(planTreeList);
+			treeView.refreshTreeView();
 		} else if (sem_tags == 2) {
-			adapter.updateListView(list1, tag);
+			root.getChildren().clear();
+			buildTree(list1);
 			if (list1.size() == 0) {
 				mSwipeLayout.setVisibility(View.GONE);
-				expandable_list_signin.setVisibility(View.GONE);
 				emyptytv.setVisibility(View.VISIBLE);
+				treeView.refreshTreeView();
 			} else {
 				mSwipeLayout.setVisibility(View.VISIBLE);
-				expandable_list_signin.setVisibility(View.VISIBLE);
 				emyptytv.setVisibility(View.GONE);
+				treeView.refreshTreeView();
 			}
 		} else if (sem_tags == 3) {
-			adapter.updateListView(list0, tag);
+			root.getChildren().clear();
+			buildTree(list0);
 			if (list0.size() == 0) {
 				mSwipeLayout.setVisibility(View.GONE);
-				expandable_list_signin.setVisibility(View.GONE);
 				emyptytv.setVisibility(View.VISIBLE);
 			} else {
 				mSwipeLayout.setVisibility(View.VISIBLE);
-				expandable_list_signin.setVisibility(View.VISIBLE);
 				emyptytv.setVisibility(View.GONE);
+				treeView.refreshTreeView();
 			}
 		}
-		adapter.notifyDataSetChanged();
+	}
 
+	private void addTreeView() {
+		root = TreeNode.root();
+		buildTree(planTreeList);
+		treeView = new TreeView(root, this, new MyNodeViewFactory(), tag);
+		View view = treeView.getView();
+		view.setLayoutParams(new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		mSwipeLayout.addView(view);
+	}
+
+	private void buildTree(List<PlanTreeEntity> planTreeList) {
+		for (int i = 0; i < planTreeList.size(); i++) {
+			TreeNode treeNode = new TreeNode(planTreeList.get(i).getName());
+			treeNode.setLevel(0);
+			for (int j = 0; j < planTreeList.get(i).getEmeGroups().size(); j++) {
+				TreeNode treeNode1 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getGroupname());
+				treeNode1.setLevel(1);
+				for (int k = 0; k < planTreeList.get(i).getEmeGroups().get(j).getcList().size(); k++) {
+					TreeNode treeNode2 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getcList().get(k));
+					treeNode2.setLevel(2);
+					treeNode1.addChild(treeNode2);
+				}
+				treeNode.addChild(treeNode1);
+			}
+			root.addChild(treeNode);
+		}
 	}
 
 	private void segmentControlListDate() {
@@ -327,18 +298,18 @@ public class GroupSigninDetail extends BaseActivity implements
 					@Override
 					public void onSegmentControlClick(int index) {
 						switch (index) {
-						case 0:// 1,全部
-							sem_tags = 1;
+							case 0:// 1,全部
+								sem_tags = 1;
 
-							break;
-						case 1:// 2,已
-							sem_tags = 2;
-							break;
-						case 2:// 2,未
-							sem_tags = 3;
-							break;
+								break;
+							case 1:// 2,已
+								sem_tags = 2;
+								break;
+							case 2:// 2,未
+								sem_tags = 3;
+								break;
 						}
-						initData(sem_tags, tag);
+						initListData();
 					}
 				});
 		mSegmentControl2
@@ -346,37 +317,37 @@ public class GroupSigninDetail extends BaseActivity implements
 					@Override
 					public void onSegmentControlClick(int index) {
 						switch (index) {
-						case 0:// 1,全部
-							sem_tags = 1;
+							case 0:// 1,全部
+								sem_tags = 1;
 
-							break;
-						case 1:// 2,已
-							sem_tags = 2;
-							break;
-						case 2:// 2,未
-							sem_tags = 3;
-							break;
+								break;
+							case 1:// 2,已
+								sem_tags = 2;
+								break;
+							case 2:// 2,未
+								sem_tags = 3;
+								break;
 						}
-						initData(sem_tags, tag);
+						initListData();
 					}
 				});
 	}
 
-	private ControlServiceImpl.ControlServiceImplBackValueListenser<List<GroupEntity>> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<List<GroupEntity>>() {
+	private ControlServiceImpl.ControlServiceImplBackValueListenser<List<PlanTreeEntity>> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<List<PlanTreeEntity>>() {
 		@Override
 		public void setControlServiceImplListenser(
-				List<GroupEntity> backValue, String stRerror,
+				List<PlanTreeEntity> backValue, String stRerror,
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
-			List<GroupEntity> dataList = null;
+			List<PlanTreeEntity> dataList = null;
 			if (i != 1) {
 				Log.i("========", "initListData()0");
 				if (backValue != null) {
 					dataList = backValue;
 				} else if (stRerror != null) {
-					dataList = new ArrayList<GroupEntity>();
+					dataList = new ArrayList<>();
 				} else if (Exceptionerror != null) {
-					dataList = new ArrayList<GroupEntity>();
+					dataList = new ArrayList<>();
 					ToastUtil.showToast(GroupSigninDetail.this,
 							Const.NETWORKERROR + ":"
 									+ Exceptionerror);
@@ -390,9 +361,9 @@ public class GroupSigninDetail extends BaseActivity implements
 				if (backValue != null) {
 					dataList = backValue;
 				} else if (stRerror != null) {
-					dataList = new ArrayList<GroupEntity>();
+					dataList = new ArrayList<>();
 				} else if (Exceptionerror != null) {
-					dataList = new ArrayList<GroupEntity>();
+					dataList = new ArrayList<>();
 					ToastUtil.showToast(GroupSigninDetail.this,
 							Const.NETWORKERROR + ":"
 									+ Exceptionerror);
@@ -425,7 +396,7 @@ public class GroupSigninDetail extends BaseActivity implements
 		Control.getinstance().getControlSevice().getSignDetailInfo(id, controlServiceImplBackValueListenser);
 	}
 
-	int i;
+	private int i = 0;
 
 	@Override
 	public void onRefresh() {
@@ -437,6 +408,6 @@ public class GroupSigninDetail extends BaseActivity implements
 	@Override
 	public void initNetData() {
 		// TODO Auto-generated method stub
-		initData(sem_tags, tag);
+		initListData();
 	}
 }

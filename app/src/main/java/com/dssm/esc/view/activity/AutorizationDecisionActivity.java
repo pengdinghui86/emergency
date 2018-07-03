@@ -344,7 +344,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
                         // 指挥与展示
                         intent = new Intent(AutorizationDecisionActivity.this,
                                 ControlActivity.class);
-                        intent.putExtra("PlanEntity", padapter.getItem(position - 1));
+                        intent.putExtra("PlanTreeEntity", padapter.getItem(position - 1));
                         startActivity(intent);
                     }
                 } else {

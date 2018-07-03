@@ -13,6 +13,7 @@ import com.dssm.esc.model.entity.control.ProgressDetailEntity;
 import com.dssm.esc.model.entity.control.SignUserEntity;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
+import com.dssm.esc.model.entity.emergency.PlanTreeEntity;
 import com.dssm.esc.model.jsonparser.ControlCompleterListenter;
 import com.dssm.esc.model.jsonparser.control.FlowChartPlanParser;
 import com.dssm.esc.model.jsonparser.control.GetEventlistParser;
@@ -323,11 +324,11 @@ public class ControlServiceImpl implements ControlSevice {
         // TODO Auto-generated method stub
         final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
         new GetSignUserInfoDetailParser(planInfoId,
-                new ControlCompleterListenter<List<GroupEntity>>() {
+                new ControlCompleterListenter<List<PlanTreeEntity>>() {
 
                     @SuppressWarnings("unchecked")
                     @Override
-                    public void controlParserComplete(List<GroupEntity> object,
+                    public void controlParserComplete(List<PlanTreeEntity> object,
                                                       String error) {
                         // TODO Auto-generated method stub
                         if(wr.get() != null)

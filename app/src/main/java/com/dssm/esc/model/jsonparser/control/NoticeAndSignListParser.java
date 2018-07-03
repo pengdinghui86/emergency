@@ -37,16 +37,16 @@ public class NoticeAndSignListParser {
 		wr = new WeakReference<>(completeListener);
 		request(planInfoId);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * 发送请求
 	 */
-	public void request(final String planInfoId){
+	public void request(final String planInfoId) {
 
-		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SIGN_USER_LIST_COUNT);
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl() + HttpUrl.SIGN_USER_LIST_COUNT);
 		//增加session
-		if(!MySharePreferencesService.getInstance(
+		if (!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(
 				"JSESSIONID").equals("")) {
 			StringBuilder sbSession = new StringBuilder();
@@ -67,12 +67,12 @@ public class NoticeAndSignListParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
-				Log.i(TAG, TAG+t);
-				entity=getNoticeAndSignListParser(t);
-				Log.i(TAG, TAG+entity);
-				if(completeListener != null)
+				Log.i(TAG, TAG + t);
+				entity = getNoticeAndSignListParser(t);
+				Log.i(TAG, TAG + entity);
+				if (completeListener != null)
 					completeListener.controlParserComplete(entity, null);
-				
+
 			}
 
 			@Override
@@ -84,7 +84,7 @@ public class NoticeAndSignListParser {
 					errorResult = "网络错误";
 					HttpException httpEx = (HttpException) ex;
 					int responseCode = httpEx.getCode();
-					if(responseCode == 518) {
+					if (responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
 						request(planInfoId);
@@ -92,14 +92,14 @@ public class NoticeAndSignListParser {
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
 
-				} else if(errorResult.equals("java.lang.NullPointerException")) {
+				} else if (errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
 					request(planInfoId);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				if(completeListener != null)
+				if (completeListener != null)
 					completeListener.controlParserComplete(null, errorResult);
 			}
 
@@ -114,49 +114,49 @@ public class NoticeAndSignListParser {
 			}
 
 		});
-		
+
 	}
-   private SignUserEntity getNoticeAndSignListParser(String t) {
-	   SignUserEntity entity=null;
-	   try {
-		   if (!t.equals("")&&!t.equals("null")) {
-		 JSONObject object=new JSONObject(t);
-			entity =new SignUserEntity();
-			entity.setTotalNeedSignNum(object.getString("totalNeedSignNum"));
-			entity.setTotalNoSignNum(object.getString("totalNoSignNum"));
-			entity.setTotalSignNum(object.getString("totalSignNum"));
-			JSONArray arraynotice=object.getJSONArray("noticeList");
-			List<SignUserEntity.Notice>listnotice=new ArrayList<SignUserEntity.Notice>();
-			for (int i = 0; i < arraynotice.length(); i++) {
-				JSONObject jsonObject=(JSONObject)arraynotice.opt(i);
-				SignUserEntity.Notice notice=entity.new Notice();
-				notice.setEmergTeam(jsonObject.getString("emergTeam"));
-				notice.setEmergTeamId(jsonObject.getString("emergTeamId"));
-				notice.setNeedNoticeNum(jsonObject.getString("needNoticeNum"));
-				notice.setNoticeNum(jsonObject.getString("noticeNum"));
-				listnotice.add(notice);
+
+    private SignUserEntity getNoticeAndSignListParser(String t) {
+		SignUserEntity entity = null;
+		try {
+			if (!t.equals("") && !t.equals("null")) {
+				JSONObject object = new JSONObject(t);
+				entity = new SignUserEntity();
+				entity.setTotalNeedSignNum(object.getString("totalNeedSignNum"));
+				entity.setTotalNoSignNum(object.getString("totalNoSignNum"));
+				entity.setTotalSignNum(object.getString("totalSignNum"));
+				JSONArray arraynotice = object.getJSONArray("noticeList");
+				List<SignUserEntity.Notice> listnotice = new ArrayList<SignUserEntity.Notice>();
+				for (int i = 0; i < arraynotice.length(); i++) {
+					JSONObject jsonObject = (JSONObject) arraynotice.opt(i);
+					SignUserEntity.Notice notice = entity.new Notice();
+					notice.setEmergTeam(jsonObject.getString("emergTeam"));
+					notice.setEmergTeamId(jsonObject.getString("emergTeamId"));
+					notice.setNeedNoticeNum(jsonObject.getString("needNoticeNum"));
+					notice.setNoticeNum(jsonObject.getString("noticeNum"));
+					listnotice.add(notice);
+				}
+				entity.setNoticeList(listnotice);
+				JSONArray arraysign = object.getJSONArray("signList");
+				List<SignUserEntity.Sign> listsign = new ArrayList<SignUserEntity.Sign>();
+				for (int i = 0; i < arraysign.length(); i++) {
+					JSONObject jsonObject = (JSONObject) arraysign.opt(i);
+					SignUserEntity.Sign sign = entity.new Sign();
+					sign.setEmergTeam(jsonObject.getString("emergTeam"));
+					;
+					sign.setEmergTeamId(jsonObject.getString("emergTeamId"));
+					sign.setNeedSignNum(jsonObject.getString("needSignNum"));
+					sign.setSignNum(jsonObject.getString("signNum"));
+					listsign.add(sign);
+				}
+				entity.setSignList(listsign);
 			}
-			entity.setNoticeList(listnotice);
-			JSONArray arraysign=object.getJSONArray("signList");
-			List<SignUserEntity.Sign>listsign=new ArrayList<SignUserEntity.Sign>();
-			for (int i = 0; i < arraysign.length(); i++) {
-				JSONObject jsonObject=(JSONObject)arraysign.opt(i);
-				SignUserEntity.Sign sign=entity.new Sign();
-				sign.setEmergTeam(jsonObject.getString("emergTeam"));;
-				sign.setEmergTeamId(jsonObject.getString("emergTeamId"));
-				sign.setNeedSignNum(jsonObject.getString("needSignNum"));
-				sign.setSignNum(jsonObject.getString("signNum"));
-				listsign.add(sign);
-			}
-			entity.setSignList(listsign);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return entity;
 		}
-		
-	} catch (JSONException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
 		return entity;
 	}
-	   
-    return entity;
-}
 }

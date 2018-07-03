@@ -635,7 +635,20 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             else
                 mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.timeover));
             Log.i("entity.getBeginTime()", entity.getBeginTime());
-        } else if (!entity.getEndTime().equals("null")
+        }
+        else if (entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_STOP)) {
+            //执行异常
+            mhHolder.overtime.setText(Utils.getInstance().setTtimeline(curDate,
+                    entity.getBeginTime()));
+            String overSeconds = Utils.getInstance().getOverSeconds(
+                    curDate, entity.getBeginTime()) + "";
+            long result = Utils.getInstance().compareTime(overSeconds, entity.getDuration());
+            if(result < 0)
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
+            else
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.timeover));
+        }
+        else if (!entity.getEndTime().equals("null")
                 && !entity.getBeginTime().equals("")) {
             String overSeconds = Utils.getInstance().getOverSeconds(
                     entity.getEndTime(), entity.getBeginTime()) + "";

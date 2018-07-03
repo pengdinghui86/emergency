@@ -284,7 +284,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 flowChartPlanData();
             }
         });
-        planEntity = (PlanEntity) getIntent().getSerializableExtra("PlanEntity");
+        planEntity = (PlanEntity) getIntent().getSerializableExtra("PlanTreeEntity");
         sevice = Control.getinstance().getUserSevice();
         csevice = Control.getinstance().getControlSevice();
         service = MySharePreferencesService.getInstance(this);
