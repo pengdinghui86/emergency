@@ -147,6 +147,7 @@ public class MyFlowView extends View {
         else if(maxRow > 30)
             setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxRow / 30), 0.1f));
         setLayoutParams(lp);
+        currentStep = new NSstep();
         setPoisition2ExcuteNode(lp.width, lp.height);
         invalidate();
     }
