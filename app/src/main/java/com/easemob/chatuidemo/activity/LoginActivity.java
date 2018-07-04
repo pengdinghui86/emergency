@@ -276,9 +276,8 @@ public class LoginActivity extends BaseActivity {
                                         public void onClick(DialogInterface dialog,
                                                             final int which) {
                                             dialog.dismiss();
-                                            Toast.makeText(LoginActivity.this,
-                                                    "你选择了: " + identity[which], Toast.LENGTH_SHORT)
-                                                    .show();
+                                            ToastUtil.showLongToast(LoginActivity.this,
+                                                    "你选择了: " + identity[which]);
                                             curWhich = which;
                                             // 选择角色
                                             sevice.loginRole(
