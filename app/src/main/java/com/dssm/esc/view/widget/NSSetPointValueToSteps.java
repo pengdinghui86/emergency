@@ -140,7 +140,7 @@ public class NSSetPointValueToSteps{
 			}
 		});
 		rowNum = findRowNumber(steplist);
-		initStepValues();
+		initStepValues2();
 	}
 
 	/**
@@ -257,12 +257,62 @@ public class NSSetPointValueToSteps{
 					k++;
 					currentStep.stepNum = j;
 					currentStep.x = (1 - currentStep.x / (rowNum + 1));
-//					currentStep.x = currentStep.x / (rowNum + 1);
 					currentStep.y = k / (j + 1f);
 				}
 			}
 		}
 
+	}
+
+	private void initStepValues2() {
+
+		for (int i = 1; i <= rowNum; i++) {
+			int j = 0;
+			int k = 0;
+			float startY = 0f;
+			for (NSstep currentStep : steplist) {
+				if (currentStep.lineId == i) {
+					j++;
+				}
+			}
+			//计算每一个节点的绝对坐标
+			for (NSstep currentStep : steplist) {
+				if (currentStep.lineId == i) {
+					k++;
+					currentStep.stepNum = j;
+					currentStep.x = (1 - currentStep.x / (rowNum + 1));
+					currentStep.y = k / (j + 1f);
+
+					List<NSstep> nextSteps = getNextRowNextSteps(currentStep, i);
+					int nextStepCount = nextSteps.size();
+					if(nextStepCount > 1) {
+						float y = (nextSteps.get(0).y + nextSteps.get(nextStepCount - 1).y) / 2;
+						if(y == startY)
+							y = startY + 1f / (maxLineNum + 1);
+						if (y < currentStep.y) {
+							currentStep.y = y;
+						}
+					}
+					startY = currentStep.y;
+				}
+			}
+		}
+	}
+
+	/**
+	 * 获取下一行的子节点列表
+	 */
+	private List<NSstep> getNextRowNextSteps(NSstep step, int i) {
+		List<NSstep> nSsteps = new ArrayList<>();
+		for(NSstep nextStep : steplist) {
+			for (String nextStepId : step.nextStepIds) {
+				if(nextStepId.equals(nextStep.stepId) && nextStep.lineId == i - 1) {
+					nSsteps.add(nextStep);
+					break;
+				}
+			}
+		}
+		return nSsteps;
 	}
 
 	/**
@@ -276,8 +326,7 @@ public class NSSetPointValueToSteps{
 					NSstep parentNode1 = findLeftParentNode(currentSteps.get(i));
 					NSstep parentNode2 = findLeftParentNode(currentSteps.get(i + 1));
 					if(parentNode1 != null && parentNode2 != null) {
-						if ((parentNode1.lineId == parentNode2.lineId && parentNode1.y > parentNode2.y)
-								|| parentNode1.lineId > parentNode2.lineId) {
+						if ((parentNode1.lineId == parentNode2.lineId && parentNode1.y > parentNode2.y)) {
 							float y = currentSteps.get(i).y;
 							currentSteps.get(i).y = currentSteps.get(i + 1).y;
 							currentSteps.get(i + 1).y = y;
