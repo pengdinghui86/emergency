@@ -1156,7 +1156,7 @@ public class MyFlowView extends View {
         plusPaint.setAntiAlias(true);
         plusPaint.setColor(getResources().getColor(R.color.white));
         plusPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        plusPaint.setStrokeWidth(2f);
+        plusPaint.setStrokeWidth(3f);
     }
 
     /**
