@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dssm.esc.R;
-import com.dssm.esc.model.entity.control.FlowChartPlanEntity;
 import com.dssm.esc.status.RealTimeTrackingStatus;
 import com.dssm.esc.util.DisplayUtils;
 import com.dssm.esc.view.activity.ProcessMonitoringSubMissionActivity;
@@ -47,17 +45,15 @@ public class MyFlowView extends View {
     private Paint greenFlowPaint = new Paint();
     private Paint redFlowPaint = new Paint();
     private Paint otherFlowPaint = new Paint();
-    private Paint textPaint = new Paint();
+    private Paint plusPaint = new Paint();
     private Paint textFlowPaint = new Paint();
     private Paint circlePaint = new Paint();
     private int radius = 16;
     private int buttonRadius = 16;
     //连接线的长度
-    private int lineLenth = 24;
     private int maxButtonRadius = 16;
     private int minButtonRadius = 16;
     private int textSize = 8;
-    private int descriptionTextSize = 12;
 
     private float minZoom = 0.5f;
     private float maxZoom = 1.5f;
@@ -257,11 +253,6 @@ public class MyFlowView extends View {
                     float bx = (int) (onesstep.y * this.getWidth());
                     float ex = (int) (sstep.y * this.getWidth());
                     float ey = (int) (sstep.x * this.getHeight());
-//                    if(((ex < smoothMoveX && bx < smoothMoveX)
-//                            || (ex > smoothMoveX + defaultWidth && bx > smoothMoveX + defaultWidth))
-//                            ||((ey - buttonRadius < smoothMoveY && by + buttonRadius < smoothMoveY)
-//                            || (ey - buttonRadius > smoothMoveY + defaultHeight
-//                            && by + buttonRadius > smoothMoveY + defaultHeight)))
                     if(!invisible2Draw(bx, by + buttonRadius, ex, ey - buttonRadius))
                     continue;
                     drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
@@ -723,11 +714,9 @@ public class MyFlowView extends View {
             if (step.type.equals("begin")) {
                 paint = startFlowPaint;
                 str = "开始";
-                //drawText(h + buttonRadius, w, textPaint, "开始");
             } else if (step.type.equals("end")) {
                 paint = endFlowPaint;
                 str = "结束";
-                //drawText(h + buttonRadius, w, textPaint, "结束");
             } else if (step.type.equals("merge")) {
                 if (!step.statusId.equals("") && step.statusId != null
                         && step.statusId.length() > 0
@@ -787,7 +776,7 @@ public class MyFlowView extends View {
                 circlePaint.setColor(0xFFf00); // 边框颜色
             }
             if(step.nodeStepType.equals("CallActivity"))
-                drawCircleAndPlus(h, w, paint, textFlowPaint, circlePaint, str);
+                drawCircleAndPlus(h, w, paint, circlePaint);
             else
                 drawCircleAndWord(h, w, paint, textFlowPaint, circlePaint, str);
         }
@@ -1164,13 +1153,11 @@ public class MyFlowView extends View {
         circlePaint.setStyle(Paint.Style.STROKE);
         circlePaint.setStrokeWidth(1);
 
-        textPaint.setAntiAlias(true);
-        textPaint.setColor(getResources().getColor(R.color.black));
-        textPaint.setStyle(Paint.Style.STROKE);
-        textPaint.setTextSize(DisplayUtils.dp2px(descriptionTextSize));
-        textPaint.setStrokeWidth(2f);
+        plusPaint.setAntiAlias(true);
+        plusPaint.setColor(getResources().getColor(R.color.white));
+        plusPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        plusPaint.setStrokeWidth(2f);
     }
-
 
     /**
      * 画圆和文字
@@ -1189,31 +1176,11 @@ public class MyFlowView extends View {
         myCanvas.drawText(str, x - strWidth / 2f, y + strHeight / 2f, textPaint);
     }
 
-    public void drawRectangleAndWord(float x, float y, Paint buttonPaint, Paint textPaint, Paint circlePaint, String str) {
-        myCanvas.drawRect(x - buttonRadius, y - buttonRadius, x + buttonRadius, y + buttonRadius, buttonPaint);
-        myCanvas.drawRect(x - buttonRadius, y - buttonRadius, x + buttonRadius, y + buttonRadius, circlePaint);
-        Rect rect = new Rect();
-        //返回包围整个字符串的最小的一个Rect区域
-        textPaint.getTextBounds(str, 0, str.length(), rect);
-        int strWidth = rect.width();
-        int strHeight = rect.height();
-        myCanvas.drawText(str, x - strWidth / 2f, y + strHeight / 2f, textPaint);
-    }
-
-    public void drawCircleAndPlus(float x, float y, Paint buttonPaint, Paint textPaint, Paint circlePaint, String str) {
+    public void drawCircleAndPlus(float x, float y, Paint buttonPaint, Paint circlePaint) {
         myCanvas.drawCircle(x, y, buttonRadius, buttonPaint);
         myCanvas.drawCircle(x, y, buttonRadius, circlePaint);
-        Rect rect = new Rect();
-        myCanvas.drawLine(x - buttonRadius / 3, y, x + buttonRadius / 3, y, textPaint);
-        myCanvas.drawLine(x, y - buttonRadius / 3, x, y + buttonRadius / 3, textPaint);
-    }
-
-    private void drawText(float x, float y, Paint textPaint, String str) {
-        Rect rect = new Rect();
-        //返回包围整个字符串的最小的一个Rect区域
-        textPaint.getTextBounds(str, 0, str.length(), rect);
-        int strHeight = rect.height();
-        myCanvas.drawText(str, x, y + strHeight / 2f, textPaint);
+        myCanvas.drawLine(x - buttonRadius / 3, y, x + buttonRadius / 3, y, plusPaint);
+        myCanvas.drawLine(x, y - buttonRadius / 3, x, y + buttonRadius / 3, plusPaint);
     }
 
     /**

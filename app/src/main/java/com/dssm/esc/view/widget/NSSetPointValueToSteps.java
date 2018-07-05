@@ -287,7 +287,7 @@ public class NSSetPointValueToSteps{
 					int nextStepCount = nextSteps.size();
 					if(nextStepCount > 1) {
 						float y = (nextSteps.get(0).y + nextSteps.get(nextStepCount - 1).y) / 2;
-						if(y == startY)
+						if(y < startY + 1f / (maxLineNum + 1))
 							y = startY + 1f / (maxLineNum + 1);
 						if (y < currentStep.y) {
 							currentStep.y = y;
@@ -319,21 +319,26 @@ public class NSSetPointValueToSteps{
 	 * 优化节点的位置
 	 */
 	public void proveStepPosition() {
-		for (int row = rowNum; row >= 1; row--) {
+		for (int row = rowNum - 1; row >= 1; row--) {
 			List<NSstep> currentSteps = findAllCurrentNodes(row);
-			if(currentSteps.size() > 1) {
-				for(int i = 0; i < currentSteps.size() - 1; i++) {
-					NSstep parentNode1 = findLeftParentNode(currentSteps.get(i));
-					NSstep parentNode2 = findLeftParentNode(currentSteps.get(i + 1));
-					if(parentNode1 != null && parentNode2 != null) {
-						if ((parentNode1.lineId == parentNode2.lineId && parentNode1.y > parentNode2.y)) {
-							float y = currentSteps.get(i).y;
-							currentSteps.get(i).y = currentSteps.get(i + 1).y;
-							currentSteps.get(i + 1).y = y;
-						}
-					}
-				}
 
+			if(currentSteps.size() > 1) {
+
+				for(int p = 1; p < currentSteps.size(); p++) {
+					int j;
+					NSstep parentNode = findLeftParentNode(currentSteps.get(p));
+					NSstep temp = currentSteps.get(p);
+
+					for (j = p; j > 0; j--) {
+						NSstep parentNode1 = findLeftParentNode(currentSteps.get(j - 1));
+						if (parentNode.y < parentNode1.y)
+							//后移
+							currentSteps.get(j).y = currentSteps.get(j - 1).y;
+						else
+							break;
+					}
+					currentSteps.get(j).y = temp.y;//插入到合适的位置
+				}
 			}
 		}
 	}
