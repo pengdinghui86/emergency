@@ -26,7 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/emergency_fragment_bg"
         android:padding="5dp"
         android:gravity="center"
         style="@style/normal_text"
