@@ -637,10 +637,10 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 if(result < 0)
                     mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
                 else
-                    mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.timeover));
+                    mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
             }
             else
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.timeover));
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
             Log.i("entity.getBeginTime()", entity.getBeginTime());
         }
         else if (entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_STOP)) {
@@ -653,7 +653,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             if(result < 0)
                 mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
             else
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.timeover));
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
         }
         else if (!entity.getEndTime().equals("null")
                 && !entity.getBeginTime().equals("")) {
@@ -665,7 +665,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             if(result < 0)
                 mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
             else
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.timeover));
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
         } else {
             mhHolder.overtime.setText("");
         }
