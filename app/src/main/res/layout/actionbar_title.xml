@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:textColor="@color/white"
-                android:textSize="@dimen/we_small_textsize"
+                android:textSize="@dimen/we_normal_textsize"
                 android:visibility="invisible" />
 
             <ImageView
