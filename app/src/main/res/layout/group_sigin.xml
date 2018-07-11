@@ -4,11 +4,34 @@
     android:layout_height="wrap_content"
     android:background="#fff" >
 
+    <LinearLayout
+        android:id="@+id/cb_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <CheckBox
+            android:id="@+id/child_checkbox"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="right|center_vertical"
+            android:focusable="false"
+            android:button="@null"
+            android:background="@drawable/checkbox_background_selector"
+            android:paddingRight="2dp"
+            android:focusableInTouchMode="false"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/child_chexkbox"
+        android:layout_toLeftOf="@id/cb_layout"
         android:gravity="center_vertical" >
 
         <ImageView

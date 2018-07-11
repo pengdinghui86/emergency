@@ -2,6 +2,7 @@ package com.dssm.esc.util.treeview.view;
 
 import android.graphics.Color;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +18,9 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
     TextView zhizhe;
     TextView phonenumber;
     TextView sigin_tv;
+    CheckBox checkBox;
+
+
     public ThirdLevelNodeViewBinder(View itemView) {
         super(itemView);
         head = (ImageView) itemView.findViewById(R.id.iv_head);
@@ -25,13 +29,14 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
         phonenumber = (TextView) itemView
                 .findViewById(R.id.phonenumber);
         sigin_tv = (TextView) itemView.findViewById(R.id.sigin_tv);
+        checkBox = (CheckBox) itemView.findViewById(R.id.child_checkbox);
         itemView.setPadding(DisplayUtils.dp2px(32),0,0,0);
 
     }
 
     @Override
     public int getCheckableViewId() {
-        return 0;
+        return R.id.child_checkbox;
     }
 
     @Override
@@ -53,6 +58,8 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
         String notice= centity.getNoticeState();
         if (tag.equals("1")) {//接收情况
 //			0:未通知 1：已通知
+            sigin_tv.setVisibility(View.VISIBLE);
+            checkBox.setVisibility(View.GONE);
             if (notice.equals("1")) {//已通知
                 notice="已接收";
                 sigin_tv.setTextColor(Color.GREEN);
@@ -66,7 +73,8 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
 
         }else if (tag.equals("2")) {//签到情况
 //			0:未签到 1：已签到
-
+            sigin_tv.setVisibility(View.VISIBLE);
+            checkBox.setVisibility(View.GONE);
             if (signin.equals("1")) {//已签到
                 signin = "已签到";
                 sigin_tv.setTextColor(Color.GREEN);
@@ -77,6 +85,11 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
                 sigin_tv.setTextSize(14);
             }
             sigin_tv.setText(signin);
+        }
+        else {
+            sigin_tv.setVisibility(View.GONE);
+            checkBox.setVisibility(View.VISIBLE);
+
         }
     }
 }

@@ -227,9 +227,10 @@ public class HttpUrl {
             "emergency/planInfo/getByStateList?state=1,2";
     /**
      * 预案小组应急列表
+     * 2018.7.11由getmergencyGroupData?planInfoId=接口更改为getSignUserInfo?id=接口
      */
     public final static String GETEMERGENCYGROPDATA = 
-             "emergency/personSign/getmergencyGroupData?planInfoId=";
+             "emergency/personSign/getSignUserInfo?id=";
     /**
      * 根据对象和阶段获取对应的配置内容
      */

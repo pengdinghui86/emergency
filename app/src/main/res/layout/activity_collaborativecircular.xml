@@ -52,27 +52,13 @@
         android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/ll_contact_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/filter_edit_ll"
         android:orientation="vertical"
         android:paddingTop="5dp" >
 
-        <ExpandableListView
-            android:id="@+id/collab_expandlistview"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:indicatorLeft="1sp" />
-
-        <TextView
-            android:id="@+id/no_search_result_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/searchno"
-            style="@style/normal_text"
-            android:visibility="gone" />
     </LinearLayout>
-
-    
 
 </RelativeLayout>

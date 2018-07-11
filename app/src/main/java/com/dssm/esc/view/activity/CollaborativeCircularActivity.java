@@ -12,8 +12,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ExpandableListView;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -22,13 +23,16 @@ import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySe
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
+import com.dssm.esc.model.entity.emergency.PlanTreeEntity;
 import com.dssm.esc.model.entity.emergency.SendNoticyEntity;
 import com.dssm.esc.util.CharacterParser;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
+import com.dssm.esc.util.treeview.TreeNode;
+import com.dssm.esc.util.treeview.TreeView;
+import com.dssm.esc.util.treeview.view.MyNodeViewFactory;
 import com.dssm.esc.view.activity.BaseActivity.onInitNetListener;
-import com.dssm.esc.view.adapter.ExpanListChexboxMulselectAdapter;
 import com.dssm.esc.view.widget.ClearEditText;
 
 import org.xutils.view.annotation.ContentView;
@@ -56,16 +60,16 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 	/** 可扩展ListView */
-	@ViewInject(R.id.collab_expandlistview)
-	private ExpandableListView expandableList;
-	/** 可扩展ListView适配器 */
-	private ExpanListChexboxMulselectAdapter adapter;
+	@ViewInject(R.id.ll_contact_list)
+	private LinearLayout expandableLayout;
+	/** 父list显示预案 */
+	private List<PlanTreeEntity> planTreeList = new ArrayList<>();
 	/** 父list显示组 */
-	private List<GroupEntity> groupList =new ArrayList<GroupEntity>();
+	private List<GroupEntity> groupList =new ArrayList<>();
 	/** 子list显示人 */
-	private List<ChildEntity> childList = new ArrayList<ChildEntity>();
+	private List<ChildEntity> childList = new ArrayList<>();
 	/** 被选中的人员的id */
-	public List<String> selectId = new ArrayList<String>();
+	public List<String> selectId = new ArrayList<>();
 	/** 可清除的EditText */
 	@ViewInject(R.id.filter_edit_c)
 	private ClearEditText myClearEt;
@@ -78,15 +82,24 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	private String ids = "";
 	/** 汉字转换成拼音的类 */
 	private CharacterParser characterParser = CharacterParser.getInstance();
+
+	private TreeNode root;
+	private TreeView treeView;
+
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				groupList = (List<GroupEntity>) msg.obj;
-				Log.i("result", groupList.size() + "");
-				adapter = new ExpanListChexboxMulselectAdapter(groupList,
-						CollaborativeCircularActivity.this);
-				expandableList.setAdapter(adapter);
+				planTreeList = (List<PlanTreeEntity>) msg.obj;
+				addTreeView();
+				if (planTreeList.size() == 0) {
+					expandableLayout.setVisibility(View.GONE);
+					noSearchResultTv.setVisibility(View.VISIBLE);
+				} else {
+					expandableLayout.setVisibility(View.VISIBLE);
+					noSearchResultTv.setVisibility(View.GONE);
+				}
+
 				for (int i = 0; i < groupList.size(); i++) {
 					GroupEntity groupEntity = groupList.get(i);
 					List<ChildEntity> getcList = groupEntity.getcList();
@@ -94,7 +107,6 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 						ChildEntity childEntity = getcList.get(j);
 						searchChildItemData(childEntity);
 					}
-					//Collections.sort(getcList, pinyinComparator2);
 					searchGroupData(groupEntity);
 				}
 				break;
@@ -116,7 +128,6 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 		entity = (SendNoticyEntity) intent.getSerializableExtra("entity");
 		planInfoId = intent.getStringExtra("planInfoId");
 		precautionId = intent.getStringExtra("precautionId");
-		expandableList.setGroupIndicator(null);
 		initView();
 	}
 
@@ -130,27 +141,54 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 			initData();
 		}
 		// 初始化，默认加载任务通知界面
-				myClearEt.addTextChangedListener(new TextWatcher() {
+		myClearEt.addTextChangedListener(new TextWatcher() {
 
-					@Override
-					public void beforeTextChanged(CharSequence s, int start, int count,
-							int after) {
-					}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
 
-					@Override
-					public void onTextChanged(CharSequence s, int start, int before,
-							int count) {
-					}
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+			}
 
-					@Override
-					public void afterTextChanged(Editable s) {
-						// TODO Auto-generated method stub
-						filterData(s.toString());
-					}
-				});
-		//segmentControlListDate();
-//		setNetListener(this);
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				filterData(s.toString());
+			}
+		});
 	}
+
+	private void addTreeView() {
+		root = TreeNode.root();
+		buildTree(planTreeList);
+		treeView = new TreeView(root, this, new MyNodeViewFactory(), "");
+		View view = treeView.getView();
+		view.setLayoutParams(new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		expandableLayout.addView(view);
+	}
+
+	private void buildTree(List<PlanTreeEntity> planTreeList) {
+		for (int i = 0; i < planTreeList.size(); i++) {
+			TreeNode treeNode = new TreeNode(planTreeList.get(i).getName());
+			treeNode.setLevel(0);
+			for (int j = 0; j < planTreeList.get(i).getEmeGroups().size(); j++) {
+				TreeNode treeNode1 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getGroupname());
+				treeNode1.setLevel(1);
+				for (int k = 0; k < planTreeList.get(i).getEmeGroups().get(j).getcList().size(); k++) {
+					TreeNode treeNode2 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getcList().get(k));
+					treeNode2.setLevel(2);
+					treeNode1.addChild(treeNode2);
+				}
+				treeNode.addChild(treeNode1);
+			}
+			root.addChild(treeNode);
+		}
+	}
+
 	/**
 	 * 
 	 * 子list正则过滤，用于搜索
@@ -214,7 +252,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	 * @param filterStr
 	 */
 	private void filterData(String filterStr) {
-		List<GroupEntity> groupFilterList = new ArrayList<GroupEntity>();
+		List<GroupEntity> groupFilterList = new ArrayList<>();
 		List<ChildEntity> childFilterList = null;
 
 		Log.i("xx", "dd" + groupList.get(0).getcList().size());
@@ -275,25 +313,6 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 
 		}
 
-		if (adapter != null) {
-			adapter.updateListView(groupFilterList);
-
-			if (TextUtils.isEmpty(filterStr)) {
-				for (int i = 0; i < groupFilterList.size(); i++) {
-					if (i == 0) {
-						expandableList.expandGroup(i);
-						continue;
-					}
-					expandableList.collapseGroup(i);
-				}
-			} else {
-				// 搜索的结果全部展开
-				for (int i = 0; i < groupFilterList.size(); i++) {
-					expandableList.expandGroup(i);
-				}
-			}
-		}
-
 		// 如果查询的结果为0时，显示为搜索到结果的提示
 		if (groupFilterList.size() == 0) {
 			noSearchResultTv.setVisibility(View.VISIBLE);
@@ -309,15 +328,15 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 				Object object, String stRerror,
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
-			List<GroupEntity> dataList = null;
+			List<PlanTreeEntity> dataList = null;
 			if (object != null) {
-				dataList = (List<GroupEntity>) object;
+				dataList = (List<PlanTreeEntity>) object;
 
 			} else if (stRerror != null) {
-				dataList = new ArrayList<GroupEntity>();
+				dataList = new ArrayList<>();
 
 			} else if (Exceptionerror != null) {
-				dataList = new ArrayList<GroupEntity>();
+				dataList = new ArrayList<>();
 				ToastUtil.showToast(
 						CollaborativeCircularActivity.this,
 						Const.NETWORKERROR + ":" + Exceptionerror);
@@ -351,8 +370,14 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	 */
 	private List<String> showCheckedItems() {
 		String checkedItems = "";
-		List<String> checkedChildren = adapter.getCheckedChildren();
-		if (checkedChildren != null && !checkedChildren.isEmpty()) {
+		List<String> checkedChildren = new ArrayList<>();
+		List<TreeNode> treeNodes = treeView.getSelectedNodes();
+		for(TreeNode treeNode : treeNodes) {
+			if(treeNode.getValue() instanceof ChildEntity) {
+				checkedChildren.add(((ChildEntity) treeNode.getValue()).getChild_id());
+			}
+		}
+		if (checkedChildren != null && checkedChildren.size() > 0) {
 			for (String child : checkedChildren) {
 				if (checkedItems.length() > 0) {
 					checkedItems += "\n";

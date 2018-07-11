@@ -2,6 +2,7 @@ package com.dssm.esc.util.treeview.view;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -13,16 +14,19 @@ public class SecondLevelNodeViewBinder extends CheckableNodeViewBinder {
 
     TextView textView;
     ImageView imageView;
+    LinearLayout ll_cb;
+
     public SecondLevelNodeViewBinder(View itemView) {
         super(itemView);
         textView = (TextView) itemView.findViewById(R.id.group_tv);
         imageView = (ImageView) itemView.findViewById(R.id.gropimg);
+        ll_cb = (LinearLayout) itemView.findViewById(R.id.cb_layout);
         itemView.setPadding(DisplayUtils.dp2px(16),0,0,0);
     }
 
     @Override
     public int getCheckableViewId() {
-        return 0;
+        return R.id.child_checkbox;
     }
 
     @Override
@@ -34,6 +38,10 @@ public class SecondLevelNodeViewBinder extends CheckableNodeViewBinder {
     public void bindView(final TreeNode treeNode, String tag) {
         textView.setText(treeNode.getValue().toString());
         imageView.setRotation(treeNode.isExpanded() ? 90 : 0);
+        if(tag.equals(""))
+            ll_cb.setVisibility(View.VISIBLE);
+        else
+            ll_cb.setVisibility(View.GONE);
     }
 
     @Override

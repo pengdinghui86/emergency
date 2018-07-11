@@ -72,4 +72,17 @@
         android:gravity="left"
         style="@style/normal_text" />
 
+    <CheckBox
+        android:id="@+id/child_checkbox"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="right|center_vertical"
+        android:focusable="false"
+        android:button="@null"
+        android:background="@drawable/checkbox_background_selector"
+        android:paddingRight="2dp"
+        android:focusableInTouchMode="false"
+        android:gravity="right"
+        android:visibility="gone"/>
+
 </LinearLayout>
