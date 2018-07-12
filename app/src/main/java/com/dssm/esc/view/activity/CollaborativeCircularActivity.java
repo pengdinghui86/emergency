@@ -9,7 +9,6 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -64,10 +63,6 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	private LinearLayout expandableLayout;
 	/** 父list显示预案 */
 	private List<PlanTreeEntity> planTreeList = new ArrayList<>();
-	/** 父list显示组 */
-	private List<GroupEntity> groupList =new ArrayList<>();
-	/** 子list显示人 */
-	private List<ChildEntity> childList = new ArrayList<>();
 	/** 被选中的人员的id */
 	public List<String> selectId = new ArrayList<>();
 	/** 可清除的EditText */
@@ -100,14 +95,17 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 					noSearchResultTv.setVisibility(View.GONE);
 				}
 
-				for (int i = 0; i < groupList.size(); i++) {
-					GroupEntity groupEntity = groupList.get(i);
-					List<ChildEntity> getcList = groupEntity.getcList();
-					for (int j = 0; j < getcList.size(); j++) {
-						ChildEntity childEntity = getcList.get(j);
-						searchChildItemData(childEntity);
+				for (int i = 0; i < planTreeList.size(); i++) {
+					PlanTreeEntity planTreeEntity = planTreeList.get(i);
+					List<GroupEntity> groupEntityList = planTreeEntity.getEmeGroups();
+					for (int j = 0; j < groupEntityList.size(); j++) {
+						GroupEntity groupEntity = groupEntityList.get(j);
+						List<ChildEntity> childEntityList = groupEntity.getcList();
+						for (int k = 0; k < childEntityList.size(); k++) {
+							ChildEntity childEntity = childEntityList.get(k);
+							searchChildItemData(childEntity);
+						}
 					}
-					searchGroupData(groupEntity);
 				}
 				break;
 
@@ -137,7 +135,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 		mSelectConfirm.setText("发送");
 		mBack.setVisibility(View.VISIBLE);
 		mSelectConfirm.setOnClickListener(this);
-		if (groupList.size() == 0) {
+		if (planTreeList.size() == 0) {
 			initData();
 		}
 		// 初始化，默认加载任务通知界面
@@ -221,103 +219,70 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 		}
 	}
 
-
-	/**
-	 * 
-	 * 父list正则过滤，用于搜索
-	 * 
-	 * @version 1.0
-	 * @createTime 2015-9-9,下午5:50:13
-	 * @updateTime 2015-9-9,下午5:50:13
-	 * @createAuthor Zsj
-	 * @updateAuthor
-	 * @updateInfo (此处输入修改内容,若无修改可不写.)
-	 * @param groupItem
-	 */
-	private void searchGroupData(GroupEntity groupItem) {
-		// TODO Auto-generated method stub
-		// 汉字转换成拼音
-		String pinyin = characterParser.getSelling(groupItem.getGroupname());
-		String sortString = pinyin.substring(0, 1).toUpperCase();
-		// 正则表达式，判断首字母是否是英文字母
-		if (sortString.matches("[A-Z]")) {
-			groupItem.setSortLetters(sortString.toUpperCase());
-		} else {
-			groupItem.setSortLetters("#");
-		}
-	}
 	/**
 	 * 根据输入框中的值来过滤数据并更新ListView
 	 * 
 	 * @param filterStr
 	 */
 	private void filterData(String filterStr) {
-		List<GroupEntity> groupFilterList = new ArrayList<>();
-		List<ChildEntity> childFilterList = null;
-
-		Log.i("xx", "dd" + groupList.get(0).getcList().size());
+		List<PlanTreeEntity> planTreeFilterList = new ArrayList<>();
+		List<GroupEntity> groupFilterList;
+		List<ChildEntity> childFilterList;
 		if (TextUtils.isEmpty(filterStr)) {
-			groupFilterList = groupList;
-			childFilterList = childList;
-			Log.i("xx", "ddxx" + groupList.get(0).getcList().size());
+			planTreeFilterList = planTreeList;
 			noSearchResultTv.setVisibility(View.GONE);
 		} else {
-			groupFilterList.clear();
-			// ildFilterList.clear();
-			for (int i = 0; i < groupList.size(); i++) {
-				// 标记departGroup是否加入元素
-				// boolean isAddGroup = false;
-				GroupEntity sortModel = groupList.get(i);
-				String name = sortModel.getGroupname();
-				// depart有字符直接加入
-				if (name.indexOf(filterStr.toString()) != -1
-						|| characterParser.getSelling(name).startsWith(
-								filterStr.toString())) {
-					if (!groupFilterList.contains(sortModel)) {
-						groupFilterList.add(sortModel);
-						// isAddGroup = true;
-					}
-				} else {
-					childFilterList = new ArrayList<ChildEntity>();
-					for (int j = 0; j < groupList.get(i).getcList().size(); j++) {
-						ChildEntity sortChildModel = groupList.get(i)
-								.getcList().get(j);
+			planTreeFilterList.clear();
+			for (int i = 0; i < planTreeList.size(); i++) {
+				PlanTreeEntity sortModel = planTreeList.get(i);
+				groupFilterList = new ArrayList<>();
+				for (int j = 0; j < sortModel.getEmeGroups().size(); j++) {
+					GroupEntity sortModel1 = sortModel.getEmeGroups().get(j);
+					childFilterList = new ArrayList<>();
+					for (int k = 0; k < sortModel1.getcList().size(); k++) {
+						ChildEntity sortChildModel = sortModel1.getcList().get(k);
 						String childName = sortChildModel.getName();
 						String flag = sortChildModel.getZhiwei();
 						// child有字符直接加入，其父也加入
 						if (childName.indexOf(filterStr.toString()) != -1
 								|| characterParser.getSelling(childName)
-										.startsWith(filterStr.toString())
+								.startsWith(filterStr.toString())
 								|| flag.indexOf(filterStr.toString()) != -1
 								|| characterParser.getSelling(flag)
-										.startsWith(filterStr.toString())) {
+								.startsWith(filterStr.toString())) {
 							childFilterList.add(sortChildModel);
-
 						}
 					}
 					if (childFilterList.size() > 0) {
 						GroupEntity entity = new GroupEntity();
-						entity.setGroup_id(groupList.get(i).getGroup_id());
-						entity.setGroupname(groupList.get(i).getGroupname());
-						entity.setSortLetters(groupList.get(i).getSortLetters());
+						entity.setGroup_id(sortModel1.getGroup_id());
+						entity.setGroupname(sortModel1.getGroupname());
+						entity.setSortLetters(sortModel1.getSortLetters());
 						entity.setcList(childFilterList);
 						groupFilterList.add(entity);
 					}
-					//Collections.sort(childFilterList, pinyinComparator2);
+				}
+				if (groupFilterList.size() > 0) {
+					PlanTreeEntity entity = new PlanTreeEntity();
+					entity.setTreeId(sortModel.getTreeId());
+					entity.setName(sortModel.getName());
+					entity.setEmeGroups(groupFilterList);
+					planTreeFilterList.add(entity);
 				}
 
 			}
-
-			// 根据a-z进行排序
-		//	Collections.sort(groupList, pinyinComparator);
-
 		}
 
 		// 如果查询的结果为0时，显示为搜索到结果的提示
-		if (groupFilterList.size() == 0) {
+		if (planTreeFilterList.size() == 0) {
 			noSearchResultTv.setVisibility(View.VISIBLE);
+			expandableLayout.setVisibility(View.GONE);
 		} else {
 			noSearchResultTv.setVisibility(View.GONE);
+			expandableLayout.setVisibility(View.VISIBLE);
+			root.getChildren().clear();
+			buildTree(planTreeFilterList);
+			treeView.expandAll();
 		}
 	}
 
@@ -345,9 +310,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 			message.what = 0;
 			message.obj = dataList;
 			handler.sendMessage(message);
-//						if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
-//						}
 		}
 	};
 
@@ -414,10 +377,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 				ToastUtil.showLongToast(CollaborativeCircularActivity.this,
 						Const.NETWORKERROR + Exceptionerror);
 			}
-//								if (Utils.getInstance().progressDialog
-//										.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
-//								}
 		}
 	};
 
@@ -455,7 +415,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		groupList.clear();
+		planTreeList.clear();
 	}
 
 	@Override
