@@ -34,19 +34,15 @@
         android:layout_marginTop="10dp">
     </ListView>
 
-    <ExpandableListView
-        android:id="@+id/assign_expandlistview"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/ll_contact_list"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:indicatorLeft="1sp"
-        android:scrollbars="none"
-        android:visibility="gone"
-        android:layout_marginTop="10dp" />
-     <ExpandableListView  
-        android:id="@+id/elistview" 
-        android:layout_width="fill_parent" 
-        android:layout_height="match_parent" 
-        android:groupIndicator="@null" 
-        /> 
+        android:layout_below="@+id/filter_edit_ll"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:visibility="gone">
+
+    </LinearLayout>
 
 </LinearLayout>

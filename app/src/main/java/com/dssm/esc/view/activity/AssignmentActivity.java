@@ -7,8 +7,9 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ExpandableListView;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,20 +18,21 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.BusinessTypeEntity;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
-import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.entity.emergency.PlanProcessEntity;
+import com.dssm.esc.model.entity.emergency.PlanTreeEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
-import com.dssm.esc.view.adapter.ExpanListCheckboxAdapter;
+import com.dssm.esc.util.treeview.TreeNode;
+import com.dssm.esc.util.treeview.TreeView;
+import com.dssm.esc.util.treeview.view.MyNodeViewFactory;
 import com.dssm.esc.view.adapter.ListviewCheckboxAdapter;
 import com.dssm.esc.view.widget.SegmentControl;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
@@ -56,8 +58,6 @@ public class AssignmentActivity extends BaseActivity implements
 	/** 确定 */
 	@ViewInject(R.id.tv_actionbar_editData)
 	private TextView sure;
-	/** 1，应急；2，演练 */
-	// private String tag;
 	/** 1，相关人员；2，应急小组 (SegmentControl点击) */
 	private int sem_tags;
 	@ViewInject(R.id.segment_control_assign)
@@ -66,32 +66,20 @@ public class AssignmentActivity extends BaseActivity implements
 	@ViewInject(R.id.assign_listview)
 	private ListView mListView;
 	/** 类型数据 */
-	private ArrayList<BusinessTypeEntity> list = new ArrayList<BusinessTypeEntity>();
-	/** ListView适配器 */
-	private ListviewCheckboxAdapter mSelectAdapter = null;
-	/** ListView被选中的选项 */
-	//private ArrayList<BusinessTypeEntity> beSelectedData = new ArrayList<BusinessTypeEntity>();
-	/** ListView用来控制CheckBox的选中状况 */
-//	private HashMap<Integer, Boolean> isSelected;
-	/** 可扩展ListView */
-	@ViewInject(R.id.assign_expandlistview)
-	private ExpandableListView expandableList;
-	/** 可扩展ListView适配器 */
-	private ExpanListCheckboxAdapter adapter;
+	private ArrayList<BusinessTypeEntity> list = new ArrayList<>();
+	private ListviewCheckboxAdapter mSelectAdapter;
+	@ViewInject(R.id.ll_contact_list)
+	private LinearLayout expandableLayout;
 	/** 父list显示组 */
-	private List<GroupEntity> groupList = new ArrayList<GroupEntity>();
-	/** 子list显示人 */
-	private List<ChildEntity> childList = new ArrayList<ChildEntity>();
-	/** 可扩展ListView用来控制CheckBox的选中状况 */
-	private HashMap<String, Boolean> statusHashMap;
-	/** 被选的人的和name */
-	public String beSelectId []= new String [2];
-	// MyExpandListAdapterTest adapter;
+	private List<PlanTreeEntity> planTreeList = new ArrayList<>();
 	private String id = "";// 流程步骤id
 	private String planInfoId = ""; // 预案执行id
-	// private String executePeopleId = ""; // 执行人id
 	private String executePeople = ""; // 执行人姓名
 	private PlanProcessEntity entity;
+
+	private TreeNode root;
+	private TreeView treeView;
+
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -104,11 +92,9 @@ public class AssignmentActivity extends BaseActivity implements
 				mSelectAdapter.notifyDataSetChanged();
 				break;
 			case 1:
-				groupList = (List<GroupEntity>) msg.obj;
-				Log.i("result", groupList.size() + "");
-				adapter = new ExpanListCheckboxAdapter(AssignmentActivity.this,
-						statusHashMap, groupList); // 实例化适配器
-				expandableList.setAdapter(adapter); // 设置适配器
+				planTreeList = (List<PlanTreeEntity>) msg.obj;
+				Log.i("result", planTreeList.size() + "");
+				addTreeView();
 				break;
 			default:
 				break;
@@ -142,40 +128,27 @@ public class AssignmentActivity extends BaseActivity implements
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
 			if (backflag) {
-				ToastUtil
-						.showToast(
-								AssignmentActivity.this,
-								stRerror);
-				EventBus.getDefault().post(
-						new mainEvent("refr"));//刷新指派列表
+				ToastUtil.showToast(AssignmentActivity.this, stRerror);
+				//刷新指派列表
+				EventBus.getDefault().post(new mainEvent("refr"));
 				finish();
 			} else if (backflag == false) {
-
-				ToastUtil
-						.showToast(
-								AssignmentActivity.this,
-								stRerror);
+				ToastUtil.showToast(AssignmentActivity.this, stRerror);
 			}
-			if (Utils.getInstance().progressDialog
-					.isShowing()) {
-				Utils.getInstance()
-						.hideProgressDialog();
+			if (Utils.getInstance().progressDialog.isShowing()) {
+				Utils.getInstance().hideProgressDialog();
 			}
 		}
 	};
 
 	private void initview() {
 		mBack.setVisibility(View.VISIBLE);
-		// if (tag.equals("1")) {
-
 		title.setText("指派其他");
 		sem_tags = 1;// 默认相关人员
-		statusHashMap = new HashMap<String, Boolean>();
 		/**
 		 * 为Adapter准备数据
 		 */
 		initListviewData(sem_tags);
-		expandableList.setGroupIndicator(null);
 		sure.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -188,68 +161,51 @@ public class AssignmentActivity extends BaseActivity implements
 				Log.i("id", id);
 				Log.i("planInfoId", planInfoId);
 				String executePeopleId = ""; // 执行人id
-				if (mSelectAdapter!=null) {
-					
-					if (mSelectAdapter.beSelectedData.size() > 0) {
-						
+				if (mSelectAdapter != null) {
+					if(mSelectAdapter.beSelectedData.size() > 0) {
 						executePeopleId = mSelectAdapter.beSelectedData.get(0).getId();
 						executePeople = mSelectAdapter.beSelectedData.get(0).getName();
 					}
 				}
-				if (beSelectId[0]!=null&&beSelectId[1]!=null) {
-					executePeopleId = beSelectId[0];
-					executePeople = beSelectId[1];
+				List<TreeNode> treeNodes = treeView.getSelectedNodes();
+				for(TreeNode treeNode : treeNodes) {
+					if(treeNode.getValue() instanceof ChildEntity) {
+						executePeopleId = ((ChildEntity) treeNode.getValue()).getChild_id();
+						executePeople = ((ChildEntity) treeNode.getValue()).getName();
+					}
 				}
 				Log.i("executePeopleId", executePeopleId);
 				Log.i("executePeople", executePeople);
-				// if (!executePeopleId.equals("")) {
-				//
-				// }
 				if (!executePeopleId.equals("")) {
 					Utils.getInstance().showProgressDialog(
 							AssignmentActivity.this, "", Const.SUBMIT_MESSAGE);
 					Control.getinstance().getEmergencyService().assign(id, planInfoId, executePeopleId,
 							executePeople, listener);
-
 				} else {
 					ToastUtil.showToast(AssignmentActivity.this, "请选择指派人员");
 				}
-				// Log.i("executePeopleId", executePeopleId);
-				// Log.i("executePeople", executePeople);
-
 			}
 		});
-//		setNetListener(this);
 	}
 
 	private void initListviewData(int sem_tags) {
-		if (sem_tags == 1) {// 相关人员
-			expandableList.setVisibility(View.GONE);
+		if (sem_tags == 1) {
+			// 相关人员
+			expandableLayout.setVisibility(View.GONE);
 			mListView.setVisibility(View.VISIBLE);
-			// 清除已经选择的项
-			if (beSelectId[0]!=null&& beSelectId[1]!=null) {// 应急小组若有已选的，则清空
-				if(mSelectAdapter != null) {
-					mSelectAdapter.beSelectedData.clear();
-					mSelectAdapter.notifyDataSetChanged();// 通知数据发生了变化
-				}
-				// statusHashMap.put(adapter.getGroup(i).getcList().get(k)
-				// .getChild_id(), false);
-			}
+			// 清除应急小组已经选择的项
+			if(treeView != null)
+				treeView.deselectAll();
 			initListData();
 
-		} else if (sem_tags == 2) {// 应急小组
+		} else if (sem_tags == 2) {
+			// 应急小组
 			mListView.setVisibility(View.GONE);
-			expandableList.setVisibility(View.VISIBLE);
+			expandableLayout.setVisibility(View.VISIBLE);
 			
 			// 初始化，默认加载任务通知界面,避免重复加载
-			if (groupList.size() == 0) {
-
+			if (planTreeList.size() == 0)
 				initExpandListData();
-
-			}else{
-				adapter.notifyDataSetChanged();	
-			}
-
 		}
 
 	}
@@ -322,9 +278,36 @@ public class AssignmentActivity extends BaseActivity implements
 				handler.sendMessage(msg);
 			
 			}
-
 		}
+	}
 
+	private void addTreeView() {
+		root = TreeNode.root();
+		buildTree(planTreeList);
+		//tag = 3,CheckBox只能单选
+		treeView = new TreeView(root, this, new MyNodeViewFactory(), "3");
+		View view = treeView.getView();
+		view.setLayoutParams(new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		expandableLayout.addView(view);
+	}
+
+	private void buildTree(List<PlanTreeEntity> planTreeList) {
+		for (int i = 0; i < planTreeList.size(); i++) {
+			TreeNode treeNode = new TreeNode(planTreeList.get(i).getName());
+			treeNode.setLevel(0);
+			for (int j = 0; j < planTreeList.get(i).getEmeGroups().size(); j++) {
+				TreeNode treeNode1 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getGroupname());
+				treeNode1.setLevel(1);
+				for (int k = 0; k < planTreeList.get(i).getEmeGroups().get(j).getcList().size(); k++) {
+					TreeNode treeNode2 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getcList().get(k));
+					treeNode2.setLevel(2);
+					treeNode1.addChild(treeNode2);
+				}
+				treeNode.addChild(treeNode1);
+			}
+			root.addChild(treeNode);
+		}
 	}
 
 	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
@@ -334,15 +317,15 @@ public class AssignmentActivity extends BaseActivity implements
 				Object object, String stRerror,
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
-			List<GroupEntity> dataList = null;
+			List<PlanTreeEntity> dataList = null;
 			if (object != null) {
-				dataList = (List<GroupEntity>) object;
+				dataList = (List<PlanTreeEntity>) object;
 
 			} else if (stRerror != null) {
-				dataList = new ArrayList<GroupEntity>();
+				dataList = new ArrayList<>();
 
 			} else if (Exceptionerror != null) {
-				dataList = new ArrayList<GroupEntity>();
+				dataList = new ArrayList<>();
 				ToastUtil.showToast(AssignmentActivity.this,
 						Const.NETWORKERROR + ":" + Exceptionerror);
 			}
@@ -350,9 +333,7 @@ public class AssignmentActivity extends BaseActivity implements
 			message.what = 1;
 			message.obj = dataList;
 			handler.sendMessage(message);
-//						if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
-//						}
 		}
 	};
 

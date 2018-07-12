@@ -169,8 +169,6 @@ public class ExpanListCheckboxAdapter extends BaseExpandableListAdapter {
 
 						statusHashMap.put(getChild(x, y).getOnlyId()
 								+ getChild(x, y).getChild_id(), arg1);
-						context.beSelectId[0] = getChild(x, y).getChild_id();
-						context.beSelectId[1] = getChild(x, y).getName();
 						Log.i("应急选的id", getChild(x, y).getChild_id());
 						Log.i("应急选的name", getChild(x, y).getName());
 						ExpanListCheckboxAdapter.this.notifyDataSetChanged();

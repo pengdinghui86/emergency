@@ -32,7 +32,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter {
      * <code>onCreateViewHolder</code> and the way how to render ViewHolder.
      */
     private BaseNodeViewFactory baseNodeViewFactory;
-
+    //1：接收情况，2：签到情况，3：CheckBox单选模式，""：CheckBox多选模式
     private String tag;
     /**
      * This parameter make no sense just for avoiding IllegalArgumentException of ViewHolder's
@@ -145,10 +145,18 @@ public class TreeViewAdapter extends RecyclerView.Adapter {
     }
 
     public void selectNode(boolean checked, TreeNode treeNode) {
-        treeNode.setSelected(checked);
-
-        selectChildren(treeNode, checked);
-        selectParentIfNeed(treeNode, checked);
+        //单选模式
+        if(tag.equals("3")) {
+            if(checked)
+                selectChildren(root, false);
+            treeNode.setSelected(checked);
+            treeView.refreshTreeView();
+        }
+        else {
+            treeNode.setSelected(checked);
+            selectChildren(treeNode, checked);
+            selectParentIfNeed(treeNode, checked);
+        }
     }
 
     private void selectChildren(TreeNode treeNode, boolean checked) {
