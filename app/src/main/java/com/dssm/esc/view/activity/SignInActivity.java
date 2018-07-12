@@ -9,8 +9,8 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,15 +18,15 @@ import android.widget.TextView;
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
-import com.dssm.esc.model.entity.emergency.ChildEntity;
-import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.entity.emergency.PlanDetailEntity;
 import com.dssm.esc.model.entity.emergency.PlanDetailObjEntity;
-import com.dssm.esc.model.entity.emergency.UserSignInfoEntity;
+import com.dssm.esc.model.entity.emergency.PlanTreeEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
-import com.dssm.esc.view.adapter.ExpanListvSignInAdapter;
+import com.dssm.esc.util.treeview.TreeNode;
+import com.dssm.esc.util.treeview.TreeView;
+import com.dssm.esc.util.treeview.view.MyNodeViewFactory;
 import com.dssm.esc.view.widget.MyScrollView;
 import com.dssm.esc.view.widget.SegmentControl;
 import org.xutils.view.annotation.ContentView;
@@ -66,9 +66,6 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	/** 事件名称 */
 	@ViewInject(R.id.eventname)
 	private TextView eventname;
-	// /** 预案场景 */
-	// @ViewInject(id = R.id.planbackground)
-	// private TextView planbackground;
 	/** 事件详情 */
 	@ViewInject(R.id.eventdesc)
 	private TextView eventdesc;
@@ -89,60 +86,49 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	/** 人员签到总布局 */
 	@ViewInject(R.id.sigin_ll)
 	private LinearLayout sigin_ll;
-	/** 人员签到可扩展listview */
-	@ViewInject(R.id.expandable_list_signin)
-	private ExpandableListView expandable_list_signin;
 	@ViewInject(R.id.emptytv)
 	private TextView emptytv;
-
-	private ExpanListvSignInAdapter adapter;
 	/** 父list显示组 */
-	private List<GroupEntity> groupList = new ArrayList<GroupEntity>();
-	/** 子list显示人 */
-	private List<ChildEntity> childList = new ArrayList<ChildEntity>();
-	private String planId;
+	private List<PlanTreeEntity> planTreeList = new ArrayList<>();
 	private String id;
 	private String signState = "";// 签到状态0:未签到 1：已签到
-	private List<UserSignInfoEntity> list;
 	private String eventName = "";
 	@ViewInject(R.id.id_swipe_ly)
 	private SwipeRefreshLayout mSwipeLayout;
+
+	private TreeNode root;
+	private TreeView treeView;
+
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-
-				groupList = (List<GroupEntity>) msg.obj;
-				Log.i("result", groupList.size() + "");
-				adapter = new ExpanListvSignInAdapter(groupList,
-						SignInActivity.this, "2");
-				if (groupList.size()==0) {
+				planTreeList = (List<PlanTreeEntity>) msg.obj;
+				addTreeView();
+				i = 1;
+				if (planTreeList.size()==0) {
 					mSwipeLayout.setVisibility(View.GONE);
-					expandable_list_signin.setVisibility(View.GONE);
 					emptytv.setVisibility(View.VISIBLE);
 				}else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
-					expandable_list_signin.setVisibility(View.VISIBLE);
 					emptytv.setVisibility(View.GONE);
 				}
-				expandable_list_signin.setAdapter(adapter);
 				break;
 			case 1:
-				List<GroupEntity> result = (List<GroupEntity>) msg.obj;
-				groupList.clear();
-				groupList.addAll(result);
-				adapter.notifyDataSetChanged();
+				List<PlanTreeEntity> result = (List<PlanTreeEntity>) msg.obj;
+				planTreeList.clear();
+				planTreeList.addAll(result);
 				mSwipeLayout.setRefreshing(false);
-				if (groupList.size()==0) {
+				if (planTreeList.size()==0) {
 					mSwipeLayout.setVisibility(View.GONE);
-					expandable_list_signin.setVisibility(View.GONE);
 					emptytv.setVisibility(View.VISIBLE);
 				}else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
-					expandable_list_signin.setVisibility(View.VISIBLE);
 					emptytv.setVisibility(View.GONE);
 				}
-
+				root.getChildren().clear();
+				buildTree(planTreeList);
+				treeView.refreshTreeView();
 				break;
 			default:
 				break;
@@ -158,8 +144,6 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 		View findViewById = findViewById(R.id.singin);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();
-		// tag = intent.getStringExtra("tag");
-		planId = intent.getStringExtra("planId");
 		id = intent.getStringExtra("id");
 		signState = intent.getStringExtra("signState");
 		if (!signState.equals("")) {
@@ -181,7 +165,6 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	private void initview() {
 		back.setVisibility(View.VISIBLE);
 		title.setText("人员签到");
-		expandable_list_signin.setGroupIndicator(null);
 		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
@@ -204,14 +187,41 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 			sigin_ll.setVisibility(View.VISIBLE);
 			plandesc_ll.setVisibility(View.GONE);
 			// 初始化，默认加载任务通知界面,避免重复加载
-			if (groupList.size() == 0) {
-
+			if (planTreeList.size() == 0) {
 				initListData();
 			}
 
 		}
-		// setNetListener(this);
 		sign_in.setOnClickListener(this);
+	}
+
+	private void addTreeView() {
+		root = TreeNode.root();
+		buildTree(planTreeList);
+		//tag = "1",接收情况;tag = "2",签到情况;tag = "",CheckBox显示
+		treeView = new TreeView(root, this, new MyNodeViewFactory(), "2");
+		View view = treeView.getView();
+		view.setLayoutParams(new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		mSwipeLayout.addView(view);
+	}
+
+	private void buildTree(List<PlanTreeEntity> planTreeList) {
+		for (int i = 0; i < planTreeList.size(); i++) {
+			TreeNode treeNode = new TreeNode(planTreeList.get(i).getName());
+			treeNode.setLevel(0);
+			for (int j = 0; j < planTreeList.get(i).getEmeGroups().size(); j++) {
+				TreeNode treeNode1 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getGroupname());
+				treeNode1.setLevel(1);
+				for (int k = 0; k < planTreeList.get(i).getEmeGroups().get(j).getcList().size(); k++) {
+					TreeNode treeNode2 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getcList().get(k));
+					treeNode2.setLevel(2);
+					treeNode1.addChild(treeNode2);
+				}
+				treeNode.addChild(treeNode1);
+			}
+			root.addChild(treeNode);
+		}
 	}
 
 	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
@@ -225,7 +235,6 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				PlanDetailObjEntity obj = planDetailEntity.getObj();
 				eventName = obj.getEveName();
 				eventname.setText(eventName);
-				// planbackground.setText(obj.getSceneName());
 				eventdesc.setText(obj.getEveDescription());
 				String eveType = obj.getEveType();
 				if (eveType.equals("1")) {
@@ -286,16 +295,16 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				Object object, String stRerror,
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
-			List<GroupEntity> dataList = null;
+			List<PlanTreeEntity> dataList = null;
 			if (i != 1) {
 				if (object != null) {
-					dataList = (List<GroupEntity>) object;
+					dataList = (List<PlanTreeEntity>) object;
 
 				} else if (stRerror != null) {
-					dataList = new ArrayList<GroupEntity>();
+					dataList = new ArrayList<>();
 
 				} else if (Exceptionerror != null) {
-					dataList = new ArrayList<GroupEntity>();
+					dataList = new ArrayList<>();
 					ToastUtil.showToast(SignInActivity.this,
 							Const.NETWORKERROR + ":"
 									+ Exceptionerror);
@@ -311,13 +320,13 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				// }
 			} else if (i == 1) {
 				if (object != null) {
-					dataList = (List<GroupEntity>) object;
+					dataList = (List<PlanTreeEntity>) object;
 
 				} else if (stRerror != null) {
-					dataList = new ArrayList<GroupEntity>();
+					dataList = new ArrayList<>();
 
 				} else if (Exceptionerror != null) {
-					dataList = new ArrayList<GroupEntity>();
+					dataList = new ArrayList<>();
 					ToastUtil.showToast(SignInActivity.this,
 							Const.NETWORKERROR + ":"
 									+ Exceptionerror);

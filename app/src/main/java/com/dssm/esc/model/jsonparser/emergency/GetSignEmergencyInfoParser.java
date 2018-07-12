@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
+import com.dssm.esc.model.entity.emergency.PlanTreeEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
 import com.dssm.esc.util.MySharePreferencesService;
@@ -30,7 +31,7 @@ import java.util.List;
  * 
  */
 public class GetSignEmergencyInfoParser {
-	private List<GroupEntity> list;
+	private List<PlanTreeEntity> list;
 	private final WeakReference<OnDataCompleterListener> wr;
 
 	public GetSignEmergencyInfoParser(String planInfoId,
@@ -122,54 +123,64 @@ public class GetSignEmergencyInfoParser {
 
 	/**
 	 * 签到详情数据解析
-	 * 
+	 * 2018.7.3接口返回的数据结构变动
 	 * @param t
 	 * @return
 	 * @throws JSONException
 	 */
-	public List<GroupEntity> planStarListParser(String t) {
-		List<GroupEntity> list = new ArrayList<GroupEntity>();
+	public List<PlanTreeEntity> planStarListParser(String t) {
+		List<PlanTreeEntity> planList = new ArrayList<>();
 		try {
 			JSONArray jsonArray = new JSONArray(t);
 			if (jsonArray.length() > 0) {
-				for (int i = 0; i < jsonArray.length(); i++) {
-					GroupEntity groupEntity = new GroupEntity();
-					JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
-					groupEntity
-							.setGroupname(jsonObject2.getString("emergTeam"));
-					List<ChildEntity> list2 = new ArrayList<ChildEntity>();
-					JSONArray jsonArray2 = jsonObject2
-							.getJSONArray("teamUserList");
-					for (int j = 0; j < jsonArray2.length(); j++) {
-						JSONObject jsonObject = (JSONObject) jsonArray2.opt(j);
-						ChildEntity childEntity = new ChildEntity();
-						childEntity.setOnlyId(jsonObject.getString("id"));
-						childEntity.setChild_id(jsonObject.getString("postFlag"));
-						childEntity.setEmergTeam(jsonObject
-								.getString("emergTeam"));
-						childEntity.setZhiwei(jsonObject.getString("postName"));
-						childEntity.setRoleTypeName(jsonObject
-								.getString("roleTypeName"));
-						childEntity.setName(jsonObject.getString("userName"));
-						childEntity.setPhoneNumber(jsonObject
-								.getString("telephone"));
-						childEntity
-								.setSignin(jsonObject.getString("signState"));
-						list2.add(childEntity);
+				for (int k = 0; k < jsonArray.length(); k++) {
+					PlanTreeEntity planEntity = new PlanTreeEntity();
+					JSONObject jsonObject3 = (JSONObject) jsonArray.opt(k);
+					planEntity.setName(jsonObject3.getString("name"));
+					List<GroupEntity> list = new ArrayList<>();
+					JSONArray jsonArray3 = jsonObject3
+							.getJSONArray("emeGroups");
+					for (int i = 0; i < jsonArray3.length(); i++) {
+						GroupEntity groupEntity = new GroupEntity();
+						JSONObject jsonObject2 = (JSONObject) jsonArray3.opt(i);
+						groupEntity.setGroupname(jsonObject2.getString("emergTeam"));
+						List<ChildEntity> list2 = new ArrayList<ChildEntity>();
+						JSONArray jsonArray2 = jsonObject2
+								.getJSONArray("users");
+						for (int j = 0; j < jsonArray2.length(); j++) {
+							JSONObject jsonObject = (JSONObject) jsonArray2.opt(j);
+							ChildEntity childEntity = new ChildEntity();
+
+							childEntity.setSex(jsonObject.getString("sex") == null ? "" : jsonObject.getString("sex"));
+							childEntity.setChild_id(jsonObject.getString("id"));
+							childEntity.setEmergTeam(jsonObject
+									.getString("emergTeam"));
+							childEntity.setZhiwei(jsonObject.getString("postName"));
+							childEntity.setRoleTypeName(jsonObject
+									.getString("roleTypeName"));
+							childEntity.setName(jsonObject.getString("userName"));
+							childEntity.setPhoneNumber(jsonObject
+									.getString("telephone"));
+							childEntity
+									.setNoticeState(jsonObject.getString("noticeState"));
+							childEntity
+									.setSignin(jsonObject.getString("signState"));
+							list2.add(childEntity);
+						}
+						groupEntity.setcList(list2);
+						list.add(groupEntity);
 					}
-					groupEntity.setcList(list2);
-					list.add(groupEntity);
+					planEntity.setEmeGroups(list);
+					planList.add(planEntity);
 				}
-				return list;
+				return planList;
 			} else {
-				return list;
+				return planList;
 			}
 		} catch (JSONException e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return list;
+			return planList;
 		}
-
 	}
-
 }

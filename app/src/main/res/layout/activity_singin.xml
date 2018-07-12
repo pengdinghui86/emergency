@@ -207,12 +207,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ExpandableListView
-                android:id="@+id/expandable_list_signin"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:indicatorLeft="1sp"
-                android:scrollbars="none" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <View style="@style/horizontal_gray_style" />
