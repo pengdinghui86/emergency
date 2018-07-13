@@ -96,7 +96,7 @@ public class ExpandListvPlanExecuteAdapter extends BaseExpandableListAdapter {
         // textView.setText("没有你要执行的步骤！");
         // return textView;
         // }else {
-
+        final GroupEntity groupItem = groupList.get(groupPosition);
         final ChildEntity centity = getChild(groupPosition, childPosition);
         childViewHolder cHolder = null;
         if (convertView == null) {
@@ -258,6 +258,9 @@ public class ExpandListvPlanExecuteAdapter extends BaseExpandableListAdapter {
                 }
                 break;
         }
+        //2018.7.13新增，预案处于待启动或已启动或已授权的情况下，更改流程状态显示为流程未启动
+        if(groupItem.getState().equals("0") || groupItem.getState().equals("2") || groupItem.getState().equals("1"))
+            cHolder.execute_status.setText("流程未启动");
         //根据层级设置缩进
         convertView.setPadding(centity.getIndex() * 20, 0, 0, 0);
         //子预案节点
