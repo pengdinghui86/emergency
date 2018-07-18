@@ -212,6 +212,10 @@
 -keep public interface org.xutils.** {*;}
 -dontwarn org.xutils.**
 
+#acra避免混淆
+-keep class ch.acra.** {*;}
+-keep public interface ch.acra.** {*;}
+
 #自己编写的实体类和视图不混淆
 -keep class com.dssm.esc.model.entity.**{*;}
 -keep class com.dssm.esc.view.**{*;}
