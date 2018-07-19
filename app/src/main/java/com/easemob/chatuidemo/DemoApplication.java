@@ -15,32 +15,15 @@ package com.easemob.chatuidemo;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Environment;
 import android.text.TextUtils;
-
-import com.dssm.esc.R;
 import com.dssm.esc.util.CrashHandler;
-import com.dssm.esc.util.acra.CrashSenderfactory;
-import com.easemob.chatuidemo.activity.SplashActivity;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.utils.SpUtil;
 import com.squareup.leakcanary.LeakCanary;
-
-import org.acra.ACRA;
-import org.acra.ReportField;
-import org.acra.annotation.ReportsCrashes;
 import org.xutils.x;
-
-import java.io.File;
 import java.util.Map;
 
-@ReportsCrashes(
-        reportSenderFactoryClasses ={CrashSenderfactory.class},
-        customReportContent = { ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME, ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL, ReportField.CUSTOM_DATA, ReportField.STACK_TRACE, ReportField.LOGCAT },
-        resToastText = R.string.msg_acra_toast
-)
 public class DemoApplication extends Application implements
         Thread.UncaughtExceptionHandler {
 
@@ -78,7 +61,6 @@ public class DemoApplication extends Application implements
         service = new MySharePreferencesService(applicationContext);
         // 回显
         map = service.getPreferences();
-        ACRA.init(this);
         Thread.setDefaultUncaughtExceptionHandler(this); // 程序崩溃时触发线程
         /**
          * this function will initialize the HuanXin SDK

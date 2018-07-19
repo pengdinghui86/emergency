@@ -1,6 +1,9 @@
 package com.dssm.esc.util;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -8,6 +11,8 @@ import android.os.Environment;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import com.easemob.chatuidemo.activity.SplashActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -68,21 +73,17 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
-        if (!handleException(e)) {
-            // 未经过人为处理,则调用系统默认处理异常,弹出系统强制关闭的对话框
-            if (mDefaultHandler != null) {
-                mDefaultHandler.uncaughtException(t, e);
-            }
-        } else {
-            // 已经人为处理,系统自己退出
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
-        }
+        handleException(e);
+        //自动重启应用
+        AlarmManager mgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(mContext, SplashActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("crash", true);
+        PendingIntent restartIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, restartIntent); // 重启应用
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(0);
+        System.gc();
     }
 
     /**
@@ -95,17 +96,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (e == null) {// 异常是否为空
             return false;
         }
-//        new Thread() {// 在主线程中弹出提示
-//            @Override
-//            public void run() {
-//                Looper.prepare();
-//                Toast.makeText(mContext, "捕获到异常:" + e.toString(), Toast.LENGTH_SHORT).show();
-//                Looper.loop();
-//            }
-//        }.start();
         collectErrorMessages();
         saveErrorMessages(e);
-        return false;
+        return true;
     }
 
     /**
