@@ -107,7 +107,7 @@ public class DemoApplication extends Application implements
     }
 
     /**
-     * 获取当前登陆用户名
+     * 获取当前登录用户名
      *
      * @return
      */

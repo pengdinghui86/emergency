@@ -16,6 +16,7 @@ public class RealTimeTrackingStatus {
     public static String AUTO_EXECUTING = "8"; //"自动执行中"
     public static String EXECUTE_SUCCESS = "9"; //"已执行"
     public static String EXECUTE_FAULT = "10"; //"执行失败"
+    public static String PAUSE = "17"; //"暂停"
 
     /**
      * 执行暂停 10---20 为暂停状态

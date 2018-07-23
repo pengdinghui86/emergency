@@ -7,7 +7,7 @@ import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 
 public interface UserSevice {
 	/**
-	 * 登陆方法
+	 * 登录方法
 	 * 
 	 * @param userName
 	 *            用户名

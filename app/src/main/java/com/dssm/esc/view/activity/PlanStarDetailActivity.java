@@ -390,7 +390,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
             } else if (Exceptionerror != null) {
                 detailEntity = new PlanStarListDetailEntity();
                 ToastUtil.showToast(PlanStarDetailActivity.this,
-                        Const.NETWORKERROR + ":" + Exceptionerror);
+                        Const.NETWORKERROR);
             }
             Message message = new Message();
             message.what = 0;

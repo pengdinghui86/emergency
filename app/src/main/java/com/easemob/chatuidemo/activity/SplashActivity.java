@@ -115,16 +115,16 @@ public class SplashActivity extends BaseActivity {
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
 			String str;
-			// 若登陆成功，直接进入主界面
+			// 若登录成功，直接进入主界面
 			if (object != null) {
 				UserEntity userEntity = (UserEntity) object;
 				if (userEntity.getSuccess().equals("true")) {
-					str = "登陆成功";
+					str = "登录成功";
 					sevice.loginRole(
 							map.get("selectedRolem"), listener);
 
 				} else {
-					str = "密码已失效,请重新登陆";
+					str = "密码已失效,请重新登录";
 					ToastUtil.showLongToast(
 							SplashActivity.this, str);
 					Intent intent = new Intent(
@@ -348,6 +348,10 @@ public class SplashActivity extends BaseActivity {
 		// setContentView(R.layout.activity_splash);
 		setContentView(R.layout.activity_welcome);
 		super.onCreate(arg0);
+		if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+			finish();
+			return;
+		}
 		sevice = Control.getinstance().getUserSevice();
 		service = MySharePreferencesService.getInstance(getApplicationContext());
 		Intent intent = getIntent();
@@ -384,7 +388,7 @@ public class SplashActivity extends BaseActivity {
 		new Thread(new Runnable() {
 			public void run() {
 				if (DemoHXSDKHelper.getInstance().isLogined()) {
-					// ** 免登陆情况 加载所有本地群和会话
+					// ** 免登录情况 加载所有本地群和会话
 					// 不是必须的，不加sdk也会自动异步去加载(不会重复加载)；
 					// 加上的话保证进了主页面会话和群组都已经load完毕
 					long start = System.currentTimeMillis();

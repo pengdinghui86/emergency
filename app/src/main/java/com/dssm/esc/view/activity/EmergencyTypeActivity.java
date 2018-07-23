@@ -148,7 +148,7 @@ public class EmergencyTypeActivity extends BaseActivity{
 			} else if (Exceptionerror != null) {
 				businessTypeList = new ArrayList<BusinessTypeEntity>();
 				ToastUtil.showToast(EmergencyTypeActivity.this,
-						Const.NETWORKERROR + ":" + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 			Message message = new Message();
 			message.what = 0;
@@ -177,7 +177,7 @@ public class EmergencyTypeActivity extends BaseActivity{
 			} else if (Exceptionerror != null) {
 				businessTypeList = new ArrayList<BusinessTypeEntity>();
 				ToastUtil.showToast(EmergencyTypeActivity.this,
-						Const.NETWORKERROR + ":" + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 			Message message = new Message();
 			message.what = 0;

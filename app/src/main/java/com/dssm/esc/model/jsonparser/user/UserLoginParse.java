@@ -27,7 +27,7 @@ import java.util.List;
 
 
 /**
- * 登陆访问网络，解析数据
+ * 登录访问网络，解析数据
  * 
  * @author Administrator
  * 

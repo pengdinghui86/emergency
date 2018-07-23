@@ -79,9 +79,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 登陆页面
- * (两种方式：第一种，前台把用户名和密码传给后台，后台就收到收据后再去登陆环信，返回给前台登陆状态；第二种:前台先把用户名和密码传给后台，若登陆成功
- * ，再去登陆环信，两次登陆都成功后才进入主界面)；注：登陆环信界面对用户不可见，此代码是第二种方式
+ * 登录页面
+ * (两种方式：第一种，前台把用户名和密码传给后台，后台就收到收据后再去登录环信，返回给前台登录状态；第二种:前台先把用户名和密码传给后台，若登录成功
+ * ，再去登录环信，两次登录都成功后才进入主界面)；注：登录环信界面对用户不可见，此代码是第二种方式
  */
 public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
@@ -478,9 +478,9 @@ public class LoginActivity extends BaseActivity {
                 String Exceptionerror) {
             // TODO Auto-generated method stub
             String str = null;
-            // 若登陆成功，再访问环信服务器
+            // 若登录成功，再访问环信服务器
             if (object != null) {
-                str = "登陆成功";
+                str = "登录成功";
                 if (object instanceof UserEntity) {
                     userEntity = (UserEntity) object;
                     str = userEntity.getSuccess() + ", " + userEntity.getObjString() + "," + userEntity.getMessage();
@@ -558,7 +558,7 @@ public class LoginActivity extends BaseActivity {
         usernameEditText = (EditText) findViewById(R.id.login_name_et);
         passwordEditText = (EditText) findViewById(R.id.login_psw_et);
         Log.i("onFailure", "loginActivity");
-        if (DemoHXSDKHelper.getInstance().isLogined()) {// 环信被登录过了就不用再登录了，只重新登陆下本地服务器
+        if (DemoHXSDKHelper.getInstance().isLogined()) {// 环信被登录过了就不用再登录了，只重新登录下本地服务器
             currentUsername = usernameEditText.getText().toString().trim();
             if (currentUsername == null || currentUsername.equals(""))
                 currentUsername = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("loginName");
@@ -641,9 +641,9 @@ public class LoginActivity extends BaseActivity {
                 String stRerror, String Exceptionerror) {
             // TODO Auto-generated method stub
             String str = null;
-            // 若登陆成功，再访问环信服务器
+            // 若登录成功，再访问环信服务器
             if (object != null) {
-                str = "登陆成功";
+                str = "登录成功";
                 userEntity = (UserEntity) object;
                 if (userEntity.getSuccess().equals("true")) {
                     // 把户名和密码角色保存到PreferencesService中
@@ -697,7 +697,7 @@ public class LoginActivity extends BaseActivity {
     };
 
     /**
-     * 登陆ESC服务器
+     * 登录ESC服务器
      *
      * @param view
      */
@@ -802,7 +802,7 @@ public class LoginActivity extends BaseActivity {
                                 DemoApplication.getInstance().setUserName(
                                         hxuserid);// 环信保存的是用户id
 
-                                // 注册成功后，调用sdk登陆方法登陆聊天服务器(登录也用用户id去登陆)
+                                // 注册成功后，调用sdk登录方法登录聊天服务器(登录也用用户id去登录)
                                 login(hxuserid, hxuserid);
                             }
                         });
@@ -818,7 +818,7 @@ public class LoginActivity extends BaseActivity {
                                             getResources().getString(
                                                     R.string.network_anomalies),
                                             Toast.LENGTH_SHORT).show();
-                                } else if (errorCode == EMError.USER_ALREADY_EXISTS) {// 如果用户已存在，直接登陆
+                                } else if (errorCode == EMError.USER_ALREADY_EXISTS) {// 如果用户已存在，直接登录
                                     login(hxuserid, hxuserid);
                                 } else if (errorCode == EMError.UNAUTHORIZED) {
                                     Toast.makeText(
@@ -853,7 +853,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     * 登陆(环信)
+     * 登录(环信)
      */
     private void login(final String hxuserid, String pwd) {
         EMChatManager.getInstance().login(hxuserid, hxuserid, new EMCallBack() {
@@ -863,7 +863,7 @@ public class LoginActivity extends BaseActivity {
                 if (!progressShow) {
                     return;
                 }
-                // 登陆成功，保存用户名密码
+                // 登录成功，保存用户名密码
                 DemoApplication.getInstance().setUserName(hxuserid);
                 DemoApplication.getInstance().setPassword(hxuserid);
                 Log.i("LoginActivity用户名--环信", DemoApplication.getInstance()

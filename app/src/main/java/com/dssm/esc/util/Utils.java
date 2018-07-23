@@ -416,18 +416,18 @@ public class Utils implements Serializable {
             // TODO Auto-generated method stub
             String str = null;
             String string = "";
-            // 若登陆成功，直接进入主界面
+            // 若登录成功，直接进入主界面
             if (object != null) {
                 Map<String, String> map = (Map<String, String>) object;
                 if (map.get("success").equals("true")) {
-                    str = "登陆成功";
+                    str = "登录成功";
                     ToastUtil
                             .showLongToast(
                                     DemoApplication.applicationContext,
                                     str);
                     // netListener.initNetData();
                 } else {
-                    str = "密码已失效,请重新登陆";
+                    str = "密码已失效,请重新登录";
                     Log.i("onFailure", "utils, " + str);
                     ToastUtil
                             .showLongToast(
@@ -473,7 +473,7 @@ public class Utils implements Serializable {
         if (usevice == null) {
             usevice = Control.getinstance().getUserSevice();
             ToastUtil.showLongToast(DemoApplication.applicationContext,
-                    "登录超时,自动重新登陆");
+                    "登录超时,自动重新登录");
         }
         usevice.relogin(map.get("loginName"), map.get("password"),
                 map.get("selectedRolem"), listListener);

@@ -224,8 +224,7 @@ public class MessageSystemToastFragment extends BaseFragment implements
 			} else if (Exceptionerror != null) {
 				dataList = new ArrayList<MessageInfoEntity>();
 				ToastUtil.showToast(getActivity(),
-						Const.NETWORKERROR + ":"
-								+ Exceptionerror);
+						Const.NETWORKERROR);
 			}
 			getDBData(dataList, curWhat);
 		}

@@ -327,7 +327,7 @@ public class AssignmentActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 				dataList = new ArrayList<>();
 				ToastUtil.showToast(AssignmentActivity.this,
-						Const.NETWORKERROR + ":" + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 			Message message = new Message();
 			message.what = 1;

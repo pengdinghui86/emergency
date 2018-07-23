@@ -299,7 +299,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         PlanExecutionDetailActivity.this, stRerror);
             } else if (Exceptionerror != null) {
                 ToastUtil.showToast(PlanExecutionDetailActivity.this,
-                        Const.NETWORKERROR + ":" + Exceptionerror);
+                        Const.NETWORKERROR);
             }
         }
     };

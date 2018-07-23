@@ -432,7 +432,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
             } else if (Exceptionerror != null) {
                 dataList = new ArrayList<BoHuiListEntity>();
                 ToastUtil.showToast(AutorizationDecisionActivity.this,
-                        Const.NETWORKERROR + ":" + Exceptionerror);
+                        Const.NETWORKERROR);
             }
             if (dataList.size() > 20) {// 如果超过20条，则分页
                 List<BoHuiListEntity> subList = dataList.subList(0, 20);

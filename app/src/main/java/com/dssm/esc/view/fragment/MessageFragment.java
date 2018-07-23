@@ -14,7 +14,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
@@ -622,7 +621,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 						pd.dismiss();
 						/** 信鸽推送，在退出登录时解除账号绑定 */
 						XGPushManager.registerPush(context, "*");
-						// 重新显示登陆页面
+						// 重新显示登录页面
 						((MainActivity) getActivity()).finish();
 						startActivity(new Intent(getActivity(),
 								LoginActivity.class));

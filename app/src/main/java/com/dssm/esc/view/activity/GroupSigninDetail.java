@@ -349,8 +349,7 @@ public class GroupSigninDetail extends BaseActivity implements
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<>();
 					ToastUtil.showToast(GroupSigninDetail.this,
-							Const.NETWORKERROR + ":"
-									+ Exceptionerror);
+							Const.NETWORKERROR);
 				}
 				Message message = handler.obtainMessage();
 				message.what = 0;
@@ -365,8 +364,7 @@ public class GroupSigninDetail extends BaseActivity implements
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<>();
 					ToastUtil.showToast(GroupSigninDetail.this,
-							Const.NETWORKERROR + ":"
-									+ Exceptionerror);
+							Const.NETWORKERROR);
 				}
 				Message message = handler.obtainMessage();
 				message.what = 1;

@@ -76,6 +76,7 @@ import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
@@ -112,7 +113,7 @@ public class MessageAdapter extends BaseAdapter{
 
 	private String username;
 	private LayoutInflater inflater;
-	private Activity activity;
+	private WeakReference<Context> wf;
 	
 	private static final int HANDLER_MESSAGE_REFRESH_LIST = 0;
 	private static final int HANDLER_MESSAGE_SELECT_LAST = 1;
@@ -122,15 +123,12 @@ public class MessageAdapter extends BaseAdapter{
 	private EMConversation conversation;
 	EMMessage[] messages = null;
 
-	private Context context;
-
 	private Map<String, Timer> timers = new Hashtable<String, Timer>();
 
 	public MessageAdapter(Context context, String username, int chatType) {
 		this.username = username;
-		this.context = context;
 		inflater = LayoutInflater.from(context);
-		activity = (Activity) context;
+		wf = new WeakReference<>(context);
 		this.conversation = EMChatManager.getInstance().getConversation(username);
 	}
 	
@@ -153,8 +151,8 @@ public class MessageAdapter extends BaseAdapter{
 				refreshList();
 				break;
 			case HANDLER_MESSAGE_SELECT_LAST:
-				if (activity instanceof ChatActivity) {
-					ListView listView = ((ChatActivity)activity).getListView();
+				if (wf.get() != null && wf.get() instanceof ChatActivity) {
+					ListView listView = ((ChatActivity) wf.get()).getListView();
 					if (messages.length > 0) {
 						listView.setSelection(messages.length - 1);
 					}
@@ -162,8 +160,8 @@ public class MessageAdapter extends BaseAdapter{
 				break;
 			case HANDLER_MESSAGE_SEEK_TO:
 				int position = message.arg1;
-				if (activity instanceof ChatActivity) {
-					ListView listView = ((ChatActivity)activity).getListView();
+				if (wf.get() != null && wf.get() instanceof ChatActivity) {
+					ListView listView = ((ChatActivity) wf.get()).getListView();
 					listView.setSelection(position);
 				}
 				break;
@@ -493,45 +491,50 @@ public class MessageAdapter extends BaseAdapter{
 			statusView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-
+					if(wf.get() == null && !(wf.get() instanceof ChatActivity))
+						return;
 					// 显示重发消息的自定义alertdialog
-					Intent intent = new Intent(activity, AlertDialog.class);
-					intent.putExtra("msg", activity.getString(R.string.confirm_resend));
-					intent.putExtra("title", activity.getString(R.string.resend));
+					Intent intent = new Intent(wf.get(), AlertDialog.class);
+					intent.putExtra("msg", wf.get().getString(R.string.confirm_resend));
+					intent.putExtra("title", wf.get().getString(R.string.resend));
 					intent.putExtra("cancel", true);
 					intent.putExtra("position", position);
 					if (message.getType() == Type.TXT)
-						activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_TEXT);
+						((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_TEXT);
 					else if (message.getType() == Type.VOICE)
-						activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_VOICE);
+						((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_VOICE);
 					else if (message.getType() == Type.IMAGE)
-						activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_PICTURE);
+						((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_PICTURE);
 					else if (message.getType() == Type.LOCATION)
-						activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_LOCATION);
+						((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_LOCATION);
 					else if (message.getType() == Type.FILE)
-						activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_FILE);
+						((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_FILE);
 					else if (message.getType() == Type.VIDEO)
-						activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_VIDEO);
+						((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_VIDEO);
 
 				}
 			});
 
 		} else {
-			final String st = context.getResources().getString(R.string.Into_the_blacklist);
-			if(!((ChatActivity)activity).isRobot && chatType != ChatType.ChatRoom){
-				// 长按头像，移入黑名单
-				holder.iv_avatar.setOnLongClickListener(new OnLongClickListener() {
+			if(wf.get() != null && wf.get() instanceof ChatActivity) {
+				final String st = wf.get().getResources().getString(R.string.Into_the_blacklist);
+				if (!((ChatActivity) wf.get()).isRobot && chatType != ChatType.ChatRoom) {
+					// 长按头像，移入黑名单
+					holder.iv_avatar.setOnLongClickListener(new OnLongClickListener() {
 
-					@Override
-					public boolean onLongClick(View v) {
-						Intent intent = new Intent(activity, AlertDialog.class);
-						intent.putExtra("msg", st);
-						intent.putExtra("cancel", true);
-						intent.putExtra("position", position);
-						activity.startActivityForResult(intent, ChatActivity.REQUEST_CODE_ADD_TO_BLACKLIST);
-						return true;
-					}
-				});
+						@Override
+						public boolean onLongClick(View v) {
+							if(wf.get() != null && wf.get() instanceof ChatActivity) {
+								Intent intent = new Intent(wf.get(), AlertDialog.class);
+								intent.putExtra("msg", st);
+								intent.putExtra("cancel", true);
+								intent.putExtra("position", position);
+								((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_ADD_TO_BLACKLIST);
+							}
+							return true;
+						}
+					});
+				}
 			}
 		}
 
@@ -560,14 +563,16 @@ public class MessageAdapter extends BaseAdapter{
 	 * @param imageView
 	 */
 	private void setUserAvatar(final EMMessage message, ImageView imageView){
-	    if(message.direct == Direct.SEND){
-	        //显示自己头像
-	        UserUtils.setCurrentUserAvatar(context, imageView);
-	    }else{
-	        UserUtils.setUserAvatar(context, message.getFrom(), imageView);
-	    }
+		if(wf.get() != null && wf.get() instanceof ChatActivity) {
+			if (message.direct == Direct.SEND) {
+				//显示自己头像
+				UserUtils.setCurrentUserAvatar(wf.get(), imageView);
+			} else {
+				UserUtils.setUserAvatar(wf.get(), message.getFrom(), imageView);
+			}
+		}
 	    imageView.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 //				Intent intent = new Intent();
@@ -586,21 +591,24 @@ public class MessageAdapter extends BaseAdapter{
 	 * @param position
 	 */
 	private void handleTextMessage(EMMessage message, ViewHolder holder, final int position) {
-		TextMessageBody txtBody = (TextMessageBody) message.getBody();
-		Spannable span = SmileUtils.getSmiledText(context, txtBody.getMessage());
-		// 设置内容
-		holder.tv.setText(span, BufferType.SPANNABLE);
-		// 设置长按事件监听
-		holder.tv.setOnLongClickListener(new OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				activity.startActivityForResult(
-						(new Intent(activity, ContextMenu.class)).putExtra("position", position).putExtra("type",
-								Type.TXT.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
-				return true;
-			}
-		});
-
+		if(wf.get() != null && wf.get() instanceof ChatActivity) {
+			TextMessageBody txtBody = (TextMessageBody) message.getBody();
+			Spannable span = SmileUtils.getSmiledText(wf.get(), txtBody.getMessage());
+			// 设置内容
+			holder.tv.setText(span, BufferType.SPANNABLE);
+			// 设置长按事件监听
+			holder.tv.setOnLongClickListener(new OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View v) {
+					if(wf.get() != null && wf.get() instanceof ChatActivity) {
+						((ChatActivity) wf.get()).startActivityForResult(
+								(new Intent(wf.get(), ContextMenu.class)).putExtra("position", position).putExtra("type",
+										Type.TXT.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
+					}
+					return true;
+				}
+			});
+		}
 		if (message.direct == Direct.SEND) {
 			switch (message.status) {
 			case SUCCESS: // 发送成功
@@ -624,30 +632,32 @@ public class MessageAdapter extends BaseAdapter{
 	
 	private void setRobotMenuMessageLayout(LinearLayout parentView,JSONArray jsonArr){
 		try {
-			parentView.removeAllViews();
-			for (int i = 0; i < jsonArr.length(); i++) {
-				final String itemStr = jsonArr.getString(i);
-				final TextView textView = new TextView(context);
-				textView.setText(itemStr);
-				textView.setTextSize(15);
-				try {
-					@SuppressWarnings("ResourceType")
-					XmlPullParser xrp = context.getResources().getXml(R.drawable.menu_msg_text_color);
-					textView.setTextColor(ColorStateList.createFromXml(context.getResources(), xrp));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				textView.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						((ChatActivity)context).sendText(itemStr);
+			if(wf.get() != null && wf.get() instanceof ChatActivity) {
+				parentView.removeAllViews();
+				for (int i = 0; i < jsonArr.length(); i++) {
+					final String itemStr = jsonArr.getString(i);
+					final TextView textView = new TextView(wf.get());
+					textView.setText(itemStr);
+					textView.setTextSize(15);
+					try {
+						@SuppressWarnings("ResourceType")
+						XmlPullParser xrp = wf.get().getResources().getXml(R.drawable.menu_msg_text_color);
+						textView.setTextColor(ColorStateList.createFromXml(wf.get().getResources(), xrp));
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-				});
-				LinearLayout.LayoutParams llLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-				llLp.bottomMargin = DensityUtil.dip2px(context, 3);
-				llLp.topMargin = DensityUtil.dip2px(context, 3);
-				parentView.addView(textView, llLp);
+					textView.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							((ChatActivity) wf.get()).sendText(itemStr);
+						}
+					});
+					LinearLayout.LayoutParams llLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+					llLp.bottomMargin = DensityUtil.dip2px(wf.get(), 3);
+					llLp.topMargin = DensityUtil.dip2px(wf.get(), 3);
+					parentView.addView(textView, llLp);
+				}
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -714,8 +724,9 @@ public class MessageAdapter extends BaseAdapter{
 		holder.iv.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				activity.startActivityForResult(
-						(new Intent(activity, ContextMenu.class)).putExtra("position", position).putExtra("type",
+				if(wf.get() != null && wf.get() instanceof ChatActivity)
+					((ChatActivity)wf.get()).startActivityForResult(
+						(new Intent(wf.get(), ContextMenu.class)).putExtra("position", position).putExtra("type",
 								Type.IMAGE.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
 				return true;
 			}
@@ -785,31 +796,32 @@ public class MessageAdapter extends BaseAdapter{
 
 				@Override
 				public void run() {
-					activity.runOnUiThread(new Runnable() {
-						public void run() {
-							holder.pb.setVisibility(View.VISIBLE);
-							holder.tv.setVisibility(View.VISIBLE);
-							holder.tv.setText(message.progress + "%");
-							if (message.status == EMMessage.Status.SUCCESS) {
-								holder.pb.setVisibility(View.GONE);
-								holder.tv.setVisibility(View.GONE);
-								// message.setSendingStatus(Message.SENDING_STATUS_SUCCESS);
-								timer.cancel();
-							} else if (message.status == EMMessage.Status.FAIL) {
-								holder.pb.setVisibility(View.GONE);
-								holder.tv.setVisibility(View.GONE);
-								// message.setSendingStatus(Message.SENDING_STATUS_FAIL);
-								// message.setProgress(0);
-								holder.staus_iv.setVisibility(View.VISIBLE);
-								Toast.makeText(activity,
-										activity.getString(R.string.send_fail) + activity.getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT)
-										.show();
-								timer.cancel();
+					if (wf.get() != null && wf.get() instanceof ChatActivity) {
+						((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
+							public void run() {
+								holder.pb.setVisibility(View.VISIBLE);
+								holder.tv.setVisibility(View.VISIBLE);
+								holder.tv.setText(message.progress + "%");
+								if (message.status == EMMessage.Status.SUCCESS) {
+									holder.pb.setVisibility(View.GONE);
+									holder.tv.setVisibility(View.GONE);
+									// message.setSendingStatus(Message.SENDING_STATUS_SUCCESS);
+									timer.cancel();
+								} else if (message.status == EMMessage.Status.FAIL) {
+									holder.pb.setVisibility(View.GONE);
+									holder.tv.setVisibility(View.GONE);
+									// message.setSendingStatus(Message.SENDING_STATUS_FAIL);
+									// message.setProgress(0);
+									holder.staus_iv.setVisibility(View.VISIBLE);
+									Toast.makeText(wf.get(),
+											wf.get().getString(R.string.send_fail) + wf.get().getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT)
+											.show();
+									timer.cancel();
+								}
+
 							}
-
-						}
-					});
-
+						});
+					}
 				}
 			}, 0, 500);
 			break;
@@ -837,10 +849,13 @@ public class MessageAdapter extends BaseAdapter{
 
 			@Override
 			public boolean onLongClick(View v) {
-				activity.startActivityForResult(
-						new Intent(activity, ContextMenu.class).putExtra("position", position).putExtra("type",
-								Type.VIDEO.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
-				return true;
+				if (wf.get() != null && wf.get() instanceof ChatActivity) {
+					((ChatActivity) wf.get()).startActivityForResult(
+							new Intent(wf.get(), ContextMenu.class).putExtra("position", position).putExtra("type",
+									Type.VIDEO.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
+					return true;
+				}
+				return false;
 			}
 		});
 
@@ -909,32 +924,34 @@ public class MessageAdapter extends BaseAdapter{
 
 				@Override
 				public void run() {
-					activity.runOnUiThread(new Runnable() {
+					if (wf.get() != null && wf.get() instanceof ChatActivity) {
+						((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
 
-						@Override
-						public void run() {
-							holder.pb.setVisibility(View.VISIBLE);
-							holder.tv.setVisibility(View.VISIBLE);
-							holder.tv.setText(message.progress + "%");
-							if (message.status == EMMessage.Status.SUCCESS) {
-								holder.pb.setVisibility(View.GONE);
-								holder.tv.setVisibility(View.GONE);
-								// message.setSendingStatus(Message.SENDING_STATUS_SUCCESS);
-								timer.cancel();
-							} else if (message.status == EMMessage.Status.FAIL) {
-								holder.pb.setVisibility(View.GONE);
-								holder.tv.setVisibility(View.GONE);
-								// message.setSendingStatus(Message.SENDING_STATUS_FAIL);
-								// message.setProgress(0);
-								holder.staus_iv.setVisibility(View.VISIBLE);
-								Toast.makeText(activity,
-										activity.getString(R.string.send_fail) + activity.getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT)
-										.show();
-								timer.cancel();
+							@Override
+							public void run() {
+								holder.pb.setVisibility(View.VISIBLE);
+								holder.tv.setVisibility(View.VISIBLE);
+								holder.tv.setText(message.progress + "%");
+								if (message.status == EMMessage.Status.SUCCESS) {
+									holder.pb.setVisibility(View.GONE);
+									holder.tv.setVisibility(View.GONE);
+									// message.setSendingStatus(Message.SENDING_STATUS_SUCCESS);
+									timer.cancel();
+								} else if (message.status == EMMessage.Status.FAIL) {
+									holder.pb.setVisibility(View.GONE);
+									holder.tv.setVisibility(View.GONE);
+									// message.setSendingStatus(Message.SENDING_STATUS_FAIL);
+									// message.setProgress(0);
+									holder.staus_iv.setVisibility(View.VISIBLE);
+									Toast.makeText(wf.get(),
+											wf.get().getString(R.string.send_fail) + wf.get().getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT)
+											.show();
+									timer.cancel();
+								}
+
 							}
-
-						}
-					});
+						});
+					}
 
 				}
 			}, 0, 500);
@@ -964,36 +981,40 @@ public class MessageAdapter extends BaseAdapter{
 		}else{
 			holder.tv.setVisibility(View.INVISIBLE);
 		}
-		holder.iv.setOnClickListener(new VoicePlayClickListener(message, holder.iv, holder.iv_read_status, this, activity, username));
+		holder.iv.setOnClickListener(new VoicePlayClickListener(message, holder.iv, holder.iv_read_status, this, (Activity) wf.get(), username));
 		holder.iv.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				activity.startActivityForResult(
-						(new Intent(activity, ContextMenu.class)).putExtra("position", position).putExtra("type",
-								Type.VOICE.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
+				if (wf.get() != null && wf.get() instanceof ChatActivity) {
+					((ChatActivity) wf.get()).startActivityForResult(
+							(new Intent(wf.get(), ContextMenu.class)).putExtra("position", position).putExtra("type",
+									Type.VOICE.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
+				}
 				return true;
 			}
 		});
-		if (((ChatActivity)activity).playMsgId != null
-				&& ((ChatActivity)activity).playMsgId.equals(message
-						.getMsgId())&&VoicePlayClickListener.isPlaying) {
-			AnimationDrawable voiceAnimation;
-			if (message.direct == Direct.RECEIVE) {
-				holder.iv.setImageResource(R.drawable.voice_from_icon);
+		if (wf.get() != null && wf.get() instanceof ChatActivity) {
+
+			if (((ChatActivity) wf.get()).playMsgId != null
+					&& ((ChatActivity) wf.get()).playMsgId.equals(message
+					.getMsgId()) && VoicePlayClickListener.isPlaying) {
+				AnimationDrawable voiceAnimation;
+				if (message.direct == Direct.RECEIVE) {
+					holder.iv.setImageResource(R.drawable.voice_from_icon);
+				} else {
+					holder.iv.setImageResource(R.drawable.voice_to_icon);
+				}
+				voiceAnimation = (AnimationDrawable) holder.iv.getDrawable();
+				voiceAnimation.start();
 			} else {
-				holder.iv.setImageResource(R.drawable.voice_to_icon);
-			}
-			voiceAnimation = (AnimationDrawable) holder.iv.getDrawable();
-			voiceAnimation.start();
-		} else {
-			if (message.direct == Direct.RECEIVE) {
-				holder.iv.setImageResource(R.drawable.chatfrom_voice_playing);
-			} else {
-				holder.iv.setImageResource(R.drawable.chatto_voice_playing);
+				if (message.direct == Direct.RECEIVE) {
+					holder.iv.setImageResource(R.drawable.chatfrom_voice_playing);
+				} else {
+					holder.iv.setImageResource(R.drawable.chatto_voice_playing);
+				}
 			}
 		}
-		
-		
+
 		if (message.direct == Direct.RECEIVE) {
 			if (message.isListened()) {
 				// 隐藏语音未听标志
@@ -1009,15 +1030,16 @@ public class MessageAdapter extends BaseAdapter{
 
 					@Override
 					public void onSuccess() {
-						activity.runOnUiThread(new Runnable() {
+						if (wf.get() != null && wf.get() instanceof ChatActivity) {
+							((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
 
-							@Override
-							public void run() {
-								holder.pb.setVisibility(View.INVISIBLE);
-								notifyDataSetChanged();
-							}
-						});
-
+								@Override
+								public void run() {
+									holder.pb.setVisibility(View.INVISIBLE);
+									notifyDataSetChanged();
+								}
+							});
+						}
 					}
 
 					@Override
@@ -1026,7 +1048,10 @@ public class MessageAdapter extends BaseAdapter{
 
 					@Override
 					public void onError(int code, String message) {
-						activity.runOnUiThread(new Runnable() {
+						if (wf.get() != null && wf.get() instanceof ChatActivity) {
+							return;
+						}
+						((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
 
 							@Override
 							public void run() {
@@ -1080,38 +1105,41 @@ public class MessageAdapter extends BaseAdapter{
 
 			@Override
 			public void onClick(View view) {
-				File file = new File(filePath);
-				if (file != null && file.exists()) {
-					// 文件存在，直接打开
-					FileUtils.openFile(file, (Activity) context);
-				} else {
-					// 下载
+				if (wf.get() != null && wf.get() instanceof ChatActivity) {
+					File file = new File(filePath);
+					if (file != null && file.exists()) {
+						// 文件存在，直接打开
+						FileUtils.openFile(file, (Activity) wf.get());
+					} else {
+						// 下载
 //					context.startActivity(new Intent(context, ShowNormalFileActivity.class).putExtra("msgbody", fileMessageBody));
-				}
-				if (message.direct == Direct.RECEIVE && !message.isAcked && message.getChatType() != ChatType.GroupChat && message.getChatType() != ChatType.ChatRoom) {
-					try {
-						EMChatManager.getInstance().ackMessageRead(message.getFrom(), message.getMsgId());
-						message.isAcked = true;
-					} catch (EaseMobException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					}
+					if (message.direct == Direct.RECEIVE && !message.isAcked && message.getChatType() != ChatType.GroupChat && message.getChatType() != ChatType.ChatRoom) {
+						try {
+							EMChatManager.getInstance().ackMessageRead(message.getFrom(), message.getMsgId());
+							message.isAcked = true;
+						} catch (EaseMobException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 			}
 		});
-		String st1 = context.getResources().getString(R.string.Have_downloaded);
-		String st2 = context.getResources().getString(R.string.Did_not_download);
-		if (message.direct == Direct.RECEIVE) { // 接收的消息
-			EMLog.d(TAG, "it is receive msg");
-			File file = new File(filePath);
-			if (file != null && file.exists()) {
-				holder.tv_file_download_state.setText(st1);
-			} else {
-				holder.tv_file_download_state.setText(st2);
+		if (wf.get() != null && wf.get() instanceof ChatActivity) {
+			String st1 = wf.get().getResources().getString(R.string.Have_downloaded);
+			String st2 = wf.get().getResources().getString(R.string.Did_not_download);
+			if (message.direct == Direct.RECEIVE) { // 接收的消息
+				EMLog.d(TAG, "it is receive msg");
+				File file = new File(filePath);
+				if (file != null && file.exists()) {
+					holder.tv_file_download_state.setText(st1);
+				} else {
+					holder.tv_file_download_state.setText(st2);
+				}
+				return;
 			}
-			return;
 		}
-
 		// until here, deal with send voice msg
 		switch (message.status) {
 		case SUCCESS:
@@ -1134,30 +1162,31 @@ public class MessageAdapter extends BaseAdapter{
 
 				@Override
 				public void run() {
-					activity.runOnUiThread(new Runnable() {
+					if (wf.get() != null && wf.get() instanceof ChatActivity) {
+						((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
 
-						@Override
-						public void run() {
-							holder.pb.setVisibility(View.VISIBLE);
-							holder.tv.setVisibility(View.VISIBLE);
-							holder.tv.setText(message.progress + "%");
-							if (message.status == EMMessage.Status.SUCCESS) {
-								holder.pb.setVisibility(View.INVISIBLE);
-								holder.tv.setVisibility(View.INVISIBLE);
-								timer.cancel();
-							} else if (message.status == EMMessage.Status.FAIL) {
-								holder.pb.setVisibility(View.INVISIBLE);
-								holder.tv.setVisibility(View.INVISIBLE);
-								holder.staus_iv.setVisibility(View.VISIBLE);
-								Toast.makeText(activity,
-										activity.getString(R.string.send_fail) + activity.getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT)
-										.show();
-								timer.cancel();
+							@Override
+							public void run() {
+								holder.pb.setVisibility(View.VISIBLE);
+								holder.tv.setVisibility(View.VISIBLE);
+								holder.tv.setText(message.progress + "%");
+								if (message.status == EMMessage.Status.SUCCESS) {
+									holder.pb.setVisibility(View.INVISIBLE);
+									holder.tv.setVisibility(View.INVISIBLE);
+									timer.cancel();
+								} else if (message.status == EMMessage.Status.FAIL) {
+									holder.pb.setVisibility(View.INVISIBLE);
+									holder.tv.setVisibility(View.INVISIBLE);
+									holder.staus_iv.setVisibility(View.VISIBLE);
+									Toast.makeText(wf.get(),
+											wf.get().getString(R.string.send_fail) + wf.get().getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT)
+											.show();
+									timer.cancel();
+								}
+
 							}
-
-						}
-					});
-
+						});
+					}
 				}
 			}, 0, 500);
 			break;
@@ -1185,9 +1214,11 @@ public class MessageAdapter extends BaseAdapter{
 		locationView.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				activity.startActivityForResult(
-						(new Intent(activity, ContextMenu.class)).putExtra("position", position).putExtra("type",
-								Type.LOCATION.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
+				if (wf.get() != null && wf.get() instanceof ChatActivity) {
+					((ChatActivity) wf.get()).startActivityForResult(
+							(new Intent(wf.get(), ContextMenu.class)).putExtra("position", position).putExtra("type",
+									Type.LOCATION.ordinal()), ChatActivity.REQUEST_CODE_CONTEXT_MENU);
+				}
 				return false;
 			}
 		});
@@ -1265,17 +1296,19 @@ public class MessageAdapter extends BaseAdapter{
 
 			@Override
 			public void onSuccess() {
-				activity.runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						// message.setBackReceive(false);
-						if (message.getType() == Type.IMAGE) {
-							holder.pb.setVisibility(View.GONE);
-							holder.tv.setVisibility(View.GONE);
+				if (wf.get() != null && wf.get() instanceof ChatActivity) {
+					((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							// message.setBackReceive(false);
+							if (message.getType() == Type.IMAGE) {
+								holder.pb.setVisibility(View.GONE);
+								holder.tv.setVisibility(View.GONE);
+							}
+							notifyDataSetChanged();
 						}
-						notifyDataSetChanged();
-					}
-				});
+					});
+				}
 			}
 
 			@Override
@@ -1286,15 +1319,17 @@ public class MessageAdapter extends BaseAdapter{
 			@Override
 			public void onProgress(final int progress, String status) {
 				if (message.getType() == Type.IMAGE) {
-					activity.runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							holder.tv.setText(progress + "%");
+					if (wf.get() != null && wf.get() instanceof ChatActivity) {
+						((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								holder.tv.setText(progress + "%");
 
-						}
-					});
+							}
+						});
+
+					}
 				}
-
 			}
 
 		});
@@ -1320,37 +1355,42 @@ public class MessageAdapter extends BaseAdapter{
 				@Override
 				public void onSuccess() {
 					Log.d(TAG, "send image message successfully");
-					activity.runOnUiThread(new Runnable() {
-						public void run() {
-							// send success
-							holder.pb.setVisibility(View.GONE);
-							holder.tv.setVisibility(View.GONE);
-						}
-					});
+					if (wf.get() != null && wf.get() instanceof ChatActivity) {
+						((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
+							public void run() {
+								// send success
+								holder.pb.setVisibility(View.GONE);
+								holder.tv.setVisibility(View.GONE);
+							}
+						});
+					}
 				}
 
 				@Override
 				public void onError(int code, String error) {
-					
-					activity.runOnUiThread(new Runnable() {
-						public void run() {
-							holder.pb.setVisibility(View.GONE);
-							holder.tv.setVisibility(View.GONE);
-							// message.setSendingStatus(Message.SENDING_STATUS_FAIL);
-							holder.staus_iv.setVisibility(View.VISIBLE);
-							Toast.makeText(activity,
-									activity.getString(R.string.send_fail) + activity.getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT).show();
-						}
-					});
+					if (wf.get() != null && wf.get() instanceof ChatActivity) {
+						((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
+							public void run() {
+								holder.pb.setVisibility(View.GONE);
+								holder.tv.setVisibility(View.GONE);
+								// message.setSendingStatus(Message.SENDING_STATUS_FAIL);
+								holder.staus_iv.setVisibility(View.VISIBLE);
+								Toast.makeText(wf.get(),
+										wf.get().getString(R.string.send_fail) + wf.get().getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT).show();
+							}
+						});
+					}
 				}
 
 				@Override
 				public void onProgress(final int progress, String status) {
-					activity.runOnUiThread(new Runnable() {
-						public void run() {
-							holder.tv.setText(progress + "%");
-						}
-					});
+					if (wf.get() != null && wf.get() instanceof ChatActivity) {
+						((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
+							public void run() {
+								holder.tv.setText(progress + "%");
+							}
+						});
+					}
 				}
 
 			});
@@ -1366,46 +1406,48 @@ public class MessageAdapter extends BaseAdapter{
 	 * @param holder
 	 */
 	private void updateSendedView(final EMMessage message, final ViewHolder holder) {
-		activity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				// send success
-				if (message.getType() == Type.VIDEO) {
-					holder.tv.setVisibility(View.GONE);
-				}
-				EMLog.d(TAG, "message status : " + message.status);
-				if (message.status == EMMessage.Status.SUCCESS) {
-					// if (message.getType() == EMMessage.Type.FILE) {
-					// holder.pb.setVisibility(View.INVISIBLE);
-					// holder.staus_iv.setVisibility(View.INVISIBLE);
-					// } else {
-					// holder.pb.setVisibility(View.GONE);
-					// holder.staus_iv.setVisibility(View.GONE);
-					// }
+		if (wf.get() != null && wf.get() instanceof ChatActivity) {
+			((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					// send success
+					if (message.getType() == Type.VIDEO) {
+						holder.tv.setVisibility(View.GONE);
+					}
+					EMLog.d(TAG, "message status : " + message.status);
+					if (message.status == EMMessage.Status.SUCCESS) {
+						// if (message.getType() == EMMessage.Type.FILE) {
+						// holder.pb.setVisibility(View.INVISIBLE);
+						// holder.staus_iv.setVisibility(View.INVISIBLE);
+						// } else {
+						// holder.pb.setVisibility(View.GONE);
+						// holder.staus_iv.setVisibility(View.GONE);
+						// }
 
-				} else if (message.status == EMMessage.Status.FAIL) {
-					// if (message.getType() == EMMessage.Type.FILE) {
-					// holder.pb.setVisibility(View.INVISIBLE);
-					// } else {
-					// holder.pb.setVisibility(View.GONE);
-					// }
-					// holder.staus_iv.setVisibility(View.VISIBLE);
-				    
-				    if(message.getError() == EMError.MESSAGE_SEND_INVALID_CONTENT){
-				        Toast.makeText(activity, activity.getString(R.string.send_fail) + activity.getString(R.string.error_send_invalid_content), Toast.LENGTH_SHORT)
-                        .show();
-				    }else if(message.getError() == EMError.MESSAGE_SEND_NOT_IN_THE_GROUP){
-				        Toast.makeText(activity, activity.getString(R.string.send_fail) + activity.getString(R.string.error_send_not_in_the_group), Toast.LENGTH_SHORT)
-                        .show();
-				    }else{
-				        Toast.makeText(activity, activity.getString(R.string.send_fail) + activity.getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT)
-                        .show();
-				    }
-				}
+					} else if (message.status == EMMessage.Status.FAIL) {
+						// if (message.getType() == EMMessage.Type.FILE) {
+						// holder.pb.setVisibility(View.INVISIBLE);
+						// } else {
+						// holder.pb.setVisibility(View.GONE);
+						// }
+						// holder.staus_iv.setVisibility(View.VISIBLE);
 
-				notifyDataSetChanged();
-			}
-		});
+						if (message.getError() == EMError.MESSAGE_SEND_INVALID_CONTENT) {
+							Toast.makeText(wf.get(), wf.get().getString(R.string.send_fail) + wf.get().getString(R.string.error_send_invalid_content), Toast.LENGTH_SHORT)
+									.show();
+						} else if (message.getError() == EMError.MESSAGE_SEND_NOT_IN_THE_GROUP) {
+							Toast.makeText(wf.get(), wf.get().getString(R.string.send_fail) + wf.get().getString(R.string.error_send_not_in_the_group), Toast.LENGTH_SHORT)
+									.show();
+						} else {
+							Toast.makeText(wf.get(), wf.get().getString(R.string.send_fail) + wf.get().getString(R.string.connect_failuer_toast), Toast.LENGTH_SHORT)
+									.show();
+						}
+					}
+
+					notifyDataSetChanged();
+				}
+			});
+		}
 	}
 
 	/**

@@ -61,15 +61,15 @@ public class BaseActivity extends Activity {
 			// TODO Auto-generated method stub
 			String str = null;
 			String string = "";
-			// 若登陆成功，直接进入主界面
+			// 若登录成功，直接进入主界面
 			if (object != null) {
 				Map<String, String> map = (Map<String, String>) object;
 				if (map.get("success").equals("true")) {
-					str = "重新登陆成功";
+					str = "重新登录成功";
 					ToastUtil.showLongToast(context, str);
 					netListener.initNetData();
 				} else {
-					str = "密码已失效,请重新登陆";
+					str = "密码已失效,请重新登录";
 					ToastUtil.showLongToast(context, str);
 					Intent intent = new Intent(context,
 							LoginActivity.class);

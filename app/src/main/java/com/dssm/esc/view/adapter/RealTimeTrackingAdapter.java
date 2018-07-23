@@ -362,10 +362,12 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     setItemColor(entity, mhHolder);
                     break;
                 default:
-                    setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.RED);
-                    mhHolder.status.setText("状态未知");
-                    setItemColor(entity, mhHolder);
+                    if(status.equals("")) {
+                        setDefaultBackground(mhHolder, R.color.red);
+                        mhHolder.status.setTextColor(Color.RED);
+                        mhHolder.status.setText("状态未知");
+                        setItemColor(entity, mhHolder);
+                    }
                     break;
             }
         }
@@ -687,6 +689,18 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
             mhHolder.ll_time.setVisibility(View.VISIBLE);
         }
+        /**
+         * 子预案节点不需要执行人、已用时及预计执行时间
+         * 2018.7.23
+         */
+        if(entity.getNodeStepType().equals("CallActivity")) {
+            mhHolder.ll_time.setVisibility(View.GONE);
+            mhHolder.executePeople.setText("");
+        }
+        else {
+            mhHolder.ll_time.setVisibility(View.VISIBLE);
+        }
+
         //根据子预案层级设置缩进幅度
         convertView.setPadding(entity.getIndex() * 20, 0, 0, 0);
         return convertView;

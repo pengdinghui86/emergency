@@ -304,7 +304,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 				dataList = new ArrayList<>();
 				ToastUtil.showToast(
 						CollaborativeCircularActivity.this,
-						Const.NETWORKERROR + ":" + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 			Message message = new Message();
 			message.what = 0;

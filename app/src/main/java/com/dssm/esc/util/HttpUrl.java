@@ -17,7 +17,7 @@ public class HttpUrl {
     //http://192.168.1.203:7001/bcm/app/
 //    public static String  = DemoApplication.getInstance().getUrl();
     /**
-     * 登陆
+     * 登录
      */
     public final static String LOGIN =  "user/login";
     /**

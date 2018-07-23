@@ -69,36 +69,62 @@
         <activity android:name=".view.activity.DismissValuationActivity" />
         <activity
             android:name=".view.activity.AddeValuationActivity"
-            android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
-        <activity android:name=".view.activity.EmergencyTypeActivity" />
-        <activity android:name=".view.activity.PlanNameActivity" />
-        <activity android:name=".view.activity.DrillSelectActivity" />
-        <activity android:name=".view.activity.PlanStarActivity" />
-        <activity android:name=".view.activity.PlanStarDetailActivity" />
-        <activity android:name=".view.activity.AutorizationDecisionActivity" />
-        <activity android:name=".view.activity.AutorizateDecDetailActivity" />
-        <activity android:name=".view.activity.SignInActivity" />
-        <activity android:name=".view.activity.PersonnelAssignmentActivity" />
-        <activity android:name=".view.activity.AssignmentActivity" />
-        <activity android:name=".view.activity.PlanExecutionActivity" />
-        <activity android:name=".view.activity.PlanExecutionDetailActivity" />
-        <activity android:name=".view.activity.SubmitInfomationActivity" />
-        <activity android:name=".view.activity.OperationMenuActivity" />
-        <activity android:name=".view.activity.CollaborativeCircularActivity" />
-        <activity android:name=".view.activity.RecieveListActivity" />
-        <activity android:name=".view.activity.AddRecievePeoPleActivity" />
-        <activity android:name=".view.activity.EventProcessActivity" />
-        <activity android:name=".view.activity.EventProcessDetailActivity" />
-        <activity android:name=".view.activity.ControlActivity" />
-        <activity android:name=".view.activity.GroupSigninDetail" />
-        <activity android:name=".view.activity.SendCollaborativeActivity" />
+            android:windowSoftInputMode="stateHidden|stateVisible|adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.EmergencyTypeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PlanNameActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.DrillSelectActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PlanStarActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PlanStarDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.AutorizationDecisionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.AutorizateDecDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.SignInActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PersonnelAssignmentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.AssignmentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PlanExecutionActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PlanExecutionDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.SubmitInfomationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.OperationMenuActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.CollaborativeCircularActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.RecieveListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.AddRecievePeoPleActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.EventProcessActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.EventProcessDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.ControlActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.GroupSigninDetail"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.SendCollaborativeActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.PlanSuspandDetilActivity"
-            android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
-        <activity android:name=".view.activity.SendMeassageActivity" />
+            android:windowSoftInputMode="stateHidden|stateVisible|adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.SendMeassageActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.PermissionsActivity"
-            android:theme="@style/AppTheme.NoActionBar.Permissions"/>
+            android:theme="@style/AppTheme.NoActionBar.Permissions"
+            android:screenOrientation="portrait"/>
         <!-- &lt;!&ndash; 程序卸载广播 &ndash;&gt; -->
         <!-- <receiver -->
         <!-- android:name=".BootReceiver" -->
@@ -125,7 +151,7 @@
             </intent-filter>
         </activity>
 
-        <!-- 登陆 -->
+        <!-- 登录 -->
         <!-- android:theme="@style/horizontal_slide" -->
         <activity
             android:name="com.easemob.chatuidemo.activity.LoginActivity"

@@ -807,7 +807,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         // 显示帐号已经被移除
                         activity.showAccountRemovedDialog();
                     } else if (error == EMError.CONNECTION_CONFLICT) {
-                        // 显示帐号在其他设备登陆dialog
+                        // 显示帐号在其他设备登录dialog
                         activity.showConflictDialog();
                     }
                     /** 信鸽推送，账号在其他地方登录时解除账号绑定 */
@@ -1034,16 +1034,16 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 String stRerror, String Exceptionerror) {
             // TODO Auto-generated method stub
             String str;
-            // 若登陆成功，直接进入主界面
+            // 若登录成功，直接进入主界面
             if (object != null) {
                 Map<String, String> map = (Map<String, String>) object;
                 if (map.get("success").equals("true")) {
-                    str = "重新登陆成功";
+                    str = "重新登录成功";
                     ToastUtil.showLongToast(context, str);
                     if(netListener != null)
                         netListener.initNetData();
                 } else {
-                    str = "密码已失效,请重新登陆";
+                    str = "密码已失效,请重新登录";
                     Log.i("onFailure", "main, " + str);
                     ToastUtil.showLongToast(context, str);
                     Intent intent = new Intent(context,
@@ -1105,7 +1105,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         XGPushManager.delAccount(context, map.get("postFlag"));
                         // 清除本地的sharepreference缓存
                         DataCleanManager.cleanSharedPreference(context);
-                        // 重新显示登陆页面
+                        // 重新显示登录页面
                         finish();
                         startActivity(new Intent(MainActivity.this,
                                 LoginActivity.class));

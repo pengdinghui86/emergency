@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -13,6 +14,7 @@ import com.dssm.esc.util.treeview.TreeNode;
 import com.dssm.esc.util.treeview.base.CheckableNodeViewBinder;
 
 public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
+    LinearLayout ll_content;
     ImageView head;
     TextView name;
     TextView zhizhe;
@@ -23,6 +25,7 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
 
     public ThirdLevelNodeViewBinder(View itemView) {
         super(itemView);
+        ll_content = (LinearLayout) itemView.findViewById(R.id.ll_content);
         head = (ImageView) itemView.findViewById(R.id.iv_head);
         name = (TextView) itemView.findViewById(R.id.name);
         zhizhe = (TextView) itemView.findViewById(R.id.zhizhe);
@@ -30,8 +33,6 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
                 .findViewById(R.id.phonenumber);
         sigin_tv = (TextView) itemView.findViewById(R.id.sigin_tv);
         checkBox = (CheckBox) itemView.findViewById(R.id.child_checkbox);
-        itemView.setPadding(DisplayUtils.dp2px(32),0,0,0);
-
     }
 
     @Override
@@ -46,6 +47,9 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
 
     @Override
     public void bindView(TreeNode treeNode, String tag) {
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ll_content.getLayoutParams());
+        lp.setMargins(DisplayUtils.dp2px(32), 0, 0, 0);
+        ll_content.setLayoutParams(lp);
         ChildEntity centity = (ChildEntity) treeNode.getValue();
         if(centity.getSex() == null ? false : centity.getSex().equals("女"))
             head.setImageResource(R.drawable.woman);

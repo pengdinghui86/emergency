@@ -276,8 +276,7 @@ public class AdressListFailsafeToastFragment extends BaseFragment implements
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<GroupEntity>();
 					ToastUtil.showToast(getActivity(),
-							Const.NETWORKERROR + ":"
-									+ Exceptionerror);
+							Const.NETWORKERROR);
 				}
 
 				Message message = new Message();
@@ -294,8 +293,7 @@ public class AdressListFailsafeToastFragment extends BaseFragment implements
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<GroupEntity>();
 					ToastUtil.showToast(getActivity(),
-							Const.NETWORKERROR + ":"
-									+ Exceptionerror);
+							Const.NETWORKERROR);
 				}
 
 				Message message = new Message();

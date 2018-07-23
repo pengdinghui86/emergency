@@ -137,7 +137,7 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 				result = new ArrayList<PlanProcessEntity>();
 				ToastUtil.showToast(
 						PersonnelAssignmentActivity.this,
-						Const.NETWORKERROR + ":" + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 			Message msg = new Message();
 			msg.what = 0;
