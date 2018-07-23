@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:orientation="vertical"
     android:paddingLeft="10dp" >
 
     <RelativeLayout
@@ -70,19 +69,12 @@
                 style="@style/small_text" />
         </LinearLayout>
     </RelativeLayout>
-    <!--
-         <View
-        style="@style/horizontal_gray_style"
-        android:layout_below="@+id/l2"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="10dp" />
-    -->
 
     <ImageView
         android:id="@+id/dot"
         android:layout_width="wrap_content"
-        android:layout_height="72dp"
-        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="@+id/ll"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:src="@drawable/begin" />
