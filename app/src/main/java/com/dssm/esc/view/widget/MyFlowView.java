@@ -253,8 +253,8 @@ public class MyFlowView extends View {
                     float bx = (int) (onesstep.y * this.getWidth());
                     float ex = (int) (sstep.y * this.getWidth());
                     float ey = (int) (sstep.x * this.getHeight());
-                    if(!invisible2Draw(bx, by + buttonRadius, ex, ey - buttonRadius))
-                    continue;
+//                    if(!invisible2Draw(bx, by + buttonRadius, ex, ey - buttonRadius))
+//                    continue;
                     drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
                 }
             }
@@ -304,24 +304,13 @@ public class MyFlowView extends View {
                             drawRightBrokenAL(bx, by, ex, ey);
                         }
                         else {
-                            if (invisible2Draw(bx, by, bx + 2 * buttonRadius - 2, by))
-                            {
-                                myCanvas.drawLine(bx, by, bx + 2 * buttonRadius - 2, by, linePaint);
-                            }
-                            if (invisible2Draw(ex - 2 * buttonRadius - 2, ey, ex - buttonRadius, ey))
-                            {
-                                drawAL(ex - 2 * buttonRadius - 2, ey, ex - buttonRadius, ey);
-                            }
-                            if (invisible2Draw(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, ey))
-                            {
-                                myCanvas.drawLine(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, ey, linePaint);
-                            }
+                            myCanvas.drawLine(bx, by, bx + 2 * buttonRadius - 2, by, linePaint);
+                            drawAL(ex - 2 * buttonRadius - 2, ey, ex - buttonRadius, ey);
+                            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, ey, linePaint);
                         }
                     }
                     else {
-                        if (invisible2Draw(bx, by + buttonRadius, ex, ey - buttonRadius)) {
-                            drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
-                        }
+                        drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
                     }
                     parentSteps.get(0).nextDrawLine.add(sstep.stepId);
                     sstep.parentDrawLine.add(parentSteps.get(0).stepId);
@@ -377,50 +366,22 @@ public class MyFlowView extends View {
     **在跨层级情况下避免连接线穿过节点因此绘制折线
     **/
     private void drawLeftBrokenAL(float bx, float by, float ex, float ey) {
-        if (invisible2Draw(bx - buttonRadius, by, bx - 2 * buttonRadius + 2, by))
-        {
-            myCanvas.drawLine(bx - buttonRadius, by, bx - 2 * buttonRadius + 2, by, linePaint);
-        }
-        if (invisible2Draw(bx - 2 * buttonRadius + 2, by, bx - 2 * buttonRadius + 2, by + 2 * buttonRadius))
-        {
-            myCanvas.drawLine(bx - 2 * buttonRadius + 2, by, bx - 2 * buttonRadius + 2, by + 2 * buttonRadius, linePaint);
-        }
-        if (invisible2Draw(ex + 2 * buttonRadius + 2, ey, ex + buttonRadius, ey))
-        {
-            drawAL(ex + 2 * buttonRadius + 2, ey, ex + buttonRadius, ey);
-        }
-        if (invisible2Draw(bx - 2 * buttonRadius + 2, by + 2 * buttonRadius, ex + 2 * buttonRadius + 2, by + 2 * buttonRadius))
-        {
-            myCanvas.drawLine(bx - 2 * buttonRadius + 2, by + 2 * buttonRadius, ex + 2 * buttonRadius + 2, by + 2 * buttonRadius, linePaint);
-        }
-        if (invisible2Draw(ex + 2 * buttonRadius + 2, by + 2 * buttonRadius, ex + 2 * buttonRadius + 2, ey)) {
-            myCanvas.drawLine(ex + 2 * buttonRadius + 2, by + 2 * buttonRadius, ex + 2 * buttonRadius + 2, ey, linePaint);
-        }
+        myCanvas.drawLine(bx - buttonRadius, by, bx - 2 * buttonRadius + 2, by, linePaint);
+        myCanvas.drawLine(bx - 2 * buttonRadius + 2, by, bx - 2 * buttonRadius + 2, by + 2 * buttonRadius, linePaint);
+        drawAL(ex + 2 * buttonRadius + 2, ey, ex + buttonRadius, ey);
+        myCanvas.drawLine(bx - 2 * buttonRadius + 2, by + 2 * buttonRadius, ex + 2 * buttonRadius + 2, by + 2 * buttonRadius, linePaint);
+        myCanvas.drawLine(ex + 2 * buttonRadius + 2, by + 2 * buttonRadius, ex + 2 * buttonRadius + 2, ey, linePaint);
     }
 
     /*
      **在跨层级情况下避免连接线穿过节点因此绘制折线
      **/
     private void drawRightBrokenAL(float bx, float by, float ex, float ey) {
-        if (invisible2Draw(bx + buttonRadius, by, bx + 2 * buttonRadius - 2, by))
-        {
-            myCanvas.drawLine(bx + buttonRadius, by, bx + 2 * buttonRadius - 2, by, linePaint);
-        }
-        if (invisible2Draw(bx + 2 * buttonRadius - 2, by, bx + 2 * buttonRadius - 2, by + 2 * buttonRadius))
-        {
-            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by, bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, linePaint);
-        }
-        if (invisible2Draw(ex - 2 * buttonRadius - 2, ey, ex - buttonRadius, ey))
-        {
-            drawAL(ex - 2 * buttonRadius - 2, ey, ex - buttonRadius, ey);
-        }
-        if (invisible2Draw(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, by + 2 * buttonRadius))
-        {
-            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, by + 2 * buttonRadius, linePaint);
-        }
-        if (invisible2Draw(ex - 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, ey)) {
-            myCanvas.drawLine(ex - 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, ey, linePaint);
-        }
+        myCanvas.drawLine(bx + buttonRadius, by, bx + 2 * buttonRadius - 2, by, linePaint);
+        myCanvas.drawLine(bx + 2 * buttonRadius - 2, by, bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, linePaint);
+        drawAL(ex - 2 * buttonRadius - 2, ey, ex - buttonRadius, ey);
+        myCanvas.drawLine(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, by + 2 * buttonRadius, linePaint);
+        myCanvas.drawLine(ex - 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, ey, linePaint);
     }
 
     private List<Integer> findAllLineId(List<NSstep> steps) {
@@ -465,64 +426,39 @@ public class MyFlowView extends View {
         else if(endX > ex) {
             middleX = bx + (ex - bx) * (1f - 1f / 2 / (Math.abs(parentSteps.get(0).lineId - sstep.lineId)));;
         }
-        if (invisible2Draw(bx, by, ex, ey))
-        {
-            myCanvas.drawLine(bx, by, ex, ey, linePaint);
-        }
+        myCanvas.drawLine(bx, by, ex, ey, linePaint);
+
         //跨层级
         if(Math.abs(parentSteps.get(0).lineId - sstep.lineId) > 1) {
             if(middleX > endX) {
-                if (invisible2Draw(middleX, by, endX + 2 * buttonRadius - 2, by))
-                {
-                    myCanvas.drawLine(middleX, by, endX + 2 * buttonRadius - 2, by, linePaint);
-                }
-                if (invisible2Draw(endX + 2 * buttonRadius - 2, by, endX + 2 * buttonRadius - 2, endY))
-                {
-                    myCanvas.drawLine(endX + 2 * buttonRadius - 2, by, endX + 2 * buttonRadius - 2, endY, linePaint);
-                }
-                if (invisible2Draw(endX + 2 * buttonRadius - 2, endY, endX + buttonRadius, endY))
-                {
-                    drawAL(endX + 2 * buttonRadius - 2, endY, endX + buttonRadius, endY);
-                }
+                myCanvas.drawLine(middleX, by, endX + 2 * buttonRadius - 2, by, linePaint);
+                myCanvas.drawLine(endX + 2 * buttonRadius - 2, by, endX + 2 * buttonRadius - 2, endY, linePaint);
+                drawAL(endX + 2 * buttonRadius - 2, endY, endX + buttonRadius, endY);
+
             }
             else if(middleX < endX){
-                if (invisible2Draw(middleX, by, endX - 2 * buttonRadius + 2, by))
-                {
-                    myCanvas.drawLine(middleX, by, endX - 2 * buttonRadius + 2, by, linePaint);
-                }
-                if (invisible2Draw(endX - 2 * buttonRadius + 2, by, endX - 2 * buttonRadius + 2, endY))
-                {
-                    myCanvas.drawLine(endX - 2 * buttonRadius + 2, by, endX - 2 * buttonRadius + 2, endY, linePaint);
-                }
-                if (invisible2Draw(endX - 2 * buttonRadius + 2, endY, endX - buttonRadius, endY))
-                {
-                    drawAL(endX - 2 * buttonRadius + 2, endY, endX - buttonRadius, endY);
-                }
+                myCanvas.drawLine(middleX, by, endX - 2 * buttonRadius + 2, by, linePaint);
+                myCanvas.drawLine(endX - 2 * buttonRadius + 2, by, endX - 2 * buttonRadius + 2, endY, linePaint);
+                drawAL(endX - 2 * buttonRadius + 2, endY, endX - buttonRadius, endY);
+
             }
             else {
-                if (invisible2Draw(middleX + 2 * buttonRadius - 2, by, endX + 2 * buttonRadius - 2, endY))
-                {
-                    myCanvas.drawLine(middleX + 2 * buttonRadius - 2, by, endX + 2 * buttonRadius - 2, endY, linePaint);
-                }
-                if (invisible2Draw(endX + 2 * buttonRadius - 2, endY, endX + buttonRadius, endY))
-                {
-                    drawAL(endX + 2 * buttonRadius - 2, endY, endX + buttonRadius, endY);
-                }
+                myCanvas.drawLine(middleX + 2 * buttonRadius - 2, by, endX + 2 * buttonRadius - 2, endY, linePaint);
+                drawAL(endX + 2 * buttonRadius - 2, endY, endX + buttonRadius, endY);
+
             }
         }
         else {
-            if (invisible2Draw(middleX, by, endX, endY - buttonRadius)) {
-                drawAL(middleX, by, endX, endY - buttonRadius);
-            }
+            drawAL(middleX, by, endX, endY - buttonRadius);
+
         }
         for(NSstep step : parentSteps) {
             float y1 = step.x * this.getHeight();
             float x1 = step.y * this.getWidth();
             float x2 = x1;
             float y2 = by;
-            if (invisible2Draw(x1, y1 + buttonRadius, x2, y2)) {
-                myCanvas.drawLine(x1, y1 + buttonRadius, x2, y2, linePaint);
-            }
+            myCanvas.drawLine(x1, y1 + buttonRadius, x2, y2, linePaint);
+
             step.nextDrawLine.add(sstep.stepId);
             sstep.parentDrawLine.add(step.stepId);
         }
@@ -543,24 +479,13 @@ public class MyFlowView extends View {
                     drawRightBrokenAL(x1, y1, x2, y2);
                 }
                 else {
-                    if (invisible2Draw(x1 + buttonRadius, y1, x1 + 2 * buttonRadius - 2, y1))
-                    {
-                        myCanvas.drawLine(x1 + buttonRadius, y1, x1 + 2 * buttonRadius - 2, y1, linePaint);
-                    }
-                    if (invisible2Draw(x2 + 2 * buttonRadius - 2, y2, x2 + buttonRadius, y2))
-                    {
-                        drawAL(x2 + 2 * buttonRadius - 2, y2, x2 + buttonRadius, y2);
-                    }
-                    if (invisible2Draw(x1 + 2 * buttonRadius - 2, y1, x2 + 2 * buttonRadius - 2, y2))
-                    {
-                        myCanvas.drawLine(x1 + 2 * buttonRadius - 2, y1, x2 + 2 * buttonRadius - 2, y2, linePaint);
-                    }
+                    myCanvas.drawLine(x1 + buttonRadius, y1, x1 + 2 * buttonRadius - 2, y1, linePaint);
+                    drawAL(x2 + 2 * buttonRadius - 2, y2, x2 + buttonRadius, y2);
+                    myCanvas.drawLine(x1 + 2 * buttonRadius - 2, y1, x2 + 2 * buttonRadius - 2, y2, linePaint);
                 }
             }
             else {
-                if (invisible2Draw(x1, y1 + buttonRadius, x2, y2 - buttonRadius)) {
-                    drawAL(x1, y1 + buttonRadius, x2, y2 - buttonRadius);
-                }
+                drawAL(x1, y1 + buttonRadius, x2, y2 - buttonRadius);
             }
             step.nextDrawLine.add(sstep.stepId);
             sstep.parentDrawLine.add(step.stepId);
@@ -589,64 +514,37 @@ public class MyFlowView extends View {
         else if(startX > ex) {
             middleX = bx + (ex - bx) * (1f - 1f / 2f / (Math.abs(sstep.lineId - nextSteps.get(0).lineId)));
         }
-        if (invisible2Draw(bx, by, ex, ey))
-        {
-            myCanvas.drawLine(bx, by, ex, ey, linePaint);
-        }
+        myCanvas.drawLine(bx, by, ex, ey, linePaint);
+
         //跨层级
         if(Math.abs(nextSteps.get(0).lineId - sstep.lineId) > 1) {
             if(startX > middleX) {
-                if (invisible2Draw(startX - 2 * buttonRadius + 2, startY, startX - buttonRadius, startY))
-                {
-                    myCanvas.drawLine(startX - 2 * buttonRadius + 2, startY,  startX - buttonRadius, startY, linePaint);
-                }
-                if (invisible2Draw(startX - 2 * buttonRadius + 2, startY,  startX - 2 * buttonRadius + 2, by))
-                {
-                    myCanvas.drawLine(startX - 2 * buttonRadius + 2, startY,  startX - 2 * buttonRadius + 2, by, linePaint);
-                }
-                if (invisible2Draw(startX - 2 * buttonRadius + 2, by,  middleX, by))
-                {
-                    myCanvas.drawLine(startX - 2 * buttonRadius + 2, by,  middleX, by, linePaint);
-                }
+                myCanvas.drawLine(startX - 2 * buttonRadius + 2, startY,  startX - buttonRadius, startY, linePaint);
+                myCanvas.drawLine(startX - 2 * buttonRadius + 2, startY,  startX - 2 * buttonRadius + 2, by, linePaint);
+                myCanvas.drawLine(startX - 2 * buttonRadius + 2, by,  middleX, by, linePaint);
             }
             else if(startX < middleX){
-                if (invisible2Draw(startX + 2 * buttonRadius - 2, startY, startX + buttonRadius, startY))
-                {
-                    myCanvas.drawLine(startX + 2 * buttonRadius - 2, startY,  startX + buttonRadius, startY, linePaint);
-                }
-                if (invisible2Draw(startX + 2 * buttonRadius - 2, startY,  startX + 2 * buttonRadius - 2, by))
-                {
-                    myCanvas.drawLine(startX + 2 * buttonRadius - 2, startY,  startX + 2 * buttonRadius - 2, by, linePaint);
-                }
-                if (invisible2Draw(startX + 2 * buttonRadius - 2, by,  middleX, by))
-                {
-                    myCanvas.drawLine(startX + 2 * buttonRadius - 2, by,  middleX, by, linePaint);
-                }
+                myCanvas.drawLine(startX + 2 * buttonRadius - 2, startY,  startX + buttonRadius, startY, linePaint);
+                myCanvas.drawLine(startX + 2 * buttonRadius - 2, startY,  startX + 2 * buttonRadius - 2, by, linePaint);
+                myCanvas.drawLine(startX + 2 * buttonRadius - 2, by,  middleX, by, linePaint);
             }
             else {
-                if (invisible2Draw(startX - 2 * buttonRadius + 2, startY, startX - buttonRadius, startY))
-                {
-                    myCanvas.drawLine(startX - 2 * buttonRadius + 2, startY,  startX - buttonRadius, startY, linePaint);
-                }
-                if (invisible2Draw(startX - 2 * buttonRadius + 2, startY,  middleX - 2 * buttonRadius + 2, by))
-                {
-                    myCanvas.drawLine(startX - 2 * buttonRadius + 2, startY,  middleX - 2 * buttonRadius + 2, by, linePaint);
-                }
+                myCanvas.drawLine(startX - 2 * buttonRadius + 2, startY,  startX - buttonRadius, startY, linePaint);
+                myCanvas.drawLine(startX - 2 * buttonRadius + 2, startY,  middleX - 2 * buttonRadius + 2, by, linePaint);
+
             }
         }
         else {
-            if (invisible2Draw(startX, startY + buttonRadius, middleX, by)) {
-                myCanvas.drawLine(startX, startY + buttonRadius, middleX, by, linePaint);
-            }
+            myCanvas.drawLine(startX, startY + buttonRadius, middleX, by, linePaint);
+
         }
         for(NSstep step : nextSteps) {
             float y1 = by;
             float x1 = step.y * this.getWidth();
             float x2 = x1;
             float y2 = step.x * this.getHeight();
-            if (invisible2Draw(x1,y1, x2,y2 - buttonRadius)) {
-                drawAL(x1,y1, x2,y2 - buttonRadius);
-            }
+            drawAL(x1,y1, x2,y2 - buttonRadius);
+
             sstep.nextDrawLine.add(step.stepId);
             step.parentDrawLine.add(sstep.stepId);
         }
@@ -667,24 +565,15 @@ public class MyFlowView extends View {
                     drawRightBrokenAL(x1, y1, x2, y2);
                 }
                 else {
-                    if (invisible2Draw(x1 - buttonRadius, y1, x1 - 2 * buttonRadius + 2, y1))
-                    {
-                        myCanvas.drawLine(x1 - buttonRadius, y1, x1 - 2 * buttonRadius + 2, y1, linePaint);
-                    }
-                    if (invisible2Draw(x2 - 2 * buttonRadius + 2, y2, x2 - buttonRadius, y2))
-                    {
-                        drawAL(x2 - 2 * buttonRadius + 2, y2, x2 - buttonRadius, y2);
-                    }
-                    if (invisible2Draw(x1 - 2 * buttonRadius + 2, y1, x2 - 2 * buttonRadius - 2, y2))
-                    {
-                        myCanvas.drawLine(x1 - 2 * buttonRadius + 2, y1, x2 - 2 * buttonRadius + 2, y2, linePaint);
-                    }
+                    myCanvas.drawLine(x1 - buttonRadius, y1, x1 - 2 * buttonRadius + 2, y1, linePaint);
+                    drawAL(x2 - 2 * buttonRadius + 2, y2, x2 - buttonRadius, y2);
+                    myCanvas.drawLine(x1 - 2 * buttonRadius + 2, y1, x2 - 2 * buttonRadius + 2, y2, linePaint);
+
                 }
             }
             else {
-                if (invisible2Draw(x1, y1 + buttonRadius, x2, y2 - buttonRadius)) {
-                    drawAL(x1, y1 + buttonRadius, x2, y2 - buttonRadius);
-                }
+                drawAL(x1, y1 + buttonRadius, x2, y2 - buttonRadius);
+
             }
             sstep.nextDrawLine.add(step.stepId);
             step.parentDrawLine.add(sstep.stepId);
