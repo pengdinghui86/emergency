@@ -336,12 +336,12 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 			// method stub
 			if (backflag) {
 				ToastUtil.showToast(
-						PlanSuspandDetilActivity.this, stRerror);
+						PlanSuspandDetilActivity.this, "操作成功");
 				EventBus.getDefault().post(new mainEvent("r"));// 刷新已授权列表界面
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(
-						PlanSuspandDetilActivity.this,stRerror);
+						PlanSuspandDetilActivity.this,"操作失败");
 			} else if (stRerror != null) {
 
 				ToastUtil
@@ -372,13 +372,13 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 			// method stub
 			if (backflag) {
 				ToastUtil.showToast(
-						PlanSuspandDetilActivity.this, stRerror);
+						PlanSuspandDetilActivity.this, "操作成功");
 				EventBus.getDefault().post(
 						new mainEvent("refres"));// 刷新已启动预案列表界面
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(
-						PlanSuspandDetilActivity.this,stRerror);
+						PlanSuspandDetilActivity.this, "操作失败");
 			} else if (stRerror != null) {
 
 				ToastUtil

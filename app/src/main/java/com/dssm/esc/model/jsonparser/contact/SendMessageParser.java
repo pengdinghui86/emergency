@@ -45,6 +45,7 @@ public class SendMessageParser {
 			final String content) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SENDMESSAGE);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

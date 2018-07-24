@@ -62,6 +62,7 @@ public class PlanNameParser {
 					+ "&auditState=2";
 		}
 		RequestParams params = new RequestParams(url);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

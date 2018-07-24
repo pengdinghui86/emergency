@@ -17,6 +17,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.lang.ref.WeakReference;
+import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +55,7 @@ public class PlanStarParser {
 
 		String url=DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARD;
 		RequestParams params = new RequestParams(url);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(
@@ -142,7 +144,10 @@ public class PlanStarParser {
 					Utils.getInstance().relogin();
 					request(id,  usePlan,
 							detailObjEntity);
-				} else { //其他错误
+				} else if(ex instanceof SocketTimeoutException) {
+					errorResult = "服务器响应超时";
+				}
+				else { //其他错误
 					errorResult = "其他错误";
 				}
 				if(onEmergencyCompleteListener != null)

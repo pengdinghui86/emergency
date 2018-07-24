@@ -45,6 +45,7 @@ public class StarPlanParser {
 	public void request(final String id) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.STAR_PLAN);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

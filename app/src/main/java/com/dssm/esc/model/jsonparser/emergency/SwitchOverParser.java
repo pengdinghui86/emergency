@@ -47,6 +47,7 @@ public class SwitchOverParser {
 			final String message, final String nodeStepType, final String branch) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SWITHOVER);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

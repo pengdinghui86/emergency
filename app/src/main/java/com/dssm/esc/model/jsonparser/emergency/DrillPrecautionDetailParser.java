@@ -48,6 +48,7 @@ public class DrillPrecautionDetailParser {
 	public void request(final String detailPlanId,final String drillPlanName) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.DRILLPROJECTNAMEDETAIL);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

@@ -57,6 +57,7 @@ public class PlanStarBohuiParser {
 //		submitterId	事件提交人	发送通知使用
 //		eveType	事件类型	发送通知使用
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.PLANSTARD_BOHUI);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

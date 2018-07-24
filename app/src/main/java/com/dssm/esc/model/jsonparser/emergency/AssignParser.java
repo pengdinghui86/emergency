@@ -43,6 +43,7 @@ public class AssignParser {
 	public void request(final String id,final String planInfoId ,final String executePeopleId, final String executePeople) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.ASSIGN);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

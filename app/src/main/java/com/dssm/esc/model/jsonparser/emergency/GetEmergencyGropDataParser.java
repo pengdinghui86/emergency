@@ -53,6 +53,7 @@ public class GetEmergencyGropDataParser {
 //		modelName	类型	sendNotice
 		Log.i("协同通告预案小组url", DemoApplication.getInstance().getUrl()+HttpUrl.GETEMERGENCYGROPDATA + planInfoId+"&precautionId="+precautionId+"&modelName=sendNotice");
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETEMERGENCYGROPDATA + planInfoId+"&precautionId="+precautionId+"&modelName=sendNotice");
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

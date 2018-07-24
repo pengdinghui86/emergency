@@ -46,6 +46,7 @@ public class GetPhoneByExecuteParser {
 	public void request(final String executePeopleId) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.QUERYUSERBYEXECUTEPEOPELID+executePeopleId);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

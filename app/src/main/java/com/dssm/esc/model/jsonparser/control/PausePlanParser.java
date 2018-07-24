@@ -48,6 +48,7 @@ public class PausePlanParser {
 		// status 完成状态
 		// message 提交信息
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.PAUSEPLAN);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

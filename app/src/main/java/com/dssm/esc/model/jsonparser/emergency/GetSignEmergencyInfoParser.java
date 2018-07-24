@@ -50,6 +50,7 @@ public class GetSignEmergencyInfoParser {
 	public void request(final String planInfoId) {
 		Log.i("签到详情url", DemoApplication.getInstance().getUrl()+HttpUrl.GETSIGNUSERINFO + planInfoId);
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETSIGNUSERINFO + planInfoId);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

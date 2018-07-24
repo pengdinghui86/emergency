@@ -38,6 +38,8 @@ public class DemoApplication extends Application implements
     public static String currentUserNick = "";
     public static DemoHXSDKHelper hxSDKHelper = new DemoHXSDKHelper();
     public String url;
+    //连续登录超时计数
+    public static int sessionTimeoutCount = 0;
 
     public void setUrl(String url) {
         this.url = url;

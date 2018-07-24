@@ -128,12 +128,12 @@ public class AssignmentActivity extends BaseActivity implements
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
 			if (backflag) {
-				ToastUtil.showToast(AssignmentActivity.this, stRerror);
+				ToastUtil.showToast(AssignmentActivity.this, "操作成功");
 				//刷新指派列表
 				EventBus.getDefault().post(new mainEvent("refr"));
 				finish();
 			} else if (backflag == false) {
-				ToastUtil.showToast(AssignmentActivity.this, stRerror);
+				ToastUtil.showToast(AssignmentActivity.this, "操作失败");
 			}
 			if (Utils.getInstance().progressDialog.isShowing()) {
 				Utils.getInstance().hideProgressDialog();

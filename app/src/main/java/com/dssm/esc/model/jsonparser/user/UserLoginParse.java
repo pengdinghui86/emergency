@@ -50,6 +50,7 @@ public class UserLoginParse {
 	 */
 	public void request(final String userName, final String password) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.LOGIN);
+		params.setReadTimeout(60 * 1000);
 		params.addParameter("loginName", userName);
 		params.addParameter("password", password);
 		final OnDataCompleterListener onUserParseLoadCompleteListener = wr.get();
@@ -63,6 +64,7 @@ public class UserLoginParse {
 				// 保存cookie的值
 				DbCookieStore instance = DbCookieStore.INSTANCE;
 				List<HttpCookie> cookies = instance.getCookies();
+				DemoApplication.sessionTimeoutCount = 0;
 				for (int i = 0; i < cookies.size(); i++) {
 					HttpCookie cookie = cookies.get(i);
 					if (cookie.getName() != null && cookie.getName().equals("JSESSIONID")) {

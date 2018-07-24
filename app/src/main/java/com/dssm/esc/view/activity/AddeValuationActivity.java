@@ -830,12 +830,12 @@ public class AddeValuationActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			if (backflag) {
 				ToastUtil.showToast(AddeValuationActivity.this,
-						stRerror);
+						"操作成功");
 				EventBus.getDefault().post(new mainEvent("re"));// 刷新驳回事件的列表
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(AddeValuationActivity.this,
-						stRerror);
+						"操作失败");
 			} else if (stRerror != null) {
 
 				ToastUtil.showLongToast(AddeValuationActivity.this,

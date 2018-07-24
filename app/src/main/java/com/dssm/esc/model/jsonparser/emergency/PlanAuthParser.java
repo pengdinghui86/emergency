@@ -47,6 +47,7 @@ public class PlanAuthParser {
 			final String planResName,final String planResType,final String planId,final String planStarterId,final String submitterId) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.PLANAUTH);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

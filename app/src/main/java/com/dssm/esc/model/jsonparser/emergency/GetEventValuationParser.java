@@ -51,6 +51,7 @@ public class GetEventValuationParser {
 	public void request(final String id) {
 		Log.i("评估信息id", id);
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GET_REJECTEVENTINFO + id);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

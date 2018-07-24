@@ -45,6 +45,7 @@ public class NoticeAndSignListParser {
 	public void request(final String planInfoId) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl() + HttpUrl.SIGN_USER_LIST_COUNT);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if (!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

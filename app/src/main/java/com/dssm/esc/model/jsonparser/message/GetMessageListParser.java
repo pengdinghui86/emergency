@@ -53,6 +53,7 @@ public class GetMessageListParser {
 			final String isconfirm,final String tag) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETMESSAGE + "?isconfirm=" + isconfirm + "&msgType=" + msgType);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

@@ -428,13 +428,13 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			if (backflag) {
 				ToastUtil.showToast(
-						AutorizateDecDetailActivity.this, stRerror);
+						AutorizateDecDetailActivity.this, "操作成功");
 				EventBus.getDefault().post(
 						new mainEvent("r"));//刷新列表界面
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(AutorizateDecDetailActivity.this,
-						stRerror);
+						"操作失败");
 			} else if (stRerror != null) {
 
 				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
@@ -469,13 +469,13 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			if (backflag) {
 				ToastUtil.showToast(
-						AutorizateDecDetailActivity.this, stRerror);
+						AutorizateDecDetailActivity.this, "操作成功");
 				EventBus.getDefault().post(
 						new mainEvent("r"));//刷新列表界面
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(AutorizateDecDetailActivity.this,
-						stRerror);
+						"操作失败");
 			} else if (stRerror != null) {
 
 				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,

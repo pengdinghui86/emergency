@@ -45,6 +45,7 @@ public class GetPrecautionByPlanResParser {
     public void request() {
         Log.i("预案执行URL", DemoApplication.getInstance().getUrl() + HttpUrl.GETWEITPERFROMPRELIST);
         RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETWEITPERFROMPRELIST);
+        params.setReadTimeout(60 * 1000);
         //增加session
         if(!MySharePreferencesService.getInstance(
                 DemoApplication.getInstance().getApplicationContext()).getcontectName(

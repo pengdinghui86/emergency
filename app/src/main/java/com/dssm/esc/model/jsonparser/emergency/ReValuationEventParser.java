@@ -44,6 +44,7 @@ public class ReValuationEventParser {
 	 */
 	public void request(final GetProjectEveInfoEntity entity) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.RE_VALUTEEVENT);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

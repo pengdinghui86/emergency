@@ -50,6 +50,7 @@ public class UserReLoginParser {
 //		password	密码	
 //		roleId	角色ID	
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.RELOGIN);
+		params.setReadTimeout(60 * 1000);
 		if (roleId != null) {
 			params.addParameter("loginName", userName);
 			params.addParameter("password", password);
@@ -63,29 +64,31 @@ public class UserReLoginParser {
 				// TODO Auto-generated method stub
 				Log.i("UserReLoginParser", "UserReLoginParser" + t);
 				map = reloginParse(t);
-				// 保存cookie的值
-				DbCookieStore instance = DbCookieStore.INSTANCE;
-				List<HttpCookie> cookies = instance.getCookies();
-				for (int i = 0; i < cookies.size(); i++) {
-					HttpCookie cookie = cookies.get(i);
-					if (cookie.getName() != null && cookie.getName().equals("JSESSIONID")) {
-						MySharePreferencesService.getInstance(
-								DemoApplication.getInstance().getApplicationContext()).saveContactName(
-								"JSESSIONID", cookie.getValue());
-						MySharePreferencesService.getInstance(
-								DemoApplication.getInstance().getApplicationContext()).saveContactName(
-								"DOMAIN", cookie.getDomain());
-						Log.i("session name --> ", cookie.getName());
-						Log.i("session value --> ", cookie.getValue());
-						Log.i("session domain --> ", cookie.getDomain());
-						break;
+				if ("true".equals(map.get("success"))) {
+					DemoApplication.sessionTimeoutCount = 0;
+					// 保存cookie的值
+					DbCookieStore instance = DbCookieStore.INSTANCE;
+					List<HttpCookie> cookies = instance.getCookies();
+					for (int i = 0; i < cookies.size(); i++) {
+						HttpCookie cookie = cookies.get(i);
+						if (cookie.getName() != null && cookie.getName().equals("JSESSIONID")) {
+							MySharePreferencesService.getInstance(
+									DemoApplication.getInstance().getApplicationContext()).saveContactName(
+									"JSESSIONID", cookie.getValue());
+							MySharePreferencesService.getInstance(
+									DemoApplication.getInstance().getApplicationContext()).saveContactName(
+									"DOMAIN", cookie.getDomain());
+							Log.i("session name --> ", cookie.getName());
+							Log.i("session value --> ", cookie.getValue());
+							Log.i("session domain --> ", cookie.getDomain());
+							break;
+						}
 					}
+					Log.i("UserReLoginParser", "UserReLoginParser" + map);
 				}
-				Log.i("UserReLoginParser", "UserReLoginParser" + map);
-				if(onUserParseLoadCompleteListener != null)
+				if (onUserParseLoadCompleteListener != null)
 					onUserParseLoadCompleteListener.onEmergencyParserComplete(map,
-						null);
-
+							null);
 			}
 
 			@Override

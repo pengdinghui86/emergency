@@ -46,6 +46,7 @@ public class QueryProcessTrackParser {
 	 */
 	public void request(final String planInfoId) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.QUERYPROCESSTRACK);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

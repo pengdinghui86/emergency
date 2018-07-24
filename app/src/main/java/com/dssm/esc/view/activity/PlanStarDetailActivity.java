@@ -823,20 +823,17 @@ public class PlanStarDetailActivity extends BaseActivity implements
                 Boolean backflag, String stRerror,
                 String Exceptionerror) {
             // TODO Auto-generated method stub
-            String str = null;
             if (backflag) {
-                str = stRerror;
-                ToastUtil.showToast(PlanStarDetailActivity.this, str);
-                EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
-                finish();
+                ToastUtil.showToast(PlanStarDetailActivity.this, "操作成功");
             } else if (backflag == false) {
-                ToastUtil.showToast(PlanStarDetailActivity.this, stRerror);
+                ToastUtil.showToast(PlanStarDetailActivity.this, "操作失败");
             } else if (stRerror != null) {
                 ToastUtil.showToast(PlanStarDetailActivity.this, stRerror);
             } else if (Exceptionerror != null) {
                 ToastUtil.showToast(PlanStarDetailActivity.this, Exceptionerror);
             }
-
+            EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
+            finish();
             // if (Utils.getInstance().progressDialog.isShowing()) {
             Utils.getInstance().hideProgressDialog();
             // }

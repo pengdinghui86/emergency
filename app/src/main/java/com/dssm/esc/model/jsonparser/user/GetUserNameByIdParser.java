@@ -46,6 +46,7 @@ public class GetUserNameByIdParser {
 	public void request(final String usrId) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETUSERNAMEBYID + usrId);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

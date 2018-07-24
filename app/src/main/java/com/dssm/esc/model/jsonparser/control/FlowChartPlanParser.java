@@ -41,7 +41,8 @@ public class FlowChartPlanParser {
 	 */
 	public void request(final String planInfoId) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.FLOW_CHART_PLAN);
-        //增加session
+		params.setReadTimeout(60 * 1000);
+		//增加session
         if(!MySharePreferencesService.getInstance(
                 DemoApplication.getInstance().getApplicationContext()).getcontectName(
                 "JSESSIONID").equals("")) {

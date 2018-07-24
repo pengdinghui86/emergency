@@ -42,6 +42,7 @@ public class CheckEmergencySignParser {
 	public void request(final String planInfoId) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.CHECKPERSONSIGN);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

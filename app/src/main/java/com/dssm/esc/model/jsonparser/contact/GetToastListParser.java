@@ -45,6 +45,7 @@ public class GetToastListParser {
 	public void request() {
 		Log.i("应急通知URL", DemoApplication.getInstance().getUrl()+HttpUrl.GETNOTICELIST);
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETNOTICELIST);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

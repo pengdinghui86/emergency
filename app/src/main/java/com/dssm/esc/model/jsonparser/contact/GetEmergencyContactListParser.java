@@ -47,6 +47,7 @@ public class GetEmergencyContactListParser {
 	public void request() {
 		Log.i("应急通讯录URL", DemoApplication.getInstance().getUrl()+HttpUrl.GETEMECONTACTLIST);
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETEMECONTACTLIST);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

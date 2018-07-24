@@ -45,6 +45,7 @@ public class PlanProcessListParser {
 	public void request(final String planInfoId) {
 		Log.i("planInfoId", DemoApplication.getInstance().getUrl()+HttpUrl.GETQUERYPROCESSLIST+planInfoId);
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETQUERYPROCESSLIST + planInfoId);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

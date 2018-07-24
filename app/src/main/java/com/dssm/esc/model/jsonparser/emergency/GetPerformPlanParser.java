@@ -51,6 +51,7 @@ public class GetPerformPlanParser {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPERFORMBYEXECUTEPEOPLEID + "?planInfoId="
 				+ planInfoId);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

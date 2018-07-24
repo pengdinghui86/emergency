@@ -48,6 +48,7 @@ public class GetFirstAllMessageListParser {
 	 */
 	public void request(final String msgType, final String isconfirm) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETFIRSTALLMESSAGES + "?isconfirm=" + isconfirm);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

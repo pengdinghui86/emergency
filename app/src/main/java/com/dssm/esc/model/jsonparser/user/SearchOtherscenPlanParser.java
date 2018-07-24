@@ -46,6 +46,7 @@ public class SearchOtherscenPlanParser {
 	public void request(final String name,final String id) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.OTHERSCENDETAILLIST+name+"&excludeScene="+id);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

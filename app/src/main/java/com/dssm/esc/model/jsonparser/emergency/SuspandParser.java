@@ -48,6 +48,7 @@ public class SuspandParser {
 	public void request(final PlanSuspandEntity suspandEntity) {
 		String url=DemoApplication.getInstance().getUrl()+HttpUrl.SUSPAND;
 		RequestParams params = new RequestParams(url);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

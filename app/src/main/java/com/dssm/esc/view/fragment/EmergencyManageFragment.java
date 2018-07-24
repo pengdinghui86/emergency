@@ -350,44 +350,57 @@ public class EmergencyManageFragment extends BaseFragment implements
 				// 人员指派：RYZP
 				// 协同与通告:XTYTG
 				// 指挥与展示启动终止按钮：BTN_QDZZ
+				boolean sjpgVisible = false;
+				boolean yaqdVisible = false;
+				boolean jcsqVisible = false;
+				boolean personnel_assignment_llVisible = false;
+				boolean collaborative_circular_llVisible = false;
 				for (int i = 0; i < menu.size(); i++) {
 					MenuEntity menuEntity = menu.get(i);
 					String mark = menuEntity.getMark();
 					if (mark.equals("SJPG")) {
-						sjpg.setVisibility(View.VISIBLE);
+						sjpgVisible = true;
 					}
 					if (mark.equals("YAQD")) {
-						yaqd.setVisibility(View.VISIBLE);
+						yaqdVisible = true;
 					}
 					if (mark.equals("JCSQ")) {
-						jcsq.setVisibility(View.VISIBLE);
+						jcsqVisible = true;
 					}
 					if (mark.equals("RYZP")) {
-						personnel_assignment_ll.setVisibility(View.VISIBLE);
+						personnel_assignment_llVisible = true;
 					}
 					if (mark.equals("XTYTG")) {
-						collaborative_circular_ll
-								.setVisibility(View.VISIBLE);
-					}
-					if (yaqd.getVisibility() == View.GONE) {
-						jcsq_line.setVisibility(View.VISIBLE);
-					}
-					else
-						jcsq_line.setVisibility(View.GONE);
-					if (xttg.getVisibility() == View.VISIBLE) {
-						xttg.setVisibility(View.VISIBLE);
+						collaborative_circular_llVisible = true;
 					}
 				}
-
+				if(!sjpgVisible)
+					sjpg.setVisibility(View.GONE);
+				if(!yaqdVisible)
+					yaqd.setVisibility(View.GONE);
+				if(!jcsqVisible)
+					jcsq.setVisibility(View.GONE);
+				if(!personnel_assignment_llVisible)
+					personnel_assignment_ll.setVisibility(View.GONE);
+				if(!collaborative_circular_llVisible)
+					collaborative_circular_ll.setVisibility(View.GONE);
+				if (yaqd.getVisibility() == View.GONE) {
+					jcsq_line.setVisibility(View.VISIBLE);
+				}
+				else
+					jcsq_line.setVisibility(View.GONE);
+				if (xttg.getVisibility() == View.VISIBLE) {
+					xttg.setVisibility(View.VISIBLE);
+				}
 			}
 		}
 	};
 
 	public void getUserPower() {
-		sjpg.setVisibility(View.GONE);
-		yaqd.setVisibility(View.GONE);
-		jcsq.setVisibility(View.GONE);
-		personnel_assignment_ll.setVisibility(View.GONE);
+//		sjpg.setVisibility(View.GONE);
+//		yaqd.setVisibility(View.GONE);
+//		jcsq.setVisibility(View.GONE);
+//		personnel_assignment_ll.setVisibility(View.GONE);
 		//collaborative_circular_ll.setVisibility(View.GONE);
 		sevice.getUserPower(listListener);
 	}

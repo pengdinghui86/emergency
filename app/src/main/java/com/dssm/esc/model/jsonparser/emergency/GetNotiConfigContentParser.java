@@ -47,6 +47,7 @@ public class GetNotiConfigContentParser {
 		// stage 阶段
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETNOTICONFIGCONTENT + "?precautionId="
 				+ precautionId + "&type=" + type + "&stage=" + stage);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(

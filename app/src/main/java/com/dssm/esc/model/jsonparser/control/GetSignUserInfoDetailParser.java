@@ -48,6 +48,7 @@ public class GetSignUserInfoDetailParser {
 	 */
 	public void request(final String planInfoId) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SIGN_USER_LIST_COUNT_DETAIL + planInfoId);
+		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
 				DemoApplication.getInstance().getApplicationContext()).getcontectName(
