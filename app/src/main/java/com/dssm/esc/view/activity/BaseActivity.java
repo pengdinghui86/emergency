@@ -114,6 +114,7 @@ public class BaseActivity extends Activity {
 			EventBus.getDefault().register(this);
 		}
 		context = getApplicationContext();
+		ActivityCollector.addActivity(this);
 	}
 
 	/**

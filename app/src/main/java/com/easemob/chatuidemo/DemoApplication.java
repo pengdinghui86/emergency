@@ -15,12 +15,20 @@ package com.easemob.chatuidemo;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 import android.text.TextUtils;
+
+import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.CrashHandler;
+import com.dssm.esc.util.DataCleanManager;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.easemob.EMCallBack;
+import com.easemob.chatuidemo.activity.LoginActivity;
 import com.easemob.chatuidemo.utils.SpUtil;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.android.tpush.XGPushManager;
+
 import org.xutils.x;
 import java.util.Map;
 
@@ -150,6 +158,42 @@ public class DemoApplication extends Application implements
     public void logout(final boolean isGCM, final EMCallBack emCallBack) {
         // 先调用sdk logout，在清理app中自己的数据
         hxSDKHelper.logout(isGCM, emCallBack);
+    }
+
+    public void return2Login() {
+        DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                new Handler(getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        /** 信鸽推送，在退出登录时解除账号绑定 */
+                        //XGPushManager.registerPush(context, "*");
+                        //信鸽3.2.2版本后使用这个接口反注册
+                        XGPushManager.delAccount(getApplicationContext(), map.get("postFlag"));
+                        // 清除本地的sharepreference缓存
+                        DataCleanManager.cleanSharedPreference(getApplicationContext());
+                        // 重新显示登录页面
+                        ActivityCollector.finishAll();
+                        startActivity(new Intent(getApplicationContext(),
+                                LoginActivity.class));
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                // 重新显示登录页面
+                ActivityCollector.finishAll();
+                startActivity(new Intent(getApplicationContext(),
+                        LoginActivity.class));
+            }
+        });
     }
 
     /** 保存用户信息 */

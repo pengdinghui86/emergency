@@ -3,6 +3,7 @@ package com.dssm.esc.model.jsonparser.user;
 import android.util.Log;
 
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
+import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.HttpUrl;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
@@ -57,6 +58,7 @@ public class UserReLoginParser {
 			params.addParameter("roleId", roleId);
 		}
 		final OnDataCompleterListener onUserParseLoadCompleteListener = wr.get();
+		DemoApplication.sessionTimeoutCount++;
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -93,16 +95,12 @@ public class UserReLoginParser {
 
 			@Override
 			public void onError(Throwable ex, boolean isOnCallback) {
-				String responseMsg = "";
+				if(DemoApplication.sessionTimeoutCount > 1) {
+					DemoApplication.getInstance().return2Login();
+					return;
+				}
 				String errorResult = "";
 				if (ex instanceof HttpException) { //网络错误
-					HttpException httpEx = (HttpException) ex;
-					int responseCode = httpEx.getCode();
-//					if(responseCode == 518) {
-//						Utils.getInstance().relogin();
-//					}
-					responseMsg = httpEx.getMessage();
-//					errorResult = httpEx.getResult();
 					errorResult = "网络错误";
 				} else { //其他错误
 					errorResult = "其他错误";

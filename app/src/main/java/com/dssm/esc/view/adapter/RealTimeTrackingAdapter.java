@@ -439,8 +439,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             });
         }
 
-        if ((roleCode.equals("R001") || roleCode.equals("R002")
-                || roleCode.equals("R003")) && (entity.getStatus().equals(RealTimeTrackingStatus.EXECUTING)
+        if ((roleCode.equals("R001") || roleCode.equals("R002"))
+                && (entity.getStatus().equals(RealTimeTrackingStatus.EXECUTING)
                 || entity.getStatus().equals(RealTimeTrackingStatus.BEFORE))
                 && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.jumptv.setVisibility(View.VISIBLE);
@@ -497,8 +497,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         else
             mhHolder.jumptv.setVisibility(View.GONE);
 
-        if ((roleCode.equals("R001") || roleCode.equals("R002")
-                || roleCode.equals("R003")) && parentState.equals("3")
+        if ((roleCode.equals("R001") || roleCode.equals("R002"))
+                && parentState.equals("3")
                 && entity.getStatus().equals("23")) {
             mhHolder.tv_cancel_jump.setVisibility(View.VISIBLE);
             mhHolder.tv_cancel_jump.setOnClickListener(new OnClickListener() {

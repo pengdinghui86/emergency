@@ -31,6 +31,7 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.database.DataBaseManage;
+import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DataCleanManager;
 import com.dssm.esc.util.MySharePreferencesService;
@@ -314,6 +315,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         if (permissionList.size() > 0) {
             startPermissionsActivity(permissionList.toArray(new String[permissionList.size()]));
         }
+        ActivityCollector.addActivity(this);
     }
 
     private static MyConnectionListener connectionListener = null;
@@ -831,6 +833,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             connectionListener = null;
         }
         super.onDestroy();
+        ActivityCollector.removeActivity(this);
     }
 
     @Override

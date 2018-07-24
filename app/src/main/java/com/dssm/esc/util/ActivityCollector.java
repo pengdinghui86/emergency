@@ -7,7 +7,7 @@ import android.app.Activity;
 
 public class ActivityCollector {
 	
-	public static  List<Activity> activities = new ArrayList<Activity>();
+	public static  List<Activity> activities = new ArrayList<>();
 	
 	public static void addActivity(Activity activity){
 		activities.add(activity);
@@ -23,7 +23,6 @@ public class ActivityCollector {
 				activity.finish();
 			}
 		}
-		System.exit(0);
 	}
 
 }
