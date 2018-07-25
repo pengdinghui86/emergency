@@ -1655,6 +1655,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
                     groupListener);
         }
         EMChatManager.getInstance().removeChatRoomChangeListener(emChatRoomChangeListener);
+        DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
+                .getInstance();
+        sdkHelper.pushActivity(this);
+        // register the event listener when enter the foreground
+        EMChatManager.getInstance().unregisterEventListener(this);
     }
 
     @Override

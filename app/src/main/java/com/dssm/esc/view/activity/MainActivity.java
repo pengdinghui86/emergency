@@ -922,24 +922,25 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 // msgcount=updateUnreadLabel();
                 EMChatManager.getInstance().activityResumed();
             }
-
-            // unregister this event listener when this activity enters the
-            // background
-            DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
-                    .getInstance();
-            sdkHelper.pushActivity(this);
-
-            // register the event listener when enter the foreground
-            EMChatManager.getInstance().registerEventListener(
-                    this,
-                    new EMNotifierEvent.Event[]{
-                            EMNotifierEvent.Event.EventNewMessage,
-                            EMNotifierEvent.Event.EventOfflineMessage,
-                            EMNotifierEvent.Event.EventConversationListChanged});
-            if (netListener != null)
-                netListener.initNetData();
             relogin();
         }
+
+        // unregister this event listener when this activity enters the
+        // background
+        DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
+                .getInstance();
+        sdkHelper.pushActivity(this);
+
+        // register the event listener when enter the foreground
+        EMChatManager.getInstance().registerEventListener(
+                this,
+                new EMNotifierEvent.Event[]{
+                        EMNotifierEvent.Event.EventNewMessage,
+                        EMNotifierEvent.Event.EventOfflineMessage,
+                        EMNotifierEvent.Event.EventConversationListChanged});
+        if (netListener != null)
+            netListener.initNetData();
+
         if(permissionDetect) {
             permissionDetect = false;
             final String[] PERMISSIONS = new String[]{
