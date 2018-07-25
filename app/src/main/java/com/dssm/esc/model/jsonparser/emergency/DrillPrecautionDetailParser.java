@@ -73,6 +73,8 @@ public class DrillPrecautionDetailParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("DrillPrecautionDetail", t);
 				userEntity = getDrillProjectDetail(t);
 				Log.i("DrillPrecautionDetail", "DrillPrecautionDetailParser" + userEntity);
@@ -94,7 +96,8 @@ public class DrillPrecautionDetailParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(detailPlanId, drillPlanName);
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(detailPlanId, drillPlanName);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -102,7 +105,8 @@ public class DrillPrecautionDetailParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(detailPlanId, drillPlanName);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(detailPlanId, drillPlanName);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

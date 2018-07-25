@@ -54,6 +54,7 @@
         android:layout_marginLeft="20dp">
 
         <TextView
+            android:id="@+id/executePeopleTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -194,6 +195,7 @@
             android:textColor="@color/timeover" />
 
         <TextView
+            android:id="@+id/predict_time_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

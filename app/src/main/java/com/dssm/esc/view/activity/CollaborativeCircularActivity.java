@@ -375,7 +375,7 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(CollaborativeCircularActivity.this,
-						Const.NETWORKERROR + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}

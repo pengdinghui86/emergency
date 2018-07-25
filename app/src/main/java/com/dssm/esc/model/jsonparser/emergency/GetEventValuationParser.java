@@ -72,6 +72,8 @@ public class GetEventValuationParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("GetEventValuationParser", t);
 				entity = getEventValuationParser(t);
 				Log.i("GetEventValuationParser",
@@ -93,7 +95,8 @@ public class GetEventValuationParser {
 					int responseCode = httpEx.getCode();
 					if(responseCode == 518) {
 						errorResult = "登录超时";
-						Utils.getInstance().relogin();
+						if(DemoApplication.sessionTimeoutCount < 2)
+							Utils.getInstance().relogin();
 						request(id);
 					}
 					responseMsg = httpEx.getMessage();
@@ -102,7 +105,8 @@ public class GetEventValuationParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(id);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(id);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

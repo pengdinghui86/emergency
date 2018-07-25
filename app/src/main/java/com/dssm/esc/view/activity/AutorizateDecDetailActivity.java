@@ -442,7 +442,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
-						Const.NETWORKERROR + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 //						if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
@@ -483,7 +483,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
-						Const.NETWORKERROR + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 //						if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();

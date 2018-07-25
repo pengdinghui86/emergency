@@ -83,6 +83,8 @@ public class PlanNameParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("PlanNameParser", t);
 				if (tags == 1 || tags == 3) {
 					list = businessTypeParser2(t);
@@ -114,7 +116,8 @@ public class PlanNameParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(tags, id);
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(tags, id);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -122,7 +125,8 @@ public class PlanNameParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(tags, id);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(tags, id);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

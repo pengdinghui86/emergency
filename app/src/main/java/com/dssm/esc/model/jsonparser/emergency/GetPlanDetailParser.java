@@ -67,6 +67,8 @@ public class GetPlanDetailParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("GetPlanDetailParser", "GetPlanDetailParser" + t);
 				detailEntity = getPlanDetail(t);
 				Log.i("GetPlanDetailParser", "GetPlanDetailParser"
@@ -89,7 +91,8 @@ public class GetPlanDetailParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(id);
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(id);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -97,7 +100,8 @@ public class GetPlanDetailParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(id);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(id);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

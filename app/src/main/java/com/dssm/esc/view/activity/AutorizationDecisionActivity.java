@@ -315,7 +315,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
                         AutorizationDecisionActivity.this, str);
             } else if (Exceptionerror != null) {
 
-                str = Const.NETWORKERROR + Exceptionerror;
+                str = Const.NETWORKERROR;
                 ToastUtil.showLongToast(
                         AutorizationDecisionActivity.this, str);
             }
@@ -496,7 +496,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
             } else if (Exceptionerror != null) {
                 dataList = new ArrayList<PlanEntity>();
                 ToastUtil.showToast(AutorizationDecisionActivity.this,
-                        Const.NETWORKERROR + Exceptionerror);
+                        Const.NETWORKERROR);
             }
             if (dataList.size() > 20) {// 如果超过20条，则分页
                 List<PlanEntity> subList = dataList.subList(0, 20);

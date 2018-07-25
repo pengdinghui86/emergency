@@ -209,7 +209,7 @@ public class DismissValuationActivity extends BaseActivity implements
 
 			}else if (Exceptionerror!=null) {
 				dataList=new ArrayList<BoHuiListEntity>();
-				ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
+				ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR);
 			}
 			message.what = 0;
 			if (dataList.size() > 20) {// 如果超过20条，则分页
@@ -297,7 +297,7 @@ public class DismissValuationActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(DismissValuationActivity.this,
-						Const.NETWORKERROR + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 		}
 	};
@@ -332,7 +332,7 @@ public class DismissValuationActivity extends BaseActivity implements
 
 			}else if (Exceptionerror!=null) {
 				entity = new GetProjectEveInfoEntity();
-				ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
+				ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR);
 			}
 		}
 	};

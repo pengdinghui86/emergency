@@ -72,6 +72,8 @@ public class BusinessTypeParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("BusinessTypeParser", t);
 				list = businessTypeParser(t);
 				Log.i("BusinessTypeParser", "BusinessTypeParser" + list);
@@ -93,7 +95,8 @@ public class BusinessTypeParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(tag);
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(tag);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -101,7 +104,8 @@ public class BusinessTypeParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(tag);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(tag);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

@@ -112,6 +112,8 @@ public class PlanStarParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("PlanStarParser", "PlanStarParser" + t);
 				map = planStarBohuiParser(t);
 				Log.i("PlanStarParser", "PlanStarParser" + map);
@@ -133,7 +135,8 @@ public class PlanStarParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(id,  usePlan,
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(id,  usePlan,
 								detailObjEntity);
 					}
 					responseMsg = httpEx.getMessage();
@@ -142,7 +145,8 @@ public class PlanStarParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(id,  usePlan,
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(id,  usePlan,
 							detailObjEntity);
 				} else if(ex instanceof SocketTimeoutException) {
 					errorResult = "服务器响应超时";

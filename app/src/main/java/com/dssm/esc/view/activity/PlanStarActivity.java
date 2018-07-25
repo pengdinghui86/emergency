@@ -208,7 +208,7 @@ public class PlanStarActivity extends BaseActivity implements
 
 			}else if (Exceptionerror!=null) {
 				datalist=new ArrayList<PlanStarListEntity>();
-				ToastUtil.showToast(PlanStarActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
+				ToastUtil.showToast(PlanStarActivity.this, Const.NETWORKERROR);
 			}
 			Message message = handler.obtainMessage();
 			message.what = 0;
@@ -241,7 +241,7 @@ public class PlanStarActivity extends BaseActivity implements
 
 			}else if (Exceptionerror!=null) {
 				datalist=new ArrayList<PlanStarListEntity>();
-				ToastUtil.showToast(PlanStarActivity.this, Const.NETWORKERROR+":"+Exceptionerror);
+				ToastUtil.showToast(PlanStarActivity.this, Const.NETWORKERROR);
 			}
 			Message message = handler.obtainMessage();
 			message.what = 0;

@@ -74,6 +74,8 @@ public class GetEmergencyGropDataParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("GetEmergencyGropData", t);
 				list = planStarListParser2(t);
 				Log.i("GetEmergencyGropData", "GetEmergencyGropDataParser"
@@ -95,7 +97,8 @@ public class GetEmergencyGropDataParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(planInfoId, precautionId);
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(planInfoId, precautionId);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -103,7 +106,8 @@ public class GetEmergencyGropDataParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(planInfoId, precautionId);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(planInfoId, precautionId);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

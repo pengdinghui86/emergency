@@ -86,6 +86,8 @@ public class ReValuationEventParser {
 
 			@Override
 			public void onSuccess(String t) {
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				// TODO Auto-generated method stub
 				Log.i("ReValuationEventParser", t);
 				map = reValuationEventParser(t);
@@ -109,7 +111,8 @@ public class ReValuationEventParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(entity);
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(entity);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -117,7 +120,8 @@ public class ReValuationEventParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(entity);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(entity);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

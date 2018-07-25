@@ -1061,7 +1061,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 ToastUtil.showLongToast(context, str);
             } else if (Exceptionerror != null) {
 
-                str = Const.NETWORKERROR + Exceptionerror;
+                str = Const.NETWORKERROR;
                 ToastUtil.showLongToast(context, "网络连接超时，请检查网络设置或IP地址是否正确");
             }
         }
@@ -1175,7 +1175,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                                 context,
                                 str);
             } else if (Exceptionerror != null) {
-                str = Const.NETWORKERROR + Exceptionerror;
+                str = Const.NETWORKERROR;
                 ToastUtil.showLongToast(context, str);
             }
         }

@@ -395,7 +395,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(SignInActivity.this,
-						Const.NETWORKERROR + Exceptionerror);
+						Const.NETWORKERROR);
 			}
 		}
 	};

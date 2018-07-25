@@ -254,7 +254,7 @@ public class LoginActivity extends BaseActivity {
                 if (pd != null) {
                     pd.dismiss();
                 }
-                str = Const.NETWORKERROR + Exceptionerror;
+                str = Const.NETWORKERROR;
                 ToastUtil.showLongToast(LoginActivity.this,
                         str);
             }
@@ -530,7 +530,7 @@ public class LoginActivity extends BaseActivity {
                 if (pd != null) {
                     pd.dismiss();
                 }
-                str = Const.NETWORKERROR + Exceptionerror;
+                str = Const.NETWORKERROR;
                 ToastUtil
                         .showLongToast(LoginActivity.this, str);
             }
@@ -688,8 +688,6 @@ public class LoginActivity extends BaseActivity {
                 if (pd != null) {
                     pd.dismiss();
                 }
-                str = Const.NETWORKERROR + Exceptionerror;
-                //ToastUtil.showLongToast(LoginActivity.this, str);
                 ToastUtil.showLongToast(LoginActivity.this, "网络连接超时，请检查网络设置或IP地址是否正确");
             }
 

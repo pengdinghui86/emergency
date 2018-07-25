@@ -318,12 +318,6 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             String str = null;
             if (backflag) {
                 str = stRerror;
-//                                    if(execute.getText().toString().equals(getString(R.string.error_cancel))) {
-//
-//                                    }
-//                                    else {
-//
-//                                    }
                 execute_ll.setVisibility(View.GONE);
                 change_ll.setVisibility(View.VISIBLE);
                 EventBus.getDefault().post(
@@ -341,7 +335,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         PlanExecutionDetailActivity.this, str);
             } else if (Exceptionerror != null) {
 
-                str = Const.NETWORKERROR + Exceptionerror;
+                str = Const.NETWORKERROR;
                 ToastUtil.showLongToast(
                         PlanExecutionDetailActivity.this, str);
             }

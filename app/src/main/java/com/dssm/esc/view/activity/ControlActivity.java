@@ -659,7 +659,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(ControlActivity.this,
-                        Const.NETWORKERROR + Exceptionerror,
+                        Const.NETWORKERROR,
                         Toast.LENGTH_SHORT).show();
             }
             // if (Utils.getInstance().progressDialog.isShowing()) {
@@ -700,7 +700,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(ControlActivity.this,
-                        Const.NETWORKERROR + Exceptionerror,
+                        Const.NETWORKERROR,
                         Toast.LENGTH_SHORT).show();
             }
             // if (Utils.getInstance().progressDialog.isShowing()) {
@@ -747,7 +747,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             } else if (Exceptionerror != null) {
                 data = new ArrayList<FlowChartPlanEntity.FlowChart>();
                 Toast.makeText(ControlActivity.this,
-                        Const.NETWORKERROR + Exceptionerror,
+                        Const.NETWORKERROR,
                         Toast.LENGTH_SHORT).show();
             }
             Message message = handler.obtainMessage();
@@ -831,7 +831,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             } else if (Exceptionerror != null) {
                 data = new ArrayList<FlowChartPlanEntity.FlowChart>();
                 Toast.makeText(ControlActivity.this,
-                        Const.NETWORKERROR + Exceptionerror,
+                        Const.NETWORKERROR,
                         Toast.LENGTH_SHORT).show();
             } else if (stRerror != null) {
                 data = new ArrayList<FlowChartPlanEntity.FlowChart>();

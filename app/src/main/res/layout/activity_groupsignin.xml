@@ -45,6 +45,12 @@
         segmentcontrol:texts="全部|已签到|未签到"
         segmentcontrol:verticalGap="8dp" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorWeSplitMini"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/id_swipe_ly"
         android:layout_width="match_parent"

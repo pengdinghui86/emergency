@@ -91,7 +91,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 						list,backValue.getNowTime());
 				listview.setAdapter(adapter);
 			}else if (Exceptionerror!=null) {
-				Toast.makeText(EventProcessDetailActivity.this, Const.NETWORKERROR+Exceptionerror, Toast.LENGTH_SHORT).show();
+				Toast.makeText(EventProcessDetailActivity.this, Const.NETWORKERROR, Toast.LENGTH_SHORT).show();
 			}
 		}
 	};

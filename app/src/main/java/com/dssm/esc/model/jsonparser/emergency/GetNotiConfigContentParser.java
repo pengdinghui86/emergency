@@ -68,6 +68,8 @@ public class GetNotiConfigContentParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("GetNotiConfigContent", t);
 				entity = getEventValuationParser(t);
 				Log.i("GetNotiConfigContent",
@@ -90,7 +92,8 @@ public class GetNotiConfigContentParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(precautionId, type, stage);
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(precautionId, type, stage);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -98,7 +101,8 @@ public class GetNotiConfigContentParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(precautionId, type, stage);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(precautionId, type, stage);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

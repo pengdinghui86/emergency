@@ -104,12 +104,14 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.item_listview_realtimetrack, null);
             mhHolder.executePeople = (TextView) convertView.findViewById(R.id.executePeople);
+            mhHolder.executePeopleTitle = (TextView) convertView.findViewById(R.id.executePeopleTitle);
             mhHolder.name_step = (TextView) convertView.findViewById(R.id.name_step);
             mhHolder.status = (TextView) convertView.findViewById(R.id.status);
             mhHolder.content = (TextView) convertView.findViewById(R.id.content);
 
             mhHolder.overtime = (TextView) convertView.findViewById(R.id.overtime);
             mhHolder.predict_time = (TextView) convertView.findViewById(R.id.predict_time);
+            mhHolder.predict_time_title = (TextView) convertView.findViewById(R.id.predict_time_title);
             mhHolder.ivdot = (ImageView) convertView.findViewById(R.id.dot);
             mhHolder.postiontv = (TextView) convertView.findViewById(R.id.postiontv);
             mhHolder.jumptv = (TextView) convertView.findViewById(R.id.jumptv);
@@ -669,7 +671,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             else
                 mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
         } else {
-            mhHolder.overtime.setText("");
+            mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
+            mhHolder.overtime.setText("0秒");
         }
         if (!entity.getDuration().equals("null")) {
             mhHolder.predict_time.setText(entity.getDuration() + "秒");
@@ -690,15 +693,20 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.ll_time.setVisibility(View.VISIBLE);
         }
         /**
-         * 子预案节点不需要执行人、已用时及预计执行时间
+         * 子预案节点不需要执行人，预计用时
          * 2018.7.23
          */
         if(entity.getNodeStepType().equals("CallActivity")) {
-            mhHolder.ll_time.setVisibility(View.GONE);
-            mhHolder.executePeople.setText("");
+            mhHolder.predict_time_title.setVisibility(View.INVISIBLE);
+            mhHolder.predict_time.setVisibility(View.INVISIBLE);
+            mhHolder.executePeopleTitle.setVisibility(View.INVISIBLE);
+            mhHolder.executePeople.setVisibility(View.INVISIBLE);
         }
         else {
-            mhHolder.ll_time.setVisibility(View.VISIBLE);
+            mhHolder.predict_time_title.setVisibility(View.VISIBLE);
+            mhHolder.predict_time.setVisibility(View.VISIBLE);
+            mhHolder.executePeopleTitle.setVisibility(View.VISIBLE);
+            mhHolder.executePeople.setVisibility(View.VISIBLE);
         }
 
         //根据子预案层级设置缩进幅度
@@ -758,7 +766,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             } else if (Exceptionerror != null) {
                 Toast.makeText(
                         context,
-                        Const.NETWORKERROR + Exceptionerror,
+                        Const.NETWORKERROR,
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -777,11 +785,13 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
 
     class ViewHolder {
         private TextView postiontv;// 第几步
+        private TextView executePeopleTitle;// 步骤执行人标题
         private TextView executePeople;// 步骤执行人
         private TextView name_step;// 步骤名称
         private TextView status;// 完成状态
         private TextView content;// 信息内容
         private TextView overtime;// （已用时：结束时间减去开始时间）
+        private TextView predict_time_title;// 预计用时标题
         private TextView predict_time;// 预计用时，单位秒
 
         /**
@@ -815,7 +825,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(context,
-                        Const.NETWORKERROR + Exceptionerror,
+                        Const.NETWORKERROR,
                         Toast.LENGTH_SHORT).show();
             }
             // if (Utils.getInstance().progressDialog.isShowing()) {
@@ -855,7 +865,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(context,
-                        Const.NETWORKERROR + Exceptionerror,
+                        Const.NETWORKERROR,
                         Toast.LENGTH_SHORT).show();
             }
             Utils.getInstance().hideProgressDialog();
@@ -893,7 +903,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(context,
-                        Const.NETWORKERROR + Exceptionerror,
+                        Const.NETWORKERROR,
                         Toast.LENGTH_SHORT).show();
             }
             Utils.getInstance().hideProgressDialog();

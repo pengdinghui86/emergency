@@ -63,11 +63,14 @@ public class UserReLoginParser {
 
 			@Override
 			public void onSuccess(String t) {
+				if(DemoApplication.sessionTimeoutCount > 2) {
+					DemoApplication.getInstance().return2Login();
+					return;
+				}
 				// TODO Auto-generated method stub
 				Log.i("UserReLoginParser", "UserReLoginParser" + t);
 				map = reloginParse(t);
 				if ("true".equals(map.get("success"))) {
-					DemoApplication.sessionTimeoutCount = 0;
 					// 保存cookie的值
 					DbCookieStore instance = DbCookieStore.INSTANCE;
 					List<HttpCookie> cookies = instance.getCookies();

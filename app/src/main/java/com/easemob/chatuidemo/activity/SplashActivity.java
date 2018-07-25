@@ -145,8 +145,6 @@ public class SplashActivity extends BaseActivity {
 				startActivity(intent);
 				finish();
 			} else if (Exceptionerror != null) {
-
-				str = Const.NETWORKERROR + Exceptionerror;
 				ToastUtil.showLongToast(
 						SplashActivity.this, "网络连接超时，请检查网络设置或IP地址是否正确");
 				Intent intent = new Intent(

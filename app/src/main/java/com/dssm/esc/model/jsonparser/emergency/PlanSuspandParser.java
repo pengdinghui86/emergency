@@ -81,6 +81,8 @@ public class PlanSuspandParser {
 
 			@Override
 			public void onSuccess(String t) {
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				// TODO Auto-generated method stub
 				Log.i("PlanSuspandParser", "PlanSuspandParser" + t);
 				map = loginRoleParse(t);
@@ -103,7 +105,8 @@ public class PlanSuspandParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(suspandEntity);
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(suspandEntity);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -111,7 +114,8 @@ public class PlanSuspandParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(suspandEntity);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(suspandEntity);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

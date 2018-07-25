@@ -65,6 +65,8 @@ public class PlanStarEventListParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("PlanStarListParser", t);
 				list = planStarListParser(t);
 				Log.i("PlanStarListParser", "PlanStarListParser" + list);
@@ -86,6 +88,7 @@ public class PlanStarEventListParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
+						if(DemoApplication.sessionTimeoutCount < 2)
 						request();
 					}
 					responseMsg = httpEx.getMessage();
@@ -94,7 +97,8 @@ public class PlanStarEventListParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request();
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request();
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

@@ -80,6 +80,8 @@ public class PlanAuthParser {
 			@Override
 			public void onSuccess(String t) {
 				// TODO Auto-generated method stub
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("PlanAuthParser", "PlanAuthParser" + t);
 				map = planAuthParse(t);
 				Log.i("PlanAuthParser", "PlanAuthParser" + map);
@@ -101,7 +103,8 @@ public class PlanAuthParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(id,  planAuthOpition,  planName,
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(id,  planAuthOpition,  planName,
 								planResName, planResType, planId, planStarterId, submitterId);
 					}
 					responseMsg = httpEx.getMessage();
@@ -110,7 +113,8 @@ public class PlanAuthParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(id,  planAuthOpition,  planName,
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(id,  planAuthOpition,  planName,
 							planResName, planResType, planId, planStarterId, submitterId);
 				} else { //其他错误
 					errorResult = "其他错误";

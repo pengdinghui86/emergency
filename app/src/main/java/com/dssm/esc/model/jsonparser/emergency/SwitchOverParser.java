@@ -80,6 +80,8 @@ public class SwitchOverParser {
 
 			@Override
 			public void onSuccess(String t) {
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				// TODO Auto-generated method stub
 				Log.i("SwitchOverParser", "SwitchOverParser" + t);
 				map = planChangeParse(t);
@@ -101,7 +103,8 @@ public class SwitchOverParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(id, planInfoId, status,
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(id, planInfoId, status,
 								message, nodeStepType, branch);
 					}
 					responseMsg = httpEx.getMessage();
@@ -110,7 +113,8 @@ public class SwitchOverParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(id, planInfoId, status,
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(id, planInfoId, status,
 							message, nodeStepType, branch);
 				} else { //其他错误
 					errorResult = "其他错误";

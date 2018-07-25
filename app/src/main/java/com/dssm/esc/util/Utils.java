@@ -452,7 +452,7 @@ public class Utils implements Serializable {
                 DemoApplication.applicationContext
                         .startActivity(intent);
             } else if (Exceptionerror != null) {
-                str = Const.NETWORKERROR + Exceptionerror;
+                str = Const.NETWORKERROR;
 //                            ToastUtil.showLongToast(
 //                                    DemoApplication.applicationContext, str);
                 Intent intent = new Intent(

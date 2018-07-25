@@ -70,6 +70,8 @@ public class UserLoginRoleParser {
 
 			@Override
 			public void onSuccess(String t) {
+				if(DemoApplication.sessionTimeoutCount > 0)
+					DemoApplication.sessionTimeoutCount = 0;
 				// TODO Auto-generated method stub
 				Log.i("UserLoginRoleParser", "UserLoginRoleParser" + t);
 				map = loginRoleParse(t);
@@ -91,7 +93,8 @@ public class UserLoginRoleParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						request(roleId);
+						if(DemoApplication.sessionTimeoutCount < 2)
+							request(roleId);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -99,7 +102,8 @@ public class UserLoginRoleParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					request(roleId);
+					if(DemoApplication.sessionTimeoutCount < 2)
+						request(roleId);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

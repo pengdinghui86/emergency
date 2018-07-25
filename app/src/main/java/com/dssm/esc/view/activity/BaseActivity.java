@@ -81,10 +81,6 @@ public class BaseActivity extends Activity {
 
 				str = stRerror;
 				ToastUtil.showLongToast(context, str);
-			} else if (Exceptionerror != null) {
-
-				str = Const.NETWORKERROR + Exceptionerror;
-//							ToastUtil.showLongToast(context, str);
 			}
 		}
 	};
