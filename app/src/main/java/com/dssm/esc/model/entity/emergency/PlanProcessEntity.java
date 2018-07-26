@@ -26,7 +26,70 @@ public class PlanProcessEntity implements Serializable {
 	
 	private String signStateB;//签到状态1，已签到，0，未签到
 	private String signStateC;//签到状态1，已签到，0，未签到
-	
+	private String nodeStepType;//节点类型
+	private String parentProcessStepId;//父节点步骤id
+	private String parentProcessNumber;//父节点序号
+	private String editOrderNum;//插入新增节点后的修正序号
+	private String orderNum;//序号
+	private String customNum;//自定义序号,用于本地排序
+	private int index;//节点的层级
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	public String getCustomNum() {
+		return customNum;
+	}
+
+	public void setCustomNum(String customNum) {
+		this.customNum = customNum;
+	}
+
+	public String getEditOrderNum() {
+		return editOrderNum;
+	}
+
+	public void setEditOrderNum(String editOrderNum) {
+		this.editOrderNum = editOrderNum;
+	}
+
+	public String getOrderNum() {
+		return orderNum;
+	}
+
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
+
+	public String getNodeStepType() {
+		return nodeStepType;
+	}
+
+	public void setNodeStepType(String nodeStepType) {
+		this.nodeStepType = nodeStepType;
+	}
+
+	public String getParentProcessStepId() {
+		return parentProcessStepId;
+	}
+
+	public void setParentProcessStepId(String parentProcessStepId) {
+		this.parentProcessStepId = parentProcessStepId;
+	}
+
+	public String getParentProcessNumber() {
+		return parentProcessNumber;
+	}
+
+	public void setParentProcessNumber(String parentProcessNumber) {
+		this.parentProcessNumber = parentProcessNumber;
+	}
+
 	public String getSignStateB() {
 		return signStateB;
 	}

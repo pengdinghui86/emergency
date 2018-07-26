@@ -98,7 +98,7 @@ public class UserReLoginParser {
 
 			@Override
 			public void onError(Throwable ex, boolean isOnCallback) {
-				if(DemoApplication.sessionTimeoutCount > 1) {
+				if(DemoApplication.sessionTimeoutCount > 2) {
 					DemoApplication.getInstance().return2Login();
 					return;
 				}

@@ -28,14 +28,22 @@ public class NSSetPointValueToSteps{
 		Collections.sort(temp, new Comparator<FlowChartPlanEntity.FlowChart>() {
 			@Override
 			public int compare(FlowChartPlanEntity.FlowChart o1, FlowChartPlanEntity.FlowChart o2) {
-				if (o1.getEditOrderNum() == null || "".equals(o1.getEditOrderNum()))
-					o1.setEditOrderNum("0");
-				if (o2.getEditOrderNum() == null || "".equals(o2.getEditOrderNum()))
-					o2.setEditOrderNum("0");
-				if(Integer.parseInt(o1.getEditOrderNum()) > Integer.parseInt(o2.getEditOrderNum())) {
+				if (o1.getOrderNum() == null || "".equals(o1.getOrderNum())) {
+					if(o1.getEditOrderNum() != null && !o1.getEditOrderNum().equals(""))
+						o1.setOrderNum(o1.getEditOrderNum());
+					else
+						o1.setOrderNum("0");
+				}
+				if (o2.getOrderNum() == null || "".equals(o2.getOrderNum())) {
+					if(o2.getEditOrderNum() != null && !o2.getEditOrderNum().equals(""))
+						o2.setOrderNum(o2.getEditOrderNum());
+					else
+						o2.setOrderNum("0");
+				}
+				if(Integer.parseInt(o1.getOrderNum()) > Integer.parseInt(o2.getOrderNum())) {
 					return 1;
 				}
-				else if(Integer.parseInt(o1.getEditOrderNum()) < Integer.parseInt(o2.getEditOrderNum())) {
+				else if(Integer.parseInt(o1.getOrderNum()) < Integer.parseInt(o2.getOrderNum())) {
 					return -1;
 				}
 				else {
@@ -60,63 +68,13 @@ public class NSSetPointValueToSteps{
 				}
 				steplist.add(new NSstep().setStep(chart.getId(), nextsetpids,
 						chart.getStatus(), chart.getBeginTime(), chart.getName(),
-						chart.getEditOrderNum(), chart.getType(), chart.getNodeStepType(),
+						chart.getOrderNum(), chart.getType(), chart.getNodeStepType(),
 						chart.getExecutePeople(), chart.getBeginTime(),
 						chart.getEndTime(), chart.getCode()));
 			}
 			else
 				subFlowChart.add(chart);
 		}
-
-		// /*steplist.add(new NSstep().setStep(10001, new int[]{1}, 10,
-		// "预案开始"));
-		//
-		// steplist.add(new NSstep().setStep(1, new int[]{2,3,4}, 1, "22:12"));
-		//
-		// steplist.add(new NSstep().setStep(2, new int[]{5,6}, 1, "15:56"));
-		// steplist.add(new NSstep().setStep(3, new int[]{7}, 2, "22:12"));
-		// steplist.add(new NSstep().setStep(4, new int[]{8}, 1, "15:56"));
-		//
-		//
-		// steplist.add(new NSstep().setStep(5, new int[]{9}, 1, "22:12"));
-		// steplist.add(new NSstep().setStep(6, new int[]{13}, 1, "15:56"));
-		// steplist.add(new NSstep().setStep(7, new int[]{10}, 2, "22:12"));
-		// steplist.add(new NSstep().setStep(8, new int[]{11,12}, 1, "15:56"));
-		//
-		//
-		// steplist.add(new NSstep().setStep(9, new int[]{14,15}, 1, "15:56"));
-		// steplist.add(new NSstep().setStep(13, new int[]{15}, 2, "22:12"));
-		// steplist.add(new NSstep().setStep(10, new int[]{15}, 2, "22:12"));
-		// steplist.add(new NSstep().setStep(11, new int[]{16}, 1, "15:56"));
-		// steplist.add(new NSstep().setStep(12, new int[]{16}, 1, "15:56"));
-		//
-		//
-		// steplist.add(new NSstep().setStep(14, new int[]{17}, 1, "15:56"));
-		// steplist.add(new NSstep().setStep(15, new int[]{17}, 1, "15:56"));
-		// steplist.add(new NSstep().setStep(16, new int[]{17}, 1, "15:56"));*/
-		/* steplist.add(new NSstep().setStep(17, new int[]{22}, 1, "15:56")); */
-		/*
-		 * steplist.add(new NSstep().setStep(18, new int[]{22}, 1, "15:56"));
-		 * steplist.add(new NSstep().setStep(19, new int[]{22}, 1, "15:56"));
-		 * steplist.add(new NSstep().setStep(20, new int[]{22}, 1, "15:56"));
-		 * steplist.add(new NSstep().setStep(21, new int[]{22}, 1, "15:56"));
-		 */
-
-		/*
-		 * //steplist.add(new NSstep().setStep(21, new int[]{29}, 1, "15:56"));
-		 * steplist.add(new NSstep().setStep(22, new int[]{29}, 1, "15:56"));
-		 * steplist.add(new NSstep().setStep(23, new int[]{29}, 2, "22:12"));
-		 * steplist.add(new NSstep().setStep(24, new int[]{29}, 2, "22:12"));
-		 * steplist.add(new NSstep().setStep(25, new int[]{29}, 2, "22:12"));
-		 * steplist.add(new NSstep().setStep(26, new int[]{29}, 2, "22:12"));
-		 * steplist.add(new NSstep().setStep(27, new int[]{29}, 2, "22:12"));
-		 * steplist.add(new NSstep().setStep(28, new int[]{30}, 2, "22:12"));
-		 * steplist.add(new NSstep().setStep(30, new int[]{29}, 2, "22:12"));
-		 */
-
-		// steplist.add(new NSstep().setStep(17, new int[]{10002}, 1, "15:56"));
-		//
-		// steplist.add(new NSstep().setStep(10002, new int[]{}, 10, "预案结束"));
 		getStepPointBySteps();
 	}
 

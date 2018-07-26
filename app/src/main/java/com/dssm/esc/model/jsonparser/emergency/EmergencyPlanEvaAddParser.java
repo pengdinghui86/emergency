@@ -109,7 +109,7 @@ public class EmergencyPlanEvaAddParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						if(DemoApplication.sessionTimeoutCount < 2)
+						if(DemoApplication.sessionTimeoutCount < 3)
 							request(tag, addEntity);
 					}
 					responseMsg = httpEx.getMessage();
@@ -118,7 +118,7 @@ public class EmergencyPlanEvaAddParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					if(DemoApplication.sessionTimeoutCount < 2)
+					if(DemoApplication.sessionTimeoutCount < 3)
 						request(tag, addEntity);
 				} else { //其他错误
 					errorResult = "其他错误";

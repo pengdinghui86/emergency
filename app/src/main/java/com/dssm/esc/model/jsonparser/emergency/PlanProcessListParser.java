@@ -89,7 +89,7 @@ public class PlanProcessListParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						if(DemoApplication.sessionTimeoutCount < 2)
+						if(DemoApplication.sessionTimeoutCount < 3)
 							request(planInfoId);
 					}
 					responseMsg = httpEx.getMessage();
@@ -98,7 +98,7 @@ public class PlanProcessListParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					if(DemoApplication.sessionTimeoutCount < 2)
+					if(DemoApplication.sessionTimeoutCount < 3)
 						request(planInfoId);
 				} else { //其他错误
 					errorResult = "其他错误";
@@ -144,8 +144,11 @@ public class PlanProcessListParser {
 							.getString("executePeople"));
 					listEntity.setExecutePeopleType(jsonObject2
 							.getString("executePeopleType"));
-					
-					
+					listEntity.setNodeStepType(jsonObject2.getString("nodeStepType"));
+					listEntity.setParentProcessStepId(jsonObject2.getString("parentProcessStepId"));
+					listEntity.setEditOrderNum(jsonObject2.getString("editOrderNum"));
+					listEntity.setOrderNum(jsonObject2.getString("orderNum"));
+
 					String executorA = jsonObject2
 							.getString("executorA");
 					String executorB = jsonObject2

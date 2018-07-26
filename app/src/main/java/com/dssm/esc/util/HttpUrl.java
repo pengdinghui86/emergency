@@ -224,7 +224,7 @@ public class HttpUrl {
      * 待指派列表
      */
     public final static String GETASSIGNLISTBYSTATE = 
-            "emergency/planInfo/getByStateList?state=1,2";
+            "emergency/planInfo/getByStateList?state=1,2,3";
     /**
      * 预案小组应急列表
      * 2018.7.11由getmergencyGroupData?planInfoId=接口更改为getSignUserInfo?id=接口

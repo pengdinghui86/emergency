@@ -2,6 +2,7 @@ package com.dssm.esc.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,7 +36,7 @@ private String planInfoId;
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.arraylist = list;
-this.planInfoId=planInfoId;
+		this.planInfoId = planInfoId;
 	}
 
 	@Override
@@ -69,6 +70,8 @@ this.planInfoId=planInfoId;
 
 			mhHolder.stepname = (TextView) convertView
 					.findViewById(R.id.stepname);
+			mhHolder.whodone_title = (TextView) convertView
+					.findViewById(R.id.tv);
 			mhHolder.whodone_name = (TextView) convertView
 					.findViewById(R.id.whodone_name);
 			mhHolder.who_task = (TextView) convertView
@@ -83,7 +86,10 @@ this.planInfoId=planInfoId;
 		mhHolder.stepname.setText(entity.getName());
 		String stepname = entity.getExecutePeople();
 		String state = entity.getExecutePeopleType();
-		mhHolder.numbertv.setText(""+(position+1));
+		if(entity.getOrderNum() != null && !("").equals(entity.getOrderNum()))
+			mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getOrderNum());
+		else if(entity.getEditOrderNum() != null && !("").equals(entity.getEditOrderNum()))
+			mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getEditOrderNum());
 		if (state.equals("0")) {
 			stepname="无执行人";
 			mhHolder.who_task.setVisibility(View.GONE);
@@ -107,25 +113,40 @@ this.planInfoId=planInfoId;
 			mhHolder.who_task.setVisibility(View.GONE);
 		}
 		mhHolder.whodone_name.setText(stepname);
-		mhHolder.assign.setOnClickListener(new OnClickListener() {
+		if(entity.getNodeStepType().equals("CallActivity")) {
+			mhHolder.assign.setVisibility(View.INVISIBLE);
+			mhHolder.who_task.setVisibility(View.GONE);
+			mhHolder.whodone_name.setVisibility(View.GONE);
+			mhHolder.whodone_title.setVisibility(View.GONE);
+			mhHolder.stepname.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+		}
+		else {
+			mhHolder.assign.setVisibility(View.VISIBLE);
+			mhHolder.who_task.setVisibility(View.VISIBLE);
+			mhHolder.whodone_name.setVisibility(View.VISIBLE);
+			mhHolder.whodone_title.setVisibility(View.VISIBLE);
+			mhHolder.stepname.setGravity(Gravity.LEFT|Gravity.TOP);
+			mhHolder.assign.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				//mhHolder.assign.setBackgroundResource(R.drawable.btbg_gray);
-				Intent intent = new Intent(context, AssignmentActivity.class);
-				intent.putExtra("id", entity.getId());//// 流程步骤id
-				intent.putExtra("planInfoId", planInfoId);
-				intent.putExtra("entity", entity);
-				context.startActivity(intent);
-			}
-		});
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					//mhHolder.assign.setBackgroundResource(R.drawable.btbg_gray);
+					Intent intent = new Intent(context, AssignmentActivity.class);
+					intent.putExtra("id", entity.getId());//// 流程步骤id
+					intent.putExtra("planInfoId", planInfoId);
+					intent.putExtra("entity", entity);
+					context.startActivity(intent);
+				}
+			});
+		}
 
 		return convertView;
 	}
 
 	public class ViewHolder {
 		private TextView stepname;// 步骤名
+		private TextView whodone_title;// 执行人文本
 		private TextView whodone_name;// 执行人名字
 		private TextView who_task;// 执行人任务
 		private TextView assign;// 指派

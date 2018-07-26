@@ -24,6 +24,8 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 人员指派界面
  * 
@@ -50,7 +52,8 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 	@ViewInject(R.id.pemptytv)
 	private TextView emptytv;
 	/** 类型数据 */
-	private ArrayList<PlanProcessEntity> list = new ArrayList<PlanProcessEntity>();
+	private ArrayList<PlanProcessEntity> list = new ArrayList<>();
+	private ArrayList<PlanProcessEntity> entities = new ArrayList<>();
 	/** 适配器 */
 	private PersonAssignListvAdapter mSelectAdapter;
 	private String id;// 流程步骤id
@@ -118,6 +121,49 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 		}
 	}
 
+	private void addIndex(List<PlanProcessEntity> result) {
+		for(PlanProcessEntity planProcessEntity : result) {
+			int index = 0;
+			String parentOrderNum = "";
+			String parentId = planProcessEntity.getParentProcessStepId();
+			while (parentId != null && !"".equals(parentId)) {
+				index++;
+				int i = 0;
+				for (PlanProcessEntity planProcessEntity1 : result) {
+					if(planProcessEntity1.getId().equals(parentId)) {
+						parentId = planProcessEntity1.getParentProcessStepId();
+						String num = "";
+						if (!planProcessEntity1.getOrderNum().equals("null")) {
+							num = planProcessEntity1.getOrderNum() + ".";
+						}
+						else if (!planProcessEntity1.getEditOrderNum().equals("null")) {
+							num = planProcessEntity1.getEditOrderNum() + ".";
+						}
+						parentOrderNum = num + parentOrderNum;
+						i++;
+						break;
+					}
+				}
+				if(i == 0)
+					break;
+			}
+			planProcessEntity.setIndex(index);
+			planProcessEntity.setParentProcessNumber(parentOrderNum);
+		}
+	}
+
+	private void reSort(List<PlanProcessEntity> result, String parentId, int index) {
+		for(PlanProcessEntity planProcessEntity : result) {
+			if(planProcessEntity.getIndex() == index
+					&& parentId.equals(planProcessEntity.getParentProcessStepId())) {
+				entities.add(planProcessEntity);
+				if("CallActivity".equals(planProcessEntity.getNodeStepType())) {
+					reSort(result, planProcessEntity.getId(), index + 1);
+				}
+			}
+		}
+	}
+
 	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
 		@Override
@@ -139,6 +185,14 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 						PersonnelAssignmentActivity.this,
 						Const.NETWORKERROR);
 			}
+			entities.clear();
+			//增加子预案层级标记
+			addIndex(result);
+			//根据子预案层级关系重新排序
+			reSort(result, "", 0);
+			result.clear();
+			result.addAll(entities);
+
 			Message msg = new Message();
 			msg.what = 0;
 			msg.obj = result;

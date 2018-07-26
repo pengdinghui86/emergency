@@ -309,11 +309,11 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     if(flowChart1.getId().equals(parentId)) {
                         parentId = flowChart1.getParentProcessStepId();
                         String num = "";
-                        if (!flowChart1.getEditOrderNum().equals("null")) {
-                            num = flowChart1.getEditOrderNum() + ".";
-                        }
-                        else if (!flowChart1.getOrderNum().equals("null")) {
+                        if (!flowChart1.getOrderNum().equals("null")) {
                             num = flowChart1.getOrderNum() + ".";
+                        }
+                        else if (!flowChart1.getEditOrderNum().equals("null")) {
+                            num = flowChart1.getEditOrderNum() + ".";
                         }
                         parentOrderNum = num + parentOrderNum;
                         i++;
