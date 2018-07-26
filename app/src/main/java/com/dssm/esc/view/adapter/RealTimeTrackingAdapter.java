@@ -711,7 +711,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.executePeopleTitle.setText("已用时：");
             mhHolder.executePeopleTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             mhHolder.executePeople.setText(mhHolder.overtime.getText().toString());
-            mhHolder.executePeople.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            mhHolder.executePeople.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             mhHolder.executePeople.setTextColor(mhHolder.overtime.getTextColors());
             mhHolder.ll_time.setVisibility(View.GONE);
         }
