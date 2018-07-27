@@ -162,21 +162,35 @@
 
 #第三方库不混淆
 -keep class com.google.gson.** {*;}
+-keep interface com.google.gson.** {*;}
 -keep class com.squareup.haha.** {*;}
+-keep interface com.squareup.haha.** {*;}
 -keep class com.squareup.** {*;}
+-keep interface com.squareup.** {*;}
 -keep class org.hamcrest.** {*;}
+-keep interface org.hamcrest.** {*;}
 -keep class * extends java.lang.annotation.Annotation{*;}
+-keep interface * extends java.lang.annotation.Annotation{*;}
+-keep interface bolts.** {*;}
 -keep class bolts.** {*;}
 -keep class de.greenrobot.event.** {*;}
+-keep interface de.greenrobot.event.** {*;}
 -keep class com.google.android.gms.** {*;}
+-keep interface com.google.android.gms.** {*;}
 -keep class org.apache.http.client.** {*;}
+-keep interface org.apache.http.client.** {*;}
 -keep class com.jg.** {*;}
+-keep interface com.jg.** {*;}
 -keep class com.parse.** {*;}
+-keep interface com.parse.** {*;}
 
 #环信避免混淆
 -keep class com.easemob.** {*;}
+-keep interface com.easemob.** {*;}
 -keep class org.jivesoftware.** {*;}
+-keep interface org.jivesoftware.** {*;}
 -keep class org.apache.** {*;}
+-keep interface org.apache.** {*;}
 -dontwarn  com.easemob.**
 #2.0.9后的不需要加下面这个keep
 #-keep class org.xbill.DNS.** {*;}

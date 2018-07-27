@@ -251,6 +251,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
         //判断节点
         if(childEntity.getNodeStepType().equals("ExclusiveGateway")) {
             ll_operation_menu.setVisibility(View.GONE);
+            submit_infomation_ll.setVisibility(View.GONE);
             view_operation.setVisibility(View.GONE);
         }
 
@@ -468,7 +469,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 Log.i("planInfoId", planInfoId);
                 Log.i("changeStatus", changeStatus);
                 Log.i("message", message);
-                if (!message.equals("")) {
+                if (!message.equals("") || childEntity.getNodeStepType().equals("ExclusiveGateway")) {
 
                     if (!id.equals("") && !planInfoId.equals("")
                             && !changeStatus.equals("")) {
