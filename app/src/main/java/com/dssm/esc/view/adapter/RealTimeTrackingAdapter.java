@@ -692,22 +692,11 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         }
 
         /**
-         * 添加执行完成状态
-         * 2017.10.23
-         * 2018.4.24 新增节点不显示执行人等状态
-         */
-        if (26 == Integer.parseInt(entity.getStatus()) || ((null == entity.getType()) ? false : entity.getType().equals("drillNew"))) {
-            mhHolder.ll_executePeople.setVisibility(View.GONE);
-            mhHolder.ll_time.setVisibility(View.GONE);
-        } else {
-            mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
-            mhHolder.ll_time.setVisibility(View.VISIBLE);
-        }
-        /**
          * 子预案节点不需要执行人，预计用时
          * 2018.7.23
          */
         if(entity.getNodeStepType().equals("CallActivity")) {
+            mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
             mhHolder.executePeopleTitle.setText("已用时：");
             mhHolder.executePeopleTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             mhHolder.executePeople.setText(mhHolder.overtime.getText().toString());
@@ -715,7 +704,17 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.executePeople.setTextColor(mhHolder.overtime.getTextColors());
             mhHolder.ll_time.setVisibility(View.GONE);
         }
+        /**
+         * 添加执行完成状态
+         * 2017.10.23
+         * 2018.4.24 新增节点不显示执行人等状态
+         */
+        else if (26 == Integer.parseInt(entity.getStatus()) || ((null == entity.getType()) ? false : entity.getType().equals("drillNew"))) {
+            mhHolder.ll_executePeople.setVisibility(View.GONE);
+            mhHolder.ll_time.setVisibility(View.GONE);
+        }
         else {
+            mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
             mhHolder.executePeopleTitle.setText("执行人：");
             mhHolder.executePeopleTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             mhHolder.executePeople.setTextColor(context.getResources().getColor(R.color.colorWeFontBlack));

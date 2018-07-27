@@ -123,6 +123,8 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 
 	private void addIndex(List<PlanProcessEntity> result) {
 		for(PlanProcessEntity planProcessEntity : result) {
+			if(planProcessEntity.getParentProcessStepId() == null || planProcessEntity.getParentProcessStepId().equals("null"))
+				planProcessEntity.setParentProcessStepId("");
 			int index = 0;
 			String parentOrderNum = "";
 			String parentId = planProcessEntity.getParentProcessStepId();
@@ -155,7 +157,8 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 	private void reSort(List<PlanProcessEntity> result, String parentId, int index) {
 		for(PlanProcessEntity planProcessEntity : result) {
 			if(planProcessEntity.getIndex() == index
-					&& parentId.equals(planProcessEntity.getParentProcessStepId())) {
+					&& parentId.equals(planProcessEntity.getParentProcessStepId())
+					&& !planProcessEntity.getNodeStepType().equals("drillNew")) {
 				entities.add(planProcessEntity);
 				if("CallActivity".equals(planProcessEntity.getNodeStepType())) {
 					reSort(result, planProcessEntity.getId(), index + 1);

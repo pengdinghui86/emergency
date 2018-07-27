@@ -173,15 +173,24 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 		for (int i = 0; i < planTreeList.size(); i++) {
 			TreeNode treeNode = new TreeNode(planTreeList.get(i).getName());
 			treeNode.setLevel(0);
-			for (int j = 0; j < planTreeList.get(i).getEmeGroups().size(); j++) {
-				TreeNode treeNode1 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getGroupname());
-				treeNode1.setLevel(1);
-				for (int k = 0; k < planTreeList.get(i).getEmeGroups().get(j).getcList().size(); k++) {
-					TreeNode treeNode2 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getcList().get(k));
+			if("".equals(planTreeList.get(i).getTreeId())) {
+				for (int k = 0; k < planTreeList.get(i).getEmeGroups().get(0).getcList().size(); k++) {
+					TreeNode treeNode2 = new TreeNode(planTreeList.get(i).getEmeGroups().get(0).getcList().get(k));
 					treeNode2.setLevel(2);
-					treeNode1.addChild(treeNode2);
+					treeNode.addChild(treeNode2);
 				}
-				treeNode.addChild(treeNode1);
+			}
+			else {
+				for (int j = 0; j < planTreeList.get(i).getEmeGroups().size(); j++) {
+					TreeNode treeNode1 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getGroupname());
+					treeNode1.setLevel(1);
+					for (int k = 0; k < planTreeList.get(i).getEmeGroups().get(j).getcList().size(); k++) {
+						TreeNode treeNode2 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getcList().get(k));
+						treeNode2.setLevel(2);
+						treeNode1.addChild(treeNode2);
+					}
+					treeNode.addChild(treeNode1);
+				}
 			}
 			root.addChild(treeNode);
 		}

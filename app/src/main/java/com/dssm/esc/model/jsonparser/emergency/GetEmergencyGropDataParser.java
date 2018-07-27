@@ -201,30 +201,55 @@ public class GetEmergencyGropDataParser {
 					List<GroupEntity> list = new ArrayList<>();
 					JSONArray jsonArray3 = jsonObject3
 							.getJSONArray("emeGroups");
+					String treeId = !jsonObject3.has("treeId") ? "" : jsonObject3.getString("treeId");
+					if(treeId == null || ("").equals(treeId))
+						planEntity.setTreeId("");
+					else
+						planEntity.setTreeId(treeId);
+					//预案知情人
+					GroupEntity entity = new GroupEntity();
+					List<ChildEntity> childEntityList = new ArrayList<>();
 					for (int i = 0; i < jsonArray3.length(); i++) {
-						GroupEntity groupEntity = new GroupEntity();
-						JSONObject jsonObject2 = (JSONObject) jsonArray3.opt(i);
-						groupEntity.setGroupname(jsonObject2.getString("emergTeam"));
-						List<ChildEntity> list2 = new ArrayList<ChildEntity>();
-						JSONArray jsonArray2 = jsonObject2
-								.getJSONArray("users");
-						for (int j = 0; j < jsonArray2.length(); j++) {
-							JSONObject jsonObject = (JSONObject) jsonArray2.opt(j);
+						if(("").equals(planEntity.getTreeId())) {
+							JSONObject jsonObject = (JSONObject) jsonArray3.opt(i);
 							ChildEntity childEntity = new ChildEntity();
-
 							childEntity.setSex(jsonObject.getString("sex") == null ? "" : jsonObject.getString("sex"));
-							childEntity.setEmergTeam(jsonObject
-									.getString("emergTeam"));
 							childEntity.setZhiwei(jsonObject.getString("postName"));
 							childEntity.setPhoneNumber(jsonObject.getString("telephone"));
 							childEntity.setChild_id(jsonObject.getString("postFlag"));
 							childEntity.setEmail(jsonObject.getString("email"));
 							childEntity.setName(jsonObject.getString("userName"));
-
-							list2.add(childEntity);
+							childEntityList.add(childEntity);
 						}
-						groupEntity.setcList(list2);
-						list.add(groupEntity);
+						else {
+							GroupEntity groupEntity = new GroupEntity();
+							JSONObject jsonObject2 = (JSONObject) jsonArray3.opt(i);
+							groupEntity.setGroupname(jsonObject2.getString("emergTeam"));
+							List<ChildEntity> list2 = new ArrayList<>();
+							JSONArray jsonArray2 = jsonObject2
+									.getJSONArray("users");
+							for (int j = 0; j < jsonArray2.length(); j++) {
+								JSONObject jsonObject = (JSONObject) jsonArray2.opt(j);
+								ChildEntity childEntity = new ChildEntity();
+
+								childEntity.setSex(jsonObject.getString("sex") == null ? "" : jsonObject.getString("sex"));
+								childEntity.setEmergTeam(jsonObject
+										.getString("emergTeam"));
+								childEntity.setZhiwei(jsonObject.getString("postName"));
+								childEntity.setPhoneNumber(jsonObject.getString("telephone"));
+								childEntity.setChild_id(jsonObject.getString("postFlag"));
+								childEntity.setEmail(jsonObject.getString("email"));
+								childEntity.setName(jsonObject.getString("userName"));
+
+								list2.add(childEntity);
+							}
+							groupEntity.setcList(list2);
+							list.add(groupEntity);
+						}
+					}
+					if(("").equals(planEntity.getTreeId())) {
+						entity.setcList(childEntityList);
+						list.add(entity);
 					}
 					planEntity.setEmeGroups(list);
 					planList.add(planEntity);

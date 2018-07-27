@@ -124,7 +124,7 @@
             <TextView
                 style="@style/radio_tab2"
                 android:layout_height="match_parent"
-                android:layout_marginRight="16dp"
+                android:paddingRight="10dp"
                 android:background="#00000000"
                 android:focusable="false"
                 android:focusableInTouchMode="false" />
@@ -135,11 +135,9 @@
             android:layout_toRightOf="@id/rl_segmented"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/message" />
 
