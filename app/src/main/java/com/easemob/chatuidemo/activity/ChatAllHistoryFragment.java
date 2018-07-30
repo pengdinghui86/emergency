@@ -102,8 +102,8 @@ public class ChatAllHistoryFragment extends Fragment implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                if (((MainActivity) getActivity()).msgcount > 0) {
-                    ((MainActivity) getActivity()).msgcount = 0;
+                if (((MainActivity) getActivity()).hxMsgCount > 0) {
+                    ((MainActivity) getActivity()).hxMsgCount = 0;
                 }
 
                 EMConversation conversation = adapter.getItem(position);

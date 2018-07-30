@@ -93,7 +93,6 @@ public class EmergencyServiceImpl implements EmergencyService {
 					flag = true;
 				} else {
 					flag = false;
-					stRerror = "失败";
 				}
 				stRerror = map.get("message");
 			} else {

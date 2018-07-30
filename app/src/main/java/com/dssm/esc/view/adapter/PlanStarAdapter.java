@@ -91,7 +91,7 @@ public class PlanStarAdapter extends BaseAdapter {
 			mhHolder.evecodetv.setText(entity.getEveCode());
 			mhHolder.tradeTypetv.setText(entity.getTradeType());
 			mhHolder.eveLeveltv.setText(entity.getEveLevel());
-			// 0:，初始状态；1，待预案评估；2，执行中；3，结束；-1，驳回评估
+			// 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
 			if (!entity.getState().equals("null")
 					&& !entity.getState().equals("")) {
 				String status = "";
@@ -108,7 +108,9 @@ public class PlanStarAdapter extends BaseAdapter {
 				case 3:
 					status = "结束";
 					break;
-
+				case 5:
+					status = "启动中";
+					break;
 				case -1:
 					status = "驳回评估";
 					break;

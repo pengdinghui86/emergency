@@ -149,13 +149,16 @@ public class PlanStarParser {
 						request(id,  usePlan,
 							detailObjEntity);
 				} else if(ex instanceof SocketTimeoutException) {
-					errorResult = "服务器响应超时";
+					map = new HashMap<String, String> ();
+					map.put("success", "false");
+					errorResult = "事件正在启动中，请刷新事件列表查看事件状态";
+					map.put("message", errorResult);
 				}
 				else { //其他错误
 					errorResult = "其他错误";
 				}
 				if(onEmergencyCompleteListener != null)
-					onEmergencyCompleteListener.onEmergencyParserComplete(null, errorResult);
+					onEmergencyCompleteListener.onEmergencyParserComplete(map, errorResult);
 			}
 
 			@Override

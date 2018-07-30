@@ -3,9 +3,11 @@ package com.dssm.esc.view.activity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -166,6 +168,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private UserSevice userSevice;
     private boolean flag = true;
 
+    private MsgReceiver msgReceiver;
+
     private PermissionsChecker mPermissionsChecker; // 权限检测器
     private static final int REQUEST_CODE = 0; // 请求码
     // 所需的全部权限
@@ -316,6 +320,41 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             startPermissionsActivity(permissionList.toArray(new String[permissionList.size()]));
         }
         ActivityCollector.addActivity(this);
+
+        //动态注册广播接收器
+        msgReceiver = new MsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.dssm.esc.RECEIVER");
+        registerReceiver(msgReceiver, intentFilter);
+    }
+
+    /**
+     * 广播接收器
+     * @author len
+     *
+     */
+    public class MsgReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //获取信鸽消息，更新UI
+            final String msgType = intent.getStringExtra("msgType");
+            switch (msgType) {
+                case "1":
+                    xgTaskMsgCount ++;
+                    break;
+                case "2":
+                    xgSysMsgCount ++;
+                    break;
+                case "3":
+                    xgEmergencyMsgCount ++;
+                    break;
+                case "4":
+                    xgPersonalMsgCount ++;
+                    break;
+            }
+            refreshUI();
+        }
     }
 
     private static MyConnectionListener connectionListener = null;
@@ -588,16 +627,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 } else {
                     transaction.show(messageFragment);
                 }
-                if(redPointView != null) {
-                    redPointView.setText(String.valueOf(unReadCount));
-                    Log.i("unReadCount", String.valueOf(unReadCount));
-                    if (unReadCount > 0) {
-
-                        redPointView.show();
-                    } else {
-                        redPointView.hide();
-                    }
-                }
                 break;
             case 1:// 添加 并展示 通讯录碎片
                 currentTabIndex = 1;
@@ -866,19 +895,41 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         }
     }
 
-    public int msgcount;
+    //环信未读消息总数
+    public int hxMsgCount;
+
+    //信鸽推送任务未读消息总数
+    public int xgTaskMsgCount;
+
+    //信鸽推送系统未读消息总数
+    public int xgSysMsgCount;
+
+    //信鸽推送紧急未读消息总数
+    public int xgEmergencyMsgCount;
+
+    //信鸽推送个人未读消息总数
+    public int xgPersonalMsgCount;
 
     private void refreshUI() {
         runOnUiThread(new Runnable() {
             public void run() {
                 // 刷新bottom bar消息未读数
-                msgcount = updateUnreadLabel();
+                hxMsgCount = updateUnreadLabel();
                 if (currentTabIndex == 0) {
                     // 当前页面如果为聊天历史页面，刷新此页面
                     if (messageFragment != null) {
-                        messageFragment.refresh(msgcount);
+                        messageFragment.refresh(hxMsgCount);
                     }
                 }
+                int totalMsgCount = hxMsgCount + xgTaskMsgCount + xgSysMsgCount + xgEmergencyMsgCount + xgPersonalMsgCount;
+                if(totalMsgCount > 99)
+                    redPointView.setText(99 + "");
+                else
+                    redPointView.setText(totalMsgCount + "");
+                if(totalMsgCount > 0)
+                    redPointView.show();
+                else
+                    redPointView.hide();
             }
         });
     }
@@ -919,7 +970,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 "JSESSIONID").equals(""))
         {
             if (!isConflict && !isCurrentAccountRemoved) {
-                // msgcount=updateUnreadLabel();
+                // hxMsgCount=updateUnreadLabel();
                 EMChatManager.getInstance().activityResumed();
             }
             relogin();

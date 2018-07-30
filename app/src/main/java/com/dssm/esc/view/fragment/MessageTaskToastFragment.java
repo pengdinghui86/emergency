@@ -17,7 +17,7 @@ import com.dssm.esc.model.entity.message.FirstAllMessagesEntity;
 import com.dssm.esc.model.entity.message.MessageInfoEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
-import com.dssm.esc.util.event.MessagCountEvent;
+import com.dssm.esc.util.event.MessageCountEvent;
 import com.dssm.esc.util.event.Toast;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.MainActivity;
@@ -250,7 +250,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 
 			getDBData(dataList, curWhat);
 			EventBus.getDefault().post(
-					new MessagCountEvent(count1, count2,
+					new MessageCountEvent(count1, count2,
 							count3, count4));
 		}
 	};

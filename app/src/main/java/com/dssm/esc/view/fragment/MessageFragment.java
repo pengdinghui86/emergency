@@ -32,7 +32,7 @@ import com.dssm.esc.util.Const;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.Emergenct;
-import com.dssm.esc.util.event.MessagCountEvent;
+import com.dssm.esc.util.event.MessageCountEvent;
 import com.dssm.esc.util.event.My;
 import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.System;
@@ -84,18 +84,13 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	private String table2 = "";
 	private String table3 = "";
 	private String table4 = "";
-	/** 未读消息的条数 */
-	private String count1 = "0";
-	private String count2 = "0";
-	private String count3 = "0";
-	private String count4 = "0";
+
 	private RedPointView redPointView1;
 	private RedPointView redPointView2;
 	private RedPointView redPointView3;
 	private RedPointView redPointView4;
 	private RedPointView redPointView5;
-	/*** 总的未读消息 */
-	private int allCounts = 0;
+
 	private ImageView setting;
 	private PopupWindow pop = null;
 	private LinearLayout ll_popup;
@@ -200,10 +195,10 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void initGetData() {
 		// TODO Auto-generated method stub
-		redPointView1 = remind(rb_task, count1);
-		redPointView2 = remind(rb_system, count2);
-		redPointView3 = remind(rb_emergency, count3);
-		redPointView4 = remind(rb_mymessage, count4);
+		redPointView1 = remind(rb_task, ((MainActivity) getActivity()).xgTaskMsgCount + "");
+		redPointView2 = remind(rb_system, ((MainActivity) getActivity()).xgSysMsgCount + "");
+		redPointView3 = remind(rb_emergency, ((MainActivity) getActivity()).xgEmergencyMsgCount + "");
+		redPointView4 = remind(rb_mymessage, ((MainActivity) getActivity()).xgPersonalMsgCount + "");
 		redPointView5 = remind(message, "");
 		switchView(tag);
 	}
@@ -296,8 +291,8 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			// myMessagesFragment.loadData(0);
 			break;
 		case 4:// 环信（消息记录）
-			if (((MainActivity) getActivity()).msgcount > 0) {
-				((MainActivity) getActivity()).msgcount = 0;
+			if (((MainActivity) getActivity()).hxMsgCount > 0) {
+				((MainActivity) getActivity()).hxMsgCount = 0;
 			}
 			if (chatHistoryFragment == null) {
 				chatHistoryFragment = new ChatAllHistoryFragment();
@@ -353,43 +348,54 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	 * @param data
 	 */
 	public void onEvent(com.dssm.esc.util.event.Toast data) {
-		count1 = data.count1;
+		((MainActivity) getActivity()).xgTaskMsgCount = Integer.parseInt(data.count1);
 
-		if (count1.equals("0")) {
+		if (((MainActivity) getActivity()).xgTaskMsgCount < 1) {
 			redPointView1.hide();
 		} else {
 			redPointView1.show();
 		}
+        Intent intent = new Intent("com.dssm.esc.RECEIVER");
+        intent.putExtra("msgType", "");
+        getActivity().sendBroadcast(intent);
 	}
 
 	public void onEvent(System data) {
-		count2 = data.count2;
+		((MainActivity) getActivity()).xgSysMsgCount = Integer.parseInt(data.count2);
 
-		if (count2.equals("0")) {
+		if (((MainActivity) getActivity()).xgSysMsgCount  < 1) {
 			redPointView2.hide();
 		} else {
 			redPointView2.show();
 		}
+        Intent intent = new Intent("com.dssm.esc.RECEIVER");
+        intent.putExtra("msgType", "");
+        getActivity().sendBroadcast(intent);
 	}
 
 	public void onEvent(Emergenct data) {
-		count3 = data.count3;
-		if (count3.equals("0")) {
+		((MainActivity) getActivity()).xgEmergencyMsgCount  = Integer.parseInt(data.count3);
+		if (((MainActivity) getActivity()).xgEmergencyMsgCount < 1) {
 			redPointView3.hide();
 		} else {
 			redPointView3.show();
 		}
+        Intent intent = new Intent("com.dssm.esc.RECEIVER");
+        intent.putExtra("msgType", "");
+        getActivity().sendBroadcast(intent);
 	}
 
 	public void onEvent(My data) {
-		count4 = data.count4;
+		((MainActivity) getActivity()).xgPersonalMsgCount = Integer.parseInt(data.count4);
 
-		if (count4.equals("0")) {
+		if (((MainActivity) getActivity()).xgPersonalMsgCount < 1) {
 			redPointView4.hide();
 		} else {
 			redPointView4.show();
 		}
-
+        Intent intent = new Intent("com.dssm.esc.RECEIVER");
+        intent.putExtra("msgType", "");
+        getActivity().sendBroadcast(intent);
 	}
 
 	/**
@@ -442,43 +448,40 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	 * 
 	 * @param data
 	 */
-	public void onEvent(MessagCountEvent data) {
-		count1 = data.count1;
-		count2 = data.count2;
-		count3 = data.count3;
-		count4 = data.count4;
-		// allCounts=Integer.parseInt(count1)+Integer.parseInt(count2)+Integer.parseInt(count3);
-		Log.i("count1", count1);
-		Log.i("count2", count2);
-		Log.i("count3", count3);// 紧急
-		Log.i("count4", count4);// 个人
-		Log.i("allCounts", allCounts + "");
-		// EventBus.getDefault()
-		// .post(new AllUnReadMessageCount(allCounts));
-		redPointView1.setText(count1);// 需要显示的提醒类容
-		redPointView2.setText(count2);// 需要显示的提醒类容
-		redPointView3.setText(count3);// 需要显示的提醒类容
-		redPointView4.setText(count4);// 需要显示的提醒类容
-		if (count1.equals("0")) {
+	public void onEvent(MessageCountEvent data) {
+
+		((MainActivity) getActivity()).xgTaskMsgCount = Integer.parseInt(data.count1);
+		((MainActivity) getActivity()).xgSysMsgCount = Integer.parseInt(data.count2);
+		((MainActivity) getActivity()).xgEmergencyMsgCount = Integer.parseInt(data.count3);
+		((MainActivity) getActivity()).xgPersonalMsgCount = Integer.parseInt(data.count4);
+
+		redPointView1.setText(((MainActivity) getActivity()).xgTaskMsgCount + "");
+		redPointView2.setText(((MainActivity) getActivity()).xgSysMsgCount + "");
+		redPointView3.setText(((MainActivity) getActivity()).xgEmergencyMsgCount + "");
+		redPointView4.setText(((MainActivity) getActivity()).xgPersonalMsgCount + "");
+		if (((MainActivity) getActivity()).xgTaskMsgCount < 1) {
 			redPointView1.hide();
 		} else {
 			redPointView1.show();
 		}
-		if (count2.equals("0")) {
+		if (((MainActivity) getActivity()).xgSysMsgCount < 1) {
 			redPointView2.hide();
 		} else {
 			redPointView2.show();
 		}
-		if (count3.equals("0")) {
+		if (((MainActivity) getActivity()).xgEmergencyMsgCount < 1) {
 			redPointView3.hide();
 		} else {
 			redPointView3.show();
 		}
-		if (count4.equals("0")) {
+		if (((MainActivity) getActivity()).xgPersonalMsgCount < 1) {
 			redPointView4.hide();
 		} else {
 			redPointView4.show();
 		}
+		Intent intent = new Intent("com.dssm.esc.RECEIVER");
+		intent.putExtra("msgType", "");
+		getActivity().sendBroadcast(intent);
 	}
 
 	@Override
@@ -622,7 +625,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 						/** 信鸽推送，在退出登录时解除账号绑定 */
 						XGPushManager.registerPush(context, "*");
 						// 重新显示登录页面
-						((MainActivity) getActivity()).finish();
+						getActivity().finish();
 						startActivity(new Intent(getActivity(),
 								LoginActivity.class));
 
@@ -784,7 +787,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		super.onHiddenChanged(hidden);
 		this.hidden = hidden;
 		if (!hidden) {
-			refresh(((MainActivity) getActivity()).msgcount);
+			refresh(((MainActivity) getActivity()).hxMsgCount);
 		}
 	}
 
@@ -793,7 +796,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		super.onResume();
 		Log.i("MessageFragment", "onResume");
 		if (!hidden && !MainActivity.isConflict) {
-			refresh(((MainActivity) getActivity()).msgcount);
+			refresh(((MainActivity) getActivity()).hxMsgCount);
 		}
 	}
 
@@ -812,6 +815,36 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			redPointView5.hide();
 		}
 
+		switch (tag) {
+			case 0:
+				((MainActivity) getActivity()).xgTaskMsgCount = 0;
+				break;
+			case 1:
+				((MainActivity) getActivity()).xgSysMsgCount = 0;
+				break;
+			case 2:
+				((MainActivity) getActivity()).xgEmergencyMsgCount = 0;
+				break;
+			case 3:
+				((MainActivity) getActivity()).xgPersonalMsgCount = 0;
+				break;
+		}
+		int count1 = ((MainActivity) getActivity()).xgTaskMsgCount;
+		int count2 = ((MainActivity) getActivity()).xgSysMsgCount;
+		int count3 = ((MainActivity) getActivity()).xgEmergencyMsgCount;
+		int count4 = ((MainActivity) getActivity()).xgPersonalMsgCount;
+		redPointView1.setText(count1 + "");
+		redPointView2.setText(count2 + "");
+		redPointView3.setText(count3 + "");
+		redPointView4.setText(count4 + "");
+		if(count1 > 0)
+			redPointView1.show();
+		if(count2 > 0)
+			redPointView2.show();
+		if(count3 > 0)
+			redPointView3.show();
+		if(count4 > 0)
+			redPointView4.show();
 	}
 
 	@Override

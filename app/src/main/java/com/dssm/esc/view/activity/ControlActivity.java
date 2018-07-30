@@ -771,12 +771,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             }
             handler.sendMessage(message);
             allList = data;
-            // if
-            // (Utils.getInstance().progressDialog.isShowing())
-            // {
-            // Utils.getInstance().hideProgressDialog();
-            // }
-
+            Utils.getInstance().hideProgressDialog();
         }
     };
 
@@ -796,6 +791,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         // Const.LOAD_MESSAGE);
         // }
         if (what == 0) {// 刷新和第一次加载
+            Utils.getInstance().showProgressDialog(ControlActivity.this, "", Const.LOAD_MESSAGE);
             csevice.queryProcessTrack(
                     planEntity.getId(), flowChartPlanEntityControlServiceImplBackValueListenser);
         } else if (what == 1) {// 加载更多

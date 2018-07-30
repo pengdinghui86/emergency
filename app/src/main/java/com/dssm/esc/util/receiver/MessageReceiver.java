@@ -38,19 +38,35 @@ public class MessageReceiver extends XGPushBaseReceiver {
 		if (context == null || notifiShowedRlt == null) {
 			return;
 		}
-//		XGNotification notific = new XGNotification();
-//		notific.setMsg_id(notifiShowedRlt.getMsgId());
-//		notific.setTitle(notifiShowedRlt.getTitle());
-//		notific.setContent(notifiShowedRlt.getContent());
-//		// notificationActionType==1为Activity，2为url，3为intent
-//		notific.setNotificationActionType(notifiShowedRlt
-//				.getNotificationActionType());
-//		// Activity,url,intent都可以通过getActivity()获得
-//		notific.setActivity(notifiShowedRlt.getActivity());
+		XGNotification notific = new XGNotification();
+		notific.setMsg_id(notifiShowedRlt.getMsgId());
+		notific.setTitle(notifiShowedRlt.getTitle());
+		notific.setContent(notifiShowedRlt.getContent());
+		// notificationActionType==1为Activity，2为url，3为intent
+		notific.setNotificationActionType(notifiShowedRlt
+				.getNotificationActionType());
+		// Activity,url,intent都可以通过getActivity()获得
+		notific.setActivity(notifiShowedRlt.getActivity());
 //		notific.setUpdate_time(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 //				.format(Calendar.getInstance().getTime()));
 //		NotificationService.getInstance(context).save(notific);
 //		context.sendBroadcast(intent);
+		String msgType = "";
+		String customContent = notifiShowedRlt.getCustomContent();
+		if (customContent != null && customContent.length() != 0) {
+			try {
+				JSONObject obj = new JSONObject(customContent);
+				// key1为前台配置的key
+				if (!obj.isNull("msgType")) {
+					msgType = obj.getString("msgType");
+					Intent intent = new Intent("com.dssm.esc.RECEIVER");
+					intent.putExtra("msgType", msgType);
+					DemoApplication.getInstance().sendBroadcast(intent);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 		show(context, "您有1条新消息, " + "通知被展示 ， " + notifiShowedRlt.toString());
 	}
 

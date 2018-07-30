@@ -154,6 +154,11 @@ public class PlanStarActivity extends BaseActivity implements
 					int position, long arg3) {
 				// TODO Auto-generated method stub
 				if (position > 0 && position <= list.size()) {
+					//启动中
+					if(list.get(position - 1).getState().equals("5")) {
+						ToastUtil.showLongToast(PlanStarActivity.this, "预案正在启动中，请稍后刷新列表重试");
+						return;
+					}
 					if (tags.equals("1")) {
 
 						Intent intent = new Intent(PlanStarActivity.this,

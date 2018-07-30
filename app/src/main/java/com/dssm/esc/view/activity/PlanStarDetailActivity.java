@@ -826,7 +826,10 @@ public class PlanStarDetailActivity extends BaseActivity implements
             if (backflag) {
                 ToastUtil.showToast(PlanStarDetailActivity.this, "操作成功");
             } else if (backflag == false) {
-                ToastUtil.showToast(PlanStarDetailActivity.this, "操作失败");
+                if(stRerror != null)
+                    ToastUtil.showToast(PlanStarDetailActivity.this,stRerror);
+                else
+                    ToastUtil.showToast(PlanStarDetailActivity.this,"操作失败");
             } else if (stRerror != null) {
                 ToastUtil.showToast(PlanStarDetailActivity.this, stRerror);
             } else if (Exceptionerror != null) {
