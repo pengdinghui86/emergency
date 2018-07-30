@@ -213,7 +213,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		LayoutParams lP = (LayoutParams) new LayoutParams(
 				20, 20);
 		redPointView.setLayoutParams(lP);
-
 		redPointView.setText(count);// 需要显示的提醒类容
 		redPointView.setPosition(0, Gravity.RIGHT);// 显示的位置.右上角,BadgeView.POSITION_BOTTOM_LEFT,下左，还有其他几个属性
 		redPointView.setTextSize(12); // 文本大小
@@ -291,8 +290,8 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			// myMessagesFragment.loadData(0);
 			break;
 		case 4:// 环信（消息记录）
-			if (((MainActivity) getActivity()).hxMsgCount > 0) {
-				((MainActivity) getActivity()).hxMsgCount = 0;
+			if (MainActivity.hxMsgCount > 0) {
+				MainActivity.hxMsgCount = 0;
 			}
 			if (chatHistoryFragment == null) {
 				chatHistoryFragment = new ChatAllHistoryFragment();
@@ -348,11 +347,15 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	 * @param data
 	 */
 	public void onEvent(com.dssm.esc.util.event.Toast data) {
-		((MainActivity) getActivity()).xgTaskMsgCount = Integer.parseInt(data.count1);
+		MainActivity.xgTaskMsgCount = Integer.parseInt(data.count1);
 
-		if (((MainActivity) getActivity()).xgTaskMsgCount < 1) {
+		if (MainActivity.xgTaskMsgCount < 1) {
 			redPointView1.hide();
 		} else {
+			if(MainActivity.xgTaskMsgCount > 99)
+				redPointView1.setText("99+");
+			else
+				redPointView1.setText(MainActivity.xgTaskMsgCount + "");
 			redPointView1.show();
 		}
         Intent intent = new Intent("com.dssm.esc.RECEIVER");
@@ -361,11 +364,15 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	}
 
 	public void onEvent(System data) {
-		((MainActivity) getActivity()).xgSysMsgCount = Integer.parseInt(data.count2);
+		MainActivity.xgSysMsgCount = Integer.parseInt(data.count2);
 
-		if (((MainActivity) getActivity()).xgSysMsgCount  < 1) {
+		if (MainActivity.xgSysMsgCount  < 1) {
 			redPointView2.hide();
 		} else {
+			if(MainActivity.xgSysMsgCount > 99)
+				redPointView2.setText("99+");
+			else
+				redPointView2.setText(MainActivity.xgSysMsgCount + "");
 			redPointView2.show();
 		}
         Intent intent = new Intent("com.dssm.esc.RECEIVER");
@@ -374,10 +381,14 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	}
 
 	public void onEvent(Emergenct data) {
-		((MainActivity) getActivity()).xgEmergencyMsgCount  = Integer.parseInt(data.count3);
-		if (((MainActivity) getActivity()).xgEmergencyMsgCount < 1) {
+		MainActivity.xgEmergencyMsgCount  = Integer.parseInt(data.count3);
+		if (MainActivity.xgEmergencyMsgCount < 1) {
 			redPointView3.hide();
 		} else {
+			if(MainActivity.xgEmergencyMsgCount > 99)
+				redPointView3.setText("99+");
+			else
+				redPointView3.setText(MainActivity.xgEmergencyMsgCount + "");
 			redPointView3.show();
 		}
         Intent intent = new Intent("com.dssm.esc.RECEIVER");
@@ -386,11 +397,15 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	}
 
 	public void onEvent(My data) {
-		((MainActivity) getActivity()).xgPersonalMsgCount = Integer.parseInt(data.count4);
+		MainActivity.xgPersonalMsgCount = Integer.parseInt(data.count4);
 
-		if (((MainActivity) getActivity()).xgPersonalMsgCount < 1) {
+		if (MainActivity.xgPersonalMsgCount < 1) {
 			redPointView4.hide();
 		} else {
+			if(MainActivity.xgPersonalMsgCount > 99)
+				redPointView4.setText("99+");
+			else
+				redPointView4.setText(MainActivity.xgPersonalMsgCount + "");
 			redPointView4.show();
 		}
         Intent intent = new Intent("com.dssm.esc.RECEIVER");
@@ -450,33 +465,45 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	 */
 	public void onEvent(MessageCountEvent data) {
 
-		((MainActivity) getActivity()).xgTaskMsgCount = Integer.parseInt(data.count1);
-		((MainActivity) getActivity()).xgSysMsgCount = Integer.parseInt(data.count2);
-		((MainActivity) getActivity()).xgEmergencyMsgCount = Integer.parseInt(data.count3);
-		((MainActivity) getActivity()).xgPersonalMsgCount = Integer.parseInt(data.count4);
+		MainActivity.xgTaskMsgCount = Integer.parseInt(data.count1);
+		MainActivity.xgSysMsgCount = Integer.parseInt(data.count2);
+		MainActivity.xgEmergencyMsgCount = Integer.parseInt(data.count3);
+		MainActivity.xgPersonalMsgCount = Integer.parseInt(data.count4);
 
-		redPointView1.setText(((MainActivity) getActivity()).xgTaskMsgCount + "");
-		redPointView2.setText(((MainActivity) getActivity()).xgSysMsgCount + "");
-		redPointView3.setText(((MainActivity) getActivity()).xgEmergencyMsgCount + "");
-		redPointView4.setText(((MainActivity) getActivity()).xgPersonalMsgCount + "");
-		if (((MainActivity) getActivity()).xgTaskMsgCount < 1) {
+		if (MainActivity.xgTaskMsgCount < 1) {
 			redPointView1.hide();
 		} else {
+			if(MainActivity.xgTaskMsgCount > 99)
+				redPointView1.setText("99+");
+			else
+				redPointView1.setText(MainActivity.xgTaskMsgCount + "");
 			redPointView1.show();
 		}
-		if (((MainActivity) getActivity()).xgSysMsgCount < 1) {
+		if (MainActivity.xgSysMsgCount < 1) {
 			redPointView2.hide();
 		} else {
+			if(MainActivity.xgSysMsgCount > 99)
+				redPointView2.setText("99+");
+			else
+				redPointView2.setText(MainActivity.xgSysMsgCount + "");
 			redPointView2.show();
 		}
-		if (((MainActivity) getActivity()).xgEmergencyMsgCount < 1) {
+		if (MainActivity.xgEmergencyMsgCount < 1) {
 			redPointView3.hide();
 		} else {
+			if(MainActivity.xgEmergencyMsgCount > 99)
+				redPointView3.setText("99+");
+			else
+				redPointView3.setText(MainActivity.xgEmergencyMsgCount + "");
 			redPointView3.show();
 		}
-		if (((MainActivity) getActivity()).xgPersonalMsgCount < 1) {
+		if (MainActivity.xgPersonalMsgCount < 1) {
 			redPointView4.hide();
 		} else {
+			if(MainActivity.xgPersonalMsgCount > 99)
+				redPointView4.setText("99+");
+			else
+				redPointView4.setText(MainActivity.xgPersonalMsgCount + "");
 			redPointView4.show();
 		}
 		Intent intent = new Intent("com.dssm.esc.RECEIVER");
@@ -494,7 +521,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_system.setChecked(false);
 			rb_emergency.setChecked(false);
 			rb_mymessage.setChecked(false);
-			message.setBackgroundResource(R.drawable.message);
+			message.setImageResource(R.drawable.message);
 			break;
 		case R.id.rb_system:
 			tag = 1;
@@ -502,7 +529,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_task.setChecked(false);
 			rb_emergency.setChecked(false);
 			rb_mymessage.setChecked(false);
-			message.setBackgroundResource(R.drawable.message);
+			message.setImageResource(R.drawable.message);
 			break;
 		case R.id.rb_emergency:
 			tag = 2;
@@ -510,7 +537,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_system.setChecked(false);
 			rb_task.setChecked(false);
 			rb_mymessage.setChecked(false);
-			message.setBackgroundResource(R.drawable.message);
+			message.setImageResource(R.drawable.message);
 			break;
 		case R.id.rb_mymessage:
 			tag = 3;
@@ -518,7 +545,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_system.setChecked(false);
 			rb_emergency.setChecked(false);
 			rb_task.setChecked(false);
-			message.setBackgroundResource(R.drawable.message);
+			message.setImageResource(R.drawable.message);
 			break;
 		case R.id.setting:
 
@@ -540,7 +567,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_emergency.setChecked(false);
 			rb_task.setChecked(false);
 
-			message.setBackgroundResource(R.drawable.message2);
+			message.setImageResource(R.drawable.message2);
 			break;
 
 		}
@@ -787,7 +814,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		super.onHiddenChanged(hidden);
 		this.hidden = hidden;
 		if (!hidden) {
-			refresh(((MainActivity) getActivity()).hxMsgCount);
+			refresh(MainActivity.hxMsgCount);
 		}
 	}
 
@@ -796,7 +823,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		super.onResume();
 		Log.i("MessageFragment", "onResume");
 		if (!hidden && !MainActivity.isConflict) {
-			refresh(((MainActivity) getActivity()).hxMsgCount);
+			refresh(MainActivity.hxMsgCount);
 		}
 	}
 
@@ -806,7 +833,10 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	public void refresh(int count) {
 		Log.i("count", count + "");
 		if (count > 0) {
-			redPointView5.setText(count + "");
+			if(count > 99)
+				redPointView5.setText("99+");
+			else
+				redPointView5.setText(count + "");
 			redPointView5.show();
 			if (chatHistoryFragment != null) {
 				chatHistoryFragment.refresh();
@@ -817,34 +847,59 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 		switch (tag) {
 			case 0:
-				((MainActivity) getActivity()).xgTaskMsgCount = 0;
+				MainActivity.xgTaskMsgCount = 0;
 				break;
 			case 1:
-				((MainActivity) getActivity()).xgSysMsgCount = 0;
+				MainActivity.xgSysMsgCount = 0;
 				break;
 			case 2:
-				((MainActivity) getActivity()).xgEmergencyMsgCount = 0;
+				MainActivity.xgEmergencyMsgCount = 0;
 				break;
 			case 3:
-				((MainActivity) getActivity()).xgPersonalMsgCount = 0;
+				MainActivity.xgPersonalMsgCount = 0;
 				break;
 		}
-		int count1 = ((MainActivity) getActivity()).xgTaskMsgCount;
-		int count2 = ((MainActivity) getActivity()).xgSysMsgCount;
-		int count3 = ((MainActivity) getActivity()).xgEmergencyMsgCount;
-		int count4 = ((MainActivity) getActivity()).xgPersonalMsgCount;
-		redPointView1.setText(count1 + "");
-		redPointView2.setText(count2 + "");
-		redPointView3.setText(count3 + "");
-		redPointView4.setText(count4 + "");
-		if(count1 > 0)
+		int count1 = MainActivity.xgTaskMsgCount;
+		int count2 = MainActivity.xgSysMsgCount;
+		int count3 = MainActivity.xgEmergencyMsgCount;
+		int count4 = MainActivity.xgPersonalMsgCount;
+
+		if(count1 > 0) {
+			if(count1 > 99)
+				redPointView1.setText("99+");
+			else
+				redPointView1.setText(count1 + "");
 			redPointView1.show();
-		if(count2 > 0)
+		}
+		else
+			redPointView1.hide();
+		if(count2 > 0) {
+			if(count2 > 99)
+				redPointView2.setText("99+");
+			else
+				redPointView2.setText(count2 + "");
 			redPointView2.show();
-		if(count3 > 0)
+		}
+		else
+			redPointView2.hide();
+		if(count3 > 0) {
+			if(count3 > 99)
+				redPointView3.setText("99+");
+			else
+				redPointView3.setText(count3 + "");
 			redPointView3.show();
-		if(count4 > 0)
+		}
+		else
+			redPointView3.hide();
+		if(count4 > 0) {
+			if(count1 > 99)
+				redPointView4.setText("99+");
+			else
+				redPointView4.setText(count4 + "");
 			redPointView4.show();
+		}
+		else
+			redPointView4.hide();
 	}
 
 	@Override

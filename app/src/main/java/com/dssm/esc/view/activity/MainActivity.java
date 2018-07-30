@@ -347,10 +347,10 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     xgSysMsgCount ++;
                     break;
                 case "3":
-                    xgEmergencyMsgCount ++;
+                    xgPersonalMsgCount ++;
                     break;
                 case "4":
-                    xgPersonalMsgCount ++;
+                    xgEmergencyMsgCount ++;
                     break;
             }
             refreshUI();
@@ -489,8 +489,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                        ToastUtil.showToast(context,
-                                "unbind devicetokens failed");
+                        XGPushManager.delAccount(context, map.get("postFlag"));
+                        // 清除本地的sharepreference缓存
+                        DataCleanManager.cleanSharedPreference(context);
                     }
                 });
             }
@@ -896,19 +897,19 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     }
 
     //环信未读消息总数
-    public int hxMsgCount;
+    public static int hxMsgCount;
 
     //信鸽推送任务未读消息总数
-    public int xgTaskMsgCount;
+    public static int xgTaskMsgCount;
 
     //信鸽推送系统未读消息总数
-    public int xgSysMsgCount;
+    public static int xgSysMsgCount;
 
     //信鸽推送紧急未读消息总数
-    public int xgEmergencyMsgCount;
+    public static int xgEmergencyMsgCount;
 
     //信鸽推送个人未读消息总数
-    public int xgPersonalMsgCount;
+    public static int xgPersonalMsgCount;
 
     private void refreshUI() {
         runOnUiThread(new Runnable() {
@@ -922,12 +923,13 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     }
                 }
                 int totalMsgCount = hxMsgCount + xgTaskMsgCount + xgSysMsgCount + xgEmergencyMsgCount + xgPersonalMsgCount;
-                if(totalMsgCount > 99)
-                    redPointView.setText(99 + "");
-                else
-                    redPointView.setText(totalMsgCount + "");
-                if(totalMsgCount > 0)
+                if(totalMsgCount > 0) {
+                    if(totalMsgCount > 99)
+                        redPointView.setText("99+");
+                    else
+                        redPointView.setText(totalMsgCount + "");
                     redPointView.show();
+                }
                 else
                     redPointView.hide();
             }

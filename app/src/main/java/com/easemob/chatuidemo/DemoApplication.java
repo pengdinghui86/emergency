@@ -188,6 +188,10 @@ public class DemoApplication extends Application implements
 
             @Override
             public void onError(int code, String message) {
+                //信鸽3.2.2版本后使用这个接口反注册
+                XGPushManager.delAccount(getApplicationContext(), map.get("postFlag"));
+                // 清除本地的sharepreference缓存
+                DataCleanManager.cleanSharedPreference(getApplicationContext());
                 // 重新显示登录页面
                 ActivityCollector.finishAll();
                 startActivity(new Intent(getApplicationContext(),
