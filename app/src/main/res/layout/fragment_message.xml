@@ -134,6 +134,7 @@
             android:layout_toRightOf="@id/rl_segmented"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingLeft="20dp"
