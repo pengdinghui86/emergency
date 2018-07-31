@@ -339,6 +339,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         public void onReceive(Context context, Intent intent) {
             //获取信鸽消息，更新UI
             final String msgType = intent.getStringExtra("msgType");
+            Log.i("msgType", "msgType: " + msgType);
             switch (msgType) {
                 case "1":
                     xgTaskMsgCount ++;

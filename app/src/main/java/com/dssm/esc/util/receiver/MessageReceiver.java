@@ -125,14 +125,12 @@ public class MessageReceiver extends XGPushBaseReceiver {
 		if (context == null || message == null) {
 			return;
 		}
-		Intent intent = new Intent(context, MainActivity.class);
+		Intent intent = new Intent(context, SplashActivity.class);
 		if (context.getPackageManager().resolveActivity(intent, 0) == null) {
 			// 说明系统中不存在这个activity
-			intent.setClass(context, SplashActivity.class);
 			intent.putExtra("mainActivity", "unLive");
 		}
 		else {
-			intent.setClass(context, SplashActivity.class);
 			intent.putExtra("mainActivity", "live");
 		}
 		String text = "";
@@ -141,7 +139,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
 			// APP自己处理点击的相关动作
 			// 这个动作可以在activity的onResume也能监听，请看第3点相关内容
 			text = "通知被打开 :" + message;
-
+			Log.i("onFailure", text);
 			String msgType = "";
 			// 判断是否从推送通知栏打开的
 			if (message != null) {
@@ -154,6 +152,7 @@ public class MessageReceiver extends XGPushBaseReceiver {
 						// key1为前台配置的key
 						if (!obj.isNull("msgType")) {
 							msgType = obj.getString("msgType");
+							Log.i("onFailure", "msgType" + msgType);
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();

@@ -346,13 +346,10 @@ public class SplashActivity extends BaseActivity {
 		// setContentView(R.layout.activity_splash);
 		setContentView(R.layout.activity_welcome);
 		super.onCreate(arg0);
-		if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
-			finish();
-			return;
-		}
 		sevice = Control.getinstance().getUserSevice();
 		service = MySharePreferencesService.getInstance(getApplicationContext());
 		Intent intent = getIntent();
+		Log.i("onFailure", "splashActivity启动");
 		if(intent != null) {
 			String flag = intent.getStringExtra("mainActivity");
 			String msgType = intent.getStringExtra("msgType");
@@ -368,6 +365,13 @@ public class SplashActivity extends BaseActivity {
 			if(flag != null && flag.equals("live"))
 				finish();
 		}
+
+		//从后台切到前台
+		if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+			finish();
+			return;
+		}
+
 		AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
 		animation.setDuration(1500);
 		login();
