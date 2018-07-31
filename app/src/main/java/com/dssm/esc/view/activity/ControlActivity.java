@@ -218,46 +218,27 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     if (buttonEntity.getBtnMark().equals("BTN_QDZZ")) {
                         if (!planEntity.getState().equals("null")
                                 && !planEntity.getState().equals("")) {
-                            String status = "";
                             switch (Integer.parseInt(planEntity.getState())) {
                                 case 0:
-                                    status = "待启动";
                                     stop.setVisibility(View.GONE);
                                     break;
                                 case 1:
-                                    status = "已启动";
-                                    // mhHolder.statetv.setTextColor(Color.RED);
                                     stop.setVisibility(View.GONE);
                                     break;
                                 case 2:
-                                    status = "已授权 ";
-                                    // mhHolder.statetv.setTextColor(Color.RED);
                                     stop.setVisibility(View.VISIBLE);
                                     stop.setText("启动");
                                     break;
                                 case 3:
-                                    status = "执行中";
-                                    // mhHolder.statetv.setTextColor(R.color.green_my);
                                     stop.setVisibility(View.VISIBLE);
                                     stop.setText("中止");
                                     break;
                                 case 4:
-                                    status = "完成";
-                                    // mhHolder.statetv.setTextColor(R.color.green_my);
                                     stop.setVisibility(View.GONE);
                                     break;
                                 case 5:
-                                    status = "强行中止";
-                                    // mhHolder.statetv.setTextColor(Color.RED);
                                     stop.setVisibility(View.GONE);
                                     break;
-//                                    case 6:
-//                                        status = "暂停中";
-//                                        // mhHolder.statetv.setTextColor(Color.RED);
-//                                        stop.setVisibility(View.VISIBLE);
-//                                        stop.setBackgroundResource(R.drawable.btbg_green);
-//                                        stop.setText("启动");
-//                                        break;
                             }
                         }
                     } else {
@@ -265,6 +246,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     }
                 }
             }
+            Utils.getInstance().hideProgressDialog();
         }
     };
 
@@ -293,6 +275,9 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         roleCode = map.get("roleCode");
         Log.i("roleCode", roleCode);
         initView();
+        Utils.getInstance().showProgressDialog(
+                ControlActivity.this, "",
+                Const.SUBMIT_MESSAGE);
         sevice.getUserPower(listListener);
         segmentControlListDate();
     }

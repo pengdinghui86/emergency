@@ -24,6 +24,7 @@ import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.BaseActivity.onInitNetListener;
 import com.dssm.esc.view.adapter.DismissValuationListviewAdapter;
@@ -443,9 +444,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
             message.what = 0;
             handler.sendMessage(message);
             allList = dataList;
-//				if (Utils.getInstance().progressDialog.isShowing()) {
-//					Utils.getInstance().hideProgressDialog();
-//				}
+            Utils.getInstance().hideProgressDialog();
         }
     };
 
@@ -453,7 +452,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
      * 获取授权列表
      */
     private void getAuthList(int tag) {
-//		Utils.getInstance().showProgressDialog(AutorizationDecisionActivity.this, "", Const.LOAD_MESSAGE);
+		Utils.getInstance().showProgressDialog(AutorizationDecisionActivity.this, "", Const.LOAD_MESSAGE);
         Control.getinstance().getEmergencyService().getAuthlist(tag, listListener);
     }
 

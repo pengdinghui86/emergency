@@ -302,10 +302,14 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 ToastUtil.showToast(PlanExecutionDetailActivity.this,
                         Const.NETWORKERROR);
             }
+            Utils.getInstance().hideProgressDialog();
         }
     };
 
     private void initData() {
+        Utils.getInstance().showProgressDialog(
+                PlanExecutionDetailActivity.this, "",
+                Const.SUBMIT_MESSAGE);
         Control.getinstance().getEmergencyService().getPlanDetail(planInfoId, listListener);
     }
 

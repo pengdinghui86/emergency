@@ -21,6 +21,7 @@ import com.dssm.esc.model.entity.emergency.DrillProjectDetailObjPreinfoEntity;
 import com.dssm.esc.model.entity.emergency.DrillProjectNameEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.DrillselectListviewAdapter;
 import org.xutils.view.annotation.ContentView;
@@ -144,11 +145,15 @@ public class DrillSelectActivity extends BaseActivity implements
 					DrillSelectActivity.this, list);
 			mListView.setAdapter(mSelectAdapter);
 			mSelectAdapter.notifyDataSetChanged();
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
 	private void initData() {
 		// TODO Auto-generated method stub
+		Utils.getInstance().showProgressDialog(
+				DrillSelectActivity.this, "",
+				Const.SUBMIT_MESSAGE);
 		Control.getinstance().getEmergencyService().getDrillProjectName(emergencySeviceImplListListenser);
 
 	}

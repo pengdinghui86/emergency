@@ -123,8 +123,6 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 
 	private void addIndex(List<PlanProcessEntity> result) {
 		for(PlanProcessEntity planProcessEntity : result) {
-			if(planProcessEntity.getParentProcessStepId() == null || planProcessEntity.getParentProcessStepId().equals("null"))
-				planProcessEntity.setParentProcessStepId("");
 			int index = 0;
 			String parentOrderNum = "";
 			String parentId = planProcessEntity.getParentProcessStepId();
@@ -135,10 +133,12 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 					if(planProcessEntity1.getId().equals(parentId)) {
 						parentId = planProcessEntity1.getParentProcessStepId();
 						String num = "";
-						if (!planProcessEntity1.getOrderNum().equals("null")) {
+						if (!"null".equals(planProcessEntity1.getOrderNum()) &&
+								!"".equals(planProcessEntity1.getOrderNum())) {
 							num = planProcessEntity1.getOrderNum() + ".";
 						}
-						else if (!planProcessEntity1.getEditOrderNum().equals("null")) {
+						else if (!"null".equals(planProcessEntity1.getEditOrderNum()) &&
+								!"".equals(planProcessEntity1.getEditOrderNum())) {
 							num = planProcessEntity1.getEditOrderNum() + ".";
 						}
 						parentOrderNum = num + parentOrderNum;
@@ -158,7 +158,8 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 		for(PlanProcessEntity planProcessEntity : result) {
 			if(planProcessEntity.getIndex() == index
 					&& parentId.equals(planProcessEntity.getParentProcessStepId())
-					&& !planProcessEntity.getNodeStepType().equals("drillNew")) {
+					&& !planProcessEntity.getNodeStepType().equals("drillNew")
+					&& !planProcessEntity.getType().equals("drillNew")) {
 				entities.add(planProcessEntity);
 				if("CallActivity".equals(planProcessEntity.getNodeStepType())) {
 					reSort(result, planProcessEntity.getId(), index + 1);

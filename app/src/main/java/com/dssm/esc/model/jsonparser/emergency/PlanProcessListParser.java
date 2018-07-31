@@ -89,7 +89,7 @@ public class PlanProcessListParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						if(DemoApplication.sessionTimeoutCount < 3)
+						if(DemoApplication.sessionTimeoutCount < 5)
 							request(planInfoId);
 					}
 					responseMsg = httpEx.getMessage();
@@ -98,7 +98,7 @@ public class PlanProcessListParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					if(DemoApplication.sessionTimeoutCount < 3)
+					if(DemoApplication.sessionTimeoutCount < 5)
 						request(planInfoId);
 				} else { //其他错误
 					errorResult = "其他错误";
@@ -145,7 +145,16 @@ public class PlanProcessListParser {
 					listEntity.setExecutePeopleType(jsonObject2
 							.getString("executePeopleType"));
 					listEntity.setNodeStepType(jsonObject2.getString("nodeStepType"));
-					listEntity.setParentProcessStepId(jsonObject2.getString("parentProcessStepId"));
+					if(jsonObject2.has("parentProcessStepId"))
+					if(jsonObject2.getString("parentProcessStepId") == null || "null".equals(jsonObject2.getString("parentProcessStepId")))
+						listEntity.setParentProcessStepId("");
+					else
+						listEntity.setParentProcessStepId(jsonObject2.getString("parentProcessStepId"));
+
+					if(jsonObject2.has("type"))
+						listEntity.setType(jsonObject2.getString("type"));
+					else
+						listEntity.setType("");
 					listEntity.setEditOrderNum(jsonObject2.getString("editOrderNum"));
 					listEntity.setOrderNum(jsonObject2.getString("orderNum"));
 

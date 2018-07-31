@@ -93,10 +93,14 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 			}else if (Exceptionerror!=null) {
 				Toast.makeText(EventProcessDetailActivity.this, Const.NETWORKERROR, Toast.LENGTH_SHORT).show();
 			}
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
 	private void initData() {
+		Utils.getInstance().showProgressDialog(
+				EventProcessDetailActivity.this, "",
+				Const.SUBMIT_MESSAGE);
 		Control.getinstance().getControlSevice().getProgressDetail(boHuiListEntity.getId(), controlServiceImplBackValueListenser);
 		
 	}

@@ -95,7 +95,7 @@ public class GetPerformPlanParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						if(DemoApplication.sessionTimeoutCount < 3)
+						if(DemoApplication.sessionTimeoutCount < 5)
 							request(planInfoId);
 					}
 					responseMsg = httpEx.getMessage();
@@ -104,7 +104,7 @@ public class GetPerformPlanParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					if(DemoApplication.sessionTimeoutCount < 3)
+					if(DemoApplication.sessionTimeoutCount < 5)
 						request(planInfoId);
 				} else { //其他错误
 					errorResult = "其他错误";

@@ -33,6 +33,15 @@ public class PlanProcessEntity implements Serializable {
 	private String orderNum;//序号
 	private String customNum;//自定义序号,用于本地排序
 	private int index;//节点的层级
+	private String type;//节点类型
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public int getIndex() {
 		return index;

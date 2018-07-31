@@ -17,6 +17,7 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.util.Const;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.adapter.EventProcessListviewAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 
@@ -161,11 +162,15 @@ public class EventProcessActivity extends BaseActivity implements
 			}
 			handler.sendMessage(message);
 			allList = list;
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
 	private void loadData(final int what) {
 		if (what==0) {
+			Utils.getInstance().showProgressDialog(
+					EventProcessActivity.this, "",
+					Const.SUBMIT_MESSAGE);
 			Control.getinstance().getControlSevice().getEvalist(controlServiceImplBackValueListenser);
 		}else if (what==1) {
 			// 本地做分页，加载20条以后的数据，默认每20条分一页

@@ -312,11 +312,6 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				message.what = 0;
 				message.obj = dataList;
 				handler.sendMessage(message);
-				// if
-				// (Utils.getInstance().progressDialog.isShowing())
-				// {
-				Utils.getInstance().hideProgressDialog();
-				// }
 			} else if (i == 1) {
 				if (object != null) {
 					dataList = (List<PlanTreeEntity>) object;
@@ -333,8 +328,8 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				message.what = 1;
 				message.obj = dataList;
 				handler.sendMessage(message);
-				Utils.getInstance().hideProgressDialog();
 			}
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
@@ -397,6 +392,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				ToastUtil.showLongToast(SignInActivity.this,
 						Const.NETWORKERROR);
 			}
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
@@ -404,6 +400,8 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	 * 签到
 	 */
 	private void siginin() {
+		Utils.getInstance().showProgressDialog(SignInActivity.this, "",
+				Const.LOAD_MESSAGE);
 		Control.getinstance().getEmergencyService().signIn(id, listener);
 	}
 

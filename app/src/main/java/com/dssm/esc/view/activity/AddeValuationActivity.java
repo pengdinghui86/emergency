@@ -845,9 +845,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				ToastUtil.showLongToast(AddeValuationActivity.this,
 						Const.NETWORKERROR);
 			}
-			// if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
-			// }
 		}
 	};
 

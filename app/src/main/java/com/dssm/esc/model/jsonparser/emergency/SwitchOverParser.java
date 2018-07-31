@@ -103,7 +103,7 @@ public class SwitchOverParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						if(DemoApplication.sessionTimeoutCount < 3)
+						if(DemoApplication.sessionTimeoutCount < 5)
 							request(id, planInfoId, status,
 								message, nodeStepType, branch);
 					}
@@ -113,7 +113,7 @@ public class SwitchOverParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					if(DemoApplication.sessionTimeoutCount < 3)
+					if(DemoApplication.sessionTimeoutCount < 5)
 						request(id, planInfoId, status,
 							message, nodeStepType, branch);
 				} else { //其他错误

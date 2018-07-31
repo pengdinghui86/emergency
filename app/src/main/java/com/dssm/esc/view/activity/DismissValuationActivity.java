@@ -21,6 +21,7 @@ import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.DismissValuationListviewAdapter;
 import com.dssm.esc.view.widget.AutoListView;
@@ -299,6 +300,7 @@ public class DismissValuationActivity extends BaseActivity implements
 				ToastUtil.showLongToast(DismissValuationActivity.this,
 						Const.NETWORKERROR);
 			}
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
@@ -307,6 +309,9 @@ public class DismissValuationActivity extends BaseActivity implements
 	 */
 	private void deleteData(final int position) {
 		curPosition = position;
+		Utils.getInstance().showProgressDialog(
+				DismissValuationActivity.this, "",
+				Const.SUBMIT_MESSAGE);
 		Control.getinstance().getEmergencyService().deleteEvent(list.get(position - 1).getId(), deleteEventListener);
 
 	}
@@ -334,6 +339,7 @@ public class DismissValuationActivity extends BaseActivity implements
 				entity = new GetProjectEveInfoEntity();
 				ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR);
 			}
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
@@ -341,6 +347,9 @@ public class DismissValuationActivity extends BaseActivity implements
 	 * 获取评估信息
 	 */
 	private void getValuation(int position) {
+		Utils.getInstance().showProgressDialog(
+				DismissValuationActivity.this, "",
+				Const.SUBMIT_MESSAGE);
 		// 获取评估信息
 		Control.getinstance().getEmergencyService().getEventInfo(list.get(position - 1).getId(), listener);
 

@@ -89,7 +89,7 @@ public class GetUserNameByIdParser {
 					if(responseCode == 518) {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
-						if(DemoApplication.sessionTimeoutCount < 3)
+						if(DemoApplication.sessionTimeoutCount < 5)
 							request(usrId);
 					}
 					responseMsg = httpEx.getMessage();
@@ -98,7 +98,7 @@ public class GetUserNameByIdParser {
 				} else if(errorResult.equals("java.lang.NullPointerException")) {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
-					if(DemoApplication.sessionTimeoutCount < 3)
+					if(DemoApplication.sessionTimeoutCount < 5)
 						request(usrId);
 				} else { //其他错误
 					errorResult = "其他错误";

@@ -16,6 +16,7 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.PlanStarAdapter;
@@ -259,6 +260,7 @@ public class PlanStarActivity extends BaseActivity implements
 			}
 			handler.sendMessage(message);
 			allList = datalist;
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
@@ -307,6 +309,9 @@ public class PlanStarActivity extends BaseActivity implements
 				 * message.obj = subList; } else { message.obj = datalist; }
 				 * handler.sendMessage(message);
 				 */
+				Utils.getInstance().showProgressDialog(
+						PlanStarActivity.this, "",
+						Const.SUBMIT_MESSAGE);
 				Control.getinstance().getEmergencyService().getStarList(listListener);
 			} else if (what == 1) {
 				List<PlanStarListEntity> datalist2;

@@ -25,6 +25,7 @@ import com.dssm.esc.model.entity.emergency.SendNoticyEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.JsonUtil;
 import com.dssm.esc.util.ToastUtil;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.adapter.RecieveListAdapter;
 import com.dssm.esc.view.widget.MyScrollView;
 
@@ -377,6 +378,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 										+ ":"
 										+ Exceptionerror);
 			}
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
@@ -448,6 +450,9 @@ public class SendCollaborativeActivity extends BaseActivity implements
 						send_object.setText(sendString);
 
 						if (!sendString.equals("") && !stageString.equals("")) {
+							Utils.getInstance().showProgressDialog(
+									SendCollaborativeActivity.this, "",
+									Const.SUBMIT_MESSAGE);
 							Control.getinstance().getEmergencyService().getNotiConfigContent(precautionId, type,
 									stage, listListener);
 						}
@@ -670,11 +675,14 @@ public class SendCollaborativeActivity extends BaseActivity implements
 						Exceptionerror);
 				resetting();
 			}
-
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
 
 	private void initContent() {
+		Utils.getInstance().showProgressDialog(
+				SendCollaborativeActivity.this, "",
+				Const.SUBMIT_MESSAGE);
 		Control.getinstance().getEmergencyService().sendNotice(entity, listener);
 
 	}

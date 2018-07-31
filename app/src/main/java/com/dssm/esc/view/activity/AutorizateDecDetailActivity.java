@@ -444,9 +444,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
 						Const.NETWORKERROR);
 			}
-//						if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
-//						}
 		}
 	};
 
@@ -485,9 +483,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
 						Const.NETWORKERROR);
 			}
-//						if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
-//						}
 		}
 	};
 
@@ -523,9 +519,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			message.what = 1;
 			message.obj = planDetailEntity;
 			handler.sendMessage(message);
-//				if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
-//				}
 		}
 	};
 
