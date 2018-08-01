@@ -359,7 +359,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			redPointView1.show();
 		}
         Intent intent = new Intent("com.dssm.esc.RECEIVER");
-        intent.putExtra("msgType", "");
+        intent.putExtra("msgType", "updateMsgCount");
         getActivity().sendBroadcast(intent);
 	}
 
@@ -376,7 +376,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			redPointView2.show();
 		}
         Intent intent = new Intent("com.dssm.esc.RECEIVER");
-        intent.putExtra("msgType", "");
+        intent.putExtra("msgType", "updateMsgCount");
         getActivity().sendBroadcast(intent);
 	}
 
@@ -392,7 +392,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			redPointView3.show();
 		}
         Intent intent = new Intent("com.dssm.esc.RECEIVER");
-        intent.putExtra("msgType", "");
+        intent.putExtra("msgType", "updateMsgCount");
         getActivity().sendBroadcast(intent);
 	}
 
@@ -409,7 +409,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			redPointView4.show();
 		}
         Intent intent = new Intent("com.dssm.esc.RECEIVER");
-        intent.putExtra("msgType", "");
+        intent.putExtra("msgType", "updateMsgCount");
         getActivity().sendBroadcast(intent);
 	}
 
@@ -426,6 +426,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_system.setChecked(false);
 			rb_emergency.setChecked(false);
 			rb_mymessage.setChecked(false);
+			tag = 0;
 			switchView(0);
 			EventBus.getDefault().post(new mainEvent("1"));
 			break;
@@ -434,6 +435,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_task.setChecked(false);
 			rb_emergency.setChecked(false);
 			rb_mymessage.setChecked(false);
+			tag = 1;
 			switchView(1);
 			EventBus.getDefault().post(new mainEvent("2"));
 			break;
@@ -442,6 +444,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_system.setChecked(false);
 			rb_task.setChecked(false);
 			rb_mymessage.setChecked(false);
+			tag = 2;
 			switchView(2);
 			EventBus.getDefault().post(new mainEvent("3"));
 			break;
@@ -450,6 +453,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_system.setChecked(false);
 			rb_emergency.setChecked(false);
 			rb_task.setChecked(false);
+			tag = 3;
 			switchView(3);
 			EventBus.getDefault().post(new mainEvent("4"));
 			break;
@@ -847,15 +851,23 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 		switch (tag) {
 			case 0:
+				if(messageTaskToastFragment != null)
+					messageTaskToastFragment.onRefresh();
 				MainActivity.xgTaskMsgCount = 0;
 				break;
 			case 1:
+				if(systemToastFragment != null)
+					systemToastFragment.onRefresh();
 				MainActivity.xgSysMsgCount = 0;
 				break;
 			case 2:
+				if(emergencyToastFragment != null)
+					emergencyToastFragment.onRefresh();
 				MainActivity.xgEmergencyMsgCount = 0;
 				break;
 			case 3:
+				if(myMessagesFragment != null)
+					myMessagesFragment.onRefresh();
 				MainActivity.xgPersonalMsgCount = 0;
 				break;
 		}

@@ -343,18 +343,28 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             switch (msgType) {
                 case "1":
                     xgTaskMsgCount ++;
+                    refreshUI();
                     break;
                 case "2":
                     xgSysMsgCount ++;
+                    refreshUI();
                     break;
                 case "3":
                     xgPersonalMsgCount ++;
+                    refreshUI();
                     break;
                 case "4":
                     xgEmergencyMsgCount ++;
+                    refreshUI();
+                    break;
+                case "updateMsgCount":
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            updateUnreadMsgCount();
+                        }
+                    });
                     break;
             }
-            refreshUI();
         }
     }
 
@@ -923,18 +933,22 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         messageFragment.refresh(hxMsgCount);
                     }
                 }
-                int totalMsgCount = hxMsgCount + xgTaskMsgCount + xgSysMsgCount + xgEmergencyMsgCount + xgPersonalMsgCount;
-                if(totalMsgCount > 0) {
-                    if(totalMsgCount > 99)
-                        redPointView.setText("99+");
-                    else
-                        redPointView.setText(totalMsgCount + "");
-                    redPointView.show();
-                }
-                else
-                    redPointView.hide();
+                updateUnreadMsgCount();
             }
         });
+    }
+
+    private void updateUnreadMsgCount() {
+        int totalMsgCount = hxMsgCount + xgTaskMsgCount + xgSysMsgCount + xgEmergencyMsgCount + xgPersonalMsgCount;
+        if(totalMsgCount > 0) {
+            if(totalMsgCount > 99)
+                redPointView.setText("99+");
+            else
+                redPointView.setText(totalMsgCount + "");
+            redPointView.show();
+        }
+        else
+            redPointView.hide();
     }
 
     /**
