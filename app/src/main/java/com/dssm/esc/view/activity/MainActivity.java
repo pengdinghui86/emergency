@@ -845,7 +845,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     }
                     /** 信鸽推送，账号在其他地方登录时解除账号绑定 */
                     //XGPushManager.registerPush(activity, "*");
-                    XGPushManager.delAccount(activity, activity.map.get("postFlag"));
+                    XGPushManager.delAccount(activity.context, activity.map.get("postFlag"));
                 }
 
             });
@@ -1163,6 +1163,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         XGPushManager.delAccount(context, map.get("postFlag"));
                         // 清除本地的sharepreference缓存
                         DataCleanManager.cleanSharedPreference(context);
+                        // 选择角色
+                        userSevice.logout(map.get("userId"), logoutListener);
                         // 重新显示登录页面
                         finish();
                         startActivity(new Intent(MainActivity.this,
@@ -1229,6 +1231,26 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         .showLongToast(
                                 context,
                                 str);
+            } else if (Exceptionerror != null) {
+                str = Const.NETWORKERROR;
+                ToastUtil.showLongToast(context, str);
+            }
+        }
+    };
+
+    private UserSeviceImpl.UserSeviceImplBackBooleanListenser logoutListener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setUserSeviceImplListenser(
+                Boolean backflag,
+                String stRerror,
+                String Exceptionerror) {
+            String str = null;
+            if (backflag) {
+                str = stRerror;
+            } else if (stRerror != null) {
+                str = stRerror;
+                ToastUtil.showLongToast(context, str);
             } else if (Exceptionerror != null) {
                 str = Const.NETWORKERROR;
                 ToastUtil.showLongToast(context, str);

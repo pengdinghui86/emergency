@@ -21,6 +21,10 @@ public class HttpUrl {
      */
     public final static String LOGIN =  "user/login";
     /**
+     * 退出登录
+     */
+    public final static String LOGOUT =  "user/logout";
+    /**
      * 用户重新登录
      */
     public final static String RELOGIN =  "user/againLogin";

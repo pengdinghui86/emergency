@@ -176,7 +176,7 @@ public class DemoApplication extends Application implements
                         // 重新显示登录页面
                         ActivityCollector.finishAll();
                         startActivity(new Intent(getApplicationContext(),
-                                LoginActivity.class));
+                                LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
                 });
             }

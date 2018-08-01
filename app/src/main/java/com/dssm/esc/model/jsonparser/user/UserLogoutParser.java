@@ -1,4 +1,4 @@
-package com.dssm.esc.model.jsonparser.emergency;
+package com.dssm.esc.model.jsonparser.user;
 
 import android.util.Log;
 
@@ -16,34 +16,35 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.lang.ref.WeakReference;
-import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Map;
 
 
 /**
- * 签到
+ * 用户退出登录解析
+ * 
  * @author zsj
- *
+ * 
  */
-public class SignInParser {
+public class UserLogoutParser {
 	public Map<String, String> map;
 	private final WeakReference<OnDataCompleterListener> wr;
 
-	public SignInParser(String planInfoId,
-			OnDataCompleterListener completeListener) {
+	public UserLogoutParser(String userId,
+                            OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
 		wr = new WeakReference<>(completeListener);
-		request(planInfoId);
+		request(userId);
 	}
 
 	/**
 	 * 发送请求
-	 * @param planInfoId 预案执行编号
+	 * 
+	 * @param userId 用户id
 	 */
-	public void request(final String planInfoId) {
+	public void request(final String userId) {
 
-		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.SIGNIN);
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl() + HttpUrl.LOGOUT);
 		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
@@ -59,10 +60,7 @@ public class SignInParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
-		if (planInfoId != null ) {
-			params.addParameter("planInfoId", planInfoId);
-		}
-		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
+		final OnDataCompleterListener onUserParseLoadCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
 			@Override
@@ -70,18 +68,17 @@ public class SignInParser {
 				if(DemoApplication.sessionTimeoutCount > 0)
 					DemoApplication.sessionTimeoutCount = 0;
 				// TODO Auto-generated method stub
-				Log.i("SignInParser", "SignInParser" + t);
-				map = signInParser(t);
-				Log.i("SignInParser", "SignInParser" + map);
-				if(onEmergencyCompleteListener != null)
-					onEmergencyCompleteListener.onEmergencyParserComplete(map,
+				Log.i("UserLoginRoleParser", "UserLoginRoleParser" + t);
+				map = logoutParse(t);
+				Log.i("UserLoginRoleParser", "UserLoginRoleParser" + map);
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(map,
 						null);
 
 			}
 
 			@Override
 			public void onError(Throwable ex, boolean isOnCallback) {
-
 				String responseMsg = "";
 				String errorResult = ex.toString();
 				if (ex instanceof HttpException) { //网络错误
@@ -92,7 +89,7 @@ public class SignInParser {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
 						if(DemoApplication.sessionTimeoutCount < 5)
-							request(planInfoId);
+							request(userId);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -101,18 +98,12 @@ public class SignInParser {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
 					if(DemoApplication.sessionTimeoutCount < 5)
-						request(planInfoId);
-				} else if (ex instanceof SocketTimeoutException) {
-					errorResult = "正在签到中，请稍后查看";
-					map = new HashMap<String, String> ();
-					map.put("success", "false");
-					map.put("message", errorResult);
-				}
-				else { //其他错误
+						request(userId);
+				} else { //其他错误
 					errorResult = "其他错误";
 				}
-				if(onEmergencyCompleteListener != null)
-					onEmergencyCompleteListener.onEmergencyParserComplete(map, errorResult);
+				if(onUserParseLoadCompleteListener != null)
+					onUserParseLoadCompleteListener.onEmergencyParserComplete(null, errorResult);
 			}
 
 			@Override
@@ -130,13 +121,13 @@ public class SignInParser {
 	}
 
 	/**
-	 * 否签到解析数据
+	 * 用户退出登录解析数据
 	 * 
 	 * @param t
 	 * @return
 	 * @throws JSONException
 	 */
-	public Map<String, String> signInParser(String t) {
+	public Map<String, String> logoutParse(String t) {
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			JSONObject object = new JSONObject(t);
@@ -152,5 +143,4 @@ public class SignInParser {
 
 		return map;
 	}
-
 }

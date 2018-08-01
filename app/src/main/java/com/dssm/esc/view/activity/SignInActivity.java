@@ -382,8 +382,10 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				signState = "1";
 				initListData();
 			} else if (backflag == false) {
-
-				ToastUtil.showToast(SignInActivity.this, "操作失败");
+				if(stRerror != null)
+					ToastUtil.showToast(SignInActivity.this, stRerror);
+				else
+					ToastUtil.showToast(SignInActivity.this, "操作失败");
 			} else if (stRerror != null) {
 
 				ToastUtil.showLongToast(SignInActivity.this, stRerror);

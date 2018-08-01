@@ -22,6 +22,7 @@ import com.dssm.esc.model.jsonparser.user.GetUserNameByIdParser;
 import com.dssm.esc.model.jsonparser.user.SearchOtherscenPlanParser;
 import com.dssm.esc.model.jsonparser.user.UserLoginParse;
 import com.dssm.esc.model.jsonparser.user.UserLoginRoleParser;
+import com.dssm.esc.model.jsonparser.user.UserLogoutParser;
 import com.dssm.esc.model.jsonparser.user.UserReLoginParser;
 import com.dssm.esc.util.Const;
 
@@ -178,6 +179,28 @@ public class UserSeviceImpl implements UserSevice {
 				if(wr.get() != null)
 					wr.get().setUserSeviceImplListListenser(userEntity, stRerror,
 						Exceptionerror);
+			}
+		});
+	}
+
+	/**
+	 * 退出登录方法
+	 */
+	@Override
+	public void logout(String userId, UserSeviceImplBackBooleanListenser listenser) {
+		final WeakReference<UserSeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+		if (userId == null) {
+			if(wr.get() != null)
+				wr.get().setUserSeviceImplListenser(null, Const.PARAMETER_NULL, null);
+			return;
+		}
+		new UserLogoutParser(userId, new OnDataCompleterListener() {
+
+			@Override
+			public void onEmergencyParserComplete(Object object, String error) {
+				// TODO Auto-generated method stub
+				if(wr.get() != null)
+					setUserBooleanListenser(wr.get(), object, error);
 			}
 		});
 	}

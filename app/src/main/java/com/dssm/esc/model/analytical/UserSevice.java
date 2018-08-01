@@ -18,6 +18,14 @@ public interface UserSevice {
 	void login(String userName, String password,
 			   UserSeviceImpl.UserSeviceImplListListenser listenser);
 	/**
+	 * 退出登录方法
+	 *
+	 * @param userId
+	 *            用户id
+	 * @param listenser
+	 */
+	void logout(String userId, UserSeviceImpl.UserSeviceImplBackBooleanListenser listenser);
+	/**
 	 * 重新登录
 	 * @param userName
 	 * @param password
