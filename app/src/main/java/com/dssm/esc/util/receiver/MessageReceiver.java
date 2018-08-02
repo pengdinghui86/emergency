@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.MainActivity;
@@ -125,12 +126,15 @@ public class MessageReceiver extends XGPushBaseReceiver {
 		if (context == null || message == null) {
 			return;
 		}
-		Intent intent = new Intent(context, SplashActivity.class);
+		Intent intent = new Intent(context, MainActivity.class);
+		ActivityCollector.finishSplashActivity();
 		if (context.getPackageManager().resolveActivity(intent, 0) == null) {
 			// 说明系统中不存在这个activity
+			intent.setClass(context, SplashActivity.class);
 			intent.putExtra("mainActivity", "unLive");
 		}
 		else {
+			intent.setClass(context, SplashActivity.class);
 			intent.putExtra("mainActivity", "live");
 		}
 		String text = "";
@@ -155,12 +159,14 @@ public class MessageReceiver extends XGPushBaseReceiver {
 							Log.i("onFailure", "msgType" + msgType);
 						}
 					} catch (JSONException e) {
+						Log.i("onFailure", ":" + e.toString());
 						e.printStackTrace();
 					}
 				}
 			}
 			intent.putExtra("msgType", msgType);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			Log.i("onFailure", "startActivity_splashActivity");
 			context.startActivity(intent);
 		} else if (message.getActionType() == XGPushClickedResult.NOTIFACTION_DELETED_TYPE) {
 			// 通知被清除啦。。。。

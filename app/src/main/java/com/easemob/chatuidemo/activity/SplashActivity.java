@@ -346,6 +346,7 @@ public class SplashActivity extends BaseActivity {
 		// setContentView(R.layout.activity_splash);
 		setContentView(R.layout.activity_welcome);
 		super.onCreate(arg0);
+        Log.i("onFailure", "进入splashActivity");
 		sevice = Control.getinstance().getUserSevice();
 		service = MySharePreferencesService.getInstance(getApplicationContext());
 		Intent intent = getIntent();

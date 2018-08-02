@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import com.dssm.esc.util.ActivityCollector;
 import com.easemob.applib.controller.HXSDKHelper;
 
 
@@ -27,7 +28,7 @@ public class BaseActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		
+		ActivityCollector.addActivity(this);
 	}
 
 	
@@ -47,6 +48,12 @@ public class BaseActivity extends FragmentActivity {
 		super.onStart();
 		// umeng
 //		MobclickAgent.onPause(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		ActivityCollector.removeActivity(this);
 	}
 
 	/**

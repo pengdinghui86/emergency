@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.app.Activity;
 
+import com.easemob.chatuidemo.activity.SplashActivity;
+
 public class ActivityCollector {
 	
 	public static  List<Activity> activities = new ArrayList<>();
@@ -25,4 +27,11 @@ public class ActivityCollector {
 		}
 	}
 
+	public static void finishSplashActivity(){
+		for (Activity activity : activities) {
+			if(!activity.isFinishing() && activity instanceof SplashActivity){
+				activity.finish();
+			}
+		}
+	}
 }
