@@ -3,7 +3,6 @@
     android:id="@+id/control"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff"
     android:orientation="vertical" >
 
     <com.dssm.esc.view.widget.Title_Layout

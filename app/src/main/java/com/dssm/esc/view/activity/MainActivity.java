@@ -200,6 +200,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             finish();
         }
         setContentView(R.layout.activity_main);
+
+        getWindow().setBackgroundDrawable(null);//去掉window默认添加的纯白色背景
+
         if (useEventBus()) {
             EventBus.getDefault().register(this);
         }

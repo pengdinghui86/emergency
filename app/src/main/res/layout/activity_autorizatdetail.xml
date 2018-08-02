@@ -3,7 +3,6 @@
     android:id="@+id/autorizatdetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:background="@color/set_gray"
     android:orientation="vertical" >
 
     <com.dssm.esc.view.widget.Title_Layout
@@ -38,7 +37,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:background="#fff"
             >
 
             <View style="@style/horizontal_gray_style" />
@@ -362,7 +360,7 @@
         android:id="@+id/plan_detail_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-          android:scrollbars="none"
+        android:scrollbars="none"
         android:visibility="gone" >
 
         <LinearLayout
@@ -373,8 +371,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:gravity="center"
-           android:background="#fff" >
+            android:gravity="center" >
 
             
 
@@ -571,10 +568,9 @@
         android:id="@+id/plan_autro_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
         android:orientation="vertical"
-       android:layout_marginTop="10dp"
-       android:layout_marginRight="10dp" >
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp" >
 
         <View style="@style/horizontal_gray_style" />
 

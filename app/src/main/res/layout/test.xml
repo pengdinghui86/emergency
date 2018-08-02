@@ -6,7 +6,6 @@
         android:id="@+id/filter_edit_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/searchbg"
         android:orientation="vertical"
         android:paddingBottom="8dp"
         android:paddingLeft="30dp"
@@ -56,7 +55,6 @@
             android:divider="@color/colorWeSplitMini"
             android:childDivider="@color/colorWeSplitMini"
             android:dividerHeight="1dp"
-            android:background="@color/list_view_background"
             android:indicatorLeft="1sp"
             android:scrollbars="none" />
     </android.support.v4.widget.SwipeRefreshLayout>

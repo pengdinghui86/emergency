@@ -5,7 +5,6 @@
     android:id="@+id/addvaluation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/emergency_fragment_bg"
     android:orientation="vertical" >
 
     <com.dssm.esc.view.widget.Title_Layout
@@ -23,7 +22,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorWeWindowGrayBackground"
             android:focusable="true"
             
             android:focusableInTouchMode="true"
@@ -82,7 +80,6 @@
                 android:id="@+id/business_type_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
                 android:padding="5dp" >
 
                 <TextView
@@ -120,7 +117,6 @@
                 android:id="@+id/event_level_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
                 android:padding="5dp" >
 
                 <TextView
@@ -160,7 +156,6 @@
                 android:id="@+id/event_background_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
                 android:padding="5dp" >
 
                 <TextView
@@ -199,7 +194,6 @@
                 android:id="@+id/event_type_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
                 android:padding="5dp" >
 
                 <TextView
@@ -239,7 +233,6 @@
                 android:id="@+id/plan_ll_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
                 android:padding="5dp" >
 
                 <TextView
@@ -278,7 +271,6 @@
                 android:id="@+id/emergType_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
                 android:padding="5dp" >
 
                 <TextView
@@ -313,7 +305,6 @@
                 android:id="@+id/plan_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -357,7 +348,6 @@
                     android:id="@+id/otherReferPlan_name_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
                     android:padding="5dp" >
 
                     <TextView
@@ -395,7 +385,6 @@
                     android:id="@+id/categoryPlan_name_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
                     android:padding="5dp" >
 
                     <TextView
@@ -436,7 +425,6 @@
                 android:id="@+id/event_des_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
                 android:padding="5dp" >
 
                 <TextView
@@ -478,7 +466,6 @@
                 android:id="@+id/suggestion_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
                 android:padding="5dp" >
 
                 <TextView

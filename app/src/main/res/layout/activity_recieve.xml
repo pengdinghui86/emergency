@@ -3,7 +3,6 @@
     android:id="@+id/recieve"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWeWindowGrayBackground"
     android:orientation="vertical" >
 
     <com.dssm.esc.view.widget.Title_Layout
