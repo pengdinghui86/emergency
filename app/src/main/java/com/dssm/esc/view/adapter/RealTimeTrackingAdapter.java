@@ -707,11 +707,18 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         /**
          * 添加执行完成状态
          * 2017.10.23
-         * 2018.4.24 新增节点不显示执行人等状态
          */
-        else if (26 == Integer.parseInt(entity.getStatus()) || ((null == entity.getType()) ? false : entity.getType().equals("drillNew"))) {
+        else if (26 == Integer.parseInt(entity.getStatus())&& !(null == entity.getType()) ? false : entity.getType().equals("drillNew")) {
             mhHolder.ll_executePeople.setVisibility(View.GONE);
             mhHolder.ll_time.setVisibility(View.GONE);
+        }
+        /**
+         * 2018.4.24 新增节点不显示执行人
+         */
+        else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")) {
+            mhHolder.ll_executePeople.setVisibility(View.GONE);
+            mhHolder.predict_time.setText("0秒");
+            mhHolder.ll_time.setVisibility(View.VISIBLE);
         }
         else {
             mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
