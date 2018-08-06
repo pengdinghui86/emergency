@@ -666,6 +666,8 @@ public class MyFlowView extends View {
             }
             if(step.nodeStepType.equals("CallActivity"))
                 drawCircleAndPlus(h, w, paint, circlePaint);
+            else if(step.type.equals("merge"))
+                drawRectangleAndWord(h, w, paint, textFlowPaint, circlePaint, str);
             else
                 drawCircleAndWord(h, w, paint, textFlowPaint, circlePaint, str);
         }
@@ -1057,6 +1059,23 @@ public class MyFlowView extends View {
     public void drawCircleAndWord(float x, float y, Paint buttonPaint, Paint textPaint, Paint circlePaint, String str) {
         myCanvas.drawCircle(x, y, buttonRadius, buttonPaint);
         myCanvas.drawCircle(x, y, buttonRadius, circlePaint);
+        Rect rect = new Rect();
+        //返回包围整个字符串的最小的一个Rect区域
+        textPaint.getTextBounds(str, 0, str.length(), rect);
+        int strWidth = rect.width();
+        int strHeight = rect.height();
+        myCanvas.drawText(str, x - strWidth / 2f, y + strHeight / 2f, textPaint);
+    }
+
+    /**
+     * 画正方形和文字
+     *
+     * @param x      x坐标
+     * @param y      y坐标
+     */
+    public void drawRectangleAndWord(float x, float y, Paint buttonPaint, Paint textPaint, Paint circlePaint, String str) {
+        myCanvas.drawRect(x - buttonRadius, y - buttonRadius, x + buttonRadius, y + buttonRadius, buttonPaint);
+        myCanvas.drawRect(x - buttonRadius, y - buttonRadius, x + buttonRadius, y + buttonRadius, circlePaint);
         Rect rect = new Rect();
         //返回包围整个字符串的最小的一个Rect区域
         textPaint.getTextBounds(str, 0, str.length(), rect);
