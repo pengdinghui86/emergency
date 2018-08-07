@@ -491,6 +491,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 });
             }
 
+
             @Override
             public void onProgress(int progress, String status) {
 
