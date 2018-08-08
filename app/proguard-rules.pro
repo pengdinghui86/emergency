@@ -213,12 +213,14 @@
 
 #极光避免混淆
 -dontoptimize
--dontpreverify
 -dontwarn cn.jpush.**
 -keep class cn.jpush.** { *; }
--keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
+-keep public interface cn.jpush.** { *; }
+-keep class * extends cn.jpush.android.service.JPushMessageReceiver { *; }
+-keep class * extends cn.jpush.android.service.PushReceiver { *; }
 -dontwarn cn.jiguang.**
 -keep class cn.jiguang.** { *; }
+-keep public interface cn.jiguang.** { *; }
 
 #xutils3避免混淆
 -keep class org.xutils.** {*;}

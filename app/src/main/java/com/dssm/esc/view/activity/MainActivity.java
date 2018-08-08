@@ -298,9 +298,12 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         if(!MySharePreferencesService.getInstance(getApplicationContext()).getcontectName(
                 "JSESSIONID").equals("")) {
             Log.i("postFlag岗位标识", map.get("postFlag"));
-            /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用
+            //默认激活推送
+            JPushInterface.resumePush(getApplicationContext());
+            /** 账号绑定，第三个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用
              */
             JPushInterface.setAlias(getApplicationContext(), 2018, map.get("postFlag").replace("-", "_"));
+
             initView();
             if(getIntent() != null) {
                 String msgType = getIntent().getStringExtra("msgType");

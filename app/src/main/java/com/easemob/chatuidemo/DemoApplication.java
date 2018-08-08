@@ -97,8 +97,6 @@ public class DemoApplication extends Application implements
         JPushInterface.setDebugMode(true);
         //初始化JPush
         JPushInterface.init(this);
-        //默认激活推送
-        JPushInterface.resumePush(applicationContext);
 
         //xUtils初始化
         x.Ext.init(this);

@@ -74,7 +74,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	/** 即时（环信） */
 	private ChatAllHistoryFragment chatHistoryFragment;
 	/** 用于区分消息 0,任务通知；1，系统通知；2，紧急通知；3，我的消息 */
-	public int tag = 1;
+	public int tag = 0;
 	private Context context;
 	private RadioButton rb_task, rb_system, rb_emergency, rb_mymessage;
 	/**
