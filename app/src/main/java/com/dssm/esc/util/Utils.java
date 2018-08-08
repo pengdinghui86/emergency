@@ -2,7 +2,9 @@ package com.dssm.esc.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -34,6 +36,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.content.Context.ACTIVITY_SERVICE;
 
 @SuppressLint("InflateParams")
 @SuppressWarnings("serial")
@@ -570,5 +574,23 @@ public class Utils implements Serializable {
             num = num * 10 + random.nextInt(9);
         }
         return String.valueOf(num);
+    }
+
+    //判断某一个类是否存在任务栈里面
+    public static boolean isExistActivity(Class<?> activity){
+        Intent intent = new Intent(DemoApplication.getInstance(), activity);
+        ComponentName cmpName = intent.resolveActivity(DemoApplication.getInstance().getPackageManager());
+        boolean flag = false;
+        if (cmpName != null) { // 说明系统中存在这个activity
+            ActivityManager am = (ActivityManager) DemoApplication.getInstance().getSystemService(ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> taskInfoList = am.getRunningTasks(10);  //获取从栈顶开始往下查找的10个activity
+            for (ActivityManager.RunningTaskInfo taskInfo : taskInfoList) {
+                if (taskInfo.baseActivity.equals(cmpName) || taskInfo.topActivity.equals(cmpName)) { // 说明它已经启动了
+                    flag = true;
+                    break;  //跳出循环，优化效率
+                }
+            }
+        }
+        return flag;
     }
 }

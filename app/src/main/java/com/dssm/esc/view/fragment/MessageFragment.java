@@ -36,7 +36,6 @@ import com.dssm.esc.util.event.MessageCountEvent;
 import com.dssm.esc.util.event.My;
 import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.System;
-import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.widget.RedPointView;
 import com.easemob.EMCallBack;
@@ -48,6 +47,7 @@ import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 import de.greenrobot.event.EventBus;
+
 /**
  * 消息
  * 
@@ -74,7 +74,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	/** 即时（环信） */
 	private ChatAllHistoryFragment chatHistoryFragment;
 	/** 用于区分消息 0,任务通知；1，系统通知；2，紧急通知；3，我的消息 */
-	private int tag = 0;
+	public int tag = 1;
 	private Context context;
 	private RadioButton rb_task, rb_system, rb_emergency, rb_mymessage;
 	/**
@@ -200,7 +200,24 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		redPointView3 = remind(rb_emergency, ((MainActivity) getActivity()).xgEmergencyMsgCount + "");
 		redPointView4 = remind(rb_mymessage, ((MainActivity) getActivity()).xgPersonalMsgCount + "");
 		redPointView5 = remind(message, "");
+		Log.i("onFailure", "MessageFragment: " + tag);
 		switchView(tag);
+		int position = 0;
+		switch (tag) {
+			case 0:
+				position = 1;
+				break;
+			case 1:
+				position = 2;
+				break;
+			case 2:
+				position = 4;
+				break;
+			case 3:
+				position = 3;
+				break;
+		}
+		onEvent(new PushMessageEvent(position));
 	}
 
 	/**
@@ -235,6 +252,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	 * @param position
 	 */
 	public void switchView(int position) {
+		Log.i("onFailure", "switchView: " + position);
 		// 获取Fragment的操作对象
 		FragmentTransaction transaction = getActivity()
 				.getSupportFragmentManager().beginTransaction();
@@ -420,6 +438,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	 */
 	public void onEvent(PushMessageEvent data) {
 		int index = data.index;
+		Log.i("onFailure", "msgType: " + index);
 		switch (index) {
 		case 1:
 			rb_task.setChecked(true);
@@ -428,7 +447,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_mymessage.setChecked(false);
 			tag = 0;
 			switchView(0);
-			EventBus.getDefault().post(new mainEvent("1"));
 			break;
 		case 2:
 			rb_system.setChecked(true);
@@ -437,7 +455,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_mymessage.setChecked(false);
 			tag = 1;
 			switchView(1);
-			EventBus.getDefault().post(new mainEvent("2"));
 			break;
 		case 4:
 			rb_emergency.setChecked(true);
@@ -446,7 +463,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_mymessage.setChecked(false);
 			tag = 2;
 			switchView(2);
-			EventBus.getDefault().post(new mainEvent("3"));
 			break;
 		case 3:
 			rb_mymessage.setChecked(true);
@@ -455,9 +471,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_task.setChecked(false);
 			tag = 3;
 			switchView(3);
-			EventBus.getDefault().post(new mainEvent("4"));
 			break;
-
 		}
 
 	}

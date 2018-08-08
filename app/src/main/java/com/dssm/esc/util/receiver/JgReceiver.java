@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.dssm.esc.util.ActivityCollector;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.activity.MainActivity;
 import com.easemob.chatuidemo.activity.SplashActivity;
 
@@ -50,16 +51,14 @@ public class JgReceiver extends PushReceiver {
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d("JgPush", "[MyReceiver] 用户点击打开了通知");
-            Intent intent2 = new Intent(context, MainActivity.class);
+            Intent intent2 = new Intent(context, SplashActivity.class);
             ActivityCollector.finishSplashActivity();
-            if (context.getPackageManager().resolveActivity(intent2, 0) == null) {
+            if (Utils.isExistActivity(MainActivity.class)) {
                 // 说明系统中不存在这个activity
-                intent2.setClass(context, SplashActivity.class);
-                intent2.putExtra("mainActivity", "unLive");
+                intent2.putExtra("mainActivity", "live");
             }
             else {
-                intent2.setClass(context, SplashActivity.class);
-                intent2.putExtra("mainActivity", "live");
+                intent2.putExtra("mainActivity", "unLive");
             }
             String text = "通知被打开";
             Log.i("jgPush", text);

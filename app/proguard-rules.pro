@@ -211,12 +211,14 @@
 -keep class org.slf4j.** {*;}
 -keep class ch.imvs.** {*;}
 
-#信鸽避免混淆
--keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver
--keep class com.tencent.android.tpush.** {* ;}
--keep class com.tencent.mid.** {* ;}
--keep class com.qq.taf.jce.** {*;}
+#极光避免混淆
+-dontoptimize
+-dontpreverify
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+-keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }
 
 #xutils3避免混淆
 -keep class org.xutils.** {*;}

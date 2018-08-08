@@ -41,6 +41,7 @@ import com.dssm.esc.util.PermissionsChecker;
 import com.dssm.esc.util.SystemBarTintManager;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
+import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.fragment.AdrressListFragment;
 import com.dssm.esc.view.fragment.ControlCenterFragment;
@@ -167,6 +168,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private boolean flag = true;
 
     private MsgReceiver msgReceiver;
+    //点击通知栏传递过来的消息类型
+    public String msgType = "";
 
     private PermissionsChecker mPermissionsChecker; // 权限检测器
     private static final int REQUEST_CODE = 0; // 请求码
@@ -299,6 +302,13 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
              */
             JPushInterface.setAlias(getApplicationContext(), 2018, map.get("postFlag").replace("-", "_"));
             initView();
+            if(getIntent() != null) {
+                String msgType = getIntent().getStringExtra("msgType");
+                if (msgType != null && !msgType.equals("")) {
+                    Log.i("onFailure", "MainActivity: " + msgType);
+                    this.msgType = msgType;
+                }
+            }
             init();
         }
         mPermissionsChecker = new PermissionsChecker(this);
@@ -396,6 +406,27 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         if(flag) {
             switchView(0);
             flag = false;
+        }
+        if(messageFragment != null) {
+            //点击通知栏传递过来的消息类型
+            if(!msgType.equals("")) {
+                int type = Integer.parseInt(msgType);
+                switch (type) {
+                    case 1:
+                        messageFragment.tag = 0;
+                        break;
+                    case 2:
+                        messageFragment.tag = 1;
+                        break;
+                    case 3:
+                        messageFragment.tag = 3;
+                        break;
+                    case 4:
+                        messageFragment.tag = 2;
+                        break;
+                }
+                msgType = "";
+            }
         }
     }
 

@@ -10,6 +10,6 @@ public class PushMessageEvent {
 	/** 数据 */
 	public int index;
 	public PushMessageEvent(int index) {
-		this.index=index;
+		this.index = index;
 	}
 }

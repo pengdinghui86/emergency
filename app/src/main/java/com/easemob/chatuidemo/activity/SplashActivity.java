@@ -76,8 +76,9 @@ public class SplashActivity extends BaseActivity {
 
 	private UpdataInfo info;
 	private String localVersion;
+	private String msgType = "";
 
-	private UserSeviceImpl.UserSeviceImplBackBooleanListenser listener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
+    private UserSeviceImpl.UserSeviceImplBackBooleanListenser listener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
 		@Override
 		public void setUserSeviceImplListenser(
 				Boolean backflag,
@@ -167,29 +168,19 @@ public class SplashActivity extends BaseActivity {
 
 				break;
 			case UPDATA_NONEED:
-//				ToastUtil.showToast(getApplicationContext(), "不需要更新");
-				Intent intent = new Intent(SplashActivity.this,
-						MainActivity.class);
-				startActivity(intent);
-				finish();
+                LoginMain();
 				break;
 			case UPDATA_CLIENT:
 				// 对话框通知用户升级程序
 				showUpdataDialog();
 				break;
 			case GET_UNDATAINFO_ERROR:
-				// 服务器超时
-			//	ToastUtil.showToast(getApplicationContext(), "获取服务器更新信息失败");
-				Intent intent2 = new Intent(SplashActivity.this,
-						MainActivity.class);
-				startActivity(intent2);
+                LoginMain();
 				break;
 			case DOWN_ERROR:
 				// 下载apk失败
 				ToastUtil.showToast(getApplicationContext(), "下载新版本失败");
-				Intent intent3 = new Intent(SplashActivity.this,
-						MainActivity.class);
-				startActivity(intent3);
+                LoginMain();
 				break;
 
 			}
@@ -324,6 +315,8 @@ public class SplashActivity extends BaseActivity {
 	 */
 	private void LoginMain() {
 		Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+		intent.putExtra("msgType", msgType);
+		Log.i("onFailure", "SplashActivity: " + msgType);
 		startActivity(intent);
 		// 结束掉当前的activity
 		this.finish();
@@ -353,18 +346,22 @@ public class SplashActivity extends BaseActivity {
 		Log.i("onFailure", "splashActivity启动");
 		if(intent != null) {
 			String flag = intent.getStringExtra("mainActivity");
-			String msgType = intent.getStringExtra("msgType");
+			msgType = intent.getStringExtra("msgType");
 			Log.i("onFailure", "mainActivity status: " + flag);
 			Log.i("onFailure", "msgType: " + msgType);
+
 			if(msgType != null && !msgType.equals(""))
 			{
+				Log.i("onFailure", "EventBus: " + msgType);
 				//MainActivity发送通知，让其显示MessageFragment界面
 				EventBus.getDefault().post(new mainEvent("t"));
 				//给MessageFragment发送通知
 				EventBus.getDefault().post(new PushMessageEvent(Integer.parseInt(msgType)));
 			}
-			if(flag != null && flag.equals("live"))
-				finish();
+
+			if(flag != null && flag.equals("live")) {
+                finish();
+            }
 		}
 
 		//从后台切到前台
@@ -409,10 +406,6 @@ public class SplashActivity extends BaseActivity {
 					Message message = new Message();
 					message.what = 11;
 					handler.sendMessage(message);
-					// Intent intent = new Intent(
-					// SplashActivity.this,
-					// MainActivity.class);
-					// startActivity(intent);
 
 				} else {
 					try {
