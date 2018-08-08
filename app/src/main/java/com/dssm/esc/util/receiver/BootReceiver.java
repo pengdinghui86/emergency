@@ -1,10 +1,11 @@
 package com.dssm.esc.util.receiver;
 
-import com.tencent.android.tpush.XGPushManager;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * 程序卸载广播
  * @author zsj
@@ -24,8 +25,9 @@ public class BootReceiver extends BroadcastReceiver{
         if (intent.getAction().equals("android.intent.action.PACKAGE_REMOVED")) {   
             String packageName = intent.getDataString();   
             System.out.println("卸载了:"  + packageName + "包名的程序");
-            /** 信鸽推送，在程序卸载时解除账号绑定 */
-			XGPushManager.registerPush(context, "*");
+            /** 推送在程序卸载时解除账号绑定 */
+            JPushInterface.stopPush(context.getApplicationContext());
+            JPushInterface.deleteAlias(context.getApplicationContext(), 2018);
         }
     }
 }  

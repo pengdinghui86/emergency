@@ -62,14 +62,12 @@ import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.activity.LoginActivity;
 import com.easemob.chatuidemo.activity.SplashActivity;
 import com.easemob.util.EMLog;
-import com.tencent.android.tpush.XGIOperateCallback;
-import com.tencent.android.tpush.XGPushConfig;
-import com.tencent.android.tpush.XGPushManager;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -296,23 +294,10 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         //cookie不为空
         if(!MySharePreferencesService.getInstance(getApplicationContext()).getcontectName(
                 "JSESSIONID").equals("")) {
-            XGPushConfig.enableDebug(this, true);
             Log.i("postFlag岗位标识", map.get("postFlag"));
             /** 账号绑定，第二个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用
-             * 此接口会覆盖之前绑定的id*/
-            XGPushManager.bindAccount(context, map.get("postFlag"),
-                    new XGIOperateCallback() {
-                        @Override
-                        public void onSuccess(Object data, int flag) {
-                            Log.d("TPush", "注册成功，设备token为：" + data);
-                        }
-
-                        @Override
-                        public void onFail(Object data, int errCode, String msg) {
-                            Log.d("TPush", "注册失败，错误码：" + errCode + ",错误信息："
-                                    + msg);
-                        }
-                    });
+             */
+            JPushInterface.setAlias(getApplicationContext(), 2018, map.get("postFlag").replace("-", "_"));
             initView();
             init();
         }
@@ -482,9 +467,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             public void onSuccess() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        /** 信鸽推送，在退出登录时解除账号绑定 */
-                        //XGPushManager.registerPush(context, "*");
-                        XGPushManager.delAccount(context, map.get("postFlag"));
+                        /** 推送在退出登录时解除账号绑定 */
+                        JPushInterface.stopPush(getApplicationContext());
+                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
                         // 清除本地的sharepreference缓存
                         DataCleanManager.cleanSharedPreference(context);
                     }
@@ -504,7 +489,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                        XGPushManager.delAccount(context, map.get("postFlag"));
+                        JPushInterface.stopPush(getApplicationContext());
+                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
                         // 清除本地的sharepreference缓存
                         DataCleanManager.cleanSharedPreference(context);
                     }
@@ -553,9 +539,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             public void onSuccess() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        /** 信鸽推送，在退出登录时解除账号绑定 */
-                        //XGPushManager.registerPush(context, "*");
-                        XGPushManager.delAccount(context, map.get("postFlag"));
+                        /** 推送在退出登录时解除账号绑定 */
+                        JPushInterface.stopPush(getApplicationContext());
+                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
                         // 清除本地的sharepreference缓存
                         DataCleanManager.cleanSharedPreference(context);
                     }
@@ -857,9 +843,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         // 显示帐号在其他设备登录dialog
                         activity.showConflictDialog();
                     }
-                    /** 信鸽推送，账号在其他地方登录时解除账号绑定 */
-                    //XGPushManager.registerPush(activity, "*");
-                    XGPushManager.delAccount(activity.context, activity.map.get("postFlag"));
+                    /** 推送账号在其他地方登录时解除账号绑定 */
+                    JPushInterface.stopPush(activity.context);
+                    JPushInterface.deleteAlias(activity.context, 2018);
                 }
 
             });
@@ -1175,10 +1161,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         pd.dismiss();
-                        /** 信鸽推送，在退出登录时解除账号绑定 */
-                        //XGPushManager.registerPush(context, "*");
-                        //信鸽3.2.2版本后使用这个接口反注册
-                        XGPushManager.delAccount(context, map.get("postFlag"));
+                        /** 推送在退出登录时解除账号绑定 */
+                        JPushInterface.stopPush(context);
+                        JPushInterface.deleteAlias(context, 2018);
                         // 清除本地的sharepreference缓存
                         DataCleanManager.cleanSharedPreference(context);
                         // 选择角色

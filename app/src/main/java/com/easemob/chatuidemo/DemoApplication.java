@@ -27,10 +27,11 @@ import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.activity.LoginActivity;
 import com.easemob.chatuidemo.utils.SpUtil;
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.android.tpush.XGPushManager;
 
 import org.xutils.x;
 import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class DemoApplication extends Application implements
         Thread.UncaughtExceptionHandler {
@@ -91,6 +92,13 @@ public class DemoApplication extends Application implements
         hxSDKHelper.onInit(applicationContext);
         //注册异常捕获工具类
         CrashHandler.getInstance().init(this);
+
+        //设置开启日志,发布时请关闭日志
+        JPushInterface.setDebugMode(true);
+        //初始化JPush
+        JPushInterface.init(this);
+        //默认激活推送
+        JPushInterface.resumePush(applicationContext);
 
         //xUtils初始化
         x.Ext.init(this);
@@ -167,10 +175,9 @@ public class DemoApplication extends Application implements
                 new Handler(getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        /** 信鸽推送，在退出登录时解除账号绑定 */
-                        //XGPushManager.registerPush(context, "*");
-                        //信鸽3.2.2版本后使用这个接口反注册
-                        XGPushManager.delAccount(getApplicationContext(), map.get("postFlag"));
+                        /** 推送在退出登录时解除账号绑定 */
+                        JPushInterface.stopPush(getApplicationContext());
+                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
                         // 清除本地的sharepreference缓存
                         DataCleanManager.cleanSharedPreference(getApplicationContext());
                         // 重新显示登录页面
@@ -188,8 +195,8 @@ public class DemoApplication extends Application implements
 
             @Override
             public void onError(int code, String message) {
-                //信鸽3.2.2版本后使用这个接口反注册
-                XGPushManager.delAccount(getApplicationContext(), map.get("postFlag"));
+                JPushInterface.stopPush(getApplicationContext());
+                JPushInterface.deleteAlias(getApplicationContext(), 2018);
                 // 清除本地的sharepreference缓存
                 DataCleanManager.cleanSharedPreference(getApplicationContext());
                 // 重新显示登录页面

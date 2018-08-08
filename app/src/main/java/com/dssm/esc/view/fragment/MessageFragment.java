@@ -43,10 +43,10 @@ import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.activity.ChatAllHistoryFragment;
 import com.easemob.chatuidemo.activity.LoginActivity;
-import com.tencent.android.tpush.XGPushManager;
 
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
 import de.greenrobot.event.EventBus;
 /**
  * 消息
@@ -653,8 +653,9 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				getActivity().runOnUiThread(new Runnable() {
 					public void run() {
 						pd.dismiss();
-						/** 信鸽推送，在退出登录时解除账号绑定 */
-						XGPushManager.registerPush(context, "*");
+						/** 推送在退出登录时解除账号绑定 */
+						JPushInterface.stopPush(context);
+						JPushInterface.deleteAlias(context, 2018);
 						// 重新显示登录页面
 						getActivity().finish();
 						startActivity(new Intent(getActivity(),

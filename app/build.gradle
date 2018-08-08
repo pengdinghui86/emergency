@@ -63,10 +63,11 @@ dependencies {
     implementation 'org.kie.modules:com-google-code-gson:6.5.0.Final'
     implementation 'org.xutils:xutils:3.5.0'
     implementation files('libs/mid-core-sdk-4.0.6.jar')
-    implementation files('libs/Xg_sdk_v3.2.3_20180403_1839.jar')
     //添加leakcanary相关的依赖
     //在release和test版本中，使用的是LeakCanary的no-op版本，也就是没有实际代码和操作的Wrapper版本，只包含LeakCanary和RefWatcher类的空实现，这样不会对生成的APK包体积和应用性能造成影响
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    implementation files('libs/jpush-android-3.1.5.jar')
+    implementation files('libs/jcore-android-1.2.3.jar')
 }
