@@ -56,6 +56,15 @@ public class SendCollaborativeActivity extends BaseActivity implements
 	/** 协同布局 */
 	@ViewInject(R.id.cooridiration_ll)
 	private LinearLayout cooridiration_ll;
+	/** 联系人布局 */
+	@ViewInject(R.id.contact_people_ll)
+	private LinearLayout contact_people_ll;
+	/** 联系人布局上方的视图 */
+	@ViewInject(R.id.contact_people_v)
+	private View contact_people_v;
+	/** 要发送的联系人 */
+	@ViewInject(R.id.contact_people)
+	private TextView contact_people;
 	/** 发送对象布局 */
 	@ViewInject(R.id.send_object_ll)
 	private LinearLayout send_object_ll;
@@ -129,8 +138,8 @@ public class SendCollaborativeActivity extends BaseActivity implements
 	private SendNoticyEntity entity = new SendNoticyEntity();
 	/** 预案名 */
 	private String name = "";
-	@ViewInject(R.id.next_tv)
-	private TextView next_tv;
+	@ViewInject(R.id.send_tv)
+	private TextView send_tv;
 	/** 选择的发送对象 */
 	private String selectObj = "";
 	/** 选择的阶段 */
@@ -150,7 +159,15 @@ public class SendCollaborativeActivity extends BaseActivity implements
 	private ImageView back;
 	@ViewInject(R.id.scrollview)
 	private MyScrollView scrollview;
-	
+	public static final int ADD_OTHER_PEOPLE = 0;
+	public static final int ADD_CONTACT_PEOPLE = 1;
+	public static final int SEND_OBJECT = 5;
+	public static final int SELECT_STAGE = 6;
+	//所选联系人ID
+	private String contactIds = "";
+	//所选联系人名字
+	private String contactNames = "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -170,13 +187,14 @@ public class SendCollaborativeActivity extends BaseActivity implements
 		sem_tags2 = 1;// 协同
 		busType = "collaborNotice";
 		send_object_ll.setOnClickListener(this);
+		contact_people_ll.setOnClickListener(this);
 		// phone_email_ll.setOnClickListener(this);
 		stage_ll.setOnClickListener(this);
 		xitong.setOnClickListener(this);
 		email.setOnClickListener(this);
 		message.setOnClickListener(this);
 		APP.setOnClickListener(this);
-		next_tv.setOnClickListener(this);
+		send_tv.setOnClickListener(this);
 		add.setOnClickListener(this);
 		rb_failsafe.setOnClickListener(this);
 		rb_show.setOnClickListener(this);
@@ -199,30 +217,27 @@ public class SendCollaborativeActivity extends BaseActivity implements
 	private void initMesgData(int sem_tags2) {
 		if (sem_tags2 == 1) {
 			cooridiration_ll.setVisibility(View.GONE);
-			next_tv.setVisibility(View.VISIBLE);
-			next_tv.setText("下一步");
+			contact_people_v.setVisibility(View.VISIBLE);
+			contact_people_ll.setVisibility(View.VISIBLE);
 		} else if (sem_tags2 == 2) {
+			contact_people_v.setVisibility(View.GONE);
+			contact_people_ll.setVisibility(View.GONE);
 			cooridiration_ll.setVisibility(View.VISIBLE);
 			if (sendString.equals("对内")) {
 				type = "1";
-
+				contact_people_v.setVisibility(View.VISIBLE);
+				contact_people_ll.setVisibility(View.VISIBLE);
 				pell.setVisibility(View.GONE);
-				next_tv.setVisibility(View.VISIBLE);
 
-				next_tv.setText("下一步");
 			} else if (sendString.equals("对外")) {
 				type = "2";
 
 				pell.setVisibility(View.GONE);
-				next_tv.setVisibility(View.GONE);
 
 			} else if (sendString.equals("对监管")) {
 				type = "3";
 
 				pell.setVisibility(View.VISIBLE);
-
-				next_tv.setVisibility(View.VISIBLE);
-				next_tv.setText("发送");
 			}
 		}
 
@@ -241,18 +256,25 @@ public class SendCollaborativeActivity extends BaseActivity implements
 			break;
 		case R.id.rb_failsafe:
 			sem_tags2 = 1;
+			contactIds = "";
+			contactNames = "";
 			// 协同:
 			busType = "collaborNotice";
 			initMesgData(sem_tags2);
 			break;
 		case R.id.rb_show:
 			sem_tags2 = 2;
+			contactIds = "";
+			contactNames = "";
 			// 通告:
 			busType = "displayNotice";
 			initMesgData(sem_tags2);
 			break;
-		case R.id.next_tv:// 下一步
-			intentNext();
+		case R.id.send_tv://发送
+			sendNotice();
+			break;
+		case R.id.contact_people_ll:
+			addContactPeople();
 			break;
 		case R.id.send_object_ll:// 发送对象
 			Intent intent1 = new Intent(SendCollaborativeActivity.this,
@@ -262,7 +284,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 			bundle3.putSerializable("arrlist", (Serializable) resutList1);
 			bundle3.putString("tags", "5");
 			intent1.putExtras(bundle3);
-			startActivityForResult(intent1, 5);
+			startActivityForResult(intent1, SEND_OBJECT);
 			break;
 		case R.id.add:
 			Intent intent3 = new Intent(SendCollaborativeActivity.this,
@@ -270,7 +292,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("list", receviewdataList);
 			intent3.putExtras(bundle);
-			startActivityForResult(intent3, 0);
+			startActivityForResult(intent3, ADD_OTHER_PEOPLE);
 			break;
 		case R.id.stage_ll:// 阶段
 			Intent intent2 = new Intent(SendCollaborativeActivity.this,
@@ -280,7 +302,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 			bundle1.putSerializable("arrlist", (Serializable) resutList2);
 			bundle1.putString("tags", "6");
 			intent2.putExtras(bundle1);
-			startActivityForResult(intent2, 6);
+			startActivityForResult(intent2, SELECT_STAGE);
 			break;
 		case R.id.xitong_tg:// 0系统，1邮件，2短信，3 APP，逗号隔开
 			if (xitong.isChecked()) {
@@ -389,7 +411,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 		if (data != null && resultCode == RESULT_OK) {
 
 			switch (requestCode) {
-			case 0:
+			case ADD_OTHER_PEOPLE:
 				@SuppressWarnings("unchecked")
 				ArrayList<RecieveListEntity> dataArrayList = (ArrayList<RecieveListEntity>) data
 						.getExtras().getSerializable("arrlist");
@@ -402,7 +424,12 @@ public class SendCollaborativeActivity extends BaseActivity implements
 				mSelectAdapter.notifyDataSetChanged();
 				setListViewHeightBasedOnChildren(listview);
 				break;
-			case 5:
+			case ADD_CONTACT_PEOPLE:
+				contactIds = data.getExtras().getString("people");
+				contactNames = data.getExtras().getString("peopleName");
+				contact_people.setText(contactNames);
+				break;
+			case SEND_OBJECT:
 				sendString = "";
 				resutList1 = (ArrayList<BusinessTypeEntity>) data
 						.getSerializableExtra("arrlist");
@@ -423,28 +450,21 @@ public class SendCollaborativeActivity extends BaseActivity implements
 
 							if (sendString.equals("对内")) {
 								type = "1";
-
+								contact_people_v.setVisibility(View.VISIBLE);
+								contact_people_ll.setVisibility(View.VISIBLE);
 								pell.setVisibility(View.GONE);
-								next_tv.setVisibility(View.VISIBLE);
-
-								next_tv.setText("下一步");
 							} else if (sendString.equals("对外")) {
 								type = "2";
-
+								contact_people_v.setVisibility(View.GONE);
+								contact_people_ll.setVisibility(View.GONE);
 								pell.setVisibility(View.GONE);
-								next_tv.setVisibility(View.GONE);
 
 							} else if (sendString.equals("对监管")) {
 								type = "3";
-
+								contact_people_v.setVisibility(View.GONE);
+								contact_people_ll.setVisibility(View.GONE);
 								pell.setVisibility(View.VISIBLE);
-
-								next_tv.setVisibility(View.VISIBLE);
-								next_tv.setText("发送");
 							}
-						} else if (sem_tags2 == 1) {
-							next_tv.setVisibility(View.VISIBLE);
-							next_tv.setText("下一步");
 						}
 						selectObj = sendString;
 						send_object.setText(sendString);
@@ -459,7 +479,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 					}
 				}
 				break;
-			case 6:
+			case SELECT_STAGE:
 				stageString = "";
 				resutList2 = (ArrayList<BusinessTypeEntity>) data
 						.getSerializableExtra("arrlist");
@@ -520,9 +540,9 @@ public class SendCollaborativeActivity extends BaseActivity implements
 	    System.out.println(sb.toString());
 	}
 	/***
-	 * 选择协同或通告
+	 * 发送通告
 	 */
-	private void intentNext() {
+	private void sendNotice() {
 		entity.setBusType(busType);
 		entity.setPlanInfoId(planInfoId);
 		content = edit_message.getText().toString().trim();
@@ -546,14 +566,13 @@ public class SendCollaborativeActivity extends BaseActivity implements
 				if (sem_tags2 == 1) {// 协同
 					entity.setCoorStage(coorStage);
 					entity.setSendObj("[]");
-					Intent intent = new Intent(SendCollaborativeActivity.this,
-							CollaborativeCircularActivity.class);
-					intent.putExtra("entity", entity);
-					// intent.putExtra("tag", tag);
-					intent.putExtra("name", name);
-					intent.putExtra("planInfoId", planInfoId);
-					intent.putExtra("precautionId", precautionId);
-					startActivity(intent);
+					if (!contactIds.equals("")) {
+						entity.setId(contactIds);
+						initContent();
+					} else {
+						ToastUtil.showToast(SendCollaborativeActivity.this,
+								"发送人不能为空");
+					}
 				} else if (sem_tags2 == 2) {// 通告
 					if (!sendString.equals("")) {
 						if (!coorStage.equals("")) {
@@ -584,18 +603,19 @@ public class SendCollaborativeActivity extends BaseActivity implements
 											"对监管时发送人的手机/邮箱必填");
 								}
 
+							} else if(sendString.equals("对外")) {// 对外
+								entity.setId("");
+								entity.setSendObj("[]");
+								initContent();
 							} else {// 对内
 								entity.setSendObj("[]");
-								Intent intent = new Intent(
-										SendCollaborativeActivity.this,
-										CollaborativeCircularActivity.class);
-
-								intent.putExtra("entity", entity);
-								// intent.putExtra("tag", tag);
-								intent.putExtra("name", name);
-								intent.putExtra("planInfoId", planInfoId);
-								intent.putExtra("precautionId", precautionId);
-								startActivity(intent);
+								if (!contactIds.equals("")) {
+									entity.setId(contactIds);
+									initContent();
+								} else {
+									ToastUtil.showToast(SendCollaborativeActivity.this,
+											"发送人不能为空");
+								}
 							}
 						} else {
 							ToastUtil.showToast(SendCollaborativeActivity.this,
@@ -612,6 +632,17 @@ public class SendCollaborativeActivity extends BaseActivity implements
 		} else {
 			ToastUtil.showToast(SendCollaborativeActivity.this, "发送内容不能为空");
 		}
+	}
+
+	/***
+	 * 添加联系人
+	 */
+	private void addContactPeople() {
+		Intent intent = new Intent(SendCollaborativeActivity.this,
+				CollaborativeCircularActivity.class);
+		intent.putExtra("planInfoId", planInfoId);
+		intent.putExtra("precautionId", precautionId);
+		startActivityForResult(intent, ADD_CONTACT_PEOPLE);
 	}
 
 	/***
@@ -658,7 +689,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 			if (backflag) {
 				ToastUtil.showToast(SendCollaborativeActivity.this,
 						stRerror);
-				// SendCollaborativeActivity.this.finish();
+				SendCollaborativeActivity.this.finish();
 
 			} else if (backflag == false) {
 				ToastUtil.showToast(SendCollaborativeActivity.this,

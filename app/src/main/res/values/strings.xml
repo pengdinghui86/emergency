@@ -104,6 +104,7 @@
     <string name="alltime">总用时</string>
     <string name="okdone">已完成</string>
     <string name="send">发送</string>
+    <string name="contact_people">联系人</string>
     <string name="sendobject">发送对象</string>
     <string name="phone_email">手机/邮箱</string>
     <string name="stage">阶段</string>

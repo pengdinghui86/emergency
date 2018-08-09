@@ -18,12 +18,10 @@ import android.widget.TextView;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
-import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.entity.emergency.PlanTreeEntity;
-import com.dssm.esc.model.entity.emergency.SendNoticyEntity;
 import com.dssm.esc.util.CharacterParser;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
@@ -73,13 +71,14 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	private TextView noSearchResultTv;
 	private String planInfoId = "";
 	private String precautionId = "";
-	private SendNoticyEntity entity;
 	private String ids = "";
 	/** 汉字转换成拼音的类 */
 	private CharacterParser characterParser = CharacterParser.getInstance();
 
 	private TreeNode root;
 	private TreeView treeView;
+
+	private String checkedNames = "";
 
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -123,16 +122,15 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 		View findViewById = findViewById(R.id.collaborativecircular);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();
-		entity = (SendNoticyEntity) intent.getSerializableExtra("entity");
 		planInfoId = intent.getStringExtra("planInfoId");
 		precautionId = intent.getStringExtra("precautionId");
 		initView();
 	}
 
 	private void initView() {
-		mSelectTypeTitle.setText("协同通告");
+		mSelectTypeTitle.setText("请选择联系人");
 		mSelectConfirm.setVisibility(View.VISIBLE);
-		mSelectConfirm.setText("发送");
+		mSelectConfirm.setText("添加");
 		mBack.setVisibility(View.VISIBLE);
 		mSelectConfirm.setOnClickListener(this);
 		if (planTreeList.size() == 0) {
@@ -341,54 +339,21 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 	 * @updateInfo (此处输入修改内容,若无修改可不写.)
 	 */
 	private List<String> showCheckedItems() {
-		String checkedItems = "";
+		checkedNames = "";
 		List<String> checkedChildren = new ArrayList<>();
 		List<TreeNode> treeNodes = treeView.getSelectedNodes();
 		for(TreeNode treeNode : treeNodes) {
 			if(treeNode.getValue() instanceof ChildEntity) {
 				checkedChildren.add(((ChildEntity) treeNode.getValue()).getChild_id());
-			}
-		}
-		if (checkedChildren != null && checkedChildren.size() > 0) {
-			for (String child : checkedChildren) {
-				if (checkedItems.length() > 0) {
-					checkedItems += "\n";
+				if (checkedNames.length() > 0) {
+					checkedNames += "，";
 				}
-
-				checkedItems += child;
+				checkedNames += ((ChildEntity) treeNode.getValue()).getName();
 			}
 		}
 
 		return checkedChildren;
 	}
-
-	private EmergencySeviceImplBackBooleanListenser listener = new EmergencySeviceImplBackBooleanListenser() {
-
-		@Override
-		public void setEmergencySeviceImplListenser(
-				Boolean backflag, String stRerror,
-				String Exceptionerror) {
-			// TODO Auto-generated method stub
-			if (backflag) {
-				ToastUtil.showToast(
-						CollaborativeCircularActivity.this,
-						stRerror);
-				finish();
-			} else if (backflag == false) {
-				ToastUtil.showToast(CollaborativeCircularActivity.this,
-						stRerror);
-			} else if (stRerror != null) {
-
-				ToastUtil.showLongToast(CollaborativeCircularActivity.this,
-						stRerror);
-			} else if (Exceptionerror != null) {
-
-				ToastUtil.showLongToast(CollaborativeCircularActivity.this,
-						Const.NETWORKERROR);
-			}
-			Utils.getInstance().hideProgressDialog();
-		}
-	};
 
 	@Override
 	public void onClick(View v) {
@@ -404,19 +369,12 @@ public class CollaborativeCircularActivity extends BaseActivity implements
 					ids = (String) ids.subSequence(1, ids.length());
 				}
 			}
-			if (!ids.equals("")) {
-
-				entity.setId(ids);
-				Utils.getInstance().showProgressDialog(
-						CollaborativeCircularActivity.this, "",
-						Const.SUBMIT_MESSAGE);
-				Control.getinstance().getEmergencyService().sendNotice(entity, listener);
-			} else {
-				ToastUtil.showToast(CollaborativeCircularActivity.this,
-						"发送人不能为空");
-			}
+			Intent intent = new Intent();
+			intent.putExtra("people", ids);
+			intent.putExtra("peopleName", checkedNames);
+			CollaborativeCircularActivity.this.setResult(RESULT_OK, intent);
+			CollaborativeCircularActivity.this.finish();
 			break;
-
 		}
 	}
 

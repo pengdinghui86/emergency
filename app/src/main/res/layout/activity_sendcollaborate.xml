@@ -61,12 +61,64 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
+            <View
+                android:id="@+id/contact_people_v"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/emergency_fragment_bg"/>
+
+            <LinearLayout
+                android:id="@+id/contact_people_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:background="#fff">
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:layout_gravity="left|center"
+                    android:layout_weight="1"
+                    android:gravity="left|center"
+                    android:text="@string/contact_people"
+                    />
+
+                <TextView
+                    android:id="@+id/contact_people"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_weight="1.5"
+                    android:gravity="left|center"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    />
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/right" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/emergency_fragment_bg"/>
+
             <LinearLayout
                 android:id="@+id/cooridiration_ll"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp"
                 android:background="#fff"
                 android:orientation="vertical"
                 android:visibility="gone" >
@@ -76,22 +128,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingTop="10dp" >
+                    android:paddingLeft="10dp">
 
                     <TextView
                         style="@style/text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5" />
-
-                    <TextView
-                        style="@style/text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left|center"
                         android:layout_weight="1"
-                        android:gravity="left"
-                        android:padding="5dp"
+                        android:gravity="left|center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
                         android:text="@string/sendobject"
                         />
 
@@ -100,46 +147,41 @@
                         style="@style/text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left|center"
                         android:layout_weight="1.5"
-                        android:gravity="left"
-                        android:padding="5dp"
+                        android:gravity="left|center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
                         />
 
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
+                        android:layout_gravity="center"
                         android:layout_weight="0.5"
                         android:src="@drawable/right" />
                 </LinearLayout>
 
                 <View
                     android:id="@+id/v"
-                    style="@style/horizontal_gray_style"
-                    android:layout_margin="5dp" />
+                    style="@style/horizontal_gray_style" />
 
                 <LinearLayout
                     android:id="@+id/stage_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:paddingBottom="5dp" >
+                    android:paddingLeft="10dp" >
 
                     <TextView
                         style="@style/text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5" />
-
-                    <TextView
-                        style="@style/text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left|center"
                         android:layout_weight="1"
-                        android:gravity="left"
-                        android:padding="5dp"
+                        android:gravity="left|center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
                         android:text="@string/stage"
                         />
 
@@ -148,16 +190,18 @@
                         style="@style/text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left|center"
                         android:layout_weight="1.5"
-                        android:gravity="left"
-                        android:padding="5dp"
+                        android:gravity="left|center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
                         />
 
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_weight="0.5"
+                        android:layout_gravity="center"
                         android:src="@drawable/right" />
                 </LinearLayout>
 
@@ -313,7 +357,7 @@
             <!-- android:background="@drawable/search_bar_edit_selector" -->
 
             <TextView
-                android:id="@+id/next_tv"
+                android:id="@+id/send_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -323,7 +367,7 @@
                 android:background="@color/textColor_selected"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="下一步"
+                android:text="发送"
                 android:textColor="#fff"
                 android:textSize="16sp" />
         </LinearLayout>
