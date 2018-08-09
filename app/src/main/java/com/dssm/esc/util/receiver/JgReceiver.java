@@ -48,6 +48,18 @@ public class JgReceiver extends PushReceiver {
             Log.d("JgPush", "[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             Log.d("JgPush", "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
+            String msgType = "";
+            try {
+                JSONObject obj = new JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
+                if (!obj.isNull("msgType")) {
+                    msgType = obj.getString("msgType");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Intent intent1 = new Intent("com.dssm.esc.RECEIVER");
+            intent1.putExtra("msgType", msgType);
+            context.sendBroadcast(intent1);
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d("JgPush", "[MyReceiver] 用户点击打开了通知");

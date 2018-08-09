@@ -724,7 +724,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
             mhHolder.executePeopleTitle.setText("执行人：");
             mhHolder.executePeopleTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-            mhHolder.executePeople.setTextColor(context.getResources().getColor(R.color.colorWeFontBlack));
+            mhHolder.executePeople.setTextColor(context.getResources().getColor(R.color.textColor_selected));
             mhHolder.executePeople.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             mhHolder.ll_time.setVisibility(View.VISIBLE);
         }

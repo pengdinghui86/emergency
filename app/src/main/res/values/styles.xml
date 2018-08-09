@@ -25,6 +25,10 @@
         <item name="android:textColor">@color/colorWeFontBlack</item>
         <item name="android:textSize">@dimen/we_normal_textsize</item>
     </style>
+    <style name="normal_blue_text">
+        <item name="android:textColor">@color/textColor_selected</item>
+        <item name="android:textSize">@dimen/we_normal_textsize</item>
+    </style>
     <style name="title_text">
         <item name="android:textColor">@color/colorWeFontBlack</item>
         <item name="android:textSize">@dimen/we_title_textsize</item>

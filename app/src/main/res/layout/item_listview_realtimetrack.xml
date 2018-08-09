@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="left"
-            style="@style/normal_text" />
+            style="@style/normal_blue_text" />
 
         <LinearLayout
             android:layout_width="0dp"

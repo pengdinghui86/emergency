@@ -59,6 +59,17 @@
                 android:textSize="@dimen/we_normal_textsize"
                 android:visibility="invisible" />
 
+        <ImageView
+            android:id="@+id/iv_actionbar_refresh"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:src="@drawable/refresh"
+            android:visibility="gone" />
+
             <ImageView
                 android:id="@+id/tv_actionbar_rightimag"
                 android:layout_width="0dp"

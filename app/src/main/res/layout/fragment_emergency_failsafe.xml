@@ -54,23 +54,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp" >
+                    style="@style/emergency_ll" >
+
+                    <ImageView
+                        style="@style/emergency_img"
+                        android:src="@drawable/event_evlate"
+                        android:visibility="invisible"/>
 
                     <TextView
                         style="@style/message_content_style"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:gravity="left" />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="left"
+                        android:layout_gravity="left|center"
+                        android:gravity="left|center"
                         android:text="@string/addevaluation" />
 
                     <ImageView style="@style/emergency_img_right" />
@@ -83,23 +79,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp" >
+                    style="@style/emergency_ll" >
+
+                    <ImageView
+                        style="@style/emergency_img"
+                        android:src="@drawable/event_evlate"
+                        android:visibility="invisible"/>
 
                     <TextView
                         style="@style/message_content_style"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:gravity="left" />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="left"
+                        android:layout_gravity="left|center"
+                        android:gravity="left|center"
                         android:text="@string/dismissvaluation" />
 
                     <ImageView style="@style/emergency_img_right" />
@@ -154,23 +146,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp" >
+                    style="@style/emergency_ll" >
+
+                    <ImageView
+                        style="@style/emergency_img"
+                        android:src="@drawable/plan_star"
+                        android:visibility="invisible"/>
 
                     <TextView
                         style="@style/message_content_style"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:gravity="left" />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="left"
+                        android:layout_gravity="left|center"
+                        android:gravity="left|center"
                         android:text="待启动事件" />
 
                     <ImageView style="@style/emergency_img_right" />
@@ -183,23 +171,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp" >
+                    style="@style/emergency_ll" >
+
+                    <ImageView
+                        style="@style/emergency_img"
+                        android:src="@drawable/plan_star"
+                        android:visibility="invisible"/>
 
                     <TextView
                         style="@style/message_content_style"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:gravity="left" />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="left"
+                        android:layout_gravity="left|center"
+                        android:gravity="left|center"
                         android:text="已启动预案" />
 
                     <ImageView style="@style/emergency_img_right" />
@@ -258,23 +242,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp" >
+                    style="@style/emergency_ll" >
+
+                    <ImageView
+                        style="@style/emergency_img"
+                        android:src="@drawable/decision_authority"
+                        android:visibility="invisible"/>
 
                     <TextView
                         style="@style/message_content_style"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:gravity="left" />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="left"
+                        android:layout_gravity="left|center"
+                        android:gravity="left|center"
                         android:text="待授权预案" />
 
                     <ImageView style="@style/emergency_img_right" />
@@ -287,23 +267,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp" >
+                    style="@style/emergency_ll" >
+
+                    <ImageView
+                        style="@style/emergency_img"
+                        android:src="@drawable/decision_authority"
+                        android:visibility="invisible"/>
 
                     <TextView
                         style="@style/message_content_style"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:gravity="left" />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="left"
+                        android:layout_gravity="left|center"
+                        android:gravity="left|center"
                         android:text="已授权预案" />
 
                     <ImageView style="@style/emergency_img_right" />
@@ -361,23 +337,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp" >
+                    style="@style/emergency_ll" >
+
+                    <ImageView
+                        style="@style/emergency_img"
+                        android:src="@drawable/person_assin"
+                        android:visibility="invisible"/>
 
                     <TextView
                         style="@style/message_content_style"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:gravity="left" />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="left"
+                        android:layout_gravity="left|center"
+                        android:gravity="left|center"
                         android:text="人员签到" />
 
                     <ImageView style="@style/emergency_img_right" />
@@ -390,23 +362,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp" >
+                    style="@style/emergency_ll" >
+
+                    <ImageView
+                        style="@style/emergency_img"
+                        android:src="@drawable/person_assin"
+                        android:visibility="invisible"/>
 
                     <TextView
                         style="@style/message_content_style"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:gravity="left" />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="left"
+                        android:layout_gravity="left|center"
+                        android:gravity="left|center"
                         android:text="@string/personnel_assignment" />
 
                     <ImageView style="@style/emergency_img_right" />
