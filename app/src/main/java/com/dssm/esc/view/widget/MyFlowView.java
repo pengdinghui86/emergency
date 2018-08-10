@@ -115,14 +115,14 @@ public class MyFlowView extends View {
         canvas.save();
         canvas.concat(m);
         canvas.restore();
-        if(smoothMoveX > getWidth() - defaultWidth)
-            smoothMoveX = getWidth() - defaultWidth;
-        else if(smoothMoveX < 0)
-            smoothMoveX = 0;
-        if(smoothMoveY > getHeight() - defaultHeight)
-            smoothMoveY = getHeight() - defaultHeight;
-        else if(smoothMoveY < 0)
-            smoothMoveY = 0;
+        if(smoothMoveX > getWidth() - defaultWidth * 4 / 5)
+            smoothMoveX = getWidth() - defaultWidth * 4 / 5;
+        else if(smoothMoveX < - defaultWidth / 5)
+            smoothMoveX = - defaultWidth / 5;
+        if(smoothMoveY > getHeight() - defaultHeight * 4 / 5)
+            smoothMoveY = getHeight() - defaultHeight * 4 / 5;
+        else if(smoothMoveY < - defaultHeight / 5)
+            smoothMoveY = - defaultHeight / 5;
         scrollTo((int) smoothMoveX, (int) smoothMoveY);
     }
 

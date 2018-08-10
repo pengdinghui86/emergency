@@ -212,7 +212,8 @@ public class TreeViewAdapter extends RecyclerView.Adapter {
             return;
         }
         expandedNodeList.addAll(index + 1, additionNodes);
-        notifyItemRangeInserted(index + 1, additionNodes.size());
+//        notifyItemRangeInserted(index + 1, additionNodes.size());
+        notifyItemRangeChanged(index + 1, expandedNodeList.size() - 1);
     }
 
     /**
