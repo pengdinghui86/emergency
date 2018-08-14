@@ -84,35 +84,7 @@ private String planInfoId;
 		}
 		
 		mhHolder.stepname.setText(entity.getName());
-		String stepname = entity.getExecutePeople();
-		String state = entity.getExecutePeopleType();
-		if(entity.getOrderNum() != null && !("").equals(entity.getOrderNum()))
-			mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getOrderNum());
-		else if(entity.getEditOrderNum() != null && !("").equals(entity.getEditOrderNum()))
-			mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getEditOrderNum());
-		if (state.equals("0")) {
-			stepname="无执行人";
-			mhHolder.who_task.setVisibility(View.GONE);
-			
-		}else if (state.equals("1")) {
-			mhHolder.who_task.setText("("+"A角"+")");
-			mhHolder.who_task.setVisibility(View.VISIBLE);
-		}else if (state.equals("2")) {
-			mhHolder.who_task.setText("("+"B角"+")");
-			mhHolder.who_task.setVisibility(View.VISIBLE);
-		}
-		else if (state.equals("3")) {
-			mhHolder.who_task.setText("("+"C角"+")");
-			mhHolder.who_task.setVisibility(View.VISIBLE);
-		}
-		else if (state.equals("4")) {
-			mhHolder.who_task.setText("("+"被指派"+")");
-			mhHolder.who_task.setVisibility(View.VISIBLE);
-		}else {
-			stepname="未知";
-			mhHolder.who_task.setVisibility(View.GONE);
-		}
-		mhHolder.whodone_name.setText(stepname);
+
 		if(entity.getNodeStepType().equals("CallActivity")) {
 			mhHolder.assign.setVisibility(View.INVISIBLE);
 			mhHolder.who_task.setVisibility(View.GONE);
@@ -139,6 +111,35 @@ private String planInfoId;
 					context.startActivity(intent);
 				}
 			});
+			String stepname = entity.getExecutePeople();
+			String state = entity.getExecutePeopleType();
+			if(entity.getOrderNum() != null && !("").equals(entity.getOrderNum()))
+				mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getOrderNum());
+			else if(entity.getEditOrderNum() != null && !("").equals(entity.getEditOrderNum()))
+				mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getEditOrderNum());
+			if (state.equals("0")) {
+				stepname="无执行人";
+				mhHolder.who_task.setVisibility(View.GONE);
+
+			}else if (state.equals("1")) {
+				mhHolder.who_task.setText("("+"A角"+")");
+				mhHolder.who_task.setVisibility(View.VISIBLE);
+			}else if (state.equals("2")) {
+				mhHolder.who_task.setText("("+"B角"+")");
+				mhHolder.who_task.setVisibility(View.VISIBLE);
+			}
+			else if (state.equals("3")) {
+				mhHolder.who_task.setText("("+"C角"+")");
+				mhHolder.who_task.setVisibility(View.VISIBLE);
+			}
+			else if (state.equals("4")) {
+				mhHolder.who_task.setText("("+"被指派"+")");
+				mhHolder.who_task.setVisibility(View.VISIBLE);
+			}else {
+				stepname="未知";
+				mhHolder.who_task.setVisibility(View.GONE);
+			}
+			mhHolder.whodone_name.setText(stepname);
 		}
 
 		return convertView;
