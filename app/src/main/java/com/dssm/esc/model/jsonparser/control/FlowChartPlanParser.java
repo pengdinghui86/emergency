@@ -180,10 +180,11 @@ public class FlowChartPlanParser {
 					entity.setManualDetailId(isNull(jsonObject.getString("manualDetailId")));
 					entity.setMessage(isNull(jsonObject.getString("message")));
 					entity.setName(isNull(jsonObject.getString("name")));
-					entity.setOrderNum(isNull(jsonObject.getString("orderNum")));
+                    //2018.8.14修改，后台统一规定，实时流程监控用OrderNum，流程图用EditOrderNum
+//					entity.setOrderNum(isNull(jsonObject.getString("orderNum")));
+					entity.setOrderNum("");
 					entity.setEditOrderNum(isNull(jsonObject
 							.getString("editOrderNum")));
-
 					entity.setpId(isNull(jsonObject.getString("pId")));
 					entity.setPlanEveId(isNull(jsonObject
 							.getString("planEveId")));

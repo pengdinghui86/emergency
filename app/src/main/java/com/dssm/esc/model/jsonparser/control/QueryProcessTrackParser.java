@@ -171,7 +171,9 @@ public class QueryProcessTrackParser {
 					entity.setParentProcessStepId(isNull(jsonObject.getString("parentProcessStepId")));
 					entity.setStatus(jsonObject.getString("status"));//完成状态
 					entity.setOrderNum(jsonObject.getString("orderNum"));
-					entity.setEditOrderNum(jsonObject.getString("editOrderNum"));
+					//2018.8.14修改，后台统一规定，实时流程监控用OrderNum，流程图用EditOrderNum
+//					entity.setEditOrderNum(jsonObject.getString("editOrderNum"));
+					entity.setEditOrderNum("");
 					entity.setBeginTime(jsonObject.getString("beginTime"));//开始时间（已用时：结束时间减去开始时间）
 					entity.setType(jsonObject.getString("type"));
 					entity.setEndTime(jsonObject.getString("endTime"));//结束时间

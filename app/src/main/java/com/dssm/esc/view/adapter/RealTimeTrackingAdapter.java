@@ -182,16 +182,33 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             }
             switch (Integer.parseInt(entity.getStatus())) {
                 case 1:
-                    setDefaultBackground(mhHolder, R.color.green_b);
-                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
-                    mhHolder.status.setText("已执行");
-
+                    status = "已执行";
+                    //新增,2018/7/26
+                    //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
+                    if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1"))
+                        status = "流程未启动";
+                    else {
+                        setDefaultBackground(mhHolder, R.color.green_b);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
+                    }
+                    mhHolder.status.setText(status);
                     setItemColor(entity, mhHolder);
                     break;
                 case 2:
-                    setDefaultBackground(mhHolder, R.color.green_b);
-                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
-                    mhHolder.status.setText("已执行");
+                    status = "已执行";
+                    //新增,2018/7/26
+                    //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
+                    if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1"))
+                        status = "流程未启动";
+                    //新增,2018/8/14
+                    else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")){
+                        status = "未执行";
+                    }
+                    else {
+                        setDefaultBackground(mhHolder, R.color.green_b);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
+                    }
+                    mhHolder.status.setText(status);
 
                     setItemColor(entity, mhHolder);
                     break;
@@ -201,6 +218,10 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1"))
                         status = "流程未启动";
+                    //新增,2018/8/14
+                    else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")){
+                        status = "未执行";
+                    }
                     else {
                         setDefaultBackground(mhHolder, R.color.green_b);
                         mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
@@ -268,8 +289,14 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
 
                 case 9:
                     status = "已执行";
-                    setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.RED);
+                    //新增,2018/8/14
+                    if((null == entity.getType()) ? false : entity.getType().equals("drillNew")) {
+                        status = "未执行";
+                    }
+                    else {
+                        setDefaultBackground(mhHolder, R.color.red);
+                        mhHolder.status.setTextColor(Color.RED);
+                    }
                     mhHolder.status.setText(status);
 
                     setItemColor(entity, mhHolder);
@@ -348,6 +375,10 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1"))
                         status = "流程未启动";
+                    //新增,2018/8/14
+                    else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")){
+                        status = "未执行";
+                    }
                     else {
                         setDefaultBackground(mhHolder, R.color.red);
                         mhHolder.status.setTextColor(Color.RED);

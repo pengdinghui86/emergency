@@ -711,23 +711,23 @@ public class MyFlowView extends View {
                     float zoom;
                     if(dd > 0f) {
                         if(currentZoom > 1)
-                            zoom = smoothZoom * 1.04f;
-                        else if(currentZoom > 0.6)
                             zoom = smoothZoom * 1.03f;
-                        else if(currentZoom > 0.2)
+                        else if(currentZoom > 0.6)
                             zoom = smoothZoom * 1.02f;
-                        else
+                        else if(currentZoom > 0.2)
                             zoom = smoothZoom * 1.01f;
+                        else
+                            zoom = smoothZoom * 1.005f;
                     }
                     else {
                         if(currentZoom > 1)
-                            zoom = smoothZoom / 1.04f;
-                        else if(currentZoom > 0.6)
                             zoom = smoothZoom / 1.03f;
-                        else if(currentZoom > 0.2)
+                        else if(currentZoom > 0.6)
                             zoom = smoothZoom / 1.02f;
-                        else
+                        else if(currentZoom > 0.2)
                             zoom = smoothZoom / 1.01f;
+                        else
+                            zoom = smoothZoom / 1.005f;
                     }
                     smoothZoomTo(zoom, x, y, 1);
                 }
