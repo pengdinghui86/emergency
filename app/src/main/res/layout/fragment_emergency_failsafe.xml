@@ -12,10 +12,10 @@
             android:id="@+id/sjpg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical" >
 
-            <View style="@style/horizontal_gray_style" />
+            <View style="@style/horizontal_gray_style"
+                android:layout_height="10dp"/>
 
             <LinearLayout
                 android:id="@+id/eventevaluation_ll"
@@ -45,7 +45,6 @@
                 android:id="@+id/eventevaluation_child_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/contact_child_bg"
                 android:orientation="vertical"
                 android:visibility="gone" >
 
@@ -97,7 +96,6 @@
                     <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
 
-                <View style="@style/horizontal_gray_style" />
             </LinearLayout>
         </LinearLayout>
 
@@ -105,10 +103,10 @@
             android:id="@+id/yaqd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical" >
 
-            <View style="@style/horizontal_gray_style" />
+            <View style="@style/horizontal_gray_style"
+                android:layout_height="10dp"/>
 
             <LinearLayout
                 android:id="@+id/planstar_ll"
@@ -137,7 +135,6 @@
                 android:id="@+id/people_start_child_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/contact_child_bg"
                 android:orientation="vertical"
                 android:visibility="gone" >
 
@@ -233,7 +230,6 @@
                 android:id="@+id/authorization_child_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/contact_child_bg"
                 android:orientation="vertical"
                 android:visibility="gone" >
 
@@ -284,19 +280,16 @@
 
                     <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
-
-                <View style="@style/horizontal_gray_style" />
-
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical" >
 
-            <View style="@style/horizontal_gray_style" />
+            <View style="@style/horizontal_gray_style"
+                android:layout_height="10dp"/>
 
             <LinearLayout
                 android:id="@+id/people_sign_in_ll"
@@ -328,7 +321,6 @@
                 android:id="@+id/people_sign_in_child_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/contact_child_bg"
                 android:orientation="vertical"
                 android:visibility="gone" >
 

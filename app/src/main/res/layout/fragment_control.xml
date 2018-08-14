@@ -10,7 +10,7 @@
 
     <View
         style="@style/horizontal_gray_style"
-        android:layout_marginTop="10dp" />
+        android:layout_height="10dp" />
 
     <LinearLayout
         android:id="@+id/event_prcess_ll"
@@ -39,7 +39,7 @@
 
     <View
         style="@style/horizontal_gray_style"
-        android:layout_marginTop="10dp" />
+        android:layout_height="10dp" />
 
     <LinearLayout
         android:id="@+id/command_display_ll"

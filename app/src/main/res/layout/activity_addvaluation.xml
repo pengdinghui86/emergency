@@ -5,7 +5,8 @@
     android:id="@+id/addvaluation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/set_gray">
 
     <com.dssm.esc.view.widget.Title_Layout
         android:id="@+id/rl_marine_title"
@@ -188,7 +189,9 @@
                     android:src="@drawable/right" />
             </LinearLayout>
 
-            <View style="@style/horizontal_gray_style" />
+            <View
+                android:id="@+id/event_background_view"
+                style="@style/horizontal_gray_style" />
 
             <LinearLayout
                 android:id="@+id/event_type_ll"

@@ -2,6 +2,8 @@ package com.dssm.esc.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -11,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.util.Const;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
 import org.xutils.view.annotation.ContentView;
@@ -72,7 +76,8 @@ public class OperationMenuActivity extends BaseActivity {
         tag = intent.getStringExtra("tag");
         planResType = intent.getStringExtra("planResType");
         drillPrecautionId = intent.getStringExtra("drillPrecautionId");
-
+        Utils.getInstance().showProgressDialog(
+                OperationMenuActivity.this, "", Const.SUBMIT_MESSAGE);
         initView();
     }
 
@@ -101,7 +106,6 @@ public class OperationMenuActivity extends BaseActivity {
         webSettings.setAllowFileAccess(true);
         // 设置支持缩放
         webSettings.setBuiltInZoomControls(true);
-
         Log.i("操作手册url", url);
         webView.loadUrl(url);
 
@@ -115,6 +119,22 @@ public class OperationMenuActivity extends BaseActivity {
                 return true;
             }
         });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Utils.getInstance().hideProgressDialog();
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
     // private class LoadWebViewTask extends AsyncTask<Void, Void, Void> {
     //

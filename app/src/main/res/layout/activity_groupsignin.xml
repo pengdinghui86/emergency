@@ -3,7 +3,8 @@
     android:id="@+id/groupsignin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/set_gray">
 
     <com.dssm.esc.view.widget.Title_Layout
         android:id="@+id/title"

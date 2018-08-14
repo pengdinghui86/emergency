@@ -65,6 +65,9 @@ public class AddeValuationActivity extends BaseActivity implements
 	/** 事件场景 */
 	@ViewInject(R.id.event_background)
 	private TextView event_background;
+	/** 事件场景下方的分隔线 */
+	@ViewInject(R.id.event_background_view)
+	private View event_background_view;
 
 	/** 事件类型布局 */
 	@ViewInject(R.id.event_type_ll)
@@ -206,6 +209,7 @@ public class AddeValuationActivity extends BaseActivity implements
 					.getSerializableExtra("entity");
 			tag = entity.getEveType();
 			event_type_ll.setVisibility(View.GONE);
+			event_background_view.setVisibility(View.GONE);
 			String eveType2 = entity.getEveType();
 			if (eveType2.equals("1")) {
 				title.setText("应急-重新评估");
@@ -223,6 +227,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				title.setText("演练-新增评估");
 			}
 			event_type_ll.setVisibility(View.GONE);
+			event_background_view.setVisibility(View.GONE);
 		}
 
 		business_type_ll.setOnClickListener(this);// 行业类型布局

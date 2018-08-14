@@ -155,10 +155,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             if (!executePeopleId.equals("null") && !executePeopleId.equals("")) {
                 peopleClick(mhHolder, executePeopleId);
 
-            } else {
-                ToastUtil.showToast(context, "未查找到执行人！");
             }
-
         }
         else
             mhHolder.executePeople.setText("");
@@ -674,7 +671,12 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 && !entity.getBeginTime().equals("")) {
             String overSeconds = Utils.getInstance().getOverSeconds(
                     entity.getEndTime(), entity.getBeginTime()) + "";
-            long result = Utils.getInstance().compareTime(overSeconds, entity.getDuration());
+            String duration;
+            if(entity.getDuration().equals("null") || entity.getDuration().equals(""))
+                duration = "0";
+            else
+                duration = entity.getDuration();
+            long result = Utils.getInstance().compareTime(overSeconds, duration);
             mhHolder.overtime.setText(Utils.getInstance().getOverTime(
                     entity.getEndTime(), entity.getBeginTime()));
             if(result < 0)

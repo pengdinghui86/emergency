@@ -281,21 +281,39 @@ public class NSSetPointValueToSteps{
 			List<NSstep> currentSteps = findAllCurrentNodes(row);
 
 			if(currentSteps.size() > 1) {
-
-				for(int p = 1; p < currentSteps.size(); p++) {
-					int j;
-					NSstep parentNode = findLeftParentNode(currentSteps.get(p));
-					NSstep temp = currentSteps.get(p);
-
-					for (j = p; j > 0; j--) {
-						NSstep parentNode1 = findLeftParentNode(currentSteps.get(j - 1));
-						if (parentNode.y < parentNode1.y)
-							//后移
-							currentSteps.get(j).y = currentSteps.get(j - 1).y;
+				float[] values = new float[currentSteps.size()];
+				int n = 0;
+				for(NSstep nSstep : currentSteps) {
+					values[n++] = nSstep.y;
+				}
+				float[] tempValues = new float[currentSteps.size()];
+				tempValues[0] = values[0];
+				//插入排序
+				for(int i = 1; i < currentSteps.size(); i++) {
+					int j = i - 1;
+					while (tempValues[j] > values[i] && j >= 0) {
+						tempValues[j + 1] = tempValues[j];
+						j--;
+					}
+					tempValues[j + 1] = values[i];
+				}
+				List<NSstep> tempSteps = new ArrayList<>(currentSteps);
+				for(int i = 1; i < currentSteps.size(); i++) {
+					int j = i - 1;
+					NSstep parentNode1 = findLeftParentNode(currentSteps.get(i));
+					while (j >= 0) {
+						NSstep parentNode = findLeftParentNode(tempSteps.get(j));
+						if (parentNode.y > parentNode1.y) {
+							tempSteps.set(j + 1, tempSteps.get(j));
+							j--;
+						}
 						else
 							break;
 					}
-					currentSteps.get(j).y = temp.y;//插入到合适的位置
+					tempSteps.set(j + 1, currentSteps.get(i));
+				}
+				for(int i = 0; i < tempSteps.size(); i++) {
+					tempSteps.get(i).y = tempValues[i];
 				}
 			}
 		}

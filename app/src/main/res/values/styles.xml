@@ -89,7 +89,7 @@
     <style name="horizontal_gray_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/colorWeSplitMini</item>
+        <item name="android:background">@color/colorWeWindowGrayBackground</item>
     </style>
     <!-- 竖向灰色线条 -->
     <style name="vertical_gray_style">
