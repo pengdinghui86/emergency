@@ -681,7 +681,7 @@ public class MyFlowView extends View {
         // single touch
         if (event.getPointerCount() == 1) {
             //避免缩放的同时触发拖动事件
-            if(System.currentTimeMillis() - lastTouchTime > 300)
+            if(System.currentTimeMillis() - lastTouchTime > 200)
                 processSingleTouchEvent(event);
         }
         // double touch
