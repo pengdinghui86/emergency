@@ -1200,7 +1200,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         JPushInterface.deleteAlias(context, 2018);
                         // 清除本地的sharepreference缓存
                         DataCleanManager.cleanSharedPreference(context);
-                        // 选择角色
+                        // 退出服务器，通知服务器清除session
                         userSevice.logout(map.get("userId"), logoutListener);
                         // 重新显示登录页面
                         finish();

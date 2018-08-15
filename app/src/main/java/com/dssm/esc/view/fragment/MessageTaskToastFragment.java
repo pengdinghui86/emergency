@@ -157,7 +157,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	@Override
 	public void initGetData() {
 		// TODO Auto-generated method stub
-		initData();
+//		initData();
 	}
 
 	/**
@@ -323,7 +323,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		i = 1;
 		Log.i("44", "onRefresh");
-		loadData(AutoListView.REFRESH);
+//		loadData(AutoListView.REFRESH);
 	}
 
 	/**
