@@ -173,12 +173,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                             list, sevice, roleCode, csevice, curDate, service);
                     rlistview.setAdapter(radapter);
                     radapter.notifyDataSetChanged();
-                    break;
-                case AutoListView.LOAD:
-                    rlistview.onLoadComplete();
-                    list.addAll(result);
-                    rlistview.setResultSize(result.size(), i);
-                    radapter.notifyDataSetChanged();
+
                     break;
                 case 2:
                     WindowManager wm = (WindowManager) ControlActivity.this
@@ -333,7 +328,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 .findViewById(R.id.realtime_track_listview);
 
         rlistview.setOnRefreshListener(this);
-        rlistview.setOnLoadListener(this);
+        rlistview.setLoadEnable(false);
 
         sem_tag = 1;
         initData(sem_tag);
@@ -364,7 +359,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             realtime_tracking.setVisibility(View.VISIBLE);
             resource_preparation.setVisibility(View.GONE);
             my_flow_view.setVisibility(View.GONE);
-            queryProcessTrack(0);
+            queryProcessTrack();
         } else if (sem_tags == 2) {
             my_flow_view.setVisibility(View.VISIBLE);
             realtime_tracking.setVisibility(View.GONE);
@@ -490,7 +485,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     public void onEvent(mainEvent data) {
         if (data.getData().equals("jump")) {
 
-            queryProcessTrack(0);
+            queryProcessTrack();
         }
     }
 
@@ -747,12 +742,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             reSort(data, "", 0);
             data.clear();
             data.addAll(flowCharts);
-            if (data.size() > 20) {// 如果超过20条，则分页
-                List<FlowChartPlanEntity.FlowChart> subList = data.subList(0, 20);
-                message.obj = subList;
-            } else {
-                message.obj = data;
-            }
+            message.obj = data;
             handler.sendMessage(message);
             allList = data;
             Utils.getInstance().hideProgressDialog();
@@ -768,33 +758,10 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     /**
      * 实时跟踪数据初始化
      */
-    private void queryProcessTrack(final int what) {
-        // if (Utils.getInstance().progressDialog==null) {
-        //
-        // Utils.getInstance().showProgressDialog(ControlActivity.this, "",
-        // Const.LOAD_MESSAGE);
-        // }
-        if (what == 0) {// 刷新和第一次加载
-            Utils.getInstance().showProgressDialog(ControlActivity.this, "", Const.LOAD_MESSAGE);
-            csevice.queryProcessTrack(
-                    planEntity.getId(), flowChartPlanEntityControlServiceImplBackValueListenser);
-        } else if (what == 1) {// 加载更多
-            // 本地做分页，加载20条以后的数据，默认每20条分一页
-            Log.i("list测试长度", allList.size() + "");
-            Log.i("num", num + "");
-            List<FlowChartPlanEntity.FlowChart> datalist2;
-            if ((num + 20) <= allList.size()) {
-                datalist2 = allList.subList(num, num + 20);
-                num += 20;
-            } else {
-                datalist2 = allList.subList(num, allList.size());
-            }
-
-            Message message = handler.obtainMessage();
-            message.what = 1;
-            message.obj = datalist2;
-            handler.sendMessage(message);
-        }
+    private void queryProcessTrack() {
+        Utils.getInstance().showProgressDialog(ControlActivity.this, "", Const.LOAD_MESSAGE);
+        csevice.queryProcessTrack(
+                planEntity.getId(), flowChartPlanEntityControlServiceImplBackValueListenser);
     }
 
     private ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity> chartPlanEntityControlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity>() {
@@ -876,20 +843,19 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         // TODO Auto-generated method stub
         if (!planEntity.getId().equals("")) {
 
-            queryProcessTrack(0);
+            queryProcessTrack();
         }
     }
 
     @Override
     public void onLoad() {
         // TODO Auto-generated method stub
-        queryProcessTrack(1);
     }
 
     @Override
     public void onRefresh() {
         // TODO Auto-generated method stub
         i = 1;
-        queryProcessTrack(0);
+        queryProcessTrack();
     }
 }

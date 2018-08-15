@@ -167,11 +167,13 @@ public class AssignmentActivity extends BaseActivity implements
 						executePeople = mSelectAdapter.beSelectedData.get(0).getName();
 					}
 				}
-				List<TreeNode> treeNodes = treeView.getSelectedNodes();
-				for(TreeNode treeNode : treeNodes) {
-					if(treeNode.getValue() instanceof ChildEntity) {
-						executePeopleId = ((ChildEntity) treeNode.getValue()).getChild_id();
-						executePeople = ((ChildEntity) treeNode.getValue()).getName();
+				if(treeView != null) {
+					List<TreeNode> treeNodes = treeView.getSelectedNodes();
+					for (TreeNode treeNode : treeNodes) {
+						if (treeNode.getValue() instanceof ChildEntity) {
+							executePeopleId = ((ChildEntity) treeNode.getValue()).getPostFlag();
+							executePeople = ((ChildEntity) treeNode.getValue()).getName();
+						}
 					}
 				}
 				Log.i("executePeopleId", executePeopleId);

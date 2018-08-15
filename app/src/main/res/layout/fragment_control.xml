@@ -66,4 +66,7 @@
 
     <View style="@style/horizontal_gray_style" />
 
+    <View style="@style/horizontal_gray_style"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>
