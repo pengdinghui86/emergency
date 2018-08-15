@@ -158,6 +158,7 @@ public class GetSignEmergencyInfoParser {
 
 							childEntity.setSex(jsonObject.getString("sex") == null ? "" : jsonObject.getString("sex"));
 							childEntity.setChild_id(jsonObject.getString("id"));
+							childEntity.setPostFlag(jsonObject.getString("postFlag"));
 							childEntity.setEmergTeam(jsonObject
 									.getString("emergTeam"));
 							childEntity.setZhiwei(jsonObject.getString("postName"));

@@ -62,11 +62,13 @@ public class MyFlowView extends View {
     private float smoothZoom = 1.0f;
     private float smoothMoveX, smoothMoveY;
     // touching variables
+    private long lastTouchTime = 0;
     private long lastTapTime;
     private float touchStartX, touchStartY;
     private float touchLastX, touchLastY;
     private float startd;
     private boolean doubleFinger = false;
+    private boolean singleFinger = false;
     private float lastd;
     private final Matrix m = new Matrix();
     //控件初始化时的宽和高
@@ -297,7 +299,7 @@ public class MyFlowView extends View {
                     float ex = sstep.y * this.getWidth();
                     float ey = sstep.x * this.getHeight();
                     //跨层级
-                    if(Math.abs(parentSteps.get(0).lineId - sstep.lineId) > 1) {
+                    if(Math.abs(parentSteps.get(0).lineId - sstep.lineId) > 3) {
                         if(bx > ex) {
                             drawLeftBrokenAL(bx, by, ex, ey);
                         }
@@ -678,10 +680,13 @@ public class MyFlowView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         // single touch
         if (event.getPointerCount() == 1) {
-            processSingleTouchEvent(event);
+            //避免缩放的同时触发拖动事件
+            if(System.currentTimeMillis() - lastTouchTime > 300)
+                processSingleTouchEvent(event);
         }
         // double touch
         if (event.getPointerCount() == 2) {
+            lastTouchTime = System.currentTimeMillis();
             processDoubleTouchEvent(event);
         }
         getRootView().invalidate();
@@ -703,13 +708,14 @@ public class MyFlowView extends View {
             case MotionEvent.ACTION_DOWN:
                 startd = d;
                 doubleFinger = true;
+                singleFinger = false;
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (ld > 30.0f) {
                     final float x = 0.5f * (x1 + x2);
                     final float y = 0.5f * (y1 + y2);
-                    float zoom;
-                    if(dd > 0f) {
+                    float zoom = smoothZoom;
+                    if(dd > 15f) {
                         if(currentZoom > 1)
                             zoom = smoothZoom * 1.03f;
                         else if(currentZoom > 0.6)
@@ -718,8 +724,9 @@ public class MyFlowView extends View {
                             zoom = smoothZoom * 1.01f;
                         else
                             zoom = smoothZoom * 1.005f;
+                        smoothZoomTo(zoom, x, y, 1);
                     }
-                    else {
+                    else if(dd < -15f){
                         if(currentZoom > 1)
                             zoom = smoothZoom / 1.03f;
                         else if(currentZoom > 0.6)
@@ -728,15 +735,15 @@ public class MyFlowView extends View {
                             zoom = smoothZoom / 1.01f;
                         else
                             zoom = smoothZoom / 1.005f;
+                        smoothZoomTo(zoom, x, y, 1);
                     }
-                    smoothZoomTo(zoom, x, y, 1);
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                doubleFinger = false;
+                lastTouchTime = System.currentTimeMillis();
                 break;
             default:
-                doubleFinger = false;
+
                 break;
         }
         ev.setAction(MotionEvent.ACTION_CANCEL);
@@ -746,6 +753,10 @@ public class MyFlowView extends View {
     private void processSingleTouchEvent(final MotionEvent ev) {
         final float x = ev.getX();
         final float y = ev.getY();
+        if(doubleFinger) {
+            touchStartX = x;
+            touchStartY = y;
+        }
         float lx = x - touchStartX;
         float ly = y - touchStartY;
         final float l = (float) Math.hypot(lx, ly);
@@ -755,6 +766,8 @@ public class MyFlowView extends View {
         touchLastY = y;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                singleFinger = true;
+                doubleFinger = false;
                 touchStartX = x;
                 touchStartY = y;
                 touchLastX = x;
@@ -762,7 +775,7 @@ public class MyFlowView extends View {
                 detectClicked(x, y);
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (!doubleFinger && l > 10.0f) {
+                if (!doubleFinger && singleFinger && l > 30.0f) {
                     ev.setAction(MotionEvent.ACTION_CANCEL);
                     super.onTouchEvent(ev);
                     smoothMoveX -= dx;
@@ -817,24 +830,26 @@ public class MyFlowView extends View {
                 buttonRadius = minButtonRadius;
             currentZoom = smoothZoom;
             textSize = (int) (buttonRadius / 2f);
-            if(currentZoom > 1) {
-                minDistance = buttonRadius * 5;
-            }
-            else if(currentZoom > 0.6) {
-                minDistance = buttonRadius * 4;
-            }
-            else if(currentZoom > 0.4) {
-                minDistance = buttonRadius * 3;
-            }
-            else if(currentZoom > 0.2) {
-                minDistance = buttonRadius * 2;
-            }
-            else if(currentZoom > 0.1) {
-                minDistance = buttonRadius;
-            }
-            else {
-                minDistance = Math.min(buttonRadius, defaultWidth / ((maxColumn + 1)));
-            }
+//            if(currentZoom > 1) {
+//                minDistance = buttonRadius * 5;
+//            }
+//            else if(currentZoom > 0.6) {
+//                minDistance = buttonRadius * 4;
+//            }
+//            else if(currentZoom > 0.4) {
+//                minDistance = buttonRadius * 3;
+//            }
+//            else if(currentZoom > 0.2) {
+//                minDistance = buttonRadius * 2;
+//            }
+//            else if(currentZoom > 0.1) {
+//                minDistance = buttonRadius;
+//            }
+//            else {
+//                minDistance = Math.min(buttonRadius, defaultWidth / ((maxColumn + 1)));
+//            }
+            int length = Math.min(defaultWidth / (maxColumn + 1), defaultHeight / (maxRow + 1));
+            minDistance = Math.max(buttonRadius * 4, length);
             ViewGroup.LayoutParams lp = getLayoutParams();
             float tempX = x / lp.width;
             float tempY = y / lp.height;
