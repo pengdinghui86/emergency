@@ -256,9 +256,21 @@ public class MyFlowView extends View {
                     float bx = (int) (onesstep.y * this.getWidth());
                     float ex = (int) (sstep.y * this.getWidth());
                     float ey = (int) (sstep.x * this.getHeight());
-//                    if(!invisible2Draw(bx, by + buttonRadius, ex, ey - buttonRadius))
-//                    continue;
-                    drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
+                    //跨层级
+                    if(Math.abs(onesstep.lineId - sstep.lineId) > 1) {
+                        if(bx == ex) {
+                            myCanvas.drawLine(bx + buttonRadius, by, bx + 2 * buttonRadius - 2, by, linePaint);
+                            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by, bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, linePaint);
+                            drawAL(ex + 2 * buttonRadius - 2, ey, ex + buttonRadius, ey);
+                            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex + 2 * buttonRadius - 2, ey, linePaint);
+                        }
+                        else {
+                            drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
+                        }
+                    }
+                    else {
+                        drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
+                    }
                 }
             }
         }
@@ -299,7 +311,18 @@ public class MyFlowView extends View {
                     float ex = sstep.y * this.getWidth();
                     float ey = sstep.x * this.getHeight();
                     //跨层级
-                    if(Math.abs(parentSteps.get(0).lineId - sstep.lineId) > 3) {
+                    if(Math.abs(parentSteps.get(0).lineId - sstep.lineId) > 1) {
+                        if(bx == ex) {
+                            myCanvas.drawLine(bx + buttonRadius, by, bx + 2 * buttonRadius - 2, by, linePaint);
+                            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by, bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, linePaint);
+                            drawAL(ex + 2 * buttonRadius - 2, ey, ex + buttonRadius, ey);
+                            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex + 2 * buttonRadius - 2, ey, linePaint);
+                        }
+                        else {
+                            drawAL(bx, by + buttonRadius, ex, ey - buttonRadius);
+                        }
+                    }
+                    else if(Math.abs(parentSteps.get(0).lineId - sstep.lineId) > 3) {
                         if(bx > ex) {
                             drawLeftBrokenAL(bx, by, ex, ey);
                         }
@@ -307,9 +330,10 @@ public class MyFlowView extends View {
                             drawRightBrokenAL(bx, by, ex, ey);
                         }
                         else {
-                            myCanvas.drawLine(bx, by, bx + 2 * buttonRadius - 2, by, linePaint);
-                            drawAL(ex - 2 * buttonRadius - 2, ey, ex - buttonRadius, ey);
-                            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex - 2 * buttonRadius - 2, ey, linePaint);
+                            myCanvas.drawLine(bx + buttonRadius, by, bx + 2 * buttonRadius - 2, by, linePaint);
+                            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by, bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, linePaint);
+                            drawAL(ex + 2 * buttonRadius - 2, ey, ex + buttonRadius, ey);
+                            myCanvas.drawLine(bx + 2 * buttonRadius - 2, by + 2 * buttonRadius, ex + 2 * buttonRadius - 2, ey, linePaint);
                         }
                     }
                     else {
