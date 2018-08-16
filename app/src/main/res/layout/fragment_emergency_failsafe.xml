@@ -70,7 +70,6 @@
                         android:gravity="left|center"
                         android:text="@string/addevaluation" />
 
-                    <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
 
                 <View style="@style/horizontal_gray_style" />
@@ -95,7 +94,6 @@
                         android:gravity="left|center"
                         android:text="@string/dismissvaluation" />
 
-                    <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -160,7 +158,6 @@
                         android:gravity="left|center"
                         android:text="待启动事件" />
 
-                    <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
 
                 <View style="@style/horizontal_gray_style" />
@@ -185,7 +182,6 @@
                         android:gravity="left|center"
                         android:text="已启动预案" />
 
-                    <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
 
                 <View style="@style/horizontal_gray_style" />
@@ -255,7 +251,6 @@
                         android:gravity="left|center"
                         android:text="待授权预案" />
 
-                    <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
 
                 <View style="@style/horizontal_gray_style" />
@@ -280,7 +275,6 @@
                         android:gravity="left|center"
                         android:text="已授权预案" />
 
-                    <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -346,7 +340,6 @@
                         android:gravity="left|center"
                         android:text="人员签到" />
 
-                    <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
 
                 <View style="@style/horizontal_gray_style" />
@@ -371,7 +364,6 @@
                         android:gravity="left|center"
                         android:text="@string/personnel_assignment" />
 
-                    <ImageView style="@style/emergency_img_right" />
                 </LinearLayout>
 
                 <View style="@style/horizontal_gray_style" />

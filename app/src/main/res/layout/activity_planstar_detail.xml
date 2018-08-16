@@ -447,6 +447,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
+                    android:hint="@string/plan_offer_hint"
                     android:gravity="left"
                     android:padding="5dp"
                     />
@@ -485,6 +486,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
+                    android:hint="@string/plan_other_hint"
                     android:gravity="left"
                     android:padding="5dp"
                     />
@@ -524,6 +526,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="2"
                     android:gravity="left"
+                    android:hint="@string/plan_kinds_hint"
                     android:padding="5dp"
                     />
 

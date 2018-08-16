@@ -70,6 +70,7 @@
     <string name="plan_background_hint">选择场景预案</string>
     <string name="plan_drill_hint">选择演练预案</string>
     <string name="drill_type_hint">请选择演练类型（必填）</string>
+    <string name="plan_offer_hint">选择可选预案</string>
     <string name="plan_other_hint">选择其他预案</string>
     <string name="plan_kinds_hint">选择分类预案</string>
     <string name="plan_name">预案名称</string>

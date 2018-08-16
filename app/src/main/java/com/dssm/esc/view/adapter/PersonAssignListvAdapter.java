@@ -82,7 +82,7 @@ private String planInfoId;
 		} else {
 			mhHolder = (ViewHolder) convertView.getTag();
 		}
-		
+
 		mhHolder.stepname.setText(entity.getName());
 
 		if(entity.getNodeStepType().equals("CallActivity")) {
@@ -91,6 +91,10 @@ private String planInfoId;
 			mhHolder.whodone_name.setVisibility(View.GONE);
 			mhHolder.whodone_title.setVisibility(View.GONE);
 			mhHolder.stepname.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+			if(entity.getOrderNum() != null && !("").equals(entity.getOrderNum()))
+				mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getOrderNum());
+			else if(entity.getEditOrderNum() != null && !("").equals(entity.getEditOrderNum()))
+				mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getEditOrderNum());
 		}
 		else {
 			mhHolder.assign.setVisibility(View.VISIBLE);

@@ -12,9 +12,9 @@
 
  
   <com.dssm.esc.view.widget.AutoListView
-        android:id="@+id/dismissv_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         android:dividerHeight="10dp"
-        android:divider="@color/colorWeWindowGrayBackground" />
+      android:id="@+id/dismissv_listview"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:dividerHeight="1dp"
+      android:divider="@color/colorWeWindowGrayBackground" />
 </LinearLayout>

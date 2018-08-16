@@ -75,7 +75,7 @@
 
             <View
                 style="@style/horizontal_gray_style"
-                android:layout_marginTop="20dp" />
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:id="@+id/business_type_ll"
@@ -153,7 +153,7 @@
 
             <View
                 style="@style/horizontal_gray_style"
-                android:layout_marginTop="20dp" />
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:id="@+id/event_background_ll"
@@ -234,7 +234,7 @@
 
             <View
                 style="@style/horizontal_gray_style"
-                android:layout_marginTop="20dp" />
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:id="@+id/plan_ll_2"
@@ -431,7 +431,7 @@
 
             <View
                 style="@style/horizontal_gray_style"
-                android:layout_marginTop="20dp" />
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:id="@+id/event_des_ll"

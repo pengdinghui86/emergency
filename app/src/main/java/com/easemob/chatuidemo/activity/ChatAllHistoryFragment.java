@@ -2,11 +2,13 @@ package com.easemob.chatuidemo.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -21,6 +23,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -136,8 +139,9 @@ public class ChatAllHistoryFragment extends Fragment implements
                 }
             }
         });
-        // 注册上下文菜单
-        registerForContextMenu(listView);
+
+        // 注册上下文菜单，Android7.0以上menu会在view附近弹出，7.0以下在屏幕中间弹出
+//        registerForContextMenu(listView);
 
         listView.setOnTouchListener(new OnTouchListener() {
 
@@ -150,6 +154,80 @@ public class ChatAllHistoryFragment extends Fragment implements
 
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                // 用于PopupWindow的View
+                View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.delete_message, null, false);
+                final TextView delete_conversation = (TextView) contentView.findViewById(R.id.delete_conversation);
+                final TextView delete_message = (TextView) contentView.findViewById(R.id.delete_message);
+                // 创建PopupWindow对象，其中：
+                // 第一个参数是用于PopupWindow中的View，第二个参数是PopupWindow的宽度，
+                // 第三个参数是PopupWindow的高度，第四个参数指定PopupWindow能否获得焦点
+                final PopupWindow window = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                // 设置PopupWindow的背景
+                window.setBackgroundDrawable(new BitmapDrawable());
+                // 设置PopupWindow是否能响应外部点击事件
+                window.setOutsideTouchable(true);
+                // 设置PopupWindow是否能响应点击事件
+                window.setTouchable(true);
+                window.setFocusable(true);
+                window.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        //关闭窗口时恢复activity背景颜色
+                        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                        lp.alpha = 1f;
+                        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        getActivity().getWindow().setAttributes(lp);
+                    }
+                });
+
+                delete_conversation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EMConversation tobeDeleteCons = adapter.getItem(i);
+                        // 删除此会话
+                        EMChatManager.getInstance().deleteConversation(
+                                tobeDeleteCons.getUserName(), tobeDeleteCons.isGroup(),
+                                false);
+                        InviteMessgeDao inviteMessgeDao = new InviteMessgeDao(getActivity());
+                        inviteMessgeDao.deleteMessage(tobeDeleteCons.getUserName());
+                        adapter.remove(tobeDeleteCons);
+                        adapter.notifyDataSetChanged();
+                        window.dismiss();
+                    }
+                });
+                delete_message.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EMConversation tobeDeleteCons = adapter.getItem(i);
+                        // 删除此会话
+                        EMChatManager.getInstance().deleteConversation(
+                                tobeDeleteCons.getUserName(), tobeDeleteCons.isGroup(),
+                                true);
+                        InviteMessgeDao inviteMessgeDao = new InviteMessgeDao(getActivity());
+                        inviteMessgeDao.deleteMessage(tobeDeleteCons.getUserName());
+                        adapter.remove(tobeDeleteCons);
+                        adapter.notifyDataSetChanged();
+                        window.dismiss();
+                    }
+                });
+                // 显示PopupWindow，其中：
+                // 第一个参数是PopupWindow的锚点，第二和第三个参数分别是PopupWindow相对锚点的x、y偏移
+//                window.showAsDropDown(anchor, xoff, yoff);
+                // 或者也可以调用此方法显示PopupWindow，其中：
+                // 第一个参数是PopupWindow的父View，第二个参数是PopupWindow相对父View的位置，
+                // 第三和第四个参数分别是PopupWindow相对父View的x、y偏移
+                window.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                //弹出窗口时设置activity背景为灰色
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                lp.alpha = 0.7f;
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getActivity().getWindow().setAttributes(lp);
+                return true;
+            }
+        });
     }
 
     void hideSoftKeyboard() {
@@ -167,6 +245,7 @@ public class ChatAllHistoryFragment extends Fragment implements
         super.onCreateContextMenu(menu, v, menuInfo);
         // if(((AdapterContextMenuInfo)menuInfo).position > 0){ m,
         getActivity().getMenuInflater().inflate(R.menu.delete_message, menu);
+
         // }
     }
 

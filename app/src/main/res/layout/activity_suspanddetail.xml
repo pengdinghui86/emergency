@@ -348,7 +348,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
            android:layout_margin="20dp"
-            android:background="@drawable/btbg_blue"
+            android:background="@drawable/btbg_red"
             android:text="中止"
             android:textColor="#fff"
             android:textSize="@dimen/we_title_textsize" />
