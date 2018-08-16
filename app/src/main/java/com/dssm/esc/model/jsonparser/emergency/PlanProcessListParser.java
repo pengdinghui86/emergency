@@ -146,15 +146,18 @@ public class PlanProcessListParser {
 							.getString("executePeopleType"));
 					listEntity.setNodeStepType(jsonObject2.getString("nodeStepType"));
 					if(jsonObject2.has("parentProcessStepId"))
-					if(jsonObject2.getString("parentProcessStepId") == null || "null".equals(jsonObject2.getString("parentProcessStepId")))
-						listEntity.setParentProcessStepId("");
-					else
+					if(jsonObject2.has("parentProcessStepId") && !"null".equals(jsonObject2.getString("parentProcessStepId")))
 						listEntity.setParentProcessStepId(jsonObject2.getString("parentProcessStepId"));
-
+					else
+						listEntity.setParentProcessStepId("");
 					if(jsonObject2.has("type"))
 						listEntity.setType(jsonObject2.getString("type"));
 					else
 						listEntity.setType("");
+					if(jsonObject2.has("status"))
+						listEntity.setStatus(jsonObject2.getString("status"));
+					else
+						listEntity.setStatus("");
 					listEntity.setEditOrderNum(jsonObject2.getString("editOrderNum"));
 					listEntity.setOrderNum(jsonObject2.getString("orderNum"));
 

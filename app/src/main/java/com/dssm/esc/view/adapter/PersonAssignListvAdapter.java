@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.dssm.esc.R;
 import com.dssm.esc.model.entity.emergency.PlanProcessEntity;
+import com.dssm.esc.status.RealTimeTrackingStatus;
 import com.dssm.esc.view.activity.AssignmentActivity;
 
 import java.util.ArrayList;
@@ -97,7 +98,10 @@ private String planInfoId;
 				mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getEditOrderNum());
 		}
 		else {
-			mhHolder.assign.setVisibility(View.VISIBLE);
+			if(entity.getStatus().equals(RealTimeTrackingStatus.PREPARATION) || entity.getStatus().equals(RealTimeTrackingStatus.BEFORE))
+				mhHolder.assign.setVisibility(View.VISIBLE);
+			else
+				mhHolder.assign.setVisibility(View.INVISIBLE);
 			mhHolder.who_task.setVisibility(View.VISIBLE);
 			mhHolder.whodone_name.setVisibility(View.VISIBLE);
 			mhHolder.whodone_title.setVisibility(View.VISIBLE);

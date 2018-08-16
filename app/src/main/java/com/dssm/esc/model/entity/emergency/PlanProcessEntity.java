@@ -14,6 +14,7 @@ public class PlanProcessEntity implements Serializable {
 	private String id;// 流程步骤id
 	private String planInfoId;// 预案执行id
 	private String name;// 步骤节点名称
+	private String status;// 步骤节点状态
 	private String executePeople;// 执行人
 	private String executePeopleType;// 执行人状态
 	private String executorA;
@@ -34,6 +35,14 @@ public class PlanProcessEntity implements Serializable {
 	private String customNum;//自定义序号,用于本地排序
 	private int index;//节点的层级
 	private String type;//节点类型
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getType() {
 		return type;
