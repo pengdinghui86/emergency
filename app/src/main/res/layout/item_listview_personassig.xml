@@ -44,22 +44,22 @@
             style="@style/small_text" />
 
         <TextView
-            android:id="@+id/who_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/stepname"
-            android:layout_toRightOf="@+id/tv"
-            android:gravity="left"
-            android:textColor="#f00"
-            android:textSize="@dimen/we_small_textsize" />
-
-        <TextView
             android:id="@+id/whodone_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/stepname"
-            android:layout_toRightOf="@+id/who_task"
+            android:layout_toRightOf="@+id/tv"
              android:textColor="#f00"
+            android:textSize="@dimen/we_small_textsize" />
+
+        <TextView
+            android:id="@+id/who_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/stepname"
+            android:layout_toRightOf="@+id/whodone_name"
+            android:gravity="left"
+            android:textColor="#f00"
             android:textSize="@dimen/we_small_textsize" />
     </RelativeLayout>
 
