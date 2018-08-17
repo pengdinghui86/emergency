@@ -741,24 +741,24 @@ public class MyFlowView extends View {
                     float zoom = smoothZoom;
                     if(dd > 15f) {
                         if(currentZoom > 1)
-                            zoom = smoothZoom * 1.03f;
+                            zoom = smoothZoom * 1.1f;
                         else if(currentZoom > 0.6)
-                            zoom = smoothZoom * 1.02f;
+                            zoom = smoothZoom * 1.08f;
                         else if(currentZoom > 0.2)
-                            zoom = smoothZoom * 1.01f;
+                            zoom = smoothZoom * 1.06f;
                         else
-                            zoom = smoothZoom * 1.005f;
+                            zoom = smoothZoom * 1.004f;
                         smoothZoomTo(zoom, x, y, 1);
                     }
                     else if(dd < -15f){
                         if(currentZoom > 1)
-                            zoom = smoothZoom / 1.03f;
+                            zoom = smoothZoom / 1.1f;
                         else if(currentZoom > 0.6)
-                            zoom = smoothZoom / 1.02f;
+                            zoom = smoothZoom / 1.08f;
                         else if(currentZoom > 0.2)
-                            zoom = smoothZoom / 1.01f;
+                            zoom = smoothZoom / 1.06f;
                         else
-                            zoom = smoothZoom / 1.005f;
+                            zoom = smoothZoom / 1.004f;
                         smoothZoomTo(zoom, x, y, 1);
                     }
                 }
@@ -854,26 +854,26 @@ public class MyFlowView extends View {
                 buttonRadius = minButtonRadius;
             currentZoom = smoothZoom;
             textSize = (int) (buttonRadius / 2f);
-//            if(currentZoom > 1) {
-//                minDistance = buttonRadius * 5;
-//            }
-//            else if(currentZoom > 0.6) {
-//                minDistance = buttonRadius * 4;
-//            }
-//            else if(currentZoom > 0.4) {
-//                minDistance = buttonRadius * 3;
-//            }
-//            else if(currentZoom > 0.2) {
-//                minDistance = buttonRadius * 2;
-//            }
-//            else if(currentZoom > 0.1) {
-//                minDistance = buttonRadius;
-//            }
-//            else {
-//                minDistance = Math.min(buttonRadius, defaultWidth / ((maxColumn + 1)));
-//            }
-            int length = Math.min(defaultWidth / (maxColumn + 1), defaultHeight / (maxRow + 1));
-            minDistance = Math.max(buttonRadius * 4, length);
+            if(currentZoom > 1) {
+                minDistance = buttonRadius * 5;
+            }
+            else if(currentZoom > 0.6) {
+                minDistance = buttonRadius * 4;
+            }
+            else if(currentZoom > 0.4) {
+                minDistance = buttonRadius * 3;
+            }
+            else if(currentZoom > 0.2) {
+                minDistance = buttonRadius * 2;
+            }
+            else if(currentZoom > 0.1) {
+                minDistance = buttonRadius;
+            }
+            else {
+                minDistance = Math.min(buttonRadius, defaultWidth / ((maxColumn + 1)));
+            }
+//            int length = Math.min(defaultWidth / (maxColumn + 1), defaultHeight / (maxRow + 1));
+//            minDistance = Math.max(buttonRadius * 4, length);
             ViewGroup.LayoutParams lp = getLayoutParams();
             float tempX = x / lp.width;
             float tempY = y / lp.height;
