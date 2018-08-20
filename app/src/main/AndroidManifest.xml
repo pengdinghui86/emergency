@@ -272,7 +272,7 @@
 
         <!-- since 3.0.9 Required SDK 核心功能-->
         <provider
-            android:authorities="您应用的包名.DataProvider"
+            android:authorities="com.dssm.esc.DataProvider"
             android:name="cn.jpush.android.service.DataProvider"
             android:exported="true"
             />
@@ -285,13 +285,13 @@
             android:exported="true">
             <intent-filter >
                 <action android:name="cn.jpush.android.intent.DaemonService" />
-                <category android:name="您应用的包名"/>
+                <category android:name="com.dssm.esc"/>
             </intent-filter>
         </service>
 
         <!-- since 3.1.0 Required SDK 核心功能-->
         <provider
-            android:authorities="您应用的包名.DownloadProvider"
+            android:authorities="com.dssm.esc.DownloadProvider"
             android:name="cn.jpush.android.service.DownloadProvider"
             android:exported="true"
             />

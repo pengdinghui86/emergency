@@ -40,7 +40,7 @@ public class JgReceiver extends PushReceiver {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Intent intent1 = new Intent("com.dssm.esc.RECEIVER");
+            Intent intent1 = new Intent("com.dssm.esc.push.RECEIVER");
             intent1.putExtra("msgType", msgType);
             context.sendBroadcast(intent1);
 
@@ -57,7 +57,7 @@ public class JgReceiver extends PushReceiver {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Intent intent1 = new Intent("com.dssm.esc.RECEIVER");
+            Intent intent1 = new Intent("com.dssm.esc.push.RECEIVER");
             intent1.putExtra("msgType", msgType);
             context.sendBroadcast(intent1);
 

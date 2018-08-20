@@ -325,7 +325,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         //动态注册广播接收器
         msgReceiver = new MsgReceiver();
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.dssm.esc.RECEIVER");
+        intentFilter.addAction("com.dssm.esc.push.RECEIVER");
         registerReceiver(msgReceiver, intentFilter);
     }
 
@@ -899,6 +899,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         }
         super.onDestroy();
         ActivityCollector.removeActivity(this);
+        unregisterReceiver(msgReceiver);
     }
 
     @Override

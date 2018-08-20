@@ -376,7 +376,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				redPointView1.setText(MainActivity.xgTaskMsgCount + "");
 			redPointView1.show();
 		}
-        Intent intent = new Intent("com.dssm.esc.RECEIVER");
+        Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
         intent.putExtra("msgType", "updateMsgCount");
         getActivity().sendBroadcast(intent);
 	}
@@ -393,7 +393,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				redPointView2.setText(MainActivity.xgSysMsgCount + "");
 			redPointView2.show();
 		}
-        Intent intent = new Intent("com.dssm.esc.RECEIVER");
+        Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
         intent.putExtra("msgType", "updateMsgCount");
         getActivity().sendBroadcast(intent);
 	}
@@ -409,7 +409,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				redPointView3.setText(MainActivity.xgEmergencyMsgCount + "");
 			redPointView3.show();
 		}
-        Intent intent = new Intent("com.dssm.esc.RECEIVER");
+        Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
         intent.putExtra("msgType", "updateMsgCount");
         getActivity().sendBroadcast(intent);
 	}
@@ -426,7 +426,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				redPointView4.setText(MainActivity.xgPersonalMsgCount + "");
 			redPointView4.show();
 		}
-        Intent intent = new Intent("com.dssm.esc.RECEIVER");
+        Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
         intent.putExtra("msgType", "updateMsgCount");
         getActivity().sendBroadcast(intent);
 	}
@@ -524,7 +524,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				redPointView4.setText(MainActivity.xgPersonalMsgCount + "");
 			redPointView4.show();
 		}
-		Intent intent = new Intent("com.dssm.esc.RECEIVER");
+		Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
 		intent.putExtra("msgType", "");
 		getActivity().sendBroadcast(intent);
 	}

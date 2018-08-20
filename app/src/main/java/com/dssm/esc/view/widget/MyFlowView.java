@@ -101,9 +101,9 @@ public class MyFlowView extends View {
         this.myCanvas = canvas;
         setPaintDefaultStyle();
         if(nsSetPointValueToSteps.steplist != null) {
-            if (nsSetPointValueToSteps.steplist.size() > 50)
-                addArrowLine2();
-            else
+//            if (nsSetPointValueToSteps.steplist.size() > 50)
+//                addArrowLine2();
+//            else
                 addArrowLine();
             addButtonAndText();
             setZoomAndMove(canvas);
@@ -881,8 +881,8 @@ public class MyFlowView extends View {
             float dy = smoothMoveY / lp.height;
             lp.height = Math.max((maxRow + 1) * minDistance, defaultHeight);
             lp.width = Math.max((maxColumn + 1) * minDistance, defaultWidth);
-            if (maxColumn > 100)
-                lp.height = Math.max(lp.width, lp.height);
+//            if (maxColumn > 100)
+//                lp.height = Math.max(lp.width, lp.height);
             if (flag == 1) {
                 smoothMoveX = (tempX + dx) * lp.width - x;
                 smoothMoveY = (tempY + dy) * lp.height - y;

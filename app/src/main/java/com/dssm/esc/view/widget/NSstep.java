@@ -125,7 +125,7 @@ public class NSstep {
 	 */
 	public boolean isTheFirstStep() {
 		// TODO Auto-generated method stub
-		if (this.nextStepIds.length > 0 && this.editOrderNum.equals("0")) {
+		if (this.nextStepIds.length > 0 && this.type.equals("begin")) {
 			return true;
 		}
 		return false;

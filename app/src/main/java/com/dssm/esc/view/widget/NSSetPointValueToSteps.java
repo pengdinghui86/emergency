@@ -108,8 +108,8 @@ public class NSSetPointValueToSteps{
 	 * @return
 	 */
 	public int findRowNumber(List<NSstep> steplist) {
-		List<NSstep> list = findLastStepId(steplist);
-//		List<NSstep> list = findFirstStepId(steplist);
+//		List<NSstep> list = findLastStepId(steplist);
+		List<NSstep> list = findFirstStepId(steplist);
 		if (list != null && list.size() > 0) {
 
 			return getRowNumber(list);
@@ -160,8 +160,8 @@ public class NSSetPointValueToSteps{
 	 * @return
 	 */
 	private int getRowNumber(List<NSstep> steplist) {
-		List<NSstep> list = findParentStepsId(steplist);
-//		List<NSstep> list = findNextStepsId(steplist);
+//		List<NSstep> list = findParentStepsId(steplist);
+		List<NSstep> list = findNextStepsId(steplist);
 		if (list != null && list.size() > 0)
 			return 1 + getRowNumber(list);
 		else
@@ -238,7 +238,8 @@ public class NSSetPointValueToSteps{
 				if (currentStep.lineId == i) {
 					k++;
 					currentStep.stepNum = j;
-					currentStep.x = (1 - currentStep.x / (rowNum + 1));
+//					currentStep.x = (1 - currentStep.x / (rowNum + 1));
+					currentStep.x = currentStep.x / (rowNum + 1);
 					currentStep.y = k / (j + 1f);
 
 					List<NSstep> nextSteps = getNextRowNextSteps(currentStep, i);
@@ -277,7 +278,7 @@ public class NSSetPointValueToSteps{
 	 * 优化节点的位置
 	 */
 	public void proveStepPosition() {
-		for (int row = rowNum - 1; row >= 1; row--) {
+		for (int row = 1; row < rowNum; row++) {
 			List<NSstep> currentSteps = findAllCurrentNodes(row);
 
 			if(currentSteps.size() > 1) {
