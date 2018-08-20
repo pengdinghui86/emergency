@@ -318,6 +318,67 @@ public class NSSetPointValueToSteps{
 				}
 			}
 		}
+
+		//检查某节点存在跨层次的子节点且子节点的x坐标值与该节点相同的情况
+		for(NSstep nSstep : steplist) {
+			for (String nextStepId : nSstep.nextStepIds) {
+				NSstep nextStep = getStepById(nextStepId);
+				if(nSstep.y == nextStep.y && Math.abs(nSstep.lineId - nextStep.lineId) > 1) {
+					changeNodePosition(nSstep);
+					break;
+				}
+			}
+		}
+	}
+
+	//当某节点存在跨层次的子节点且子节点的x坐标值与该节点相同时，将该节点与同一层的其他节点交换位置，避免连接线穿过其他节点
+	private void changeNodePosition(NSstep step) {
+		List<NSstep> steplist = getOtherRowSteps(step);
+		if(steplist.size() == 0)
+			return;
+		for(NSstep nSstep : steplist) {
+			int flag = 0;
+			for (String nextStepId : nSstep.nextStepIds) {
+				NSstep nextStep = getStepById(nextStepId);
+				if(step.y == nextStep.y && Math.abs(nSstep.lineId - nextStep.lineId) > 1) {
+					flag = 1;
+					break;
+				}
+			}
+			if(flag == 0) {
+				float temp = step.y;
+				step.y = nSstep.y;
+				nSstep.y = temp;
+				break;
+			}
+		}
+	}
+
+	/**
+	 * 获取同一行的其他所有节点
+	 */
+	private List<NSstep> getOtherRowSteps(NSstep step) {
+		List<NSstep> nSsteps = new ArrayList<>();
+		for(NSstep otherStep : steplist) {
+			if(!otherStep.stepId.equals(step.stepId) && otherStep.lineId == step.lineId) {
+				nSsteps.add(otherStep);
+			}
+		}
+		return nSsteps;
+	}
+
+	/**
+	 * 根据id获取节点信息
+	 */
+	private NSstep getStepById(String stepId) {
+		NSstep step = null;
+		for(NSstep nSstep : steplist) {
+			if(stepId.equals(nSstep.stepId)) {
+				step = nSstep;
+				break;
+			}
+		}
+		return step;
 	}
 
 	private List<NSstep> findAllCurrentNodes(int lineId) {
