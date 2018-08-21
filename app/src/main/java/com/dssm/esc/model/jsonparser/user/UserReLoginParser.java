@@ -71,6 +71,10 @@ public class UserReLoginParser {
 				Log.i("UserReLoginParser", "UserReLoginParser" + t);
 				map = reloginParse(t);
 				if ("true".equals(map.get("success"))) {
+					//保存登录成功的状态
+					MySharePreferencesService.getInstance(
+							DemoApplication.getInstance().getApplicationContext()).saveContactName(
+							"login", "true");
 					// 保存cookie的值
 					DbCookieStore instance = DbCookieStore.INSTANCE;
 					List<HttpCookie> cookies = instance.getCookies();

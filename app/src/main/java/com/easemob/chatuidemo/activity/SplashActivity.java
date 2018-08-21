@@ -23,7 +23,6 @@ import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.entity.user.UpdataInfo;
 import com.dssm.esc.model.entity.user.UserEntity;
 import com.dssm.esc.model.jsonparser.user.UpdataInfoParser;
-import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DownLoadManager;
 import com.dssm.esc.util.HttpUrl;
 import com.dssm.esc.util.MySharePreferencesService;

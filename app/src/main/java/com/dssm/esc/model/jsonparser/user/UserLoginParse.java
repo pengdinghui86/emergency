@@ -61,6 +61,10 @@ public class UserLoginParse {
 				// TODO Auto-generated method stub
 				Log.i("LoginParse", t);
 				userEntity = loginParse(t, userName, password);
+				//保存登录成功的状态
+				MySharePreferencesService.getInstance(
+						DemoApplication.getInstance().getApplicationContext()).saveContactName(
+						"login", "true");
 				// 保存cookie的值
 				DbCookieStore instance = DbCookieStore.INSTANCE;
 				List<HttpCookie> cookies = instance.getCookies();

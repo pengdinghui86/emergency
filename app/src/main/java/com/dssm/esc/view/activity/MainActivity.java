@@ -294,9 +294,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             }
         });
 
-        //cookie不为空
-        if(!MySharePreferencesService.getInstance(getApplicationContext()).getcontectName(
-                "JSESSIONID").equals("")) {
+        //有登录成功的记录
+        if(MySharePreferencesService.getInstance(getApplicationContext()).getcontectName(
+                "login").equals("true")) {
             Log.i("postFlag岗位标识", map.get("postFlag"));
             //默认激活推送
             JPushInterface.resumePush(getApplicationContext());
@@ -1007,15 +1007,22 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         // TODO Auto-generated method stub
         super.onResume();
         Log.i("MainActivity", "onResume");
-        //cookie为空
-        if(MySharePreferencesService.getInstance(getApplicationContext()).getcontectName(
-                "JSESSIONID").equals(""))
+        //未记录登录成功状态
+        if(!MySharePreferencesService.getInstance(getApplicationContext()).getcontectName(
+                "login").equals("true"))
         {
             if (!isConflict && !isCurrentAccountRemoved) {
                 // hxMsgCount=updateUnreadLabel();
                 EMChatManager.getInstance().activityResumed();
             }
             relogin();
+            JPushInterface.resumePush(getApplicationContext());
+            /** 账号绑定，第三个参前台与后台预定好的，要保持一致（最好用用户名+“_”+用户id,保持唯一），在登录成功后调用
+             */
+            if(map != null && map.containsKey("postFlag"))
+                JPushInterface.setAlias(getApplicationContext(), 2018, map.get("postFlag").replace("-", "_"));
+            initView();
+            init();
         }
 
         // unregister this event listener when this activity enters the
