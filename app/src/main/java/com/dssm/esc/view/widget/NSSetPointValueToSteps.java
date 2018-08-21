@@ -323,15 +323,20 @@ public class NSSetPointValueToSteps{
 		for(NSstep nSstep : steplist) {
 			for (String nextStepId : nSstep.nextStepIds) {
 				NSstep nextStep = getStepById(nextStepId);
-				if(nSstep.y == nextStep.y && Math.abs(nSstep.lineId - nextStep.lineId) > 1) {
-					changeNodePosition(nSstep);
-					break;
+				if(nextStep != null) {
+					if (nSstep.y == nextStep.y && Math.abs(nSstep.lineId - nextStep.lineId) > 1) {
+						changeNodePosition(nSstep);
+						break;
+					}
 				}
 			}
 		}
 	}
 
-	//当某节点存在跨层次的子节点且子节点的x坐标值与该节点相同时，将该节点与同一层的其他节点交换位置，避免连接线穿过其他节点
+	/**
+	 * 当某节点存在跨层次的子节点且子节点的x坐标值与该节点相同时，
+	 * 将该节点与同一层的其他节点交换位置，避免连接线穿过其他节点
+	 */
 	private void changeNodePosition(NSstep step) {
 		List<NSstep> steplist = getOtherRowSteps(step);
 		if(steplist.size() == 0)
