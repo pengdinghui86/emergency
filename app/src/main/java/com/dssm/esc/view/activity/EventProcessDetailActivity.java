@@ -16,6 +16,7 @@ import com.dssm.esc.util.Const;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.adapter.TimeLineListviewAdapter;
 import com.dssm.esc.view.widget.MyProgressBar;
+import com.dssm.esc.view.widget.RefreshLinearLayout;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -38,6 +39,9 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	/** 标题 */
 	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
+	/** 下拉刷新控件 */
+	@ViewInject(R.id.rll_event_process)
+	private RefreshLinearLayout rll_event_process;
 	/** 返回按钮 */
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
@@ -94,6 +98,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				Toast.makeText(EventProcessDetailActivity.this, Const.NETWORKERROR, Toast.LENGTH_SHORT).show();
 			}
 			Utils.getInstance().hideProgressDialog();
+			rll_event_process.onCompleteRefresh();
 		}
 	};
 
@@ -108,6 +113,12 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	private void initView() {
 		back.setVisibility(View.VISIBLE);
 		title.setText(boHuiListEntity.getEveName());
+		rll_event_process.setOnRefreshListener(new RefreshLinearLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				initData();
+			}
+		});
 //		setNetListener(this);
 	}
 

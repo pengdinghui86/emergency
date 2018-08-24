@@ -19,6 +19,8 @@ public class NSSetPointValueToSteps{
 
 	public int rowNum;
 	public int maxLineNum;
+	//节点位置标记矩阵，已占用位置标记为1，否则为0
+	public int[][] adjMat;
 
 	/**
 	 * 测试用例
@@ -198,6 +200,18 @@ public class NSSetPointValueToSteps{
 		return parentList;
 	}
 
+	private List<NSstep> findParentNodes(NSstep currentStep) {
+		List<NSstep> parentList = new ArrayList<>();
+
+		for (NSstep oneStep : steplist) {
+			if (oneStep.isParentStep(currentStep)) {
+				parentList.add(oneStep);
+				break;
+			}
+		}
+		return parentList;
+	}
+
 	private void initStepValues() {
 		// TODO Auto-generated method stub
 
@@ -241,19 +255,206 @@ public class NSSetPointValueToSteps{
 //					currentStep.x = (1 - currentStep.x / (rowNum + 1));
 					currentStep.x = currentStep.x / (rowNum + 1);
 					currentStep.y = k / (j + 1f);
+				}
+			}
+		}
+	}
 
-					List<NSstep> nextSteps = getNextRowNextSteps(currentStep, i);
-					int nextStepCount = nextSteps.size();
-					if(nextStepCount > 1) {
-						float y = (nextSteps.get(0).y + nextSteps.get(nextStepCount - 1).y) / 2;
-						if(y < startY + 1f / (maxLineNum + 1))
-							y = startY + 1f / (maxLineNum + 1);
-						if (y < currentStep.y) {
-							currentStep.y = y;
+	private void initStepValues3() {
+		adjMat = new int[rowNum][maxLineNum];
+		for (int i = 1; i <= rowNum; i++) {
+			//计算每一个节点的坐标
+			List<NSstep> curList = findAllCurrentNodes(i);
+			int k = 0;
+			for (NSstep currentStep : curList) {
+				currentStep.stepNum = curList.size();
+				currentStep.x = currentStep.x / (rowNum + 1);
+				//“开始”或“结束”节点
+				if(i == 1 || i == rowNum) {
+					currentStep.y = 0.5f;
+					adjMat[i - 1][maxLineNum / 2] = 1;
+					continue;
+				}
+				List<NSstep> nextSteps = findAllNextNodes(currentStep, i);
+				int num = (int)((k + 1f) / (currentStep.stepNum + 1) * maxLineNum);
+				if(currentStep.y > 0) {
+					int tempNum = (int) (currentStep.y * maxLineNum);
+					if (adjMat[i - 1][num] == 0 && adjMat[i - 1][tempNum] != 2) {
+						if(curList.size() == 1)
+							currentStep.y = 0.5f;
+						else
+							currentStep.y = (num + 1f) / (maxLineNum + 1);
+						adjMat[i - 1][num] = 1;
+					} else
+						num = tempNum;
+				}
+				else {
+					if (adjMat[i - 1][num] == 0) {
+						currentStep.y = (num + 1f) / (maxLineNum + 1);
+						adjMat[i - 1][num] = 1;
+					} else {
+						int m = num + 1, n = num - 1;
+						while (n >= 0 || m < maxLineNum) {
+							if(n >= 0) {
+								if (adjMat[i - 1][n] == 0) {
+									currentStep.y = (n + 1f) / (maxLineNum + 1);
+									adjMat[i - 1][n] = 1;
+									num = n;
+									break;
+								}
+							}
+							if(m < maxLineNum) {
+								if (adjMat[i - 1][m] == 0) {
+									currentStep.y = (m + 1f) / (maxLineNum + 1);
+									adjMat[i - 1][m] = 1;
+									num = m;
+									break;
+								}
+							}
+							n--;
+							m++;
 						}
 					}
-					startY = currentStep.y;
+					if(curList.size() == 1)
+						currentStep.y = 0.5f;
 				}
+				if(nextSteps.size() == 1) {
+					int flag = 0;
+					List<NSstep> otherRowNodes = getOtherRowSteps(nextSteps.get(0));
+					if(otherRowNodes != null) {
+						for (NSstep node : otherRowNodes) {
+							if ((findLeftParentNode(node).y > findLeftParentNode(nextSteps.get(0)).y
+									&& Integer.parseInt(node.editOrderNum) < Integer.parseInt(nextSteps.get(0).editOrderNum))
+									|| (findLeftParentNode(node).y < findLeftParentNode(nextSteps.get(0)).y
+									&& Integer.parseInt(node.editOrderNum) > Integer.parseInt(nextSteps.get(0).editOrderNum))) {
+								flag = 1;
+								break;
+							}
+						}
+					}
+					if(adjMat[i][num] == 0) {
+						nextSteps.get(0).y = (num + 1f) / (maxLineNum + 1);
+						if(flag == 1)
+							adjMat[i][num] = 2;
+						else
+							adjMat[i][num] = 1;
+					}
+					else {
+						int m = num + 1, n = num - 1;
+						while (n >= 0 || m < maxLineNum) {
+							if(n >= 0) {
+								if (adjMat[i][n] == 0) {
+									nextSteps.get(0).y = (n + 1f) / (maxLineNum + 1);
+									if (flag == 1)
+										adjMat[i][n] = 2;
+									else
+										adjMat[i][n] = 1;
+									break;
+								}
+							}
+							if(m < maxLineNum) {
+								if (adjMat[i][m] == 0) {
+									nextSteps.get(0).y = (m + 1f) / (maxLineNum + 1);
+									if (flag == 1)
+										adjMat[i][m] = 2;
+									else
+										adjMat[i][m] = 1;
+									break;
+								}
+							}
+							n--;
+							m++;
+						}
+					}
+				}
+				else if(nextSteps.size() == 2) {
+					int temNum = num - 1;
+					if(adjMat[i][temNum] == 0) {
+						nextSteps.get(0).y = (temNum + 1f) / (maxLineNum + 1);
+						adjMat[i][temNum] = 2;
+					}
+					else {
+						int m = num + 1, n = num - 1;
+						while (n >= 0 || m < maxLineNum) {
+							if (n > 0) {
+								if (adjMat[i][n] == 0) {
+									nextSteps.get(0).y = (n + 1f) / (maxLineNum + 1);
+									adjMat[i][n] = 2;
+									break;
+								}
+							}
+							if (m < maxLineNum - 1) {
+								if (adjMat[i][m] == 0) {
+									nextSteps.get(0).y = (m + 1f) / (maxLineNum + 1);
+									adjMat[i][m] = 2;
+									break;
+								}
+							}
+							n--;
+							m++;
+						}
+					}
+					temNum = num + 1;
+					if(adjMat[i][temNum] == 0) {
+						nextSteps.get(1).y = (temNum + 1f) / (maxLineNum + 1);
+						adjMat[i][temNum] = 2;
+					}
+					else {
+						int m = num + 1, n = num - 1;
+						while (n >= 0 || m < maxLineNum) {
+							if (n > 0) {
+								if (adjMat[i][n] == 0) {
+									nextSteps.get(1).y = (n + 1f) / (maxLineNum + 1);
+									adjMat[i][n] = 2;
+									break;
+								}
+							}
+							if (m < maxLineNum - 1) {
+								if (adjMat[i][m] == 0) {
+									nextSteps.get(1).y = (m + 1f) / (maxLineNum + 1);
+									adjMat[i][m] = 2;
+									break;
+								}
+							}
+							n--;
+							m++;
+						}
+					}
+				}
+				else {
+					int temNum = num - nextSteps.size() / 2;
+					if(temNum < 0)
+						temNum = 0;
+					for(NSstep nSstep : nextSteps) {
+						if(adjMat[i][temNum] == 0) {
+							nSstep.y = (temNum + 1f) / (maxLineNum + 1);
+							adjMat[i][temNum] = 2;
+						}
+						else {
+							int m = temNum + 1, n = temNum - 1;
+							while (n >= 0 || m < maxLineNum) {
+								if (n > 0) {
+									if (adjMat[i][n] == 0) {
+										nSstep.y = (n + 1f) / (maxLineNum + 1);
+										adjMat[i][n] = 2;
+										break;
+									}
+								}
+								if (m < maxLineNum - 1) {
+									if (adjMat[i][m] == 0) {
+										nSstep.y = (m + 1f) / (maxLineNum + 1);
+										adjMat[i][m] = 2;
+										break;
+									}
+								}
+								n--;
+								m++;
+							}
+						}
+						temNum++;
+					}
+				}
+				k++;
 			}
 		}
 	}
@@ -263,9 +464,9 @@ public class NSSetPointValueToSteps{
 	 */
 	private List<NSstep> getNextRowNextSteps(NSstep step, int i) {
 		List<NSstep> nSsteps = new ArrayList<>();
-		for(NSstep nextStep : steplist) {
-			for (String nextStepId : step.nextStepIds) {
-				if(nextStepId.equals(nextStep.stepId) && nextStep.lineId == i - 1) {
+		for (String nextStepId : step.nextStepIds) {
+			for(NSstep nextStep : steplist) {
+				if(nextStepId.equals(nextStep.stepId) && nextStep.lineId == i + 1) {
 					nSsteps.add(nextStep);
 					break;
 				}
@@ -415,7 +616,7 @@ public class NSSetPointValueToSteps{
 		List<NSstep> list = new ArrayList<>();
 		for (NSstep oneStep : steplist) {
 			for(String id : step.nextStepIds) {
-				if (oneStep.stepId.equals(id) && lineId - 1 == oneStep.lineId) {
+				if (oneStep.stepId.equals(id) && lineId + 1 == oneStep.lineId) {
 					list.add(oneStep);
 					break;
 				}
