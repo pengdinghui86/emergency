@@ -50,7 +50,7 @@ public class RefreshLinearLayout extends LinearLayout {
 
 	// 定义header的四种状态和当前状态
 	//刷新状态
-	private int refreshState;
+	private int refreshState = STATE_REFRESH_NORMAL;
 	//静止状态
 	public static final int STATE_REFRESH_NORMAL = 0x000001;
 	//下拉刷新
@@ -114,7 +114,7 @@ public class RefreshLinearLayout extends LinearLayout {
 		tip = (TextView) header.findViewById(R.id.tip);
 		lastUpdate = (TextView) header.findViewById(R.id.lastUpdate);
 		refreshing = (ProgressBar) header.findViewById(R.id.refreshing);
-		measureView(header);
+		refreshHeaderViewByState();
 	}
 
 	public void onRefresh() {
@@ -134,11 +134,8 @@ public class RefreshLinearLayout extends LinearLayout {
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-		if (null != onRefreshListener) {
+		if (null != onRefreshListener && null == header) {
 			initView();
-		}
-		if (null == header) {
-			return;
 		}
 		this.removeView(header);
 		this.addView(header, 0);
@@ -355,12 +352,14 @@ public class RefreshLinearLayout extends LinearLayout {
 	private void refreshHeaderViewByState() {
 		switch (refreshState) {
 		case STATE_REFRESH_NORMAL:
+			header.setVisibility(GONE);
 			tip.setText(R.string.pull_to_refresh);
 			refreshing.setVisibility(View.GONE);
 			arrow.clearAnimation();
 			arrow.setImageResource(R.drawable.pull_to_refresh_arrow);
 			break;
 		case STATE_REFRESH_NOT_ARRIVED:
+			header.setVisibility(VISIBLE);
 			arrow.setVisibility(View.VISIBLE);
 			tip.setVisibility(View.VISIBLE);
 			lastUpdate.setVisibility(View.VISIBLE);
@@ -370,6 +369,7 @@ public class RefreshLinearLayout extends LinearLayout {
 			arrow.setAnimation(reverseAnimation);
 			break;
 		case STATE_REFRESH_ARRIVED:
+			header.setVisibility(VISIBLE);
 			arrow.setVisibility(View.VISIBLE);
 			tip.setVisibility(View.VISIBLE);
 			lastUpdate.setVisibility(View.VISIBLE);
@@ -386,26 +386,6 @@ public class RefreshLinearLayout extends LinearLayout {
 			lastUpdate.setVisibility(View.GONE);
 			break;
 		}
-	}
-
-	// 用来计算header大小的。比较隐晦。因为header的初始高度就是0,貌似可以不用。
-	private void measureView(View child) {
-		ViewGroup.LayoutParams p = child.getLayoutParams();
-		if (p == null) {
-			p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-					ViewGroup.LayoutParams.WRAP_CONTENT);
-		}
-		int childWidthSpec = ViewGroup.getChildMeasureSpec(0, 0 + 0, p.width);
-		int lpHeight = p.height;
-		int childHeightSpec;
-		if (lpHeight > 0) {
-			childHeightSpec = MeasureSpec.makeMeasureSpec(lpHeight,
-					MeasureSpec.EXACTLY);
-		} else {
-			childHeightSpec = MeasureSpec.makeMeasureSpec(0,
-					MeasureSpec.UNSPECIFIED);
-		}
-		child.measure(childWidthSpec, childHeightSpec);
 	}
 
 	/*
