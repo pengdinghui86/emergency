@@ -91,26 +91,12 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
      */
     @ViewInject(R.id.execute)
     private TextView execute;
+
     /**
      * 操作手册
      */
-    @ViewInject(R.id.operation_menu)
-    private TextView operation_menu;
-    /**
-     * 操作手册布局下方的分隔线
-     */
-    @ViewInject(R.id.view_operation)
-    private View view_operation;
-    /**
-     * 操作手册布局
-     */
-    @ViewInject(R.id.ll_operation_menu)
-    private LinearLayout ll_operation_menu;
-    /**
-     * 操作手册
-     */
-    @ViewInject(R.id.operation_menu2)
-    private ImageView operation_menu2;
+    @ViewInject(R.id.tv_actionbar_editData)
+    private TextView tv_actionbar_editData;
 
     /**
      * 切换的完成状态布局
@@ -211,10 +197,16 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     private void initView() {
         back.setVisibility(View.VISIBLE);
         title.setText(childEntity.getProcessName());
+        //判断节点不显示操作手册
+        if(!childEntity.getNodeStepType().equals("ExclusiveGateway")) {
+            tv_actionbar_editData.setVisibility(View.VISIBLE);
+            tv_actionbar_editData.setText(getString(R.string.operation_menu));
+            tv_actionbar_editData.setOnClickListener(this);
+        }
+        else
+            submit_infomation_ll.setVisibility(View.GONE);
         String status = childEntity.getStatus();
         submit_infomation_ll.setOnClickListener(this);
-        operation_menu.setOnClickListener(this);
-        operation_menu2.setOnClickListener(this);
         execute.setOnClickListener(this);
         done_status_ll.setOnClickListener(this);
         okdone.setOnClickListener(this);
@@ -246,13 +238,6 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             change_ll.setVisibility(View.GONE);
             execute_ll.setVisibility(View.GONE);
 
-        }
-
-        //判断节点
-        if(childEntity.getNodeStepType().equals("ExclusiveGateway")) {
-            ll_operation_menu.setVisibility(View.GONE);
-            submit_infomation_ll.setVisibility(View.GONE);
-            view_operation.setVisibility(View.GONE);
         }
 
         //子预案节点
@@ -429,7 +414,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 intent3.putExtra("tag", "2");// 步骤点进去
                 startActivity(intent3);
                 break;
-            case R.id.operation_menu2:// 操作手册
+            case R.id.tv_actionbar_editData:// 操作手册
                 Intent intent4 = new Intent(PlanExecutionDetailActivity.this,
                         OperationMenuActivity.class);
                 intent4.putExtra("manualDetailId", childEntity.getManualDetailId());

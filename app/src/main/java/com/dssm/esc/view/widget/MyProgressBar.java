@@ -66,8 +66,18 @@ public class MyProgressBar extends ProgressBar {
 	}
 
 	private void setTextProgress(int progress) {
-		int i = (int) ((progress * 1.0f / this.getMax()) * 100);
+		int i = floatToInt(progress * 1.0f / this.getMax() * 100);
 		this.text_progress = String.valueOf(i) + "%";
 	}
 
+	int floatToInt(float f){
+		int i;
+		if(f > 0) //正数
+			i = (int) (f * 10 + 5) / 10;
+		else if(f < 0) //负数
+			i = (int) (f * 10 - 5) / 10;
+		else
+			i = 0;
+		return i;
+	}
 }
