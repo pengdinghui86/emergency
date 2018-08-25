@@ -34,7 +34,7 @@
     <string name="shortmessage">短信</string>
     <string name="email">邮件</string>
     <string name="app">APP</string>
-    <string name="messageedit">消息输入</string>
+    <string name="messageedit">请输入通知内容</string>
     <string name="editflithint">搜索</string>
     <string name="searchno">未搜索到结果</string>
     <string name="introduce">简介</string>
@@ -55,6 +55,9 @@
     <string name="personnel_assignment">人员指派</string>
     <string name="plan_execution">预案执行</string>
     <string name="collaborative_circular">协同通告</string>
+    <string name="add_contact">添加联系人</string>
+    <string name="select_send_object">选择发送对象</string>
+    <string name="select_stage">选择阶段</string>
     <string name="eventname">事件名称</string>
     <string name="eventnamehint">请输入事件名称（必填）</string>
     <string name="event_desc_hint">填写事件描述（必填）</string>

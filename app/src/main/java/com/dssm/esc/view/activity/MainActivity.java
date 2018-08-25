@@ -41,7 +41,6 @@ import com.dssm.esc.util.PermissionsChecker;
 import com.dssm.esc.util.SystemBarTintManager;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
-import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.fragment.AdrressListFragment;
 import com.dssm.esc.view.fragment.ControlCenterFragment;
@@ -270,7 +269,24 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         tv_item_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
+                AlertDialog.Builder adBuilder = new AlertDialog.Builder(MainActivity.this);
+                adBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        logout();
+                    }
+                });
+                adBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                adBuilder.setTitle("提示");
+                adBuilder.setMessage("确定退出当前账号");
+                adBuilder.setCancelable(true);
+                adBuilder.show();
             }
         });
 

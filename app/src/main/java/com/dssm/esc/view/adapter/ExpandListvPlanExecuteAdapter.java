@@ -360,6 +360,7 @@ public class ExpandListvPlanExecuteAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("drillPrecautionId",
                         gentity.getDrillPrecautionId());
                 intent.putExtra("planInfoId", gentity.getGroup_id());
+                intent.putExtra("name", gentity.getGroupname());
                 intent.putExtra("tag", "1");// 列表点进去
                 context.startActivity(intent);
             }

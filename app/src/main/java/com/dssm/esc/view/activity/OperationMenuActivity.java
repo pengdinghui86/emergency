@@ -76,6 +76,7 @@ public class OperationMenuActivity extends BaseActivity {
         tag = intent.getStringExtra("tag");
         planResType = intent.getStringExtra("planResType");
         drillPrecautionId = intent.getStringExtra("drillPrecautionId");
+        name = intent.getStringExtra("name");
         Utils.getInstance().showProgressDialog(
                 OperationMenuActivity.this, "", Const.SUBMIT_MESSAGE);
         initView();
@@ -83,7 +84,10 @@ public class OperationMenuActivity extends BaseActivity {
 
     private void initView() {
         back.setVisibility(View.VISIBLE);
-        title.setText("操作手册");
+        if("".equals(name) || name == null)
+            title.setText("操作手册");
+        else
+            title.setText(name);
         if (tag.equals("1")) {
             // planResType 预案来源类型 1、事件 2、演练计划
             // drillPrecautionId 演练预案id

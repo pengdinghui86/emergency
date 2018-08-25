@@ -377,7 +377,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				String stRerror, String Exceptionerror) {
 			// TODO Auto-generated method stub
 			if (backflag) {
-				ToastUtil.showToast(SignInActivity.this, "操作成功");
+				ToastUtil.showToast(SignInActivity.this, "签到成功");
 				sign_in.setBackgroundResource(R.drawable.btbg_gray);
 				signState = "1";
 				initListData();

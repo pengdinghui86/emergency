@@ -76,7 +76,7 @@ public class TimeLineListviewAdapter extends BaseAdapter {
 			if (entity.getState().equals("0")) {
 				mHolder.dot.setImageResource(R.drawable.dotred1);
 				mHolder.time.setText("未开始");
-				mHolder.ll.setBackgroundResource(R.drawable.btbg_red);
+				mHolder.ll.setBackgroundResource(R.drawable.btbg_red1);
 			}else if (entity.getState().equals("1")) {
 				mHolder.dot.setImageResource(R.drawable.last1);
 				mHolder.time.setText("执行中");
@@ -93,7 +93,7 @@ public class TimeLineListviewAdapter extends BaseAdapter {
 			if (entity.getState().equals("0")) {
 				mHolder.dot.setImageResource(R.drawable.dotred2);
 				mHolder.time.setText("未开始");
-				mHolder.ll.setBackgroundResource(R.drawable.btbg_red);
+				mHolder.ll.setBackgroundResource(R.drawable.btbg_red1);
 			}else if (entity.getState().equals("1")) {
 				mHolder.dot.setImageResource(R.drawable.last2);
 				mHolder.time.setText("执行中");
@@ -109,7 +109,7 @@ public class TimeLineListviewAdapter extends BaseAdapter {
 			if (entity.getState().equals("0")) {
 				mHolder.dot.setImageResource(R.drawable.dotred3);
 				mHolder.time.setText("未开始");
-				mHolder.ll.setBackgroundResource(R.drawable.btbg_red);
+				mHolder.ll.setBackgroundResource(R.drawable.btbg_red1);
 			}else if (entity.getState().equals("1")) {
 				mHolder.dot.setImageResource(R.drawable.last3);
 				mHolder.time.setText("执行中");

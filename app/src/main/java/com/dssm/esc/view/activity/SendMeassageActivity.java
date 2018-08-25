@@ -1,5 +1,7 @@
 package com.dssm.esc.view.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -180,90 +182,110 @@ public class SendMeassageActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.send:
-			Utils.getInstance().showProgressDialog(
-					SendMeassageActivity.this, "", Const.SEND_MESSAGE);
-			if (selectId.size() > 0) {
-				for (int i = 0; i < selectId.size(); i++) {
-					ids = ids + "," + selectId.get(i);
+			AlertDialog.Builder adBuilder = new AlertDialog.Builder(SendMeassageActivity.this);
+			adBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialogInterface, int i) {
+					dialogInterface.dismiss();
+					sendMessage();
 				}
-				if (ids.subSequence(0, 1).equals(",")) {
-					ids = (String) ids.subSequence(1, ids.length());
+			});
+			adBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialogInterface, int i) {
+					dialogInterface.dismiss();
 				}
-			}
-			String sendType = "";
-			for (int i = 0; i < sendTypearray.length; i++) {
-				String string = sendTypearray[i];
-				if (!string.equals("a")) {
-					sendType = sendType + "," + sendTypearray[i];
-				}
-			}
-			if (sendType.length() > 0 && !sendType.equals("")) {
-				split(sendType);
-				if (sendType.subSequence(0, 1).equals(",")) {
-					sendType = (String) sendType.subSequence(1,
-							sendType.length());
-				}
-
-				content = edit_message.getText().toString().trim();
-				if (!content.equals("") && content.length() > 0) {
-					if (!ids.equals("") && ids.length() > 0) {
-
-						Log.i("sendType", sendType);
-						contactListService.sendMessage(ids, sendType, content,
-								new ContactListServiceImpl.ContactSeviceImplBackBooleanListenser() {
-
-									@Override
-									public void setContactSeviceImplListenser(
-											Boolean backflag, String stRerror,
-											String Exceptionerror) {
-										// TODO Auto-generated method stub
-										if (backflag) {
-											ToastUtil.showToast(
-													SendMeassageActivity.this,
-													stRerror);
-											finish();
-										} else if (backflag == false) {
-											ToastUtil.showToast(
-													SendMeassageActivity.this,
-													stRerror);
-										} else if (stRerror != null) {
-
-											ToastUtil.showLongToast(
-													SendMeassageActivity.this,
-													stRerror);
-										} else if (Exceptionerror != null) {
-
-											ToastUtil.showLongToast(
-													SendMeassageActivity.this,
-													Const.NETWORKERROR
-															+ Exceptionerror);
-										}
-										Utils.getInstance().hideProgressDialog();
-									}
-								});
-					} else {
-						Utils.getInstance().hideProgressDialog();
-						ToastUtil.showToast(SendMeassageActivity.this,
-								"请选择发送对象");
-					}
-				} else {
-					Utils.getInstance().hideProgressDialog();
-					ToastUtil.showToast(SendMeassageActivity.this, "发送信息不能为空");
-				}
-
-			} else {
-				Utils.getInstance().hideProgressDialog();
-				ToastUtil.showToast(SendMeassageActivity.this, "请选择发送方式");
-			}
-
-			Log.i("APP_ll", "APP_ll" + selectId.size());
-			for (int i = 0; i < selectId.size(); i++) {
-				Log.i("被选联系人ID" + i, selectId.get(i));
-			}
-
+			});
+			adBuilder.setTitle("提示");
+			adBuilder.setMessage("确定发送消息");
+			adBuilder.setCancelable(true);
+			adBuilder.show();
 			break;
 		}
 
+	}
+
+	private void sendMessage() {
+		Utils.getInstance().showProgressDialog(
+				SendMeassageActivity.this, "", Const.SEND_MESSAGE);
+		if (selectId.size() > 0) {
+			for (int i = 0; i < selectId.size(); i++) {
+				ids = ids + "," + selectId.get(i);
+			}
+			if (ids.subSequence(0, 1).equals(",")) {
+				ids = (String) ids.subSequence(1, ids.length());
+			}
+		}
+		String sendType = "";
+		for (int i = 0; i < sendTypearray.length; i++) {
+			String string = sendTypearray[i];
+			if (!string.equals("a")) {
+				sendType = sendType + "," + sendTypearray[i];
+			}
+		}
+		if (sendType.length() > 0 && !sendType.equals("")) {
+			split(sendType);
+			if (sendType.subSequence(0, 1).equals(",")) {
+				sendType = (String) sendType.subSequence(1,
+						sendType.length());
+			}
+
+			content = edit_message.getText().toString().trim();
+			if (!content.equals("") && content.length() > 0) {
+				if (!ids.equals("") && ids.length() > 0) {
+
+					Log.i("sendType", sendType);
+					contactListService.sendMessage(ids, sendType, content,
+							new ContactListServiceImpl.ContactSeviceImplBackBooleanListenser() {
+
+								@Override
+								public void setContactSeviceImplListenser(
+										Boolean backflag, String stRerror,
+										String Exceptionerror) {
+									// TODO Auto-generated method stub
+									if (backflag) {
+										ToastUtil.showToast(
+												SendMeassageActivity.this,
+												stRerror);
+										finish();
+									} else if (backflag == false) {
+										ToastUtil.showToast(
+												SendMeassageActivity.this,
+												stRerror);
+									} else if (stRerror != null) {
+
+										ToastUtil.showLongToast(
+												SendMeassageActivity.this,
+												stRerror);
+									} else if (Exceptionerror != null) {
+
+										ToastUtil.showLongToast(
+												SendMeassageActivity.this,
+												Const.NETWORKERROR
+														+ Exceptionerror);
+									}
+									Utils.getInstance().hideProgressDialog();
+								}
+							});
+				} else {
+					Utils.getInstance().hideProgressDialog();
+					ToastUtil.showToast(SendMeassageActivity.this,
+							"请选择发送对象");
+				}
+			} else {
+				Utils.getInstance().hideProgressDialog();
+				ToastUtil.showToast(SendMeassageActivity.this, "发送信息不能为空");
+			}
+
+		} else {
+			Utils.getInstance().hideProgressDialog();
+			ToastUtil.showToast(SendMeassageActivity.this, "请选择发送方式");
+		}
+
+		Log.i("APP_ll", "APP_ll" + selectId.size());
+		for (int i = 0; i < selectId.size(); i++) {
+			Log.i("被选联系人ID" + i, selectId.get(i));
+		}
 	}
 
 	@Override

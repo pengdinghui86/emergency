@@ -1,5 +1,7 @@
 package com.dssm.esc.view.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -455,94 +457,113 @@ public class AddeValuationActivity extends BaseActivity implements
 			startActivityForResult(intent, 6);
 			break;
 		case R.id.submittv:// 提交数据
-			eveName = event_name.getText().toString().trim();
-			eveDescription = event_des.getText().toString().trim();
-			dealAdvice = suggestion.getText().toString().trim();
-			if (tag.equals("1")) {
-				eveType = "1";
-			} else if (tag.equals("2")) {
-				eveType = "2";
-				Intent intent2 = getIntent();
-				emergType = intent2.getStringExtra("emergType");
-				drillPlanId = intent2.getStringExtra("drillPlanId");
-				drillPlanName = intent2.getStringExtra("drillPlanName");
-				exPlanId = intent2.getStringExtra("exPlanId");
-				referPlan = precautionId;
-			}
-			if (type.equals("1")) {// 重新评估
-				entity.setTradeTypeId(tradeTypeId);// 行业类型
-				entity.setEveLevelId(eveLevelId);// 事件等级
-				entity.setEveDescription(eveDescription);// 事件描述
-				entity.setEveScenarioId(eveScenarioId);// 事件场景
-				entity.setEveScenarioName(eveScenarioName);// 事件场景名称
-				entity.setEveName(eveName);// 事件名称
-				entity.setDealAdvice(dealAdvice);// 处置建议
-				entity.setReferPlanIds(referPlan);// 参考预案
-				entity.setOtherReferPlanIds(otherReferPlan);// 其他预案
-				entity.setCategoryPlanIds(categoryPlan);// 分类预案
-				String planall = "";
-				planall = referPlan + otherReferPlan + categoryPlan;
-				if (!tradeTypeId.equals("") && !eveLevelId.equals("")
-						&& !eveDescription.equals("") && !dealAdvice.equals("")
-						&& !eveName.equals("") && !planall.equals("")) {
-					reValuation();
-
-				} else {
-					ToastUtil.showToast(AddeValuationActivity.this, "信息不完整");
+			AlertDialog.Builder adBuilder = new AlertDialog.Builder(AddeValuationActivity.this);
+			adBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialogInterface, int i) {
+					dialogInterface.dismiss();
+					addEventValuation();
 				}
-			} else if ((type.equals("0"))) {// 添加评估
-				addEntity.setTradeType(tradeTypeId);// 行业类型
-				addEntity.setEveLevel(eveLevelId);// 事件等级
-				addEntity.setEveDescription(eveDescription);// 事件描述
-				addEntity.setEveScenarioId(eveScenarioId);// 事件场景
-				addEntity.setEveScenarioName(eveScenarioName);// 事件场景名称
-				addEntity.setEmergType(emergType);// 演练类型
-				addEntity.setEveName(eveName);// 事件名称
-				addEntity.setDealAdvice(dealAdvice);// 处置建议
-				addEntity.setReferPlan(referPlan);// 参考预案
-				addEntity.setOtherReferPlan(otherReferPlan);// 其他预案
-				addEntity.setCategoryPlan(categoryPlan);// 分类预案
-				addEntity.setEveType(eveType);// 事件类型
-				addEntity.setDrillPlanId(drillPlanId);// 演练详细计划ID
-				addEntity.setDrillPlanName(drillPlanName);// 演练详细计划名称
-				addEntity.setExPlanId(exPlanId);// 演练初始计划id
-				String planall = "";
-				planall = referPlan + otherReferPlan + categoryPlan;
-				Log.i("referPlan", referPlan);
-				Log.i("otherReferPlan", otherReferPlan);
-				Log.i("categoryPlan", categoryPlan);
-				Log.i("planall", planall);
-				if (tag.equals("1")) {
-					if (!tradeTypeId.equals("") && !eveLevelId.equals("")
-							&& !eveDescription.equals("")
-							&& !dealAdvice.equals("") && !eveName.equals("")
-							&& !planall.equals("")) {
-
-						addValuation();
-
-					} else {
-						ToastUtil
-								.showToast(AddeValuationActivity.this, "信息不完整");
-					}
-
-				} else if (tag.equals("2")) {
-					if (!tradeTypeId.equals("") && !eveLevelId.equals("")
-							&& !eveDescription.equals("")
-							&& !dealAdvice.equals("") && !eveName.equals("")
-							&& !precautionId.equals("")) {
-						addValuation();
-					} else {
-						ToastUtil
-								.showToast(AddeValuationActivity.this, "信息不完整");
-					}
+			});
+			adBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialogInterface, int i) {
+					dialogInterface.dismiss();
 				}
-
-			}
-
+			});
+			adBuilder.setTitle("提示");
+			adBuilder.setMessage("确定添加事件评估");
+			adBuilder.setCancelable(true);
+			adBuilder.show();
 			break;
 		}
 	}
 
+	private void addEventValuation() {
+		eveName = event_name.getText().toString().trim();
+		eveDescription = event_des.getText().toString().trim();
+		dealAdvice = suggestion.getText().toString().trim();
+		if (tag.equals("1")) {
+			eveType = "1";
+		} else if (tag.equals("2")) {
+			eveType = "2";
+			Intent intent2 = getIntent();
+			emergType = intent2.getStringExtra("emergType");
+			drillPlanId = intent2.getStringExtra("drillPlanId");
+			drillPlanName = intent2.getStringExtra("drillPlanName");
+			exPlanId = intent2.getStringExtra("exPlanId");
+			referPlan = precautionId;
+		}
+		if (type.equals("1")) {// 重新评估
+			entity.setTradeTypeId(tradeTypeId);// 行业类型
+			entity.setEveLevelId(eveLevelId);// 事件等级
+			entity.setEveDescription(eveDescription);// 事件描述
+			entity.setEveScenarioId(eveScenarioId);// 事件场景
+			entity.setEveScenarioName(eveScenarioName);// 事件场景名称
+			entity.setEveName(eveName);// 事件名称
+			entity.setDealAdvice(dealAdvice);// 处置建议
+			entity.setReferPlanIds(referPlan);// 参考预案
+			entity.setOtherReferPlanIds(otherReferPlan);// 其他预案
+			entity.setCategoryPlanIds(categoryPlan);// 分类预案
+			String planall = "";
+			planall = referPlan + otherReferPlan + categoryPlan;
+			if (!tradeTypeId.equals("") && !eveLevelId.equals("")
+					&& !eveDescription.equals("") && !dealAdvice.equals("")
+					&& !eveName.equals("") && !planall.equals("")) {
+				reValuation();
+
+			} else {
+				ToastUtil.showToast(AddeValuationActivity.this, "信息不完整");
+			}
+		} else if (type.equals("0")) {// 添加评估
+			addEntity.setTradeType(tradeTypeId);// 行业类型
+			addEntity.setEveLevel(eveLevelId);// 事件等级
+			addEntity.setEveDescription(eveDescription);// 事件描述
+			addEntity.setEveScenarioId(eveScenarioId);// 事件场景
+			addEntity.setEveScenarioName(eveScenarioName);// 事件场景名称
+			addEntity.setEmergType(emergType);// 演练类型
+			addEntity.setEveName(eveName);// 事件名称
+			addEntity.setDealAdvice(dealAdvice);// 处置建议
+			addEntity.setReferPlan(referPlan);// 参考预案
+			addEntity.setOtherReferPlan(otherReferPlan);// 其他预案
+			addEntity.setCategoryPlan(categoryPlan);// 分类预案
+			addEntity.setEveType(eveType);// 事件类型
+			addEntity.setDrillPlanId(drillPlanId);// 演练详细计划ID
+			addEntity.setDrillPlanName(drillPlanName);// 演练详细计划名称
+			addEntity.setExPlanId(exPlanId);// 演练初始计划id
+			String planall = "";
+			planall = referPlan + otherReferPlan + categoryPlan;
+			Log.i("referPlan", referPlan);
+			Log.i("otherReferPlan", otherReferPlan);
+			Log.i("categoryPlan", categoryPlan);
+			Log.i("planall", planall);
+			if (tag.equals("1")) {
+				if (!tradeTypeId.equals("") && !eveLevelId.equals("")
+						&& !eveDescription.equals("")
+						&& !dealAdvice.equals("") && !eveName.equals("")
+						&& !planall.equals("")) {
+
+					addValuation();
+
+				} else {
+					ToastUtil
+							.showToast(AddeValuationActivity.this, "信息不完整");
+				}
+
+			} else if (tag.equals("2")) {
+				if (!tradeTypeId.equals("") && !eveLevelId.equals("")
+						&& !eveDescription.equals("")
+						&& !dealAdvice.equals("") && !eveName.equals("")
+						&& !precautionId.equals("")) {
+					addValuation();
+				} else {
+					ToastUtil
+							.showToast(AddeValuationActivity.this, "信息不完整");
+				}
+			}
+
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

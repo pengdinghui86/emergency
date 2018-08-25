@@ -85,8 +85,7 @@
                     android:layout_gravity="left|center"
                     android:layout_weight="1"
                     android:gravity="left|center"
-                    android:text="@string/contact_people"
-                    />
+                    android:text="@string/contact_people" />
 
                 <TextView
                     android:id="@+id/contact_people"
@@ -98,6 +97,7 @@
                     android:gravity="left|center"
                     android:ellipsize="end"
                     android:maxLines="3"
+                    android:hint="@string/add_contact"
                     android:paddingTop="16dp"
                     android:paddingBottom="16dp"
                     />
@@ -153,7 +153,7 @@
                         android:gravity="left|center"
                         android:paddingTop="16dp"
                         android:paddingBottom="16dp"
-                        />
+                        android:hint="@string/select_send_object"/>
 
                     <ImageView
                         android:layout_width="22dp"
@@ -196,7 +196,7 @@
                         android:gravity="left|center"
                         android:paddingTop="16dp"
                         android:paddingBottom="16dp"
-                        />
+                        android:hint="@string/select_stage"/>
 
                     <ImageView
                         android:layout_width="22dp"
