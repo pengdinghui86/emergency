@@ -38,7 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="3dp"
-            android:paddingBottom="10dp"
             android:gravity="left"
             android:orientation="horizontal">
 
@@ -50,13 +49,25 @@
                 android:gravity="left"
                 android:text="121"
                 android:textColor="@color/colorWeFontGray_9"
-                android:textSize="@dimen/we_small_textsize" />
+                android:textSize="@dimen/we_small_textsize"
+                android:lines="1"
+                android:ellipsize="end"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:paddingBottom="10dp"
+            android:gravity="left"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tradeTypetv"
                 style="@style/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="3dp"
                 android:gravity="left"
                 android:text="121"
                 android:textColor="@color/colorWeFontGray_9"
