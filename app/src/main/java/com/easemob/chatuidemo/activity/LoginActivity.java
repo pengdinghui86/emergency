@@ -540,7 +540,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_new);
         setStatusBarState();
         View findViewById = findViewById(R.id.login);
         findViewById.setFitsSystemWindows(true);
@@ -552,8 +552,6 @@ public class LoginActivity extends BaseActivity {
         title = (TextView) findViewById(R.id.tv_actionbar_title);
         select_address_img = (ImageView) findViewById(R.id.tv_actionbar_rightimag);
         select_address_img.setVisibility(View.VISIBLE);
-        TextView tv_actionbar_editData = (TextView) findViewById(R.id.tv_actionbar_editData);
-        tv_actionbar_editData.setVisibility(View.GONE);
         title.setText("登录");
         usernameEditText = (EditText) findViewById(R.id.login_name_et);
         passwordEditText = (EditText) findViewById(R.id.login_psw_et);

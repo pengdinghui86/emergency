@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_344"
+        android:background="@drawable/l_h_bg"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/login_ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_actionbar_back"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:src="@drawable/back"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/tv_actionbar_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textColor="@color/titlebg"
+                android:textSize="@dimen/we_title_textsize" />
+
+            <ImageView
+                android:id="@+id/tv_actionbar_rightimag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="editip"
+                android:padding="5dp"
+                android:src="@drawable/settings_normal"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/qb_px_250"
+        android:layout_height="@dimen/qb_px_250"
+        android:gravity="center"
+        android:elevation="@dimen/qb_px_10"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/circle_bg"
+        android:layout_marginTop="@dimen/uqb_px_125">
+
+        <ImageView
+            android:id="@+id/login_iv_logo"
+            android:layout_centerInParent="true"
+            android:layout_width="@dimen/qb_px_175"
+            android:layout_height="@dimen/qb_px_175"
+            android:src="@drawable/l_logo"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/qb_px_100"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/login_name_tv"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="4dp"
+                android:gravity="center"
+                android:text="账号"
+                android:textSize="@dimen/we_title_textsize" />
+
+            <EditText
+                android:id="@+id/login_name_et"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/loginnamehint"
+                android:padding="4dp"
+                android:textSize="@dimen/we_title_textsize">
+
+            </EditText>
+        </LinearLayout>
+
+        <View style="@style/horizontal_gray_style" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/qb_px_75"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/login_psw_tv"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="密码"
+                android:textSize="@dimen/we_title_textsize" />
+
+            <EditText
+                android:id="@+id/login_psw_et"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/loginpswhint"
+                android:inputType="textPassword"
+                android:padding="4dp"
+                android:textSize="@dimen/we_title_textsize" />
+        </LinearLayout>
+
+        <View style="@style/horizontal_gray_style" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="@dimen/qb_px_150"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/qb_px_50"
+                android:layout_marginRight="@dimen/qb_px_50"
+                android:background="@drawable/btbg_blue"
+                android:gravity="center"
+                android:onClick="login"
+                android:paddingBottom="7dp"
+                android:paddingTop="7dp"
+                android:text="@string/login"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/we_title_textsize" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
