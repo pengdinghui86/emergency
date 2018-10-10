@@ -127,6 +127,10 @@
     <string name="command_display">指挥与展示</string>
     <string name="resouce_prepare">应急资源就绪情况</string>
 
+    <!-- 登录 -->
+    <string name="login_edit_ip_http_txt">http://</string>
+    <string name="login_edit_ip_https_txt">https://</string>
+
     <!-- 指挥中心 -->
     <string name="control_center_emergency_txt">【应急】</string>
     <string name="control_center_drill_txt">【演练】</string>

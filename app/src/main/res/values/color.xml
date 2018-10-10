@@ -21,6 +21,8 @@
    <color name="yellow_b">#dec674</color>
    <color name="yellow_dot">#F6CB17</color>
    <color name="blue_dot">#0099FF</color>
+   <color name="region_selected">#2DA5F3</color>
+   <color name="edit_ip_text_color">#9A9A9A</color>
 
     <color name="all_txt_32">#323232</color>
     <color name="all_txt_b4">#B4B4B4</color>
