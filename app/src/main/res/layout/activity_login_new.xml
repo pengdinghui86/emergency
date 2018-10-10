@@ -61,7 +61,7 @@
         android:gravity="center"
         android:elevation="@dimen/qb_px_10"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/circle_bg"
+        android:background="@drawable/shadow_bg"
         android:layout_marginTop="@dimen/uqb_px_125">
 
         <ImageView
