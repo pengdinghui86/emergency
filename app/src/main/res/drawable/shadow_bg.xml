@@ -3,8 +3,8 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="#CABBBBBB"/>
-            <size android:height="@dimen/qb_px_250"
-                android:width="@dimen/qb_px_250">
+            <size android:height="250dp"
+                android:width="250dp">
             </size>
         </shape>
     </item>
@@ -16,8 +16,8 @@
         android:bottom="1dp">
         <shape android:shape="oval">
             <solid android:color="@android:color/white"/>
-            <size android:height="@dimen/qb_px_250"
-                android:width="@dimen/qb_px_250">
+            <size android:height="250dp"
+                android:width="250dp">
             </size>
         </shape>
     </item>

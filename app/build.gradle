@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 26
     buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.dssm.esc"
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -39,6 +39,7 @@ allprojects {
         }
     }
 }
+
 android {
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -51,8 +52,8 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:appcompat-v7:26.0.0'
+    compile 'com.android.support:design:26.0.0'
     compile files('libs/bolts-android-1.2.0.jar')
     compile files('libs/easemobchat_2.2.2.jar')
     compile files('libs/eventbus-2.4.0.jar')
@@ -70,4 +71,6 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     implementation files('libs/jpush-android-3.1.5.jar')
     implementation files('libs/jcore-android-1.2.3.jar')
+    implementation 'me.jessyan:autosize:0.9.5'
+
 }

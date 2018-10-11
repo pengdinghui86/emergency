@@ -5,11 +5,11 @@
     <solid android:color="#FFFFFF" />
 
     <stroke
-        android:width="@dimen/qb_px_2"
+        android:width="2dp"
         android:color="@android:color/white" />
 
     <size
-        android:height="@dimen/qb_px_250"
-        android:width="@dimen/qb_px_250" />
+        android:height="250dp"
+        android:width="250dp" />
 
 </shape>

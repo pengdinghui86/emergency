@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/qb_px_344"
+        android:layout_height="172dp"
         android:background="@drawable/l_h_bg"
         android:gravity="center_horizontal">
 
@@ -56,19 +56,19 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="@dimen/qb_px_250"
-        android:layout_height="@dimen/qb_px_250"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:gravity="center"
-        android:elevation="@dimen/qb_px_10"
+        android:elevation="5dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/shadow_bg"
-        android:layout_marginTop="@dimen/uqb_px_125">
+        android:layout_marginTop="-62dp">
 
         <ImageView
             android:id="@+id/login_iv_logo"
             android:layout_centerInParent="true"
-            android:layout_width="@dimen/qb_px_175"
-            android:layout_height="@dimen/qb_px_175"
+            android:layout_width="87dp"
+            android:layout_height="87dp"
             android:src="@drawable/l_logo"/>
 
     </RelativeLayout>
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="@dimen/qb_px_100"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -119,7 +119,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/qb_px_75"
+            android:layout_marginTop="37dp"
             android:orientation="vertical">
 
             <TextView
@@ -153,16 +153,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="@dimen/qb_px_150"
+            android:layout_marginTop="75dp"
             android:orientation="horizontal">
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/qb_px_50"
-                android:layout_marginRight="@dimen/qb_px_50"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:background="@drawable/btbg_blue"
                 android:gravity="center"
                 android:onClick="login"

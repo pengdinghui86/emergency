@@ -13,9 +13,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/qb_px_30"
-        android:layout_marginLeft="@dimen/qb_px_86"
-        android:layout_marginRight="@dimen/qb_px_86"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginRight="43dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -24,8 +24,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="@drawable/border_gray"
-            android:layout_marginRight="@dimen/qb_px_38"
-            android:layout_height="@dimen/qb_px_210">
+            android:layout_marginRight="19dp"
+            android:layout_height="105dp">
 
             <ImageView
                 android:id="@+id/edit_ip_iv_http"
@@ -37,7 +37,7 @@
                 android:id="@+id/edit_ip_tv_http"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/qb_px_30"
+                android:layout_marginTop="15dp"
                 android:text="@string/login_edit_ip_http_txt"
                 android:layout_below="@+id/edit_ip_iv_http"/>
 
@@ -49,8 +49,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="@drawable/border_gray"
-            android:layout_marginLeft="@dimen/qb_px_38"
-            android:layout_height="@dimen/qb_px_210">
+            android:layout_marginLeft="19dp"
+            android:layout_height="105dp">
 
             <ImageView
                 android:id="@+id/edit_ip_iv_https"
@@ -62,7 +62,7 @@
                 android:id="@+id/edit_ip_tv_https"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/qb_px_30"
+                android:layout_marginTop="15dp"
                 android:text="@string/login_edit_ip_https_txt"
                 android:layout_below="@+id/edit_ip_iv_https"/>
 
@@ -73,8 +73,8 @@
     <com.dssm.esc.view.widget.DeleteEditText
         android:id="@+id/edit_ip"
         style="@style/default_edit_style"
-        android:layout_height="@dimen/qb_px_118"
-        android:layout_margin="@dimen/qb_px_30"
+        android:layout_height="59dp"
+        android:layout_margin="15dp"
         android:inputType="textUri"
         android:maxLength="50"
         android:layout_gravity="center"
@@ -86,6 +86,6 @@
     <Button
         android:id="@+id/sure_bt"
         style="@style/default_textview_btn"
-        android:layout_marginTop="@dimen/qb_px_150"
+        android:layout_marginTop="75dp"
         android:text="@string/sure" />
 </LinearLayout>
