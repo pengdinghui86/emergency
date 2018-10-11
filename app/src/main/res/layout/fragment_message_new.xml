@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_marine_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_segmented"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center">
+
+            <RadioGroup
+                android:id="@+id/segmented"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_task"
+                    style="@style/message_title_radio_button"
+                    android:checked="true"
+                    android:text="任务" />
+
+                <RadioButton
+                    android:id="@+id/rb_system"
+                    style="@style/message_title_radio_button"
+                    android:text="系统" />
+
+                <RadioButton
+                    android:id="@+id/rb_emergency"
+                    style="@style/message_title_radio_button"
+                    android:text="紧急" />
+
+                <RadioButton
+                    android:id="@+id/rb_mymessage"
+                    style="@style/message_title_radio_button"
+                    android:text="个人" />
+            </RadioGroup>
+        </RelativeLayout>
+        <!-- 实现提醒信息用的 -->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <!-- 显示提醒信息的button android:layout_weight=1  是3个butto，平分手机界面的宽度 -->
+
+            <TextView
+                android:id="@+id/bt"
+                style="@style/radio_tab2"
+                android:background="#00000000"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+            <!-- 占位置的button，以便适应不同分辨率手机 -->
+
+            <TextView
+                style="@style/radio_tab2"
+                android:visibility="invisible" />
+
+            <TextView
+                style="@style/radio_tab2"
+                android:background="#00000000"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+            <TextView
+                style="@style/radio_tab2"
+                android:visibility="invisible" />
+            <!-- 占位置的button，以便适应不同分辨率手机 -->
+
+            <TextView
+                style="@style/radio_tab2"
+                android:background="#00000000"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+            <TextView
+                style="@style/radio_tab2"
+                android:visibility="invisible" />
+
+            <TextView
+                style="@style/radio_tab2"
+                android:background="#00000000"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+            <TextView
+                style="@style/radio_tab2"
+                android:visibility="invisible" />
+
+            <TextView
+                style="@style/radio_tab2"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/view_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
