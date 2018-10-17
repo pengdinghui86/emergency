@@ -21,6 +21,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,12 +31,18 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +63,7 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.activity.EditIPActivity;
 import com.dssm.esc.view.activity.MainActivity;
+import com.dssm.esc.view.adapter.PopRoleSelectListviewAdapter;
 import com.easemob.EMCallBack;
 import com.easemob.EMError;
 import com.easemob.applib.controller.HXSDKHelper;
@@ -117,6 +125,10 @@ public class LoginActivity extends BaseActivity {
      */
     private UserEntity userEntity;
     /**
+     * 被选中的用户角色
+     */
+    private UserLoginObjEntity userLoginObjEntity = null;
+    /**
      * 用户角色
      */
     private String[] identity;
@@ -169,6 +181,11 @@ public class LoginActivity extends BaseActivity {
     private String localVersion;
 
     private int curWhich;
+
+    private PopRoleSelectListviewAdapter adapter;
+    private PopupWindow popupWindow;
+    private int from = 0;
+
     private UserSeviceImpl.UserSeviceImplBackBooleanListenser loginRoleListener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
 
         @Override
@@ -180,9 +197,9 @@ public class LoginActivity extends BaseActivity {
             if (backflag) {
                 str = stRerror;
                 // 被选中的角色id
-                selectedRolem = rolesId[curWhich];
-                selectedRolemName = identity[curWhich];
-                roleCode = roleCodes[curWhich];
+                selectedRolem = userLoginObjEntity.getRoleId();
+                selectedRolemName = userLoginObjEntity.getRoleName();
+                roleCode = userLoginObjEntity.getRoleCode();
                 // service.save(selectedRolem);
                 userId = userEntity.getAttributes().getId();
                 name = userEntity.getAttributes().getName();
@@ -268,24 +285,25 @@ public class LoginActivity extends BaseActivity {
             switch (msg.what) {
 
                 case 11:
-                    new Builder(LoginActivity.this)
-                            .setTitle("请选择角色")
-                            .setIcon(android.R.drawable.ic_dialog_info)
-                            .setSingleChoiceItems(identity, 0,
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,
-                                                            final int which) {
-                                            dialog.dismiss();
-                                            ToastUtil.showLongToast(LoginActivity.this,
-                                                    "你选择了: " + identity[which]);
-                                            curWhich = which;
-                                            // 选择角色
-                                            sevice.loginRole(
-                                                    rolesId[which], loginRoleListener);
-
-                                        }
-
-                                    }).setNegativeButton("取消", null).show();
+                    initPopupWindow();
+//                    new Builder(LoginActivity.this)
+//                            .setTitle("请选择角色")
+//                            .setIcon(android.R.drawable.ic_dialog_info)
+//                            .setSingleChoiceItems(identity, 0,
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog,
+//                                                            final int which) {
+//                                            dialog.dismiss();
+//                                            ToastUtil.showLongToast(LoginActivity.this,
+//                                                    "你选择了: " + identity[which]);
+//                                            curWhich = which;
+//                                            // 选择角色
+//                                            sevice.loginRole(
+//                                                    rolesId[which], loginRoleListener);
+//
+//                                        }
+//
+//                                    }).setNegativeButton("取消", null).show();
 
                     break;
                 case 12:
@@ -325,6 +343,71 @@ public class LoginActivity extends BaseActivity {
 
         ;
     };
+
+    /**
+    * 添加新笔记时弹出的popWin关闭的事件，主要是为了将背景透明度改回来
+    */
+    class popupDismissListener implements PopupWindow.OnDismissListener {
+        @Override
+        public void onDismiss() {
+            backgroundAlpha(1f);
+        }
+    }
+
+    protected void initPopupWindow() {
+        View popupWindowView = getLayoutInflater().inflate(R.layout.pop_select_role, null);
+        //内容，高度，宽度           
+        popupWindow = new PopupWindow(popupWindowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setAnimationStyle(R.style.popwin_anim_style);
+        //菜单背景色    
+        ColorDrawable dw = new ColorDrawable(0xffffffff);
+        popupWindow.setBackgroundDrawable(dw);
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.showAtLocation(getLayoutInflater().inflate(R.layout.activity_login_new, null),
+        Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        //设置背景半透明     
+        backgroundAlpha(0.3f);
+        //关闭事件   
+        popupWindow.setOnDismissListener(new popupDismissListener());
+        popupWindowView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+        ListView listView = popupWindowView.findViewById(R.id.pop_select_role_lv);
+        TextView textView = popupWindowView.findViewById(R.id.pop_select_role_tv_cancel);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+        adapter = new PopRoleSelectListviewAdapter(this, userEntity.getObj());
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                userLoginObjEntity = userEntity.getObj().get(i);
+                popupWindow.dismiss();
+                ToastUtil.showLongToast(LoginActivity.this,
+                        "你选择了: " + userLoginObjEntity.getRoleName());
+                // 选择角色
+                sevice.loginRole(
+                        userLoginObjEntity.getRoleId(), loginRoleListener);
+            }
+        });
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度    
+     * @param bgAlpha
+    */
+    public void backgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = LoginActivity.this.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        LoginActivity.this.getWindow().setAttributes(lp);
+    }
 
     /***
      * 检测版本更新
@@ -599,8 +682,8 @@ public class LoginActivity extends BaseActivity {
             usernameEditText.setText(map.get("loginName"));
             usernameEditText.setSelection(map.get("loginName").length());//将光标移至文字末尾
         }
-
-
+        //防止输入框将布局顶上去
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     @Override

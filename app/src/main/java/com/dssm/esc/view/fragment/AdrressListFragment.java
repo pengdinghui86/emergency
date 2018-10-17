@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -37,7 +38,7 @@ public class AdrressListFragment extends BaseFragment implements
     /**
      * 应急通讯录碎片
      */
-    private AdressListFailsafeAdressListFragment failsafeAdressListFragment;
+    private AdressListContactFragment adressListContactFragment;
     /**
      * 应急通知碎片
      */
@@ -47,7 +48,7 @@ public class AdrressListFragment extends BaseFragment implements
      */
     private int tag = 0;
     private Context context;
-    private TextView send;
+    private ImageView send;
     private RadioButton rb_failsafe;
     private RadioButton rb_show;
     /**
@@ -68,14 +69,14 @@ public class AdrressListFragment extends BaseFragment implements
     @Override
     protected View getViews() {
         return view_Parent = LayoutInflater.from(context).inflate(
-                R.layout.fragment_addresslist, null);
+                R.layout.fragment_addresslist_new, null);
     }
 
     @Override
     protected void findViews() {
         rb_failsafe = (RadioButton) view_Parent.findViewById(R.id.rb_failsafe);
         rb_show = (RadioButton) view_Parent.findViewById(R.id.rb_show);
-        send = (TextView) view_Parent.findViewById(R.id.send);
+        send = (ImageView) view_Parent.findViewById(R.id.addresslist_iv_send);
 
     }
 
@@ -119,14 +120,14 @@ public class AdrressListFragment extends BaseFragment implements
         hideFragment(transaction);
         switch (position) {
             case 0:// 添加 并展示 应急通讯录 碎片
-                if (failsafeAdressListFragment == null) {
-                    failsafeAdressListFragment = new AdressListFailsafeAdressListFragment(
+                if (adressListContactFragment == null) {
+                    adressListContactFragment = new AdressListContactFragment(
                             context);
                     transaction.add(R.id.view_addresslist,
-                            failsafeAdressListFragment);
+                            adressListContactFragment);
                     // failsafeAdressListFragment.initGetData();
                 } else {
-                    transaction.show(failsafeAdressListFragment);
+                    transaction.show(adressListContactFragment);
                 }
                 break;
             case 1:// 添加 并展示 应急通知 碎片
@@ -157,8 +158,8 @@ public class AdrressListFragment extends BaseFragment implements
      * @updateInfo (此处输入修改内容, 若无修改可不写.)
      */
     private void hideFragment(FragmentTransaction transaction) {
-        if (failsafeAdressListFragment != null) {
-            transaction.hide(failsafeAdressListFragment);
+        if (adressListContactFragment != null) {
+            transaction.hide(adressListContactFragment);
             // messageFragment.onPause();
         }
         if (failsafeToastFragment != null) {
@@ -179,7 +180,7 @@ public class AdrressListFragment extends BaseFragment implements
                 tag = 1;
                 switchView(tag);
                 break;
-            case R.id.send://发送
+            case R.id.addresslist_iv_send://发送
                 if (tag == 0) {
 
                     EventBus.getDefault().post(new mainEvent("ids"));

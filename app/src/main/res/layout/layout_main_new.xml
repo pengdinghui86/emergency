@@ -8,7 +8,6 @@
         android:id="@+id/view_parent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="50dp"
         android:background="@color/set_gray" />
 
     <View
@@ -32,14 +31,14 @@
             android:id="@+id/rdb0"
             style="@style/radio_tab"
             android:checked="true"
-            android:drawableTop="@drawable/tab_message_selector"
+            android:drawableTop="@drawable/tab_home_selector"
             android:text="@string/message"
             android:textSize="@dimen/we_small_textsize"/>
 
         <RadioButton
             android:id="@+id/rdb1"
             style="@style/radio_tab"
-            android:drawableTop="@drawable/tab_addresslist_selector"
+            android:drawableTop="@drawable/tab_contact_list_selector"
             android:text="@string/addressList"
             android:textSize="@dimen/we_small_textsize"/>
 
@@ -47,7 +46,7 @@
             android:id="@+id/rdb2"
             style="@style/radio_tab"
             android:drawablePadding="-3dp"
-            android:drawableTop="@drawable/tab_emergency_selector"
+            android:drawableTop="@drawable/tab_emergency_manage_selector"
             android:text="@string/emergenceMenege"
             android:textSize="@dimen/we_small_textsize"/>
 
@@ -55,10 +54,17 @@
             android:id="@+id/rdb3"
             style="@style/radio_tab"
             android:drawablePadding="-3dp"
-            android:drawableTop="@drawable/tab_control_selector"
+            android:drawableTop="@drawable/tab_control_center_selector"
             android:text="@string/controlCenter"
             android:textSize="@dimen/we_small_textsize"/>
 
+        <RadioButton
+            android:id="@+id/rdb4"
+            style="@style/radio_tab"
+            android:drawablePadding="-3dp"
+            android:drawableTop="@drawable/tab_personal_center_selector"
+            android:text="@string/personalCenter"
+            android:textSize="@dimen/we_small_textsize"/>
     </RadioGroup>
     <!-- 实现提醒信息用的 -->
 

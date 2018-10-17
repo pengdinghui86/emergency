@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWeWindowGrayBackground">
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/group_contact_iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignBottom="@+id/group_tv"
+            android:layout_alignTop="@+id/group_tv"
+            android:layout_marginLeft="@dimen/we_margin_left"
+            android:src="@drawable/arrow_down" />
+
+        <TextView
+            android:id="@+id/group_contact_tv_department"
+            style="@style/small_gray_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="高级管理层"
+            android:layout_toRightOf="@+id/group_contact_iv_arrow"
+            android:gravity="center_vertical" />
+    </RelativeLayout>
+
+</RelativeLayout>

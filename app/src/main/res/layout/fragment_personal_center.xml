@@ -1,0 +1,191 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="172dp"
+        android:background="@drawable/l_h_bg"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:id="@+id/login_ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_actionbar_back"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:src="@drawable/back"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/tv_actionbar_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textColor="@color/titlebg"
+                android:textSize="@dimen/we_title_textsize" />
+
+            <ImageView
+                android:id="@+id/tv_actionbar_rightimag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="editip"
+                android:padding="5dp"
+                android:src="@drawable/settings_normal"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:gravity="center"
+        android:elevation="5dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shadow_bg"
+        android:layout_marginTop="-62dp">
+
+        <ImageView
+            android:id="@+id/login_iv_logo"
+            android:layout_centerInParent="true"
+            android:layout_width="87dp"
+            android:layout_height="87dp"
+            android:src="@drawable/l_logo"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="12dp"
+        android:textSize="@dimen/we_title_textsize"
+        android:layout_gravity="center_horizontal"
+        android:text="朱长荣"/>
+
+    <View
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        style="@style/horizontal_gray_style" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/personal_center_tv_role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/we_normal_textsize"
+            android:gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="系统管理员"/>
+
+        <View
+            android:layout_below="@+id/personal_center_tv_role"
+            style="@style/horizontal_gray_style" />
+
+        <TextView
+            android:id="@+id/personal_center_tv_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/personal_center_tv_role"
+            android:textSize="@dimen/we_normal_textsize"
+            android:gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="运维人员"/>
+
+        <View android:layout_below="@+id/personal_center_tv_post"
+            style="@style/horizontal_gray_style" />
+
+        <TextView
+            android:id="@+id/personal_center_tv_department"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/personal_center_tv_post"
+            android:textSize="@dimen/we_normal_textsize"
+            android:gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="信息技术部"/>
+
+        <View android:layout_below="@+id/personal_center_tv_department"
+              style="@style/horizontal_gray_style" />
+
+        <TextView
+            android:id="@+id/personal_center_tv_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/personal_center_tv_department"
+            android:textSize="@dimen/we_normal_textsize"
+            android:gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="ESC@163.com"/>
+
+        <View android:layout_below="@+id/personal_center_tv_email"
+            style="@style/horizontal_gray_style" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorWeWindowGrayBackground">
+
+        <Button
+            android:id="@+id/personal_center_bt_change_role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:paddingBottom="7dp"
+            android:paddingTop="7dp"
+            android:text="切换角色"
+            android:textColor="@color/colorWeFontBlack"
+            android:textSize="@dimen/we_title_textsize" />
+
+        <Button
+            android:id="@+id/personal_center_bt_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_below="@+id/personal_center_bt_change_role"
+            android:background="@color/white"
+            android:gravity="center"
+            android:paddingBottom="7dp"
+            android:paddingTop="7dp"
+            android:text="退出账号"
+            android:textColor="@color/colorWeFontBlack"
+            android:textSize="@dimen/we_title_textsize" />
+    </RelativeLayout>
+
+</LinearLayout>

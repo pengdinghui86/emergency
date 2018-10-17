@@ -354,7 +354,7 @@
         <item name="android:minWidth">60dp</item>
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
-        <item name="android:textSize">@dimen/we_normal_textsize</item>
+        <item name="android:textSize">@dimen/we_title_textsize</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
     </style>
@@ -431,5 +431,10 @@
         <item name="android:layout_marginRight">15dp</item>
         <item name="android:background">@drawable/selector_defult_btn_bg</item>
         <item name="android:textColor">@color/selector_defult_btn_txt</item>
+    </style>
+
+    <style name="popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_show</item>
+        <item name="android:windowExitAnimation">@anim/pop_hidden</item>
     </style>
 </resources>

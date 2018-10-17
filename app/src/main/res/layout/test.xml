@@ -52,7 +52,6 @@
             android:id="@+id/expandable_listv_failsafe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/colorWeSplitMini"
             android:childDivider="@color/colorWeSplitMini"
             android:dividerHeight="1dp"
             android:indicatorLeft="1sp"

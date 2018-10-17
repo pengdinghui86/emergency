@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +23,6 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.treeview.TreeNode;
 import com.dssm.esc.util.treeview.TreeView;
 import com.dssm.esc.util.treeview.view.MyNodeViewFactory;
-import com.dssm.esc.view.adapter.ExpanListvSignInAdapter;
 import com.dssm.esc.view.widget.SegmentControl;
 
 import org.xutils.view.annotation.ContentView;
@@ -46,10 +44,6 @@ public class GroupSigninDetail extends BaseActivity implements
 	private SegmentControl mSegmentControl;
 	@ViewInject(R.id.segment_control_sign_grop2)
 	private SegmentControl mSegmentControl2;
-	/** 人员签到可扩展listview */
-//	@ViewInject(R.id.expandable_signin_grop)
-//	private ExpandableListView expandable_list_signin;
-//	private ExpanListvSignInAdapter adapter;
 	/** 暂无数据 */
 	@ViewInject(R.id.emyptytv)
 	private TextView emyptytv;
@@ -219,17 +213,12 @@ public class GroupSigninDetail extends BaseActivity implements
 			mSegmentControl2.setVisibility(View.VISIBLE);
 			title.setText("应急小组签到情况");
 		}
-//		expandable_list_signin.setEmptyView(emyptytv);
-//		adapter = new ExpanListvSignInAdapter(groupList,
-//				GroupSigninDetail.this, tag);
 		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
-//		expandable_list_signin.setAdapter(adapter);
 		sem_tags = 1;// 默认预案详情
 		initListData();
-		// setNetListener(this);
 	}
 
 	private void initData(int sem_tags, String tag) {

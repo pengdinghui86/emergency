@@ -15,6 +15,7 @@
     <string name="addressList">通信录</string>
     <string name="emergenceMenege">应急管理</string>
     <string name="controlCenter">指挥中心</string>
+    <string name="personalCenter">我的</string>
     <string name="messageCenter">消息中心</string>
     <string name="load_full">没有更多消息</string>
     <string name="no_data">暂无数据</string>

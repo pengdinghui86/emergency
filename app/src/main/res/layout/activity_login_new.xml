@@ -77,6 +77,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:gravity="center"
         android:layout_marginTop="50dp"
         android:orientation="vertical">
@@ -159,8 +161,6 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
                 android:background="@drawable/btbg_blue"
                 android:gravity="center"
                 android:onClick="login"

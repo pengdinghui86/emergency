@@ -46,6 +46,7 @@ import com.dssm.esc.view.fragment.AdrressListFragment;
 import com.dssm.esc.view.fragment.ControlCenterFragment;
 import com.dssm.esc.view.fragment.EmergencyManageFragment;
 import com.dssm.esc.view.fragment.MessageFragment;
+import com.dssm.esc.view.fragment.PersonalCenterFragment;
 import com.dssm.esc.view.widget.RedPointView;
 import com.easemob.EMCallBack;
 import com.easemob.EMConnectionListener;
@@ -106,13 +107,17 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      */
     private ControlCenterFragment controlCenterFragment;
     /**
+     * 个人中心碎片
+     */
+    private PersonalCenterFragment personalCenterFragment;
+    /**
      * 4.4版本以上的沉浸式
      */
     protected SystemBarTintManager mTintManager;
 
     RedPointView redPointView;
     private TextView button;// 用来显示提示信息的
-    private RadioButton rdb0, rdb1, rdb2, rdb3;
+    private RadioButton rdb0, rdb1, rdb2, rdb3, rdb4;
     /**
      * 保存用户信息
      */
@@ -400,6 +405,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         rdb1 = (RadioButton) findViewById(R.id.rdb1);
         rdb2 = (RadioButton) findViewById(R.id.rdb2);
         rdb3 = (RadioButton) findViewById(R.id.rdb3);
+        rdb4 = (RadioButton) findViewById(R.id.rdb4);
         button = (TextView) findViewById(R.id.bt);
         remind(button, unReadCount);
         // tabGroup.check(TabTypeEnum.message.getId());
@@ -419,6 +425,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     switchView(2);
                 } else if (checkedId == rdb3.getId()) {
                     switchView(3);
+                } else if (checkedId == rdb4.getId()) {
+                    switchView(4);
                 }
             }
         });
@@ -713,6 +721,15 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     transaction.show(controlCenterFragment);
                 }
                 break;
+            case 4:// 添加并展示个人中心碎片
+                currentTabIndex = 3;
+                if (personalCenterFragment == null) {
+                    personalCenterFragment = new PersonalCenterFragment(this);
+                    transaction.add(R.id.view_parent, personalCenterFragment);
+                } else {
+                    transaction.show(personalCenterFragment);
+                }
+                break;
         }
         transaction.commitAllowingStateLoss();
     }
@@ -741,6 +758,9 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         }
         if (controlCenterFragment != null) {
             transaction.hide(controlCenterFragment);
+        }
+        if (personalCenterFragment != null) {
+            transaction.hide(personalCenterFragment);
         }
     }
 

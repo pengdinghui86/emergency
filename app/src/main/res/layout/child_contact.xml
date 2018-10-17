@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    >
+
+    <ImageView
+        android:id="@+id/child_contact_iv_head"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/we_margin_left"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="@dimen/we_listview_item_top_margin"
+        android:layout_marginTop="@dimen/we_listview_item_top_margin"
+        android:src="@drawable/man_offline" />
+
+    <TextView
+        android:id="@+id/child_contact_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:gravity="left|center_vertical"
+        style="@style/title_text"
+        android:text="段子羽"/>
+
+    <TextView
+        android:id="@+id/child_contact_tv_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:gravity="right|center_vertical"
+        style="@style/normal_text"
+        android:visibility="gone"
+        android:text="已签到"/>
+
+</LinearLayout>
