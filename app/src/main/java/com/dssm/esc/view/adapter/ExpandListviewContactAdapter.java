@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -160,11 +161,13 @@ private	String tag;
 			View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		GroupEntity gentity = getGroup(groupPosition);
-		GropViewHolder gHolder = null;
+		GroupViewHolder gHolder = null;
 		if (convertView == null) {
-			gHolder = new GropViewHolder();
+			gHolder = new GroupViewHolder();
 			convertView = LayoutInflater.from(context).inflate(R.layout.group_contact,
 					null);
+			gHolder.group_contact_rl = (RelativeLayout) convertView
+					.findViewById(R.id.group_contact_rl);
 			gHolder.group_tv = (TextView) convertView
 					.findViewById(R.id.group_contact_tv_department);
 			gHolder.group_img = (ImageView) convertView
@@ -172,18 +175,27 @@ private	String tag;
 			
 			convertView.setTag(gHolder);
 		} else {
-			gHolder = (GropViewHolder) convertView.getTag();
+			gHolder = (GroupViewHolder) convertView.getTag();
 		}
 		gHolder.group_tv.setText(gentity.getGroupname());
 		if (!isExpanded) {
+			gHolder.group_contact_rl.setBackgroundResource(R.color.white);
 			gHolder.group_img.setImageResource(R.drawable.arrow_right);
+			gHolder.group_tv.setPadding(8, 20, 0, 20);
+			gHolder.group_tv.setTextSize(16);
+			gHolder.group_tv.setTextColor(context.getResources().getColor(R.color.colorWeFontBlack));
 		} else {
+			gHolder.group_contact_rl.setBackgroundResource(R.color.colorWeWindowGrayBackground);
 			gHolder.group_img.setImageResource(R.drawable.arrow_down);
+			gHolder.group_tv.setPadding(8, 8, 0, 8);
+			gHolder.group_tv.setTextSize(13);
+			gHolder.group_tv.setTextColor(context.getResources().getColor(R.color.colorWeFontGray_9));
 		}
 		return convertView;
 	}
 
-	class GropViewHolder {
+	class GroupViewHolder {
+		private RelativeLayout group_contact_rl;
 		private TextView group_tv;
 		private ImageView group_img;
 	}

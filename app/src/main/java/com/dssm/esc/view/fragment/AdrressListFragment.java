@@ -17,6 +17,7 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.ContactSelectIds;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.SendMeassageActivity;
+import com.dssm.esc.view.activity.SendMessageActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -206,9 +207,9 @@ public class AdrressListFragment extends BaseFragment implements
      */
     public void onEvent(ContactSelectIds data) {
         selectId = data.selectId;
-        if (selectId.size() > 0) {
+        if (selectId.size() >= 0) {
             Intent intent = new Intent(getActivity(),
-                    SendMeassageActivity.class);
+                    SendMessageActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("tag", String.valueOf(tag + 1));// 应急通讯录碎片
             bundle.putSerializable("selectId", (Serializable) selectId);
