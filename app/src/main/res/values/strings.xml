@@ -39,11 +39,14 @@
     <string name="editflithint">搜索</string>
     <string name="searchno">未搜索到结果</string>
     <string name="introduce">简介</string>
+    <string name="personal_details">详细资料</string>
     <string name="name">名称</string>
     <string name="sex">性别</string>
     <string name="gangwei">岗位</string>
     <string name="phongnumber">联系电话</string>
     <string name="phongnumber2">备用电话</string>
+    <string name="mobile_phone">手机</string>
+    <string name="phone_number">电话</string>
     <string name="bumen">部门</string>
     <string name="sendmessage">发消息</string>
     <string name="emailbox">邮箱</string>

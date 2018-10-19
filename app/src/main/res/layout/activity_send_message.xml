@@ -146,30 +146,44 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
 
-                <LinearLayout
-                    android:id="@+id/xitong_ll1"
+                <RelativeLayout
+                    android:id="@+id/send_message_rl_sys"
                     style="@style/addresslist_togbtlinear_style"
                     android:layout_marginLeft="20dp"
                     android:background="@drawable/tvbk_gray"
-                    android:clickable="true"
-                    android:orientation="vertical">
+                    android:clickable="true">
 
                     <ImageView
+                        android:id="@+id/send_message_iv_sys_check"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/check_select"
+                        android:visibility="invisible"/>
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_sys"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
                         android:src="@drawable/system" />
 
-                    <ToggleButton
-                        android:id="@+id/xitong_tg"
+                    <TextView
+                        android:id="@+id/send_message_tv_sys"
                         style="@style/addresslist_togbt_style"
-                        android:textOff="@string/xitong"
-                        android:textOn="@string/xitong" />
-                </LinearLayout>
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/xitong"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/send_message_iv_sys"/>
+                </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/message_ll1"
+                <RelativeLayout
+                    android:id="@+id/send_message_rl_msg"
                     style="@style/addresslist_togbtlinear_style"
                     android:layout_marginLeft="15dp"
                     android:background="@drawable/tvbk_gray"
@@ -177,21 +191,36 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/send_message_iv_msg_check"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/check_select"
+                        android:visibility="invisible"/>
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_msg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
                         android:src="@drawable/short_message" />
 
-                    <ToggleButton
-                        android:id="@+id/shortmessage_tg"
+                    <TextView
+                        android:id="@+id/send_message_tv_msg"
                         style="@style/addresslist_togbt_style"
-                        android:textOff="@string/shortmessage"
-                        android:textOn="@string/shortmessage" />
-                </LinearLayout>
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/send_message_iv_msg"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/shortmessage" />
+                </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/email_ll1"
+                <RelativeLayout
+                    android:id="@+id/send_message_rl_email"
                     style="@style/addresslist_togbtlinear_style"
                     android:layout_marginLeft="15dp"
                     android:background="@drawable/tvbk_gray"
@@ -199,42 +228,70 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/send_message_iv_email_check"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/check_select"
+                        android:visibility="invisible"/>
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
                         android:src="@drawable/email" />
 
-                    <ToggleButton
-                        android:id="@+id/email_tg"
+                    <TextView
+                        android:id="@+id/send_message_tv_email"
                         style="@style/addresslist_togbt_style"
-                        android:textOff="@string/email"
-                        android:textOn="@string/email" />
-                </LinearLayout>
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/send_message_iv_email"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/email" />
+                </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/APP_ll1"
+                <RelativeLayout
+                    android:id="@+id/send_message_rl_app"
                     style="@style/addresslist_togbtlinear_style"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/tvbk_gray"
-                    android:clickable="true"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:clickable="true">
 
                     <ImageView
+                        android:id="@+id/send_message_iv_app_check"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/check_select"
+                        android:visibility="invisible"/>
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_app"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
                         android:src="@drawable/app" />
 
-                    <ToggleButton
-                        android:id="@+id/app_tg"
+                    <TextView
+                        android:id="@+id/send_message_tv_app"
                         style="@style/addresslist_togbt_style"
-                        android:textOff="@string/app"
-                        android:textOn="@string/app" />
-                </LinearLayout>
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/send_message_iv_app"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/app" />
+                </RelativeLayout>
             </LinearLayout>
 
             <TextView

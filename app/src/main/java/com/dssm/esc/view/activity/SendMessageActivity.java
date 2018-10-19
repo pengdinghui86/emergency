@@ -7,21 +7,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.ContactListService;
 import com.dssm.esc.model.analytical.implSevice.ContactListServiceImpl;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
-import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
 import com.dssm.esc.model.entity.emergency.SendNoticyEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
@@ -34,7 +30,7 @@ import org.xutils.view.annotation.ViewInject;
 /**
  * 发送消息界面
  */
-@ContentView(R.layout.activity_sendcollaborate_new)
+@ContentView(R.layout.activity_send_message)
 public class SendMessageActivity extends BaseActivity implements
 		OnClickListener, MainActivity.onInitNetListener {
 	/** 标题 */
@@ -53,29 +49,45 @@ public class SendMessageActivity extends BaseActivity implements
 	private TextView contact_people;
 
 	/** 系统的布局 */
-	@ViewInject(R.id.xitong_ll1)
-	private LinearLayout xitong_ll;
+	@ViewInject(R.id.send_message_rl_sys)
+	private RelativeLayout send_message_rl_sys;
 	/** 短信的布局 */
-	@ViewInject(R.id.message_ll1)
-	private LinearLayout message_ll;
+	@ViewInject(R.id.send_message_rl_msg)
+	private RelativeLayout send_message_rl_msg;
 	/** 邮件的布局 */
-	@ViewInject(R.id.email_ll1)
-	private LinearLayout email_ll;
+	@ViewInject(R.id.send_message_rl_email)
+	private RelativeLayout send_message_rl_email;
 	/** APP的布局 */
-	@ViewInject(R.id.APP_ll1)
-	private LinearLayout APP_ll;
-	/** 系统 */
-	@ViewInject(R.id.xitong_tg)
-	private ToggleButton xitong;
-	/** 短信 */
-	@ViewInject(R.id.shortmessage_tg)
-	private ToggleButton message;
-	/** 邮件 */
-	@ViewInject(R.id.email_tg)
-	private ToggleButton email;
-	/** APP */
-	@ViewInject(R.id.app_tg)
-	private ToggleButton APP;
+	@ViewInject(R.id.send_message_rl_app)
+	private RelativeLayout send_message_rl_app;
+
+	@ViewInject(R.id.send_message_iv_sys)
+	private ImageView send_message_iv_sys;
+	@ViewInject(R.id.send_message_iv_msg)
+	private ImageView send_message_iv_msg;
+	@ViewInject(R.id.send_message_iv_email)
+	private ImageView send_message_iv_email;
+	@ViewInject(R.id.send_message_iv_app)
+	private ImageView send_message_iv_app;
+
+	@ViewInject(R.id.send_message_iv_sys_check)
+	private ImageView send_message_iv_sys_check;
+	@ViewInject(R.id.send_message_iv_msg_check)
+	private ImageView send_message_iv_msg_check;
+	@ViewInject(R.id.send_message_iv_email_check)
+	private ImageView send_message_iv_email_check;
+	@ViewInject(R.id.send_message_iv_app_check)
+	private ImageView send_message_iv_app_check;
+
+	@ViewInject(R.id.send_message_tv_sys)
+	private TextView send_message_tv_sys;
+	@ViewInject(R.id.send_message_tv_msg)
+	private TextView send_message_tv_msg;
+	@ViewInject(R.id.send_message_tv_email)
+	private TextView send_message_tv_email;
+	@ViewInject(R.id.send_message_tv_app)
+	private TextView send_message_tv_app;
+
 	@ViewInject(R.id.edit_message)
 	private EditText edit_message;
 
@@ -114,10 +126,10 @@ public class SendMessageActivity extends BaseActivity implements
 			mSelectTypeTitle.setText("应急通知组");
 		}
 		contact_people_ll.setOnClickListener(this);
-		xitong.setOnClickListener(this);
-		email.setOnClickListener(this);
-		message.setOnClickListener(this);
-		APP.setOnClickListener(this);
+		send_message_rl_sys.setOnClickListener(this);
+		send_message_rl_msg.setOnClickListener(this);
+		send_message_rl_email.setOnClickListener(this);
+		send_message_rl_app.setOnClickListener(this);
 		send_tv.setOnClickListener(this);
 		mBack.setOnClickListener(this);
 	}
@@ -152,90 +164,77 @@ public class SendMessageActivity extends BaseActivity implements
 			case R.id.contact_people_ll:
 				addContactPeople();
 				break;
-			case R.id.xitong_tg:// 0系统，1邮件，2短信，3 APP，逗号隔开
-				if (xitong.isChecked()) {
-					xitong_ll
-							.setBackgroundResource(R.drawable.ump_select_back_checked_on);
-					xitong.setTextColor(getResources().getColor(
-							R.color.textColor_selected));
+			case R.id.send_message_rl_sys:// 0系统，1邮件，2短信，3 APP，逗号隔开
+				if (send_message_iv_sys_check.getVisibility() == View.INVISIBLE) {
+					send_message_rl_sys.setBackgroundResource(R.drawable.btbg_blue);
+					send_message_tv_sys.setTextColor(getResources().getColor(
+							R.color.white));
+					send_message_iv_sys.setImageResource(R.drawable.system_select);
+					send_message_iv_sys_check.setVisibility(View.VISIBLE);
 					sendTypearray[0] = "0";
 				} else {
-					xitong_ll.setBackgroundResource(R.drawable.tvbk_gray);
-					xitong.setTextColor(getResources().getColor(
+					send_message_rl_sys.setBackgroundResource(R.drawable.tvbk_gray);
+					send_message_tv_sys.setTextColor(getResources().getColor(
 							R.color.textColor_unselected));
+					send_message_iv_sys.setImageResource(R.drawable.system);
+					send_message_iv_sys_check.setVisibility(View.INVISIBLE);
 					sendTypearray[0] = "a";
 				}
 				break;
-			case R.id.shortmessage_tg:
-				if (message.isChecked()) {
-					message_ll
-							.setBackgroundResource(R.drawable.ump_select_back_checked_on);
-					message.setTextColor(getResources().getColor(
-							R.color.textColor_selected));
+			case R.id.send_message_rl_msg:
+				if (send_message_iv_msg_check.getVisibility() == View.INVISIBLE) {
+					send_message_rl_msg
+							.setBackgroundResource(R.drawable.btbg_blue);
+					send_message_tv_msg.setTextColor(getResources().getColor(
+							R.color.white));
+					send_message_iv_msg.setImageResource(R.drawable.short_message_select);
+					send_message_iv_msg_check.setVisibility(View.VISIBLE);
 					sendTypearray[1] = "2";
 				} else {
-					message_ll.setBackgroundResource(R.drawable.tvbk_gray);
-					message.setTextColor(getResources().getColor(
+					send_message_rl_msg.setBackgroundResource(R.drawable.tvbk_gray);
+					send_message_tv_msg.setTextColor(getResources().getColor(
 							R.color.textColor_unselected));
+					send_message_iv_msg.setImageResource(R.drawable.short_message);
+					send_message_iv_msg_check.setVisibility(View.INVISIBLE);
 					sendTypearray[1] = "a";
 				}
 				break;
-			case R.id.email_tg:
-				if (email.isChecked()) {
-					email_ll.setBackgroundResource(R.drawable.ump_select_back_checked_on);
-					email.setTextColor(getResources().getColor(
-							R.color.textColor_selected));
+			case R.id.send_message_rl_email:
+				if (send_message_iv_email_check.getVisibility() == View.INVISIBLE) {
+					send_message_rl_email.setBackgroundResource(R.drawable.btbg_blue);
+					send_message_tv_email.setTextColor(getResources().getColor(
+							R.color.white));
+					send_message_iv_email.setImageResource(R.drawable.email_select);
+					send_message_iv_email_check.setVisibility(View.VISIBLE);
 					sendTypearray[2] = "1";
 				} else {
-					email_ll.setBackgroundResource(R.drawable.tvbk_gray);
-					email.setTextColor(getResources().getColor(
+					send_message_rl_email.setBackgroundResource(R.drawable.tvbk_gray);
+					send_message_tv_email.setTextColor(getResources().getColor(
 							R.color.textColor_unselected));
+					send_message_iv_email.setImageResource(R.drawable.email);
+					send_message_iv_email_check.setVisibility(View.INVISIBLE);
 					sendTypearray[2] = "a";
 				}
 				break;
-			case R.id.app_tg:
-				if (APP.isChecked()) {
-					APP_ll.setBackgroundResource(R.drawable.ump_select_back_checked_on);
-					APP.setTextColor(getResources().getColor(
-							R.color.textColor_selected));
+			case R.id.send_message_rl_app:
+				if (send_message_iv_app_check.getVisibility() == View.INVISIBLE) {
+					send_message_rl_app.setBackgroundResource(R.drawable.btbg_blue);
+					send_message_tv_app.setTextColor(getResources().getColor(
+							R.color.white));
+					send_message_iv_app.setImageResource(R.drawable.app_select);
+					send_message_iv_app_check.setVisibility(View.VISIBLE);
 					sendTypearray[3] = "3";
 				} else {
-					APP_ll.setBackgroundResource(R.drawable.tvbk_blue);
-					// APP.setTextColor(getResources().getColor(
-					// R.color.textColor_unselected));
+					send_message_rl_app.setBackgroundResource(R.drawable.tvbk_blue);
+					send_message_tv_app.setTextColor(getResources().getColor(
+							R.color.textColor_unselected));
+					send_message_iv_app.setImageResource(R.drawable.app);
+					send_message_iv_app_check.setVisibility(View.INVISIBLE);
 					sendTypearray[3] = "a";
 				}
 				break;
 		}
 	}
-
-	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
-
-		@Override
-		public void setEmergencySeviceImplListListenser(
-				Object object, String stRerror,
-				String Exceptionerror) {
-			// TODO Auto-generated method stub
-			GetProjectEveInfoEntity entity = null;
-			if (object != null) {
-				entity = (GetProjectEveInfoEntity) object;
-				edit_message.setText(entity
-						.getTradeTypeName());
-			} else if (stRerror != null) {
-				entity = new GetProjectEveInfoEntity();
-
-			} else if (Exceptionerror != null) {
-				entity = new GetProjectEveInfoEntity();
-				ToastUtil
-						.showToast(
-								SendMessageActivity.this,
-								Const.NETWORKERROR
-										+ ":"
-										+ Exceptionerror);
-			}
-			Utils.getInstance().hideProgressDialog();
-		}
-	};
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -344,38 +343,6 @@ public class SendMessageActivity extends BaseActivity implements
 		startActivityForResult(intent, ADD_CONTACT_PEOPLE);
 	}
 
-	/***
-	 * 根据item数量设置listView的高度
-	 */
-	public void setListViewHeightBasedOnChildren(ListView listView) {
-		ListAdapter listAdapter = listView.getAdapter();
-		if (listAdapter == null) {
-			return;
-		}
-		int totalHeight = 0;
-		for (int i = 0; i < listAdapter.getCount(); i++) {
-			View listItem = listAdapter.getView(i, null, listView);
-			if(listItem == null)
-				continue;
-			if (listItem instanceof LinearLayout){
-				listItem.measure(0, 0);
-				totalHeight += listItem.getMeasuredHeight();
-			}else {
-				try {
-					listItem.measure(0, 0);
-					totalHeight += listItem.getMeasuredHeight();
-				}catch (NullPointerException e){
-					totalHeight += 50; //这里随便写个大小做容错处理
-				}
-			}
-		}
-
-		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		params.height = totalHeight
-				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-		listView.setLayoutParams(params);
-	}
-
 	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
 		@Override
@@ -421,17 +388,25 @@ public class SendMessageActivity extends BaseActivity implements
 		for (int i = 0; i < sendTypearray.length; i++) {
 			sendTypearray[i] = "a";
 		}
-		APP_ll.setBackgroundResource(R.drawable.tvbk_blue);
-		APP.setTextColor(getResources().getColor(R.color.textColor_unselected));
-		email_ll.setBackgroundResource(R.drawable.tvbk_blue);
-		email.setTextColor(getResources()
+		send_message_rl_sys.setBackgroundResource(R.drawable.tvbk_blue);
+		send_message_tv_sys.setTextColor(getResources().getColor(R.color.textColor_unselected));
+		send_message_iv_sys.setImageResource(R.drawable.system);
+		send_message_iv_sys_check.setVisibility(View.INVISIBLE);
+		send_message_rl_msg.setBackgroundResource(R.drawable.tvbk_blue);
+		send_message_tv_msg.setTextColor(getResources()
 				.getColor(R.color.textColor_unselected));
-		xitong_ll.setBackgroundResource(R.drawable.tvbk_blue);
-		xitong.setTextColor(getResources().getColor(
+		send_message_iv_msg.setImageResource(R.drawable.short_message);
+		send_message_iv_msg_check.setVisibility(View.INVISIBLE);
+		send_message_rl_email.setBackgroundResource(R.drawable.tvbk_blue);
+		send_message_tv_email.setTextColor(getResources().getColor(
 				R.color.textColor_unselected));
-		message_ll.setBackgroundResource(R.drawable.tvbk_blue);
-		message.setTextColor(getResources().getColor(
+		send_message_iv_email.setImageResource(R.drawable.email);
+		send_message_iv_email_check.setVisibility(View.INVISIBLE);
+		send_message_rl_app.setBackgroundResource(R.drawable.tvbk_blue);
+		send_message_tv_app.setTextColor(getResources().getColor(
 				R.color.textColor_unselected));
+		send_message_iv_app.setImageResource(R.drawable.app);
+		send_message_iv_app_check.setVisibility(View.INVISIBLE);
 	}
 
 	@Override

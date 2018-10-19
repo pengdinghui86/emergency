@@ -2,30 +2,17 @@ package com.dssm.esc.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
-import com.dssm.esc.controler.Control;
-import com.dssm.esc.model.analytical.UserSevice;
-import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
-import com.dssm.esc.model.entity.user.MenuEntity;
-import com.dssm.esc.model.entity.user.UserPowerEntity;
-import com.dssm.esc.view.activity.AddeValuationActivity;
-import com.dssm.esc.view.activity.AutorizationDecisionActivity;
-import com.dssm.esc.view.activity.DismissValuationActivity;
-import com.dssm.esc.view.activity.DrillSelectActivity;
-import com.dssm.esc.view.activity.PlanExecutionActivity;
-import com.dssm.esc.view.activity.PlanStarActivity;
-import com.dssm.esc.view.widget.CustomDialog;
+import com.dssm.esc.util.MySharePreferencesService;
+import com.easemob.chatuidemo.DemoApplication;
 
-import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -35,15 +22,25 @@ import java.util.List;
 public class PersonalCenterFragment extends BaseFragment implements
 		OnClickListener {
 	private TextView title;
+	private TextView name;
+	private TextView personal_center_tv_role;
+	private TextView personal_center_tv_post;
+	private TextView personal_center_tv_department;
+	private TextView personal_center_tv_email;
+	private Button personal_center_bt_change_role;
+	private Button personal_center_bt_logout;
 	private Context context;
-	private UserSevice sevice;
+	private MySharePreferencesService preferencesService;
+	private Map<String, String> map;
 
 	public PersonalCenterFragment() {
 	}
 	@SuppressLint("ValidFragment")
 	public PersonalCenterFragment(Context context) {
 		this.context = context;
-		sevice = Control.getinstance().getUserSevice();
+		preferencesService = new MySharePreferencesService(DemoApplication.applicationContext);
+		// 回显
+		map = preferencesService.getPreferences();
 	}
 
 	@Override
@@ -57,6 +54,13 @@ public class PersonalCenterFragment extends BaseFragment implements
 	protected void findViews() {
 		// TODO Auto-generated method stub
 		title = (TextView) view_Parent.findViewById(R.id.tv_actionbar_title);
+		name = (TextView) view_Parent.findViewById(R.id.personal_center_tv_name);
+		personal_center_tv_role = (TextView) view_Parent.findViewById(R.id.personal_center_tv_role);
+		personal_center_tv_post = (TextView) view_Parent.findViewById(R.id.personal_center_tv_post);
+		personal_center_tv_department = (TextView) view_Parent.findViewById(R.id.personal_center_tv_department);
+		personal_center_tv_email = (TextView) view_Parent.findViewById(R.id.personal_center_tv_email);
+		personal_center_bt_change_role = (Button) view_Parent.findViewById(R.id.personal_center_bt_change_role);
+		personal_center_bt_logout = (Button) view_Parent.findViewById(R.id.personal_center_bt_logout);
 		title.setText("我的");
 
 	}
@@ -70,8 +74,12 @@ public class PersonalCenterFragment extends BaseFragment implements
 	@Override
 	protected void init() {
 		// TODO Auto-generated method stub
+		name.setText(map.get("name").toString());
+		personal_center_tv_role.setText(map.get("selectedRolemName").toString());
+		personal_center_tv_post.setText("");
+		personal_center_tv_department.setText("");
+		personal_center_tv_email.setText("");
 
-		getUserPower();
 	}
 
 	@Override
@@ -84,26 +92,10 @@ public class PersonalCenterFragment extends BaseFragment implements
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.sjpg:
-			break;
+			case R.id.personal_center_bt_change_role:
+				break;
+			case R.id.personal_center_bt_logout:
+				break;
 		}
 	}
-
-	private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
-
-		@Override
-		public void setUserSeviceImplListListenser(Object object,
-				String stRerror, String Exceptionerror) {
-			// TODO Auto-generated method stub
-			if (object != null) {
-				UserPowerEntity entity = (UserPowerEntity) object;
-				List<MenuEntity> menu = entity.getMenu();
-			}
-		}
-	};
-
-	public void getUserPower() {
-		sevice.getUserPower(listListener);
-	}
-
 }

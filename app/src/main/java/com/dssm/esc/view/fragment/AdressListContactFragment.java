@@ -211,10 +211,10 @@ public class AdressListContactFragment extends BaseFragment
 				intent.putExtra("id", child.getUserId());
 
 				intent.putExtra("name", child.getName());
-				intent.putExtra("phonenumberOne", child.getPhoneNumber());
-				intent.putExtra("phonenumberTwo", child.getPhoneNumTwo());
-				intent.putExtra("gangwei", child.getZhiwei());
-				intent.putExtra("bumen", child.getEmergTeam());
+				intent.putExtra("mobileNumber", child.getPhoneNumber());
+				intent.putExtra("telephoneNumber", child.getPhoneNumTwo());
+				intent.putExtra("post", child.getZhiwei());
+				intent.putExtra("department", child.getEmergTeam());
 				intent.putExtra("sex", child.getSex());
 				intent.putExtra("email", child.getEmail());
 				startActivity(intent);
