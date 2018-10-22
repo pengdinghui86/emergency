@@ -11,6 +11,6 @@
 
     <include
         android:id="@+id/fragment_emergency"
-        layout="@layout/fragment_emergency_failsafe" />
+        layout="@layout/fragment_emergency_menu" />
 
 </LinearLayout>
