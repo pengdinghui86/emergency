@@ -4,93 +4,68 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
+import com.dssm.esc.model.entity.emergency.EmergencyMenuEntity;
 import com.dssm.esc.model.entity.user.MenuEntity;
 import com.dssm.esc.model.entity.user.UserPowerEntity;
+import com.dssm.esc.util.Const;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.activity.AddeValuationActivity;
 import com.dssm.esc.view.activity.AutorizationDecisionActivity;
 import com.dssm.esc.view.activity.DismissValuationActivity;
 import com.dssm.esc.view.activity.DrillSelectActivity;
 import com.dssm.esc.view.activity.PlanExecutionActivity;
 import com.dssm.esc.view.activity.PlanStarActivity;
+import com.dssm.esc.view.adapter.EmergencyMenuListviewAdapter;
 import com.dssm.esc.view.widget.CustomDialog;
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * 应急管理
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-6
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 public class EmergencyManageFragment extends BaseFragment implements
 		OnClickListener {
 	private TextView title;
 	private Context context;
-	/** 事件评估 */
-	private LinearLayout eventevaluation_ll;
-	/** 事件评估箭头 */
-	private ImageView eventevaluation_img;
-	/** 添加评估和驳回事件 */
-	private LinearLayout eventevaluation_child_ll;
-	/** 添加评估 */
-	private LinearLayout addevaluation_ll;
-	/** 驳回事件 */
-	private LinearLayout dismissvaluation_ll;
-	/** 预案启动 */
-	private LinearLayout planstar_ll;
-	/** 预案启动箭头 */
-	private ImageView planstar_img;
-	/** 预案启动和预案中止 */
-	private LinearLayout people_start_child_ll;
-	/** 预案启动 */
-	private LinearLayout plan_start_ll;
-	/** 预案中止 */
-	private LinearLayout plan_stop_ll;
 
-	/** 授权决策 */
-	private LinearLayout authorization_decision_ll;
-	/** 授权决策 箭头 */
-	private ImageView authorization_img;
-	/** 授权决策 和预案中止 */
-	private LinearLayout authorization_child_ll;
-	/** 授权决策 */
-	private LinearLayout authorization_ll;
-	/** 预案中止 */
-	private LinearLayout plan_authorization_stop_ll;
-	/** 人员签到 */
-	private LinearLayout people_sign_in_ll;
-	/** 人员签到 箭头 */
-	private ImageView people_sign_in_img;
-	/** 人员签到 和人员指派 */
-	private LinearLayout people_sign_in_child_ll;
-	/** 签到 */
-	private LinearLayout sign_in_ll;
-	/** 人员指派 */
-	private LinearLayout personnel_assignment_ll;
-	/** 预案执行 */
-	private LinearLayout plan_execution_ll;
-	/** 协同通告 */
-	private LinearLayout collaborative_circular_ll;
-	// /** 1,应急；2，演练 */
-	// public String tag;
 	private UserSevice sevice;
-	private LinearLayout sjpg, yaqd, jcsq;
-	private View jcsq_line, xttg;
+	private RelativeLayout emergency_menu_rl_add_event;
+	private RelativeLayout emergency_menu_rl_event_manage;
+	private RelativeLayout emergency_menu_rl_plan_manage;
+	private RelativeLayout emergency_menu_rl_sign_in_assign;
+	private RelativeLayout emergency_menu_rl_plan_execute;
+	private ListView emergency_menu_lv_add_event;
+	private ListView emergency_menu_lv_event_manage;
+	private ListView emergency_menu_lv_plan_manage;
+	private ListView emergency_menu_lv_sign_in_assign;
+	private ListView emergency_menu_lv_plan_execute;
+	private EmergencyMenuListviewAdapter addEventAdapter;
+	private EmergencyMenuListviewAdapter eventManageAdapter;
+	private EmergencyMenuListviewAdapter planManageAdapter;
+	private EmergencyMenuListviewAdapter signInAssignAdapter;
+	private EmergencyMenuListviewAdapter planExecuteAdapter;
+	private List<EmergencyMenuEntity> addEventList = new ArrayList<>();
+	private List<EmergencyMenuEntity> eventManageList = new ArrayList<>();
+	private List<EmergencyMenuEntity> planManageList = new ArrayList<>();
+	private List<EmergencyMenuEntity> signInAssignList = new ArrayList<>();
+	private List<EmergencyMenuEntity> planExecuteList = new ArrayList<>();
 
 	public EmergencyManageFragment() {
 	}
@@ -112,85 +87,98 @@ public class EmergencyManageFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		title = (TextView) view_Parent.findViewById(R.id.tv_actionbar_title);
 		title.setText("应急管理");
-		sjpg = (LinearLayout) view_Parent.findViewById(R.id.sjpg);
-		yaqd = (LinearLayout) view_Parent.findViewById(R.id.yaqd);
-		jcsq = (LinearLayout) view_Parent.findViewById(R.id.jcsq);
-		xttg = view_Parent.findViewById(R.id.xttg);
-		jcsq_line = view_Parent.findViewById(R.id.jcsq_line);
-		eventevaluation_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.eventevaluation_ll);
-		eventevaluation_img = (ImageView) view_Parent
-				.findViewById(R.id.eventevaluation_img);
-		eventevaluation_child_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.eventevaluation_child_ll);
-		addevaluation_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.addevaluation_ll);
-		dismissvaluation_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.dismissvaluation_ll);
-		planstar_ll = (LinearLayout) view_Parent.findViewById(R.id.planstar_ll);
-		planstar_img = (ImageView) view_Parent.findViewById(R.id.planstar_img);
-		people_start_child_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.people_start_child_ll);
-		plan_start_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.plan_start_ll);
-		plan_stop_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.plan_stop_ll);
+		emergency_menu_rl_add_event = (RelativeLayout) view_Parent
+				.findViewById(R.id.emergency_menu_rl_add_event);
+		emergency_menu_rl_event_manage = (RelativeLayout) view_Parent
+				.findViewById(R.id.emergency_menu_rl_event_manage);
+		emergency_menu_rl_plan_manage = (RelativeLayout) view_Parent
+				.findViewById(R.id.emergency_menu_rl_plan_manage);
+		emergency_menu_rl_sign_in_assign = (RelativeLayout) view_Parent
+				.findViewById(R.id.emergency_menu_rl_sign_in_assign);
+		emergency_menu_rl_plan_execute = (RelativeLayout) view_Parent
+				.findViewById(R.id.emergency_menu_rl_plan_execute);
 
-		authorization_decision_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.authorization_decision_ll);
-		authorization_img = (ImageView) view_Parent
-				.findViewById(R.id.authorization_img);
-		authorization_child_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.authorization_child_ll);
-		authorization_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.authorization_ll);
-		plan_authorization_stop_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.plan_authorization_stop_ll);
+		emergency_menu_lv_add_event = (ListView) view_Parent
+				.findViewById(R.id.emergency_menu_lv_add_event);
+		emergency_menu_lv_event_manage = (ListView) view_Parent
+				.findViewById(R.id.emergency_menu_lv_event_manage);
+		emergency_menu_lv_plan_manage = (ListView) view_Parent
+				.findViewById(R.id.emergency_menu_lv_plan_manage);
+		emergency_menu_lv_sign_in_assign = (ListView) view_Parent
+				.findViewById(R.id.emergency_menu_lv_sign_in_assign);
+		emergency_menu_lv_plan_execute = (ListView) view_Parent
+				.findViewById(R.id.emergency_menu_lv_plan_execute);
 
-		people_sign_in_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.people_sign_in_ll);
-		people_sign_in_img = (ImageView) view_Parent
-				.findViewById(R.id.people_sign_in_img);
-		people_sign_in_child_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.people_sign_in_child_ll);
-		sign_in_ll = (LinearLayout) view_Parent.findViewById(R.id.sign_in_ll);
-		personnel_assignment_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.personnel_assignment_ll);
-		plan_execution_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.plan_execution_ll);
-		collaborative_circular_ll = (LinearLayout) view_Parent
-				.findViewById(R.id.collaborative_circular_ll);
+		emergency_menu_lv_add_event.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				if(addEventList.get(i).getActivity() == null)
+					return;
+				Intent intent = new Intent(getActivity(),
+						addEventList.get(i).getActivity());
+				// intent.putExtra("tag", tag);
+				startActivity(intent);
+			}
+		});
+
+		emergency_menu_lv_event_manage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				if(eventManageList.get(i).getActivity() == null)
+					return;
+				Intent intent = new Intent(getActivity(),
+						eventManageList.get(i).getActivity());
+				// intent.putExtra("tag", tag);
+				startActivity(intent);
+			}
+		});
+
+		emergency_menu_lv_plan_manage.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				if(planManageList.get(i).getActivity() == null)
+					return;
+				Intent intent = new Intent(getActivity(),
+						planManageList.get(i).getActivity());
+				// intent.putExtra("tag", tag);
+				startActivity(intent);
+			}
+		});
+
+		emergency_menu_lv_sign_in_assign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				if(signInAssignList.get(i).getActivity() == null)
+					return;
+				Intent intent = new Intent(getActivity(),
+						signInAssignList.get(i).getActivity());
+				// intent.putExtra("tag", tag);
+				startActivity(intent);
+			}
+		});
+
+		emergency_menu_lv_plan_execute.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				if(planExecuteList.get(i).getActivity() == null)
+					return;
+				Intent intent = new Intent(getActivity(),
+						planExecuteList.get(i).getActivity());
+				// intent.putExtra("tag", tag);
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
 	protected void widgetListener() {
 		// TODO Auto-generated method stub
-		sjpg.setOnClickListener(this);
-		addevaluation_ll.setOnClickListener(this);
-		dismissvaluation_ll.setOnClickListener(this);
-		yaqd.setOnClickListener(this);
-		plan_start_ll.setOnClickListener(this);
-		plan_stop_ll.setOnClickListener(this);
-		jcsq.setOnClickListener(this);
-		authorization_ll.setOnClickListener(this);
-		plan_authorization_stop_ll.setOnClickListener(this);
-		people_sign_in_ll.setOnClickListener(this);
-		people_sign_in_img.setOnClickListener(this);
-		people_sign_in_child_ll.setOnClickListener(this);
-		sign_in_ll.setOnClickListener(this);
-		personnel_assignment_ll.setOnClickListener(this);
-		plan_execution_ll.setOnClickListener(this);
-		collaborative_circular_ll.setOnClickListener(this);
+
 	}
 
 	@Override
 	protected void init() {
 		// TODO Auto-generated method stub
-		// sjpg.setVisibility(View.VISIBLE);
-		// yaqd.setVisibility(View.VISIBLE);
-		// jcsq.setVisibility(View.VISIBLE);
-		// collaborative_circular_ll.setVisibility(View.VISIBLE);
-
 		getUserPower();
 	}
 
@@ -204,16 +192,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.sjpg:// 事件评估
-
-			if (eventevaluation_child_ll.getVisibility() == View.VISIBLE) {// 0,可见;4,不可见;8,gone;
-				eventevaluation_child_ll.setVisibility(View.GONE);
-				eventevaluation_img.setImageResource(R.drawable.right);
-			} else {
-				eventevaluation_child_ll.setVisibility(View.VISIBLE);
-				eventevaluation_img.setImageResource(R.drawable.expand);
-			}
-			break;
 		case R.id.addevaluation_ll:// 添加评估
 			CustomDialog.Builder builder = new CustomDialog.Builder(
 					getActivity());
@@ -248,15 +226,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 			// intent.putExtra("tag", tag);
 			startActivity(intent);
 			break;
-		case R.id.yaqd:// 预案启动
-			if (people_start_child_ll.getVisibility() == View.VISIBLE) {// 0,可见;4,不可见;8,gone;
-				people_start_child_ll.setVisibility(View.GONE);
-				planstar_img.setImageResource(R.drawable.right);
-			} else {
-				people_start_child_ll.setVisibility(View.VISIBLE);
-				planstar_img.setImageResource(R.drawable.expand);
-			}
-			break;
 		case R.id.plan_start_ll:// 预案待启动事件列表
 			Intent intent3 = new Intent(getActivity(), PlanStarActivity.class);
 			// intent3.putExtra("tag", tag);
@@ -268,16 +237,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 			// intent32.putExtra("tag", tag);
 			intent32.putExtra("tags", "2");
 			startActivity(intent32);
-			break;
-
-		case R.id.jcsq:// 授权决策
-			if (authorization_child_ll.getVisibility() == View.VISIBLE) {// 0,可见;4,不可见;8,gone;
-				authorization_child_ll.setVisibility(View.GONE);
-				authorization_img.setImageResource(R.drawable.right);
-			} else {
-				authorization_child_ll.setVisibility(View.VISIBLE);
-				authorization_img.setImageResource(R.drawable.expand);
-			}
 			break;
 		case R.id.authorization_ll:// 授权决策列表
 			Intent intent4 = new Intent(getActivity(),
@@ -293,17 +252,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 			intent41.putExtra("tags", "0");
 			startActivity(intent41);
 			break;
-		case R.id.people_sign_in_ll:// 人员签到
-			if (people_sign_in_child_ll.getVisibility() == View.VISIBLE) {// 0,可见;4,不可见;8,gone;
-				people_sign_in_child_ll.setVisibility(View.GONE);
-				people_sign_in_img.setImageResource(R.drawable.right);
-			} else {
-				people_sign_in_child_ll.setVisibility(View.VISIBLE);
-				people_sign_in_img.setImageResource(R.drawable.expand);
-			}
-
-			break;
-
 		case R.id.sign_in_ll:// 签到
 			Intent intent5 = new Intent(getActivity(),
 					AutorizationDecisionActivity.class);
@@ -354,7 +302,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 				boolean yaqdVisible = false;
 				boolean jcsqVisible = false;
 				boolean personnel_assignment_llVisible = false;
-				boolean collaborative_circular_llVisible = false;
 				for (int i = 0; i < menu.size(); i++) {
 					MenuEntity menuEntity = menu.get(i);
 					String mark = menuEntity.getMark();
@@ -370,38 +317,279 @@ public class EmergencyManageFragment extends BaseFragment implements
 					if (mark.equals("RYZP")) {
 						personnel_assignment_llVisible = true;
 					}
-					if (mark.equals("XTYTG")) {
-						collaborative_circular_llVisible = true;
-					}
 				}
-				if(!sjpgVisible)
-					sjpg.setVisibility(View.GONE);
-				if(!yaqdVisible)
-					yaqd.setVisibility(View.GONE);
-				if(!jcsqVisible)
-					jcsq.setVisibility(View.GONE);
-				if(!personnel_assignment_llVisible)
-					personnel_assignment_ll.setVisibility(View.GONE);
-				if(!collaborative_circular_llVisible)
-					collaborative_circular_ll.setVisibility(View.GONE);
-				if (yaqd.getVisibility() == View.GONE) {
-					jcsq_line.setVisibility(View.VISIBLE);
+				EmergencyMenuEntity emergencyMenuEntity = new EmergencyMenuEntity();
+				if(!sjpgVisible) {
+					emergency_menu_rl_add_event.setVisibility(View.GONE);
+					emergency_menu_rl_event_manage.setVisibility(View.GONE);
+				}
+				else {
+					emergencyMenuEntity.setId("emergency_evaluate");
+					emergencyMenuEntity.setName(getString(R.string.emergency_evaluation));
+					emergencyMenuEntity.setIcon(R.drawable.emergency_evaluate);
+					emergencyMenuEntity.setActivity(AddeValuationActivity.class);
+					addEventList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("drill_evaluate");
+					emergencyMenuEntity.setName(getString(R.string.drill_evaluation));
+					emergencyMenuEntity.setIcon(R.drawable.drill_evaluate);
+					emergencyMenuEntity.setActivity(DrillSelectActivity.class);
+					addEventList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					addEventList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					addEventList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("event_execute");
+					emergencyMenuEntity.setName(getString(R.string.executing));
+					emergencyMenuEntity.setIcon(R.drawable.event_execute);
+					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					eventManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("event_reject");
+					emergencyMenuEntity.setName(getString(R.string.rejected));
+					emergencyMenuEntity.setIcon(R.drawable.event_reject);
+					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					eventManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("event_complete");
+					emergencyMenuEntity.setName(getString(R.string.execute_complete));
+					emergencyMenuEntity.setIcon(R.drawable.event_complete);
+					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					eventManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					eventManageList.add(emergencyMenuEntity);
+				}
+				if(!yaqdVisible && !jcsqVisible)
+					emergency_menu_rl_plan_manage.setVisibility(View.GONE);
+				else if(!yaqdVisible)
+				{
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("wait_authorize");
+					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
+					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
+					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					planManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("authorized");
+					emergencyMenuEntity.setName(getString(R.string.authorized));
+					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
+					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					planManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					planManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					planManageList.add(emergencyMenuEntity);
+				}
+				else if(!jcsqVisible)
+				{
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("wait_start");
+					emergencyMenuEntity.setName(getString(R.string.wait_start));
+					emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
+					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					planManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("started");
+					emergencyMenuEntity.setName(getString(R.string.started));
+					emergencyMenuEntity.setIcon(R.drawable.plan_started);
+					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					planManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("wait_authorize");
+					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
+					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
+					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					planManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("authorized");
+					emergencyMenuEntity.setName(getString(R.string.authorized));
+					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
+					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					planManageList.add(emergencyMenuEntity);
 				}
 				else
-					jcsq_line.setVisibility(View.GONE);
-				if (xttg.getVisibility() == View.VISIBLE) {
-					xttg.setVisibility(View.VISIBLE);
+				{
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("wait_start");
+					emergencyMenuEntity.setName(getString(R.string.wait_start));
+					emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
+					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					planManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("started");
+					emergencyMenuEntity.setName(getString(R.string.started));
+					emergencyMenuEntity.setIcon(R.drawable.plan_started);
+					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					planManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					planManageList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					planManageList.add(emergencyMenuEntity);
 				}
+				if(!personnel_assignment_llVisible)
+				{
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("people_sign");
+					emergencyMenuEntity.setName(getString(R.string.people_sign));
+					emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
+					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					signInAssignList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					signInAssignList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					signInAssignList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					signInAssignList.add(emergencyMenuEntity);
+				}
+				else
+				{
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("people_sign");
+					emergencyMenuEntity.setName(getString(R.string.people_sign));
+					emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
+					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					signInAssignList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName(getString(R.string.people_assign));
+					emergencyMenuEntity.setIcon(R.drawable.person_assign);
+					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					signInAssignList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					signInAssignList.add(emergencyMenuEntity);
+
+					emergencyMenuEntity = new EmergencyMenuEntity();
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
+					signInAssignList.add(emergencyMenuEntity);
+				}
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("plan_execute");
+				emergencyMenuEntity.setName(getString(R.string.plan_execute));
+				emergencyMenuEntity.setIcon(R.drawable.plan_for_execute);
+				emergencyMenuEntity.setActivity(PlanExecutionActivity.class);
+				planExecuteList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setActivity(null);
+				planExecuteList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setActivity(null);
+				planExecuteList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setActivity(null);
+				planExecuteList.add(emergencyMenuEntity);
 			}
+
+			Utils.getInstance().hideProgressDialog();
+			showMenuData();
 		}
 	};
 
+	private void showMenuData()
+	{
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+			@Override
+			public void run() {
+				addEventAdapter = new EmergencyMenuListviewAdapter(getContext(), addEventList);
+				emergency_menu_lv_add_event.setAdapter(addEventAdapter);
+
+				eventManageAdapter = new EmergencyMenuListviewAdapter(getContext(), eventManageList);
+				emergency_menu_lv_event_manage.setAdapter(eventManageAdapter);
+
+				planManageAdapter = new EmergencyMenuListviewAdapter(getContext(), planManageList);
+				emergency_menu_lv_plan_manage.setAdapter(planManageAdapter);
+
+				signInAssignAdapter = new EmergencyMenuListviewAdapter(getContext(), signInAssignList);
+				emergency_menu_lv_sign_in_assign.setAdapter(signInAssignAdapter);
+
+				planExecuteAdapter = new EmergencyMenuListviewAdapter(getContext(), planExecuteList);
+				emergency_menu_lv_plan_execute.setAdapter(planExecuteAdapter);
+			}
+		});
+	}
+
 	public void getUserPower() {
-//		sjpg.setVisibility(View.GONE);
-//		yaqd.setVisibility(View.GONE);
-//		jcsq.setVisibility(View.GONE);
-//		personnel_assignment_ll.setVisibility(View.GONE);
-		//collaborative_circular_ll.setVisibility(View.GONE);
+		Utils.getInstance().showProgressDialog(getActivity(), "", Const.LOAD_MESSAGE);
 		sevice.getUserPower(listListener);
 	}
 

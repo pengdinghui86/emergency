@@ -35,75 +35,12 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_add_emergency"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
-
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_add_emergency"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/emergency_evaluate"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/emergency_evaluation"
-                        android:layout_below="@+id/emergency_menu_iv_add_emergency"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_add_drill"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <ListView
+                    android:id="@+id/emergency_menu_lv_add_event"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_add_drill"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/drill_evaluate"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/drill_evaluation"
-                        android:layout_below="@+id/emergency_menu_iv_add_drill"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                </RelativeLayout>
-
+                </ListView>
 
             </LinearLayout>
 
@@ -133,95 +70,12 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_executing"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
-
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_executing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/event_execute"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/executing"
-                        android:layout_below="@+id/emergency_menu_iv_executing"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_reject"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <ListView
+                    android:id="@+id/emergency_menu_lv_event_manage"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_reject"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/event_reject"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/rejected"
-                        android:layout_below="@+id/emergency_menu_iv_reject"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_execute_complete"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_execute_complete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/event_complete"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/execute_complete"
-                        android:layout_below="@+id/emergency_menu_iv_execute_complete"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                </RelativeLayout>
-
+                </ListView>
 
             </LinearLayout>
 
@@ -251,114 +105,12 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_wait_start"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
-
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_wait_start"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/plan_for_start"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/wait_start"
-                        android:layout_below="@+id/emergency_menu_iv_wait_start"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_started"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <ListView
+                    android:id="@+id/emergency_menu_lv_plan_manage"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_started"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/plan_started"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/started"
-                        android:layout_below="@+id/emergency_menu_iv_started"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_wait_authorize"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_wait_authorize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/plan_for_authorize"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/wait_authorize"
-                        android:layout_below="@+id/emergency_menu_iv_wait_authorize"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_authorized"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_authorized"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/plan_authorized"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/authorized"
-                        android:layout_below="@+id/emergency_menu_iv_authorized"/>
-
-                </RelativeLayout>
+                </ListView>
 
             </LinearLayout>
 
@@ -388,74 +140,12 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_sign_in"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
-
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_sign_in"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/person_sign_in"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/people_sign"
-                        android:layout_below="@+id/emergency_menu_iv_sign_in"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_assign"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <ListView
+                    android:id="@+id/emergency_menu_lv_sign_in_assign"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_assign"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/person_assign"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/people_assign"
-                        android:layout_below="@+id/emergency_menu_iv_assign"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                </RelativeLayout>
+                </ListView>
 
             </LinearLayout>
 
@@ -485,54 +175,13 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-                <RelativeLayout
-                    android:id="@+id/emergency_menu_rl_execute"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <ListView
+                    android:id="@+id/emergency_menu_lv_plan_execute"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal">
+                    >
 
-                    <ImageView
-                        android:id="@+id/emergency_menu_iv_execute"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/plan_for_execute"
-                        />
-
-                    <TextView
-                        style="@style/message_content_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="12dp"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/plan_execute"
-                        android:layout_below="@+id/emergency_menu_iv_execute"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-
-                </RelativeLayout>
+                </ListView>
 
             </LinearLayout>
 
