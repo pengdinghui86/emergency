@@ -1226,7 +1226,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     /**
      * 退出登录
      */
-    private void logout() {
+    public void logout() {
         final ProgressDialog pd = new ProgressDialog(this);
         String st = getResources().getString(R.string.Are_logged_out);
         pd.setMessage(st);
@@ -1306,6 +1306,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         name);
                 tv_item_info1.setText(name);
                 tv_item_info2.setText(selectedRolemName);
+                if(personalCenterFragment != null)
+                    personalCenterFragment.updateRoleName();
             } else if (stRerror != null) {
                 str = stRerror;
                 ToastUtil
@@ -1342,7 +1344,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     /**
      * 切换角色
      */
-    private void changeRoles() {
+    public void changeRoles() {
         if (identity.length > 1) {
 
             new AlertDialog.Builder(this)

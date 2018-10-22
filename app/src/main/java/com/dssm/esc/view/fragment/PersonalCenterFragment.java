@@ -1,7 +1,11 @@
 package com.dssm.esc.view.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,9 +13,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
+import com.dssm.esc.model.analytical.ContactListService;
+import com.dssm.esc.model.analytical.implSevice.ContactListServiceImpl;
+import com.dssm.esc.model.entity.emergency.ChildEntity;
+import com.dssm.esc.model.entity.emergency.GroupEntity;
+import com.dssm.esc.util.Const;
 import com.dssm.esc.util.MySharePreferencesService;
+import com.dssm.esc.util.ToastUtil;
+import com.dssm.esc.util.Utils;
+import com.dssm.esc.view.activity.MainActivity;
 import com.easemob.chatuidemo.DemoApplication;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -32,6 +47,7 @@ public class PersonalCenterFragment extends BaseFragment implements
 	private Context context;
 	private MySharePreferencesService preferencesService;
 	private Map<String, String> map;
+	private ContactListService contactListService;
 
 	public PersonalCenterFragment() {
 	}
@@ -60,7 +76,9 @@ public class PersonalCenterFragment extends BaseFragment implements
 		personal_center_tv_department = (TextView) view_Parent.findViewById(R.id.personal_center_tv_department);
 		personal_center_tv_email = (TextView) view_Parent.findViewById(R.id.personal_center_tv_email);
 		personal_center_bt_change_role = (Button) view_Parent.findViewById(R.id.personal_center_bt_change_role);
+        personal_center_bt_change_role.setOnClickListener(this);
 		personal_center_bt_logout = (Button) view_Parent.findViewById(R.id.personal_center_bt_logout);
+        personal_center_bt_logout.setOnClickListener(this);
 		title.setText("我的");
 
 	}
@@ -85,7 +103,76 @@ public class PersonalCenterFragment extends BaseFragment implements
 	@Override
 	public void initGetData() {
 		// TODO Auto-generated method stub
+		contactListService = Control.getinstance().getContactSevice();
+		initData();
+	}
 
+	/**
+	 * 初始化数据
+	 */
+	private void initData() {
+		Utils.getInstance().showProgressDialog(getActivity(), "",
+				Const.LOAD_MESSAGE);
+		contactListService.getEmergencyContactList(contactSeviceImplListListenser);
+
+	}
+
+	private ContactListServiceImpl.ContactSeviceImplListListenser contactSeviceImplListListenser = new ContactListServiceImpl.ContactSeviceImplListListenser() {
+
+		@Override
+		public void setContactSeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			List<GroupEntity> dataList = null;
+			if (object != null) {
+				dataList = (List<GroupEntity>) object;
+				showInfo(dataList);
+			} else if (stRerror != null) {
+				dataList = new ArrayList<GroupEntity>();
+
+			} else if (Exceptionerror != null) {
+				dataList = new ArrayList<GroupEntity>();
+				ToastUtil.showToast(getActivity(),
+						Const.NETWORKERROR);
+			}
+			Utils.getInstance().hideProgressDialog();
+		}
+	};
+
+	private void showInfo(final List<GroupEntity> dataList)
+	{
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+			@Override
+			public void run() {
+				for(GroupEntity groupEntity : dataList) {
+					boolean flag = false;
+					for(ChildEntity childEntity : groupEntity.getcList()) {
+						if(childEntity.getUserId().toString().equals(map.get("userId").toLowerCase())) {
+							personal_center_tv_post.setText(childEntity.getZhiwei().toString());
+							personal_center_tv_department.setText(childEntity.getEmergTeam().toString());
+							personal_center_tv_email.setText(childEntity.getEmail().toString());
+							flag = true;
+							break;
+						}
+					}
+					if(flag)
+						break;
+				}
+			}
+		});
+	}
+
+	public void updateRoleName()
+	{
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+			@Override
+			public void run() {
+				map = preferencesService.getPreferences();
+				personal_center_tv_role.setText(map.get("selectedRolemName").toString());
+
+			}
+		});
 	}
 
 	@Override
@@ -93,8 +180,31 @@ public class PersonalCenterFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			case R.id.personal_center_bt_change_role:
+				if(getActivity() instanceof MainActivity){
+					((MainActivity)getActivity()).changeRoles();
+				}
 				break;
 			case R.id.personal_center_bt_logout:
+				AlertDialog.Builder adBuilder = new AlertDialog.Builder(getActivity());
+				adBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						dialogInterface.dismiss();
+						if(getActivity() instanceof MainActivity){
+							((MainActivity)getActivity()).logout();
+						}
+					}
+				});
+				adBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						dialogInterface.dismiss();
+					}
+				});
+				adBuilder.setTitle("提示");
+				adBuilder.setMessage("确定退出当前账号");
+				adBuilder.setCancelable(true);
+				adBuilder.show();
 				break;
 		}
 	}
