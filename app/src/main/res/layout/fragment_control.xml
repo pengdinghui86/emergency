@@ -10,65 +10,86 @@
 
     <View
         style="@style/horizontal_gray_style"
-        android:layout_height="10dp" />
+        />
 
     <LinearLayout
-        android:id="@+id/event_prcess_ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_pressed_selector"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp" >
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/set_gray">
 
-        <ImageView
-            style="@style/emergency_img"
-            android:src="@drawable/event_process" />
-
-        <TextView
-            style="@style/message_content_style"
+        <RelativeLayout
+            android:id="@+id/control_center_rl_event_procedure"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center|left"
-            android:text="@string/event_process" />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
 
-        <ImageView style="@style/emergency_img_right" />
+            <ImageView
+                android:id="@+id/control_center_iv_event_procedure"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="2dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/event_procedure"
+                />
+
+            <TextView
+                style="@style/message_content_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/event_procedure"
+                android:layout_below="@+id/control_center_iv_event_procedure"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/control_center_rl_command_display"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/control_center_iv_command_display"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="2dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/command_display"
+                />
+
+            <TextView
+                style="@style/message_content_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/command_display"
+                android:layout_below="@+id/control_center_iv_command_display"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+        </RelativeLayout>
+
     </LinearLayout>
 
-    <View style="@style/horizontal_gray_style" />
-
-    <View
-        style="@style/horizontal_gray_style"
-        android:layout_height="10dp" />
-
-    <LinearLayout
-        android:id="@+id/command_display_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/item_pressed_selector"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp" >
-
-        <ImageView
-            style="@style/emergency_img"
-            android:src="@drawable/control_display" />
-
-        <TextView
-            style="@style/message_content_style"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|left"
-            android:text="@string/command_display" />
-
-        <ImageView style="@style/emergency_img_right" />
-    </LinearLayout>
-
-    <View style="@style/horizontal_gray_style" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/colorWeWindowGrayBackground"/>
 </LinearLayout>

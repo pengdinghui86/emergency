@@ -2,7 +2,6 @@ package com.dssm.esc.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +24,6 @@ import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.activity.PlanExecutionActivity;
 import com.dssm.esc.view.activity.PlanStarActivity;
 import com.dssm.esc.view.adapter.EmergencyMenuRecyclerViewAdapter;
-import com.dssm.esc.view.widget.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +35,9 @@ public class EmergencyManageFragment extends BaseFragment implements
 		OnClickListener {
 	private TextView title;
 	private Context context;
-
-	private UserSevice sevice;
 	private RelativeLayout emergency_menu_rl_add_event;
 	private RelativeLayout emergency_menu_rl_event_manage;
 	private RelativeLayout emergency_menu_rl_plan_manage;
-	private RelativeLayout emergency_menu_rl_sign_in_assign;
-	private RelativeLayout emergency_menu_rl_plan_execute;
 	private RecyclerView emergency_menu_lv_add_event;
 	private RecyclerView emergency_menu_lv_event_manage;
 	private RecyclerView emergency_menu_lv_plan_manage;
@@ -65,7 +59,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 	@SuppressLint("ValidFragment")
 	public EmergencyManageFragment(Context context) {
 		this.context = context;
-		sevice = Control.getinstance().getUserSevice();
 	}
 
 	@Override
@@ -86,10 +79,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 				.findViewById(R.id.emergency_menu_rl_event_manage);
 		emergency_menu_rl_plan_manage = (RelativeLayout) view_Parent
 				.findViewById(R.id.emergency_menu_rl_plan_manage);
-		emergency_menu_rl_sign_in_assign = (RelativeLayout) view_Parent
-				.findViewById(R.id.emergency_menu_rl_sign_in_assign);
-		emergency_menu_rl_plan_execute = (RelativeLayout) view_Parent
-				.findViewById(R.id.emergency_menu_rl_plan_execute);
 
 		emergency_menu_lv_add_event = (RecyclerView) view_Parent
 				.findViewById(R.id.emergency_menu_lv_add_event);
@@ -393,91 +382,9 @@ public class EmergencyManageFragment extends BaseFragment implements
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.addevaluation_ll:// 添加评估
-			CustomDialog.Builder builder = new CustomDialog.Builder(
-					getActivity());
-			 builder.setMessage("请选择事件类型：");
-			builder.setNegativeButton("演练",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-							// 设置你的操作事项
-							Intent intent2 = new Intent(getActivity(),
-									DrillSelectActivity.class);
-							startActivity(intent2);
-						}
-					});
-
-			builder.setPositiveButton("应急",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-							Intent intent2 = new Intent(getActivity(),
-									AddeValuationActivity.class);
-							intent2.putExtra("type", "0");
-							intent2.putExtra("tag", "1");
-							startActivity(intent2);
-						}
-					});
-			builder.create().show();
-			break;
-		case R.id.dismissvaluation_ll:// 驳回 事件
-			Intent intent = new Intent(getActivity(),
-					DismissValuationActivity.class);
-			// intent.putExtra("tag", tag);
-			startActivity(intent);
-			break;
-		case R.id.plan_start_ll:// 预案待启动事件列表
-			Intent intent3 = new Intent(getActivity(), PlanStarActivity.class);
-			// intent3.putExtra("tag", tag);
-			intent3.putExtra("tags", "1");
-			startActivity(intent3);
-			break;
-		case R.id.plan_stop_ll:// 预案已启动列表
-			Intent intent32 = new Intent(getActivity(), PlanStarActivity.class);
-			// intent32.putExtra("tag", tag);
-			intent32.putExtra("tags", "2");
-			startActivity(intent32);
-			break;
-		case R.id.authorization_ll:// 授权决策列表
-			Intent intent4 = new Intent(getActivity(),
-					AutorizationDecisionActivity.class);
-			// intent4.putExtra("tag", tag);
-			intent4.putExtra("tags", "1");
-			startActivity(intent4);
-			break;
-		case R.id.plan_authorization_stop_ll:// 已授权
-			Intent intent41 = new Intent(getActivity(),
-					AutorizationDecisionActivity.class);
-			// intent41.putExtra("tag", tag);
-			intent41.putExtra("tags", "0");
-			startActivity(intent41);
-			break;
-		case R.id.sign_in_ll:// 签到
-			Intent intent5 = new Intent(getActivity(),
-					AutorizationDecisionActivity.class);
-			// intent5.putExtra("tag", tag);
-			intent5.putExtra("tags", "2");
-			startActivity(intent5);
-
-			break;
-		case R.id.personnel_assignment_ll:// 人员指派
-			Intent intent6 = new Intent(getActivity(),
-					AutorizationDecisionActivity.class);
-			// intent6.putExtra("tag", tag);
-			intent6.putExtra("tags", "3");
-			startActivity(intent6);
-			break;
-		case R.id.plan_execution_ll:// 预案执行
-			Intent intent7 = new Intent(getActivity(),
-					PlanExecutionActivity.class);
-			// intent7.putExtra("tag", tag);
-			startActivity(intent7);
-			break;
 		case R.id.collaborative_circular_ll:// 协同通告
 			Intent intent8 = new Intent(getActivity(),
 					AutorizationDecisionActivity.class);
-			// intent8.putExtra("tag", tag);
 			intent8.putExtra("tags", "4");
 			startActivity(intent8);
 			break;

@@ -73,6 +73,7 @@
     <string name="people_sign_in">人员签到与指派</string>
     <string name="personnel_assignment">人员指派</string>
     <string name="plan_execution">预案执行</string>
+    <string name="event_procedure">事件流程</string>
     <string name="collaborative_circular">协同通告</string>
     <string name="add_contact">添加联系人</string>
     <string name="select_send_object">选择发送对象</string>
