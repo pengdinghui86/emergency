@@ -196,7 +196,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("event_reject");
 					emergencyMenuEntity.setName(getString(R.string.rejected));
 					emergencyMenuEntity.setIcon(R.drawable.event_reject);
-					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					emergencyMenuEntity.setActivity(DismissValuationActivity.class);
 					eventManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -337,7 +337,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					signInAssignList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setId("people_assign");
 					emergencyMenuEntity.setName(getString(R.string.people_assign));
 					emergencyMenuEntity.setIcon(R.drawable.person_assign);
 					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
@@ -508,7 +508,11 @@ public class EmergencyManageFragment extends BaseFragment implements
 					return;
 				Intent intent = new Intent(getActivity(),
 						addEventList.get(position).getActivity());
-				// intent.putExtra("tag", tag);
+				if(addEventList.get(position).getId().equals("emergency_evaluate"))
+				{
+					intent.putExtra("type", "0");
+					intent.putExtra("tag", "1");
+				}
 				startActivity(intent);
 			}
 		});
@@ -520,7 +524,10 @@ public class EmergencyManageFragment extends BaseFragment implements
 					return;
 				Intent intent = new Intent(getActivity(),
 						eventManageList.get(position).getActivity());
-				// intent.putExtra("tag", tag);
+				if(!eventManageList.get(position).getId().equals("event_reject"))
+				{
+					intent.putExtra("tags", "2");
+				}
 				startActivity(intent);
 			}
 		});
@@ -532,7 +539,22 @@ public class EmergencyManageFragment extends BaseFragment implements
 					return;
 				Intent intent = new Intent(getActivity(),
 						planManageList.get(position).getActivity());
-				// intent.putExtra("tag", tag);
+				if(planManageList.get(position).getId().equals("wait_start"))
+				{
+					intent.putExtra("tags", "1");
+				}
+				else if(planManageList.get(position).getId().equals("started"))
+				{
+					intent.putExtra("tags", "2");
+				}
+				else if(planManageList.get(position).getId().equals("wait_authorize"))
+				{
+					intent.putExtra("tags", "1");
+				}
+				else if(planManageList.get(position).getId().equals("authorized"))
+				{
+					intent.putExtra("tags", "0");
+				}
 				startActivity(intent);
 			}
 		});
@@ -544,7 +566,11 @@ public class EmergencyManageFragment extends BaseFragment implements
 					return;
 				Intent intent = new Intent(getActivity(),
 						signInAssignList.get(position).getActivity());
-				// intent.putExtra("tag", tag);
+				if(signInAssignList.get(position).getId().equals("people_sign")) {
+					intent.putExtra("tags", "2");
+				}
+				else
+					intent.putExtra("tags", "3");
 				startActivity(intent);
 			}
 		});
@@ -556,7 +582,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 					return;
 				Intent intent = new Intent(getActivity(),
 						planExecuteList.get(position).getActivity());
-				// intent.putExtra("tag", tag);
 				startActivity(intent);
 			}
 		});
