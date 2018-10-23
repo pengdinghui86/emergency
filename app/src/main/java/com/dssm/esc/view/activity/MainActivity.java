@@ -33,6 +33,8 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.database.DataBaseManage;
+import com.dssm.esc.model.entity.user.MenuEntity;
+import com.dssm.esc.model.entity.user.UserPowerEntity;
 import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DataCleanManager;
@@ -65,6 +67,7 @@ import com.easemob.chatuidemo.activity.SplashActivity;
 import com.easemob.util.EMLog;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -126,6 +129,10 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      * 保存用户名和密码的map集合
      */
     private Map<String, String> map;
+    /**
+     * 保存用户菜单权限
+     */
+    public List<MenuEntity> menu = new ArrayList<>();
     /**
      * 每个用户的每个角色的三张表：任务，系统，紧急
      */
@@ -455,6 +462,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 msgType = "";
             }
         }
+        getUserPower();
     }
 
     public void setNetListener(onInitNetListener netListener) {
@@ -707,7 +715,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     transaction.add(R.id.view_parent, emergencyManageFragment);
                     // emergencyManageFragment.initGetData();
                 } else {
-                    emergencyManageFragment.getUserPower();
+                    emergencyManageFragment.initGetData();
                     transaction.show(emergencyManageFragment);
                 }
                 break;
@@ -1093,7 +1101,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     //在application被销毁后，系统要回收Fragment时，我们告诉系统：不要再保存Fragment
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
     }
 
     private void startPermissionsActivity(String[] permissions) {
@@ -1182,6 +1190,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     ToastUtil.showLongToast(context, str);
                     if(netListener != null)
                         netListener.initNetData();
+                    getUserPower();
                 } else {
                     str = "密码已失效,请重新登录";
                     Log.i("onFailure", "main, " + str);
@@ -1200,6 +1209,25 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 
                 str = Const.NETWORKERROR;
                 ToastUtil.showLongToast(context, "网络连接超时，请检查网络设置或IP地址是否正确");
+            }
+        }
+    };
+
+    public void getUserPower() {
+        Utils.getInstance().showProgressDialog(this, "", Const.LOAD_MESSAGE);
+        userSevice.getUserPower(userPowerListener);
+    }
+
+    private UserSeviceImpl.UserSeviceImplListListenser userPowerListener = new UserSeviceImpl.UserSeviceImplListListenser() {
+
+        @Override
+        public void setUserSeviceImplListListenser(Object object,
+                                                   String stRerror, String Exceptionerror) {
+            // TODO Auto-generated method stub
+            if (object != null) {
+                UserPowerEntity entity = (UserPowerEntity) object;
+                menu = entity.getMenu();
+                Utils.getInstance().hideProgressDialog();
             }
         }
     };
@@ -1308,6 +1336,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 tv_item_info2.setText(selectedRolemName);
                 if(personalCenterFragment != null)
                     personalCenterFragment.updateRoleName();
+                getUserPower();
             } else if (stRerror != null) {
                 str = stRerror;
                 ToastUtil

@@ -52,8 +52,8 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:26.0.0'
-    compile 'com.android.support:design:26.0.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
     compile files('libs/bolts-android-1.2.0.jar')
     compile files('libs/easemobchat_2.2.2.jar')
     compile files('libs/eventbus-2.4.0.jar')
@@ -72,5 +72,5 @@ dependencies {
     implementation files('libs/jpush-android-3.1.5.jar')
     implementation files('libs/jcore-android-1.2.3.jar')
     implementation 'me.jessyan:autosize:0.9.5'
-
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
 }
