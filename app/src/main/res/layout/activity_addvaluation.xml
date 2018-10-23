@@ -57,7 +57,7 @@
                     android:ems="10"
                     android:maxLength="20"
                     android:lines="1"
-                    android:gravity="left"
+                    android:gravity="right"
                     android:hint="@string/eventnamehint"
                     android:padding="5dp"
                     android:textColor="@color/textColor_selected"
@@ -67,10 +67,12 @@
                 </com.dssm.esc.view.widget.ContainsEmojiEditText>
 
                 <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="9dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.2" />
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View
@@ -99,18 +101,19 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:gravity="left"
+                    android:gravity="right"
                     android:padding="5dp"
                     android:hint="@string/business_type_hint"
                     android:textColor="@color/textColor_selected"
                     />
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="9dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/right" />
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View style="@style/horizontal_gray_style" />
@@ -137,18 +140,19 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:gravity="left"
+                    android:gravity="right"
                     android:hint="@string/event_level_hint"
                     android:padding="5dp"
                     android:textColor="@color/textColor_selected"
                     />
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="9dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/right" />
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View
@@ -178,18 +182,19 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:gravity="left"
+                    android:gravity="right"
                     android:hint="@string/event_background_hint"
                     android:padding="5dp"
                     android:textColor="@color/textColor_selected"
                     />
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="9dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/right" />
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View
@@ -218,18 +223,19 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:gravity="left"
+                    android:gravity="right"
                     android:padding="5dp"
                     android:hint="@string/event_origin_hint"
                     android:textColor="@color/textColor_selected"
                     />
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="9dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/right" />
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View
@@ -258,17 +264,19 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:gravity="left"
+                    android:gravity="right"
                     android:padding="5dp"
                     android:hint="@string/plan_drill_hint"
                     android:textColor="@color/textColor_selected"
                     />
 
                 <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="9dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.2" />
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View
@@ -297,17 +305,19 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:gravity="left"
+                    android:gravity="right"
                     android:hint="@string/drill_type_hint"
                     android:padding="5dp"
                     android:textColor="@color/textColor_selected"
                     />
 
                 <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="9dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.2" />
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <LinearLayout
@@ -338,18 +348,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="2"
-                        android:gravity="left"
+                        android:gravity="right"
                         android:hint="@string/plan_background_hint"
                         android:padding="5dp"
                         android:textColor="@color/textColor_selected"
                         />
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="9dp"
+                        android:layout_height="15dp"
                         android:layout_gravity="center"
-                        android:layout_weight="0.5"
-                        android:src="@drawable/right" />
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:src="@drawable/arrow_right" />
                 </LinearLayout>
 
                 <View style="@style/horizontal_gray_style" />
@@ -376,18 +387,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="2"
-                        android:gravity="left"
+                        android:gravity="right"
                         android:hint="@string/plan_other_hint"
                         android:padding="5dp"
                         android:textColor="@color/textColor_selected"
                         />
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="9dp"
+                        android:layout_height="15dp"
                         android:layout_gravity="center"
-                        android:layout_weight="0.5"
-                        android:src="@drawable/right" />
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:src="@drawable/arrow_right" />
                 </LinearLayout>
 
                 <View style="@style/horizontal_gray_style" />
@@ -414,18 +426,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="2"
-                        android:gravity="left"
+                        android:gravity="right"
                         android:hint="@string/plan_kinds_hint"
                         android:padding="5dp"
                         android:textColor="@color/textColor_selected"
                         />
 
                     <ImageView
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="9dp"
+                        android:layout_height="15dp"
                         android:layout_gravity="center"
-                        android:layout_weight="0.5"
-                        android:src="@drawable/right" />
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:src="@drawable/arrow_right" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -456,7 +469,7 @@
                     android:layout_weight="2"
                     android:background="@null"
                     android:ems="10"
-                    android:gravity="left"
+                    android:gravity="right"
                     android:hint="@string/event_desc_hint"
                     android:padding="5dp"
                     android:textColor="@color/textColor_selected"
@@ -466,10 +479,12 @@
                 </EditText>
 
                 <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="9dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.2" />
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View style="@style/horizontal_gray_style" />
@@ -497,7 +512,7 @@
                     android:layout_weight="2"
                     android:background="@null"
                     android:ems="10"
-                    android:gravity="left"
+                    android:gravity="right"
                     android:hint="@string/suggestion_hint"
                     android:padding="5dp"
                     android:textColor="@color/textColor_selected"
@@ -507,10 +522,12 @@
                 </EditText>
 
                 <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="9dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.2" />
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View style="@style/horizontal_gray_style" />
