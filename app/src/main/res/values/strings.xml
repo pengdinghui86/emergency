@@ -8,6 +8,7 @@
     <string name="diver_exit_time">再按一次退出！</string>
     <string name="msg_acra_toast">程序出现异常！</string>
     <string name="loginname">账户</string>
+    <string name="please_input_hint">请输入</string>
     <string name="loginnamehint">请输入账号</string>
     <string name="loginpsw">登录密码</string>
     <string name="loginpswhint">请输入密码</string>

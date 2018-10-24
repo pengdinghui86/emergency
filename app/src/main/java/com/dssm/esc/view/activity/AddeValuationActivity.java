@@ -46,9 +46,18 @@ import de.greenrobot.event.EventBus;
 @ContentView(R.layout.activity_addvaluation)
 public class AddeValuationActivity extends BaseActivity implements
 		OnClickListener {
+	/** 事件名称布局 */
+	@ViewInject(R.id.add_valuation_ll_event_name)
+	private LinearLayout event_name_ll;
+	/** 事件描述布局 */
+	@ViewInject(R.id.event_des_ll)
+	private LinearLayout event_des_ll;
+	/** 应对建议布局 */
+	@ViewInject(R.id.suggestion_ll)
+	private LinearLayout suggestion_ll;
 	/** 事件名称 */
 	@ViewInject(R.id.event_name)
-	private EditText event_name;
+	private TextView event_name;
 	/** 行业类型布局 */
 	@ViewInject(R.id.business_type_ll)
 	private LinearLayout business_type_ll;
@@ -116,10 +125,10 @@ public class AddeValuationActivity extends BaseActivity implements
 	private TextView categoryPlan_name;
 	/** 事件描述 */
 	@ViewInject(R.id.event_des)
-	private EditText event_des;
+	private TextView event_des;
 	/** 应对建议 */
 	@ViewInject(R.id.suggestion)
-	private EditText suggestion;
+	private TextView suggestion;
 	/** 1,应急;2,演练 */
 	private String tag = "";
 	/** 提交 */
@@ -181,6 +190,9 @@ public class AddeValuationActivity extends BaseActivity implements
 	private ImageView back;
 	/** 被选的预案id */
 	private ArrayList<PlanNameRowEntity> selectedIds = new ArrayList<PlanNameRowEntity>();
+    public static int EVENT_NAME_INPUT = 1001;
+    public static int EVENT_DES_INPUT = 1002;
+    public static int EVENT_SUGGESTION_INPUT = 1003;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -231,7 +243,9 @@ public class AddeValuationActivity extends BaseActivity implements
 			event_type_ll.setVisibility(View.GONE);
 			event_background_view.setVisibility(View.GONE);
 		}
-
+		event_name_ll.setOnClickListener(this);
+		event_des_ll.setOnClickListener(this);
+		suggestion_ll.setOnClickListener(this);
 		business_type_ll.setOnClickListener(this);// 行业类型布局
 		event_level_ll.setOnClickListener(this);// 事件等级布局
 		event_background_ll.setOnClickListener(this);// 事件场景布局
@@ -387,95 +401,116 @@ public class AddeValuationActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		Intent intent;
 		switch (view.getId()) {
-		case R.id.business_type_ll: // 业务类型布局
-			intent = new Intent(AddeValuationActivity.this,
-					EmergencyTypeActivity.class);
-			// intent.putExtra("tag", tag);
-			Bundle bundle = new Bundle();
-			bundle.putSerializable("arrlist", (Serializable) resutList1);
-			bundle.putString("tags", "1");
-			intent.putExtras(bundle);
-			startActivityForResult(intent, 1);
-			break;
-		case R.id.event_level_ll: // 事件等级布局
-			intent = new Intent(AddeValuationActivity.this,
-					EmergencyTypeActivity.class);
-			// intent.putExtra("tag", tag);
-			Bundle bundle2 = new Bundle();
-			bundle2.putSerializable("arrlist", (Serializable) resutList2);
-			bundle2.putString("tags", "2");
-			intent.putExtras(bundle2);
-			startActivityForResult(intent, 2);
-			break;
-		case R.id.event_background_ll: // 事件场景布局
-			intent = new Intent(AddeValuationActivity.this,
-					EmergencyTypeActivity.class);
-			// intent.putExtra("tag", tag);
-			Bundle bundle3 = new Bundle();
-			bundle3.putSerializable("arrlist", (Serializable) resutList3);
-			bundle3.putString("tags", "3");
-			intent.putExtras(bundle3);
-			startActivityForResult(intent, 3);
-			break;
+			case R.id.business_type_ll: // 业务类型布局
+				intent = new Intent(AddeValuationActivity.this,
+						EmergencyTypeActivity.class);
+				// intent.putExtra("tag", tag);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("arrlist", (Serializable) resutList1);
+				bundle.putString("tags", "1");
+				intent.putExtras(bundle);
+				startActivityForResult(intent, 1);
+				break;
+			case R.id.event_level_ll: // 事件等级布局
+				intent = new Intent(AddeValuationActivity.this,
+						EmergencyTypeActivity.class);
+				// intent.putExtra("tag", tag);
+				Bundle bundle2 = new Bundle();
+				bundle2.putSerializable("arrlist", (Serializable) resutList2);
+				bundle2.putString("tags", "2");
+				intent.putExtras(bundle2);
+				startActivityForResult(intent, 2);
+				break;
+			case R.id.event_background_ll: // 事件场景布局
+				intent = new Intent(AddeValuationActivity.this,
+						EmergencyTypeActivity.class);
+				// intent.putExtra("tag", tag);
+				Bundle bundle3 = new Bundle();
+				bundle3.putSerializable("arrlist", (Serializable) resutList3);
+				bundle3.putString("tags", "3");
+				intent.putExtras(bundle3);
+				startActivityForResult(intent, 3);
+				break;
 
-		case R.id.referPlan_name_ll: // 参考预案布局
-			if (!id.equals("")) {// 事件场景
+			case R.id.referPlan_name_ll: // 参考预案布局
+				if (!id.equals("")) {// 事件场景
+					intent = new Intent(AddeValuationActivity.this,
+							PlanNameActivity.class);
+					Bundle bundle4 = new Bundle();
+					bundle4.putString("id", id);// 根据场景预案来过滤
+					bundle4.putInt("plantags", 1);
+					bundle4.putString("tags", "2");
+					bundle4.putSerializable("arrlist", (Serializable) resutList4);
+					intent.putExtras(bundle4);
+					startActivityForResult(intent, 4);
+				} else {
+					ToastUtil.showToast(AddeValuationActivity.this, "请先选择事件场景");
+				}
+				break;
+			case R.id.otherReferPlan_name_ll: // 其他预案布局
+
 				intent = new Intent(AddeValuationActivity.this,
 						PlanNameActivity.class);
-				Bundle bundle4 = new Bundle();
-				bundle4.putString("id", id);// 根据场景预案来过滤
-				bundle4.putInt("plantags", 1);
-				bundle4.putString("tags", "2");
-				bundle4.putSerializable("arrlist", (Serializable) resutList4);
-				intent.putExtras(bundle4);
-				startActivityForResult(intent, 4);
-			} else {
-				ToastUtil.showToast(AddeValuationActivity.this, "请先选择事件场景");
-			}
-			break;
-		case R.id.otherReferPlan_name_ll: // 其他预案布局
-
-			intent = new Intent(AddeValuationActivity.this,
-					PlanNameActivity.class);
-			Bundle bundle5 = new Bundle();
-			bundle5.putString("id", id);
-			bundle5.putInt("plantags", 2);
-			bundle5.putString("tags", "2");
-			bundle5.putSerializable("arrlist", (Serializable) resutList5);
-			intent.putExtras(bundle5);
-			startActivityForResult(intent, 5);
-			break;
-		case R.id.categoryPlan_name_ll: // 分类预案布局
-			intent = new Intent(AddeValuationActivity.this,
-					PlanNameActivity.class);
-			Bundle bundle6 = new Bundle();
-			bundle6.putString("id", tradeTypeId);// 根据业务类型来过滤
-			bundle6.putInt("plantags", 3);
-			bundle6.putString("tags", "2");
-			bundle6.putSerializable("arrlist", (Serializable) resutList6);
-			intent.putExtras(bundle6);
-			startActivityForResult(intent, 6);
-			break;
-		case R.id.submittv:// 提交数据
-			AlertDialog.Builder adBuilder = new AlertDialog.Builder(AddeValuationActivity.this);
-			adBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialogInterface, int i) {
-					dialogInterface.dismiss();
-					addEventValuation();
-				}
-			});
-			adBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialogInterface, int i) {
-					dialogInterface.dismiss();
-				}
-			});
-			adBuilder.setTitle("提示");
-			adBuilder.setMessage("确定添加事件评估");
-			adBuilder.setCancelable(true);
-			adBuilder.show();
-			break;
+				Bundle bundle5 = new Bundle();
+				bundle5.putString("id", id);
+				bundle5.putInt("plantags", 2);
+				bundle5.putString("tags", "2");
+				bundle5.putSerializable("arrlist", (Serializable) resutList5);
+				intent.putExtras(bundle5);
+				startActivityForResult(intent, 5);
+				break;
+			case R.id.categoryPlan_name_ll: // 分类预案布局
+				intent = new Intent(AddeValuationActivity.this,
+						PlanNameActivity.class);
+				Bundle bundle6 = new Bundle();
+				bundle6.putString("id", tradeTypeId);// 根据业务类型来过滤
+				bundle6.putInt("plantags", 3);
+				bundle6.putString("tags", "2");
+				bundle6.putSerializable("arrlist", (Serializable) resutList6);
+				intent.putExtras(bundle6);
+				startActivityForResult(intent, 6);
+				break;
+			case R.id.submittv:// 提交数据
+				AlertDialog.Builder adBuilder = new AlertDialog.Builder(AddeValuationActivity.this);
+				adBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						dialogInterface.dismiss();
+						addEventValuation();
+					}
+				});
+				adBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						dialogInterface.dismiss();
+					}
+				});
+				adBuilder.setTitle("提示");
+				adBuilder.setMessage("确定添加事件评估");
+				adBuilder.setCancelable(true);
+				adBuilder.show();
+				break;
+			case R.id.add_valuation_ll_event_name:
+				intent = new Intent(AddeValuationActivity.this,
+						InputTextActivity.class);
+				intent.putExtra("title", "请输入名称");
+				intent.putExtra("content", event_name.getText().toString());
+				startActivityForResult(intent, EVENT_NAME_INPUT);
+				break;
+			case R.id.event_des_ll:
+				intent = new Intent(AddeValuationActivity.this,
+						InputTextActivity.class);
+				intent.putExtra("title", "请输入描述");
+				intent.putExtra("content", event_des.getText().toString());
+				startActivityForResult(intent, EVENT_DES_INPUT);
+				break;
+			case R.id.suggestion_ll:
+				intent = new Intent(AddeValuationActivity.this,
+						InputTextActivity.class);
+				intent.putExtra("title", "请输入建议");
+				intent.putExtra("content", suggestion.getText().toString());
+				startActivityForResult(intent, EVENT_NAME_INPUT);
+				break;
 		}
 	}
 
@@ -779,6 +814,21 @@ public class AddeValuationActivity extends BaseActivity implements
 //			}
 
 			break;
+			case 1001:
+				if (data != null && resultCode == RESULT_OK) {
+					event_name.setText(data.getExtras().get("content").toString());
+				}
+				break;
+			case 1002:
+				if (data != null && resultCode == RESULT_OK) {
+					event_des.setText(data.getExtras().get("content").toString());
+				}
+				break;
+			case 1003:
+				if (data != null && resultCode == RESULT_OK) {
+					suggestion.setText(data.getExtras().get("content").toString());
+				}
+				break;
 		}
 
 	}

@@ -24,11 +24,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="true"
-            
+
             android:focusableInTouchMode="true"
             android:orientation="vertical" >
 
             <LinearLayout
+                android:id="@+id/add_valuation_ll_event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
@@ -47,7 +48,7 @@
                     android:textSize="@dimen/we_normal_textsize"
                     android:textColor="@color/colorWeFontBlack" />
 
-                <com.dssm.esc.view.widget.ContainsEmojiEditText
+                <TextView
                     android:id="@+id/event_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -61,10 +62,10 @@
                     android:hint="@string/eventnamehint"
                     android:padding="5dp"
                     android:textColor="@color/textColor_selected"
-                    android:textSize="@dimen/we_normal_textsize" >
+                    android:textSize="@dimen/we_normal_textsize">
 
                     <requestFocus />
-                </com.dssm.esc.view.widget.ContainsEmojiEditText>
+                </TextView>
 
                 <ImageView
                     android:layout_width="9dp"
@@ -461,7 +462,7 @@
                     android:gravity="left"
                     android:text="@string/event_des"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/event_des"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -476,7 +477,7 @@
                     android:textSize="@dimen/we_normal_textsize">
 
                     <requestFocus />
-                </EditText>
+                </TextView>
 
                 <ImageView
                     android:layout_width="9dp"
@@ -504,7 +505,7 @@
                     android:gravity="left"
                     android:text="@string/suggestion"/>
 
-                <EditText
+                <TextView
                     android:id="@+id/suggestion"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -519,7 +520,7 @@
                     android:textSize="@dimen/we_normal_textsize">
 
                     <requestFocus />
-                </EditText>
+                </TextView>
 
                 <ImageView
                     android:layout_width="9dp"
