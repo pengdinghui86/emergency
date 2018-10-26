@@ -10,11 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
- 
-  <com.dssm.esc.view.widget.AutoListView
-      android:id="@+id/dismissv_listview"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:dividerHeight="1dp"
-      android:divider="@color/colorWeWindowGrayBackground" />
+    <com.dssm.esc.view.widget.RefreshLinearLayout
+        android:id="@+id/dismissv_refreshLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/dismissv_recyclerView"
+            android:background="@color/set_gray"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:overScrollMode="never" />
+
+    </com.dssm.esc.view.widget.RefreshLinearLayout>
+
 </LinearLayout>

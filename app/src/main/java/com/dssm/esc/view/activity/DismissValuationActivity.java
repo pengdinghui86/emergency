@@ -52,7 +52,7 @@ public class DismissValuationActivity extends BaseActivity implements
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	/** ListView */
-	@ViewInject(R.id.dismissv_listview)
+	@ViewInject(R.id.listview)
 	AutoListView listView;
 	/** 适配器 */
 	private DismissValuationListviewAdapter adapter;

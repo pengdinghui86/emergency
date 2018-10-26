@@ -60,7 +60,7 @@ public class AutorizationDecisionActivity extends BaseActivity implements
     /**
      * ListView
      */
-    @ViewInject(R.id.dismissv_listview)
+    @ViewInject(R.id.listview)
     AutoListView listView;
     /**
      * 适配器

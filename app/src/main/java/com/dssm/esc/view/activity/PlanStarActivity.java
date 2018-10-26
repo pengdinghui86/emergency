@@ -1,9 +1,13 @@
 package com.dssm.esc.view.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,13 +23,20 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
+import com.dssm.esc.view.adapter.EventDragListviewAdapter;
+import com.dssm.esc.view.adapter.LeftSlideAdapter;
 import com.dssm.esc.view.adapter.PlanStarAdapter;
 import com.dssm.esc.view.widget.AutoListView;
+import com.dssm.esc.view.widget.RefreshLinearLayout;
+
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
+
 /**
  * 预案启动界面
  * 
@@ -37,18 +48,17 @@ import java.util.List;
  */
 @ContentView(R.layout.activity_dismissvaluation)
 public class PlanStarActivity extends BaseActivity implements
-		AutoListView.OnRefreshListener, AutoListView.OnLoadListener,MainActivity.onInitNetListener {
+		AutoListView.OnRefreshListener, AutoListView.OnLoadListener,MainActivity.onInitNetListener, LeftSlideAdapter.IonSlidingViewClickListener {
 	/** 标题 */
 	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
-	/** ListView */
-	@ViewInject(R.id.dismissv_listview)
-	private AutoListView listView;
+	@ViewInject(R.id.dismissv_recyclerView)
+	private RecyclerView mRecyclerView;
 	/** 适配器 */
-	private PlanStarAdapter adapter;
+	private LeftSlideAdapter adapter;
 	/** 数据源 */
 	private List<PlanStarListEntity> list = new ArrayList<PlanStarListEntity>();
 	/** 当前页面 */
@@ -57,6 +67,10 @@ public class PlanStarActivity extends BaseActivity implements
 	//private String tag;
 	/** 1,待启动事件列表;2,已启动预案列表 */
 	private String tags;
+	/** 下拉刷新控件 */
+	@ViewInject(R.id.dismissv_refreshLinearLayout)
+	private RefreshLinearLayout refreshLinearLayout;
+
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			/**
@@ -65,7 +79,8 @@ public class PlanStarActivity extends BaseActivity implements
 			List<PlanStarListEntity> result = (List<PlanStarListEntity>) msg.obj;
 			switch (msg.what) {
 			case AutoListView.REFRESH:
-				listView.onRefreshComplete();
+				refreshLinearLayout.onCompleteRefresh();
+//				listView.onRefreshComplete();
 				/**
 				 * 总集合清理
 				 */
@@ -79,7 +94,8 @@ public class PlanStarActivity extends BaseActivity implements
 			case AutoListView.LOAD:
 
 				// i++;
-				listView.onLoadComplete();
+//				listView.onLoadComplete();
+				refreshLinearLayout.onLoadComplete();
 				list.addAll(result);
 				break;
 
@@ -87,7 +103,8 @@ public class PlanStarActivity extends BaseActivity implements
 				break;
 			}
 			// 用来显示"加载全部"
-			listView.setResultSize(result.size(), i);
+//			listView.setResultSize(result.size(), i);
+			refreshLinearLayout.setResultSize(result.size(), i);
 			adapter.notifyDataSetChanged();
 		};
 	};
@@ -103,7 +120,6 @@ public class PlanStarActivity extends BaseActivity implements
 		//tag = getIntent().getStringExtra("tag");
 		tags = getIntent().getStringExtra("tags");
 		initview();
-
 	}
 	/***
 	 * 打开EventBus开关
@@ -133,61 +149,158 @@ public class PlanStarActivity extends BaseActivity implements
 			} else if (tags.equals("2")) {
 				title.setText("已启动预案");
 			}
-		adapter = new PlanStarAdapter(PlanStarActivity.this, list, tags);
-		listView.setAdapter(adapter);
-		
+		adapter = new LeftSlideAdapter(PlanStarActivity.this, list, tags);
+        //设置布局管理器
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
+        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());//设置控制Item增删的动画
+		refreshLinearLayout.setOnRefreshListener(new RefreshLinearLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				i = 1;
+				initData();
+			}
+		});
+		refreshLinearLayout.setOnLoadListener(new RefreshLinearLayout.OnLoadListener() {
+			@Override
+			public void onLoad() {
+				loadData(AutoListView.LOAD);
+			}
+		});
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(isSlideToBottom(recyclerView))
+                    refreshLinearLayout.checkFooter();
+            }
+			@Override
+			public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+			{
+				super.onScrolled(recyclerView, dx, dy);
+				if(isSlideToBottom(recyclerView))
+					refreshLinearLayout.checkFooter();
+			}
+        });
+//		new android.app.AlertDialog.Builder(PlanStarActivity.this)
+//				.setMessage("确定驳回该事件？")
+//				.setPositiveButton("确定",
+//						new DialogInterface.OnClickListener() {
+//							@Override
+//							public void onClick(DialogInterface arg0, int arg1) {
+//								rejectEvent(entity);
+//							}
+//						})
+//				.setNegativeButton("取消",
+//						new DialogInterface.OnClickListener() {
+//							@Override
+//							public void onClick(DialogInterface arg0, int arg1) {
+//
+//							}
+//						}).show();
+
 		initData();
-		listView.setOnRefreshListener(this);
-		listView.setOnLoadListener(this);
-		listvitemclick();
+//		listView.setOnRefreshListener(this);
+//		listView.setOnLoadListener(this);
+//		listvitemclick();
 //		setNetListener(this);
 	}
+
+    public static boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        //computeVerticalScrollExtent()是当前屏幕显示的区域高度，
+        // computeVerticalScrollOffset() 是当前屏幕之前滑过的距离，
+        // 而computeVerticalScrollRange()是整个View控件的高度。
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+                >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
+    }
+
+    /**
+	 * 事件驳回
+	 */
+	private void rejectEvent(PlanStarListEntity entity) {
+		Utils.getInstance().showProgressDialog(PlanStarActivity.this, "",
+				Const.SUBMIT_MESSAGE);
+		Control.getinstance().getEmergencyService().planStarBohui(entity.getPlanId(), entity.getEveName(), entity.getSubmitterId(), entity.getEveType(), rejectEventListener);
+	}
+
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser rejectEventListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+			// TODO Auto-generated method stub
+			String str = null;
+			if (backflag) {
+				str = stRerror;
+				ToastUtil.showToast(PlanStarActivity.this,
+						str);
+				EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
+				finish();
+			} else if (backflag == false) {
+				ToastUtil.showToast(PlanStarActivity.this,
+						stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil.showToast(PlanStarActivity.this,
+						stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showToast(PlanStarActivity.this,
+						Exceptionerror);
+			}
+			Utils.getInstance().hideProgressDialog();
+		}
+	};
 
 	/**
 	 * listview的item监听
 	 */
-	private void listvitemclick() {
-		// TODO Auto-generated method stub
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				// TODO Auto-generated method stub
-				if (position > 0 && position <= list.size()) {
-					//启动中
-					if(list.get(position - 1).getState().equals("5")) {
-						ToastUtil.showLongToast(PlanStarActivity.this, "预案正在启动中，请稍后刷新列表重试");
-						return;
-					}
-					if (tags.equals("1")) {
-
-						Intent intent = new Intent(PlanStarActivity.this,
-								PlanStarDetailActivity.class);
-						//intent.putExtra("tag", tag);
-						intent.putExtra("id", list.get(position - 1).getId());
-						intent.putExtra("name", list.get(position - 1)
-								.getEveName());
-						intent.putExtra("tag", list.get(position - 1)
-								.getEveType());
-						intent.putExtra("isStarter", list.get(position-1).getIsStarter());
-						startActivity(intent);
-						// PlanStarActivity.this.finish();
-					} else if (tags.equals("2")) {
-						Intent intent = new Intent(PlanStarActivity.this,
-								PlanSuspandDetilActivity.class);
-						//intent.putExtra("tag", tag);
-						intent.putExtra("id", list.get(position - 1).getId());
-						intent.putExtra("stop", "0");// 已启动的预案
-						intent.putExtra("isStarter",list.get(position - 1).getIsStarter());// 已启动的预案
-						startActivity(intent);
-						// PlanStarActivity.this.finish();
-					}
-
-				}
-			}
-		});
-	}
+//	private void listvitemclick() {
+//		// TODO Auto-generated method stub
+//		listView.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> arg0, View arg1,
+//					int position, long arg3) {
+//				// TODO Auto-generated method stub
+//				if (position > 0 && position <= list.size()) {
+//					//启动中
+//					if(list.get(position - 1).getState().equals("5")) {
+//						ToastUtil.showLongToast(PlanStarActivity.this, "预案正在启动中，请稍后刷新列表重试");
+//						return;
+//					}
+//					if (tags.equals("1")) {
+//
+//						Intent intent = new Intent(PlanStarActivity.this,
+//								PlanStarDetailActivity.class);
+//						//intent.putExtra("tag", tag);
+//						intent.putExtra("id", list.get(position - 1).getId());
+//						intent.putExtra("name", list.get(position - 1)
+//								.getEveName());
+//						intent.putExtra("tag", list.get(position - 1)
+//								.getEveType());
+//						intent.putExtra("isStarter", list.get(position-1).getIsStarter());
+//						startActivity(intent);
+//						// PlanStarActivity.this.finish();
+//					} else if (tags.equals("2")) {
+//						Intent intent = new Intent(PlanStarActivity.this,
+//								PlanSuspandDetilActivity.class);
+//						//intent.putExtra("tag", tag);
+//						intent.putExtra("id", list.get(position - 1).getId());
+//						intent.putExtra("stop", "0");// 已启动的预案
+//						intent.putExtra("isStarter",list.get(position - 1).getIsStarter());// 已启动的预案
+//						startActivity(intent);
+//						// PlanStarActivity.this.finish();
+//					}
+//
+//				}
+//			}
+//		});
+//	}
 
 	private void initData() {
 		loadData(AutoListView.REFRESH);
@@ -267,17 +380,6 @@ public class PlanStarActivity extends BaseActivity implements
 	private void loadData(final int what) {
 		if (tags.equals("1")) {
 			if (what == 0) {// 刷新和第一次加载
-				/*
-				 * List<PlanStarListEntity> datalist = new
-				 * ArrayList<PlanStarListEntity>(); for (int i = 0; i < 79; i++)
-				 * { PlanStarListEntity entity = new PlanStarListEntity();
-				 * entity.setEveName("事件" + i); datalist.add(entity); } allList
-				 * = datalist; Message message = handler.obtainMessage();
-				 * message.what = 0; if (datalist.size() >= 20) {
-				 * List<PlanStarListEntity> subList = datalist.subList(0, 20);
-				 * message.obj = subList; } else { message.obj = datalist; }
-				 * handler.sendMessage(message);
-				 */
 				Control.getinstance().getEmergencyService().getPlanStarList(listListenser);
 			} else if (what == 1) {// 加载更多
 				// 本地做分页，加载20条以后的数据，默认每20条分一页
@@ -298,17 +400,7 @@ public class PlanStarActivity extends BaseActivity implements
 			}
 		} else if (tags.equals("2")) {
 			if (what == 0) {// 刷新和第一次加载
-				/*
-				 * List<PlanStarListEntity> datalist = new
-				 * ArrayList<PlanStarListEntity>(); for (int i = 0; i < 42; i++)
-				 * { PlanStarListEntity entity = new PlanStarListEntity();
-				 * entity.setPlanName("预案" + i); datalist.add(entity); } allList
-				 * = datalist; Message message = handler.obtainMessage();
-				 * message.what = 0; if (datalist.size() >= 20) {
-				 * List<PlanStarListEntity> subList = datalist.subList(0, 20);
-				 * message.obj = subList; } else { message.obj = datalist; }
-				 * handler.sendMessage(message);
-				 */
+
 				Utils.getInstance().showProgressDialog(
 						PlanStarActivity.this, "",
 						Const.SUBMIT_MESSAGE);
@@ -357,5 +449,19 @@ public class PlanStarActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		initData();
 	}
-	
+
+	@Override
+	public void onItemClick(View view, int position) {
+
+	}
+
+	@Override
+	public void onDeleteBtnCilck(View view, int position) {
+
+	}
+
+	@Override
+	public void onSetBtnCilck(View view, int position) {
+
+	}
 }

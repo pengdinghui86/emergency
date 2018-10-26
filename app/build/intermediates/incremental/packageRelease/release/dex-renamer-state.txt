@@ -1,4 +1,4 @@
-#Fri Jun 29 14:26:03 CST 2018
+#Wed Oct 24 09:52:06 CST 2018
 base.0=D\:\\git_project\\emergency_newStyle\\app\\build\\intermediates\\transforms\\dex\\release\\0
 path.0=classes.dex
 renamed.0=classes.dex

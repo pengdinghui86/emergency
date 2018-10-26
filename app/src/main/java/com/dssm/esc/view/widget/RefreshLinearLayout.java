@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,6 +29,18 @@ public class RefreshLinearLayout extends LinearLayout {
 	private LayoutInflater inflater;
 	private Context context;
 	private View header;
+	private View footer;
+	private TextView noData;
+	private TextView loadFull;
+	private TextView more;
+	private ProgressBar loading;
+	private boolean isRecorded;
+	private boolean isLoading;// 判断是否正在加载
+	private boolean loadEnable = true;// 开启或者关闭加载更多功能
+	private boolean isLoadFull;
+	private int pageSize = 20;
+	private OnLoadListener onLoadListener;
+
 	private TextView tip;
 	private TextView lastUpdate;
 	private ImageView arrow;
@@ -114,6 +128,12 @@ public class RefreshLinearLayout extends LinearLayout {
 		tip = (TextView) header.findViewById(R.id.tip);
 		lastUpdate = (TextView) header.findViewById(R.id.lastUpdate);
 		refreshing = (ProgressBar) header.findViewById(R.id.refreshing);
+
+		footer = inflater.inflate(R.layout.listview_footer, null);
+		loadFull = (TextView) footer.findViewById(R.id.loadFull);
+		noData = (TextView) footer.findViewById(R.id.noData);
+		more = (TextView) footer.findViewById(R.id.more);
+		loading = (ProgressBar) footer.findViewById(R.id.loading);
 		refreshHeaderViewByState();
 	}
 
@@ -150,6 +170,8 @@ public class RefreshLinearLayout extends LinearLayout {
 		refreshNormalHeight = 0;
 		//改变控件的高度
 		changeViewHeight(header, refreshNormalHeight);
+        this.removeView(footer);
+        this.addView(footer);
 		//初始化为正常状态
 		setRefreshState(STATE_REFRESH_NORMAL);
 	}
@@ -164,6 +186,11 @@ public class RefreshLinearLayout extends LinearLayout {
 		view.setLayoutParams(lp);
 	}
 
+	public void checkFooter()
+	{
+		ifNeedLoad();
+	}
+
 	/**
 	 * 修改当前的刷新状态
 	 *
@@ -173,6 +200,83 @@ public class RefreshLinearLayout extends LinearLayout {
 		if (expectRefreshState != refreshState) {
 			refreshState = expectRefreshState;
 		}
+	}
+
+	// 这里的开启或者关闭加载更多，并不支持动态调整
+	public void setLoadEnable(boolean loadEnable) {
+		this.loadEnable = loadEnable;
+		this.removeView(footer);
+	}
+
+	// 加载更多监听
+	public void setOnLoadListener(OnLoadListener onLoadListener) {
+		this.loadEnable = true;
+		this.onLoadListener = onLoadListener;
+	}
+
+	//判断是否需要加载更多
+	private void ifNeedLoad() {
+		if (!loadEnable) {
+			return;
+		}
+		try {
+			if (!isLoading && !isLoadFull && refreshState == STATE_REFRESH_NORMAL) {
+				onLoad();
+				isLoading = true;
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	public void onLoad() {
+		if (onLoadListener != null) {
+			onLoadListener.onLoad();
+		}
+	}
+
+	/**
+	 * 这个方法是根据结果的大小来决定footer显示的。
+	 * <p>
+	 * 这里假定每次请求的条数为10。如果请求到了10条。则认为还有数据。如过结果不足10条，则认为数据已经全部加载，这时footer显示已经全部加载
+	 * </p>
+	 *
+	 * @param resultSize
+	 */
+	public void setResultSize(int resultSize, int i) {
+		if (resultSize == 0 && i == 1) {
+			isLoadFull = true;
+			loadFull.setVisibility(View.GONE);
+			loading.setVisibility(View.GONE);
+			more.setVisibility(View.GONE);
+			noData.setVisibility(View.VISIBLE);
+		} else if (resultSize > 0 && resultSize < pageSize) {
+			isLoadFull = true;
+			loadFull.setVisibility(View.VISIBLE);
+			loading.setVisibility(View.GONE);
+			more.setVisibility(View.GONE);
+			noData.setVisibility(View.GONE);
+		} else if (resultSize == pageSize) {
+			isLoadFull = false;
+			loadFull.setVisibility(View.GONE);
+			loading.setVisibility(View.VISIBLE);
+			more.setVisibility(View.VISIBLE);
+			noData.setVisibility(View.GONE);
+		}
+		if (resultSize == 0 && i != 1) {
+			isLoadFull = true;
+			loadFull.setVisibility(View.VISIBLE);
+			loading.setVisibility(View.GONE);
+			more.setVisibility(View.GONE);
+			noData.setVisibility(View.GONE);
+		}
+		//loadFull.setVisibility(View.GONE);
+	}
+
+	/*
+	 * 定义加载更多接口
+	 */
+	public interface OnLoadListener {
+		void onLoad();
 	}
 
 	/**
@@ -186,6 +290,11 @@ public class RefreshLinearLayout extends LinearLayout {
 		}
 		lastUpdate.setText(this.getContext().getString(R.string.lastUpdateTime,
 				utils.getCurrentTime()));
+	}
+
+	// 用于加载更多结束后的回调
+	public void onLoadComplete() {
+		isLoading = false;
 	}
 
 	/**
@@ -261,10 +370,19 @@ public class RefreshLinearLayout extends LinearLayout {
 		if (!interceptAllMoveEvents) {
 			return !disallowIntercept;
 		}
+		if(MotionEvent.ACTION_DOWN == ev.getAction())
+			downY = ev.getY();
 		// 如果设置了拦截所有move事件，即interceptAllMoveEvents为true
-		if (MotionEvent.ACTION_MOVE == ev.getAction()) {
-			onTouchEvent(ev);
-			return true;
+		else if (MotionEvent.ACTION_MOVE == ev.getAction()) {
+			float curY = ev.getY();
+			float deltaY = curY - downY;
+			//是否是有效的往下拖动事件
+			boolean isDropDownValidate = (Float.MAX_VALUE != downY && deltaY > 50);
+			if(isDropDownValidate)
+			{
+				onTouchEvent(ev);
+				return true;
+			}
 		}
 		return false;
 	}

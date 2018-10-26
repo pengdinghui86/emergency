@@ -1,0 +1,52 @@
+<!--item布局，自定义View-->
+<com.dssm.esc.view.widget.LeftSlideView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:layout_marginBottom="1dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <!--"设置"，"删除"按钮使用了TextView而不是Button，是因为５.０以上版本使用Button会显示在上层产出错误显示-->
+        <TextView
+            android:id="@+id/tv_set"
+            android:layout_height="106dp"
+            android:layout_width="80dp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/layout_content"
+            android:text="设置"
+            android:textSize="25dp"
+            android:background="@color/red"
+            android:textColor="#DDFFFFFF"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_height="match_parent"
+            android:layout_width="80dp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/tv_set"
+            android:text="删 除"
+            android:textSize="25dp"
+            android:background="@color/red"
+            android:textColor="#DDFFFFFF"
+            />
+
+
+
+        <RelativeLayout
+            android:id="@+id/layout_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/item_listview_event"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</com.dssm.esc.view.widget.LeftSlideView>

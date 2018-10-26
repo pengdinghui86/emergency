@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="24" />
+        android:targetSdkVersion="26" />
 
     <!-- 环信sdk需要的权限 -->
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -25,24 +25,33 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 添加SD卡读写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 【必须】 信鸽SDK所需权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- Required -->
+    <permission
+        android:name="com.dssm.esc.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- 极光推送必须权限 -->
+    <uses-permission android:name="com.dssm.esc.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- 极光推送可选权限 Required for location feature -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- 【可选】 信鸽SDK所需权限 -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BATTERY_STATS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" -->
@@ -68,35 +77,93 @@
         <activity android:name="com.dssm.esc.view.activity.DismissValuationActivity" />
         <activity
             android:name="com.dssm.esc.view.activity.AddeValuationActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
-        <activity android:name="com.dssm.esc.view.activity.EmergencyTypeActivity" />
-        <activity android:name="com.dssm.esc.view.activity.PlanNameActivity" />
-        <activity android:name="com.dssm.esc.view.activity.DrillSelectActivity" />
-        <activity android:name="com.dssm.esc.view.activity.PlanStarActivity" />
-        <activity android:name="com.dssm.esc.view.activity.PlanStarDetailActivity" />
-        <activity android:name="com.dssm.esc.view.activity.AutorizationDecisionActivity" />
-        <activity android:name="com.dssm.esc.view.activity.AutorizateDecDetailActivity" />
-        <activity android:name="com.dssm.esc.view.activity.SignInActivity" />
-        <activity android:name="com.dssm.esc.view.activity.PersonnelAssignmentActivity" />
-        <activity android:name="com.dssm.esc.view.activity.AssignmentActivity" />
-        <activity android:name="com.dssm.esc.view.activity.PlanExecutionActivity" />
-        <activity android:name="com.dssm.esc.view.activity.PlanExecutionDetailActivity" />
-        <activity android:name="com.dssm.esc.view.activity.SubmitInfomationActivity" />
-        <activity android:name="com.dssm.esc.view.activity.OperationMenuActivity" />
-        <activity android:name="com.dssm.esc.view.activity.CollaborativeCircularActivity" />
-        <activity android:name="com.dssm.esc.view.activity.RecieveListActivity" />
-        <activity android:name="com.dssm.esc.view.activity.AddRecievePeoPleActivity" />
-        <activity android:name="com.dssm.esc.view.activity.EventProcessActivity" />
-        <activity android:name="com.dssm.esc.view.activity.EventProcessDetailActivity" />
-        <activity android:name="com.dssm.esc.view.activity.ControlActivity" />
-        <activity android:name="com.dssm.esc.view.activity.GroupSigninDetail" />
-        <activity android:name="com.dssm.esc.view.activity.SendCollaborativeActivity" />
+        <activity
+            android:name="com.dssm.esc.view.activity.EmergencyTypeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.PlanNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.DrillSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.PlanStarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.PlanStarDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.AutorizationDecisionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.AutorizateDecDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.SignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.PersonnelAssignmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.AssignmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.PlanExecutionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.PlanExecutionDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.SubmitInfomationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.OperationMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.CollaborativeCircularActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.RecieveListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.AddRecievePeoPleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.EventProcessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.EventProcessDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.ControlActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.GroupSigninDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.SendCollaborativeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.dssm.esc.view.activity.PlanSuspandDetilActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
-        <activity android:name="com.dssm.esc.view.activity.SendMeassageActivity" />
+        <activity
+            android:name="com.dssm.esc.view.activity.SendMeassageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.SendMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.SelectContactListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.dssm.esc.view.activity.InputTextActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.dssm.esc.view.activity.PermissionsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.Permissions" />
         <!-- &lt;!&ndash; 程序卸载广播 &ndash;&gt; -->
         <!-- <receiver -->
@@ -124,7 +191,7 @@
             </intent-filter>
         </activity>
 
-        <!-- 登陆 -->
+        <!-- 登录 -->
         <!-- android:theme="@style/horizontal_slide" -->
         <activity
             android:name="com.easemob.chatuidemo.activity.LoginActivity"
@@ -185,6 +252,14 @@
         <!-- </activity> -->
 
 
+        <!-- 如果您项目中的所有页面都只需要以高或宽中的一个作为基准进行适配的话, 那就只需要填写高或宽中的一个设计图尺寸即可 -->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="375" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="667" />
+
         <!-- 设置环信应用的appkey 原来的key：dssm-zsj#esc 新的key：escxj#escchinaxj -->
         <meta-data
             android:name="EASEMOB_APPKEY"
@@ -221,126 +296,161 @@
         <!-- 信鸽 -->
 
 
-        <!-- 【必须】 信鸽receiver广播接收 -->
-        <receiver
-            android:name="com.tencent.android.tpush.XGPushReceiver"
-            android:process=":xg_service_v3" >
-            <intent-filter android:priority="0x7fffffff" >
-
-                <!-- 【必须】 信鸽SDK的内部广播 -->
-                <action android:name="com.tencent.android.tpush.action.SDK" />
-                <action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE" />
-                <!-- 【必须】 系统广播：网络切换 -->
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-
-                <!-- 【可选】 系统广播：开屏 -->
-                <action android:name="android.intent.action.USER_PRESENT" />
-
-                <!-- 【可选】 一些常用的系统广播，增强信鸽service的复活机会，请根据需要选择。当然，你也可以添加APP自定义的一些广播让启动service -->
-                <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+        <!-- Required SDK 核心功能 -->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
-            <!-- 【可选】 usb相关的系统广播，增强信鸽service的复活机会，请根据需要添加 -->
-            <intent-filter android:priority="0x7fffffff" >
-                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
-                <action android:name="android.intent.action.MEDIA_REMOVED" />
-                <action android:name="android.intent.action.MEDIA_CHECKING" />
-                <action android:name="android.intent.action.MEDIA_EJECT" />
+        </service>
 
-                <data android:scheme="file" />
+        <!-- since 3.0.9 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DataProvider"
+            android:authorities="com.dssm.esc.DataProvider"
+            android:exported="true" />
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.dssm.esc" />
+            </intent-filter>
+        </service>
+
+        <!-- since 3.1.0 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DownloadProvider"
+            android:authorities="com.dssm.esc.DownloadProvider"
+            android:exported="true" />
+
+        <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true" >
+            <intent-filter android:priority="1000" >
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+
+                <category android:name="com.dssm.esc" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
-        <!-- 【注意】 如果被打开的activity是启动模式为SingleTop，SingleTask或SingleInstance，请根据通知的异常自查列表第8点处理 -->
-        <activity
-            android:name="com.tencent.android.tpush.XGPushActivity"
-            android:exported="true"
-            android:theme="@android:style/Theme.Translucent" >
-            <intent-filter>
 
-                <!-- 若使用AndroidStudio，请设置android:name="android.intent.action" -->
-                <action android:name="android.intent.action" />
+        <!-- Required SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.dssm.esc" />
+            </intent-filter>
+        </activity>
+        <!-- SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.dssm.esc" />
             </intent-filter>
         </activity>
 
-        <!-- &lt;!&ndash; 【必须】 信鸽service &ndash;&gt; -->
-        <!-- <service -->
-        <!-- android:name="com.tencent.android.tpush.service.XGPushService" -->
-        <!-- android:exported="true" -->
-        <!-- android:persistent="true" -->
-        <!-- android:process=":xg_service_v2" /> -->
-
-
-        <!-- &lt;!&ndash; 【必须】 通知service，此选项有助于提高抵达率 &ndash;&gt; -->
-        <!-- <service -->
-        <!-- android:name="com.tencent.android.tpush.rpc.XGRemoteService" -->
-        <!-- android:exported="true"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="com.dssm.esc.PUSH_ACTION" /> -->
-        <!-- </intent-filter> -->
-        <!-- </service> -->
-
-
-        <!-- 【必须】 信鸽service -->
+        <!-- Required SDK核心功能 -->
         <service
-            android:name="com.tencent.android.tpush.service.XGPushServiceV3"
-            android:exported="true"
-            android:persistent="true"
-            android:process=":xg_service_v3" />
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
 
-        <!-- 【必须】 增强xg_service存活率 -->
-        <service
-            android:name="com.tencent.android.tpush.service.XGDaemonService"
-            android:process=":xg_service_v3" />
-        <!-- 【可选】APP实现的Receiver，用于接收消息透传和操作结果的回调，请根据需要添加 -->
-        <!-- YOUR_PACKAGE_PATH.CustomPushReceiver需要改为自己的Receiver： -->
+        <!-- Required SDK核心功能 -->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
+
+        <!-- Required since 3.0.7 -->
+        <!-- 新的tag/alias接口结果返回需要开发者配置一个自定的广播 -->
+        <!-- 该广播需要继承JPush提供的JPushMessageReceiver类, 并如下新增一个 Intent-Filter -->
         <receiver
-            android:name="com.dssm.esc.util.receiver.MessageReceiver"
-            android:exported="true" >
+            android:name="com.dssm.esc.util.receiver.AliasListenerReceiver"
+            android:enabled="true"
+            android:exported="false" >
             <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
 
-                <!-- 接收消息透传 -->
-                <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
-                <!-- 监听注册、反注册、设置/删除标签、通知被点击等处理结果 -->
-                <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
+                <category android:name="com.dssm.esc" />
             </intent-filter>
         </receiver>
-        <!-- 【必须】 【注意】authorities修改为 包名.AUTH_XGPUSH, 如demo的包名为：com.qq.xgdemo -->
-        <provider
-            android:name="com.tencent.android.tpush.XGPushProvider"
-            android:authorities="com.dssm.esc.AUTH_XGPUSH"
-            android:exported="true" />
 
-        <!-- 【必须】 【注意】authorities修改为 包名.TPUSH_PROVIDER, 如demo的包名为：com.qq.xgdemo -->
-        <provider
-            android:name="com.tencent.android.tpush.SettingsContentProvider"
-            android:authorities="com.dssm.esc.TPUSH_PROVIDER"
-            android:exported="false" />
+        <!-- User defined. 用户自定义的广播接收器 -->
+        <receiver
+            android:name="com.dssm.esc.util.receiver.JgReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
 
-        <!-- 【必须】 【注意】authorities修改为 包名.TENCENT.MID.V3, 如demo的包名为：com.qq.xgdemo -->
-        <provider
-            android:name="com.tencent.mid.api.MidProvider"
-            android:authorities="com.dssm.esc.TENCENT.MID.V3"
-            android:exported="true" >
-        </provider>
+                <!-- Required 用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!-- Required 用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!-- Required 用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!-- Required 用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.dssm.esc" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required. For publish channel feature -->
+        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。 -->
+        <!-- 例如: -->
+        <!-- 发到 Google Play 的APK可以设置为 google-play; -->
+        <!-- 发到其他市场的 APK 可以设置为 xxx-market。 -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <!-- Required. AppKey copied from Portal -->
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="ba205940a8a9e42cbe727d0e" />
         <!--
-            信鸽账号：1505197763
-            密码：12345@esc
+            极光账号：1sc_china
+            密码：1SC_china
         -->
-        <!-- com.dssm.esc          ACCESS ID: 2100153480 ACCESS KEY:A91IJE8B3M6G SECRET KEY:02325ee0aed81be29120c328d2d239f0 -->
-        <!-- com.escchinaxj.bcm    ACCESS ID: 2100195531 ACCESS KEY:A4XS2E1M61EQ SECRET KEY:607f2d79d7a5fd0d7f2f53cbbcc61da0 -->
-        <!-- 【必须】 请将YOUR_ACCESS_ID修改为APP的AccessId，“21”开头的10位数字，中间没空格 -->
-        <meta-data
-            android:name="XG_V2_ACCESS_ID"
-            android:value="2100153480" />
-        <!-- 【必须】 请将YOUR_ACCESS_KEY修改为APP的AccessKey，“A”开头的12位字符串，中间没空格 -->
-        <meta-data
-            android:name="XG_V2_ACCESS_KEY"
-            android:value="A91IJE8B3M6G" />
 
         <activity android:name="com.dssm.esc.view.activity.EditIPActivity" />
         <activity android:name="com.dssm.esc.view.activity.ProcessMonitoringSubMissionActivity" />
+
+        <meta-data
+            android:name="android.support.VERSION"
+            android:value="26.1.0" />
 
         <service
             android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"
@@ -374,6 +484,16 @@
             android:process=":leakcanary"
             android:taskAffinity="com.squareup.leakcanary.com.dssm.esc"
             android:theme="@style/leak_canary_Theme.Transparent" />
+
+        <provider
+            android:name="me.jessyan.autosize.InitProvider"
+            android:authorities="com.dssm.esc.autosize-init-provider"
+            android:exported="false"
+            android:multiprocess="true" />
+
+        <meta-data
+            android:name="android.arch.lifecycle.VERSION"
+            android:value="27.0.0-SNAPSHOT" />
     </application>
 
 </manifest>
