@@ -42,7 +42,17 @@ public class PlanStarListEntity implements Serializable {
 	private String	eveCode;
 	private String	eveType;
 	private String isStarter;
-	
+	//数据类型，0=事件，1=预案
+	private int dataType;
+
+	public int getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(int dataType) {
+		this.dataType = dataType;
+	}
+
 	public String getIsStarter() {
 		return isStarter;
 	}

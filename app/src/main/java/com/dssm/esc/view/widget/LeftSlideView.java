@@ -11,9 +11,7 @@ import com.dssm.esc.R;
 
 public class LeftSlideView extends HorizontalScrollView {
 
-    private TextView mTextView_Set;//设置按钮
-
-    private TextView mTextView_Delete;//删除按钮
+    private TextView mTextView_Function;//左滑出现的菜单按钮
 
     private int mScrollWidth;//记录滚动条可以滚动的距离
 
@@ -41,13 +39,12 @@ public class LeftSlideView extends HorizontalScrollView {
     }
 
 
-    //2.在onMeasure中先取得作为“设置”、“删除”按钮的TextView
+    //2.在onMeasure中先取得左滑出现的按钮TextView
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (!once) {
-            mTextView_Delete = (TextView) findViewById(R.id.tv_delete);
-            mTextView_Set = (TextView) findViewById(R.id.tv_set);
+            mTextView_Function = (TextView) findViewById(R.id.tv_function);
             once = true;
         }
     }
@@ -60,8 +57,8 @@ public class LeftSlideView extends HorizontalScrollView {
         if (changed) {
             this.scrollTo(0, 0);
 
-            //获取水平滚动条可以滑动的范围，即右侧“设置”、“删除”按钮的总宽度
-            mScrollWidth = mTextView_Delete.getWidth() + mTextView_Set.getWidth();
+            //获取水平滚动条可以滑动的范围，即右侧按钮的总宽度
+            mScrollWidth = mTextView_Function.getWidth();
         }
     }
 
@@ -98,7 +95,7 @@ public class LeftSlideView extends HorizontalScrollView {
         super.onScrollChanged(l, t, oldl, oldt);
 
         //改变view的在x轴方向的位置
-        mTextView_Set.setTranslationX(1);
+        mTextView_Function.setTranslationX(1);
     }
 
 

@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,9 +22,8 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
-import com.dssm.esc.view.adapter.EventDragListviewAdapter;
 import com.dssm.esc.view.adapter.LeftSlideAdapter;
-import com.dssm.esc.view.adapter.PlanStarAdapter;
+import com.dssm.esc.view.adapter.LeftSlideEventAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.RefreshLinearLayout;
 
@@ -154,6 +152,10 @@ public class PlanStarActivity extends BaseActivity implements
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());//设置控制Item增删的动画
+		//添加自定义分割线
+		DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+		divider.setDrawable(getResources().getDrawable(R.drawable.divider_line));
+		mRecyclerView.addItemDecoration(divider);
 		refreshLinearLayout.setOnRefreshListener(new RefreshLinearLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
@@ -452,16 +454,56 @@ public class PlanStarActivity extends BaseActivity implements
 
 	@Override
 	public void onItemClick(View view, int position) {
+        if (position >= 0 && position < list.size()) {
+            //启动中
+            if (list.get(position).getState().equals("5")) {
+                ToastUtil.showLongToast(PlanStarActivity.this, "预案正在启动中，请稍后刷新列表重试");
+                return;
+            }
+            if (tags.equals("1")) {
 
+                Intent intent = new Intent(PlanStarActivity.this,
+                        PlanStarDetailActivity.class);
+                //intent.putExtra("tag", tag);
+                intent.putExtra("id", list.get(position).getId());
+                intent.putExtra("name", list.get(position)
+                        .getEveName());
+                intent.putExtra("tag", list.get(position)
+                        .getEveType());
+                intent.putExtra("isStarter", list.get(position).getIsStarter());
+                startActivity(intent);
+                // PlanStarActivity.this.finish();
+            } else if (tags.equals("2")) {
+                Intent intent = new Intent(PlanStarActivity.this,
+                        PlanSuspandDetilActivity.class);
+                //intent.putExtra("tag", tag);
+                intent.putExtra("id", list.get(position).getId());
+                intent.putExtra("stop", "0");// 已启动的预案
+                intent.putExtra("isStarter", list.get(position).getIsStarter());// 已启动的预案
+                startActivity(intent);
+                // PlanStarActivity.this.finish();
+            }
+
+        }
 	}
 
 	@Override
-	public void onDeleteBtnCilck(View view, int position) {
+	public void onFunctionBtnClick(View view, final int position) {
+		new android.app.AlertDialog.Builder(PlanStarActivity.this)
+				.setMessage("确定驳回该事件？")
+				.setPositiveButton("确定",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								rejectEvent(list.get(position));
+							}
+						})
+				.setNegativeButton("取消",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
 
-	}
-
-	@Override
-	public void onSetBtnCilck(View view, int position) {
-
+							}
+						}).show();
 	}
 }
