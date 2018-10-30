@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dssm.esc.R;
 import com.dssm.esc.view.activity.AutorizationDecisionActivity;
+import com.dssm.esc.view.activity.EventPlanListActivity;
 import com.dssm.esc.view.activity.EventProcessActivity;
 
 
@@ -82,7 +83,7 @@ public class ControlCenterFragment extends BaseFragment implements
 			break;
 		case R.id.control_center_rl_command_display:// 指挥与展示布局
 			Intent intent2 = new Intent(getActivity(),
-					AutorizationDecisionActivity.class);
+					EventPlanListActivity.class);
 			intent2.putExtra("tags", "5");
 			startActivity(intent2);
 			break;

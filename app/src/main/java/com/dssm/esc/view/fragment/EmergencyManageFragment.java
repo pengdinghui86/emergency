@@ -20,6 +20,7 @@ import com.dssm.esc.view.activity.AddeValuationActivity;
 import com.dssm.esc.view.activity.AutorizationDecisionActivity;
 import com.dssm.esc.view.activity.DismissValuationActivity;
 import com.dssm.esc.view.activity.DrillSelectActivity;
+import com.dssm.esc.view.activity.EventPlanListActivity;
 import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.activity.PersonSignInActivity;
 import com.dssm.esc.view.activity.PlanExecutionActivity;
@@ -210,14 +211,14 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("wait_authorize");
 					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
 					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
-					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("authorized");
 					emergencyMenuEntity.setName(getString(R.string.authorized));
 					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
-					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -245,21 +246,21 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("started");
 					emergencyMenuEntity.setName(getString(R.string.started));
 					emergencyMenuEntity.setIcon(R.drawable.plan_started);
-					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("wait_authorize");
 					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
 					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
-					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("authorized");
 					emergencyMenuEntity.setName(getString(R.string.authorized));
 					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
-					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 				} else {
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -273,7 +274,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("started");
 					emergencyMenuEntity.setName(getString(R.string.started));
 					emergencyMenuEntity.setIcon(R.drawable.plan_started);
-					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -330,7 +331,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("people_assign");
 					emergencyMenuEntity.setName(getString(R.string.people_assign));
 					emergencyMenuEntity.setIcon(R.drawable.person_assign);
-					emergencyMenuEntity.setActivity(PersonSignInActivity.class);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					signInAssignList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();

@@ -136,6 +136,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.PersonSignInActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.EventPlanListActivity"
+        android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.PermissionsActivity"
             android:theme="@style/AppTheme.NoActionBar.Permissions"
