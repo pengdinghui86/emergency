@@ -23,7 +23,6 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.LeftSlideAdapter;
-import com.dssm.esc.view.adapter.LeftSlideEventAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.RefreshLinearLayout;
 
@@ -37,16 +36,10 @@ import de.greenrobot.event.EventBus;
 
 /**
  * 预案启动界面
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-11
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_dismissvaluation)
 public class PlanStarActivity extends BaseActivity implements
-		AutoListView.OnRefreshListener, AutoListView.OnLoadListener,MainActivity.onInitNetListener, LeftSlideAdapter.IonSlidingViewClickListener {
+		MainActivity.onInitNetListener, LeftSlideAdapter.IonSlidingViewClickListener {
 	/** 标题 */
 	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
@@ -423,19 +416,6 @@ public class PlanStarActivity extends BaseActivity implements
 			}
 		}
 
-	}
-
-	@Override
-	public void onLoad() {
-		// TODO Auto-generated method stub
-		loadData(AutoListView.LOAD);
-	}
-
-	@Override
-	public void onRefresh() {
-		// TODO Auto-generated method stub
-		i = 1;
-		loadData(AutoListView.REFRESH);
 	}
 
 	@Override

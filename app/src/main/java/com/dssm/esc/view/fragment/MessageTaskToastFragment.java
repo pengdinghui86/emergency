@@ -21,6 +21,7 @@ import com.dssm.esc.util.event.MessageCountEvent;
 import com.dssm.esc.util.event.Toast;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.MainActivity;
+import com.dssm.esc.view.adapter.MessageListAdapter;
 import com.dssm.esc.view.adapter.MessageToastAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 
@@ -31,12 +32,6 @@ import de.greenrobot.event.EventBus;
 
 /**
  * 任务通知碎片
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-18
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 public class MessageTaskToastFragment extends BaseFragment implements
 		AutoListView.OnRefreshListener, AutoListView.OnLoadListener, MainActivity.onInitNetListener {
@@ -45,7 +40,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	/** 总list */
 	private List<MessageInfoEntity> list = new ArrayList<MessageInfoEntity>();
 	/** 适配器 */
-	private MessageToastAdapter adapter;
+	private MessageListAdapter adapter;
 	/** 当前页数 */
 	private int i = 1;
 	private Context context;
@@ -134,7 +129,6 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		listview = (AutoListView) view_Parent
 				.findViewById(R.id.message_listview_toast);
-		listview.setDividerHeight(0);
 	}
 
 	@Override
@@ -149,7 +143,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	@Override
 	protected void init() {
 		// TODO Auto-generated method stub
-		adapter = new MessageToastAdapter(context, list);
+		adapter = new MessageListAdapter(context, list);
 		listview.setAdapter(adapter);
 
 	}
@@ -323,7 +317,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		i = 1;
 		Log.i("44", "onRefresh");
-//		loadData(AutoListView.REFRESH);
+		loadData(AutoListView.REFRESH);
 	}
 
 	/**

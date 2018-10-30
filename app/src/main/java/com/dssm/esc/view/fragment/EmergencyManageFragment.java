@@ -21,6 +21,7 @@ import com.dssm.esc.view.activity.AutorizationDecisionActivity;
 import com.dssm.esc.view.activity.DismissValuationActivity;
 import com.dssm.esc.view.activity.DrillSelectActivity;
 import com.dssm.esc.view.activity.MainActivity;
+import com.dssm.esc.view.activity.PersonSignInActivity;
 import com.dssm.esc.view.activity.PlanExecutionActivity;
 import com.dssm.esc.view.activity.PlanStarActivity;
 import com.dssm.esc.view.adapter.EmergencyMenuRecyclerViewAdapter;
@@ -294,7 +295,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("people_sign");
 					emergencyMenuEntity.setName(getString(R.string.people_sign));
 					emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
-					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					emergencyMenuEntity.setActivity(PersonSignInActivity.class);
 					signInAssignList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -322,14 +323,14 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("people_sign");
 					emergencyMenuEntity.setName(getString(R.string.people_sign));
 					emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
-					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					emergencyMenuEntity.setActivity(PersonSignInActivity.class);
 					signInAssignList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("people_assign");
 					emergencyMenuEntity.setName(getString(R.string.people_assign));
 					emergencyMenuEntity.setIcon(R.drawable.person_assign);
-					emergencyMenuEntity.setActivity(AutorizationDecisionActivity.class);
+					emergencyMenuEntity.setActivity(PersonSignInActivity.class);
 					signInAssignList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();

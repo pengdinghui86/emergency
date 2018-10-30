@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout.LayoutParams;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
@@ -46,23 +45,12 @@ import com.easemob.chatuidemo.activity.LoginActivity;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
-import de.greenrobot.event.EventBus;
 
 /**
  * 消息
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-6
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 public class MessageFragment extends BaseFragment implements OnClickListener {
 
-	/** 标题 */
-	// private TextView title;
-	/** 可选的button */
-	// private SegmentControl mSegmentControl;
 	/** 任务通知碎片 */
 	private MessageTaskToastFragment messageTaskToastFragment;
 	/** 系统通知碎片 */
@@ -89,9 +77,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	private RedPointView redPointView2;
 	private RedPointView redPointView3;
 	private RedPointView redPointView4;
-	private RedPointView redPointView5;
 
-	private ImageView setting;
 	private PopupWindow pop = null;
 	private LinearLayout ll_popup;
 
@@ -115,7 +101,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	private String loginName;
 	private String name;// 用户姓名
 	private UserSevice userSevice;
-	private ImageView message;
 	private TextView t1, t2;
 
 	private DrawerLayout mDrawerLayout;
@@ -143,7 +128,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	protected View getViews() {
 		Log.i("context", context + "");
 		return view_Parent = LayoutInflater.from(context).inflate(
-				R.layout.fragment_message, null);
+				R.layout.fragment_message_new, null);
 	}
 
 	@Override
@@ -153,8 +138,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.id_drawerlayout);
 		mRelativeLayout= (RelativeLayout) getActivity().findViewById(R.id.nav_view);
 
-		message = (ImageView) view_Parent.findViewById(R.id.message);
-		setting = (ImageView) view_Parent.findViewById(R.id.setting);
 		rb_task = (RadioButton) view_Parent.findViewById(R.id.rb_task);
 		rb_system = (RadioButton) view_Parent.findViewById(R.id.rb_system);
 		rb_emergency = (RadioButton) view_Parent
@@ -169,8 +152,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		rb_system.setOnClickListener(this);
 		rb_emergency.setOnClickListener(this);
 		rb_mymessage.setOnClickListener(this);
-		setting.setOnClickListener(this);
-		message.setOnClickListener(this);
 	}
 
 	@Override
@@ -199,7 +180,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		redPointView2 = remind(rb_system, ((MainActivity) getActivity()).xgSysMsgCount + "");
 		redPointView3 = remind(rb_emergency, ((MainActivity) getActivity()).xgEmergencyMsgCount + "");
 		redPointView4 = remind(rb_mymessage, ((MainActivity) getActivity()).xgPersonalMsgCount + "");
-		redPointView5 = remind(message, "");
 		Log.i("onFailure", "MessageFragment: " + tag);
 		switchView(tag);
 		int position = 0;
@@ -242,13 +222,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 	/**
 	 * 选择界面
-	 * 
-	 * @version 1.0
-	 * @createTime 2015-8-12,下午3:20:06
-	 * @updateTime 2015-8-12,下午3:20:06
-	 * @createAuthor XiaoHuan
-	 * @updateAuthor
-	 * @updateInfo (此处输入修改内容,若无修改可不写.)
 	 * @param position
 	 */
 	public void switchView(int position) {
@@ -325,13 +298,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 	/**
 	 * 隐藏所有Fragment
-	 * 
-	 * @version 1.0
-	 * @createTime 2015-8-12,下午3:20:32
-	 * @updateTime 2015-8-12,下午3:20:32
-	 * @createAuthor XiaoHuan
-	 * @updateAuthor
-	 * @updateInfo (此处输入修改内容,若无修改可不写.)
 	 * @param transaction
 	 */
 	private void hideFragment(FragmentTransaction transaction) {
@@ -539,7 +505,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_system.setChecked(false);
 			rb_emergency.setChecked(false);
 			rb_mymessage.setChecked(false);
-			message.setImageResource(R.drawable.message);
 			break;
 		case R.id.rb_system:
 			tag = 1;
@@ -547,7 +512,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_task.setChecked(false);
 			rb_emergency.setChecked(false);
 			rb_mymessage.setChecked(false);
-			message.setImageResource(R.drawable.message);
 			break;
 		case R.id.rb_emergency:
 			tag = 2;
@@ -555,7 +519,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_system.setChecked(false);
 			rb_task.setChecked(false);
 			rb_mymessage.setChecked(false);
-			message.setImageResource(R.drawable.message);
 			break;
 		case R.id.rb_mymessage:
 			tag = 3;
@@ -563,30 +526,22 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_system.setChecked(false);
 			rb_emergency.setChecked(false);
 			rb_task.setChecked(false);
-			message.setImageResource(R.drawable.message);
 			break;
 		case R.id.setting:
 
 			if (!mDrawerLayout.isDrawerOpen(mRelativeLayout)) {
 				mDrawerLayout.openDrawer(mRelativeLayout);
 			}
-
-/*			ll_popup.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-					R.anim.push_bottom_in));
-			t1.setText(name);
-			t2.setText(selectedRolemName);
-			pop.showAtLocation(view_Parent, Gravity.BOTTOM, 0, 0);
-			message.setBackgroundResource(R.drawable.message);*/
 			break;
-		case R.id.message:
-			tag = 4;
-			rb_mymessage.setChecked(false);
-			rb_system.setChecked(false);
-			rb_emergency.setChecked(false);
-			rb_task.setChecked(false);
-
-			message.setImageResource(R.drawable.message2);
-			break;
+//		case R.id.message:
+//			tag = 4;
+//			rb_mymessage.setChecked(false);
+//			rb_system.setChecked(false);
+//			rb_emergency.setChecked(false);
+//			rb_task.setChecked(false);
+//
+//			message.setImageResource(R.drawable.message2);
+//			break;
 
 		}
 		switchView(tag);
@@ -695,10 +650,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 						Toast.makeText(getActivity(),
 								"unbind devicetokens failed",
 								Toast.LENGTH_SHORT).show();
-						// service.save(map.get("loginName"), "",
-						// map.get("roleIds"),
-						// map.get("roleNames"),map.get("roleCodes") ,"",
-						// "", map.get("userId"), "",map.get("roleCode"));
 					}
 				});
 			}
@@ -720,26 +671,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				selectedRolem = rolesId[curWhich];
 				selectedRolemName = identity[curWhich];
 				roleCode = roleCodes[curWhich];
-				// service.save(selectedRolem);
-				// String
-				// loginName,
-				// String
-				// password,
-				// String
-				// roleIds,
-				// String
-				// roleNames,
-				// String
-				// roleCodes,String
-				// selectedRolem,
-				// String
-				// postFlag,
-				// String
-				// userId,
-				// String
-				// selectedRolemName,
-				// String
-				// roleCode)
 				service.save(
 						map.get("loginName"),
 						map.get("password"),
@@ -757,7 +688,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				Log.i("messageFragment被选中的角色名称",
 						selectedRolemName);
 				t1.setText(name);
-				// t1.setText(loginName);
 				t2.setText(selectedRolemName);
 			} else if (stRerror != null) {
 				if (pd != null) {
@@ -791,8 +721,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 			new AlertDialog.Builder(context)
 					.setTitle("当前角色：" + selectedRolemName)
-
-					// .setIcon(android.R.drawable.ic_dialog_info)
 					.setSingleChoiceItems(identity, -1,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -805,7 +733,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 									curWhich = which;
 									// 选择角色
 									userSevice.loginRole(rolesId[which], listener);
-
 								}
 
 							}).setNegativeButton("取消", null).show();
@@ -852,16 +779,9 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	public void refresh(int count) {
 		Log.i("count", count + "");
 		if (count > 0) {
-			if(count > 99)
-				redPointView5.setText("99+");
-			else
-				redPointView5.setText(count + "");
-			redPointView5.show();
 			if (chatHistoryFragment != null) {
 				chatHistoryFragment.refresh();
 			}
-		} else {
-			redPointView5.hide();
 		}
 
 		switch (tag) {

@@ -37,12 +37,6 @@ import java.util.List;
 
 /**
  * 签到界面
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-11
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_singin)
 public class SignInActivity extends BaseActivity implements OnClickListener,

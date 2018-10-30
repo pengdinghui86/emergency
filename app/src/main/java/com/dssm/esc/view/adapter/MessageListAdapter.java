@@ -61,9 +61,11 @@ public class MessageListAdapter extends BaseAdapter {
 		} else {
 			mhHolder = (ViewHolder) convertView.getTag();
 		}
-        mhHolder.message_listview_iv_type.setImageResource(R.drawable.emergency_type);
-        mhHolder.message_listview_iv_type.setImageResource(R.drawable.drill_type);
-		mhHolder.message_listview_tv_name.setText(entity.getMessage());
+		if(entity.getMessage().indexOf("应急") > -1)
+			mhHolder.message_listview_iv_type.setImageResource(R.drawable.emergency_type);
+		else
+			mhHolder.message_listview_iv_type.setImageResource(R.drawable.drill_type);
+		mhHolder.message_listview_tv_name.setText(entity.getMessageId());
 		// 任务通知
 		String creatTime = entity.getTime();
 		String[] split = creatTime.trim().split(" ");

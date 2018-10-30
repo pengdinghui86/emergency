@@ -10,16 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.view.widget.LeftSlideView;
 
 import java.util.List;
 
-public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements LeftSlideView.IonSlidingButtonListener {
+public class LeftSlideRejectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements LeftSlideView.IonSlidingButtonListener {
 
     private Context mContext;
-    private List<PlanStarListEntity> arraylist;
+    private List<BoHuiListEntity> arraylist;
     /** 0，已授权1,授权决策；2,人员签到 ；3,人员指派;4,协同通告; 5,指挥与展示,6,事件流程列表7,驳回事件列表 */
     private String tags;
 
@@ -30,8 +31,8 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private LeftSlideView mMenu = null;
 
 
-    public LeftSlideAdapter(Context context,
-                            List<PlanStarListEntity> list, String tags) {
+    public LeftSlideRejectAdapter(Context context,
+                                  List<BoHuiListEntity> list, String tags) {
 
         mContext = context;
         mIDeleteBtnClickListener = (IonSlidingViewClickListener) context;
@@ -55,7 +56,7 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (getItemViewType(position)) {
             case 0:
                 EventViewHolder eventViewHolder = (EventViewHolder) holder;
-                final PlanStarListEntity entity = arraylist.get(position);
+                final BoHuiListEntity entity = arraylist.get(position);
                 if (tags.equals("1")) {// 待启动事件列表
                     eventViewHolder.tvEventName.setText(entity.getEveName());
                     eventViewHolder.tvState.setTextColor(Color.RED);
@@ -97,7 +98,7 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         eventViewHolder.tvState.setText(status);
                     }
                 } else if (tags.equals("2")) {// 已启动事件列表
-                    eventViewHolder.tvEventName.setText(entity.getPlanName());
+                    eventViewHolder.tvEventName.setText(entity.getEveName());
                     eventViewHolder.tvState.setTextColor(Color.RED);
                     String planResType = entity.getPlanResType();
                     if (planResType.equals("1")) {
@@ -178,8 +179,8 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 break;
             case 1:
                 PlanViewHolder planViewHolder = (PlanViewHolder) holder;
-                final PlanStarListEntity entity1 = arraylist.get(position);
-                planViewHolder.tvPlanName.setText(entity1.getPlanName());
+                final BoHuiListEntity entity1 = arraylist.get(position);
+                planViewHolder.tvPlanName.setText(entity1.getEveName());
                 planViewHolder.tvState.setTextColor(Color.RED);
                 // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
                 if (!entity1.getState().equals("null")
@@ -257,7 +258,11 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-
+    public void refreshData(List<BoHuiListEntity> list)
+    {
+        this.arraylist = list;
+        notifyDataSetChanged();
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup arg0, int arg1) {
@@ -293,7 +298,7 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     .findViewById(R.id.event_listview_tv_event_level);
             ivEventType = (ImageView) itemView
                     .findViewById(R.id.event_listview_iv_type);
-            ((LeftSlideView) itemView).setSlidingButtonListener(LeftSlideAdapter.this);
+            ((LeftSlideView) itemView).setSlidingButtonListener(LeftSlideRejectAdapter.this);
         }
     }
 
@@ -313,7 +318,7 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             tvState = (TextView) itemView
                     .findViewById(R.id.plan_listview_tv_plan_status);
 
-            ((LeftSlideView) itemView).setSlidingButtonListener(LeftSlideAdapter.this);
+            ((LeftSlideView) itemView).setSlidingButtonListener(LeftSlideRejectAdapter.this);
         }
     }
 

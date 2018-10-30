@@ -73,7 +73,16 @@ public class BoHuiListEntity implements Serializable{
 	private String	planResName;
 	private String	planResType;
 	private String	isAuthor;
-	
+	private int	dataType;
+
+	public int getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(int dataType) {
+		this.dataType = dataType;
+	}
+
 	public String getIsAuthor() {
 		return isAuthor;
 	}

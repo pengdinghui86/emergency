@@ -4,18 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!-- 设置Item之间无间隙 android:divider="#00000000" -->
-    <!-- 滑动竖条 android:scrollbars="none" -->
-    <!-- 点击Item时无背景颜色变化android:listSelector="@drawable/timer_list_selector" -->
-    <!--
-android:divider="#000" //设置分割线显示颜色
-android:dividerHeight="1px" //此处非0，否则无效
-    -->
-
     <com.dssm.esc.view.widget.AutoListView
         android:id="@+id/message_listview_toast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:divider="@color/colorWeSplitMini"
+        android:dividerHeight="1dp"
         android:listSelector="@drawable/timer_list_selector"
         android:scrollbars="none">
     </com.dssm.esc.view.widget.AutoListView>

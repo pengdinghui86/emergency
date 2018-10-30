@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,8 +25,9 @@ import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
-import com.dssm.esc.view.adapter.DismissValuationListviewAdapter;
+import com.dssm.esc.view.adapter.LeftSlideRejectAdapter;
 import com.dssm.esc.view.widget.AutoListView;
+import com.dssm.esc.view.widget.RefreshLinearLayout;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -35,27 +38,23 @@ import java.util.List;
 
 /**
  * 驳回事件页面
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-10
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_dismissvaluation)
 public class DismissValuationActivity extends BaseActivity implements
-		AutoListView.OnRefreshListener, AutoListView.OnLoadListener,MainActivity.onInitNetListener {
+		MainActivity.onInitNetListener, LeftSlideRejectAdapter.IonSlidingViewClickListener{
 	/** 标题 */
 	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	/** 返回按钮 */
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
-	/** ListView */
-	@ViewInject(R.id.listview)
-	AutoListView listView;
+	@ViewInject(R.id.dismissv_recyclerView)
+	private RecyclerView mRecyclerView;
 	/** 适配器 */
-	private DismissValuationListviewAdapter adapter;
+	private LeftSlideRejectAdapter adapter;
+	/** 下拉刷新控件 */
+	@ViewInject(R.id.dismissv_refreshLinearLayout)
+	private RefreshLinearLayout refreshLinearLayout;
 	/** 数据源 */
 	private List<BoHuiListEntity> list = new ArrayList<BoHuiListEntity>();
 	private GetProjectEveInfoEntity entity;
@@ -73,7 +72,7 @@ public class DismissValuationActivity extends BaseActivity implements
 			List<BoHuiListEntity> result = (List<BoHuiListEntity>) msg.obj;
 			switch (msg.what) {
 			case AutoListView.REFRESH:
-				listView.onRefreshComplete();
+				refreshLinearLayout.onCompleteRefresh();
 				/**
 				 * 总集合清理
 				 */
@@ -85,15 +84,15 @@ public class DismissValuationActivity extends BaseActivity implements
 				break;
 
 			case AutoListView.LOAD:
-				listView.onLoadComplete();
+				refreshLinearLayout.onLoadComplete();
 				list.addAll(result);
 				break;
 
 			default:
 				break;
 			}
-			listView.setResultSize(result.size(), i);
-			adapter.notifyDataSetChanged();
+            adapter.refreshData(list);
+			refreshLinearLayout.setResultSize(result.size(), i);
 		};
 	};
 
@@ -129,60 +128,102 @@ public class DismissValuationActivity extends BaseActivity implements
 	private void initview() {
 		// TODO Auto-generated method stub
 		back.setVisibility(View.VISIBLE);
-		
-			title.setText(R.string.dismissvaluation);
-		adapter = new DismissValuationListviewAdapter(
+		title.setText(R.string.dismissvaluation);
+		adapter = new LeftSlideRejectAdapter(
 				DismissValuationActivity.this, list,"7");
-		listView.setAdapter(adapter);
+		//设置布局管理器
+		mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
+		mRecyclerView.setAdapter(adapter);
 		initData();
-		listView.setOnRefreshListener(this);
-		listView.setOnLoadListener(this);
-
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
+		mRecyclerView.setItemAnimator(new DefaultItemAnimator());//设置控制Item增删的动画
+		//添加自定义分割线
+		DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+		divider.setDrawable(getResources().getDrawable(R.drawable.divider_line));
+		mRecyclerView.addItemDecoration(divider);
+		refreshLinearLayout.setOnRefreshListener(new RefreshLinearLayout.OnRefreshListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					final int position, long id) {
-				// TODO Auto-generated method stub
-				if (position > 0 && position <= list.size()) {
-					Dialog dialog = new AlertDialog.Builder(
-							DismissValuationActivity.this)
-							.setMessage(
-									adapter.getItem(position - 1).getEveName())
-
-							// 设置LOGO
-							.setPositiveButton("删除",
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-
-											deleteData(position);
-										}
-									})
-							.setNeutralButton("重新评估",
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											getValuation(position);
-
-										}
-									})
-
-							.setNegativeButton("取消",
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-										}
-									}).create(); // 创建对话框
-					dialog.show(); // 显示对话框
-
-				}
+			public void onRefresh() {
+				i = 1;
+				initData();
 			}
 		});
-//		setNetListener(this);
+		refreshLinearLayout.setOnLoadListener(new RefreshLinearLayout.OnLoadListener() {
+			@Override
+			public void onLoad() {
+				loadData(AutoListView.LOAD);
+			}
+		});
+		mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+			@Override
+			public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+				super.onScrollStateChanged(recyclerView, newState);
+				if(isSlideToBottom(recyclerView))
+					refreshLinearLayout.checkFooter();
+			}
+			@Override
+			public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+			{
+				super.onScrolled(recyclerView, dx, dy);
+				if(isSlideToBottom(recyclerView))
+					refreshLinearLayout.checkFooter();
+			}
+		});
+	}
+
+	@Override
+	public void onItemClick(View view, final int position) {
+		if (position >= 0 && position < list.size()) {
+			Dialog dialog = new AlertDialog.Builder(
+					DismissValuationActivity.this)
+					.setMessage(
+							list.get(position).getEveName())
+
+					// 设置LOGO
+					.setPositiveButton("删除",
+							new DialogInterface.OnClickListener() {
+								public void onClick(
+										DialogInterface dialog,
+										int which) {
+
+									deleteData(position);
+								}
+							})
+					.setNeutralButton("重新评估",
+							new DialogInterface.OnClickListener() {
+								public void onClick(
+										DialogInterface dialog,
+										int which) {
+									getValuation(position);
+
+								}
+							})
+
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
+								public void onClick(
+										DialogInterface dialog,
+										int which) {
+								}
+							}).create(); // 创建对话框
+			dialog.show(); // 显示对话框
+
+		}
+	}
+
+	@Override
+	public void onFunctionBtnClick(View view, final int position) {
+
+	}
+
+	public static boolean isSlideToBottom(RecyclerView recyclerView) {
+		if (recyclerView == null) return false;
+		//computeVerticalScrollExtent()是当前屏幕显示的区域高度，
+		// computeVerticalScrollOffset() 是当前屏幕之前滑过的距离，
+		// 而computeVerticalScrollRange()是整个View控件的高度。
+		if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset()
+				>= recyclerView.computeVerticalScrollRange())
+			return true;
+		return false;
 	}
 
 	private void initData() {
@@ -226,9 +267,7 @@ public class DismissValuationActivity extends BaseActivity implements
 	};
 
 	private void loadData(final int what) {
-		// for (int i = 0; i < 5; i++) {
-		// dataList.add("驳回事件" + (i + 1));
-		// }
+
 		if (what == 0) {// 刷新和第一次加载
 			Control.getinstance().getEmergencyService().getBoHuiList(listListenser);
 		} else if (what == 1) {// 加载更多
@@ -249,19 +288,6 @@ public class DismissValuationActivity extends BaseActivity implements
 			handler.sendMessage(message);
 		}
 
-	}
-
-	@Override
-	public void onLoad() {
-		// TODO Auto-generated method stub
-		loadData(AutoListView.LOAD);
-	}
-
-	@Override
-	public void onRefresh() {
-		// TODO Auto-generated method stub
-		i = 1;
-		loadData(AutoListView.REFRESH);
 	}
 
 	@Override
