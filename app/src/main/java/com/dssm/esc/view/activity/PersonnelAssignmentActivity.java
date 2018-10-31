@@ -28,12 +28,6 @@ import java.util.List;
 
 /**
  * 人员指派界面
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-11
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_person_assignment)
 public class PersonnelAssignmentActivity extends BaseActivity implements MainActivity.onInitNetListener {

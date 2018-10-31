@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -67,7 +68,7 @@ private String planInfoId;
 		if (convertView == null) {
 			mhHolder = new ViewHolder();
 			convertView = LayoutInflater.from(context).inflate(
-					R.layout.item_listview_personassig, null);
+					R.layout.item_listview_person_assign, null);
 
 			mhHolder.stepname = (TextView) convertView
 					.findViewById(R.id.stepname);
@@ -79,6 +80,10 @@ private String planInfoId;
 					.findViewById(R.id.who_task);
 			mhHolder.assign = (TextView) convertView.findViewById(R.id.assign);
 			mhHolder.numbertv = (TextView) convertView.findViewById(R.id.numbertv);
+			mhHolder.v_top = (View) convertView.findViewById(R.id.item_list_view_person_assign_v_top);
+			mhHolder.v_bottom = (View) convertView.findViewById(R.id.item_list_view_person_assign_v_bottom);
+			mhHolder.iv = (ImageView) convertView.findViewById(R.id.item_list_view_person_assign_iv);
+			mhHolder.v_split = (View) convertView.findViewById(R.id.item_list_view_person_assign_v_split);
 			convertView.setTag(mhHolder);
 		} else {
 			mhHolder = (ViewHolder) convertView.getTag();
@@ -149,7 +154,40 @@ private String planInfoId;
 			}
 			mhHolder.whodone_name.setText(stepname);
 		}
-
+		if(arraylist.get(position).getParentProcessStepId() == null || "".equals(arraylist.get(position).getParentProcessStepId()))
+			mhHolder.iv.setVisibility(View.VISIBLE);
+		else
+			mhHolder.iv.setVisibility(View.GONE);
+		if(position == 0)
+		{
+			mhHolder.v_top.setVisibility(View.INVISIBLE);
+			mhHolder.v_bottom.setVisibility(View.VISIBLE);
+			if(arraylist.size() > position + 1)
+            {
+                if(arraylist.get(position + 1).getParentProcessStepId() == null || "".equals(arraylist.get(position + 1).getParentProcessStepId()))
+                    mhHolder.v_split.setVisibility(View.VISIBLE);
+                else
+                    mhHolder.v_split.setVisibility(View.GONE);
+            }
+		}
+		else if(position == arraylist.size() - 1)
+		{
+			mhHolder.v_top.setVisibility(View.VISIBLE);
+			mhHolder.v_bottom.setVisibility(View.INVISIBLE);
+            mhHolder.v_split.setVisibility(View.GONE);
+		}
+		else
+		{
+			mhHolder.v_top.setVisibility(View.VISIBLE);
+			mhHolder.v_bottom.setVisibility(View.VISIBLE);
+            if(arraylist.size() > position + 1)
+            {
+                if(arraylist.get(position + 1).getParentProcessStepId() == null || "".equals(arraylist.get(position + 1).getParentProcessStepId()))
+                    mhHolder.v_split.setVisibility(View.VISIBLE);
+                else
+                    mhHolder.v_split.setVisibility(View.GONE);
+            }
+		}
 		return convertView;
 	}
 
@@ -160,6 +198,11 @@ private String planInfoId;
 		private TextView who_task;// 执行人任务
 		private TextView assign;// 指派
 		private TextView numbertv;
+		private View v_top;
+		private View v_bottom;
+		private ImageView iv;
+		private View v_split;
+
 	}
 
 }
