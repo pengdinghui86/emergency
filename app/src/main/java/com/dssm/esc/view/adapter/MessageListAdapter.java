@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.dssm.esc.R;
 import com.dssm.esc.model.entity.message.MessageInfoEntity;
+import com.dssm.esc.model.entity.message.MessageStatusEnum;
+import com.dssm.esc.util.Utils;
 
 import java.util.List;
 
@@ -61,15 +63,26 @@ public class MessageListAdapter extends BaseAdapter {
 		} else {
 			mhHolder = (ViewHolder) convertView.getTag();
 		}
-		if(entity.getMessage().indexOf("应急") > -1)
-			mhHolder.message_listview_iv_type.setImageResource(R.drawable.emergency_type);
-		else
-			mhHolder.message_listview_iv_type.setImageResource(R.drawable.drill_type);
-		mhHolder.message_listview_tv_name.setText(entity.getMessageId());
-		// 任务通知
+		//应急通知
+		if(MessageStatusEnum.emergencyNotice.getId().equals(
+				entity.getModelFlag()) || MessageStatusEnum.noticeAnnouncement.getId().equals(
+				entity.getModelFlag()) || MessageStatusEnum.collaborationAnnouncement.getId().equals(
+				entity.getModelFlag())|| MessageStatusEnum.emergencyCommunication.getId().equals(
+				entity.getModelFlag()))
+		{
+			mhHolder.message_listview_iv_type.setImageResource(R.drawable.message);
+			mhHolder.message_listview_tv_name.setText(entity.getSender());
+		}
+		else {
+			if ("1".equals(entity.getEveType()))
+				mhHolder.message_listview_iv_type.setImageResource(R.drawable.emergency_type);
+			else
+				mhHolder.message_listview_iv_type.setImageResource(R.drawable.drill_type);
+			mhHolder.message_listview_tv_name.setText(entity.getEveName() + entity.getPlanName());
+		}
 		String creatTime = entity.getTime();
-		String[] split = creatTime.trim().split(" ");
-		mhHolder.message_listview_tv_time.setText(split[0] + " " + split[1]);
+		long time = Utils.getStringToDate(creatTime, "yyyy-MM-dd HH:mm:ss");
+		mhHolder.message_listview_tv_time.setText(Utils.getNewChatTime(time));
 		mhHolder.message_listview_tv_content.setText(entity.getMessage());
 		return convertView;
 	}

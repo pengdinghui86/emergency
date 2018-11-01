@@ -51,32 +51,25 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MessageFragment extends BaseFragment implements OnClickListener {
 
-	/** 任务通知碎片 */
+	/** 任务碎片 */
 	private MessageTaskToastFragment messageTaskToastFragment;
-	/** 系统通知碎片 */
+	/** 通知碎片 */
 	private MessageSystemToastFragment systemToastFragment;
-	/** 紧急通知碎片 */
-	private MessageEmergencyToastFragment emergencyToastFragment;
-	/** 个人消息碎片 */
-	private MessageMyMessagesFragment myMessagesFragment;
-	/** 即时（环信） */
+	/** 通讯（环信） */
 	private ChatAllHistoryFragment chatHistoryFragment;
-	/** 用于区分消息 0,任务通知；1，系统通知；2，紧急通知；3，我的消息 */
+	/** 用于区分消息 0,任务；1，通知；2，通讯*/
 	public int tag = 0;
 	private Context context;
-	private RadioButton rb_task, rb_system, rb_emergency, rb_mymessage;
+	private RadioButton rb_task, rb_notice, rb_chat;
 	/**
-	 * 每个用户的每个角色的三张表：任务，系统，紧急,个人
+	 * 每个用户的每个角色的二张表：任务，通知
 	 */
 	private String table1 = "";
 	private String table2 = "";
-	private String table3 = "";
-	private String table4 = "";
 
 	private RedPointView redPointView1;
 	private RedPointView redPointView2;
 	private RedPointView redPointView3;
-	private RedPointView redPointView4;
 
 	private PopupWindow pop = null;
 	private LinearLayout ll_popup;
@@ -110,8 +103,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 	}
 	@SuppressLint("ValidFragment")
-	public MessageFragment(Context context, String table1, String table2,
-			String table3, String table4) {
+	public MessageFragment(Context context, String table1, String table2) {
 		if (context == null) {
 			this.context = getActivity();
 
@@ -120,8 +112,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		}
 		this.table1 = table1;
 		this.table2 = table2;
-		this.table3 = table3;
-		this.table4 = table4;
 	}
 
 	@Override
@@ -139,19 +129,16 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		mRelativeLayout= (RelativeLayout) getActivity().findViewById(R.id.nav_view);
 
 		rb_task = (RadioButton) view_Parent.findViewById(R.id.rb_task);
-		rb_system = (RadioButton) view_Parent.findViewById(R.id.rb_system);
-		rb_emergency = (RadioButton) view_Parent
-				.findViewById(R.id.rb_emergency);
-		rb_mymessage = (RadioButton) view_Parent
-				.findViewById(R.id.rb_mymessage);
+		rb_notice = (RadioButton) view_Parent.findViewById(R.id.rb_notice);
+		rb_chat = (RadioButton) view_Parent
+				.findViewById(R.id.rb_chat);
 	}
 
 	@Override
 	protected void widgetListener() {
 		rb_task.setOnClickListener(this);
-		rb_system.setOnClickListener(this);
-		rb_emergency.setOnClickListener(this);
-		rb_mymessage.setOnClickListener(this);
+		rb_notice.setOnClickListener(this);
+		rb_chat.setOnClickListener(this);
 	}
 
 	@Override
@@ -177,9 +164,8 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	public void initGetData() {
 		// TODO Auto-generated method stub
 		redPointView1 = remind(rb_task, ((MainActivity) getActivity()).xgTaskMsgCount + "");
-		redPointView2 = remind(rb_system, ((MainActivity) getActivity()).xgSysMsgCount + "");
-		redPointView3 = remind(rb_emergency, ((MainActivity) getActivity()).xgEmergencyMsgCount + "");
-		redPointView4 = remind(rb_mymessage, ((MainActivity) getActivity()).xgPersonalMsgCount + "");
+		redPointView2 = remind(rb_notice, ((MainActivity) getActivity()).xgSysMsgCount + "");
+		redPointView3 = remind(rb_chat, ((MainActivity) getActivity()).hxMsgCount + "");
 		Log.i("onFailure", "MessageFragment: " + tag);
 		switchView(tag);
 		int position = 0;
@@ -191,9 +177,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				position = 2;
 				break;
 			case 2:
-				position = 4;
-				break;
-			case 3:
 				position = 3;
 				break;
 		}
@@ -255,32 +238,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			}
 			break;
 
-		case 2:// 添加 并展示 紧急通知 碎片
-			if (emergencyToastFragment == null) {
-				emergencyToastFragment = new MessageEmergencyToastFragment(
-						getActivity(), table3);
-				transaction.add(R.id.view_message, emergencyToastFragment);
-				// systemToastFragment.initGetData();
-			} else {
-				transaction.show(emergencyToastFragment);
-				// systemToastFragment.initGetData();
-			}
-			// systemToastFragment.loadData(0);
-			break;
-
-		case 3:// 添加 并展示我的消息碎片
-				// 显示所有人消息记录的fragment
-			if (myMessagesFragment == null) {
-				myMessagesFragment = new MessageMyMessagesFragment(
-						getActivity(), table4);
-				transaction.add(R.id.view_message, myMessagesFragment);
-			} else {
-				transaction.show(myMessagesFragment);
-				// myMessagesFragment.initGetData();
-			}
-			// myMessagesFragment.loadData(0);
-			break;
-		case 4:// 环信（消息记录）
+		case 2:// 添加环信（消息记录）碎片
 			if (MainActivity.hxMsgCount > 0) {
 				MainActivity.hxMsgCount = 0;
 			}
@@ -292,7 +250,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			}
 			break;
 		}
-
 		transaction.commitAllowingStateLoss();
 	}
 
@@ -306,12 +263,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		}
 		if (systemToastFragment != null) {
 			transaction.hide(systemToastFragment);
-		}
-		if (emergencyToastFragment != null) {
-			transaction.hide(emergencyToastFragment);
-		}
-		if (myMessagesFragment != null) {
-			transaction.hide(myMessagesFragment);
 		}
 		if (chatHistoryFragment != null) {
 			transaction.hide(chatHistoryFragment);
@@ -365,14 +316,14 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	}
 
 	public void onEvent(Emergenct data) {
-		MainActivity.xgEmergencyMsgCount  = Integer.parseInt(data.count3);
-		if (MainActivity.xgEmergencyMsgCount < 1) {
+		MainActivity.hxMsgCount  = 0;
+		if (MainActivity.hxMsgCount < 1) {
 			redPointView3.hide();
 		} else {
-			if(MainActivity.xgEmergencyMsgCount > 99)
+			if(MainActivity.hxMsgCount > 99)
 				redPointView3.setText("99+");
 			else
-				redPointView3.setText(MainActivity.xgEmergencyMsgCount + "");
+				redPointView3.setText(MainActivity.hxMsgCount + "");
 			redPointView3.show();
 		}
         Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
@@ -381,17 +332,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	}
 
 	public void onEvent(My data) {
-		MainActivity.xgPersonalMsgCount = Integer.parseInt(data.count4);
-
-		if (MainActivity.xgPersonalMsgCount < 1) {
-			redPointView4.hide();
-		} else {
-			if(MainActivity.xgPersonalMsgCount > 99)
-				redPointView4.setText("99+");
-			else
-				redPointView4.setText(MainActivity.xgPersonalMsgCount + "");
-			redPointView4.show();
-		}
         Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
         intent.putExtra("msgType", "updateMsgCount");
         getActivity().sendBroadcast(intent);
@@ -408,35 +348,24 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		switch (index) {
 		case 1:
 			rb_task.setChecked(true);
-			rb_system.setChecked(false);
-			rb_emergency.setChecked(false);
-			rb_mymessage.setChecked(false);
+			rb_notice.setChecked(false);
+			rb_chat.setChecked(false);
 			tag = 0;
 			switchView(0);
 			break;
 		case 2:
-			rb_system.setChecked(true);
+			rb_notice.setChecked(true);
 			rb_task.setChecked(false);
-			rb_emergency.setChecked(false);
-			rb_mymessage.setChecked(false);
+			rb_chat.setChecked(false);
 			tag = 1;
 			switchView(1);
 			break;
-		case 4:
-			rb_emergency.setChecked(true);
-			rb_system.setChecked(false);
+		case 3:
+			rb_notice.setChecked(false);
 			rb_task.setChecked(false);
-			rb_mymessage.setChecked(false);
+			rb_chat.setChecked(true);
 			tag = 2;
 			switchView(2);
-			break;
-		case 3:
-			rb_mymessage.setChecked(true);
-			rb_system.setChecked(false);
-			rb_emergency.setChecked(false);
-			rb_task.setChecked(false);
-			tag = 3;
-			switchView(3);
 			break;
 		}
 
@@ -451,8 +380,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 		MainActivity.xgTaskMsgCount = Integer.parseInt(data.count1);
 		MainActivity.xgSysMsgCount = Integer.parseInt(data.count2);
-		MainActivity.xgEmergencyMsgCount = Integer.parseInt(data.count3);
-		MainActivity.xgPersonalMsgCount = Integer.parseInt(data.count4);
 
 		if (MainActivity.xgTaskMsgCount < 1) {
 			redPointView1.hide();
@@ -472,23 +399,14 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				redPointView2.setText(MainActivity.xgSysMsgCount + "");
 			redPointView2.show();
 		}
-		if (MainActivity.xgEmergencyMsgCount < 1) {
+		if (MainActivity.hxMsgCount < 1) {
 			redPointView3.hide();
 		} else {
-			if(MainActivity.xgEmergencyMsgCount > 99)
+			if(MainActivity.hxMsgCount > 99)
 				redPointView3.setText("99+");
 			else
-				redPointView3.setText(MainActivity.xgEmergencyMsgCount + "");
+				redPointView3.setText(MainActivity.hxMsgCount + "");
 			redPointView3.show();
-		}
-		if (MainActivity.xgPersonalMsgCount < 1) {
-			redPointView4.hide();
-		} else {
-			if(MainActivity.xgPersonalMsgCount > 99)
-				redPointView4.setText("99+");
-			else
-				redPointView4.setText(MainActivity.xgPersonalMsgCount + "");
-			redPointView4.show();
 		}
 		Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
 		intent.putExtra("msgType", "");
@@ -502,30 +420,20 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		case R.id.rb_task:
 			tag = 0;
 			rb_task.setChecked(true);
-			rb_system.setChecked(false);
-			rb_emergency.setChecked(false);
-			rb_mymessage.setChecked(false);
+			rb_notice.setChecked(false);
+			rb_chat.setChecked(false);
 			break;
-		case R.id.rb_system:
+		case R.id.rb_notice:
 			tag = 1;
-			rb_system.setChecked(true);
+			rb_notice.setChecked(true);
 			rb_task.setChecked(false);
-			rb_emergency.setChecked(false);
-			rb_mymessage.setChecked(false);
+			rb_chat.setChecked(false);
 			break;
-		case R.id.rb_emergency:
+		case R.id.rb_chat:
 			tag = 2;
-			rb_emergency.setChecked(true);
-			rb_system.setChecked(false);
+			rb_notice.setChecked(false);
 			rb_task.setChecked(false);
-			rb_mymessage.setChecked(false);
-			break;
-		case R.id.rb_mymessage:
-			tag = 3;
-			rb_mymessage.setChecked(true);
-			rb_system.setChecked(false);
-			rb_emergency.setChecked(false);
-			rb_task.setChecked(false);
+			rb_chat.setChecked(true);
 			break;
 		case R.id.setting:
 
@@ -533,16 +441,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				mDrawerLayout.openDrawer(mRelativeLayout);
 			}
 			break;
-//		case R.id.message:
-//			tag = 4;
-//			rb_mymessage.setChecked(false);
-//			rb_system.setChecked(false);
-//			rb_emergency.setChecked(false);
-//			rb_task.setChecked(false);
-//
-//			message.setImageResource(R.drawable.message2);
-//			break;
-
 		}
 		switchView(tag);
 	}
@@ -796,20 +694,14 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				MainActivity.xgSysMsgCount = 0;
 				break;
 			case 2:
-				if(emergencyToastFragment != null)
-					emergencyToastFragment.onRefresh();
-				MainActivity.xgEmergencyMsgCount = 0;
-				break;
-			case 3:
-				if(myMessagesFragment != null)
-					myMessagesFragment.onRefresh();
-				MainActivity.xgPersonalMsgCount = 0;
+				if(chatHistoryFragment != null)
+					chatHistoryFragment.refresh();
+				MainActivity.hxMsgCount = 0;
 				break;
 		}
 		int count1 = MainActivity.xgTaskMsgCount;
 		int count2 = MainActivity.xgSysMsgCount;
-		int count3 = MainActivity.xgEmergencyMsgCount;
-		int count4 = MainActivity.xgPersonalMsgCount;
+		int count3 = MainActivity.hxMsgCount;
 
 		if(count1 > 0) {
 			if(count1 > 99)
@@ -838,15 +730,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		}
 		else
 			redPointView3.hide();
-		if(count4 > 0) {
-			if(count1 > 99)
-				redPointView4.setText("99+");
-			else
-				redPointView4.setText(count4 + "");
-			redPointView4.show();
-		}
-		else
-			redPointView4.hide();
 	}
 
 	@Override

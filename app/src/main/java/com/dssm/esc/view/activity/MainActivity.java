@@ -76,12 +76,6 @@ import de.greenrobot.event.EventBus;
 
 /**
  * 主界面
- *
- * @author Zsj
- * @Description TODO
- * @date 2015-9-17
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- * Ltd. Inc. All rights reserved.
  */
 public class MainActivity extends FragmentActivity implements EMEventListener {
 
@@ -134,12 +128,10 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      */
     public List<MenuEntity> menu = new ArrayList<>();
     /**
-     * 每个用户的每个角色的三张表：任务，系统，紧急
+     * 每个用户的每个角色的二张表：任务，通知
      */
     private String table1 = "";
     private String table2 = "";
-    private String table3 = "";
-    private String table4 = "";
     private String usertable = "";
     private Context context;
     private int unReadCount = 0;
@@ -258,8 +250,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         usertable = map.get("userId").replace("-", "");
         table1 = "task_" + usertable;
         table2 = "system_" + usertable;
-        table3 = "emergency_" + usertable;
-        table4 = "my_" + usertable;
 
         userSevice = Control.getinstance().getUserSevice();
         selectedRolemName = map.get("selectedRolemName");
@@ -269,7 +259,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         roleCodes = convertStrToArray(map.get("roleCodes"));
 
         // 创建数据库
-        DataBaseManage.createDataBase(table1, table2, table3, table4);
+        DataBaseManage.createDataBase(table1, table2);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerlayout);
         tv_item_info1 = (TextView) findViewById(R.id.tv_item_info1);
@@ -688,8 +678,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             case 0:// 添加 并展示 消息碎片
                 currentTabIndex = 0;
                 if (messageFragment == null) {
-                    messageFragment = new MessageFragment(this, table1, table2,
-                            table3, table4);
+                    messageFragment = new MessageFragment(this, table1, table2);
                     transaction.add(R.id.view_parent, messageFragment);
                     // messageFragment.initData(0);
                 } else {

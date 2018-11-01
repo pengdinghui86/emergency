@@ -25,7 +25,37 @@ public class MessageInfoEntity implements Serializable{
 	private String receiverId;
 	private String receiver;
 	private String modelFlag;
-	
+	//事件名称
+	private String eveName;
+	//预案名称
+	private String planName;
+	//预案类型，1=应急，2=演练
+	private String eveType;
+
+	public String getEveType() {
+		return eveType;
+	}
+
+	public void setEveType(String eveType) {
+		this.eveType = eveType;
+	}
+
+	public String getEveName() {
+		return eveName;
+	}
+
+	public void setEveName(String eveName) {
+		this.eveName = eveName;
+	}
+
+	public String getPlanName() {
+		return planName;
+	}
+
+	public void setPlanName(String planName) {
+		this.planName = planName;
+	}
+
 	public String getSenderId() {
 		return senderId;
 	}
@@ -90,7 +120,11 @@ public class MessageInfoEntity implements Serializable{
 				DataBaseFields.MESSAGEID, // 消息id
 				DataBaseFields.MESSAGE, // 消息
 				DataBaseFields.TIME, // 时间
-				
+				DataBaseFields.EVENTNAME, // 事件名称
+				DataBaseFields.EVENTTYPE, // 预案类型
+				DataBaseFields.SENDER, // 发送人
+				DataBaseFields.MODELFLAG, // 状态标识
+				DataBaseFields.PLANNAME // 预案名称
 		};
 		return titles;
 	}
@@ -102,7 +136,11 @@ public class MessageInfoEntity implements Serializable{
 				messageId, // 消息id
 				message, // 消息
 				time, //时间
-			
+				eveName, //事件名称
+				eveType, //预案类型
+				sender, //发送人
+				modelFlag, //状态标识
+				planName //预案名称
 		};
 
 		return values;

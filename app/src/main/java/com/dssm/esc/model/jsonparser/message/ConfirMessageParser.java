@@ -46,7 +46,7 @@ public class ConfirMessageParser {
 	 *            app消息类型（1：任务通知，2：系统通知，3：我的消息，4：紧急通知）
 	 */
 
-	public void request( final String msgType) {
+	public void request(final String msgType) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.CONFREMSG);
 		params.setReadTimeout(60 * 1000);

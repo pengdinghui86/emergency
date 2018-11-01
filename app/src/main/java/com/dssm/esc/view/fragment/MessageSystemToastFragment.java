@@ -19,6 +19,7 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.System;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.MainActivity;
+import com.dssm.esc.view.adapter.MessageListAdapter;
 import com.dssm.esc.view.adapter.MessageToastAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 
@@ -28,13 +29,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 
 /**
- * 系统通知碎片
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-18
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
+ * 通知碎片
  */
 public class MessageSystemToastFragment extends BaseFragment implements
 		AutoListView.OnRefreshListener, AutoListView.OnLoadListener,MainActivity.onInitNetListener {
@@ -43,7 +38,7 @@ public class MessageSystemToastFragment extends BaseFragment implements
 	/** 总list */
 	private List<MessageInfoEntity> list = new ArrayList<MessageInfoEntity>();
 	/** 适配器 */
-	private MessageToastAdapter adapter;
+	private MessageListAdapter adapter;
 	/** 当前页数 */
 	private int i = 1;
 	private Context context;
@@ -105,7 +100,6 @@ public class MessageSystemToastFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		listview = (AutoListView) view_Parent
 				.findViewById(R.id.message_listview_toast);
-		listview.setDividerHeight(0);// item之间无间隙
 	}
 	@Override
 	public void onHiddenChanged(boolean hidden) {
@@ -128,7 +122,7 @@ public class MessageSystemToastFragment extends BaseFragment implements
 	@Override
 	protected void init() {
 		// TODO Auto-generated method stub
-		adapter = new MessageToastAdapter(context, list);
+		adapter = new MessageListAdapter(context, list);
 		listview.setAdapter(adapter);
 
 	}
@@ -202,7 +196,7 @@ public class MessageSystemToastFragment extends BaseFragment implements
 		}
 	};
 
-	private int curWhat;
+	private int curWhat = 2;
 	private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
 		@Override
 		public void setUserSeviceImplListListenser(
@@ -233,13 +227,6 @@ public class MessageSystemToastFragment extends BaseFragment implements
 	/**
 	 * 
 	 * 加载数据
-	 * 
-	 * @version 1.0
-	 * @createTime 2015-9-7,下午3:12:24
-	 * @updateTime 2015-9-7,下午3:12:24
-	 * @createAuthor Zsj
-	 * @updateAuthor
-	 * @updateInfo (此处输入修改内容,若无修改可不写.)
 	 * @param what
 	 */
 	private void loadData(final int what) {

@@ -31,7 +31,7 @@ public class DataBaseManage {
 	 * @updateTime 2015-6-22,下午3:45:02
 	 * @updateAuthor qw
 	 */
-	public static void createDataBase(final String table1,final String table2,final String table3,final String table4) {
+	public static void createDataBase(final String table1,final String table2) {
 		dataBaseHelper = new OperationDataBaseUtil(DemoApplication.applicationContext, DATA_BASE_NAME, null, DATA_BASE_VERSION, new OnOperationDataBase() {
 			@Override
 			public void updateDataBase(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -42,8 +42,6 @@ public class DataBaseManage {
 			public void createTable(SQLiteDatabase db) {
 				createTables(table1,db);
 				createTables(table2,db);
-				createTables(table3,db);
-				createTables(table4,db);
 			}
 		});
 		dataBaseHelper.onCreate(dataBaseHelper.getWritableDatabase());
@@ -200,7 +198,12 @@ public class DataBaseManage {
 				+ DataBaseFields.ID + " integer PRIMARY KEY autoincrement, " // 自增长id.
 				+ DataBaseFields.MESSAGEID + " varchar, " //消息id
 				+ DataBaseFields.MESSAGE + " varchar, " // 消息
-				+ DataBaseFields.TIME + " varchar" // 时间
+				+ DataBaseFields.TIME + " varchar, " // 时间
+				+ DataBaseFields.EVENTNAME + " varchar, " // 事件名称
+				+ DataBaseFields.EVENTTYPE + " varchar, " // 预案类型
+				+ DataBaseFields.SENDER + " varchar, " // 发送人
+				+ DataBaseFields.MODELFLAG+ " varchar, " // 状态标识
+				+ DataBaseFields.PLANNAME + " varchar" // 预案名称
 				+ ");";
 		db.execSQL(sql);
 	}

@@ -130,7 +130,7 @@ public class GetFirstAllMessageListParser {
 	 * 获取消息列表数据解析
 	 * 
 	 * @param msgType
-	 *            app消息类型（1：任务通知，2：系统通知，3：我的消息，4：紧急通知）
+	 *            app消息类型（1：任务，2：通知）
 	 * @param t
 	 * @return
 	 * @throws JSONException
@@ -172,6 +172,16 @@ public class GetFirstAllMessageListParser {
 									.getString("receiverId"));
 							listEntity.setReceiver(jsonObject2
 									.getString("receiver"));
+							listEntity.setEveName(jsonObject2
+									.getString("eveName"));
+							listEntity.setPlanName(jsonObject2
+									.getString("planName"));
+							listEntity.setEveType(jsonObject2
+									.getString("eveType"));
+							listEntity.setSender(jsonObject2
+									.getString("sender"));
+							listEntity.setModelFlag(jsonObject2
+									.getString("modelFlag"));
 							list.add(listEntity);
 						}
 						allMessagesEntity.setList(list);

@@ -2,11 +2,13 @@ package com.dssm.esc.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
@@ -15,12 +17,14 @@ import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.database.DataBaseUtil;
 import com.dssm.esc.model.entity.message.FirstAllMessagesEntity;
 import com.dssm.esc.model.entity.message.MessageInfoEntity;
+import com.dssm.esc.model.entity.message.MessageStatusEnum;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.MessageCountEvent;
 import com.dssm.esc.util.event.Toast;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.MainActivity;
+import com.dssm.esc.view.activity.PlanStarActivity;
 import com.dssm.esc.view.adapter.MessageListAdapter;
 import com.dssm.esc.view.adapter.MessageToastAdapter;
 import com.dssm.esc.view.widget.AutoListView;
@@ -58,8 +62,6 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	private String table1 = "";
 	public String count1 = "0";
 	public String count2 = "0";
-	public String count3 = "0";
-	public String count4 = "0";
 	private MessageInfoEntity infoEntity;
 
 	private Handler handler = new Handler() {
@@ -138,6 +140,41 @@ public class MessageTaskToastFragment extends BaseFragment implements
 
 		listview.setOnRefreshListener(this);
 		listview.setOnLoadListener(this);
+		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				Intent intent = new Intent();
+				//事件已评估待启动
+				if (MessageStatusEnum.eventEvaluation.getId().equals(
+						list.get(i).getModelFlag()))
+				{
+					intent.setClass(getActivity(), PlanStarActivity.class);
+					intent.putExtra("tags", "1");
+				}
+				//预案已启动待签到
+				else if (MessageStatusEnum.planStarted.getId().equals(
+						list.get(i).getModelFlag()) || MessageStatusEnum.personSignIn.getId().equals(
+						list.get(i).getModelFlag()))
+				{
+					intent.setClass(getActivity(), PlanStarActivity.class);
+					intent.putExtra("tags", "1");
+				}
+				//预案已启动待授权
+				else if (MessageStatusEnum.planAuthorize.getId().equals(
+						list.get(i).getModelFlag()))
+				{
+					intent.setClass(getActivity(), PlanStarActivity.class);
+					intent.putExtra("tags", "1");
+				}
+				//事件被驳回待重新评估
+				else if (MessageStatusEnum.eventReject.getId().equals(
+						list.get(i).getModelFlag()))
+				{
+					intent.setClass(getActivity(), PlanStarActivity.class);
+					intent.putExtra("tags", "1");
+				}
+			}
+		});
 	}
 
 	@Override
@@ -198,7 +235,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		}
 	};
 
-	private int curWhat;
+	private int curWhat = 2;
 	private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
 
 		@Override
@@ -215,10 +252,8 @@ public class MessageTaskToastFragment extends BaseFragment implements
 				Log.i("消息长度1", list.get(0).getList().size()
 						+ "");
 				Log.i("未读消息长度1", list.get(0).getUnreadCount());
-				count1 = list.get(0).getUnreadCount();
-				count2 = list.get(1).getUnreadCount();
-				count3 = list.get(3).getUnreadCount();// 应急
-				count4 = list.get(2).getUnreadCount();// 个人
+				count1 = list.get(0).getUnreadCount();//任务
+				count2 = list.get(1).getUnreadCount();//通知
 				dataList = list.get(0).getList();
 
 				// EventBus.getDefault().post(new
@@ -245,7 +280,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 			getDBData(dataList, curWhat);
 			EventBus.getDefault().post(
 					new MessageCountEvent(count1, count2,
-							count3, count4));
+							"0", "0"));
 		}
 	};
 
@@ -279,7 +314,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	/**
 	 * 
 	 * 加载数据
-	 * 
+	 *
 	 * @version 1.0
 	 * @createTime 2015-9-7,下午3:12:24
 	 * @updateTime 2015-9-7,下午3:12:24
@@ -322,7 +357,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 
 	/**
 	 * 缓存数据
-	 * 
+	 *
 	 * @param list
 	 */
 	private void saveData(List<MessageInfoEntity> list) {
@@ -341,7 +376,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 
 	/**
 	 * 从数据库读取新添加的数据
-	 * 
+	 *
 	 * @param what
 	 */
 	private void getDBData(List<MessageInfoEntity> dataList, int what) {
@@ -371,7 +406,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 
 	/**
 	 * 上拉加载更多数据
-	 * 
+	 *
 	 * @param what
 	 */
 	private void onLoadDta(int what) {

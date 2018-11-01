@@ -90,6 +90,11 @@ public class DataBaseUtil {
 			entity.setMessageId(map.get(DataBaseFields.MESSAGEID));
 			entity.setTime(map.get(DataBaseFields.TIME));
 			entity.setMessage(map.get(DataBaseFields.MESSAGE));
+			entity.setEveName(map.get(DataBaseFields.EVENTNAME));
+			entity.setEveType(map.get(DataBaseFields.EVENTTYPE));
+			entity.setPlanName(map.get(DataBaseFields.PLANNAME));
+			entity.setSender(map.get(DataBaseFields.SENDER));
+			entity.setModelFlag(map.get(DataBaseFields.MODELFLAG));
 			infolist.add(entity);
 			
 		}

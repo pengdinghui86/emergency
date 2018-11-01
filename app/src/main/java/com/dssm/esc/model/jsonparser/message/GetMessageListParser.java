@@ -163,6 +163,16 @@ public class GetMessageListParser {
 							.getString("receiverId")));
 					listEntity.setReceiver(isNull(jsonObject2
 							.getString("receiver")));
+					listEntity.setEveName(jsonObject2
+							.getString("eveName"));
+					listEntity.setPlanName(jsonObject2
+							.getString("planName"));
+					listEntity.setEveType(jsonObject2
+							.getString("eveType"));
+					listEntity.setSender(jsonObject2
+							.getString("sender"));
+					listEntity.setModelFlag(jsonObject2
+							.getString("modelFlag"));
 					list.add(listEntity);
 				}
 			}

@@ -25,6 +25,15 @@ public class DataBaseFields {
 	public static final String TIME = "time";
 	/**内容 */
 	public static final String MESSAGE = "message";
+	/**事件名称 */
+	public static final String EVENTNAME = "eventName";
+	public static final String EVENTTYPE = "eventType";
+	/**预案名称 */
+	public static final String PLANNAME = "planName";
+	/**发送人 */
+	public static final String SENDER = "sender";
+	/**状态标识 */
+	public static final String MODELFLAG = "modelFlag";
 	/** json通用字段 */
 	public static final String TB_JSON = "tb_json";
 	public static final String FIELD_JSON = "field_json";
