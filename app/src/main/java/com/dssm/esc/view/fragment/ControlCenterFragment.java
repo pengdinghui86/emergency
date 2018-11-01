@@ -78,7 +78,8 @@ public class ControlCenterFragment extends BaseFragment implements
 		switch (v.getId()) {
 		case R.id.control_center_rl_event_procedure:// 事件流程布局
 			Intent intent = new Intent(getActivity(),
-					EventProcessActivity.class);
+					EventPlanListActivity.class);
+			intent.putExtra("tags", "6");
 			startActivity(intent);
 			break;
 		case R.id.control_center_rl_command_display:// 指挥与展示布局

@@ -23,7 +23,10 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.MessageCountEvent;
 import com.dssm.esc.util.event.Toast;
 import com.dssm.esc.util.event.mainEvent;
+import com.dssm.esc.view.activity.DismissValuationActivity;
+import com.dssm.esc.view.activity.EventPlanListActivity;
 import com.dssm.esc.view.activity.MainActivity;
+import com.dssm.esc.view.activity.PersonSignInActivity;
 import com.dssm.esc.view.activity.PlanStarActivity;
 import com.dssm.esc.view.adapter.MessageListAdapter;
 import com.dssm.esc.view.adapter.MessageToastAdapter;
@@ -156,23 +159,23 @@ public class MessageTaskToastFragment extends BaseFragment implements
 						list.get(i).getModelFlag()) || MessageStatusEnum.personSignIn.getId().equals(
 						list.get(i).getModelFlag()))
 				{
-					intent.setClass(getActivity(), PlanStarActivity.class);
-					intent.putExtra("tags", "1");
+					intent.setClass(getActivity(), PersonSignInActivity.class);
 				}
 				//预案已启动待授权
 				else if (MessageStatusEnum.planAuthorize.getId().equals(
 						list.get(i).getModelFlag()))
 				{
-					intent.setClass(getActivity(), PlanStarActivity.class);
+					intent.setClass(getActivity(), EventPlanListActivity.class);
 					intent.putExtra("tags", "1");
 				}
 				//事件被驳回待重新评估
 				else if (MessageStatusEnum.eventReject.getId().equals(
 						list.get(i).getModelFlag()))
 				{
-					intent.setClass(getActivity(), PlanStarActivity.class);
-					intent.putExtra("tags", "1");
+					intent.setClass(getActivity(), DismissValuationActivity.class);
+					intent.putExtra("tags", "2");
 				}
+				startActivity(intent);
 			}
 		});
 	}

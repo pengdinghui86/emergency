@@ -70,7 +70,7 @@ public class EventPlanListActivity extends BaseActivity implements
     /** 0，指挥与展示 1，应急；2，演练 */
     // private String tag;
     /**
-     * 0，已授权1,授权决策；2,人员签到 ；3,人员指派;4,协同通告; 5,指挥与展示
+     * 0，已授权1,授权决策；2,人员签到 ；3,人员指派;4,协同通告; 5,指挥与展示; 6,事件流程
      */
     private String tags;
     private String signState = "";// 签到状态0:未签到 1：已签到
@@ -167,6 +167,8 @@ public class EventPlanListActivity extends BaseActivity implements
             title.setText("协同通告");
         } else if (tags.equals("5")) {
             title.setText("指挥与展示");
+        } else if (tags.equals("6")) {
+            title.setText("事件流程");
         }
         adapter = new LeftSlideRejectAdapter(
                 EventPlanListActivity.this, list, tags);
@@ -217,6 +219,13 @@ public class EventPlanListActivity extends BaseActivity implements
                 intent = new Intent(EventPlanListActivity.this,
                         ControlActivity.class);
                 intent.putExtra("PlanTreeEntity", list.get(position));
+                startActivity(intent);
+            }
+        }else if (tags.equals("6")) {
+            if (position >= 0 && position < plist.size()) {
+                // 事件流程
+                intent = new Intent(EventPlanListActivity.this,
+                        EventProcessActivity.class);
                 startActivity(intent);
             }
         } else {
@@ -325,6 +334,12 @@ public class EventPlanListActivity extends BaseActivity implements
             } else if (what == 1) {// 加载更多
                 getLoadData();
             }
+        }  else if (tags.equals("6")) {// 事件流程
+            if (what == 0) {// 刷新和第一次加载
+                getAuthList(0);
+            } else if (what == 1) {// 加载更多
+                getLoadData();
+            }
         } else if (tags.equals("1")) {// 代授权
             if (what == 0) {// 刷新和第一次加载
                 getAuthList(1);
@@ -332,7 +347,7 @@ public class EventPlanListActivity extends BaseActivity implements
                 getLoadData();
             }
 
-        } else if (tags.equals("2")) {// 代签到
+        } else if (tags.equals("2")) {// 待签到
             if (what == 0) {// 刷新和第一次加载
                 getAuthList(2);
             } else if (what == 1) {// 加载更多
