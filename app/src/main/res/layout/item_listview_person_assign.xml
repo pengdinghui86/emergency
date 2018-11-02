@@ -30,7 +30,7 @@
                 android:id="@+id/item_list_view_person_assign_iv"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:background="@drawable/circle_red_bg"
+                android:background="@drawable/circle_complete_bg"
                 android:layout_gravity="center_vertical"
                 android:foregroundGravity="center"
                 android:layout_marginLeft="20dp"

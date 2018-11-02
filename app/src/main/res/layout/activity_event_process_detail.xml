@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/event_process_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/set_gray">
+
+    <RelativeLayout
+        android:id="@+id/event_process_detail_rl_segmented"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/title_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:gravity="center">
+
+        <RadioGroup
+            android:id="@+id/event_process_detail_segmented"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_process"
+                style="@style/message_title_radio_button"
+                android:checked="true"
+                android:text="进度" />
+
+            <RadioButton
+                android:id="@+id/rb_plan"
+                style="@style/message_title_radio_button"
+                android:text="预案" />
+
+            <RadioButton
+                android:id="@+id/rb_detail"
+                style="@style/message_title_radio_button"
+                android:text="详情" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <com.dssm.esc.view.widget.RefreshLinearLayout
+        android:id="@+id/rll_event_process"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <com.dssm.esc.view.widget.RingChartView
+                android:id="@+id/event_process_detail_rcv"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                app:circleColor="@color/red"
+                app:innerRingColor="@color/yellow"
+                app:outRingColor="@color/green"
+                app:radius="40dp"
+                app:strokeWidth="6dp"
+                app:textSize="32sp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/event_process_detail_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           />
+
+    </com.dssm.esc.view.widget.RefreshLinearLayout>
+
+</LinearLayout>

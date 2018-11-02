@@ -665,7 +665,7 @@ public class Utils implements Serializable {
             int todayMonth=todayCalendar.get(Calendar.MONTH);
             int otherMonth=otherCalendar.get(Calendar.MONTH);
             if(todayMonth==otherMonth){//表示是同一个月
-                int temp=todayCalendar.get(Calendar.DATE)-otherCalendar.get(Calendar.DATE);
+                int temp=todayCalendar.get(Calendar.DAY_OF_MONTH)-otherCalendar.get(Calendar.DAY_OF_MONTH);
                 switch (temp) {
                     case 0:
                         result = getHourAndMin(timesamp);

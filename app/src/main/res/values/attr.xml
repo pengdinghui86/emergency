@@ -22,4 +22,13 @@
         <attr name="selectedIndex" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="RingChartView">
+        <attr name="radius" format="dimension"/>
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="circleColor" format="color"/>
+        <attr name="innerRingColor" format="color"/>
+        <attr name="outRingColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
+
 </resources>

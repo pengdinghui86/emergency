@@ -70,7 +70,7 @@ public class MessageListAdapter extends BaseAdapter {
 				entity.getModelFlag())|| MessageStatusEnum.emergencyCommunication.getId().equals(
 				entity.getModelFlag()))
 		{
-			mhHolder.message_listview_iv_type.setImageResource(R.drawable.message);
+			mhHolder.message_listview_iv_type.setImageResource(R.drawable.emergency_notice);
 			mhHolder.message_listview_tv_name.setText(entity.getSender());
 		}
 		else {
