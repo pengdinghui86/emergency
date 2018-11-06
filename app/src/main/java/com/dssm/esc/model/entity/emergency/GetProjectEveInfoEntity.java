@@ -37,7 +37,16 @@ public class GetProjectEveInfoEntity implements Serializable {
 	private List<Map<String, String>> categoryPlan;
 	private String emergType;
 	private String	eveType;
-	
+	private String	eveDiscover;
+
+	public String getEveDiscover() {
+		return eveDiscover;
+	}
+
+	public void setEveDiscover(String eveDiscover) {
+		this.eveDiscover = eveDiscover;
+	}
+
 	public String getEveType() {
 		return eveType;
 	}

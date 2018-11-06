@@ -60,10 +60,10 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     eventViewHolder.tvEventName.setText(entity.getEveName());
                     eventViewHolder.tvState.setTextColor(Color.RED);
                     eventViewHolder.tvTradeType.setText(entity.getTradeType());
-                    String planResType = entity.getEveType();
-                    if (planResType.equals("1")) {
+                    String eveType = entity.getEveType();
+                    if ("1".equals(eveType)) {
                         eventViewHolder.ivEventType.setImageResource(R.drawable.emergency_type);
-                    } else if (planResType.equals("2")) {
+                    } else if ("2".equals(eveType)) {
                         eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
                     }
                     eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
@@ -97,47 +97,43 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         eventViewHolder.tvState.setText(status);
                     }
                 } else if (tags.equals("2")) {// 已启动事件列表
-                    eventViewHolder.tvEventName.setText(entity.getPlanName());
+                    eventViewHolder.tvEventName.setText(entity.getEveName());
                     eventViewHolder.tvState.setTextColor(Color.RED);
-                    String planResType = entity.getPlanResType();
-                    if (planResType.equals("1")) {
+                    eventViewHolder.tvTradeType.setText(entity.getTradeType());
+                    String eveType = entity.getEveType();
+                    if ("1".equals(eveType)) {
                         eventViewHolder.ivEventType.setImageResource(R.drawable.emergency_type);
-                    } else if (planResType.equals("2")) {
+                    } else if ("2".equals(eveType)) {
                         eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
                     }
-                    eventViewHolder.tvEventLevel.setVisibility(View.GONE);
-                    eventViewHolder.tvTradeType.setText(entity.getPlanResName());
-                    // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
+                    eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
+                    // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
                     if (!entity.getState().equals("null")
                             && !entity.getState().equals("")) {
                         String status = "";
                         switch (Integer.parseInt(entity.getState())) {
                             case 0:
-                                status = "待启动";
+                                status = "初始状态";
+                                eventViewHolder.tvState.setTextColor(Color.BLUE);
                                 break;
                             case 1:
-                                status = "已启动";
+                                status = "待预案评估";
                                 break;
                             case 2:
-                                status = "已授权";
-                                break;
-                            case 3:
                                 status = "执行中";
                                 break;
-                            case 4:
-                                status = "完成";
+                            case 3:
+                                status = "结束";
                                 break;
                             case 5:
-                                status = "强行中止";
+                                status = "启动中";
                                 break;
-                            /**
-                             * 添加暂停状态
-                             * 2017.10.16
-                             */
-                            case 6:
-                                status = "暂停";
+                            case -1:
+                                status = "驳回评估";
                                 break;
+
                         }
+                        eventViewHolder.tvState.setTextColor(Color.RED);
                         eventViewHolder.tvState.setText(status);
                     }
                 }
@@ -182,8 +178,8 @@ public class LeftSlideAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 planViewHolder.tvPlanName.setText(entity1.getPlanName());
                 planViewHolder.tvState.setTextColor(Color.RED);
                 // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
-                if (!entity1.getState().equals("null")
-                        && !entity1.getState().equals("")) {
+                if (!"null".equals(entity1.getState())
+                        && !"".equals(entity1.getState())) {
                     String status = "";
                     switch (Integer.parseInt(entity1.getState())) {
                         case 0:

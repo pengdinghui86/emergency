@@ -35,12 +35,6 @@ import java.util.List;
 
 /**
  * 预案名称（多选）
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-10
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_plan_name)
 public class PlanNameActivity extends BaseActivity implements OnClickListener,
@@ -67,10 +61,8 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 	/** 1,应急 */
 	/** 1,预案执行;2,添加评估 */
 	private String tags;
-	/** 预案执行的名称类型1，默认2，其他3，总预案 */
+	/** 预案执行的名称类型1=默认2=其他3=分类预案4=可选预案 */
 	private int plantags;
-	/** 事件场景id */
-	private String id = "";
 	@ViewInject(R.id.emptytv)
 	private TextView emptytv;
 	/** 预案名称 */
@@ -120,10 +112,15 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		Intent intent = getIntent();
 		Bundle bundleExtra = intent.getExtras();
 		tags = bundleExtra.getString("tags");
-		id = bundleExtra.getString("id");
 		plantags = bundleExtra.getInt("plantags", 0);
 		selectedIds = (ArrayList<PlanNameRowEntity>) bundleExtra
 				.getSerializable("arrlist");
+		//可选预案
+		if(plantags == 4)
+		{
+			list = (ArrayList<PlanNameRowEntity>) bundleExtra
+					.getSerializable("list");
+		}
 		initView();
 		lvListener();
 		mSelectConfirm.setOnClickListener(this);
@@ -145,6 +142,8 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 				mSelectTypeTitle.setText("选择其他预案");
 			} else if (plantags == 3) {
 				mSelectTypeTitle.setText("选择分类预案");
+			} else if (plantags == 4) {
+				mSelectTypeTitle.setText("选择可选预案");
 			}
 
 			/** 为Adapter准备数据 */
@@ -203,7 +202,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 				Const.LOAD_MESSAGE);
 		// 解决传到服务器的中文字符串是乱码
 		Control.getinstance().getUserSevice().getSearchPlanList(
-				URLEncoder.encode(URLEncoder.encode(name), "UTF-8"), id, listListener);
+				URLEncoder.encode(URLEncoder.encode(name), "UTF-8"), "", listListener);
 
 	}
 
@@ -254,10 +253,11 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		if (list != null && list.size() == 0) {// 只访问一次网络
 			Utils.getInstance().showProgressDialog(PlanNameActivity.this, "",
 					Const.LOAD_MESSAGE);
-			Control.getinstance().getEmergencyService().getPlanName(plantags, id, emergencySeviceImplListListenser);
+			Control.getinstance().getEmergencyService().getPlanName(plantags, "", emergencySeviceImplListListenser);
 		} else if (list != null && list.size() > 0) {
+			List<PlanNameRowEntity> result = new ArrayList<>(list);
 			Message message = new Message();
-			message.obj = list;
+			message.obj = result;
 			message.what = 0;
 			handler.sendMessage(message);
 		}

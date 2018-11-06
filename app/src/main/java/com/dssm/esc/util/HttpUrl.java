@@ -68,8 +68,13 @@ public class HttpUrl {
     /**
      * 预案名称(默认)
      */
-    public final static String GET_PREBTSCENARIOID = 
+    public final static String GET_PREBTSCENARIOID1 =
              "emergency/planEva/getPreByScenarioId";
+    /**
+     * 查询预案名称(默认)
+     */
+    public final static String GET_PREBTSCENARIOID ="emergency/planEva/findList";
+
     /**
      * 预案名称(其他类型)
      */
@@ -96,6 +101,11 @@ public class HttpUrl {
      */
     public final static String GETPLANSTARLIST = 
              "emergency/planEva/getStartList?state=0";
+    /**
+     * 事件列表
+     */
+    public final static String GETPLANLISTBYSTATUS =
+             "emergency/planEva/getByStateList?state=";
     /**
      * 预案启动详情
      */
@@ -133,7 +143,7 @@ public class HttpUrl {
     /**
      * 授权决策列表
      */
-    public final static String GETAUTHLIST = 
+    public final static String GETAUTHLIST =
              "emergency/planInfo/getToAuthList";
     /**
      * 预案详情

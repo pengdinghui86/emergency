@@ -82,6 +82,8 @@
     <string name="eventname">事件名称</string>
     <string name="eventnamehint">请输入事件名称（必填）</string>
     <string name="event_desc_hint">填写事件描述（必填）</string>
+    <string name="event_happen_time_hint">填写事件发生时间（必填）</string>
+    <string name="event_discover_hint">填写事件发现人（必填）</string>
     <string name="suggestion_hint">填写建议（必填）</string>
     <string name="emergency_type">应急类型</string>
     <string name="business_type">业务类型</string>
@@ -89,9 +91,11 @@
     <string name="event_level">事件等级</string>
     <string name="event_level_hint">请选择事件等级（必选）</string>
     <string name="event_background">事件场景</string>
+    <string name="event_happen_time">事件发生时间</string>
+    <string name="event_discover">事件发现人</string>
     <string name="event_background_hint">选择事件场景</string>
     <string name="event_origin_hint">选择事件来源</string>
-    <string name="plan_background_hint">选择场景预案</string>
+    <string name="plan_background_hint">选择涉及预案</string>
     <string name="plan_drill_hint">选择演练预案</string>
     <string name="drill_type_hint">请选择演练类型（必填）</string>
     <string name="plan_offer_hint">选择可选预案</string>

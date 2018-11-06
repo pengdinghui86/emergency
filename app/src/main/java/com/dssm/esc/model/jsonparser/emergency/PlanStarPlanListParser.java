@@ -68,7 +68,7 @@ public class PlanStarPlanListParser {
 				if(DemoApplication.sessionTimeoutCount > 0)
 					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("PlanStarListParser", t);
-				list = planStarListParser(t);
+				list = planListParser(t);
 				Log.i("PlanStarListParser", "PlanStarListParser" + list);
 				if(onEmergencyCompleteListener != null)
 					onEmergencyCompleteListener.onEmergencyParserComplete(list,
@@ -169,4 +169,51 @@ public class PlanStarPlanListParser {
 		
 	}
 
+	/**
+	 * 预案列表数据解析
+	 */
+	public List<PlanStarListEntity> planListParser(String t) {
+		List<PlanStarListEntity> list = new ArrayList<PlanStarListEntity>();
+		try {
+			JSONArray jsonArray = new JSONArray(t);
+			if (jsonArray.length() > 0) {
+				for (int i = 0; i < jsonArray.length(); i++) {
+					PlanStarListEntity listEntity = new PlanStarListEntity();
+					JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
+					listEntity.setId(jsonObject2.getString("id"));
+					listEntity.setEveName(jsonObject2.getString("eveName"));
+					listEntity.setState(jsonObject2.getString("state"));
+					listEntity.setEveLevel(jsonObject2.getString("eveLevel"));
+					listEntity.setTradeType(jsonObject2.getString("tradeType"));
+					listEntity.setEveCode(jsonObject2.getString("eveCode"));
+					listEntity.setEveType(jsonObject2.getString("eveType"));
+					list.add(listEntity);
+					JSONArray jsonArray2 = new JSONArray(jsonObject2.getString("planInfos"));
+					for(int j = 0; j < jsonArray2.length(); j++)
+					{
+						PlanStarListEntity suspandEntity = new PlanStarListEntity();
+						JSONObject jsonObject = (JSONObject) jsonArray2.opt(j);
+						suspandEntity.setId(jsonObject.getString("id"));
+						suspandEntity.setPlanName(jsonObject.getString("planName"));
+						suspandEntity.setPlanResName(jsonObject.getString("planResName"));
+						suspandEntity.setPlanResType(jsonObject.getString("planResType"));
+						suspandEntity.setPlanId(jsonObject.getString("planId"));
+						suspandEntity.setState(jsonObject.getString("state"));
+						suspandEntity.setIsStarter(jsonObject.getString("isStarter"));
+						suspandEntity.setDataType(1);
+						list.add(suspandEntity);
+					}
+				}
+				return list;
+			} else {
+				return list;
+			}
+		} catch (JSONException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return list;
+		}
+
+
+	}
 }

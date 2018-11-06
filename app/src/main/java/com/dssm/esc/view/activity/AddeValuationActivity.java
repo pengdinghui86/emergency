@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,9 +19,12 @@ import com.dssm.esc.model.entity.emergency.EmergencyPlanEvaAddEntity;
 import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
 import com.dssm.esc.model.entity.emergency.PlanNameRowEntity;
 import com.dssm.esc.util.Const;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
+import com.dssm.esc.view.widget.TimePickerDialog;
+import com.easemob.chatuidemo.DemoApplication;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -45,7 +47,7 @@ import de.greenrobot.event.EventBus;
  */
 @ContentView(R.layout.activity_addvaluation)
 public class AddeValuationActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, TimePickerDialog.TimePickerDialogInterface{
 	/** 事件名称布局 */
 	@ViewInject(R.id.add_valuation_ll_event_name)
 	private LinearLayout event_name_ll;
@@ -70,22 +72,22 @@ public class AddeValuationActivity extends BaseActivity implements
 	/** 事件等级 */
 	@ViewInject(R.id.event_level)
 	private TextView event_level;
-	/** 事件场景布局 */
-	@ViewInject(R.id.event_background_ll)
-	private LinearLayout event_background_ll;
-	/** 事件场景 */
-	@ViewInject(R.id.event_background)
-	private TextView event_background;
-	/** 事件场景下方的分隔线 */
-	@ViewInject(R.id.event_background_view)
-	private View event_background_view;
+	/** 事件发生时间布局 */
+	@ViewInject(R.id.event_happen_time_ll)
+	private LinearLayout event_happen_time_ll;
+	/** 事件发生时间 */
+	@ViewInject(R.id.event_happen_time)
+	private TextView event_happen_time;
+	/** 事件发生时间下方的分隔线 */
+	@ViewInject(R.id.event_happen_time_view)
+	private View event_happen_time_view;
 
-	/** 事件类型布局 */
-	@ViewInject(R.id.event_type_ll)
-	private LinearLayout event_type_ll;
-	/** 事件类型 */
-	@ViewInject(R.id.event_type)
-	private TextView event_type;
+	/** 事件发现人布局 */
+	@ViewInject(R.id.event_discover_ll)
+	private LinearLayout event_discover_ll;
+	/** 事件发现人 */
+	@ViewInject(R.id.event_discover)
+	private TextView event_discover;
 
 	/** 应急预案布局 */
 	@ViewInject(R.id.plan_ll)
@@ -172,7 +174,7 @@ public class AddeValuationActivity extends BaseActivity implements
 	private String precautionName = "";
 	/** 演练预案计划id */
 	private String precautionId = "";
-
+	private TimePickerDialog mTimePickerDialog;
 	Intent intent;
 	/** 1,重新评估0，添加评估 */
 	private String type;
@@ -191,8 +193,11 @@ public class AddeValuationActivity extends BaseActivity implements
 	/** 被选的预案id */
 	private ArrayList<PlanNameRowEntity> selectedIds = new ArrayList<PlanNameRowEntity>();
     public static int EVENT_NAME_INPUT = 1001;
+    public static int EVENT_DISCOVER_INPUT = 1004;
     public static int EVENT_DES_INPUT = 1002;
     public static int EVENT_SUGGESTION_INPUT = 1003;
+	private MySharePreferencesService preferencesService;
+	private Map<String, String> map;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -202,7 +207,7 @@ public class AddeValuationActivity extends BaseActivity implements
 		View findViewById = findViewById(R.id.addvaluation);
 		findViewById.setFitsSystemWindows(true);
 		intent = getIntent();
-
+		mTimePickerDialog = new TimePickerDialog(AddeValuationActivity.this);
 		type = intent.getStringExtra("type");
 		precautionName = intent.getStringExtra("precautionName");
 		precautionId = intent.getStringExtra("precautionId");
@@ -213,17 +218,18 @@ public class AddeValuationActivity extends BaseActivity implements
 
 	private void initview() {
 		// TODO Auto-generated method stub
+		preferencesService = new MySharePreferencesService(DemoApplication.applicationContext);
+		map = preferencesService.getPreferences();
 		back.setVisibility(View.VISIBLE);
 		event_name.setFocusable(true);
 		event_name.setFocusableInTouchMode(true);
 		event_name.requestFocus();
+		event_discover.setText(map.get("name").toString());
 
 		if (type.equals("1")) {
 			entity = (GetProjectEveInfoEntity) intent
 					.getSerializableExtra("entity");
 			tag = entity.getEveType();
-			event_type_ll.setVisibility(View.GONE);
-			event_background_view.setVisibility(View.GONE);
 			String eveType2 = entity.getEveType();
 			if (eveType2.equals("1")) {
 				title.setText("应急-重新评估");
@@ -240,15 +246,15 @@ public class AddeValuationActivity extends BaseActivity implements
 
 				title.setText("演练-新增评估");
 			}
-			event_type_ll.setVisibility(View.GONE);
-			event_background_view.setVisibility(View.GONE);
 		}
 		event_name_ll.setOnClickListener(this);
+		event_discover_ll.setOnClickListener(this);
 		event_des_ll.setOnClickListener(this);
 		suggestion_ll.setOnClickListener(this);
 		business_type_ll.setOnClickListener(this);// 行业类型布局
 		event_level_ll.setOnClickListener(this);// 事件等级布局
-		event_background_ll.setOnClickListener(this);// 事件场景布局
+		event_happen_time_ll.setOnClickListener(this);// 事件场景布局
+		event_happen_time_ll.setVisibility(View.GONE);
 		referPlan_name_ll.setOnClickListener(this);// 参考预案布局
 		otherReferPlan_name_ll.setOnClickListener(this);// 其他预案布局
 		categoryPlan_name_ll.setOnClickListener(this);// 分类预案布局
@@ -274,7 +280,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				event_name.setText(eveName);
 				business_type.setText(entity.getTradeTypeName());
 				event_level.setText(entity.getEveLevelName());
-				event_background.setText(eveScenarioName);
+				event_happen_time.setText(eveScenarioName);
 				List<Map<String, String>> referPlan2 = entity.getReferPlan();
 				if (referPlan2.size() > 0) {
 
@@ -289,7 +295,7 @@ public class AddeValuationActivity extends BaseActivity implements
 						referPlanIds = (String) referPlanIds.subSequence(1,
 								referPlanIds.length());
 					}
-					if (referPlanNames.subSequence(0, 1).equals("|")) {
+					if (referPlanNames.subSequence(0, 1).equals(",")) {
 						referPlanNames = (String) referPlanNames.subSequence(1,
 								referPlanNames.length());
 					}
@@ -356,7 +362,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				event_name.setText(entity.getEveName());
 				business_type.setText(entity.getTradeTypeName());
 				event_level.setText(entity.getEveLevelName());
-				event_background.setText(entity.getEveScenarioName());
+				event_happen_time.setText(entity.getEveScenarioName());
 				event_des.setText(entity.getEveDescription());
 				suggestion.setText(entity.getDealAdvice());
 				List<Map<String, String>> referPlan2 = entity.getReferPlan();
@@ -421,31 +427,26 @@ public class AddeValuationActivity extends BaseActivity implements
 				intent.putExtras(bundle2);
 				startActivityForResult(intent, 2);
 				break;
-			case R.id.event_background_ll: // 事件场景布局
-				intent = new Intent(AddeValuationActivity.this,
-						EmergencyTypeActivity.class);
-				// intent.putExtra("tag", tag);
-				Bundle bundle3 = new Bundle();
-				bundle3.putSerializable("arrlist", (Serializable) resutList3);
-				bundle3.putString("tags", "3");
-				intent.putExtras(bundle3);
-				startActivityForResult(intent, 3);
-				break;
+//			case R.id.event_background_ll: // 事件场景布局
+//				intent = new Intent(AddeValuationActivity.this,
+//						EmergencyTypeActivity.class);
+//				// intent.putExtra("tag", tag);
+//				Bundle bundle3 = new Bundle();
+//				bundle3.putSerializable("arrlist", (Serializable) resutList3);
+//				bundle3.putString("tags", "3");
+//				intent.putExtras(bundle3);
+//				startActivityForResult(intent, 3);
+//				break;
 
-			case R.id.referPlan_name_ll: // 参考预案布局
-				if (!id.equals("")) {// 事件场景
-					intent = new Intent(AddeValuationActivity.this,
-							PlanNameActivity.class);
-					Bundle bundle4 = new Bundle();
-					bundle4.putString("id", id);// 根据场景预案来过滤
-					bundle4.putInt("plantags", 1);
-					bundle4.putString("tags", "2");
-					bundle4.putSerializable("arrlist", (Serializable) resutList4);
-					intent.putExtras(bundle4);
-					startActivityForResult(intent, 4);
-				} else {
-					ToastUtil.showToast(AddeValuationActivity.this, "请先选择事件场景");
-				}
+			case R.id.referPlan_name_ll: // 涉及预案布局
+				intent = new Intent(AddeValuationActivity.this,
+						PlanNameActivity.class);
+				Bundle bundle4 = new Bundle();
+				bundle4.putInt("plantags", 1);
+				bundle4.putString("tags", "2");
+				bundle4.putSerializable("arrlist", (Serializable) resutList4);
+				intent.putExtras(bundle4);
+				startActivityForResult(intent, 4);
 				break;
 			case R.id.otherReferPlan_name_ll: // 其他预案布局
 
@@ -497,6 +498,16 @@ public class AddeValuationActivity extends BaseActivity implements
 				intent.putExtra("content", event_name.getText().toString());
 				startActivityForResult(intent, EVENT_NAME_INPUT);
 				break;
+			case R.id.event_happen_time_ll:
+				mTimePickerDialog.showDateAndTimePickerDialog();
+				break;
+			case R.id.event_discover_ll:
+				intent = new Intent(AddeValuationActivity.this,
+						InputTextActivity.class);
+				intent.putExtra("title", "请输入事件发现人");
+				intent.putExtra("content", event_discover.getText().toString());
+				startActivityForResult(intent, EVENT_DISCOVER_INPUT);
+				break;
 			case R.id.event_des_ll:
 				intent = new Intent(AddeValuationActivity.this,
 						InputTextActivity.class);
@@ -509,7 +520,7 @@ public class AddeValuationActivity extends BaseActivity implements
 						InputTextActivity.class);
 				intent.putExtra("title", "请输入建议");
 				intent.putExtra("content", suggestion.getText().toString());
-				startActivityForResult(intent, EVENT_NAME_INPUT);
+				startActivityForResult(intent, EVENT_SUGGESTION_INPUT);
 				break;
 		}
 	}
@@ -536,6 +547,8 @@ public class AddeValuationActivity extends BaseActivity implements
 			entity.setEveScenarioId(eveScenarioId);// 事件场景
 			entity.setEveScenarioName(eveScenarioName);// 事件场景名称
 			entity.setEveName(eveName);// 事件名称
+			entity.setEveDiscover(event_discover.getText().toString());// 事件发现人
+			entity.setReferPlanIds(referPlan);// 涉及预案
 			entity.setDealAdvice(dealAdvice);// 处置建议
 			entity.setReferPlanIds(referPlan);// 参考预案
 			entity.setOtherReferPlanIds(otherReferPlan);// 其他预案
@@ -558,6 +571,8 @@ public class AddeValuationActivity extends BaseActivity implements
 			addEntity.setEveScenarioName(eveScenarioName);// 事件场景名称
 			addEntity.setEmergType(emergType);// 演练类型
 			addEntity.setEveName(eveName);// 事件名称
+			addEntity.setEventDiscover(event_discover.getText().toString());// 事件发现人
+			addEntity.setRefPlanId(referPlan);// 涉及预案
 			addEntity.setDealAdvice(dealAdvice);// 处置建议
 			addEntity.setReferPlan(referPlan);// 参考预案
 			addEntity.setOtherReferPlan(otherReferPlan);// 其他预案
@@ -694,7 +709,7 @@ public class AddeValuationActivity extends BaseActivity implements
 						selectedIds.clear();
 					}
 				}
-				event_background.setText(eveScenarioName);
+				event_happen_time.setText(eveScenarioName);
 			}
 
 			break;
@@ -829,6 +844,11 @@ public class AddeValuationActivity extends BaseActivity implements
 					suggestion.setText(data.getExtras().get("content").toString());
 				}
 				break;
+			case 1004:
+				if (data != null && resultCode == RESULT_OK) {
+					event_discover.setText(data.getExtras().get("content").toString());
+				}
+				break;
 		}
 
 	}
@@ -932,5 +952,21 @@ public class AddeValuationActivity extends BaseActivity implements
 		Utils.getInstance().showProgressDialog(AddeValuationActivity.this, "",
 				Const.SUBMIT_MESSAGE);
 		Control.getinstance().getEmergencyService().reValuationEvent(entity, eventListener);
+	}
+
+	//时间选择器----------确定
+	@Override
+	public void positiveListener() {
+		int year = mTimePickerDialog.getYear();
+		int month = mTimePickerDialog.getMonth();
+		int day = mTimePickerDialog.getDay();
+		int hour = mTimePickerDialog.getHour();
+		int minute = mTimePickerDialog.getMinute();
+		event_happen_time.setText(year + "年" + month + "月" + day + "日 " + hour + "时" + minute + "分");
+	}
+	//时间选择器----------取消
+	@Override
+	public void negativeListener() {
+
 	}
 }

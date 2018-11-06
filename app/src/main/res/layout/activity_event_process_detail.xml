@@ -63,8 +63,8 @@
                 app:circleColor="@color/red"
                 app:innerRingColor="@color/yellow"
                 app:outRingColor="@color/green"
-                app:radius="40dp"
-                app:strokeWidth="6dp"
+                app:radiusLen="40dp"
+                app:strokeLen="6dp"
                 app:textSize="32sp" />
 
         </LinearLayout>

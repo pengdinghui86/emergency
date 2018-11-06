@@ -39,12 +39,6 @@ import de.greenrobot.event.EventBus;
 
 /**
  * 预案启动详情界面
- *
- * @author Zsj
- * @Description TODO
- * @date 2015-9-11
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- * Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_planstar_detail)
 public class PlanStarDetailActivity extends BaseActivity implements
@@ -103,11 +97,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
     @ViewInject(R.id.event_type)
     private TextView event_type;
 
-    /**
-     * 事件场景
-     */
-    @ViewInject(R.id.event_background)
-    private TextView event_background;
     /**
      * 预案名称
      */
@@ -169,16 +158,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
     @ViewInject(R.id.otherReferPlan_name)
     private TextView otherReferPlan_name;
     /**
-     * 分类预案布局
-     */
-    @ViewInject(R.id.categoryPlan_name_ll)
-    private LinearLayout categoryPlan_name_ll;
-    /**
-     * 分类预案
-     */
-    @ViewInject(R.id.categoryPlan_name)
-    private TextView categoryPlan_name;
-    /**
      * 预案处置的编辑框
      */
     @ViewInject(R.id.etc)
@@ -220,11 +199,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
     private String otherReferPlan = "";
     private String otherReferPlanName = "";
     /**
-     * 分类预案 可以多选，以“|”隔开
-     */
-    private String categoryPlan = "";
-    private String categoryPlanName = "";
-    /**
      * 1,应急;2,演练
      */
     private String tag;
@@ -245,10 +219,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
      */
     private String id = "";
     /**
-     * 事件场景ID
-     */
-    private String scenarioId = "";
-    /**
      * 事件提交人ID
      */
     private String submitterId = "";
@@ -262,10 +232,8 @@ public class PlanStarDetailActivity extends BaseActivity implements
      */
     private String usePlan = "";// 预案ID
     private String drillPlanId = "";// 演练详细计划ID
-    private String eveScenarioId = "";// 事件场景id
     private String opition = "";// 处置建议
     private String eveName = "";// 事件名称
-    Runnable runnable = null;
     private PlanStarListDetailObjEntity obj = new PlanStarListDetailObjEntity();
     private String tradeTypeId = "";// 业务类型ID
     private String eveLevelId = "";// 事件等级ID
@@ -296,11 +264,9 @@ public class PlanStarDetailActivity extends BaseActivity implements
                             name = (String) name.subSequence(1, name.length());
                         }
                     }
-                    scenarioId = obj.getEveScenarioId();
                     eveType = obj.getEveType();
                     submitterId = obj.getSubmitterId();
                     drillPlanId = obj.getDrillPlanId();// 演练详细计划ID
-                    eveScenarioId = obj.getEveScenarioId();// 事件场景id
                     eveName = obj.getEveName();// 事件名称
                     tradeTypeId = obj.getTradeTypeId();
                     eveLevelId = obj.getEveLevelId();
@@ -320,29 +286,21 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     String eveType2 = obj.getEveType();
                     if (eveType2.equals("1")) {
                         event_type.setText("应急");
-//                        start.setVisibility(View.VISIBLE);
                         start.setEnabled(true);
-//                        start_tv.setVisibility(View.VISIBLE);
                     } else if (eveType2.equals("2")) {
                         event_type.setText("演练");
                         hasStartAuth = obj.getHasStartAuth();
                         if (hasStartAuth.equals("false")) {
-//                            start.setVisibility(View.GONE);
                             start.setEnabled(false);
-//                            start_tv.setVisibility(View.GONE);
                         } else if (hasStartAuth.equals("true")) {
-//                            start.setVisibility(View.VISIBLE);
                             start.setEnabled(true);
-//                            start_tv.setVisibility(View.VISIBLE);
                         }
                     }
-                    event_background.setText(obj.getEveScenarioName());
                     plan_name.setText(name);
                     event_des.setText(obj.getEveDescription());
                     suggestion.setText(obj.getDealAdvice());
                     Log.i("预案启动详情-预案名称", name);
                     plan_name2.setText(name);
-
                     break;
                 case 1:
 
@@ -359,7 +317,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_planstar_detail);
         View findViewById = findViewById(R.id.planstar_detail);
         findViewById.setFitsSystemWindows(true);
         Intent intent = getIntent();
@@ -402,26 +359,20 @@ public class PlanStarDetailActivity extends BaseActivity implements
     private void initview() {
         // TODO Auto-generated method stub
         back.setVisibility(View.VISIBLE);
-
         title.setText("预案启动");
         if (tag.equals("1")) {
-
             plan_ll.setVisibility(View.VISIBLE);
             plan_ll_2.setVisibility(View.GONE);
         } else if (tag.equals("2")) {
             plan_ll.setVisibility(View.GONE);
             plan_ll_2.setVisibility(View.VISIBLE);
         }
-
         Control.getinstance().getEmergencyService().getPlanStarListDetail(id, listListenser);
-
         referPlan_name_ll.setOnClickListener(this);// 参考预案布局
         otherReferPlan_name_ll.setOnClickListener(this);// 其他预案布局
-        categoryPlan_name_ll.setOnClickListener(this);// 分类预案布局
         img_delete.setOnClickListener(this);
         dismisscount.setOnClickListener(this);
         start.setOnClickListener(this);
-        // setNetListener(this);
     }
 
     private void initData(int sem_tags) {
@@ -460,13 +411,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
     /**
      * selectButton控制list数据
-     *
-     * @version 1.0
-     * @createTime 2015-9-7,下午3:23:05
-     * @updateTime 2015-9-7,下午3:23:05
-     * @createAuthor Zsj
-     * @updateAuthor
-     * @updateInfo (此处输入修改内容, 若无修改可不写.)
      */
     private void segmentControlListDate() {
         // TODO Auto-generated method stub
@@ -490,29 +434,34 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
     private ArrayList<PlanNameRowEntity> resutList4 = new ArrayList<PlanNameRowEntity>();
     private ArrayList<PlanNameRowEntity> resutList5 = new ArrayList<PlanNameRowEntity>();
-    private ArrayList<PlanNameRowEntity> resutList6 = new ArrayList<PlanNameRowEntity>();
 
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
 
         switch (v.getId()) {
-            case R.id.referPlan_name_ll: // 参考预案布局
+            case R.id.referPlan_name_ll: // 可选预案布局
                 if (id != null) {
-
+                    ArrayList<PlanNameRowEntity> list = new ArrayList<>();
+                    for(PlanStarListDetailObjListEntity entity : obj.getList())
+                    {
+                        PlanNameRowEntity item = new PlanNameRowEntity();
+                        item.setId(entity.getId());
+                        item.setName(entity.getName());
+                        item.setSummary(entity.getSceneName());
+                        item.setType(entity.getPlanType());
+                        item.setHasStartAuth("true");
+                        list.add(item);
+                    }
                     Intent intent = new Intent(PlanStarDetailActivity.this,
                             PlanNameActivity.class);
-                    // intent.putExtra("tag", tag);
                     Bundle bundle4 = new Bundle();
-                    bundle4.putString("id", scenarioId);
-                    bundle4.putInt("plantags", 1);
+                    bundle4.putString("id", "");
+                    bundle4.putInt("plantags", 4);//可选预案
                     bundle4.putString("tags", "1");
+                    bundle4.putSerializable("list", list);
                     bundle4.putSerializable("arrlist", resutList4);
                     intent.putExtras(bundle4);
-                    // intent.putExtra("tags", "1");// 预案执行
-                    // intent.putExtra("id", scenarioId);
-                    // intent.putExtra("selectedIds", selectedIds);
-                    // intent.putExtra("plantags", 1);// 参考预案
                     startActivityForResult(intent, 4);
                 } else {
                     ToastUtil.showToast(PlanStarDetailActivity.this, "请先选择事件场景");
@@ -523,39 +472,13 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
                     Intent intent = new Intent(PlanStarDetailActivity.this,
                             PlanNameActivity.class);
-                    // intent.putExtra("tag", tag);
                     Bundle bundle4 = new Bundle();
-                    bundle4.putString("id", scenarioId);
+                    bundle4.putString("id", "");
                     bundle4.putInt("plantags", 2);
                     bundle4.putString("tags", "1");
                     bundle4.putSerializable("arrlist", resutList5);
                     intent.putExtras(bundle4);
-                    // intent.putExtra("tags", "1");// 预案执行
-                    // intent.putExtra("id", scenarioId);
-                    // intent.putExtra("selectedIds", selectedIds);
-                    // intent.putExtra("plantags", 2);// 其他预案
                     startActivityForResult(intent, 5);
-                } else {
-                    ToastUtil.showToast(PlanStarDetailActivity.this, "请先选择事件场景");
-                }
-                break;
-            case R.id.categoryPlan_name_ll: // 分类预案布局
-                if (id != null) {
-
-                    Intent intent = new Intent(PlanStarDetailActivity.this,
-                            PlanNameActivity.class);
-                    // intent.putExtra("tag", tag);
-                    Bundle bundle4 = new Bundle();
-                    bundle4.putString("id", tradeTypeId);
-                    bundle4.putInt("plantags", 3);
-                    bundle4.putString("tags", "1");
-                    bundle4.putSerializable("arrlist", resutList6);
-                    intent.putExtras(bundle4);
-                    // intent.putExtra("tags", "1");// 预案执行
-                    // intent.putExtra("selectedIds", selectedIds);
-                    // intent.putExtra("id", scenarioId);
-                    // intent.putExtra("plantags", 3);// 分类预案
-                    startActivityForResult(intent, 6);
                 } else {
                     ToastUtil.showToast(PlanStarDetailActivity.this, "请先选择事件场景");
                 }
@@ -580,9 +503,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                                             Log.i("name", planEveName);
                                             Log.i("submitterId", submitterId);
                                             Log.i("eveType", eveType);
-
                                             bohuiPlan();
-
                                         }
                                     })
                             .setNegativeButton("取消",
@@ -637,7 +558,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     Log.i("opition", opition);
                     Log.i("eveType", eveType);
                     Log.i("planEveName", eveName);
-                    Log.i("eveScenarioId", eveScenarioId);
                     Log.i("drillPlanId", drillPlanId);
                     Log.i("submitterId", submitterId);// 提交人ID
                     Log.i("tradeTypeId", tradeTypeId);// 业务类型ID
@@ -689,7 +609,9 @@ public class PlanStarDetailActivity extends BaseActivity implements
                             for (int i = 0; i < typelist4.size(); i++) {
                                 if (typelist4.get(i).isSelect()) {
 
-                                    str4 = str4 + "," + typelist4.get(i).getName();
+                                    str4 = str4 + "," + "【" + typelist4.get(i).getType() +
+                                            "】" + typelist4.get(i).getName() +
+                                            "--" + typelist4.get(i).getSummary();
                                     referPlan = referPlan + "|"
                                             + typelist4.get(i).getId();
                                     referPlanName = referPlanName + "|"
@@ -717,9 +639,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
                     referPlan_name.setText(str4.substring(1, str4.length()));
                 }
-//			else {
-//				referPlan_name.setText(str4);
-//			}
                 break;
             case 5:
                 String str5 = "";
@@ -731,11 +650,9 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     if (resutList5 != null && resutList5.size() > 0) {
                         typelist5.clear();
                         typelist5.addAll(resutList5);
-
                         if (typelist5.size() > 0) {
                             for (int i = 0; i < typelist5.size(); i++) {
                                 if (typelist5.get(i).isSelect()) {
-
                                     str5 = str5 + "," + typelist5.get(i).getName();
                                     otherReferPlan = otherReferPlan + "|"
                                             + typelist5.get(i).getId();
@@ -761,56 +678,8 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
                 }
                 if (str5.length() > 0) {
-
                     otherReferPlan_name.setText(str5.substring(1, str5.length()));
                 }
-//			else {
-//				otherReferPlan_name.setText(str5);
-//			}
-                break;
-
-            case 6:
-                String str6 = "";
-                selectedIds.clear();
-                if (data != null && resultCode == RESULT_OK) {
-                    resutList6 = (ArrayList<PlanNameRowEntity>) data
-                            .getSerializableExtra("arrlist");
-                    ArrayList<PlanNameRowEntity> typelist6 = new ArrayList<PlanNameRowEntity>();
-                    if (resutList6 != null && resutList6.size() > 0) {
-                        typelist6.clear();
-                        typelist6.addAll(resutList6);
-                        if (typelist6.size() > 0) {
-                            for (int i = 0; i < typelist6.size(); i++) {
-                                if (typelist6.get(i).isSelect()) {
-                                    str6 = str6 + "," + typelist6.get(i).getName();
-                                    categoryPlan = categoryPlan + "|"
-                                            + typelist6.get(i).getId();
-                                    categoryPlanName = categoryPlanName + "|"
-                                            + typelist6.get(i).getName();
-                                    PlanNameRowEntity entity = new PlanNameRowEntity();
-                                    entity.setId(typelist6.get(i).getId());
-                                    selectedIds.add(entity);
-                                }
-                            }
-                            if (categoryPlan.subSequence(0, 1).equals("|")) {
-                                categoryPlan = (String) categoryPlan.subSequence(1,
-                                        categoryPlan.length());
-                            }
-                            if (categoryPlanName.subSequence(0, 1).equals("|")) {
-                                categoryPlanName = (String) categoryPlanName
-                                        .subSequence(1, categoryPlanName.length());
-                            }
-                            palnIds.add(categoryPlan);
-                            palnNames.add(categoryPlanName);
-                        }
-                    }
-                }
-                if (str6.length() > 0) {
-                    categoryPlan_name.setText(str6.substring(1, str6.length()));
-                }
-//			else {
-//				categoryPlan_name.setText(str6);
-//			}
                 break;
         }
 
@@ -837,9 +706,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
             }
             EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
             finish();
-            // if (Utils.getInstance().progressDialog.isShowing()) {
             Utils.getInstance().hideProgressDialog();
-            // }
         }
     };
 
@@ -880,9 +747,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                         Exceptionerror);
             }
 
-            // if (Utils.getInstance().progressDialog.isShowing()) {
             Utils.getInstance().hideProgressDialog();
-            // }
         }
     };
 

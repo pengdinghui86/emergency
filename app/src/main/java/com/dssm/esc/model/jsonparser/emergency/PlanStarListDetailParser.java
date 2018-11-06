@@ -127,11 +127,7 @@ public class PlanStarListDetailParser {
 	}
 
 	/**
-	 * 获取演练计划详情
-	 * 
-	 * @param t
-	 * @return
-	 * @throws JSONException
+	 * 解析事件详情
 	 */
 	public PlanStarListDetailEntity getPlanStarListDetail(String t) {
 		PlanStarListDetailEntity detailEntity = new PlanStarListDetailEntity();
@@ -150,16 +146,16 @@ public class PlanStarListDetailParser {
 					objEntity.setNowTime(jsonObject3.getString("nowTime"));
 					objEntity.setTradeType(jsonObject3.getString("tradeType"));
 					objEntity.setEveLevel(jsonObject3.getString("eveLevel"));
-					objEntity.setEveScenarioName(jsonObject3.getString("eveScenarioName"));
-					objEntity.setEveScenarioId(jsonObject3.getString("eveScenarioId"));
+//					objEntity.setEveScenarioName(jsonObject3.getString("eveScenarioName"));
+//					objEntity.setEveScenarioId(jsonObject3.getString("eveScenarioId"));
 					objEntity.setDealAdvice(jsonObject3.getString("dealAdvice"));
 					String eveType = jsonObject3.getString("eveType");
 					objEntity.setEveType(eveType);
 					objEntity.setSubmitterId(jsonObject3.getString("submitterId"));
 					objEntity.setEveDescription(jsonObject3.getString("eveDescription"));
 					objEntity.setDrillPlanId(jsonObject3.getString("drillPlanId"));
-				objEntity.setPlanResName(jsonObject3.getString("eveName"));
-				objEntity.setPlanResType(eveType);
+					objEntity.setPlanResName(jsonObject3.getString("eveName"));
+					objEntity.setPlanResType(eveType);
 //					submitterId	提交人ID	发送通知使用
 //					tradeTypeId	业务类型ID	发送通知使用
 //					eveLevelId	事件等级ID	发送通知使用
@@ -169,26 +165,22 @@ public class PlanStarListDetailParser {
 						
 						objEntity.setHasStartAuth(jsonObject3.getString("hasStartAuth"));
 					}
-					
-					
-					
-					List<PlanStarListDetailObjListEntity> list = new ArrayList<PlanStarListDetailObjListEntity>();
+					ArrayList<PlanStarListDetailObjListEntity> list = new ArrayList<PlanStarListDetailObjListEntity>();
 					JSONArray jsonArray = jsonObject3.getJSONArray("list");
 					for (int i = 0; i < jsonArray.length(); i++) {
 						if (jsonArray.opt(i)!=null) {
-							
-						
 						JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
 						PlanStarListDetailObjListEntity listEntity = new PlanStarListDetailObjListEntity();
 						if (eveType.equals("2")) {
-							
 							listEntity.setName(jsonObject2
 									.getString("precautionName"));
 						}else {
 							listEntity.setName(jsonObject2
 									.getString("name"));
 						}
-						
+						listEntity.setId(jsonObject2.getString("id"));
+						listEntity.setSceneName(jsonObject2.getString("sceneName"));
+						listEntity.setPlanType(jsonObject2.getString("planType"));
 						list.add(listEntity);
 						}
 					}

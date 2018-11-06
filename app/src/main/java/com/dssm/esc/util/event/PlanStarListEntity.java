@@ -1,6 +1,7 @@
 package com.dssm.esc.util.event;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 预案启动实体类

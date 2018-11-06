@@ -72,6 +72,8 @@ public class EmergencyPlanEvaAddParser {
 		params.addParameter("eveScenarioName", addEntity.getEveScenarioName());
 		params.addParameter("emergType", addEntity.getEmergType());
 		params.addParameter("eveName", addEntity.getEveName());
+		params.addParameter("discoverer", addEntity.getEventDiscover());
+		params.addParameter("referProcess", addEntity.getRefPlanId());
 		String drillPlanName = addEntity.getDrillPlanName();
 		params.addParameter("drillPlanName", drillPlanName);
 		params.addParameter("dealAdvice", addEntity.getDealAdvice());

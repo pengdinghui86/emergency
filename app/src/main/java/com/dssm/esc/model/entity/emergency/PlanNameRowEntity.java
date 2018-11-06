@@ -16,9 +16,17 @@ public class PlanNameRowEntity implements Serializable{
 	private String name;
 	private String summary;
 	private String hasStartAuth;
+	private String type;//预案类型
 	private boolean isSelect;
-	
-	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public boolean isSelect() {
 		return isSelect;
 	}

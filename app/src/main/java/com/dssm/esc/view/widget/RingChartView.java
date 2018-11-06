@@ -61,13 +61,13 @@ public class RingChartView extends View {
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typeArray = context.getTheme().obtainStyledAttributes(attrs,
-                R.styleable.RingChartView, 0, 0);
-        mRadius = typeArray.getDimension(R.styleable.RingChartView_radius, 80);
-        mTxtSize=typeArray.getDimension(R.styleable.RingChartView_textSize, 20);
-        mStrokeWidth = typeArray.getDimension(R.styleable.RingChartView_strokeWidth, 10);
-        mCircleColor = typeArray.getColor(R.styleable.RingChartView_circleColor, 0xFFFFFFFF);
-        mOutRingColor = typeArray.getColor(R.styleable.RingChartView_innerRingColor, 0xFFFFFFFF);
-        mInnerRingColor = typeArray.getColor(R.styleable.RingChartView_outRingColor, 0xFFFFFFFF);
+                R.styleable.RingChartViewStyle, 0, 0);
+        mRadius = typeArray.getDimension(R.styleable.RingChartViewStyle_radiusLen, 80);
+        mTxtSize=typeArray.getDimension(R.styleable.RingChartViewStyle_textSize, 20);
+        mStrokeWidth = typeArray.getDimension(R.styleable.RingChartViewStyle_strokeLen, 10);
+        mCircleColor = typeArray.getColor(R.styleable.RingChartViewStyle_circleColor, 0xFFFFFFFF);
+        mOutRingColor = typeArray.getColor(R.styleable.RingChartViewStyle_innerRingColor, 0xFFFFFFFF);
+        mInnerRingColor = typeArray.getColor(R.styleable.RingChartViewStyle_outRingColor, 0xFFFFFFFF);
         mRingRadius = mRadius + mStrokeWidth / 2;
         mRingRadius2 = mRadius + mStrokeWidth/2*3;
     }

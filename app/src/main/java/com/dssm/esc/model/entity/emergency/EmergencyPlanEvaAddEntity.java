@@ -41,7 +41,27 @@ public class EmergencyPlanEvaAddEntity implements Serializable {
 	private String drillPlanName;
 	/**演练初始计划id*/
 	private String exPlanId;
-	
+	/**涉及预案*/
+	private String refPlanId;
+	/**事件发现人*/
+	private String eventDiscover;
+
+	public String getRefPlanId() {
+		return refPlanId;
+	}
+
+	public void setRefPlanId(String refPlanId) {
+		this.refPlanId = refPlanId;
+	}
+
+	public String getEventDiscover() {
+		return eventDiscover;
+	}
+
+	public void setEventDiscover(String eventDiscover) {
+		this.eventDiscover = eventDiscover;
+	}
+
 	public String getExPlanId() {
 		return exPlanId;
 	}
