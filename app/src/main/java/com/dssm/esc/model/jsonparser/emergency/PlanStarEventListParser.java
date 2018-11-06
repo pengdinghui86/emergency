@@ -30,10 +30,10 @@ public class PlanStarEventListParser {
 	private List<PlanStarListEntity> list;
 	private final WeakReference<OnDataCompleterListener> wr;
 
-	public PlanStarEventListParser(OnDataCompleterListener completeListener) {
+	public PlanStarEventListParser(OnDataCompleterListener completeListener, String status) {
 		// TODO Auto-generated constructor stub
 		wr = new WeakReference<>(completeListener);
-		request();
+		request(status);
 	}
 
 	/**
@@ -41,9 +41,9 @@ public class PlanStarEventListParser {
 	 * 发送请求
 	 * 
 	 */
-	public void request() {
+	public void request(final String status) {
 
-		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANSTARLIST);
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANLISTBYSTATUS + status);
 		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
@@ -89,7 +89,7 @@ public class PlanStarEventListParser {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
 						if(DemoApplication.sessionTimeoutCount < 5)
-						request();
+						request(status);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -98,7 +98,7 @@ public class PlanStarEventListParser {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
 					if(DemoApplication.sessionTimeoutCount < 5)
-						request();
+						request(status);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

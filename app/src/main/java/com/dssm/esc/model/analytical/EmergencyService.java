@@ -65,11 +65,11 @@ public interface EmergencyService {
 								   EmergencyServiceImpl.EmergencySeviceImplListListenser listenser);
 
 	/**
-	 * 获取事件未启动列表
+	 * 获取事件列表
 	 * 
 	 * @param listenser
 	 */
-	void getPlanStarList(EmergencyServiceImpl.EmergencySeviceImplListListenser listenser);
+	void getPlanStarList(EmergencyServiceImpl.EmergencySeviceImplListListenser listenser, String status);
 	/**
 	 * 获取事件已启动列表
 	 * 
