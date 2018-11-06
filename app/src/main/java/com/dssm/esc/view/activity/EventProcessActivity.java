@@ -120,7 +120,8 @@ public class EventProcessActivity extends BaseActivity implements
 				if (position > 0 && position <= list.size()) {
 				
 						Intent intent = new Intent(EventProcessActivity.this,EventProcessDetailActivity.class);
-						intent.putExtra("BoHuiListEntity", adapter.getItem(position-1));
+						intent.putExtra("id", adapter.getItem(position - 1).getId());
+						intent.putExtra("name", adapter.getItem(position - 1).getEveName());
 					startActivity(intent);
 						
 				}

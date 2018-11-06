@@ -13,6 +13,10 @@ public class PlanStarListEntity implements Serializable {
 	private String id ;
 	private String eveName;
 	private String state;
+	private String planResId;//预案来源id
+	private String	precautionId;//预案id
+	private String	isAuthor;
+
 //	id	预案ID	
 //	suspendType	中止类型	启动时中止，类型为null
 //	planSuspendOpition	中止原因	
@@ -45,6 +49,30 @@ public class PlanStarListEntity implements Serializable {
 	private String isStarter;
 	//数据类型，0=事件，1=预案
 	private int dataType;
+
+	public String getPlanResId() {
+		return planResId;
+	}
+
+	public void setPlanResId(String planResId) {
+		this.planResId = planResId;
+	}
+
+	public String getPrecautionId() {
+		return precautionId;
+	}
+
+	public void setPrecautionId(String precautionId) {
+		this.precautionId = precautionId;
+	}
+
+	public String getIsAuthor() {
+		return isAuthor;
+	}
+
+	public void setIsAuthor(String isAuthor) {
+		this.isAuthor = isAuthor;
+	}
 
 	public int getDataType() {
 		return dataType;

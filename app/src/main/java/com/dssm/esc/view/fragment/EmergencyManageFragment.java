@@ -246,7 +246,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("started");
 					emergencyMenuEntity.setName(getString(R.string.started));
 					emergencyMenuEntity.setIcon(R.drawable.plan_started);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+					emergencyMenuEntity.setActivity(PlanStarActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -274,7 +274,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("started");
 					emergencyMenuEntity.setName(getString(R.string.started));
 					emergencyMenuEntity.setIcon(R.drawable.plan_started);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+					emergencyMenuEntity.setActivity(PlanStarActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -433,9 +433,13 @@ public class EmergencyManageFragment extends BaseFragment implements
 					return;
 				Intent intent = new Intent(getActivity(),
 						eventManageList.get(position).getActivity());
-				if(!eventManageList.get(position).getId().equals("event_reject"))
+				if(eventManageList.get(position).getId().equals("event_execute"))
 				{
 					intent.putExtra("tags", "2");
+				}
+				else if(eventManageList.get(position).getId().equals("event_complete"))
+				{
+					intent.putExtra("tags", "3");
 				}
 				startActivity(intent);
 			}
@@ -454,7 +458,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 				}
 				else if(planManageList.get(position).getId().equals("started"))
 				{
-					intent.putExtra("tags", "2");
+					intent.putExtra("tags", "4");
 				}
 				else if(planManageList.get(position).getId().equals("wait_authorize"))
 				{

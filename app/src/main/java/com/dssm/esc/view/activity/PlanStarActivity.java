@@ -56,7 +56,7 @@ public class PlanStarActivity extends BaseActivity implements
 	private int i = 1;
 	/** 1,应急;2,演练 */
 	//private String tag;
-	/** 1,待启动事件列表;2,已启动预案列表 */
+	/** 1,待启动事件列表;2，执行中事件列表；3，执行完成事件列表；4,已启动预案列表；5,指挥与展示；*/
 	private String tags;
 	/** 下拉刷新控件 */
 	@ViewInject(R.id.dismissv_refreshLinearLayout)
@@ -104,11 +104,8 @@ public class PlanStarActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		// 与驳回事件同用一个布局
-//		setContentView(R.layout.activity_dismissvaluation);
 		View findViewById = findViewById(R.id.dismissvaluation);
 		findViewById.setFitsSystemWindows(true);
-		//tag = getIntent().getStringExtra("tag");
 		tags = getIntent().getStringExtra("tags");
 		initview();
 	}
@@ -125,7 +122,6 @@ public class PlanStarActivity extends BaseActivity implements
 	 */
 	public void onEvent(mainEvent data) {
 		if (data.getData().equals("refres")) {
-			
 			initData();
 		}
 	}
@@ -134,12 +130,18 @@ public class PlanStarActivity extends BaseActivity implements
 	private void initview() {
 		// TODO Auto-generated method stub
 		back.setVisibility(View.VISIBLE);
-			if (tags.equals("1")) {
-				title.setText("待启动事件");
+        if (tags.equals("1")) {
+            title.setText("待启动事件");
 
-			} else if (tags.equals("2")) {
-				title.setText("已启动预案");
-			}
+        } else if (tags.equals("2")) {
+            title.setText("执行中事件");
+        } else if (tags.equals("3")) {
+            title.setText("执行完成事件");
+        } else if (tags.equals("4")) {
+            title.setText("已启动预案");
+        } else if (tags.equals("5")) {
+            title.setText("指挥与展示");
+        }
 		adapter = new LeftSlideAdapter(PlanStarActivity.this, list, tags);
         //设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
@@ -373,13 +375,14 @@ public class PlanStarActivity extends BaseActivity implements
 	};
 
 	private void loadData(final int what) {
-		if (tags.equals("1")) {
+		if (tags.equals("4")) {
 			if (what == 0) {// 刷新和第一次加载
-				Control.getinstance().getEmergencyService().getPlanStarList(listListenser, "0");
-			} else if (what == 1) {// 加载更多
-				// 本地做分页，加载20条以后的数据，默认每20条分一页
-				Log.i("list测试长度", allList.size() + "");
-				Log.i("num", num + "");
+
+				Utils.getInstance().showProgressDialog(
+						PlanStarActivity.this, "",
+						Const.SUBMIT_MESSAGE);
+				Control.getinstance().getEmergencyService().getStarList(listListener);
+			} else if (what == 1) {
 				List<PlanStarListEntity> datalist2;
 				if ((num + 20) <= allList.size()) {
 					datalist2 = allList.subList(num, num + 20);
@@ -393,14 +396,39 @@ public class PlanStarActivity extends BaseActivity implements
 				message.obj = datalist2;
 				handler.sendMessage(message);
 			}
-		} else if (tags.equals("2")) {
+		} else if (tags.equals("5")) {
 			if (what == 0) {// 刷新和第一次加载
 
 				Utils.getInstance().showProgressDialog(
 						PlanStarActivity.this, "",
 						Const.SUBMIT_MESSAGE);
-				Control.getinstance().getEmergencyService().getStarList(listListener);
+//				Control.getinstance().getControlSevice().getPlanlist(listListener);
 			} else if (what == 1) {
+				List<PlanStarListEntity> datalist2;
+				if ((num + 20) <= allList.size()) {
+					datalist2 = allList.subList(num, num + 20);
+					num += 20;
+				} else {
+					datalist2 = allList.subList(num, allList.size());
+				}
+
+				Message message = handler.obtainMessage();
+				message.what = 1;
+				message.obj = datalist2;
+				handler.sendMessage(message);
+			}
+		} else {
+			String status = "0";
+			if (tags.equals("2"))
+				status = "2";
+			else if(tags.equals("3"))
+				status = "3";
+			if (what == 0) {// 刷新和第一次加载
+				Control.getinstance().getEmergencyService().getPlanStarList(listListenser, status);
+			} else if (what == 1) {// 加载更多
+				// 本地做分页，加载20条以后的数据，默认每20条分一页
+				Log.i("list测试长度", allList.size() + "");
+				Log.i("num", num + "");
 				List<PlanStarListEntity> datalist2;
 				if ((num + 20) <= allList.size()) {
 					datalist2 = allList.subList(num, num + 20);
@@ -453,7 +481,7 @@ public class PlanStarActivity extends BaseActivity implements
                 intent.putExtra("isStarter", list.get(position).getIsStarter());
                 startActivity(intent);
                 // PlanStarActivity.this.finish();
-            } else if (tags.equals("2")) {
+            } else if (tags.equals("4")) {
                 Intent intent = new Intent(PlanStarActivity.this,
                         PlanSuspandDetilActivity.class);
                 //intent.putExtra("tag", tag);
@@ -462,6 +490,12 @@ public class PlanStarActivity extends BaseActivity implements
                 intent.putExtra("isStarter", list.get(position).getIsStarter());// 已启动的预案
                 startActivity(intent);
                 // PlanStarActivity.this.finish();
+            } else {
+                Intent intent = new Intent(PlanStarActivity.this,
+                        EventProcessDetailActivity.class);
+				intent.putExtra("id", list.get(position).getId());
+				intent.putExtra("name", list.get(position).getEveName());
+                startActivity(intent);
             }
 
         }

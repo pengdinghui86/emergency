@@ -23,8 +23,6 @@ import java.util.List;
 
 /**
  * 已启动的预案列表解析
- * @author zsj
- *
  */
 public class PlanStarPlanListParser {
 	private List<PlanStarListEntity> list;

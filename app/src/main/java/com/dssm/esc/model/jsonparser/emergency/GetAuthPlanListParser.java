@@ -7,6 +7,7 @@ import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
+import com.dssm.esc.util.event.PlanStarListEntity;
 import com.easemob.chatuidemo.DemoApplication;
 
 import org.json.JSONArray;
@@ -21,15 +22,11 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * 获取授权决策列表
- * 
- * @author zsj
- * 
  */
 public class GetAuthPlanListParser {
-	private List<BoHuiListEntity> list;
+	private List<PlanStarListEntity> list;
 	private final WeakReference<OnDataCompleterListener> wr;
 
 	public GetAuthPlanListParser(int a, OnDataCompleterListener completeListener) {
@@ -48,7 +45,7 @@ public class GetAuthPlanListParser {
 	public void request(final int a) {
 		String url = "";
 		if (a == 0) {
-			url = DemoApplication.getInstance().getUrl()+HttpUrl.AUTHLIST;
+			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETSTARTLIST;
 		} else if (a == 1) {// 代授权列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETAUTHLIST;
 		} else if (a == 2) {// 待签到列表
@@ -57,6 +54,8 @@ public class GetAuthPlanListParser {
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETASSIGNLISTBYSTATE;
 		} else if (a == 4) {// 协同通告列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETBYSTATELIST;
+		} else if (a == 6) {// 已启动预案列表
+			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETSTARTLIST;
 		}
 		RequestParams params = new RequestParams(url);
 		params.setReadTimeout(60 * 1000);
@@ -136,18 +135,14 @@ public class GetAuthPlanListParser {
 
 	/**
 	 * 获取授权决策列表数据解析
-	 * 
-	 * @param t
-	 * @return
-	 * @throws JSONException
 	 */
-	public List<BoHuiListEntity> getAuthlistParser(String t, int a) {
-		List<BoHuiListEntity> list = new ArrayList<BoHuiListEntity>();
+	public List<PlanStarListEntity> getAuthlistParser(String t, int a) {
+		List<PlanStarListEntity> list = new ArrayList<>();
 		try {
 			JSONArray jsonArray = new JSONArray(t);
 			if (jsonArray.length() > 0) {
 				for (int i = 0; i < jsonArray.length(); i++) {
-					BoHuiListEntity listEntity = new BoHuiListEntity();
+					PlanStarListEntity listEntity = new PlanStarListEntity();
 					JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
 					listEntity.setId(jsonObject2.getString("id"));
 					listEntity.setEveName(jsonObject2.getString("planName"));
@@ -157,21 +152,12 @@ public class GetAuthPlanListParser {
 					listEntity.setPlanId(jsonObject2.getString("planId"));
 					listEntity.setPlanResId(jsonObject2.getString("planResId"));
 					if (a==0) {
-						
 						listEntity.setIsAuthor(jsonObject2.getString("isAuthor"));
 					}
 					if (a == 4) {
 						listEntity.setPrecautionId(jsonObject2
 								.getString("planId"));
 					}
-					
-//					  "id": "cc572992-b039-4daf-9a7c-f0e6907c8376", 
-//				        "planName": "IT恢复预案", 
-//				        "planResName": "测试事件 6666", 
-//				        "planResType": 1, 
-//				        "state": 1, 
-//				        "planId": "9d707d56-f456-4f6a-a02d-d84b84debc1f", 
-//				        "planResId": "c7ab3ff4-1396-40b6-b606-0d5a33e0601a"
 					list.add(listEntity);
 				}
 				return list;
@@ -186,4 +172,59 @@ public class GetAuthPlanListParser {
 
 	}
 
+	/**
+	 * 预案列表数据解析
+	 */
+	public List<PlanStarListEntity> planListParser(String t, int a) {
+		List<PlanStarListEntity> list = new ArrayList<PlanStarListEntity>();
+		try {
+			JSONArray jsonArray = new JSONArray(t);
+			if (jsonArray.length() > 0) {
+				for (int i = 0; i < jsonArray.length(); i++) {
+					PlanStarListEntity listEntity = new PlanStarListEntity();
+					JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
+					listEntity.setId(jsonObject2.getString("id"));
+					listEntity.setEveName(jsonObject2.getString("eveName"));
+					listEntity.setState(jsonObject2.getString("state"));
+					listEntity.setEveLevel(jsonObject2.getString("eveLevel"));
+					listEntity.setTradeType(jsonObject2.getString("tradeType"));
+					listEntity.setEveCode(jsonObject2.getString("eveCode"));
+					listEntity.setEveType(jsonObject2.getString("eveType"));
+					list.add(listEntity);
+					JSONArray jsonArray2 = new JSONArray(jsonObject2.getString("planInfos"));
+					for(int j = 0; j < jsonArray2.length(); j++)
+					{
+						PlanStarListEntity suspandEntity = new PlanStarListEntity();
+						JSONObject jsonObject = (JSONObject) jsonArray2.opt(j);
+						suspandEntity.setIsStarter(jsonObject.getString("isStarter"));
+						suspandEntity.setId(jsonObject2.getString("id"));
+						suspandEntity.setEveName(jsonObject2.getString("planName"));
+						suspandEntity.setPlanResName(jsonObject2.getString("planResName"));
+						suspandEntity.setPlanResType(jsonObject2.getString("planResType"));
+						suspandEntity.setState(jsonObject2.getString("state"));
+						suspandEntity.setPlanId(jsonObject2.getString("planId"));
+						suspandEntity.setPlanResId(jsonObject2.getString("planResId"));
+						if (a == 0) {
+							suspandEntity.setIsAuthor(jsonObject2.getString("isAuthor"));
+						}
+						if (a == 4) {
+							suspandEntity.setPrecautionId(jsonObject2
+									.getString("planId"));
+						}
+						suspandEntity.setDataType(1);
+						list.add(suspandEntity);
+					}
+				}
+				return list;
+			} else {
+				return list;
+			}
+		} catch (JSONException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return list;
+		}
+
+
+	}
 }

@@ -70,7 +70,7 @@ public class EventPlanListActivity extends BaseActivity implements
     /** 0，指挥与展示 1，应急；2，演练 */
     // private String tag;
     /**
-     * 0，已授权1,授权决策；2,人员签到 ；3,人员指派;4,协同通告; 5,指挥与展示; 6,事件流程
+     * 0,已授权；1,待授权；2,人员签到；3,人员指派；4,协同通告；5,指挥与展示；6,已启动预案
      */
     private String tags;
     private String signState = "";// 签到状态0:未签到 1：已签到
@@ -144,7 +144,6 @@ public class EventPlanListActivity extends BaseActivity implements
      */
     public void onEvent(mainEvent data) {
         if (data.getData().equals("r")) {
-
             initData();
         }
     }
@@ -168,7 +167,7 @@ public class EventPlanListActivity extends BaseActivity implements
         } else if (tags.equals("5")) {
             title.setText("指挥与展示");
         } else if (tags.equals("6")) {
-            title.setText("事件流程");
+            title.setText("已启动预案");
         }
         adapter = new LeftSlideRejectAdapter(
                 EventPlanListActivity.this, list, tags);
@@ -347,14 +346,14 @@ public class EventPlanListActivity extends BaseActivity implements
                 getLoadData();
             }
 
-        } else if (tags.equals("2")) {// 待签到
+        } else if (tags.equals("2")) {// 签到
             if (what == 0) {// 刷新和第一次加载
                 getAuthList(2);
             } else if (what == 1) {// 加载更多
                 getLoadData();
             }
 
-        } else if (tags.equals("3")) {// 待指派
+        } else if (tags.equals("3")) {// 指派
             if (what == 0) {// 刷新和第一次加载
                 getAuthList(3);
             } else if (what == 1) {// 加载更多
@@ -383,6 +382,13 @@ public class EventPlanListActivity extends BaseActivity implements
                 message.what = 1;
                 message.obj = datalist2;
                 handler.sendMessage(message);
+            }
+
+        } else if (tags.equals("6")) {// 已启动预案
+            if (what == 0) {// 刷新和第一次加载
+                getAuthList(6);
+            } else if (what == 1) {// 加载更多
+                getLoadData();
             }
 
         }
