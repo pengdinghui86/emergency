@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class PlanStarListDetailObjListEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private String id;//预案编号
+	private String processId;//预案流程编号
 	private String name;//预案名称
 	private String planType;//预案类型
 	private String sceneName;//场景名称
@@ -17,12 +17,12 @@ public class PlanStarListDetailObjListEntity implements Serializable{
 		this.name = name;
 	}
 
-	public String getId() {
-		return id;
+	public String getProcessId() {
+		return processId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setProcessId(String processId) {
+		this.processId = processId;
 	}
 
 	public String getPlanType() {

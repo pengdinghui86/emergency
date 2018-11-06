@@ -94,7 +94,6 @@ public class PlanStarParser {
 		String eveName = detailObjEntity.getEveName();
 
 		params.addParameter("planEveName",eveName );// 事件名称
-		params.addParameter("eveScenarioId", detailObjEntity.getEveScenarioId());// 事件场景id
 		params.addParameter("drillPlanId", detailObjEntity.getDrillPlanId());// 演练详细计划ID
 
 		params.addParameter("submitterId", detailObjEntity.getSubmitterId());// 提交人ID

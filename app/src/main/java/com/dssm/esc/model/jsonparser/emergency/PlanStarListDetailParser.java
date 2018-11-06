@@ -178,7 +178,7 @@ public class PlanStarListDetailParser {
 							listEntity.setName(jsonObject2
 									.getString("name"));
 						}
-						listEntity.setId(jsonObject2.getString("id"));
+						listEntity.setProcessId(jsonObject2.getString("processId"));
 						listEntity.setSceneName(jsonObject2.getString("sceneName"));
 						listEntity.setPlanType(jsonObject2.getString("planType"));
 						list.add(listEntity);

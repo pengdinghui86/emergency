@@ -446,7 +446,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     for(PlanStarListDetailObjListEntity entity : obj.getList())
                     {
                         PlanNameRowEntity item = new PlanNameRowEntity();
-                        item.setId(entity.getId());
+                        item.setId(entity.getProcessId());
                         item.setName(entity.getName());
                         item.setSummary(entity.getSceneName());
                         item.setType(entity.getPlanType());
