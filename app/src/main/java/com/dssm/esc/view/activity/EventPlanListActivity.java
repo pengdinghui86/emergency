@@ -18,15 +18,13 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl.ControlServiceImplBackValueListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
-import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.BaseActivity.onInitNetListener;
-import com.dssm.esc.view.adapter.LeftSlideAdapter;
-import com.dssm.esc.view.adapter.LeftSlideRejectAdapter;
+import com.dssm.esc.view.adapter.LeftSlidePlanAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.RefreshLinearLayout;
 
@@ -41,7 +39,7 @@ import java.util.List;
  */
 @ContentView(R.layout.activity_dismissvaluation)
 public class EventPlanListActivity extends BaseActivity implements
-        LeftSlideAdapter.IonSlidingViewClickListener, onInitNetListener {
+        LeftSlidePlanAdapter.IonSlidingViewClickListener, onInitNetListener {
     /**
      * 标题
      */
@@ -55,23 +53,20 @@ public class EventPlanListActivity extends BaseActivity implements
     @ViewInject(R.id.dismissv_recyclerView)
     private RecyclerView mRecyclerView;
     /** 适配器 */
-    private LeftSlideAdapter adapter;
+    private LeftSlidePlanAdapter adapter;
     /** 下拉刷新控件 */
     @ViewInject(R.id.dismissv_refreshLinearLayout)
     private RefreshLinearLayout refreshLinearLayout;
     /**
      * 数据源
      */
-    private List<BoHuiListEntity> list = new ArrayList<BoHuiListEntity>();
-    private List<PlanStarListEntity> list1 = new ArrayList<PlanStarListEntity>();
+    private List<PlanStarListEntity> list = new ArrayList<PlanStarListEntity>();
     /**
      * 当前页面
      */
     private int i = 1;
-    /** 0，指挥与展示 1，应急；2，演练 */
-    // private String tag;
     /**
-     * 0,已授权；1,待授权；2,人员签到；3,人员指派；4,协同通告；5,指挥与展示；6,已启动预案
+     * 0,已授权；1,待授权；2,已启动预案；3,人员指派；4,协同通告；5,指挥与展示；6,预案执行；
      */
     private String tags;
     private String signState = "";// 签到状态0:未签到 1：已签到
@@ -79,40 +74,20 @@ public class EventPlanListActivity extends BaseActivity implements
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            /** 接收子集合 */
-            if (tags.equals("5")) {
-                List<PlanStarListEntity> result = (List<PlanStarListEntity>) msg.obj;
-                switch (msg.what) {
-                    case AutoListView.REFRESH:
-                        refreshLinearLayout.onCompleteRefresh();
-                        /** 总集合清理 */
-                        list1.clear();
-                        /** 总集合添加 */
-                        list1.addAll(result);
-                        break;
-                    case AutoListView.LOAD:
-                        refreshLinearLayout.onLoadComplete();
-                        list1.addAll(result);
-                        break;
-                }
-                refreshLinearLayout.setResultSize(result.size(), i);
-                adapter.notifyDataSetChanged();
-            } else {
-                List<PlanStarListEntity> result = (List<PlanStarListEntity>) msg.obj;
-                switch (msg.what) {
-                    case AutoListView.REFRESH:
-                        refreshLinearLayout.onCompleteRefresh();
-                        list1.clear();
-                        list1.addAll(result);
-                        break;
-                    case AutoListView.LOAD:
-                        refreshLinearLayout.onLoadComplete();
-                        list1.addAll(result);
-                        break;
-                }
-                refreshLinearLayout.setResultSize(result.size(), i);
-                adapter.notifyDataSetChanged();
+            List<PlanStarListEntity> result = (List<PlanStarListEntity>) msg.obj;
+            switch (msg.what) {
+                case AutoListView.REFRESH:
+                    refreshLinearLayout.onCompleteRefresh();
+                    list.clear();
+                    list.addAll(result);
+                    break;
+                case AutoListView.LOAD:
+                    refreshLinearLayout.onLoadComplete();
+                    list.addAll(result);
+                    break;
             }
+            refreshLinearLayout.setResultSize(result.size(), i);
+            adapter.notifyDataSetChanged();
         }
 
         ;
@@ -128,7 +103,6 @@ public class EventPlanListActivity extends BaseActivity implements
         Intent intent = getIntent();
         tags = intent.getStringExtra("tags");
         initview();
-
     }
 
     /***
@@ -140,8 +114,6 @@ public class EventPlanListActivity extends BaseActivity implements
 
     /**
      * 刷新界面
-     *
-     * @param data
      */
     public void onEvent(mainEvent data) {
         if (data.getData().equals("r")) {
@@ -149,18 +121,15 @@ public class EventPlanListActivity extends BaseActivity implements
         }
     }
 
-
     private void initview() {
         // TODO Auto-generated method stub
         back.setVisibility(View.VISIBLE);
-
-        // if (tag.equals("1")) {
-        if (tags.equals("0")) {
+        if (tags.equals("2")) {
+            title.setText("已启动预案");
+        } else if (tags.equals("0")) {
             title.setText("已授权预案");
         } else if (tags.equals("1")) {
             title.setText("待授权预案");
-        } else if (tags.equals("2")) {
-            title.setText("人员签到");
         } else if (tags.equals("3")) {
             title.setText("人员指派");
         } else if (tags.equals("4")) {
@@ -168,10 +137,10 @@ public class EventPlanListActivity extends BaseActivity implements
         } else if (tags.equals("5")) {
             title.setText("指挥与展示");
         } else if (tags.equals("6")) {
-            title.setText("已启动预案");
+            title.setText("预案执行");
         }
-        adapter = new LeftSlideAdapter(
-                EventPlanListActivity.this, list1, tags);
+        adapter = new LeftSlidePlanAdapter(
+                EventPlanListActivity.this, list, tags);
         mRecyclerView.setAdapter(adapter);
         //设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
@@ -214,7 +183,7 @@ public class EventPlanListActivity extends BaseActivity implements
     @Override
     public void onItemClick(View view, final int position) {
         if (tags.equals("5")) {
-            if (position >= 0 && position < list1.size()) {
+            if (position >= 0 && position < list.size()) {
                 // 指挥与展示
                 intent = new Intent(EventPlanListActivity.this,
                         ControlActivity.class);
@@ -222,7 +191,7 @@ public class EventPlanListActivity extends BaseActivity implements
                 startActivity(intent);
             }
         }else if (tags.equals("6")) {
-            if (position >= 0 && position < list1.size()) {
+            if (position >= 0 && position < list.size()) {
                 // 事件流程
                 intent = new Intent(EventPlanListActivity.this,
                         EventProcessActivity.class);
@@ -234,7 +203,6 @@ public class EventPlanListActivity extends BaseActivity implements
                     intent = new Intent(
                             EventPlanListActivity.this,
                             PlanSuspandDetilActivity.class);
-                    // intent.putExtra("tag", tag);
                     intent.putExtra("id", list.get(position)
                             .getId());
                     intent.putExtra("isAuthor", list.get(position)
@@ -243,11 +211,9 @@ public class EventPlanListActivity extends BaseActivity implements
                     intent.putExtra("stop", "1");// 已授权的预案
                     startActivity(intent);
                 } else if (tags.equals("1")) {
-
                     intent = new Intent(
                             EventPlanListActivity.this,
                             AutorizateDecDetailActivity.class);
-                    // intent.putExtra("tag", tag);
                     intent.putExtra("id", list.get(position)
                             .getId());
                     intent.putExtra("planId", list.get(position)
@@ -260,19 +226,17 @@ public class EventPlanListActivity extends BaseActivity implements
                 } else if (tags.equals("2")) {
                     intent = new Intent(
                             EventPlanListActivity.this,
-                            SignInActivity.class);
-                    // intent.putExtra("tag", tag);
+                            PlanSuspandDetilActivity.class);
                     intent.putExtra("id", list.get(position)
                             .getId());
-                    intent.putExtra("planId", list.get(position)
-                            .getPlanId());
-
-                    checkUserSignin(position);
+                    intent.putExtra("isAuthor", list.get(position)
+                            .getIsAuthor());
+                    intent.putExtra("stop", "1");// 已授权的预案
+                    startActivity(intent);
                 } else if (tags.equals("3")) {
                     intent = new Intent(
                             EventPlanListActivity.this,
                             PersonnelAssignmentActivity.class);
-                    // intent.putExtra("tag", tag);
                     intent.putExtra("id", list.get(position)
                             .getId());
                     startActivity(intent);
@@ -280,7 +244,6 @@ public class EventPlanListActivity extends BaseActivity implements
                     intent = new Intent(
                             EventPlanListActivity.this,
                             SendCollaborativeActivity.class);
-                    // intent.putExtra("tag", tag);
                     intent.putExtra("id", list.get(position)
                             .getId());
                     intent.putExtra("name", list.get(position)
@@ -289,7 +252,6 @@ public class EventPlanListActivity extends BaseActivity implements
                             list.get(position).getPrecautionId());
                     startActivity(intent);
                 }
-
             }
         }
     }
@@ -328,72 +290,11 @@ public class EventPlanListActivity extends BaseActivity implements
     private int num = 20;//
 
     private void loadData(final int what) {
-        if (tags.equals("0")) {// 已授权
-            if (what == 0) {// 刷新和第一次加载
-                getAuthList(0);
-            } else if (what == 1) {// 加载更多
-                getLoadData();
-            }
-        }  else if (tags.equals("6")) {// 事件流程
-            if (what == 0) {// 刷新和第一次加载
-                getAuthList(0);
-            } else if (what == 1) {// 加载更多
-                getLoadData();
-            }
-        } else if (tags.equals("1")) {// 代授权
-            if (what == 0) {// 刷新和第一次加载
-                getAuthList(1);
-            } else if (what == 1) {// 加载更多
-                getLoadData();
-            }
-
-        } else if (tags.equals("2")) {// 签到
-            if (what == 0) {// 刷新和第一次加载
-                getAuthList(2);
-            } else if (what == 1) {// 加载更多
-                getLoadData();
-            }
-
-        } else if (tags.equals("3")) {// 指派
-            if (what == 0) {// 刷新和第一次加载
-                getAuthList(3);
-            } else if (what == 1) {// 加载更多
-                getLoadData();
-            }
-
-        } else if (tags.equals("4")) {// 协同通告
-            if (what == 0) {// 刷新和第一次加载
-                getAuthList(4);
-            } else if (what == 1) {// 加载更多
-                getLoadData();
-            }
-
-        } else if (tags.equals("5")) {// 指挥与展示
-            if (what == 0) {// 刷新和第一次加载
-                getAuthList(5);
-            } else if (what == 1) {// 加载更多
-                List<PlanStarListEntity> datalist2;
-                if ((num + 20) <= allList2.size()) {
-                    datalist2 = allList2.subList(num, num + 20);
-                    num += 20;
-                } else {
-                    datalist2 = allList2.subList(num, allList2.size());
-                }
-                Message message = handler.obtainMessage();
-                message.what = 1;
-                message.obj = datalist2;
-                handler.sendMessage(message);
-            }
-
-        } else if (tags.equals("6")) {// 已启动预案
-            if (what == 0) {// 刷新和第一次加载
-                getAuthList(6);
-            } else if (what == 1) {// 加载更多
-                getLoadData();
-            }
-
+        if (what == 0) {// 刷新和第一次加载
+            getAuthList(Integer.parseInt(tags));
+        } else if (what == 1) {// 加载更多
+            getLoadData();
         }
-
     }
 
     @Override

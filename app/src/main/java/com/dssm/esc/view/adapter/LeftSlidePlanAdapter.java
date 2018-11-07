@@ -16,7 +16,7 @@ import com.dssm.esc.view.widget.LeftSlideView;
 
 import java.util.List;
 
-public class LeftSlidePlanAdapter extends RecyclerView.Adapter<LeftSlidePlanAdapter.MyViewHolder> implements LeftSlideView.IonSlidingButtonListener {
+public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements LeftSlideView.IonSlidingButtonListener {
 
     private Context mContext;
     private List<PlanStarListEntity> arraylist;
@@ -45,106 +45,262 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<LeftSlidePlanAdap
         return arraylist.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return arraylist.get(position).getDataType();
+    }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final PlanStarListEntity entity = arraylist.get(position);
-        holder.tvPlanName.setText(entity.getEveName());
-        holder.tvState.setTextColor(Color.RED);
-        // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
-        if (!entity.getState().equals("null")
-                && !entity.getState().equals("")) {
-            String status = "";
-            switch (Integer.parseInt(entity.getState())) {
-                case 0:
-                    status = "待启动";
-                    break;
-                case 1:
-                    status = "已启动";
-                    break;
-                case 2:
-                    status = "已授权";
-                    break;
-                case 3:
-                    status = "执行中";
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        switch (getItemViewType(position)) {
+            case 0:
+                EventViewHolder eventViewHolder = (EventViewHolder) holder;
+                final PlanStarListEntity entity = arraylist.get(position);
+                if (tags.equals("1")) {// 待启动事件列表
+                    eventViewHolder.tvEventName.setText(entity.getEveName());
+                    eventViewHolder.tvState.setTextColor(Color.RED);
+                    eventViewHolder.tvTradeType.setText(entity.getTradeType());
+                    String eveType = entity.getEveType();
+                    if ("1".equals(eveType)) {
+                        eventViewHolder.ivEventType.setImageResource(R.drawable.emergency_type);
+                    } else if ("2".equals(eveType)) {
+                        eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
+                    }
+                    eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
+                    // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
+                    if (!entity.getState().equals("null")
+                            && !entity.getState().equals("")) {
+                        String status = "";
+                        switch (Integer.parseInt(entity.getState())) {
+                            case 0:
+                                status = "初始状态";
+                                eventViewHolder.tvState.setTextColor(Color.BLUE);
+                                break;
+                            case 1:
+                                status = "待预案评估";
+                                break;
+                            case 2:
+                                status = "执行中";
+                                break;
+                            case 3:
+                                status = "结束";
+                                break;
+                            case 5:
+                                status = "启动中";
+                                break;
+                            case -1:
+                                status = "驳回评估";
+                                break;
 
-                    break;
-                case 4:
-                    status = "完成";
-                    break;
-                case 5:
-                    status = "强行中止";
-                    break;
+                        }
+                        eventViewHolder.tvState.setTextColor(Color.RED);
+                        eventViewHolder.tvState.setText(status);
+                    }
+                } else if (tags.equals("2")) {// 已启动事件列表
+                    eventViewHolder.tvEventName.setText(entity.getEveName());
+                    eventViewHolder.tvState.setTextColor(Color.RED);
+                    eventViewHolder.tvTradeType.setText(entity.getTradeType());
+                    String eveType = entity.getEveType();
+                    if ("1".equals(eveType)) {
+                        eventViewHolder.ivEventType.setImageResource(R.drawable.emergency_type);
+                    } else if ("2".equals(eveType)) {
+                        eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
+                    }
+                    eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
+                    // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
+                    if (!entity.getState().equals("null")
+                            && !entity.getState().equals("")) {
+                        String status = "";
+                        switch (Integer.parseInt(entity.getState())) {
+                            case 0:
+                                status = "初始状态";
+                                eventViewHolder.tvState.setTextColor(Color.BLUE);
+                                break;
+                            case 1:
+                                status = "待预案评估";
+                                break;
+                            case 2:
+                                status = "执行中";
+                                break;
+                            case 3:
+                                status = "结束";
+                                break;
+                            case 5:
+                                status = "启动中";
+                                break;
+                            case -1:
+                                status = "驳回评估";
+                                break;
 
-                /**
-                 * 添加暂停状态
-                 * 2017.10.12
-                 */
-                case 6:
-                    status = "暂停";
-                    break;
-            }
-            holder.tvState.setTextColor(Color.RED);
-            holder.tvState.setText(status);
-        }
+                        }
+                        eventViewHolder.tvState.setTextColor(Color.RED);
+                        eventViewHolder.tvState.setText(status);
+                    }
+                }
+                //设置内容布局的宽为屏幕宽度
+                eventViewHolder.layout_content.getLayoutParams().width = Utils.getScreenWidth(mContext);
+                //使左滑出现的菜单与内容一样高
+                int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+                int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+                eventViewHolder.layout_content.measure(w, h);
+                int height = eventViewHolder.layout_content.getMeasuredHeight();
+                eventViewHolder.btn_Function.getLayoutParams().height = height;
+                //item正文点击事件
+                eventViewHolder.layout_content.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-        //设置内容布局的宽为屏幕宽度
-        holder.layout_content.getLayoutParams().width = Utils.getScreenWidth(mContext);
-        //使左滑出现的菜单与内容一样高
-        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-        holder.layout_content.measure(w, h);
-        int height = holder.layout_content.getMeasuredHeight();
-        holder.btn_Function.getLayoutParams().height = height;
-        //item正文点击事件
-        holder.layout_content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                        //判断是否有删除菜单打开
+                        if (menuIsOpen()) {
+                            closeMenu();//关闭菜单
+                        } else {
+                            int n = holder.getLayoutPosition();
+                            mIDeleteBtnClickListener.onItemClick(v, n);
+                        }
 
-                //判断是否有删除菜单打开
-                if (menuIsOpen()) {
-                    closeMenu();//关闭菜单
-                } else {
-                    int n = holder.getLayoutPosition();
-                    mIDeleteBtnClickListener.onItemClick(v, n);
+                    }
+                });
+
+
+                //左滑菜单点击事件
+                eventViewHolder.btn_Function.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int n = holder.getLayoutPosition();
+                        mISetBtnClickListener.onFunctionBtnClick(view, n);
+                    }
+                });
+
+                break;
+            case 1:
+                PlanViewHolder planViewHolder = (PlanViewHolder) holder;
+                final PlanStarListEntity entity1 = arraylist.get(position);
+                planViewHolder.tvPlanName.setText(entity1.getPlanName());
+                planViewHolder.tvState.setTextColor(Color.RED);
+                // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
+                if (!"null".equals(entity1.getState())
+                        && !"".equals(entity1.getState())) {
+                    String status = "";
+                    switch (Integer.parseInt(entity1.getState())) {
+                        case 0:
+                            status = "待启动";
+                            break;
+                        case 1:
+                            status = "已启动";
+                            break;
+                        case 2:
+                            status = "已授权";
+                            break;
+                        case 3:
+                            status = "执行中";
+
+                            break;
+                        case 4:
+                            status = "完成";
+                            break;
+                        case 5:
+                            status = "强行中止";
+                            break;
+
+                        /**
+                         * 添加暂停状态
+                         * 2017.10.12
+                         */
+                        case 6:
+                            status = "暂停";
+                            break;
+                    }
+                    planViewHolder.tvState.setTextColor(Color.RED);
+                    planViewHolder.tvState.setText(status);
                 }
 
-            }
-        });
+                //设置内容布局的宽为屏幕宽度
+                planViewHolder.layout_content.getLayoutParams().width = Utils.getScreenWidth(mContext);
+                //使左滑出现的菜单与内容一样高
+                int w1 = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+                int h1 = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+                planViewHolder.layout_content.measure(w1, h1);
+                int height1 = planViewHolder.layout_content.getMeasuredHeight();
+                planViewHolder.btn_Function.getLayoutParams().height = height1;
+                //item正文点击事件
+                planViewHolder.layout_content.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        //判断是否有删除菜单打开
+                        if (menuIsOpen()) {
+                            closeMenu();//关闭菜单
+                        } else {
+                            int n = holder.getLayoutPosition();
+                            mIDeleteBtnClickListener.onItemClick(v, n);
+                        }
+
+                    }
+                });
 
 
-        //左滑菜单点击事件
-        holder.btn_Function.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int n = holder.getLayoutPosition();
-                mISetBtnClickListener.onFunctionBtnClick(view, n);
-            }
-        });
+                //左滑菜单点击事件
+                planViewHolder.btn_Function.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int n = holder.getLayoutPosition();
+                        mISetBtnClickListener.onFunctionBtnClick(view, n);
+                    }
+                });
 
+                break;
+
+        }
     }
 
 
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup arg0, int arg1) {
-
-        //获取自定义View的布局（加载item布局）
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_plan_hide_drag, arg0, false);
-        MyViewHolder holder = new MyViewHolder(view);
-
-        return holder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup arg0, int arg1) {
+        if (arg1 == 0) {
+            return new EventViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_event_hide_drag, null, false));
+        } else {
+            return new PlanViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_plan_hide_drag, null, false));
+        }
     }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class EventViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView btn_Function;
+        public ViewGroup layout_content;
+        private TextView tvEventName;
+        private TextView tvEventLevel;
+        private TextView tvTradeType;
+        private TextView tvState;
+        private ImageView ivEventType;
+
+        public EventViewHolder(View itemView) {
+            super(itemView);
+
+            btn_Function = (TextView) itemView.findViewById(R.id.tv_function);
+            layout_content = (ViewGroup) itemView.findViewById(R.id.layout_content);
+            tvEventName = (TextView) itemView.findViewById(R.id.event_listview_tv_name);
+            tvState = (TextView) itemView
+                    .findViewById(R.id.event_listview_tv_event_status);
+            tvTradeType = (TextView) itemView
+                    .findViewById(R.id.event_listview_tv_sub_name);
+            tvEventLevel = (TextView) itemView
+                    .findViewById(R.id.event_listview_tv_event_level);
+            ivEventType = (ImageView) itemView
+                    .findViewById(R.id.event_listview_iv_type);
+            ((LeftSlideView) itemView).setSlidingButtonListener(LeftSlidePlanAdapter.this);
+        }
+    }
+
+    class PlanViewHolder extends RecyclerView.ViewHolder {
 
         public TextView btn_Function;
         public ViewGroup layout_content;
         private TextView tvPlanName;
         private TextView tvState;
 
-        public MyViewHolder(View itemView) {
+        public PlanViewHolder(View itemView) {
             super(itemView);
 
             btn_Function = (TextView) itemView.findViewById(R.id.tv_function);
@@ -156,7 +312,6 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<LeftSlidePlanAdap
             ((LeftSlideView) itemView).setSlidingButtonListener(LeftSlidePlanAdapter.this);
         }
     }
-
 
     /**
      * 删除item

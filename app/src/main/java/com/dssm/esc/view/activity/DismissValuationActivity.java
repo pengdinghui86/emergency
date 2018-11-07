@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
-import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
@@ -27,7 +26,6 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.LeftSlideEventAdapter;
-import com.dssm.esc.view.adapter.LeftSlideRejectAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.RefreshLinearLayout;
 

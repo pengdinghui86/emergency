@@ -12,19 +12,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
-import com.dssm.esc.controler.Control;
-import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.entity.emergency.EmergencyMenuEntity;
 import com.dssm.esc.model.entity.user.MenuEntity;
 import com.dssm.esc.view.activity.AddeValuationActivity;
 import com.dssm.esc.view.activity.AutorizationDecisionActivity;
 import com.dssm.esc.view.activity.DismissValuationActivity;
 import com.dssm.esc.view.activity.DrillSelectActivity;
+import com.dssm.esc.view.activity.EventListActivity;
 import com.dssm.esc.view.activity.EventPlanListActivity;
 import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.activity.PersonSignInActivity;
 import com.dssm.esc.view.activity.PlanExecutionActivity;
-import com.dssm.esc.view.activity.PlanStarActivity;
 import com.dssm.esc.view.adapter.EmergencyMenuRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -180,7 +178,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("event_execute");
 					emergencyMenuEntity.setName(getString(R.string.executing));
 					emergencyMenuEntity.setIcon(R.drawable.event_execute);
-					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					emergencyMenuEntity.setActivity(EventListActivity.class);
 					eventManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -194,7 +192,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("event_complete");
 					emergencyMenuEntity.setName(getString(R.string.execute_complete));
 					emergencyMenuEntity.setIcon(R.drawable.event_complete);
-					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					emergencyMenuEntity.setActivity(EventListActivity.class);
 					eventManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -239,14 +237,14 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("wait_start");
 					emergencyMenuEntity.setName(getString(R.string.wait_start));
 					emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
-					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					emergencyMenuEntity.setActivity(EventListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("started");
 					emergencyMenuEntity.setName(getString(R.string.started));
 					emergencyMenuEntity.setIcon(R.drawable.plan_started);
-					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -267,14 +265,14 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("wait_start");
 					emergencyMenuEntity.setName(getString(R.string.wait_start));
 					emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
-					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					emergencyMenuEntity.setActivity(EventListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("started");
 					emergencyMenuEntity.setName(getString(R.string.started));
 					emergencyMenuEntity.setIcon(R.drawable.plan_started);
-					emergencyMenuEntity.setActivity(PlanStarActivity.class);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -352,7 +350,8 @@ public class EmergencyManageFragment extends BaseFragment implements
 				emergencyMenuEntity.setId("plan_execute");
 				emergencyMenuEntity.setName(getString(R.string.plan_execute));
 				emergencyMenuEntity.setIcon(R.drawable.plan_for_execute);
-				emergencyMenuEntity.setActivity(PlanExecutionActivity.class);
+				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+//				emergencyMenuEntity.setActivity(PlanExecutionActivity.class);
 				planExecuteList.add(emergencyMenuEntity);
 
 				emergencyMenuEntity = new EmergencyMenuEntity();
@@ -458,7 +457,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 				}
 				else if(planManageList.get(position).getId().equals("started"))
 				{
-					intent.putExtra("tags", "4");
+					intent.putExtra("tags", "2");
 				}
 				else if(planManageList.get(position).getId().equals("wait_authorize"))
 				{
@@ -495,6 +494,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					return;
 				Intent intent = new Intent(getActivity(),
 						planExecuteList.get(position).getActivity());
+                intent.putExtra("tags", "6");
 				startActivity(intent);
 			}
 		});

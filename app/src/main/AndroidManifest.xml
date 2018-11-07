@@ -84,7 +84,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.DrillSelectActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.PlanStarActivity"
+        <activity android:name=".view.activity.EventListActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.PlanStarDetailActivity"
             android:screenOrientation="portrait"/>

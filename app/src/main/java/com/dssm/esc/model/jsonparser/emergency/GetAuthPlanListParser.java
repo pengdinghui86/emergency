@@ -44,18 +44,20 @@ public class GetAuthPlanListParser {
 	 */
 	public void request(final int a) {
 		String url = "";
-		if (a == 0) {
-			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETSTARTLIST;
+		if (a == 0) {//已授权
+			url = DemoApplication.getInstance().getUrl()+HttpUrl.AUTHLIST;
 		} else if (a == 1) {// 代授权列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETAUTHLIST;
-		} else if (a == 2) {// 待签到列表
-			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETPERSONPLAN;
+		} else if (a == 2) {// 已启动预案列表
+			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETSTARTLIST;
 		} else if (a == 3) {// 人员指派列表
-			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETASSIGNLISTBYSTATE;
+			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETASSIGNLIST;
 		} else if (a == 4) {// 协同通告列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETBYSTATELIST;
-		} else if (a==5 || a == 6) {// 已启动预案列表
+		} else if (a == 5) {// 应急指挥列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETSTARTLIST;
+		} else if (a == 6) {// 预案执行列表
+			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETWEITPERFROMPRELIST;
 		}
 		RequestParams params = new RequestParams(url);
 		params.setReadTimeout(60 * 1000);

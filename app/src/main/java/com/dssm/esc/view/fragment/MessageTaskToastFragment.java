@@ -27,9 +27,8 @@ import com.dssm.esc.view.activity.DismissValuationActivity;
 import com.dssm.esc.view.activity.EventPlanListActivity;
 import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.activity.PersonSignInActivity;
-import com.dssm.esc.view.activity.PlanStarActivity;
+import com.dssm.esc.view.activity.EventListActivity;
 import com.dssm.esc.view.adapter.MessageListAdapter;
-import com.dssm.esc.view.adapter.MessageToastAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 
 import java.util.ArrayList;
@@ -151,7 +150,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 				if (MessageStatusEnum.eventEvaluation.getId().equals(
 						list.get(i).getModelFlag()))
 				{
-					intent.setClass(getActivity(), PlanStarActivity.class);
+					intent.setClass(getActivity(), EventListActivity.class);
 					intent.putExtra("tags", "1");
 				}
 				//预案已启动待签到

@@ -240,6 +240,11 @@ public class HttpUrl {
     public final static String GETASSIGNLISTBYSTATE = 
             "emergency/planInfo/getByStateList?state=1,2,3";
     /**
+     * 人员指派列表V2.1
+     */
+    public final static String GETASSIGNLIST =
+            "emergency/planEva/getAssign";
+    /**
      * 预案小组应急列表
      * 2018.7.11由getmergencyGroupData?planInfoId=接口更改为getSignUserInfo?id=接口
      */
