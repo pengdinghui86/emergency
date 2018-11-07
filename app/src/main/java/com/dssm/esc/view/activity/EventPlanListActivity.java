@@ -18,13 +18,14 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl.ControlServiceImplBackValueListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
-import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
+import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.BaseActivity.onInitNetListener;
+import com.dssm.esc.view.adapter.LeftSlideAdapter;
 import com.dssm.esc.view.adapter.LeftSlideRejectAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.RefreshLinearLayout;
@@ -40,7 +41,7 @@ import java.util.List;
  */
 @ContentView(R.layout.activity_dismissvaluation)
 public class EventPlanListActivity extends BaseActivity implements
-        LeftSlideRejectAdapter.IonSlidingViewClickListener, onInitNetListener {
+        LeftSlideAdapter.IonSlidingViewClickListener, onInitNetListener {
     /**
      * 标题
      */
@@ -54,7 +55,7 @@ public class EventPlanListActivity extends BaseActivity implements
     @ViewInject(R.id.dismissv_recyclerView)
     private RecyclerView mRecyclerView;
     /** 适配器 */
-    private LeftSlideRejectAdapter adapter;
+    private LeftSlideAdapter adapter;
     /** 下拉刷新控件 */
     @ViewInject(R.id.dismissv_refreshLinearLayout)
     private RefreshLinearLayout refreshLinearLayout;
@@ -62,7 +63,7 @@ public class EventPlanListActivity extends BaseActivity implements
      * 数据源
      */
     private List<BoHuiListEntity> list = new ArrayList<BoHuiListEntity>();
-    private List<PlanEntity> plist = new ArrayList<PlanEntity>();
+    private List<PlanStarListEntity> list1 = new ArrayList<PlanStarListEntity>();
     /**
      * 当前页面
      */
@@ -80,33 +81,33 @@ public class EventPlanListActivity extends BaseActivity implements
         public void handleMessage(Message msg) {
             /** 接收子集合 */
             if (tags.equals("5")) {
-                List<PlanEntity> result = (List<PlanEntity>) msg.obj;
+                List<PlanStarListEntity> result = (List<PlanStarListEntity>) msg.obj;
                 switch (msg.what) {
                     case AutoListView.REFRESH:
                         refreshLinearLayout.onCompleteRefresh();
                         /** 总集合清理 */
-                        plist.clear();
+                        list1.clear();
                         /** 总集合添加 */
-                        plist.addAll(result);
+                        list1.addAll(result);
                         break;
                     case AutoListView.LOAD:
                         refreshLinearLayout.onLoadComplete();
-                        plist.addAll(result);
+                        list1.addAll(result);
                         break;
                 }
                 refreshLinearLayout.setResultSize(result.size(), i);
                 adapter.notifyDataSetChanged();
             } else {
-                List<BoHuiListEntity> result = (List<BoHuiListEntity>) msg.obj;
+                List<PlanStarListEntity> result = (List<PlanStarListEntity>) msg.obj;
                 switch (msg.what) {
                     case AutoListView.REFRESH:
                         refreshLinearLayout.onCompleteRefresh();
-                        list.clear();
-                        list.addAll(result);
+                        list1.clear();
+                        list1.addAll(result);
                         break;
                     case AutoListView.LOAD:
                         refreshLinearLayout.onLoadComplete();
-                        list.addAll(result);
+                        list1.addAll(result);
                         break;
                 }
                 refreshLinearLayout.setResultSize(result.size(), i);
@@ -169,8 +170,8 @@ public class EventPlanListActivity extends BaseActivity implements
         } else if (tags.equals("6")) {
             title.setText("已启动预案");
         }
-        adapter = new LeftSlideRejectAdapter(
-                EventPlanListActivity.this, list, tags);
+        adapter = new LeftSlideAdapter(
+                EventPlanListActivity.this, list1, tags);
         mRecyclerView.setAdapter(adapter);
         //设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
@@ -213,7 +214,7 @@ public class EventPlanListActivity extends BaseActivity implements
     @Override
     public void onItemClick(View view, final int position) {
         if (tags.equals("5")) {
-            if (position >= 0 && position < plist.size()) {
+            if (position >= 0 && position < list1.size()) {
                 // 指挥与展示
                 intent = new Intent(EventPlanListActivity.this,
                         ControlActivity.class);
@@ -221,7 +222,7 @@ public class EventPlanListActivity extends BaseActivity implements
                 startActivity(intent);
             }
         }else if (tags.equals("6")) {
-            if (position >= 0 && position < plist.size()) {
+            if (position >= 0 && position < list1.size()) {
                 // 事件流程
                 intent = new Intent(EventPlanListActivity.this,
                         EventProcessActivity.class);
@@ -316,11 +317,11 @@ public class EventPlanListActivity extends BaseActivity implements
     /**
      * 从网络获取的总的list
      */
-    private List<BoHuiListEntity> allList = new ArrayList<BoHuiListEntity>();
+    private List<PlanStarListEntity> allList = new ArrayList<PlanStarListEntity>();
     /**
      * 从网络获取的总的list
      */
-    private List<PlanEntity> allList2 = new ArrayList<PlanEntity>();
+    private List<PlanStarListEntity> allList2 = new ArrayList<PlanStarListEntity>();
     /**
      * 每次显示20条
      */
@@ -369,9 +370,9 @@ public class EventPlanListActivity extends BaseActivity implements
 
         } else if (tags.equals("5")) {// 指挥与展示
             if (what == 0) {// 刷新和第一次加载
-                getControlData();
+                getAuthList(5);
             } else if (what == 1) {// 加载更多
-                List<PlanEntity> datalist2;
+                List<PlanStarListEntity> datalist2;
                 if ((num + 20) <= allList2.size()) {
                     datalist2 = allList2.subList(num, num + 20);
                     num += 20;
@@ -448,22 +449,22 @@ public class EventPlanListActivity extends BaseActivity implements
         public void setEmergencySeviceImplListListenser(Object object,
                 String stRerror, String Exceptionerror) {
             // TODO Auto-generated method stub
-            List<BoHuiListEntity> dataList = null;
+            List<PlanStarListEntity> dataList = null;
             Message message = handler.obtainMessage();
             if (object != null) {
-                dataList = (List<BoHuiListEntity>) object;
+                dataList = (List<PlanStarListEntity>) object;
                 Log.i("决策授权列表的长度", dataList.size() + "");
 
             } else if (stRerror != null) {
-                dataList = new ArrayList<BoHuiListEntity>();
+                dataList = new ArrayList<PlanStarListEntity>();
 
             } else if (Exceptionerror != null) {
-                dataList = new ArrayList<BoHuiListEntity>();
+                dataList = new ArrayList<PlanStarListEntity>();
                 ToastUtil.showToast(EventPlanListActivity.this,
                         Const.NETWORKERROR);
             }
             if (dataList.size() > 20) {// 如果超过20条，则分页
-                List<BoHuiListEntity> subList = dataList.subList(0, 20);
+                List<PlanStarListEntity> subList = dataList.subList(0, 20);
                 message.obj = subList;
             } else {
                 message.obj = dataList;
@@ -490,7 +491,7 @@ public class EventPlanListActivity extends BaseActivity implements
         // 本地做分页，加载20条以后的数据，默认每20条分一页
         Log.i("list测试长度", allList.size() + "");
         Log.i("num", num + "");
-        List<BoHuiListEntity> datalist2;
+        List<PlanStarListEntity> datalist2;
         if ((num + 20) <= allList.size()) {
             datalist2 = allList.subList(num, num + 20);
             num += 20;
@@ -503,29 +504,29 @@ public class EventPlanListActivity extends BaseActivity implements
         handler.sendMessage(message);
     }
 
-    private ControlServiceImplBackValueListenser<List<PlanEntity>> controlServiceImplBackValueListenser = new ControlServiceImplBackValueListenser<List<PlanEntity>>() {
+    private ControlServiceImplBackValueListenser<List<PlanStarListEntity>> controlServiceImplBackValueListenser = new ControlServiceImplBackValueListenser<List<PlanStarListEntity>>() {
 
         @Override
         public void setControlServiceImplListenser(
-                List<PlanEntity> backValue, String stRerror,
+                List<PlanStarListEntity> backValue, String stRerror,
                 String Exceptionerror) {
             // TODO Auto-generated method stub
             Message message = handler.obtainMessage();
             message.what = 0;
-            List<PlanEntity> dataList = null;
+            List<PlanStarListEntity> dataList = null;
             if (backValue != null) {
                 dataList = backValue;
 
             } else if (stRerror != null) {
-                dataList = new ArrayList<PlanEntity>();
+                dataList = new ArrayList<PlanStarListEntity>();
 
             } else if (Exceptionerror != null) {
-                dataList = new ArrayList<PlanEntity>();
+                dataList = new ArrayList<PlanStarListEntity>();
                 ToastUtil.showToast(EventPlanListActivity.this,
                         Const.NETWORKERROR);
             }
             if (dataList.size() > 20) {// 如果超过20条，则分页
-                List<PlanEntity> subList = dataList.subList(0, 20);
+                List<PlanStarListEntity> subList = dataList.subList(0, 20);
                 message.obj = subList;
             } else {
                 message.obj = dataList;

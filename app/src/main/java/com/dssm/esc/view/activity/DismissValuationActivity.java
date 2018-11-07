@@ -24,7 +24,9 @@ import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
+import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
+import com.dssm.esc.view.adapter.LeftSlideEventAdapter;
 import com.dssm.esc.view.adapter.LeftSlideRejectAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.RefreshLinearLayout;
@@ -41,7 +43,7 @@ import java.util.List;
  */
 @ContentView(R.layout.activity_dismissvaluation)
 public class DismissValuationActivity extends BaseActivity implements
-		MainActivity.onInitNetListener, LeftSlideRejectAdapter.IonSlidingViewClickListener{
+		MainActivity.onInitNetListener, LeftSlideEventAdapter.IonSlidingViewClickListener{
 	/** 标题 */
 	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
@@ -51,12 +53,12 @@ public class DismissValuationActivity extends BaseActivity implements
 	@ViewInject(R.id.dismissv_recyclerView)
 	private RecyclerView mRecyclerView;
 	/** 适配器 */
-	private LeftSlideRejectAdapter adapter;
+	private LeftSlideEventAdapter adapter;
 	/** 下拉刷新控件 */
 	@ViewInject(R.id.dismissv_refreshLinearLayout)
 	private RefreshLinearLayout refreshLinearLayout;
 	/** 数据源 */
-	private List<BoHuiListEntity> list = new ArrayList<BoHuiListEntity>();
+	private List<PlanStarListEntity> list = new ArrayList<PlanStarListEntity>();
 	private GetProjectEveInfoEntity entity;
 	/** 当前页面 */
 	private int i = 1;
@@ -69,7 +71,7 @@ public class DismissValuationActivity extends BaseActivity implements
 			/**
 			 * 接收子集合
 			 */
-			List<BoHuiListEntity> result = (List<BoHuiListEntity>) msg.obj;
+			List<PlanStarListEntity> result = (List<PlanStarListEntity>) msg.obj;
 			switch (msg.what) {
 			case AutoListView.REFRESH:
 				refreshLinearLayout.onCompleteRefresh();
@@ -91,7 +93,7 @@ public class DismissValuationActivity extends BaseActivity implements
 			default:
 				break;
 			}
-            adapter.refreshData(list);
+            adapter.notifyDataSetChanged();
 			refreshLinearLayout.setResultSize(result.size(), i);
 		};
 	};
@@ -129,8 +131,8 @@ public class DismissValuationActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		back.setVisibility(View.VISIBLE);
 		title.setText(R.string.dismissvaluation);
-		adapter = new LeftSlideRejectAdapter(
-				DismissValuationActivity.this, list,"7");
+		adapter = new LeftSlideEventAdapter(
+				DismissValuationActivity.this, list,"3");
 		//设置布局管理器
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
 		mRecyclerView.setAdapter(adapter);
@@ -231,7 +233,7 @@ public class DismissValuationActivity extends BaseActivity implements
 	}
 
 	// 从网络获取的总的list
-	private List<BoHuiListEntity> allList = new ArrayList<BoHuiListEntity>();
+	private List<PlanStarListEntity> allList = new ArrayList<PlanStarListEntity>();
 	private int num = 20;// 每次显示20条
 
 	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
@@ -240,22 +242,22 @@ public class DismissValuationActivity extends BaseActivity implements
 		public void setEmergencySeviceImplListListenser(Object object,
 				String stRerror, String Exceptionerror) {
 			// TODO Auto-generated method stub
-			List<BoHuiListEntity> dataList=null;
+			List<PlanStarListEntity> dataList=null;
 			Message message = handler.obtainMessage();
 			if (object != null) {
-				dataList = (List<BoHuiListEntity>) object;
+				dataList = (List<PlanStarListEntity>) object;
 				Log.i("驳回事件的长度", dataList.size() + "");
 
 			}else if (stRerror!=null) {
-				dataList=new ArrayList<BoHuiListEntity>();
+				dataList=new ArrayList<PlanStarListEntity>();
 
 			}else if (Exceptionerror!=null) {
-				dataList=new ArrayList<BoHuiListEntity>();
+				dataList=new ArrayList<PlanStarListEntity>();
 				ToastUtil.showToast(DismissValuationActivity.this, Const.NETWORKERROR);
 			}
 			message.what = 0;
 			if (dataList.size() > 20) {// 如果超过20条，则分页
-				List<BoHuiListEntity> subList = dataList.subList(0,
+				List<PlanStarListEntity> subList = dataList.subList(0,
 						20);
 				message.obj = subList;
 			} else {
@@ -269,12 +271,12 @@ public class DismissValuationActivity extends BaseActivity implements
 	private void loadData(final int what) {
 
 		if (what == 0) {// 刷新和第一次加载
-			Control.getinstance().getEmergencyService().getBoHuiList(listListenser);
+			Control.getinstance().getEmergencyService().getPlanStarList(listListenser, "-1");
 		} else if (what == 1) {// 加载更多
 			// 本地做分页，加载20条以后的数据，默认每20条分一页
 			Log.i("list测试长度", allList.size() + "");
 			Log.i("num", num + "");
-			List<BoHuiListEntity> datalist2;
+			List<PlanStarListEntity> datalist2;
 			if ((num + 20) <= allList.size()) {
 				datalist2 = allList.subList(num, num + 20);
 				num += 20;

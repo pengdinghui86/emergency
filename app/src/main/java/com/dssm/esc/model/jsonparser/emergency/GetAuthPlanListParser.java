@@ -54,7 +54,7 @@ public class GetAuthPlanListParser {
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETASSIGNLISTBYSTATE;
 		} else if (a == 4) {// 协同通告列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETBYSTATELIST;
-		} else if (a == 6) {// 已启动预案列表
+		} else if (a==5 || a == 6) {// 已启动预案列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETSTARTLIST;
 		}
 		RequestParams params = new RequestParams(url);
@@ -82,7 +82,7 @@ public class GetAuthPlanListParser {
 				if(DemoApplication.sessionTimeoutCount > 0)
 					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("GetAuthListParser", t);
-				list = getAuthlistParser(t, a);
+				list = planListParser(t, a);
 				Log.i("GetAuthListParser", "GetAuthListParser" + list);
 				if(onEmergencyCompleteListener != null)
 					onEmergencyCompleteListener.onEmergencyParserComplete(list,
@@ -196,19 +196,23 @@ public class GetAuthPlanListParser {
 					{
 						PlanStarListEntity suspandEntity = new PlanStarListEntity();
 						JSONObject jsonObject = (JSONObject) jsonArray2.opt(j);
-						suspandEntity.setIsStarter(jsonObject.getString("isStarter"));
-						suspandEntity.setId(jsonObject2.getString("id"));
-						suspandEntity.setEveName(jsonObject2.getString("planName"));
-						suspandEntity.setPlanResName(jsonObject2.getString("planResName"));
-						suspandEntity.setPlanResType(jsonObject2.getString("planResType"));
-						suspandEntity.setState(jsonObject2.getString("state"));
-						suspandEntity.setPlanId(jsonObject2.getString("planId"));
-						suspandEntity.setPlanResId(jsonObject2.getString("planResId"));
+						if(jsonObject.has("isStarter"))
+							suspandEntity.setIsStarter(jsonObject.getString("isStarter"));
+						suspandEntity.setId(jsonObject.getString("id"));
+						suspandEntity.setPlanName(jsonObject.getString("planName"));
+						suspandEntity.setPlanResName(jsonObject.getString("planResName"));
+						suspandEntity.setPlanResType(jsonObject.getString("planResType"));
+						suspandEntity.setState(jsonObject.getString("state"));
+						suspandEntity.setPlanId(jsonObject.getString("planId"));
+						suspandEntity.setPlanResId(jsonObject.getString("planResId"));
 						if (a == 0) {
-							suspandEntity.setIsAuthor(jsonObject2.getString("isAuthor"));
+							if(jsonObject.has("isAuthor"))
+								suspandEntity.setIsAuthor(jsonObject.getString("isAuthor"));
+							else
+								suspandEntity.setIsAuthor("true");
 						}
 						if (a == 4) {
-							suspandEntity.setPrecautionId(jsonObject2
+							suspandEntity.setPrecautionId(jsonObject
 									.getString("planId"));
 						}
 						suspandEntity.setDataType(1);

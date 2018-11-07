@@ -20,13 +20,13 @@ import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
 import com.dssm.esc.model.entity.control.PlanEntity;
-import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
+import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.BaseActivity.onInitNetListener;
-import com.dssm.esc.view.adapter.LeftSlideRejectAdapter;
+import com.dssm.esc.view.adapter.LeftSlideEventAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.RefreshLinearLayout;
 
@@ -41,7 +41,7 @@ import java.util.List;
  */
 @ContentView(R.layout.activity_person_sign_in)
 public class PersonSignInActivity extends BaseActivity implements
-        onInitNetListener, LeftSlideRejectAdapter.IonSlidingViewClickListener{
+        onInitNetListener, LeftSlideEventAdapter.IonSlidingViewClickListener{
     /**
      * 标题
      */
@@ -55,7 +55,7 @@ public class PersonSignInActivity extends BaseActivity implements
     @ViewInject(R.id.person_sign_in_recyclerView)
     private RecyclerView mRecyclerView;
     /** 适配器 */
-    private LeftSlideRejectAdapter adapter;
+    private LeftSlideEventAdapter adapter;
     /** 下拉刷新控件 */
     @ViewInject(R.id.person_sign_in_refreshLinearLayout)
     private RefreshLinearLayout refreshLinearLayout;
@@ -65,7 +65,7 @@ public class PersonSignInActivity extends BaseActivity implements
     /**
      * 数据源
      */
-    private List<BoHuiListEntity> list = new ArrayList<BoHuiListEntity>();
+    private List<PlanStarListEntity> list = new ArrayList<PlanStarListEntity>();
 
 
     private String signState = "";// 签到状态0:未签到 1：已签到
@@ -73,7 +73,7 @@ public class PersonSignInActivity extends BaseActivity implements
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            List<BoHuiListEntity> result = (List<BoHuiListEntity>) msg.obj;
+            List<PlanStarListEntity> result = (List<PlanStarListEntity>) msg.obj;
             switch (msg.what) {
                 case AutoListView.REFRESH:
                     refreshLinearLayout.onCompleteRefresh();
@@ -85,7 +85,7 @@ public class PersonSignInActivity extends BaseActivity implements
                     list.addAll(result);
                     break;
             }
-            adapter.refreshData(list);
+            adapter.notifyDataSetChanged();
             refreshLinearLayout.setResultSize(result.size(), 1);
         }
     };
@@ -122,7 +122,7 @@ public class PersonSignInActivity extends BaseActivity implements
     private void initview() {
         back.setVisibility(View.VISIBLE);
         title.setText("人员签到");
-        adapter = new LeftSlideRejectAdapter(
+        adapter = new LeftSlideEventAdapter(
                 PersonSignInActivity.this, list, "2");
         //设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
@@ -232,7 +232,7 @@ public class PersonSignInActivity extends BaseActivity implements
     /**
      * 从网络获取的总的list
      */
-    private List<BoHuiListEntity> allList = new ArrayList<BoHuiListEntity>();
+    private List<PlanStarListEntity> allList = new ArrayList<PlanStarListEntity>();
     /**
      * 从网络获取的总的list
      */
@@ -303,22 +303,22 @@ public class PersonSignInActivity extends BaseActivity implements
         public void setEmergencySeviceImplListListenser(Object object,
                 String stRerror, String Exceptionerror) {
             // TODO Auto-generated method stub
-            List<BoHuiListEntity> dataList = null;
+            List<PlanStarListEntity> dataList = null;
             Message message = handler.obtainMessage();
             if (object != null) {
-                dataList = (List<BoHuiListEntity>) object;
+                dataList = (List<PlanStarListEntity>) object;
                 Log.i("决策授权列表的长度", dataList.size() + "");
 
             } else if (stRerror != null) {
-                dataList = new ArrayList<BoHuiListEntity>();
+                dataList = new ArrayList<PlanStarListEntity>();
 
             } else if (Exceptionerror != null) {
-                dataList = new ArrayList<BoHuiListEntity>();
+                dataList = new ArrayList<PlanStarListEntity>();
                 ToastUtil.showToast(PersonSignInActivity.this,
                         Const.NETWORKERROR);
             }
             if (dataList.size() > 20) {// 如果超过20条，则分页
-                List<BoHuiListEntity> subList = dataList.subList(0, 20);
+                List<PlanStarListEntity> subList = dataList.subList(0, 20);
                 message.obj = subList;
             } else {
                 message.obj = dataList;
@@ -345,7 +345,7 @@ public class PersonSignInActivity extends BaseActivity implements
         // 本地做分页，加载20条以后的数据，默认每20条分一页
         Log.i("list测试长度", allList.size() + "");
         Log.i("num", num + "");
-        List<BoHuiListEntity> datalist2;
+        List<PlanStarListEntity> datalist2;
         if ((num + 20) <= allList.size()) {
             datalist2 = allList.subList(num, num + 20);
             num += 20;

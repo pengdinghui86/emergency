@@ -20,7 +20,7 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
 
     private Context mContext;
     private List<PlanStarListEntity> arraylist;
-    /** 0，已授权1,授权决策；2,人员签到 ；3,人员指派;4,协同通告; 5,指挥与展示,6,事件流程列表7,驳回事件列表 */
+    /** 1,待启动事件；2,执行中事件；3,已驳回事件；4,执行完成事件；*/
     private String tags;
 
     private IonSlidingViewClickListener mIDeleteBtnClickListener;
@@ -47,104 +47,57 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
 
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder eventViewHolder, int position) {
         final PlanStarListEntity entity = arraylist.get(position);
-        if (tags.equals("1")) {// 待启动事件列表
-            holder.tvEventName.setText(entity.getEveName());
-            holder.tvState.setTextColor(Color.RED);
-            holder.tvTradeType.setText(entity.getTradeType());
-            String planResType = entity.getEveType();
-            if (planResType.equals("1")) {
-                holder.ivEventType.setImageResource(R.drawable.emergency_type);
-            } else if (planResType.equals("2")) {
-                holder.ivEventType.setImageResource(R.drawable.drill_type);
-            }
-            holder.tvEventLevel.setText(entity.getEveLevel());
-            // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
-            if (!entity.getState().equals("null")
-                    && !entity.getState().equals("")) {
-                String status = "";
-                switch (Integer.parseInt(entity.getState())) {
-                    case 0:
-                        status = "初始状态";
-                        holder.tvState.setTextColor(Color.BLUE);
-                        break;
-                    case 1:
-                        status = "待预案评估";
-                        break;
-                    case 2:
-                        status = "执行中";
-                        break;
-                    case 3:
-                        status = "结束";
-                        break;
-                    case 5:
-                        status = "启动中";
-                        break;
-                    case -1:
-                        status = "驳回评估";
-                        break;
+        eventViewHolder.tvEventName.setText(entity.getEveName());
+        eventViewHolder.tvState.setTextColor(Color.RED);
+        eventViewHolder.tvTradeType.setText(entity.getTradeType());
+        String planResType = entity.getEveType();
+        if (planResType.equals("1")) {
+            eventViewHolder.ivEventType.setImageResource(R.drawable.emergency_type);
+        } else if (planResType.equals("2")) {
+            eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
+        }
+        eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
+        // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
+        if (!entity.getState().equals("null")
+                && !entity.getState().equals("")) {
+            String status = "";
+            switch (Integer.parseInt(entity.getState())) {
+                case 0:
+                    status = "初始状态";
+                    eventViewHolder.tvState.setTextColor(Color.BLUE);
+                    break;
+                case 1:
+                    status = "待预案评估";
+                    break;
+                case 2:
+                    status = "执行中";
+                    break;
+                case 3:
+                    status = "结束";
+                    break;
+                case 5:
+                    status = "启动中";
+                    break;
+                case -1:
+                    status = "驳回评估";
+                    break;
 
-                }
-                holder.tvState.setTextColor(Color.RED);
-                holder.tvState.setText(status);
             }
-        } else if (tags.equals("2")) {// 已启动事件列表
-            holder.tvEventName.setText(entity.getPlanName());
-            holder.tvState.setTextColor(Color.RED);
-            String planResType = entity.getPlanResType();
-            if (planResType.equals("1")) {
-                holder.ivEventType.setImageResource(R.drawable.emergency_type);
-            } else if (planResType.equals("2")) {
-                holder.ivEventType.setImageResource(R.drawable.drill_type);
-            }
-            holder.tvEventLevel.setVisibility(View.GONE);
-            holder.tvTradeType.setText(entity.getPlanResName());
-            // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
-            if (!entity.getState().equals("null")
-                    && !entity.getState().equals("")) {
-                String status = "";
-                switch (Integer.parseInt(entity.getState())) {
-                    case 0:
-                        status = "待启动";
-                        break;
-                    case 1:
-                        status = "已启动";
-                        break;
-                    case 2:
-                        status = "已授权";
-                        break;
-                    case 3:
-                        status = "执行中";
-
-                        break;
-                    case 4:
-                        status = "完成";
-                        break;
-                    case 5:
-                        status = "强行中止";
-                        break;
-                    /**
-                     * 添加暂停状态
-                     * 2017.10.16
-                     */
-                    case 6:
-                        status = "暂停";
-                        break;
-                }
-                holder.tvState.setText(status);
-            }
+            eventViewHolder.tvState.setTextColor(Color.RED);
+            eventViewHolder.tvState.setText(status);
         }
         //设置内容布局的宽为屏幕宽度
-        holder.layout_content.getLayoutParams().width = Utils.getScreenWidth(mContext);
+        eventViewHolder.layout_content.getLayoutParams().width = Utils.getScreenWidth(mContext);
         //使左滑出现的菜单与内容一样高
         int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
         int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-        holder.layout_content.measure(w, h);
-        int height = holder.layout_content.getMeasuredHeight();
-        holder.btn_Function.getLayoutParams().height = height;
+        eventViewHolder.layout_content.measure(w, h);
+        int height = eventViewHolder.layout_content.getMeasuredHeight();
+        eventViewHolder.btn_Function.getLayoutParams().height = height;
         //item正文点击事件
-        holder.layout_content.setOnClickListener(new View.OnClickListener() {
+        eventViewHolder.layout_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -152,7 +105,7 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
                 if (menuIsOpen()) {
                     closeMenu();//关闭菜单
                 } else {
-                    int n = holder.getLayoutPosition();
+                    int n = eventViewHolder.getLayoutPosition();
                     mIDeleteBtnClickListener.onItemClick(v, n);
                 }
 
@@ -161,10 +114,10 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
 
 
         //左滑菜单点击事件
-        holder.btn_Function.setOnClickListener(new View.OnClickListener() {
+        eventViewHolder.btn_Function.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int n = holder.getLayoutPosition();
+                int n = eventViewHolder.getLayoutPosition();
                 mISetBtnClickListener.onFunctionBtnClick(view, n);
             }
         });
@@ -179,8 +132,6 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
         //获取自定义View的布局（加载item布局）
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_event_hide_drag, arg0, false);
         MyViewHolder holder = new MyViewHolder(view);
-
-
         return holder;
     }
 
