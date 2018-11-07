@@ -56,86 +56,44 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
             case 0:
                 EventViewHolder eventViewHolder = (EventViewHolder) holder;
                 final PlanStarListEntity entity = arraylist.get(position);
-                if (tags.equals("1")) {// 待启动事件列表
-                    eventViewHolder.tvEventName.setText(entity.getEveName());
-                    eventViewHolder.tvState.setTextColor(Color.RED);
-                    eventViewHolder.tvTradeType.setText(entity.getTradeType());
-                    String eveType = entity.getEveType();
-                    if ("1".equals(eveType)) {
-                        eventViewHolder.ivEventType.setImageResource(R.drawable.emergency_type);
-                    } else if ("2".equals(eveType)) {
-                        eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
-                    }
-                    eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
-                    // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
-                    if (!entity.getState().equals("null")
-                            && !entity.getState().equals("")) {
-                        String status = "";
-                        switch (Integer.parseInt(entity.getState())) {
-                            case 0:
-                                status = "初始状态";
-                                eventViewHolder.tvState.setTextColor(Color.BLUE);
-                                break;
-                            case 1:
-                                status = "待预案评估";
-                                break;
-                            case 2:
-                                status = "执行中";
-                                break;
-                            case 3:
-                                status = "结束";
-                                break;
-                            case 5:
-                                status = "启动中";
-                                break;
-                            case -1:
-                                status = "驳回评估";
-                                break;
+                eventViewHolder.tvEventName.setText(entity.getEveName());
+                eventViewHolder.tvState.setTextColor(Color.RED);
+                eventViewHolder.tvTradeType.setText(entity.getTradeType());
+                String eveType = entity.getEveType();
+                if ("1".equals(eveType)) {
+                    eventViewHolder.ivEventType.setImageResource(R.drawable.emergency_type);
+                } else if ("2".equals(eveType)) {
+                    eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
+                }
+                eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
+                // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
+                if (!entity.getState().equals("null")
+                        && !entity.getState().equals("")) {
+                    String status = "";
+                    switch (Integer.parseInt(entity.getState())) {
+                        case 0:
+                            status = "初始状态";
+                            eventViewHolder.tvState.setTextColor(Color.BLUE);
+                            break;
+                        case 1:
+                            status = "待预案评估";
+                            break;
+                        case 2:
+                            status = "执行中";
+                            break;
+                        case 3:
+                            status = "结束";
+                            break;
+                        case 5:
+                            status = "启动中";
+                            break;
+                        case -1:
+                            status = "驳回评估";
+                            break;
 
-                        }
-                        eventViewHolder.tvState.setTextColor(Color.RED);
-                        eventViewHolder.tvState.setText(status);
                     }
-                } else if (tags.equals("2")) {// 已启动事件列表
-                    eventViewHolder.tvEventName.setText(entity.getEveName());
                     eventViewHolder.tvState.setTextColor(Color.RED);
-                    eventViewHolder.tvTradeType.setText(entity.getTradeType());
-                    String eveType = entity.getEveType();
-                    if ("1".equals(eveType)) {
-                        eventViewHolder.ivEventType.setImageResource(R.drawable.emergency_type);
-                    } else if ("2".equals(eveType)) {
-                        eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
-                    }
-                    eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
-                    // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
-                    if (!entity.getState().equals("null")
-                            && !entity.getState().equals("")) {
-                        String status = "";
-                        switch (Integer.parseInt(entity.getState())) {
-                            case 0:
-                                status = "初始状态";
-                                eventViewHolder.tvState.setTextColor(Color.BLUE);
-                                break;
-                            case 1:
-                                status = "待预案评估";
-                                break;
-                            case 2:
-                                status = "执行中";
-                                break;
-                            case 3:
-                                status = "结束";
-                                break;
-                            case 5:
-                                status = "启动中";
-                                break;
-                            case -1:
-                                status = "驳回评估";
-                                break;
-
-                        }
-                        eventViewHolder.tvState.setTextColor(Color.RED);
-                        eventViewHolder.tvState.setText(status);
-                    }
+                    eventViewHolder.tvState.setText(status);
                 }
                 //设置内容布局的宽为屏幕宽度
                 eventViewHolder.layout_content.getLayoutParams().width = Utils.getScreenWidth(mContext);

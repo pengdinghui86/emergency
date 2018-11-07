@@ -192,7 +192,7 @@ public class EventPlanListActivity extends BaseActivity implements
             }
         }else if (tags.equals("6")) {
             if (position >= 0 && position < list.size()) {
-                // 事件流程
+                //预案执行
                 intent = new Intent(EventPlanListActivity.this,
                         EventProcessActivity.class);
                 startActivity(intent);

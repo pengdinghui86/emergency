@@ -6,12 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
 import com.dssm.esc.model.entity.control.ProgressDetailEntity;
-import com.dssm.esc.model.entity.emergency.EmergencyMenuEntity;
 import com.dssm.esc.util.Utils;
 
 import java.util.List;
@@ -21,11 +19,11 @@ public class EventProcessRecyclerViewAdapter extends RecyclerView.Adapter<EventP
     private List<ProgressDetailEntity.EvenDetail> list;
     private Context context;
     private String timeNow;
-    public EventProcessRecyclerViewAdapter(Context mContext, List<EmergencyMenuEntity> datats)
+    public EventProcessRecyclerViewAdapter(Context mContext, List<ProgressDetailEntity.EvenDetail> data, String timeNow)
     {
-        this.context = context;
-        this.list = list;
-        this.timeNow=timeNow;
+        this.context = mContext;
+        this.list = data;
+        this.timeNow = timeNow;
     }
 
     @Override
@@ -46,11 +44,13 @@ public class EventProcessRecyclerViewAdapter extends RecyclerView.Adapter<EventP
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i)
     {
         View view;
-        if (i == 0) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_listview_event_process_detail_right,null);
-        } else {
-            view = LayoutInflater.from(context).inflate(R.layout.item_listview_event_process_detail_left,null);
-        }
+        view = LayoutInflater.from(context).inflate(R.layout.item_listview_event_process_detail_right,null);
+//
+//        if (i == 0) {
+//            view = LayoutInflater.from(context).inflate(R.layout.item_listview_event_process_detail_right,null);
+//        } else {
+//            view = LayoutInflater.from(context).inflate(R.layout.item_listview_event_process_detail_left,null);
+//        }
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -76,6 +76,14 @@ public class EventProcessRecyclerViewAdapter extends RecyclerView.Adapter<EventP
         } else if (position > 0 && !entity.getProgress().equals("eveClose")) {
             viewHolder.v_top.setVisibility(View.VISIBLE);
             viewHolder.v_bottom.setVisibility(View.VISIBLE);
+            if(entity.getProgress().equals("planStart"))
+                viewHolder.imageView.setImageResource(R.drawable.event_process_plan_start);
+            if(entity.getProgress().equals("planAuth"))
+                viewHolder.imageView.setImageResource(R.drawable.event_process_plan_authorize);
+            if(entity.getProgress().equals("personSign"))
+                viewHolder.imageView.setImageResource(R.drawable.event_process_sign_assign);
+            if(entity.getProgress().equals("planPerform"))
+                viewHolder.imageView.setImageResource(R.drawable.event_process_plan_execute);
 
         } else if (entity.getProgress().equals("eveClose")) {
             viewHolder.v_top.setVisibility(View.VISIBLE);

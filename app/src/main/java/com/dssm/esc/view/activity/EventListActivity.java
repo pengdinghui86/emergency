@@ -412,15 +412,6 @@ public class EventListActivity extends BaseActivity implements
                 intent.putExtra("isStarter", list.get(position).getIsStarter());
                 startActivity(intent);
                 // EventListActivity.this.finish();
-            } else if (tags.equals("4")) {
-                Intent intent = new Intent(EventListActivity.this,
-                        PlanSuspandDetilActivity.class);
-                //intent.putExtra("tag", tag);
-                intent.putExtra("id", list.get(position).getId());
-                intent.putExtra("stop", "0");// 已启动的预案
-                intent.putExtra("isStarter", list.get(position).getIsStarter());// 已启动的预案
-                startActivity(intent);
-                // EventListActivity.this.finish();
             } else {
                 Intent intent = new Intent(EventListActivity.this,
                         EventProcessDetailActivity.class);
