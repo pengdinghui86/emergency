@@ -82,7 +82,10 @@ public class GetAuthPlanListParser {
 				if(DemoApplication.sessionTimeoutCount > 0)
 					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("GetAuthListParser", t);
-				list = planListParser(t, a);
+				if (a == 2)
+					list = eventListParser(t);
+				else
+					list = planListParser(t, a);
 				Log.i("GetAuthListParser", "GetAuthListParser" + list);
 				if(onEmergencyCompleteListener != null)
 					onEmergencyCompleteListener.onEmergencyParserComplete(list,
@@ -134,10 +137,10 @@ public class GetAuthPlanListParser {
 	}
 
 	/**
-	 * 获取授权决策列表数据解析
+	 * 事件列表数据解析
 	 */
-	public List<PlanStarListEntity> getAuthlistParser(String t, int a) {
-		List<PlanStarListEntity> list = new ArrayList<>();
+	public List<PlanStarListEntity> eventListParser(String t) {
+		List<PlanStarListEntity> list = new ArrayList<PlanStarListEntity>();
 		try {
 			JSONArray jsonArray = new JSONArray(t);
 			if (jsonArray.length() > 0) {
@@ -145,19 +148,12 @@ public class GetAuthPlanListParser {
 					PlanStarListEntity listEntity = new PlanStarListEntity();
 					JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
 					listEntity.setId(jsonObject2.getString("id"));
-					listEntity.setEveName(jsonObject2.getString("planName"));
-					listEntity.setPlanResName(jsonObject2.getString("planResName"));
-					listEntity.setPlanResType(jsonObject2.getString("planResType"));
+					listEntity.setEveName(jsonObject2.getString("eveName"));
 					listEntity.setState(jsonObject2.getString("state"));
-					listEntity.setPlanId(jsonObject2.getString("planId"));
-					listEntity.setPlanResId(jsonObject2.getString("planResId"));
-					if (a==0) {
-						listEntity.setIsAuthor(jsonObject2.getString("isAuthor"));
-					}
-					if (a == 4) {
-						listEntity.setPrecautionId(jsonObject2
-								.getString("planId"));
-					}
+					listEntity.setEveLevel(jsonObject2.getString("eveLevel"));
+					listEntity.setTradeType(jsonObject2.getString("tradeType"));
+					listEntity.setEveCode(jsonObject2.getString("eveCode"));
+					listEntity.setEveType(jsonObject2.getString("eveType"));
 					list.add(listEntity);
 				}
 				return list;
@@ -169,7 +165,6 @@ public class GetAuthPlanListParser {
 			e.printStackTrace();
 			return list;
 		}
-
 	}
 
 	/**
@@ -228,7 +223,5 @@ public class GetAuthPlanListParser {
 			e.printStackTrace();
 			return list;
 		}
-
-
 	}
 }
