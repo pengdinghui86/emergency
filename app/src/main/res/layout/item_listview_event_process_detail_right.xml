@@ -9,8 +9,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:paddingRight="8dp"
+        android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical|right">
 
@@ -29,6 +28,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal">
 
@@ -62,14 +63,12 @@
     <RelativeLayout
         android:id="@+id/event_process_detail_rl"
         android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="15dp"

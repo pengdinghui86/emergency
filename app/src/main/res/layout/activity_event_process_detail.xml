@@ -53,37 +53,41 @@
     <com.dssm.esc.view.widget.RefreshLinearLayout
         android:id="@+id/rll_event_process"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:visibility="gone">
+            android:gravity="center">
 
             <com.dssm.esc.view.widget.RingChartView
                 android:id="@+id/event_process_detail_rcv"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_centerHorizontal="true"
-                app:circleColor="@color/red"
-                app:innerRingColor="@color/yellow"
-                app:outRingColor="@color/green"
-                app:radiusLen="40dp"
-                app:strokeLen="6dp"
+                app:centerColor="@color/white"
+                app:defaultRingColor="@color/gray_f8"
+                app:innerRingColor="@color/blue_dot"
+                app:innerRingRadius="0dp"
+                app:innerRingStrokeLen="0dp"
+                app:outRingColor="@color/blue_dot"
+                app:outRingRadius="40dp"
+                app:outRingStrokeLen="10dp"
+                app:description=""
+                app:textColor="@color/black"
                 app:textSize="32sp" />
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/event_process_detail_rv"
+        <ListView
+            android:id="@+id/event_process_detail_lv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:divider="@null"
+            android:scrollbars="none"/>
 
     </com.dssm.esc.view.widget.RefreshLinearLayout>
 

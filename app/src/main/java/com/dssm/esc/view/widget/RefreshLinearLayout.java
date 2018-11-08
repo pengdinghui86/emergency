@@ -249,6 +249,12 @@ public class RefreshLinearLayout extends LinearLayout {
 			loading.setVisibility(View.GONE);
 			more.setVisibility(View.GONE);
 			noData.setVisibility(View.VISIBLE);
+		} else if (resultSize == 0 && i == 3) {
+			isLoadFull = true;
+			loadFull.setVisibility(View.GONE);
+			loading.setVisibility(View.GONE);
+			more.setVisibility(View.GONE);
+			noData.setVisibility(View.GONE);
 		} else if (resultSize > 0 && resultSize < pageSize) {
 			isLoadFull = true;
 			loadFull.setVisibility(View.VISIBLE);
@@ -262,7 +268,7 @@ public class RefreshLinearLayout extends LinearLayout {
 			more.setVisibility(View.VISIBLE);
 			noData.setVisibility(View.GONE);
 		}
-		if (resultSize == 0 && i != 1) {
+		if (resultSize == 0 && i != 1 && i != 3) {
 			isLoadFull = true;
 			loadFull.setVisibility(View.VISIBLE);
 			loading.setVisibility(View.GONE);

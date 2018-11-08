@@ -19,11 +19,17 @@ public class EventProcessRecyclerViewAdapter extends RecyclerView.Adapter<EventP
     private List<ProgressDetailEntity.EvenDetail> list;
     private Context context;
     private String timeNow;
-    public EventProcessRecyclerViewAdapter(Context mContext, List<ProgressDetailEntity.EvenDetail> data, String timeNow)
+    public EventProcessRecyclerViewAdapter(Context mContext, List<ProgressDetailEntity.EvenDetail> data)
     {
         this.context = mContext;
         this.list = data;
+    }
+
+    public void update(List<ProgressDetailEntity.EvenDetail> data, String timeNow)
+    {
+        this.list = data;
         this.timeNow = timeNow;
+        notifyDataSetChanged();
     }
 
     @Override

@@ -23,12 +23,17 @@
     </declare-styleable>
 
     <declare-styleable name="RingChartViewStyle">
-        <attr name="radiusLen" format="dimension"/>
-        <attr name="strokeLen" format="dimension"/>
-        <attr name="circleColor" format="color"/>
+        <attr name="innerRingStrokeLen" format="dimension"/>
+        <attr name="innerRingRadius" format="dimension"/>
+        <attr name="outRingStrokeLen" format="dimension"/>
+        <attr name="outRingRadius" format="dimension"/>
+        <attr name="centerColor" format="color"/>
+        <attr name="defaultRingColor" format="color"/>
         <attr name="innerRingColor" format="color"/>
         <attr name="outRingColor" format="color"/>
+        <attr name="description" format="string"/>
         <attr name="textSize" format="dimension"/>
+        <attr name="textColor" format="color"/>
     </declare-styleable>
 
 </resources>
