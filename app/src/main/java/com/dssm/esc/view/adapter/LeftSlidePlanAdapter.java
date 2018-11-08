@@ -102,7 +102,8 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                 int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
                 eventViewHolder.layout_content.measure(w, h);
                 int height = eventViewHolder.layout_content.getMeasuredHeight();
-                eventViewHolder.btn_Function.getLayoutParams().height = height;
+                eventViewHolder.btn_Function1.getLayoutParams().height = height;
+                eventViewHolder.btn_Function2.getLayoutParams().height = height;
                 //item正文点击事件
                 eventViewHolder.layout_content.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -121,14 +122,20 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
                 //左滑菜单点击事件
-                eventViewHolder.btn_Function.setOnClickListener(new View.OnClickListener() {
+                eventViewHolder.btn_Function1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int n = holder.getLayoutPosition();
-                        mISetBtnClickListener.onFunctionBtnClick(view, n);
+                        mISetBtnClickListener.onFunction1BtnClick(view, n);
                     }
                 });
-
+                eventViewHolder.btn_Function2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int n = holder.getLayoutPosition();
+                        mISetBtnClickListener.onFunction2BtnClick(view, n);
+                    }
+                });
                 break;
             case 1:
                 PlanViewHolder planViewHolder = (PlanViewHolder) holder;
@@ -179,7 +186,8 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                 int h1 = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
                 planViewHolder.layout_content.measure(w1, h1);
                 int height1 = planViewHolder.layout_content.getMeasuredHeight();
-                planViewHolder.btn_Function.getLayoutParams().height = height1;
+                planViewHolder.btn_Function1.getLayoutParams().height = height1;
+                planViewHolder.btn_Function2.getLayoutParams().height = height1;
                 //item正文点击事件
                 planViewHolder.layout_content.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -196,13 +204,21 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                     }
                 });
 
-
                 //左滑菜单点击事件
-                planViewHolder.btn_Function.setOnClickListener(new View.OnClickListener() {
+                planViewHolder.btn_Function1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int n = holder.getLayoutPosition();
-                        mISetBtnClickListener.onFunctionBtnClick(view, n);
+                        mISetBtnClickListener.onFunction1BtnClick(view, n);
+                    }
+                });
+
+                //左滑菜单点击事件
+                planViewHolder.btn_Function2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int n = holder.getLayoutPosition();
+                        mISetBtnClickListener.onFunction2BtnClick(view, n);
                     }
                 });
 
@@ -225,7 +241,8 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     class EventViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView btn_Function;
+        public TextView btn_Function1;
+        public TextView btn_Function2;
         public ViewGroup layout_content;
         private TextView tvEventName;
         private TextView tvEventLevel;
@@ -236,7 +253,8 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
         public EventViewHolder(View itemView) {
             super(itemView);
 
-            btn_Function = (TextView) itemView.findViewById(R.id.tv_function);
+            btn_Function1 = (TextView) itemView.findViewById(R.id.tv_function1);
+            btn_Function2 = (TextView) itemView.findViewById(R.id.tv_function2);
             layout_content = (ViewGroup) itemView.findViewById(R.id.layout_content);
             tvEventName = (TextView) itemView.findViewById(R.id.event_listview_tv_name);
             tvState = (TextView) itemView
@@ -253,7 +271,8 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     class PlanViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView btn_Function;
+        public TextView btn_Function1;
+        public TextView btn_Function2;
         public ViewGroup layout_content;
         private TextView tvPlanName;
         private TextView tvState;
@@ -261,7 +280,8 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
         public PlanViewHolder(View itemView) {
             super(itemView);
 
-            btn_Function = (TextView) itemView.findViewById(R.id.tv_function);
+            btn_Function1 = (TextView) itemView.findViewById(R.id.tv_function1);
+            btn_Function2 = (TextView) itemView.findViewById(R.id.tv_function2);
             layout_content = (ViewGroup) itemView.findViewById(R.id.layout_content);
             tvPlanName = (TextView) itemView.findViewById(R.id.plan_listview_tv_plan_name);
             tvState = (TextView) itemView
@@ -332,7 +352,9 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
     public interface IonSlidingViewClickListener {
         void onItemClick(View view, int position);//点击item正文
 
-        void onFunctionBtnClick(View view, int position);//点击左滑出来的菜单按钮
+        void onFunction1BtnClick(View view, int position);//点击左滑出来的菜单按钮
+
+        void onFunction2BtnClick(View view, int position);//点击左滑出来的菜单按钮
     }
 
 }

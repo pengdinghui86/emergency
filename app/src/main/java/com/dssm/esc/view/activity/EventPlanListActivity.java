@@ -257,7 +257,12 @@ public class EventPlanListActivity extends BaseActivity implements
     }
 
     @Override
-    public void onFunctionBtnClick(View view, final int position) {
+    public void onFunction1BtnClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onFunction2BtnClick(View view, int position) {
 
     }
 

@@ -11,15 +11,27 @@
         android:layout_height="match_parent"
         >
 
-        <!--"设置"，"删除"按钮使用了TextView而不是Button，是因为５.０以上版本使用Button会显示在上层产出错误显示-->
+        <!--按钮使用了TextView而不是Button，是因为５.０以上版本使用Button会显示在上层产出错误显示-->
         <TextView
-            android:id="@+id/tv_function"
+            android:id="@+id/tv_function1"
             android:layout_height="match_parent"
-            android:layout_width="60dp"
+            android:layout_width="100dp"
             android:gravity="center"
             android:layout_toRightOf="@+id/layout_content"
+            android:text="重新评估"
+            android:textSize="20sp"
+            android:background="@color/view_blue"
+            android:textColor="#DDFFFFFF"
+            />
+
+        <TextView
+            android:id="@+id/tv_function2"
+            android:layout_height="match_parent"
+            android:layout_width="100dp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/tv_function1"
             android:text="驳回"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:background="@color/red"
             android:textColor="#DDFFFFFF"
             />
