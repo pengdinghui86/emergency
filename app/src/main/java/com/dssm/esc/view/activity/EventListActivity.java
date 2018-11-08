@@ -424,7 +424,12 @@ public class EventListActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onFunctionBtnClick(View view, final int position) {
+	public void onFunction1BtnClick(View view, int position) {
+
+	}
+
+	@Override
+	public void onFunction2BtnClick(View view, final int position) {
 		new android.app.AlertDialog.Builder(EventListActivity.this)
 				.setMessage("确定驳回该事件？")
 				.setPositiveButton("确定",

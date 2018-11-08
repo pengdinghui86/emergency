@@ -11,7 +11,8 @@ import com.dssm.esc.R;
 
 public class LeftSlideView extends HorizontalScrollView {
 
-    private TextView mTextView_Function;//左滑出现的菜单按钮
+    private TextView mTextView_Function1;//左滑出现的菜单按钮
+    private TextView mTextView_Function2;//左滑出现的菜单按钮
 
     private int mScrollWidth;//记录滚动条可以滚动的距离
 
@@ -44,7 +45,8 @@ public class LeftSlideView extends HorizontalScrollView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (!once) {
-            mTextView_Function = (TextView) findViewById(R.id.tv_function);
+            mTextView_Function1 = (TextView) findViewById(R.id.tv_function1);
+            mTextView_Function2 = (TextView) findViewById(R.id.tv_function2);
             once = true;
         }
     }
@@ -58,7 +60,7 @@ public class LeftSlideView extends HorizontalScrollView {
             this.scrollTo(0, 0);
 
             //获取水平滚动条可以滑动的范围，即右侧按钮的总宽度
-            mScrollWidth = mTextView_Function.getWidth();
+            mScrollWidth = mTextView_Function1.getWidth() + mTextView_Function2.getWidth();
         }
     }
 
@@ -95,7 +97,7 @@ public class LeftSlideView extends HorizontalScrollView {
         super.onScrollChanged(l, t, oldl, oldt);
 
         //改变view的在x轴方向的位置
-        mTextView_Function.setTranslationX(1);
+        mTextView_Function1.setTranslationX(1);
     }
 
 

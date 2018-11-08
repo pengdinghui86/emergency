@@ -48,6 +48,32 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
 
     @Override
     public void onBindViewHolder(final MyViewHolder eventViewHolder, int position) {
+        switch (tags) {
+            case "1":
+                //待启动
+                eventViewHolder.btn_Function1.setVisibility(View.GONE);
+                eventViewHolder.btn_Function2.setVisibility(View.VISIBLE);
+                eventViewHolder.btn_Function2.setText("驳回");
+                break;
+            case "2":
+                //执行中
+                eventViewHolder.btn_Function1.setVisibility(View.GONE);
+                eventViewHolder.btn_Function2.setVisibility(View.GONE);
+                break;
+            case "3":
+                //已驳回
+                eventViewHolder.btn_Function1.setVisibility(View.VISIBLE);
+                eventViewHolder.btn_Function1.setText("重新评估");
+                eventViewHolder.btn_Function2.setVisibility(View.VISIBLE);
+                eventViewHolder.btn_Function2.setText("删除");
+                break;
+            case "4":
+                //执行完成
+                eventViewHolder.btn_Function1.setVisibility(View.GONE);
+                eventViewHolder.btn_Function2.setVisibility(View.VISIBLE);
+                eventViewHolder.btn_Function2.setText("关闭");
+                break;
+        }
         final PlanStarListEntity entity = arraylist.get(position);
         eventViewHolder.tvEventName.setText(entity.getEveName());
         eventViewHolder.tvState.setTextColor(Color.RED);
@@ -95,7 +121,8 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
         int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
         eventViewHolder.layout_content.measure(w, h);
         int height = eventViewHolder.layout_content.getMeasuredHeight();
-        eventViewHolder.btn_Function.getLayoutParams().height = height;
+        eventViewHolder.btn_Function1.getLayoutParams().height = height;
+        eventViewHolder.btn_Function2.getLayoutParams().height = height;
         //item正文点击事件
         eventViewHolder.layout_content.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,16 +139,23 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
             }
         });
 
-
         //左滑菜单点击事件
-        eventViewHolder.btn_Function.setOnClickListener(new View.OnClickListener() {
+        eventViewHolder.btn_Function1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int n = eventViewHolder.getLayoutPosition();
-                mISetBtnClickListener.onFunctionBtnClick(view, n);
+                mISetBtnClickListener.onFunction1BtnClick(view, n);
             }
         });
 
+        //左滑菜单点击事件
+        eventViewHolder.btn_Function2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int n = eventViewHolder.getLayoutPosition();
+                mISetBtnClickListener.onFunction2BtnClick(view, n);
+            }
+        });
     }
 
 
@@ -138,7 +172,8 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView btn_Function;
+        public TextView btn_Function1;
+        public TextView btn_Function2;
         public ViewGroup layout_content;
         private TextView tvEventName;
         private TextView tvEventLevel;
@@ -149,7 +184,8 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            btn_Function = (TextView) itemView.findViewById(R.id.tv_function);
+            btn_Function1 = (TextView) itemView.findViewById(R.id.tv_function1);
+            btn_Function2 = (TextView) itemView.findViewById(R.id.tv_function2);
             layout_content = (ViewGroup) itemView.findViewById(R.id.layout_content);
             tvEventName = (TextView) itemView.findViewById(R.id.event_listview_tv_name);
             tvState = (TextView) itemView
@@ -226,7 +262,9 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
     public interface IonSlidingViewClickListener {
         void onItemClick(View view, int position);//点击item正文
 
-        void onFunctionBtnClick(View view, int position);//点击左滑出来的菜单按钮
+        void onFunction1BtnClick(View view, int position);//点击左滑出来的菜单按钮
+
+        void onFunction2BtnClick(View view, int position);//点击左滑出来的菜单按钮
     }
 
 }
