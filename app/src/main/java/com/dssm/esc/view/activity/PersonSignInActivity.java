@@ -123,7 +123,7 @@ public class PersonSignInActivity extends BaseActivity implements
         back.setVisibility(View.VISIBLE);
         title.setText("人员签到");
         adapter = new LeftSlideEventAdapter(
-                PersonSignInActivity.this, list, "2");
+                PersonSignInActivity.this, list, "5");
         //设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
         mRecyclerView.setAdapter(adapter);
@@ -249,7 +249,7 @@ public class PersonSignInActivity extends BaseActivity implements
 
     private void loadData(final int what) {
         if (what == 0) {// 刷新和第一次加载
-            getAuthList(2);
+            getAuthList(7);
         } else if (what == 1) {// 加载更多
             getLoadData();
         }
@@ -336,7 +336,7 @@ public class PersonSignInActivity extends BaseActivity implements
     };
 
     /**
-     * 获取授权列表
+     * 获取列表
      */
     private void getAuthList(int tag) {
 		Utils.getInstance().showProgressDialog(PersonSignInActivity.this, "", Const.LOAD_MESSAGE);

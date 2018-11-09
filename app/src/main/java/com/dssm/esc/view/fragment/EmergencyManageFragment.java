@@ -438,7 +438,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 				}
 				else if(eventManageList.get(position).getId().equals("event_complete"))
 				{
-					intent.putExtra("tags", "3");
+					intent.putExtra("tags", "4");
 				}
 				startActivity(intent);
 			}
@@ -478,10 +478,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					return;
 				Intent intent = new Intent(getActivity(),
 						signInAssignList.get(position).getActivity());
-				if(signInAssignList.get(position).getId().equals("people_sign")) {
-					intent.putExtra("tags", "2");
-				}
-				else
+				if(signInAssignList.get(position).getId().equals("people_assign"))
 					intent.putExtra("tags", "3");
 				startActivity(intent);
 			}

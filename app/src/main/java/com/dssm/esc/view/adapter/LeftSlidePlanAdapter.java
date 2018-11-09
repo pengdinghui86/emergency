@@ -20,7 +20,7 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private Context mContext;
     private List<PlanStarListEntity> arraylist;
-    /** 0，已授权1,授权决策；2,人员签到 ；3,人员指派;4,协同通告; 5,指挥与展示,6,事件流程列表7,驳回事件列表 */
+    /** 0,已授权；1,待授权；2,已启动预案；3,人员指派；4,协同通告；5,指挥与展示；6,预案执行；*/
     private String tags;
 
     private IonSlidingViewClickListener mIDeleteBtnClickListener;
@@ -119,27 +119,52 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                     }
                 });
-
-
-                //左滑菜单点击事件
-                eventViewHolder.btn_Function1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int n = holder.getLayoutPosition();
-                        mISetBtnClickListener.onFunction1BtnClick(view, n);
-                    }
-                });
-                eventViewHolder.btn_Function2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int n = holder.getLayoutPosition();
-                        mISetBtnClickListener.onFunction2BtnClick(view, n);
-                    }
-                });
+                eventViewHolder.btn_Function1.setVisibility(View.GONE);
+                eventViewHolder.btn_Function2.setVisibility(View.GONE);
                 break;
             case 1:
                 PlanViewHolder planViewHolder = (PlanViewHolder) holder;
                 final PlanStarListEntity entity1 = arraylist.get(position);
+                switch (tags) {
+                    case "0":
+                        //已授权
+                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                        break;
+                    case "1":
+                        //待授权
+                        planViewHolder.btn_Function1.setText("授权");
+                        planViewHolder.btn_Function2.setText("中止");
+                        planViewHolder.btn_Function1.setVisibility(View.VISIBLE);
+                        planViewHolder.btn_Function2.setVisibility(View.VISIBLE);
+                        break;
+                    case "2":
+                        //已启动预案
+                        planViewHolder.btn_Function2.setText("中止");
+                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                        planViewHolder.btn_Function2.setVisibility(View.VISIBLE);
+                        break;
+                    case "3":
+                        //人员指派
+                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                        break;
+                    case "4":
+                        //协同通告
+                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                        break;
+                    case "5":
+                        //指挥与展示
+                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                        break;
+                    case "6":
+                        //预案执行
+                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                        break;
+                }
                 planViewHolder.tvPlanName.setText(entity1.getPlanName());
                 planViewHolder.tvState.setTextColor(Color.RED);
                 // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）

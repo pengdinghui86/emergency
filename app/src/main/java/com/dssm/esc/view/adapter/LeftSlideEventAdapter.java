@@ -20,7 +20,7 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
 
     private Context mContext;
     private List<PlanStarListEntity> arraylist;
-    /** 1,待启动事件；2,执行中事件；3,已驳回事件；4,执行完成事件；*/
+    /** 1,待启动事件；2,执行中事件；3,已驳回事件；4,执行完成事件；5,人员签到；6,事件流程；*/
     private String tags;
 
     private IonSlidingViewClickListener mIDeleteBtnClickListener;
@@ -72,6 +72,16 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
                 eventViewHolder.btn_Function1.setVisibility(View.GONE);
                 eventViewHolder.btn_Function2.setVisibility(View.VISIBLE);
                 eventViewHolder.btn_Function2.setText("关闭");
+                break;
+            case "5":
+                //人员签到
+                eventViewHolder.btn_Function1.setVisibility(View.GONE);
+                eventViewHolder.btn_Function2.setVisibility(View.GONE);
+                break;
+            case "6":
+                //事件流程
+                eventViewHolder.btn_Function1.setVisibility(View.GONE);
+                eventViewHolder.btn_Function2.setVisibility(View.GONE);
                 break;
         }
         final PlanStarListEntity entity = arraylist.get(position);

@@ -132,9 +132,9 @@ public class EventListActivity extends BaseActivity implements
             title.setText("待启动事件");
         } else if (tags.equals("2")) {
             title.setText("执行中事件");
-        } else if (tags.equals("3")) {
-            title.setText("执行完成事件");
         } else if (tags.equals("4")) {
+            title.setText("执行完成事件");
+        } else if (tags.equals("6")) {
             title.setText("事件流程");
         }
 		adapter = new LeftSlideEventAdapter(EventListActivity.this, list, tags);
@@ -350,11 +350,11 @@ public class EventListActivity extends BaseActivity implements
 
 	private void loadData(final int what) {
 		String status = "0";
-		if (tags.equals("4"))
+		if (tags.equals("6"))
 			status = "";
 		else if (tags.equals("2"))
 			status = "2";
-		else if(tags.equals("3"))
+		else if(tags.equals("4"))
 			status = "3";
 		if (what == 0) {// 刷新和第一次加载
 			Control.getinstance().getEmergencyService().getPlanStarList(listListenser, status);

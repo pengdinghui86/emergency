@@ -58,6 +58,8 @@ public class GetAuthPlanListParser {
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETSTARTLIST;
 		} else if (a == 6) {// 预案执行列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETWEITPERFROMPRELIST;
+		} else if (a == 7) {// 待签到事件列表
+			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETPERSONPLAN;
 		}
 		RequestParams params = new RequestParams(url);
 		params.setReadTimeout(60 * 1000);
@@ -84,7 +86,7 @@ public class GetAuthPlanListParser {
 				if(DemoApplication.sessionTimeoutCount > 0)
 					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("GetAuthListParser", t);
-				if (a == 2)
+				if(a == 7)
 					list = eventListParser(t);
 				else
 					list = planListParser(t, a);
