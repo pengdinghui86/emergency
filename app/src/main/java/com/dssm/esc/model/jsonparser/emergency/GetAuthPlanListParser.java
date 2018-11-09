@@ -210,6 +210,12 @@ public class GetAuthPlanListParser {
 							else
 								suspandEntity.setIsAuthor("true");
 						}
+						else {
+                            if(jsonObject.has("isAuthor"))
+                                suspandEntity.setIsAuthor(jsonObject.getString("isAuthor"));
+                            else
+                                suspandEntity.setIsAuthor("false");
+                        }
 						if (a == 4) {
 							suspandEntity.setPrecautionId(jsonObject
 									.getString("planId"));

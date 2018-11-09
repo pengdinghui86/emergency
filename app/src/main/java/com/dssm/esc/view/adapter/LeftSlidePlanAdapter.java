@@ -104,21 +104,6 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                 int height = eventViewHolder.layout_content.getMeasuredHeight();
                 eventViewHolder.btn_Function1.getLayoutParams().height = height;
                 eventViewHolder.btn_Function2.getLayoutParams().height = height;
-                //item正文点击事件
-                eventViewHolder.layout_content.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        //判断是否有删除菜单打开
-                        if (menuIsOpen()) {
-                            closeMenu();//关闭菜单
-                        } else {
-                            int n = holder.getLayoutPosition();
-                            mIDeleteBtnClickListener.onItemClick(v, n);
-                        }
-
-                    }
-                });
                 eventViewHolder.btn_Function1.setVisibility(View.GONE);
                 eventViewHolder.btn_Function2.setVisibility(View.GONE);
                 break;

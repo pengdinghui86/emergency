@@ -124,12 +124,12 @@ public class EventPlanListActivity extends BaseActivity implements
     private void initview() {
         // TODO Auto-generated method stub
         back.setVisibility(View.VISIBLE);
-        if (tags.equals("2")) {
-            title.setText("已启动预案");
-        } else if (tags.equals("0")) {
+        if (tags.equals("0")) {
             title.setText("已授权预案");
         } else if (tags.equals("1")) {
             title.setText("待授权预案");
+        } else if (tags.equals("2")) {
+            title.setText("已启动预案");
         } else if (tags.equals("3")) {
             title.setText("人员指派");
         } else if (tags.equals("4")) {
@@ -182,77 +182,76 @@ public class EventPlanListActivity extends BaseActivity implements
 
     @Override
     public void onItemClick(View view, final int position) {
-        if (tags.equals("5")) {
-            if (position >= 0 && position < list.size()) {
-                // 指挥与展示
-                intent = new Intent(EventPlanListActivity.this,
-                        ControlActivity.class);
-                intent.putExtra("PlanTreeEntity", list.get(position));
-                startActivity(intent);
-            }
-        }else if (tags.equals("6")) {
-            if (position >= 0 && position < list.size()) {
-                //预案执行
-                intent = new Intent(EventPlanListActivity.this,
-                        EventProcessActivity.class);
-                startActivity(intent);
-            }
-        } else {
-            if (position >= 0 && position < list.size()) {
-                if (tags.equals("0")) {
-                    intent = new Intent(
-                            EventPlanListActivity.this,
-                            PlanSuspandDetilActivity.class);
-                    intent.putExtra("id", list.get(position)
-                            .getId());
-                    intent.putExtra("isAuthor", list.get(position)
-                            .getIsAuthor());
+        if (position >= 0 && position < list.size()) {
+            if (tags.equals("0")) {
+                //已授权预案
+                intent = new Intent(
+                        EventPlanListActivity.this,
+                        PlanSuspandDetilActivity.class);
+                intent.putExtra("id", list.get(position)
+                        .getId());
+                intent.putExtra("isAuthor", list.get(position)
+                        .getIsAuthor());
 
-                    intent.putExtra("stop", "1");// 已授权的预案
-                    startActivity(intent);
-                } else if (tags.equals("1")) {
-                    intent = new Intent(
-                            EventPlanListActivity.this,
-                            AutorizateDecDetailActivity.class);
-                    intent.putExtra("id", list.get(position)
-                            .getId());
-                    intent.putExtra("planId", list.get(position)
-                            .getPlanId());
-                    intent.putExtra("planResId", list.get(position)
-                            .getPlanResId());
-                    intent.putExtra("isAuthor", list.get(position)
-                            .getIsAuthor());
-                    startActivity(intent);
-                } else if (tags.equals("2")) {
-                    intent = new Intent(
-                            EventPlanListActivity.this,
-                            PlanSuspandDetilActivity.class);
-                    intent.putExtra("id", list.get(position)
-                            .getId());
-                    intent.putExtra("isAuthor", list.get(position)
-                            .getIsAuthor());
-                    intent.putExtra("stop", "1");// 已授权的预案
-                    startActivity(intent);
-                } else if (tags.equals("3")) {
-                    intent = new Intent(
-                            EventPlanListActivity.this,
-                            PersonnelAssignmentActivity.class);
-                    intent.putExtra("id", list.get(position)
-                            .getId());
-                    startActivity(intent);
-                } else if (tags.equals("4")) {
-                    intent = new Intent(
-                            EventPlanListActivity.this,
-                            SendCollaborativeActivity.class);
-                    intent.putExtra("id", list.get(position)
-                            .getId());
-                    intent.putExtra("name", list.get(position)
-                            .getEveName());
-                    intent.putExtra("precautionId",
-                            list.get(position).getPrecautionId());
-                    startActivity(intent);
-                }
+                intent.putExtra("stop", "1");// 已授权的预案
+                startActivity(intent);
+            } else if (tags.equals("1")) {
+                //待授权预案
+                intent = new Intent(
+                        EventPlanListActivity.this,
+                        AutorizateDecDetailActivity.class);
+                intent.putExtra("id", list.get(position)
+                        .getId());
+                intent.putExtra("planId", list.get(position)
+                        .getPlanId());
+                intent.putExtra("planResId", list.get(position)
+                        .getPlanResId());
+                intent.putExtra("isAuthor", list.get(position)
+                        .getIsAuthor());
+                startActivity(intent);
+            } else if (tags.equals("2")) {
+                //已启动预案
+                intent = new Intent(
+                        EventPlanListActivity.this,
+                        PlanSuspandDetilActivity.class);
+                intent.putExtra("id", list.get(position)
+                        .getId());
+                intent.putExtra("isAuthor", list.get(position)
+                        .getIsAuthor());
+                intent.putExtra("stop", "1");// 已授权的预案
+                startActivity(intent);
+            } else if (tags.equals("3")) {
+                //人员指派
+                intent = new Intent(
+                        EventPlanListActivity.this,
+                        PersonnelAssignmentActivity.class);
+                intent.putExtra("id", list.get(position)
+                        .getId());
+                startActivity(intent);
+            } else if (tags.equals("4")) {
+                //协同通告
+                intent = new Intent(
+                        EventPlanListActivity.this,
+                        SendCollaborativeActivity.class);
+                intent.putExtra("id", list.get(position)
+                        .getId());
+                intent.putExtra("name", list.get(position)
+                        .getEveName());
+                intent.putExtra("precautionId",
+                        list.get(position).getPrecautionId());
+                startActivity(intent);
             }
+        } else if (tags.equals("5")) {
+            // 指挥与展示
+            intent = new Intent(EventPlanListActivity.this,
+                    ControlActivity.class);
+            intent.putExtra("PlanTreeEntity", list.get(position));
+            startActivity(intent);
+        }else if (tags.equals("6")) {
+            //预案执行
+            intent = new Intent(EventPlanListActivity.this,
+                    EventProcessActivity.class);
+            startActivity(intent);
         }
     }
 

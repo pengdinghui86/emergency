@@ -243,7 +243,7 @@ public class HttpUrl {
      * 人员指派列表V2.1
      */
     public final static String GETASSIGNLIST =
-            "emergency/planEva/getAssign";
+            "emergency/planInfo/getAssign?state=1,2,3";
     /**
      * 预案小组应急列表
      * 2018.7.11由getmergencyGroupData?planInfoId=接口更改为getSignUserInfo?id=接口
