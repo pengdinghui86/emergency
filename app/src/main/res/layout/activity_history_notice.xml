@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/history_notice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/set_gray">
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </com.dssm.esc.view.widget.Title_Layout>
+
+    <RelativeLayout
+        android:id="@+id/history_notice_rl_segmented"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+
+        <RadioGroup
+            android:id="@+id/history_notice_segmented"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center">
+
+            <RadioButton
+                android:id="@+id/history_notice_rb_all"
+                style="@style/message_title_radio_button"
+                android:checked="true"
+                android:text="全部" />
+
+            <RadioButton
+                android:id="@+id/history_notice_rb_msg"
+                style="@style/message_title_radio_button"
+                android:text="短信" />
+
+            <RadioButton
+                android:id="@+id/history_notice_rb_sys"
+                style="@style/message_title_radio_button"
+                android:text="系统" />
+
+            <RadioButton
+                android:id="@+id/history_notice_rb_email"
+                style="@style/message_title_radio_button"
+                android:text="邮件" />
+
+            <RadioButton
+                android:id="@+id/history_notice_rb_app"
+                style="@style/message_title_radio_button"
+                android:text="APP" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <com.dssm.esc.view.widget.AutoListView
+        android:id="@+id/history_notice_alv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+    </com.dssm.esc.view.widget.AutoListView>
+
+</LinearLayout>

@@ -16,7 +16,6 @@ import com.dssm.esc.R;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.ContactSelectIds;
 import com.dssm.esc.util.event.mainEvent;
-import com.dssm.esc.view.activity.SendMeassageActivity;
 import com.dssm.esc.view.activity.SendMessageActivity;
 
 import java.io.Serializable;

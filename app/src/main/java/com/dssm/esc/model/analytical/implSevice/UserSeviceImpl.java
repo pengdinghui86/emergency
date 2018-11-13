@@ -15,6 +15,7 @@ import com.dssm.esc.model.entity.user.UserPowerEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.model.jsonparser.message.ConfirMessageParser;
 import com.dssm.esc.model.jsonparser.message.GetFirstAllMessageListParser;
+import com.dssm.esc.model.jsonparser.message.GetHistoryNoticeListParser;
 import com.dssm.esc.model.jsonparser.message.GetMessageListParser;
 import com.dssm.esc.model.jsonparser.user.GetPhoneByExecuteParser;
 import com.dssm.esc.model.jsonparser.user.GetUserMenuPower;
@@ -246,6 +247,23 @@ public class UserSeviceImpl implements UserSevice {
 					public void onEmergencyParserComplete(Object object,
 							String error) {
 						// TODO Auto-generated method stub
+						if(wr.get() != null)
+							setUserListListenser(wr.get(), object, error);
+					}
+				});
+	}
+
+	/**
+	 * 获取历史通知列表
+	 */
+	@Override
+	public void getHistoryNoticeList(String msgType, UserSeviceImplListListenser listenser) {
+		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
+		new GetHistoryNoticeListParser(msgType,
+				new OnDataCompleterListener() {
+					@Override
+					public void onEmergencyParserComplete(Object object,
+														  String error) {
 						if(wr.get() != null)
 							setUserListListenser(wr.get(), object, error);
 					}

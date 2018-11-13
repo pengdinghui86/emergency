@@ -40,6 +40,10 @@ public class SendMessageActivity extends BaseActivity implements
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
 
+	/** 通知历史信息 */
+	@ViewInject(R.id.tv_actionbar_rightimag)
+	private ImageView historyNotice;
+
 	/** 联系人布局 */
 	@ViewInject(R.id.contact_people_ll)
 	private LinearLayout contact_people_ll;
@@ -132,6 +136,7 @@ public class SendMessageActivity extends BaseActivity implements
 		send_message_rl_app.setOnClickListener(this);
 		send_tv.setOnClickListener(this);
 		mBack.setOnClickListener(this);
+		historyNotice.setOnClickListener(this);
 	}
 
 	@Override
@@ -140,6 +145,11 @@ public class SendMessageActivity extends BaseActivity implements
 		switch (v.getId()) {
 			case R.id.iv_actionbar_back:
 				finish();
+				break;
+			case R.id.tv_actionbar_rightimag:
+				//通知历史信息
+				Intent intent = new Intent(this, HistoryNoticeActivity.class);
+				startActivity(intent);
 				break;
 			case R.id.send_tv://发送
 				AlertDialog.Builder adBuilder = new AlertDialog.Builder(SendMessageActivity.this);
