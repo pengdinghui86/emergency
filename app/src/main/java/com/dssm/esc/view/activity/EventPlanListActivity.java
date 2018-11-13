@@ -18,6 +18,7 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl.ControlServiceImplBackValueListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
+import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
@@ -240,19 +241,34 @@ public class EventPlanListActivity extends BaseActivity implements
                 intent.putExtra("precautionId",
                         list.get(position).getPrecautionId());
                 startActivity(intent);
+            } else if (tags.equals("5")) {
+                // 指挥与展示
+                intent = new Intent(EventPlanListActivity.this,
+                        ControlActivity.class);
+                intent.putExtra("PlanTreeEntity", convert2PlanEntity(list.get(position)));
+                startActivity(intent);
+            } else if (tags.equals("6")) {
+                //预案执行
+                intent = new Intent(EventPlanListActivity.this,
+                        PlanExecuteActivity.class);
+                intent.putExtra("planInfoId", list.get(position).getId());
+                intent.putExtra("planStatus", list.get(position).getState());
+                startActivity(intent);
             }
-        } else if (tags.equals("5")) {
-            // 指挥与展示
-            intent = new Intent(EventPlanListActivity.this,
-                    ControlActivity.class);
-            intent.putExtra("PlanTreeEntity", list.get(position));
-            startActivity(intent);
-        }else if (tags.equals("6")) {
-            //预案执行
-            intent = new Intent(EventPlanListActivity.this,
-                    EventProcessActivity.class);
-            startActivity(intent);
         }
+    }
+
+    private PlanEntity convert2PlanEntity(PlanStarListEntity planStarListEntity)
+    {
+        PlanEntity planEntity = new PlanEntity();
+        planEntity.setId(planStarListEntity.getId());
+        planEntity.setPlanName(planStarListEntity.getPlanName());
+        planEntity.setPlanResName(planStarListEntity.getPlanResName());
+        planEntity.setPlanResType(planStarListEntity.getPlanResType());
+        planEntity.setState(planStarListEntity.getState());
+        planEntity.setPlanId(planStarListEntity.getPlanId());
+        planEntity.setPlanResId(planStarListEntity.getPlanResId());
+        return planEntity;
     }
 
     @Override

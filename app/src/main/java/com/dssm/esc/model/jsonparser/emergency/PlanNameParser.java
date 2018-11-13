@@ -53,7 +53,7 @@ public class PlanNameParser {
 	public void request(final int tags, final String id) {
 		String url = null;
 		if (tags == 1) {// 默认
-			url = DemoApplication.getInstance().getUrl()+HttpUrl.GET_PREBTSCENARIOID + "?id=" + id;
+			url = DemoApplication.getInstance().getUrl()+HttpUrl.GET_PREBTSCENARIOID + "?businessType=" + id;
 		} else if (tags == 2) {// 其他
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GET_OTEHERPREBTSCENARIOID + "?excludeScene=" + id
 					+ "&auditState=2";

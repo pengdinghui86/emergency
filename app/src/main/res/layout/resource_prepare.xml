@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dssm.esc.view.widget.MyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="18dp"
+            android:paddingLeft="18dp"
+            style="@style/title_text"
+            android:text="总览"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/resource_prepare_ll_receive"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/resource_prepare_tv_receive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/normal_text"
+                    android:text="420人"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <View
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/rectangle_blue_shape"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/small_gray_text"
+                        android:paddingLeft="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="接收"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.dssm.esc.view.widget.RingChartView
+                    android:id="@+id/resource_prepare_rcv"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_centerHorizontal="true"
+                    app:centerColor="@color/white"
+                    app:defaultRingColor="@color/gray_f8"
+                    app:innerRingColor="@color/blue_dot"
+                    app:innerRingRadius="47dp"
+                    app:innerRingStrokeLen="10dp"
+                    app:outRingColor="@color/green_b"
+                    app:outRingRadius="60dp"
+                    app:outRingStrokeLen="10dp"
+                    app:description=""
+                    app:textColor="@color/black"
+                    app:textSize="32sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/resource_prepare_ll_sign"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/resource_prepare_tv_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/normal_text"
+                    android:text="320人"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <View
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/rectangle_green_shape"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/small_gray_text"
+                        android:paddingLeft="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="签到"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/item_list_view_real_time_track_v_split"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            style="@style/horizontal_gray_style"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/we_listview_item_top_margin"
+            android:layout_marginTop="10dp"
+             android:background="@color/colorWeWindowGrayBackground"
+            >
+
+            <TextView
+                style="@style/text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:padding="5dp"
+                android:gravity="left"
+                android:text="应急通知接收和签到情况" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <View
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/rectangle_blue_shape"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/small_gray_text"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="接收"/>
+
+                <View
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/rectangle_green_shape"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/small_gray_text"
+                    android:paddingLeft="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="签到"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View style="@style/horizontal_gray_style"/>
+
+        <LinearLayout 
+            android:id="@+id/lin_grop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/we_listview_item_top_margin"
+             android:background="@color/colorWeWindowGrayBackground" >
+
+            <TextView
+                style="@style/text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="left"
+                android:padding="5dp"
+                android:text="应急小组签到情况" />
+
+            <TextView
+                android:id="@+id/look_details_sigin"
+                style="@style/text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="查看详情"
+                 android:padding="5dp"
+                android:textColor="@color/textColor_selected" />
+        </LinearLayout>
+
+        <View style="@style/horizontal_gray_style" />
+
+        <LinearLayout
+            android:id="@+id/lin_grop_sigin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/we_listview_item_top_margin"
+            android:background="@color/colorWeWindowGrayBackground"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:padding="5dp"
+                android:text="应急小组总人数:"/>
+
+            <TextView
+                android:id="@+id/emergency_grop_number"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="@color/red" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/we_listview_item_top_margin"
+            android:background="@color/colorWeWindowGrayBackground"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:padding="5dp"
+                android:text="已签到总人数:"
+                />
+
+            <TextView
+                android:id="@+id/sigin_number"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="@color/red" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/we_listview_item_top_margin"
+            android:background="@color/colorWeWindowGrayBackground"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="未签到总人数:"
+                android:padding="5dp"
+                />
+
+            <TextView
+                android:id="@+id/no_sigin_number"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="@color/red" />
+        </LinearLayout>
+    </LinearLayout>
+
+</com.dssm.esc.view.widget.MyScrollView>

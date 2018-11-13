@@ -7,12 +7,6 @@ import android.R.string;
 
 /**
  * 通讯录子通讯录实体类（通讯录，签到，预案执行公用的子实体类）
- *
- * @author Zsj
- * @Description TODO
- * @date 2015-9-8
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- * Ltd. Inc. All rights reserved.
  */
 public class ChildEntity implements Serializable {
 
@@ -60,7 +54,37 @@ public class ChildEntity implements Serializable {
 
     //预案层级，多一层预案数值加1
     private int index;
+    //预案步骤编号
+    private String orderNumber;
+    //预案父步骤编号
+    private String parentOrderNumber;
+    //预案步骤执行人名称
+    private String executorName;
     private String parentProcessStepId;
+
+    public String getExecutorName() {
+        return executorName;
+    }
+
+    public void setExecutorName(String executorName) {
+        this.executorName = executorName;
+    }
+
+    public String getParentOrderNumber() {
+        return parentOrderNumber;
+    }
+
+    public void setParentOrderNumber(String parentOrderNumber) {
+        this.parentOrderNumber = parentOrderNumber;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
 
     public int getIndex() {
         return index;

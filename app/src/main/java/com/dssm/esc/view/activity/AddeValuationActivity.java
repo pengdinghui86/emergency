@@ -444,6 +444,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				Bundle bundle4 = new Bundle();
 				bundle4.putInt("plantags", 1);
 				bundle4.putString("tags", "2");
+				bundle4.putString("businessType", tradeTypeId);
 				bundle4.putSerializable("arrlist", (Serializable) resutList4);
 				intent.putExtras(bundle4);
 				startActivityForResult(intent, 4);

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/plan_execute"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/set_gray">
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/id_swipe_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <ListView
+            android:id="@+id/plan_execute_list_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:indicatorLeft="1sp"
+            android:scrollbars="none" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/pemptytv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:background="#fff"
+        android:visibility="gone"
+        android:gravity="center"
+        style="@style/normal_text"
+        android:text="暂无数据" />
+
+</LinearLayout>

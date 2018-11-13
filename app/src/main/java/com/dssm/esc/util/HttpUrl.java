@@ -192,6 +192,12 @@ public class HttpUrl {
              "emergency/planPerform/getPlanPerformByUser";
 
     /**
+     * 根据预案编号查询执行步骤
+     */
+    public final static String GETSTEPSBYPLANINFOID =
+             "emergency/planPerform/getStepsByUser?planInfoId=";
+
+    /**
      * 待执行步骤
      */
     public final static String GETPERFORMBYEXECUTEPEOPLEID = 

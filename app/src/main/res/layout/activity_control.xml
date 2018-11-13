@@ -39,7 +39,7 @@
 
     <include
         android:id="@+id/resource_preparation"
-        layout="@layout/resource_preparation"
+        layout="@layout/resource_prepare"
         android:visibility="gone" />
 
 </LinearLayout>

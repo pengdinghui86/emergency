@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/set_gray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <View
+                android:id="@+id/item_list_view_real_time_track_v_top"
+                android:layout_width="22dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layerType="software"
+                android:background="@drawable/line_vertical"/>
+
+            <ImageView
+                android:id="@+id/item_list_view_real_time_track_iv"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/circle_unstart_bg"
+                android:layout_gravity="center_vertical"
+                android:foregroundGravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/unexecuted"
+                android:visibility="gone"/>
+
+            <View
+                android:id="@+id/item_list_view_real_time_track_v_bottom"
+                android:layout_width="22dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layerType="software"
+                android:background="@drawable/line_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/postiontv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="17dp"
+                    android:padding="3dp"
+                    style="@style/normal_gray_text" />
+
+                <TextView
+                    android:id="@+id/name_step"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="3dp"
+                    style="@style/title_text"/>
+
+                <TextView
+                    android:id="@+id/status"
+                    style="@style/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:gravity="right"
+                    android:textColor="#f00"
+                    android:textSize="@dimen/we_small_textsize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_executePeople"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp">
+
+                <TextView
+                    android:id="@+id/executePeopleTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:text="执行人："
+                    style="@style/normal_gray_text" />
+
+                <TextView
+                    android:id="@+id/executePeople"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    style="@style/normal_blue_text" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/content"
+                        style="@style/text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:textColor="@color/colorWeFontGray_9" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="3dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:paddingTop="3dp"
+                    android:text="开启"
+                    android:background="@drawable/border_gray_corners"
+                    android:textColor="@color/colorWeFontGray_9"
+                    android:textSize="@dimen/we_normal_textsize"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/jumptv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="3dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:paddingTop="3dp"
+                    android:text="跳过"
+                    android:background="@drawable/border_gray_corners"
+                    android:textColor="@color/colorWeFontGray_9"
+                    android:textSize="@dimen/we_normal_textsize"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_pause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="3dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:paddingTop="3dp"
+                    android:text="暂停"
+                    android:background="@drawable/border_gray_corners"
+                    android:textColor="@color/colorWeFontGray_9"
+                    android:textSize="@dimen/we_normal_textsize"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_cancel_jump"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="3dp"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="7dp"
+                    android:paddingRight="7dp"
+                    android:paddingTop="3dp"
+                    android:text="取消跳过"
+                    android:background="@drawable/border_gray_corners"
+                    android:textColor="@color/colorWeFontGray_9"
+                    android:textSize="@dimen/we_normal_textsize"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:text="已用时："
+                    style="@style/small_gray_text" />
+
+                <TextView
+                    android:id="@+id/overtime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textColor="@color/timeover" />
+
+                <TextView
+                    android:id="@+id/predict_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:text="预计用时："
+                    style="@style/small_gray_text" />
+
+                <TextView
+                    android:id="@+id/predict_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    style="@style/small_gray_text" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/item_list_view_real_time_track_v_split"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        style="@style/horizontal_gray_style"
+        />
+</LinearLayout>

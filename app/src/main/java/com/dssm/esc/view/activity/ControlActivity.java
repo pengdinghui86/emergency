@@ -38,9 +38,11 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.RealTimeTrackingAdapter;
 import com.dssm.esc.view.widget.AutoListView;
+import com.dssm.esc.view.widget.CustomProgressBar;
 import com.dssm.esc.view.widget.MyFlowView;
 import com.dssm.esc.view.widget.MyProgressBar;
 import com.dssm.esc.view.widget.NSSetPointValueToSteps;
+import com.dssm.esc.view.widget.RingChartView;
 import com.dssm.esc.view.widget.SegmentControl;
 import com.dssm.esc.view.widget.Title_Layout;
 
@@ -55,12 +57,6 @@ import de.greenrobot.event.EventBus;
 
 /**
  * 指挥中心界面
- *
- * @author Zsj
- * @Description TODO
- * @date 2015-9-15
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- * Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_control)
 public class ControlActivity extends BaseActivity implements OnClickListener,
@@ -130,13 +126,18 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     @ViewInject(R.id.resource_preparation)
     private View resource_preparation;
     /**
+     * 资源筹备 include布局
+     */
+    @ViewInject(R.id.resource_prepare_rcv)
+    private RingChartView ringChartView;
+    /**
      * 资源筹备的应急接收情况查看详情
      */
-    private TextView look_details_receive;
+    private LinearLayout resource_prepare_ll_receive;
     /**
      * 资源筹备的小组签到情况查看详情
      */
-    private TextView look_details_sigin;
+    private LinearLayout resource_prepare_ll_sign;
 
     private TextView no_sigin_number, sigin_number, emergency_grop_number;
 
@@ -334,12 +335,12 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         initData(sem_tag);
         stop.setOnClickListener(this);
 
-        look_details_receive = (TextView) resource_preparation
-                .findViewById(R.id.look_details_receive);
-        look_details_sigin = (TextView) resource_preparation
-                .findViewById(R.id.look_details_sigin);
-        look_details_receive.setOnClickListener(this);
-        look_details_sigin.setOnClickListener(this);
+        resource_prepare_ll_receive = (LinearLayout) resource_preparation
+                .findViewById(R.id.resource_prepare_ll_receive);
+        resource_prepare_ll_sign = (LinearLayout) resource_preparation
+                .findViewById(R.id.resource_prepare_ll_sign);
+        resource_prepare_ll_receive.setOnClickListener(this);
+        resource_prepare_ll_sign.setOnClickListener(this);
         lin_group = (LinearLayout) resource_preparation
                 .findViewById(R.id.lin_grop);
         lin_group_sign = (LinearLayout) resource_preparation
@@ -386,55 +387,47 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 no_sigin_number.setText(backValue.getTotalNoSignNum() + "人");
                 sigin_number.setText(backValue.getTotalSignNum() + "人");
                 emergency_grop_number.setText(backValue.getTotalNeedSignNum() + "人");
+                ringChartView.setOutProgress(80);
+                ringChartView.setInnerProgress(70);
+                ringChartView.setDescription(backValue.getTotalNeedSignNum() + "人");
                 for (SignUserEntity.Notice notice : backValue.getNoticeList()) {
                     View view = getLayoutInflater().inflate(R.layout.progress_percent, null);
                     TextView emergency_grop_name = (TextView) view.findViewById(R.id.gropname_tv);
-                    TextView emergency_grop_percent = (TextView) view.findViewById(R.id.percent_tv);
-                    MyProgressBar emergency_grop_progressBar = (MyProgressBar) view.findViewById(R.id.progressBar);
+                    CustomProgressBar emergency_notice_progressBar = (CustomProgressBar) view.findViewById(R.id.progress_percent_cpb_notice);
+                    CustomProgressBar emergency_sign_progressBar = (CustomProgressBar) view.findViewById(R.id.progress_percent_cpb_sign);
                     emergency_grop_name.setText(notice.getEmergTeam());
-                    emergency_grop_percent.setText(notice.getNoticeNum()
+                    String description = notice.getNoticeNum()
                             + "/"
-                            + notice.getNeedNoticeNum());
-                    emergency_grop_progressBar.setMax(Integer
-                            .parseInt(notice.getNeedNoticeNum()));
-                    emergency_grop_progressBar.setProgress(Integer
-                            .parseInt(notice.getNoticeNum()));
-                    lin_group.addView(view);
+                            + notice.getNeedNoticeNum();
+                    emergency_notice_progressBar.setData(80, 0.8, description);
+                    emergency_sign_progressBar.setData(70, 0.7, description);
+                   lin_group.addView(view);
                 }
-                for (SignUserEntity.Sign sign : backValue.getSignList()) {
-                    View view = getLayoutInflater().inflate(
-                            R.layout.progress_percent, null);
-                    TextView emergency_grop_name2 = (TextView) view.findViewById(R.id.gropname_tv);
-                    TextView emergency_grop_percent2 = (TextView) view.findViewById(R.id.percent_tv);
-                    MyProgressBar emergency_grop_progressBar2 = (MyProgressBar) view.findViewById(R.id.progressBar);
-                    emergency_grop_name2.setText(sign
-                            .getEmergTeam());
-                    emergency_grop_percent2.setText(sign
-                            .getSignNum()
-                            + "/"
-                            + sign.getNeedSignNum());
-                    emergency_grop_progressBar2.setMax(Integer
-                            .parseInt(sign.getNeedSignNum()));
-                    emergency_grop_progressBar2.setProgress(Integer
-                            .parseInt(sign.getSignNum()));
-                    lin_group_sign.addView(view);
-                }
+//                for (SignUserEntity.Sign sign : backValue.getSignList()) {
+//                    View view = getLayoutInflater().inflate(
+//                            R.layout.progress_percent, null);
+//                    TextView emergency_grop_name2 = (TextView) view.findViewById(R.id.gropname_tv);
+//                    TextView emergency_grop_percent2 = (TextView) view.findViewById(R.id.percent_tv);
+//                    MyProgressBar emergency_grop_progressBar2 = (MyProgressBar) view.findViewById(R.id.progressBar);
+//                    emergency_grop_name2.setText(sign
+//                            .getEmergTeam());
+//                    emergency_grop_percent2.setText(sign
+//                            .getSignNum()
+//                            + "/"
+//                            + sign.getNeedSignNum());
+//                    emergency_grop_progressBar2.setMax(Integer
+//                            .parseInt(sign.getNeedSignNum()));
+//                    emergency_grop_progressBar2.setProgress(Integer
+//                            .parseInt(sign.getSignNum()));
+//                    lin_group_sign.addView(view);
+//                }
             }
-            // if (Utils.getInstance().progressDialog.isShowing()) {
             Utils.getInstance().hideProgressDialog();
-            // }
         }
     };
 
     /**
      * 资源筹备数据初始化
-     *
-     * @version 1.0
-     * @createTime 2015-9-17,下午4:08:37
-     * @updateTime 2015-9-17,下午4:08:37
-     * @createAuthor Zsj
-     * @updateAuthor
-     * @updateInfo (此处输入修改内容, 若无修改可不写.)
      */
 
     private void initProgressData() {
@@ -598,14 +591,14 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
                 ControlActivity.this.finish();
                 break;
-            case R.id.look_details_receive:// 应急通知接收情况详情
+            case R.id.resource_prepare_ll_receive:// 应急通知接收情况详情
                 Intent intent = new Intent(ControlActivity.this,
                         GroupSigninDetail.class);
                 intent.putExtra("tag", "1");
                 intent.putExtra("id", planEntity.getId());
                 startActivity(intent);
                 break;
-            case R.id.look_details_sigin:// 应急小组签到情况详情
+            case R.id.resource_prepare_ll_sign:// 应急小组签到情况详情
                 Intent intent2 = new Intent(ControlActivity.this,
                         GroupSigninDetail.class);
                 intent2.putExtra("tag", "2");

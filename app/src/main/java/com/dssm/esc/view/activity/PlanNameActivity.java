@@ -67,6 +67,8 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 	private TextView emptytv;
 	/** 预案名称 */
 	private String name = "";
+	//选择的业务类型编号
+	private String businessType = "";
 	private List<PlanNameRowEntity> selectedIds;
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -112,6 +114,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		Intent intent = getIntent();
 		Bundle bundleExtra = intent.getExtras();
 		tags = bundleExtra.getString("tags");
+		businessType = bundleExtra.getString("businessType", "");
 		plantags = bundleExtra.getInt("plantags", 0);
 		selectedIds = (ArrayList<PlanNameRowEntity>) bundleExtra
 				.getSerializable("arrlist");
@@ -253,7 +256,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		if (list != null && list.size() == 0) {// 只访问一次网络
 			Utils.getInstance().showProgressDialog(PlanNameActivity.this, "",
 					Const.LOAD_MESSAGE);
-			Control.getinstance().getEmergencyService().getPlanName(plantags, "", emergencySeviceImplListListenser);
+			Control.getinstance().getEmergencyService().getPlanName(plantags, businessType, emergencySeviceImplListListenser);
 		} else if (list != null && list.size() > 0) {
 			List<PlanNameRowEntity> result = new ArrayList<>(list);
 			Message message = new Message();

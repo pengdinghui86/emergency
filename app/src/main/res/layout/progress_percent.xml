@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -9,35 +10,65 @@
         style="@style/text"
         android:id="@+id/gropname_tv"
         android:layout_width="0dp"
-        android:layout_gravity="center"
-        android:gravity="left"
+        android:layout_gravity="center_vertical|right"
+        android:gravity="right"
         android:textSize="@dimen/we_small_textsize"
-        android:text="应急指挥小组应急指挥"
-        android:layout_marginLeft="5dp"
+        android:text="应急指挥小组"
+        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-       />
+        android:layout_weight="37"
+        />
 
-    <com.dssm.esc.view.widget.MyProgressBar
-        android:id="@+id/progressBar"
-        style="@style/ProgressBar_Mini"
+    <LinearLayout
         android:layout_width="0dp"
+        android:layout_weight="63"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_weight="1"
-        android:progress="100" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/percent_tv"
-        style="@style/text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginLeft="5dp"
-        android:layout_gravity="center"
-        android:layout_weight="0.5"
-        android:text="100/100"
-        android:textColor="@color/colorWeFontGray_9" />
+        <com.dssm.esc.view.widget.CustomProgressBar
+            android:id="@+id/progress_percent_cpb_notice"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            app:progressBarHeight="12dp"
+            app:defaultBarColor="@color/gray_f8"
+            app:progressBarColor="@color/blue_dot"
+            app:description="80/100"
+            app:progressBarTextColor="@color/black"
+            app:progressBarTextSize="12sp" />
+
+        <com.dssm.esc.view.widget.CustomProgressBar
+            android:id="@+id/progress_percent_cpb_sign"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            app:progressBarHeight="12dp"
+            app:defaultBarColor="@color/gray_f8"
+            app:progressBarColor="@color/green_b"
+            app:description="80/100"
+            app:progressBarTextColor="@color/black"
+            app:progressBarTextSize="12sp" />
+
+    </LinearLayout>
+
+    <!--<com.dssm.esc.view.widget.MyProgressBar-->
+        <!--android:id="@+id/progressBar"-->
+        <!--style="@style/ProgressBar_Mini"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:progress="100" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/percent_tv"-->
+        <!--style="@style/text"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="left"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_weight="0.5"-->
+        <!--android:text="100/100"-->
+        <!--android:textColor="@color/colorWeFontGray_9" />-->
 
 </LinearLayout>

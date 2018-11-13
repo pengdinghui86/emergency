@@ -234,7 +234,7 @@ public interface EmergencyService {
 	 * 
 	 * @param listListenser
 	 */
-	void getPlanExecute(EmergencyServiceImpl.EmergencySeviceImplListListenser listListenser);
+	void getPlanExecute(String planInfoId, EmergencyServiceImpl.EmergencySeviceImplListListenser listListenser);
 
 	/**
 	 * 待执行步骤

@@ -31,20 +31,21 @@ import java.util.List;
  */
 public class GetPrecautionByPlanResParser {
     private List<GroupEntity> list;
+    private List<ChildEntity> list1;
     private final WeakReference<OnDataCompleterListener> wr;
 
-    public GetPrecautionByPlanResParser(OnDataCompleterListener completeListener) {
+    public GetPrecautionByPlanResParser(String planInfoId, OnDataCompleterListener completeListener) {
         // TODO Auto-generated constructor stub
         wr = new WeakReference<>(completeListener);
-        request();
+        request(planInfoId);
     }
 
     /**
      * 发送请求
      */
-    public void request() {
+    public void request(final String planInfoId) {
         Log.i("预案执行URL", DemoApplication.getInstance().getUrl() + HttpUrl.GETWEITPERFROMPRELIST);
-        RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETWEITPERFROMPRELIST);
+        RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETSTEPSBYPLANINFOID + planInfoId);
         params.setReadTimeout(60 * 1000);
         //增加session
         if(!MySharePreferencesService.getInstance(
@@ -68,7 +69,8 @@ public class GetPrecautionByPlanResParser {
                 // TODO Auto-generated method stub
                 if(DemoApplication.sessionTimeoutCount > 0)
                     DemoApplication.sessionTimeoutCount = 0;
-                list = planExecuteListParser(t);
+//                list = planExecuteListParser(t);
+                list1 = planExecuteStepListParser(t);
                 if(onEmergencyCompleteListener != null)
                     onEmergencyCompleteListener.onEmergencyParserComplete(
                         list, null);
@@ -88,7 +90,7 @@ public class GetPrecautionByPlanResParser {
                         errorResult = "登录超时";
                         Utils.getInstance().relogin();
                         if(DemoApplication.sessionTimeoutCount < 5)
-                            request();
+                            request(planInfoId);
                     }
                     responseMsg = httpEx.getMessage();
                     //					errorResult = httpEx.getResult();
@@ -97,7 +99,7 @@ public class GetPrecautionByPlanResParser {
                     errorResult = "登录超时";
                     Utils.getInstance().relogin();
                     if(DemoApplication.sessionTimeoutCount < 5)
-                        request();
+                        request(planInfoId);
                 }
                 else { //其他错误
                     errorResult = "其他错误";
@@ -202,6 +204,77 @@ public class GetPrecautionByPlanResParser {
                     }
                     listEntity.setcList(childList);
                     list.add(listEntity);
+                }
+                return list;
+            } else {
+                return list;
+            }
+        } catch (JSONException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            return list;
+        }
+
+    }
+
+    /**
+     * 获取预案执行步骤列表数据解析
+     */
+    public List<ChildEntity> planExecuteStepListParser(String t) {
+        List<ChildEntity> list = new ArrayList<ChildEntity>();
+        try {
+            JSONArray jsonArray = new JSONArray(t);
+            if (jsonArray.length() > 0) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = (JSONObject) jsonArray.opt(i);
+                    ChildEntity childEntity = new ChildEntity();
+                    /**
+                     * 新增颜色节点
+                     * 2017/10/13
+                     */
+                    if(jsonObject.has("code")){
+                        childEntity.setCode(isNull(jsonObject.getString("code")));
+                    }
+                    /**
+                     * 判断节点
+                     * 2018/5/2
+                     */
+                    if(jsonObject.has("nodeStepType")){
+                        childEntity.setNodeStepType(isNull(jsonObject.getString("nodeStepType")));
+                        if("ExclusiveGateway".equals(jsonObject.getString("nodeStepType")))
+                        {
+                            if(jsonObject.has("branches")&&!"".equals(jsonObject.getString("branches"))) {
+                                List<BusinessTypeEntity> branches = new ArrayList<>();
+                                JSONArray jsonArray3 = jsonObject.getJSONArray("branches");
+                                for (int k = 0; k < jsonArray3.length(); k++) {
+                                    JSONObject jsonObject3 = (JSONObject) jsonArray3.opt(k);
+                                    BusinessTypeEntity branch = new BusinessTypeEntity();
+                                    branch.setId(jsonObject3.getString("id"));
+                                    branch.setName(jsonObject3.getString("name"));
+                                    branches.add(branch);
+                                }
+                                childEntity.setBranches(branches);
+                            }
+                        }
+                    }
+                    childEntity.setChild_id(isNull(jsonObject
+                            .getString("id")));
+                    childEntity.setPrecautionId(isNull(jsonObject
+                            .getString("precautionId")));
+                    childEntity.setProcessName(isNull(jsonObject
+                            .getString("name")));
+                    childEntity.setOrderNumber(isNull(jsonObject
+                            .getString("orderNum")));
+                    childEntity.setExecutorName(isNull(jsonObject
+                            .getString("executorAName")));
+                    childEntity.setStatus(isNull(jsonObject
+                            .getString("status")));
+                    childEntity.setPlanInfoId(isNull(jsonObject
+                            .getString("planInfoId")));
+                    childEntity.setManualDetailId(isNull(jsonObject
+                            .getString("manualDetailId")));
+                    childEntity.setParentProcessStepId(isNull(jsonObject.getString("parentProcessStepId")));
+                    list.add(childEntity);
                 }
                 return list;
             } else {

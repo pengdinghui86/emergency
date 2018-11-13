@@ -36,4 +36,13 @@
         <attr name="textColor" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="CustomProgressBarStyle">
+        <attr name="progressBarHeight" format="dimension"/>
+        <attr name="defaultBarColor" format="color"/>
+        <attr name="progressBarColor" format="color"/>
+        <attr name="progressText" format="string"/>
+        <attr name="progressBarTextSize" format="dimension"/>
+        <attr name="progressBarTextColor" format="color"/>
+    </declare-styleable>
+
 </resources>

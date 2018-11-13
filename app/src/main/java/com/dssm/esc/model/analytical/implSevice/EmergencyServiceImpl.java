@@ -802,11 +802,11 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * 获取执行列表
 	 */
 	@Override
-	public void getPlanExecute(EmergencySeviceImplListListenser listenser) {
+	public void getPlanExecute(String planInfoId, EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
 		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
 
-		new GetPrecautionByPlanResParser(new OnDataCompleterListener() {
+		new GetPrecautionByPlanResParser(planInfoId, new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {
