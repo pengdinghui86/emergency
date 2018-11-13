@@ -49,26 +49,4 @@
 
     </LinearLayout>
 
-    <!--<com.dssm.esc.view.widget.MyProgressBar-->
-        <!--android:id="@+id/progressBar"-->
-        <!--style="@style/ProgressBar_Mini"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginLeft="5dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:progress="100" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/percent_tv"-->
-        <!--style="@style/text"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="left"-->
-        <!--android:layout_marginLeft="5dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_weight="0.5"-->
-        <!--android:text="100/100"-->
-        <!--android:textColor="@color/colorWeFontGray_9" />-->
-
 </LinearLayout>

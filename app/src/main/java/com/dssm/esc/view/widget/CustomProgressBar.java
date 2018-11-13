@@ -49,18 +49,18 @@ public class CustomProgressBar extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		float mTxtWidth = mPaint.measureText(description, 0, description.length());
-		int width = (int) (getWidth() * widthPercent);
-		int x = (int) ((width - mTxtWidth) / 2) - 3;
-		int y = getHeight() / 2;
+		float width = (float) (getWidth() * widthPercent);
+		float x = (width - mTxtWidth) / 2 - 3;
+		float y = getHeight() / 2;
 		mPaint.setColor(progressBarTextColor);
 		mPaint.setTextSize(progressBarTextSize);
-		canvas.drawText(description, x + width / 2, y + progressBarHeight/4, mPaint);
+		canvas.drawText(description, x * 2 + 3, y + progressBarHeight/4, mPaint);
 
 		mPaint.setColor(defaultBarColor);
-		canvas.drawRect(0, y - progressBarHeight/2, x + width / 2 - 3, y + progressBarHeight/2, mPaint);
+		canvas.drawRect(0, y - progressBarHeight/2, x * 2, y + progressBarHeight/2, mPaint);
 
 		mPaint.setColor(progressBarColor);
-		canvas.drawRect(0, y - progressBarHeight/2, x - (width / 2 - 3) + (width - 6) * (progress / 100), y + progressBarHeight/2, mPaint);
+		canvas.drawRect(0, y - progressBarHeight/2, x * 2 * (progress / 100), y + progressBarHeight/2, mPaint);
 
 	}
 

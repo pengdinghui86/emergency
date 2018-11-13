@@ -27,6 +27,7 @@ import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.entity.control.FlowChartPlanEntity;
+import com.dssm.esc.model.entity.control.NoticeSignUserEntity;
 import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.control.SignUserEntity;
 import com.dssm.esc.model.entity.user.ButtonEntity;
@@ -40,7 +41,6 @@ import com.dssm.esc.view.adapter.RealTimeTrackingAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.CustomProgressBar;
 import com.dssm.esc.view.widget.MyFlowView;
-import com.dssm.esc.view.widget.MyProgressBar;
 import com.dssm.esc.view.widget.NSSetPointValueToSteps;
 import com.dssm.esc.view.widget.RingChartView;
 import com.dssm.esc.view.widget.SegmentControl;
@@ -118,8 +118,26 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     private List<FlowChartPlanEntity.FlowChart> list = new ArrayList<FlowChartPlanEntity.FlowChart>();
     private List<FlowChartPlanEntity.FlowChart> alist = new ArrayList<FlowChartPlanEntity.FlowChart>();
     private List<FlowChartPlanEntity.FlowChart> flowCharts = new ArrayList<>();
-    /** 实时跟踪的列表当前页面 */
-    // private int i = 1;
+    /**
+     * 接收和签到数据整合
+     */
+    private List<NoticeSignUserEntity> noticeSignlist = new ArrayList<>();
+    /**
+     * 人数最多的小组的总人数数量,用来控制每一个小组的进度条的长度比例
+     */
+    private int maxNum = 0;
+    /**
+     * 全体总人数
+     */
+    private int totalNum = 0;
+    /**
+     * 已签到总人数
+     */
+    private int totalSignNum = 0;
+    /**
+     * 已接收总人数
+     */
+    private int totalNoticeNum = 0;
     /**
      * 资源筹备 include布局
      */
@@ -138,11 +156,17 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      * 资源筹备的小组签到情况查看详情
      */
     private LinearLayout resource_prepare_ll_sign;
-
-    private TextView no_sigin_number, sigin_number, emergency_grop_number;
+    /**
+     * 资源筹备总接收数量
+     */
+    private TextView resource_prepare_tv_receive;
+    /**
+     * 资源筹备总签到数量
+     */
+    private TextView resource_prepare_tv_sign;
 
     NSSetPointValueToSteps nsSetPointValueToSteps;
-    LinearLayout lin_group, lin_group_sign;
+    LinearLayout lin_group;
     private UserSevice sevice;
     private ControlSevice csevice;
 
@@ -339,20 +363,14 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 .findViewById(R.id.resource_prepare_ll_receive);
         resource_prepare_ll_sign = (LinearLayout) resource_preparation
                 .findViewById(R.id.resource_prepare_ll_sign);
+        resource_prepare_tv_receive = (TextView) resource_preparation
+                .findViewById(R.id.resource_prepare_tv_receive);
+        resource_prepare_tv_sign = (TextView) resource_preparation
+                .findViewById(R.id.resource_prepare_tv_sign);
         resource_prepare_ll_receive.setOnClickListener(this);
         resource_prepare_ll_sign.setOnClickListener(this);
         lin_group = (LinearLayout) resource_preparation
                 .findViewById(R.id.lin_grop);
-        lin_group_sign = (LinearLayout) resource_preparation
-                .findViewById(R.id.lin_grop_sigin);
-
-        no_sigin_number = (TextView) resource_preparation
-                .findViewById(R.id.no_sigin_number);
-        sigin_number = (TextView) resource_preparation
-                .findViewById(R.id.sigin_number);
-        emergency_grop_number = (TextView) resource_preparation
-                .findViewById(R.id.emergency_grop_number);
-
     }
 
     private void initData(int sem_tags) {
@@ -382,49 +400,81 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 String Exceptionerror) {
             // TODO Auto-generated method stub
             lin_group.removeAllViews();
-            lin_group_sign.removeAllViews();
             if (backValue != null) {
-                no_sigin_number.setText(backValue.getTotalNoSignNum() + "人");
-                sigin_number.setText(backValue.getTotalSignNum() + "人");
-                emergency_grop_number.setText(backValue.getTotalNeedSignNum() + "人");
-                ringChartView.setOutProgress(80);
-                ringChartView.setInnerProgress(70);
-                ringChartView.setDescription(backValue.getTotalNeedSignNum() + "人");
-                for (SignUserEntity.Notice notice : backValue.getNoticeList()) {
+                processUserData(backValue.getNoticeList(), backValue.getSignList());
+                if(totalNum > 0) {
+                    ringChartView.setOutProgress(totalSignNum * 100f / totalNum);
+                    ringChartView.setInnerProgress(totalNoticeNum * 100f / totalNum);
+                    resource_prepare_tv_receive.setText(totalNoticeNum + "人");
+                    resource_prepare_tv_sign.setText(totalSignNum + "人");
+                }
+                else {
+                    ringChartView.setOutProgress(0);
+                    ringChartView.setInnerProgress(0);
+                    resource_prepare_tv_receive.setText("0人");
+                    resource_prepare_tv_sign.setText("0人");
+                }
+                ringChartView.setDescription(totalNum + "人");
+                for (NoticeSignUserEntity entity : noticeSignlist) {
                     View view = getLayoutInflater().inflate(R.layout.progress_percent, null);
                     TextView emergency_grop_name = (TextView) view.findViewById(R.id.gropname_tv);
                     CustomProgressBar emergency_notice_progressBar = (CustomProgressBar) view.findViewById(R.id.progress_percent_cpb_notice);
                     CustomProgressBar emergency_sign_progressBar = (CustomProgressBar) view.findViewById(R.id.progress_percent_cpb_sign);
-                    emergency_grop_name.setText(notice.getEmergTeam());
-                    String description = notice.getNoticeNum()
-                            + "/"
-                            + notice.getNeedNoticeNum();
-                    emergency_notice_progressBar.setData(80, 0.8, description);
-                    emergency_sign_progressBar.setData(70, 0.7, description);
-                   lin_group.addView(view);
+                    emergency_grop_name.setText(entity.getNotice().getEmergTeam());
+                    if(entity.getNotice() != null) {
+                        String noticeDescription = entity.getNotice().getNoticeNum()
+                                + "/"
+                                + entity.getNotice().getNeedNoticeNum();
+                        int noticeProgress = (int) (Double.parseDouble(entity.getNotice().getNoticeNum()) * 100 / Double.parseDouble(entity.getNotice().getNeedNoticeNum()));
+                        double noticeWidthPercent = Double.parseDouble(entity.getNotice().getNeedNoticeNum()) / maxNum;
+                        emergency_notice_progressBar.setData(noticeProgress, noticeWidthPercent, noticeDescription);
+                    }
+                    else
+                        emergency_notice_progressBar.setData(0, 0, "");
+                    if(entity.getSign() != null) {
+                        String signDescription = entity.getSign().getSignNum()
+                                + "/"
+                                + entity.getSign().getNeedSignNum();
+                        int signProgress = (int) (Double.parseDouble(entity.getSign().getSignNum()) * 100 / Double.parseDouble(entity.getSign().getNeedSignNum()));
+                        double signWidthPercent = Double.parseDouble(entity.getSign().getNeedSignNum()) / maxNum;
+                        emergency_sign_progressBar.setData(signProgress, signWidthPercent, signDescription);
+                    }
+                    else
+                        emergency_sign_progressBar.setData(0, 0, "");
+                    lin_group.addView(view);
                 }
-//                for (SignUserEntity.Sign sign : backValue.getSignList()) {
-//                    View view = getLayoutInflater().inflate(
-//                            R.layout.progress_percent, null);
-//                    TextView emergency_grop_name2 = (TextView) view.findViewById(R.id.gropname_tv);
-//                    TextView emergency_grop_percent2 = (TextView) view.findViewById(R.id.percent_tv);
-//                    MyProgressBar emergency_grop_progressBar2 = (MyProgressBar) view.findViewById(R.id.progressBar);
-//                    emergency_grop_name2.setText(sign
-//                            .getEmergTeam());
-//                    emergency_grop_percent2.setText(sign
-//                            .getSignNum()
-//                            + "/"
-//                            + sign.getNeedSignNum());
-//                    emergency_grop_progressBar2.setMax(Integer
-//                            .parseInt(sign.getNeedSignNum()));
-//                    emergency_grop_progressBar2.setProgress(Integer
-//                            .parseInt(sign.getSignNum()));
-//                    lin_group_sign.addView(view);
-//                }
             }
             Utils.getInstance().hideProgressDialog();
         }
     };
+
+    private void processUserData(List<SignUserEntity.Notice> noticeList, List<SignUserEntity.Sign> signList)
+    {
+        noticeSignlist.clear();
+        totalNum = 0;
+        totalSignNum = 0;
+        totalNoticeNum = 0;
+        maxNum = 0;
+        for(SignUserEntity.Notice notice : noticeList)
+        {
+            NoticeSignUserEntity item = new NoticeSignUserEntity();
+            item.setNotice(notice);
+            totalNum = totalNum + Integer.parseInt(notice.getNeedNoticeNum());
+            totalNoticeNum = totalNoticeNum + Integer.parseInt(notice.getNoticeNum());
+            if(maxNum < Integer.parseInt(notice.getNeedNoticeNum()))
+                maxNum = Integer.parseInt(notice.getNeedNoticeNum());
+            for(SignUserEntity.Sign sign : signList)
+            {
+                if(notice.getEmergTeamId().equals(sign.getEmergTeamId()))
+                {
+                    item.setSign(sign);
+                    totalSignNum = totalSignNum + Integer.parseInt(sign.getSignNum());
+                    break;
+                }
+            }
+            noticeSignlist.add(item);
+        }
+    }
 
     /**
      * 资源筹备数据初始化
