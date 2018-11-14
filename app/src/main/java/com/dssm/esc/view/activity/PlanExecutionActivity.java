@@ -11,6 +11,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -77,8 +78,8 @@ public class PlanExecutionActivity extends BaseActivity implements
     /**
      * 暂无数据
      */
-    @ViewInject(R.id.pemptytv)
-    private TextView emptytv;
+    @ViewInject(R.id.ll_no_data)
+    private LinearLayout ll_no_data;
     /**
      * 刷新
      */
@@ -101,11 +102,11 @@ public class PlanExecutionActivity extends BaseActivity implements
             if (result1.size() == 0) {
                 mSwipeLayout.setVisibility(View.GONE);
                 expandableList.setVisibility(View.GONE);
-                emptytv.setVisibility(View.VISIBLE);
+                ll_no_data.setVisibility(View.VISIBLE);
             } else {
                 mSwipeLayout.setVisibility(View.VISIBLE);
                 expandableList.setVisibility(View.VISIBLE);
-                emptytv.setVisibility(View.GONE);
+                ll_no_data.setVisibility(View.GONE);
             }
         }
     };

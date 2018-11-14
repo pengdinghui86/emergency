@@ -21,14 +21,6 @@
         android:layout_height="match_parent" >
     </ListView>
 
-    <TextView
-        android:id="@+id/emptytv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5dp"
-        android:gravity="center"
-        style="@style/normal_text"
-        android:text="暂无数据" />
+    <include layout="@layout/no_data"/>
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -45,8 +46,8 @@ public class GroupSigninDetail extends BaseActivity implements
 	@ViewInject(R.id.segment_control_sign_grop2)
 	private SegmentControl mSegmentControl2;
 	/** 暂无数据 */
-	@ViewInject(R.id.emyptytv)
-	private TextView emyptytv;
+	@ViewInject(R.id.ll_no_data)
+	private LinearLayout ll_no_data;
 
 	/** 签到，未签到列表 */
 	private List<PlanTreeEntity> list1 = new ArrayList<>();
@@ -77,10 +78,10 @@ public class GroupSigninDetail extends BaseActivity implements
 				addTreeView();
 				if (planTreeList.size() == 0) {
 					mSwipeLayout.setVisibility(View.GONE);
-					emyptytv.setVisibility(View.VISIBLE);
+					ll_no_data.setVisibility(View.VISIBLE);
 				} else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
-					emyptytv.setVisibility(View.GONE);
+					ll_no_data.setVisibility(View.GONE);
 				}
 				separateData();
 				i = 1;
@@ -93,10 +94,10 @@ public class GroupSigninDetail extends BaseActivity implements
 				mSwipeLayout.setRefreshing(false);
 				if (planTreeList.size() == 0) {
 					mSwipeLayout.setVisibility(View.GONE);
-					emyptytv.setVisibility(View.VISIBLE);
+					ll_no_data.setVisibility(View.VISIBLE);
 				} else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
-					emyptytv.setVisibility(View.GONE);
+					ll_no_data.setVisibility(View.GONE);
 				}
 				if (list0.size() > 0) {
 					list0.clear();
@@ -231,11 +232,11 @@ public class GroupSigninDetail extends BaseActivity implements
 			buildTree(list1);
 			if (list1.size() == 0) {
 				mSwipeLayout.setVisibility(View.GONE);
-				emyptytv.setVisibility(View.VISIBLE);
+				ll_no_data.setVisibility(View.VISIBLE);
 				treeView.refreshTreeView();
 			} else {
 				mSwipeLayout.setVisibility(View.VISIBLE);
-				emyptytv.setVisibility(View.GONE);
+				ll_no_data.setVisibility(View.GONE);
 				treeView.refreshTreeView();
 			}
 		} else if (sem_tags == 3) {
@@ -243,10 +244,10 @@ public class GroupSigninDetail extends BaseActivity implements
 			buildTree(list0);
 			if (list0.size() == 0) {
 				mSwipeLayout.setVisibility(View.GONE);
-				emyptytv.setVisibility(View.VISIBLE);
+				ll_no_data.setVisibility(View.VISIBLE);
 			} else {
 				mSwipeLayout.setVisibility(View.VISIBLE);
-				emyptytv.setVisibility(View.GONE);
+				ll_no_data.setVisibility(View.GONE);
 				treeView.refreshTreeView();
 			}
 		}

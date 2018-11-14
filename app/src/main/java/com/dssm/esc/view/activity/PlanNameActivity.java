@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -63,8 +64,9 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 	private String tags;
 	/** 预案执行的名称类型1=默认2=其他3=分类预案4=可选预案 */
 	private int plantags;
-	@ViewInject(R.id.emptytv)
-	private TextView emptytv;
+	/** 暂无数据 */
+	@ViewInject(R.id.ll_no_data)
+	private LinearLayout ll_no_data;
 	/** 预案名称 */
 	private String name = "";
 	//选择的业务类型编号
@@ -135,7 +137,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		mSelectConfirm.setVisibility(View.VISIBLE);
 		mSelectConfirm.setText(R.string.sure);
 		mBack.setVisibility(View.VISIBLE);
-		mListView.setEmptyView(emptytv);
+		mListView.setEmptyView(ll_no_data);
 		initData(plantags);
 
 		if (tags.equals("1")) {

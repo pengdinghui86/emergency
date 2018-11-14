@@ -189,17 +189,7 @@
 
         <View style="@style/horizontal_gray_style" />
 
-        <TextView
-            android:id="@+id/emptytv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#fff"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="暂无数据"
-            style="@style/normal_text"
-            android:visibility="gone" />
+        <include layout="@layout/no_data"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/id_swipe_ly"

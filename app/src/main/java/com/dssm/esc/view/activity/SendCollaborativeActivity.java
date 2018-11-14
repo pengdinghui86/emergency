@@ -147,9 +147,9 @@ public class SendCollaborativeActivity extends BaseActivity implements
 	/** 添加联系人按钮 */
 	@ViewInject(R.id.add)
 	private TextView add;
-	// /** 无联系人时 */
-	@ViewInject(R.id.emptytv)
-	private TextView empty;
+	/** 暂无数据 */
+	@ViewInject(R.id.ll_no_data)
+	private LinearLayout ll_no_data;
 	/** 联系人 */
 	@ViewInject(R.id.recieve_listview_a)
 	private ListView listview;
@@ -182,7 +182,7 @@ public class SendCollaborativeActivity extends BaseActivity implements
 		initView();
 	}
 	private void initView() {
-		listview.setEmptyView(empty);
+		listview.setEmptyView(ll_no_data);
 		pell.setVisibility(View.GONE);
 		sem_tags2 = 1;// 协同
 		busType = "collaborNotice";

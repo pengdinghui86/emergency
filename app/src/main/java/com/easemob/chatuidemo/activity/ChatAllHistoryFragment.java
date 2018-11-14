@@ -22,6 +22,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -66,7 +67,7 @@ public class ChatAllHistoryFragment extends Fragment implements
     public TextView errorText;
     private boolean hidden;
     private List<EMConversation> conversationList = new ArrayList<EMConversation>();
-    private TextView emptytv;
+    private LinearLayout ll_no_data;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,14 +93,14 @@ public class ChatAllHistoryFragment extends Fragment implements
         service = MySharePreferencesService.getInstance(getActivity());
         conversationList.addAll(loadConversationsWithRecentChat());
         listView = (ListView) getView().findViewById(R.id.list);
-        emptytv = (TextView) getView().findViewById(R.id.emptytv);
+        ll_no_data = (LinearLayout) getView().findViewById(R.id.ll_no_data);
         adapter = new ChatAllHistoryAdapter(getActivity(), 1, conversationList);
         // 设置adapter
         listView.setAdapter(adapter);
 
         final String st2 = getResources().getString(
                 R.string.Cant_chat_with_yourself);
-        listView.setEmptyView(emptytv);
+        listView.setEmptyView(ll_no_data);
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override

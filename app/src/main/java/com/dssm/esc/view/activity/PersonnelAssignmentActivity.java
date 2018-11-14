@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,8 +44,8 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 	@ViewInject(R.id.assign_step_listview)
 	private ListView listView;
 	/** 暂无数据 */
-	@ViewInject(R.id.pemptytv)
-	private TextView emptytv;
+	@ViewInject(R.id.ll_no_data)
+	private LinearLayout ll_no_data;
 	/** 类型数据 */
 	private ArrayList<PlanProcessEntity> list = new ArrayList<>();
 	private ArrayList<PlanProcessEntity> entities = new ArrayList<>();
@@ -92,7 +93,7 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 	private void initview() {
 		mBack.setVisibility(View.VISIBLE);
 		title.setText("人员指派");
-		listView.setEmptyView(emptytv);
+		listView.setEmptyView(ll_no_data);
 		initData();
 //		setNetListener(this);
 

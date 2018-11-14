@@ -54,7 +54,7 @@ public class GetAuthPlanListParser {
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETASSIGNLIST;
 		} else if (a == 4) {// 协同通告列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETBYSTATELIST;
-		} else if (a == 5) {// 应急指挥列表
+		} else if (a == 5) {// 指挥与展示列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETSTARTLIST;
 		} else if (a == 6) {// 预案执行列表
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GETWEITPERFROMPRELIST;

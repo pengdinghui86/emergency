@@ -30,7 +30,7 @@ public class RefreshLinearLayout extends LinearLayout {
 	private Context context;
 	private View header;
 	private View footer;
-	private TextView noData;
+	private LinearLayout noData;
 	private TextView loadFull;
 	private TextView more;
 	private ProgressBar loading;
@@ -131,7 +131,7 @@ public class RefreshLinearLayout extends LinearLayout {
 
 		footer = inflater.inflate(R.layout.listview_footer, null);
 		loadFull = (TextView) footer.findViewById(R.id.loadFull);
-		noData = (TextView) footer.findViewById(R.id.noData);
+		noData = (LinearLayout) footer.findViewById(R.id.ll_no_data);
 		more = (TextView) footer.findViewById(R.id.more);
 		loading = (ProgressBar) footer.findViewById(R.id.loading);
 		refreshHeaderViewByState();

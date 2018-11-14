@@ -242,17 +242,7 @@
                         android:divider="@color/colorWeSplitMini">
                     </ListView>
 
-                    <TextView
-                        android:id="@+id/emptytv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="暂无数据"
-                        android:textColor="@color/textColor_unselected"
-                        style="@style/normal_text" />
+                    <include layout="@layout/no_data"/>
                 </LinearLayout>
             </LinearLayout>
 

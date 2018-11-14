@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -54,9 +55,9 @@ public class DrillSelectActivity extends BaseActivity implements
 	/** ListView */
 	@ViewInject(R.id.drill_type_listview)
 	private ListView mListView;
-	/** emptytv */
-	@ViewInject(R.id.emptytv)
-	private TextView emptytv;
+	/** 暂无数据 */
+	@ViewInject(R.id.ll_no_data)
+	private LinearLayout ll_no_data;
 	/** 类型数据 */
 	private ArrayList<DrillProjectNameEntity> list = new ArrayList<DrillProjectNameEntity>();
 	/** 适配器 */
@@ -119,7 +120,7 @@ public class DrillSelectActivity extends BaseActivity implements
 
 		mSelectTypeTitle.setText("选择演练计划");
 		mBack.setVisibility(View.VISIBLE);
-		mListView.setEmptyView(emptytv);
+		mListView.setEmptyView(ll_no_data);
 		initData();
 		// setNetListener(this);
 	}

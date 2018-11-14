@@ -24,16 +24,6 @@
             android:scrollbars="none" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <TextView
-        android:id="@+id/pemptytv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5dp"
-        android:background="#fff"
-        android:visibility="gone"
-        android:gravity="center"
-        style="@style/normal_text"
-        android:text="暂无数据" />
+    <include layout="@layout/no_data"/>
 
 </LinearLayout>

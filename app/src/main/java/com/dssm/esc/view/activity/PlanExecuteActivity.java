@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -66,8 +67,8 @@ public class PlanExecuteActivity extends BaseActivity implements
     /**
      * 暂无数据
      */
-    @ViewInject(R.id.pemptytv)
-    private TextView emptytv;
+    @ViewInject(R.id.ll_no_data)
+    private LinearLayout ll_no_data;
     /**
      * 刷新
      */
@@ -89,11 +90,11 @@ public class PlanExecuteActivity extends BaseActivity implements
             if (result1.size() == 0) {
                 mSwipeLayout.setVisibility(View.GONE);
                 listView.setVisibility(View.GONE);
-                emptytv.setVisibility(View.VISIBLE);
+                ll_no_data.setVisibility(View.VISIBLE);
             } else {
                 mSwipeLayout.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.VISIBLE);
-                emptytv.setVisibility(View.GONE);
+                ll_no_data.setVisibility(View.GONE);
             }
         }
     };

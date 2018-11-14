@@ -13,6 +13,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ public class AutoListView extends ListView implements OnScrollListener {
 	private ImageView arrow;
 	private ProgressBar refreshing;
 
-	private TextView noData;
+	private LinearLayout noData;
 	private TextView loadFull;
 	private TextView more;
 	private ProgressBar loading;
@@ -143,7 +144,7 @@ public class AutoListView extends ListView implements OnScrollListener {
 		inflater = LayoutInflater.from(context);
 		footer = inflater.inflate(R.layout.listview_footer, null);
 		loadFull = (TextView) footer.findViewById(R.id.loadFull);
-		noData = (TextView) footer.findViewById(R.id.noData);
+		noData = (LinearLayout) footer.findViewById(R.id.ll_no_data);
 		more = (TextView) footer.findViewById(R.id.more);
 		loading = (ProgressBar) footer.findViewById(R.id.loading);
 

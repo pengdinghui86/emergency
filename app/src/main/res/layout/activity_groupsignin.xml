@@ -64,16 +64,6 @@
             <!--android:indicatorLeft="1sp" />-->
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <TextView
-        android:id="@+id/emyptytv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="5dp"
-        android:background="@color/colorWeWindowGrayBackground"
-        android:gravity="center"
-        android:text="暂无数据"
-        style="@style/normal_text"
-        android:visibility="gone" />
+    <include layout="@layout/no_data"/>
 
 </LinearLayout>

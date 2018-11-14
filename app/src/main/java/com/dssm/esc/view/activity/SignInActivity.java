@@ -80,8 +80,8 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 	/** 人员签到总布局 */
 	@ViewInject(R.id.sigin_ll)
 	private LinearLayout sigin_ll;
-	@ViewInject(R.id.emptytv)
-	private TextView emptytv;
+	@ViewInject(R.id.ll_no_data)
+	private LinearLayout ll_no_data;
 	/** 父list显示组 */
 	private List<PlanTreeEntity> planTreeList = new ArrayList<>();
 	private String id;
@@ -102,10 +102,10 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				i = 1;
 				if (planTreeList.size()==0) {
 					mSwipeLayout.setVisibility(View.GONE);
-					emptytv.setVisibility(View.VISIBLE);
+					ll_no_data.setVisibility(View.VISIBLE);
 				}else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
-					emptytv.setVisibility(View.GONE);
+					ll_no_data.setVisibility(View.GONE);
 				}
 				break;
 			case 1:
@@ -115,10 +115,10 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				mSwipeLayout.setRefreshing(false);
 				if (planTreeList.size()==0) {
 					mSwipeLayout.setVisibility(View.GONE);
-					emptytv.setVisibility(View.VISIBLE);
+					ll_no_data.setVisibility(View.VISIBLE);
 				}else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
-					emptytv.setVisibility(View.GONE);
+					ll_no_data.setVisibility(View.GONE);
 				}
 				root.getChildren().clear();
 				buildTree(planTreeList);

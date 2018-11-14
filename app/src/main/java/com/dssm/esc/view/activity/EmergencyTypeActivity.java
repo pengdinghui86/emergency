@@ -31,12 +31,7 @@ import java.util.List;
 
 /**
  * 应急类型，业务类型，事件等级，事件场景，发送对象，阶段界面(单选)
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-10
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
+ *
  */
 @ContentView(R.layout.activity_emergency_type)
 public class EmergencyTypeActivity extends BaseActivity{
