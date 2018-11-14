@@ -69,6 +69,8 @@ public class SelectContactListActivity extends BaseActivity implements
 	@ViewInject(R.id.filter_edit_c)
 	private ClearEditText myClearEt;
 	private String ids = "";
+	//0=应急通讯录，1=应急通知组
+	private String tag = "0";
 	private ContactListService contactListService;
 	private String checkedNames = "";
 
@@ -113,6 +115,7 @@ public class SelectContactListActivity extends BaseActivity implements
 	}
 
 	private void initView() {
+		tag = getIntent().getStringExtra("tag");
 		mSelectTypeTitle.setText("请选择联系人");
 		mSelectConfirm.setVisibility(View.VISIBLE);
 		mSelectConfirm.setText("确定");
@@ -272,8 +275,10 @@ public class SelectContactListActivity extends BaseActivity implements
 	private void initData() {
 		Utils.getInstance().showProgressDialog(
 				SelectContactListActivity.this, "", Const.LOAD_MESSAGE);
-		contactListService.getEmergencyContactList(contactSeviceImplListListenser);
-
+		if("0".equals(tag))
+			contactListService.getEmergencyContactList(contactSeviceImplListListenser);
+		else
+			contactListService.getToastContactList(contactSeviceImplListListenser);
 	}
 
 	private ContactListServiceImpl.ContactSeviceImplListListenser contactSeviceImplListListenser = new ContactListServiceImpl.ContactSeviceImplListListenser() {

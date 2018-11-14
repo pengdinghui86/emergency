@@ -105,7 +105,7 @@ public class SendMessageActivity extends BaseActivity implements
 
 	public static final int ADD_CONTACT_PEOPLE = 1;
 	private ContactListService contactListService;
-	private String title;
+	private String tag;
 	//所选联系人ID
 	private String contactIds = "";
 	//所选联系人名字
@@ -120,13 +120,13 @@ public class SendMessageActivity extends BaseActivity implements
 		contactListService = Control.getinstance().getContactSevice();
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
-		title = bundle.getString("tag");
+		tag = bundle.getString("tag", "0");
 		initView();
 	}
 	private void initView() {
-		if (title.equals("1")) {
+		if (tag.equals("0")) {
 			mSelectTypeTitle.setText("应急通讯录");
-		} else if (title.equals("2")) {
+		} else if (tag.equals("1")) {
 			mSelectTypeTitle.setText("应急通知组");
 		}
 		contact_people_ll.setOnClickListener(this);
@@ -350,6 +350,7 @@ public class SendMessageActivity extends BaseActivity implements
 	private void addContactPeople() {
 		Intent intent = new Intent(SendMessageActivity.this,
 				SelectContactListActivity.class);
+		intent.putExtra("tag", tag);
 		startActivityForResult(intent, ADD_CONTACT_PEOPLE);
 	}
 

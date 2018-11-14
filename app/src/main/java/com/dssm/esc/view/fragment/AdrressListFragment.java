@@ -10,28 +10,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.dssm.esc.R;
-import com.dssm.esc.util.ToastUtil;
-import com.dssm.esc.util.event.ContactSelectIds;
-import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.SendMessageActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
-
 /**
  * 通讯录
- *
- * @author Zsj
- * @Description TODO
- * @date 2015-9-6
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- * Ltd. Inc. All rights reserved.
  */
 public class AdrressListFragment extends BaseFragment implements
         OnClickListener {
@@ -42,7 +30,7 @@ public class AdrressListFragment extends BaseFragment implements
     /**
      * 应急通知碎片
      */
-    private AdressListFailsafeToastFragment failsafeToastFragment;
+    private AdressListNotificationFragment adressListNotificationFragment;
     /**
      * 用于区分消息 0,应急通讯录；1，应急通知
      */
@@ -104,14 +92,6 @@ public class AdrressListFragment extends BaseFragment implements
 
     /**
      * 选择界面
-     *
-     * @param position
-     * @version 1.0
-     * @createTime 2015-8-12,下午3:20:06
-     * @updateTime 2015-8-12,下午3:20:06
-     * @createAuthor XiaoHuan
-     * @updateAuthor
-     * @updateInfo (此处输入修改内容, 若无修改可不写.)
      */
     public void switchView(int position) {
         // 获取Fragment的操作对象
@@ -131,13 +111,13 @@ public class AdrressListFragment extends BaseFragment implements
                 }
                 break;
             case 1:// 添加 并展示 应急通知 碎片
-                if (failsafeToastFragment == null) {
-                    failsafeToastFragment = new AdressListFailsafeToastFragment(
+                if (adressListNotificationFragment == null) {
+                    adressListNotificationFragment = new AdressListNotificationFragment(
                             context);
-                    transaction.add(R.id.view_addresslist, failsafeToastFragment);
+                    transaction.add(R.id.view_addresslist, adressListNotificationFragment);
                     // systemToastFragment.initGetData();
                 } else {
-                    transaction.show(failsafeToastFragment);
+                    transaction.show(adressListNotificationFragment);
                     // }
                     break;
 
@@ -148,22 +128,14 @@ public class AdrressListFragment extends BaseFragment implements
 
     /**
      * 隐藏所有Fragment
-     *
-     * @param transaction
-     * @version 1.0
-     * @createTime 2015-8-12,下午3:20:32
-     * @updateTime 2015-8-12,下午3:20:32
-     * @createAuthor XiaoHuan
-     * @updateAuthor
-     * @updateInfo (此处输入修改内容, 若无修改可不写.)
      */
     private void hideFragment(FragmentTransaction transaction) {
         if (adressListContactFragment != null) {
             transaction.hide(adressListContactFragment);
             // messageFragment.onPause();
         }
-        if (failsafeToastFragment != null) {
-            transaction.hide(failsafeToastFragment);
+        if (adressListNotificationFragment != null) {
+            transaction.hide(adressListNotificationFragment);
         }
 
     }
@@ -180,14 +152,14 @@ public class AdrressListFragment extends BaseFragment implements
                 tag = 1;
                 switchView(tag);
                 break;
-            case R.id.addresslist_iv_send://发送
-                if (tag == 0) {
-
-                    EventBus.getDefault().post(new mainEvent("ids"));
-                } else if (tag == 1) {
-                    EventBus.getDefault().post(new mainEvent("idss"));
-                }
-
+            case R.id.addresslist_iv_send://选择联系人
+                Intent intent = new Intent(getActivity(),
+                        SendMessageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tag", tag + "");// 应急通讯录碎片
+                bundle.putSerializable("selectId", (Serializable) selectId);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
         }
     }
@@ -196,27 +168,6 @@ public class AdrressListFragment extends BaseFragment implements
      * 打开EventBus开关
      */
     protected boolean useEventBus() {
-        return true;
-    }
-
-    /**
-     * 接收选中的人的id
-     *
-     * @param data
-     */
-    public void onEvent(ContactSelectIds data) {
-        selectId = data.selectId;
-        if (selectId.size() >= 0) {
-            Intent intent = new Intent(getActivity(),
-                    SendMessageActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("tag", String.valueOf(tag + 1));// 应急通讯录碎片
-            bundle.putSerializable("selectId", (Serializable) selectId);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        } else {
-            ToastUtil.showToast(getActivity(), "请选择发送对象");
-        }
-
+        return false;
     }
 }
