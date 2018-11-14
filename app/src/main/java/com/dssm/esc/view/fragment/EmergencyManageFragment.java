@@ -248,17 +248,17 @@ public class EmergencyManageFragment extends BaseFragment implements
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("wait_authorize");
-					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
-					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("authorized");
-					emergencyMenuEntity.setName(getString(R.string.authorized));
-					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+					emergencyMenuEntity.setId("");
+					emergencyMenuEntity.setName("");
+					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setActivity(null);
 					planManageList.add(emergencyMenuEntity);
 				} else {
 					emergencyMenuEntity = new EmergencyMenuEntity();
@@ -276,17 +276,17 @@ public class EmergencyManageFragment extends BaseFragment implements
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setActivity(null);
+					emergencyMenuEntity.setId("wait_authorize");
+					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
+					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setActivity(null);
+					emergencyMenuEntity.setId("authorized");
+					emergencyMenuEntity.setName(getString(R.string.authorized));
+					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
+					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
 				}
 				if (!personnel_assignment_llVisible) {

@@ -73,7 +73,7 @@ public class GetPrecautionByPlanResParser {
                 list1 = planExecuteStepListParser(t);
                 if(onEmergencyCompleteListener != null)
                     onEmergencyCompleteListener.onEmergencyParserComplete(
-                        list, null);
+                        list1, null);
 
             }
 

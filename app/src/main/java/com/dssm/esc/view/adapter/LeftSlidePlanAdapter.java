@@ -66,44 +66,12 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                     eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
                 }
                 eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
-                // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
-                if (!entity.getState().equals("null")
-                        && !entity.getState().equals("")) {
-                    String status = "";
-                    switch (Integer.parseInt(entity.getState())) {
-                        case 0:
-                            status = "初始状态";
-                            eventViewHolder.tvState.setTextColor(Color.BLUE);
-                            break;
-                        case 1:
-                            status = "待预案评估";
-                            break;
-                        case 2:
-                            status = "执行中";
-                            break;
-                        case 3:
-                            status = "结束";
-                            break;
-                        case 5:
-                            status = "启动中";
-                            break;
-                        case -1:
-                            status = "驳回评估";
-                            break;
-
-                    }
-                    eventViewHolder.tvState.setTextColor(Color.RED);
-                    eventViewHolder.tvState.setText(status);
-                }
+                eventViewHolder.tvState.setVisibility(View.GONE);
                 //设置内容布局的宽为屏幕宽度
                 eventViewHolder.layout_content.getLayoutParams().width = Utils.getScreenWidth(mContext);
-                //使左滑出现的菜单与内容一样高
                 int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
                 int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
                 eventViewHolder.layout_content.measure(w, h);
-                int height = eventViewHolder.layout_content.getMeasuredHeight();
-                eventViewHolder.btn_Function1.getLayoutParams().height = height;
-                eventViewHolder.btn_Function2.getLayoutParams().height = height;
                 eventViewHolder.btn_Function1.setVisibility(View.GONE);
                 eventViewHolder.btn_Function2.setVisibility(View.GONE);
                 break;
@@ -151,6 +119,7 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                         break;
                 }
                 planViewHolder.tvPlanName.setText(entity1.getPlanName());
+                planViewHolder.tvState.setVisibility(View.VISIBLE);
                 planViewHolder.tvState.setTextColor(Color.RED);
                 // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
                 if (!"null".equals(entity1.getState())

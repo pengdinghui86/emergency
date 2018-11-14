@@ -16,11 +16,11 @@ import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.entity.control.ProgressDetailEntity;
-import com.dssm.esc.model.entity.message.MessageInfoEntity;
+import com.dssm.esc.model.entity.message.HistoryNoticeEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
-import com.dssm.esc.view.adapter.MessageListAdapter;
+import com.dssm.esc.view.adapter.HistoryNoticeListAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 
 import org.xutils.view.annotation.ContentView;
@@ -54,9 +54,16 @@ public class HistoryNoticeActivity extends BaseActivity implements
 	private RadioButton rb_email;
 	@ViewInject(R.id.history_notice_rb_app)
 	private RadioButton rb_app;
-	public int tag = 0;
-	private List<MessageInfoEntity> list = new ArrayList<MessageInfoEntity>();
-	private MessageListAdapter adapter;
+	//不传查全部，0系统，1邮件，2短信，3APP
+	public String tag = "";
+	//当前已加载的总条数
+	private int num = 0;
+	//每次加载20条
+	private int perCount = 20;
+	private List<HistoryNoticeEntity> list = new ArrayList<HistoryNoticeEntity>();
+	//查询的所有列表
+	private List<HistoryNoticeEntity> allList = new ArrayList<HistoryNoticeEntity>();
+	private HistoryNoticeListAdapter adapter;
 	private UserSevice service;
 
 	@Override
@@ -70,7 +77,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
-			List<MessageInfoEntity> result = (ArrayList<MessageInfoEntity>) msg.obj;
+			List<HistoryNoticeEntity> result = (ArrayList<HistoryNoticeEntity>) msg.obj;
 			switch (msg.what) {
 				case AutoListView.REFRESH:
 					listView.onRefreshComplete();
@@ -110,19 +117,20 @@ public class HistoryNoticeActivity extends BaseActivity implements
 		Utils.getInstance().showProgressDialog(
 				HistoryNoticeActivity.this, "",
 				Const.SUBMIT_MESSAGE);
-		service.getHistoryNoticeList(tag + "", listListener);
+		service.getHistoryNoticeList(tag, listListener);
 	}
 
 	private void initView() {
 		service = Control.getinstance().getUserSevice();
 		back.setOnClickListener(this);
+		back.setVisibility(View.VISIBLE);
 		rb_all.setOnClickListener(this);
 		rb_msg.setOnClickListener(this);
 		rb_sys.setOnClickListener(this);
 		rb_email.setOnClickListener(this);
 		rb_app.setOnClickListener(this);
 		title.setText("通知历史");
-		adapter = new MessageListAdapter(context, list);
+		adapter = new HistoryNoticeListAdapter(context, list);
 		listView.setAdapter(adapter);
 		listView.setOnRefreshListener(this);
 		listView.setOnLoadListener(this);
@@ -141,17 +149,17 @@ public class HistoryNoticeActivity extends BaseActivity implements
 
 	@Override
 	public void onLoad() {
-
+		loadData();
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-			case R.id.back:
+			case R.id.iv_actionbar_back:
 				finish();
 				break;
 			case R.id.history_notice_rb_all:
-				tag = 0;
+				tag = "";
 				rb_all.setChecked(true);
 				rb_msg.setChecked(false);
 				rb_sys.setChecked(false);
@@ -160,7 +168,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 				initData();
 				break;
 			case R.id.history_notice_rb_msg:
-				tag = 1;
+				tag = "2";
 				rb_all.setChecked(false);
 				rb_msg.setChecked(true);
 				rb_sys.setChecked(false);
@@ -169,7 +177,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 				initData();
 				break;
 			case R.id.history_notice_rb_sys:
-				tag = 2;
+				tag = "0";
 				rb_all.setChecked(false);
 				rb_msg.setChecked(false);
 				rb_sys.setChecked(true);
@@ -178,7 +186,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 				initData();
 				break;
 			case R.id.history_notice_rb_email:
-				tag = 3;
+				tag = "1";
 				rb_all.setChecked(false);
 				rb_msg.setChecked(false);
 				rb_sys.setChecked(false);
@@ -187,7 +195,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 				initData();
 				break;
 			case R.id.history_notice_rb_app:
-				tag = 4;
+				tag = "3";
 				rb_all.setChecked(false);
 				rb_msg.setChecked(false);
 				rb_sys.setChecked(false);
@@ -205,22 +213,49 @@ public class HistoryNoticeActivity extends BaseActivity implements
 				Object object, String stRerror,
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
-			List<MessageInfoEntity> dataList = null;
+			List<HistoryNoticeEntity> dataList = null;
 			if (object != null) {
-
+				dataList = (ArrayList<HistoryNoticeEntity>) object;
 			} else if (stRerror != null) {
-				dataList = new ArrayList<MessageInfoEntity>();
+				dataList = new ArrayList<HistoryNoticeEntity>();
 			} else if (Exceptionerror != null) {
-				dataList = new ArrayList<MessageInfoEntity>();
+				dataList = new ArrayList<HistoryNoticeEntity>();
 				ToastUtil.showToast(HistoryNoticeActivity.this,
 						Const.NETWORKERROR);
 			} else {
-				dataList = new ArrayList<MessageInfoEntity>();
+				dataList = new ArrayList<HistoryNoticeEntity>();
 			}
+
 			Message msg = handler.obtainMessage();
+			num = 0;
+			if (dataList.size() > num + perCount) {// 如果超过可加载条数，则分页
+				List<HistoryNoticeEntity> subList = dataList.subList(0, perCount);
+				msg.obj = subList;
+				num = perCount;
+			} else {
+				msg.obj = dataList;
+				num = dataList.size();
+			}
 			msg.what = 0;
-			msg.obj = dataList;
+			allList = dataList;
 			handler.sendMessage(msg);
+			Utils.getInstance().hideProgressDialog();
 		}
 	};
+
+	private void loadData()
+	{
+		List<HistoryNoticeEntity> datalist2;
+		if ((num + perCount) <= allList.size()) {
+			datalist2 = allList.subList(num, num + perCount);
+			num += perCount;
+		} else {
+			datalist2 = allList.subList(num, allList.size());
+			num = allList.size();
+		}
+		Message message = handler.obtainMessage();
+		message.what = 1;
+		message.obj = datalist2;
+		handler.sendMessage(message);
+	}
 }
