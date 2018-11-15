@@ -89,6 +89,336 @@
             android:divider="@null"
             android:scrollbars="none"/>
 
+        <ListView
+            android:id="@+id/event_process_detail_lv_plan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/colorWeSplitMini"
+            android:dividerHeight="1dp">
+
+        </ListView>
+
+        <com.dssm.esc.view.widget.MyScrollView
+            android:id="@+id/event_detail_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:scrollbars="none"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/eventnnumber" />
+
+                    <TextView
+                        android:id="@+id/event_number"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/eventname" />
+
+                    <TextView
+                        android:id="@+id/event_name"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/eventpeople" />
+
+                    <TextView
+                        android:id="@+id/event_people"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/eventtime" />
+
+                    <TextView
+                        android:id="@+id/event_time"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/eventovertime" />
+
+                    <TextView
+                        android:id="@+id/event_over_time"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/business_type" />
+
+                    <TextView
+                        android:id="@+id/business_type"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/event_level" />
+
+                    <TextView
+                        android:id="@+id/event_level"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="事件来源" />
+
+                    <TextView
+                        android:id="@+id/event_type"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="预案名称" />
+
+                    <TextView
+                        android:id="@+id/plan_name"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/event_des" />
+
+                    <TextView
+                        android:id="@+id/event_des"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/suggestion" />
+
+                    <TextView
+                        android:id="@+id/suggestion"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+            </LinearLayout>
+        </com.dssm.esc.view.widget.MyScrollView>
+
     </com.dssm.esc.view.widget.RefreshLinearLayout>
 
 </LinearLayout>

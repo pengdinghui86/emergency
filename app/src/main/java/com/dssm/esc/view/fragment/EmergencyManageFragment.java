@@ -12,8 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.controler.Control;
+import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.EmergencyMenuEntity;
+import com.dssm.esc.model.entity.emergency.PlanCountEntity;
 import com.dssm.esc.model.entity.user.MenuEntity;
+import com.dssm.esc.util.Const;
+import com.dssm.esc.util.ToastUtil;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.activity.AddeValuationActivity;
 import com.dssm.esc.view.activity.AutorizationDecisionActivity;
 import com.dssm.esc.view.activity.DismissValuationActivity;
@@ -103,6 +109,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 	protected void init() {
 		// TODO Auto-generated method stub
 		initGetData();
+		getPlanCount();
 	}
 
 	@Override
@@ -378,6 +385,35 @@ public class EmergencyManageFragment extends BaseFragment implements
 			showMenuData();
 		}
 	}
+
+	private void getPlanCount()
+	{
+		Utils.getInstance().showProgressDialog(
+				getActivity(), "",
+				Const.LOAD_MESSAGE);
+		Control.getinstance().getEmergencyService().GetAllPlanCount(listener);
+
+	}
+
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			PlanCountEntity entity = null;
+			if (object != null) {
+				entity = (PlanCountEntity) object;
+
+			} else if (stRerror != null) {
+
+			} else if (Exceptionerror != null) {
+				ToastUtil.showToast(getActivity(),
+						Const.NETWORKERROR);
+			}
+			Utils.getInstance().hideProgressDialog();
+		}
+	};
 
 	@Override
 	public void onClick(View v) {

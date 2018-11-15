@@ -315,6 +315,11 @@ public class HttpUrl {
     public final static String GETMESSAGE =  "message/getAppMessages";
 
     /**
+     * 应急管理页面数量统计 rejectEvaCount驳回 startCount待启动 authCount待授权
+     */
+    public final static String GETAllPLANCOUNT =  "emergency/planEva/getAllCount";
+
+    /**
      * 1.1.3根据消息类型批量确认未读消息
      */
     public final static String CONFREMSG =  "message/confirMsgsByMsgType";
@@ -371,7 +376,12 @@ public class HttpUrl {
      * 6.2.1预案查询
      */
     public final static String OTHERSCENDETAILLIST = 
-             "precaution/otherSceneDetailList?auditState=2&name=";
+             "precaution/otherSceneDetailList?auditState=2&name=";/**
+    /**
+     * 根据事件编号查询所属预案列表
+     */
+    public final static String GETPLANLISTBYID =
+             "emergency/planInfo/getByInfo?planResId=";
     /**
      * 查询执行人联系方式
      */

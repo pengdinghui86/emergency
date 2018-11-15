@@ -305,4 +305,14 @@ public interface EmergencyService {
 	 * @param listListenser
 	 */
 	void suspand(PlanSuspandEntity entity, EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listListenser);
+
+	/**
+	 * 根据事件编号查询所属预案列表
+	 */
+	void getPlanListByEventId(String id, EmergencyServiceImpl.EmergencySeviceImplListListenser listenser);
+
+	/**
+	 * 应急管理页面数量统计
+	 */
+	void GetAllPlanCount(EmergencyServiceImpl.EmergencySeviceImplListListenser listenser);
 }

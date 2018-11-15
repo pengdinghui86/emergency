@@ -21,6 +21,7 @@ import com.dssm.esc.model.jsonparser.emergency.DrillPrecautionDetailParser;
 import com.dssm.esc.model.jsonparser.emergency.DrillProjectNameParser;
 import com.dssm.esc.model.jsonparser.emergency.EmergencyPlanEvaAddParser;
 import com.dssm.esc.model.jsonparser.emergency.EventSceneParser;
+import com.dssm.esc.model.jsonparser.emergency.GetAllPlanCountParser;
 import com.dssm.esc.model.jsonparser.emergency.GetAuthPlanListParser;
 import com.dssm.esc.model.jsonparser.emergency.GetEmergencyGropDataParser;
 import com.dssm.esc.model.jsonparser.emergency.GetEventValuationParser;
@@ -30,6 +31,7 @@ import com.dssm.esc.model.jsonparser.emergency.GetPlanDetailParser;
 import com.dssm.esc.model.jsonparser.emergency.GetPrecautionByPlanResParser;
 import com.dssm.esc.model.jsonparser.emergency.GetSignEmergencyInfoParser;
 import com.dssm.esc.model.jsonparser.emergency.PlanAuthParser;
+import com.dssm.esc.model.jsonparser.emergency.PlanListByEventIdParser;
 import com.dssm.esc.model.jsonparser.emergency.PlanNameParser;
 import com.dssm.esc.model.jsonparser.emergency.PlanProcessListParser;
 import com.dssm.esc.model.jsonparser.emergency.PlanStarBohuiParser;
@@ -125,6 +127,20 @@ public class EmergencyServiceImpl implements EmergencyService {
 			Exceptionerror = error;
 		}
 		listenser.setEmergencySeviceImplListListenser(list, null,
+				Exceptionerror);
+	}
+
+	/**
+	 * 设置返回数据
+	 */
+	private void setEmergencyListenser(
+			EmergencySeviceImplListListenser listenser, Object object,
+			String error) {
+		String Exceptionerror = null;
+		if (object == null) {
+			Exceptionerror = error;
+		}
+		listenser.setEmergencySeviceImplListListenser(object, null,
 				Exceptionerror);
 	}
 
@@ -1038,6 +1054,36 @@ public class EmergencyServiceImpl implements EmergencyService {
 		});
 
 	}
+
+	/**
+	 * 根据事件编号获取所属预案列表
+	 */
+	@Override
+	public void getPlanListByEventId(String id, EmergencySeviceImplListListenser listenser) {
+		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+		new PlanListByEventIdParser(id, new OnDataCompleterListener() {
+			@Override
+			public void onEmergencyParserComplete(Object object, String error) {
+				if(wr.get() != null)
+					setEmergencyListListenser(wr.get(), object, error);
+			}
+		});
+	}
+
+    /**
+     * 应急管理页面数量统计
+     */
+    @Override
+    public void GetAllPlanCount(EmergencySeviceImplListListenser listenser) {
+        final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
+        new GetAllPlanCountParser(new OnDataCompleterListener() {
+            @Override
+            public void onEmergencyParserComplete(Object object, String error) {
+                if(wr.get() != null)
+					setEmergencyListenser(wr.get(), object, error);
+            }
+        });
+    }
 
 	/**
 	 * 4.2.8预案中止（+）
