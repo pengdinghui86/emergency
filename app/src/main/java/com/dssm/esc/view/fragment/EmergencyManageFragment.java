@@ -415,7 +415,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 		}
 	}
 
-	private void getPlanCount()
+	public void getPlanCount()
 	{
 		Utils.getInstance().showProgressDialog(
 				getActivity(), "",
@@ -436,6 +436,8 @@ public class EmergencyManageFragment extends BaseFragment implements
 				eventManageAdapter.updateRemindCount("event_reject", Integer.parseInt(entity.getRejectEvaCount()));
 				planManageAdapter.updateRemindCount("wait_authorize", Integer.parseInt(entity.getAuthCount()));
 				planManageAdapter.updateRemindCount("wait_start", Integer.parseInt(entity.getStartCount()));
+				eventManageAdapter.notifyDataSetChanged();
+				planManageAdapter.notifyDataSetChanged();
 			} else if (stRerror != null) {
 
 			} else if (Exceptionerror != null) {

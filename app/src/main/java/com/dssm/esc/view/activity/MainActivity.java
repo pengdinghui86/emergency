@@ -706,6 +706,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 } else {
                     emergencyManageFragment.initGetData();
                     transaction.show(emergencyManageFragment);
+                    emergencyManageFragment.getPlanCount();
                 }
                 break;
             case 3:// 添加 并展示 控制中心碎片

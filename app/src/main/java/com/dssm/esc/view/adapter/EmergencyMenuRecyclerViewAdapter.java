@@ -123,7 +123,6 @@ public class EmergencyMenuRecyclerViewAdapter extends RecyclerView.Adapter<Emerg
                 break;
             }
         }
-        notifyDataSetChanged();
     }
 
     public RedPointView remind(View view, String count) {
