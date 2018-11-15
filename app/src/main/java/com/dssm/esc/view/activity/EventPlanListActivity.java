@@ -1,5 +1,7 @@
 package com.dssm.esc.view.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,9 +11,12 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
@@ -19,6 +24,7 @@ import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl.ControlServic
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
 import com.dssm.esc.model.entity.control.PlanEntity;
+import com.dssm.esc.model.entity.emergency.PlanSuspandEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
@@ -271,15 +277,164 @@ public class EventPlanListActivity extends BaseActivity implements
         return planEntity;
     }
 
-    @Override
-    public void onFunction1BtnClick(View view, int position) {
-
+    private PlanSuspandEntity convert2PlanSuspandEntity(PlanStarListEntity planStarListEntity, String opinion)
+    {
+        PlanSuspandEntity planSuspandEntity = new PlanSuspandEntity();
+        String planName = planStarListEntity.getPlanName();
+        planSuspandEntity.setId(planStarListEntity.getId());
+        planSuspandEntity.setSuspendType("authSuspend");
+        planSuspandEntity.setPlanSuspendOpition(opinion);
+        planSuspandEntity.setPlanName(planName);
+        String planResType = planStarListEntity.getPlanResType();
+        if (planResType.equals("1")) {
+            planResType="应急";
+        } else if (planResType.equals("2")) {
+            planResType="演练";
+        }
+        planSuspandEntity.setPlanResType(planResType);
+        planSuspandEntity.setPlanId(planStarListEntity.getPlanId());
+        planSuspandEntity.setPlanResName(planStarListEntity.getPlanResName());
+        planSuspandEntity.setTradeTypeId(planStarListEntity.getTradeTypeId());
+        planSuspandEntity.setEveLevelId(planStarListEntity.getEveLevelId());
+        planSuspandEntity.setPlanStarterId(planStarListEntity.getPlanStarterId());
+        String planAuthorId = planStarListEntity.getPlanAuthorId();
+        if (planAuthorId == null && planAuthorId.equals("")
+                && planAuthorId.equals("null")
+                && planAuthorId.length() == 0) {
+            planSuspandEntity.setPlanAuthorId("");
+        }
+        else
+            planSuspandEntity.setPlanAuthorId(planAuthorId);
+        planSuspandEntity.setSubmitterId(planStarListEntity.getSubmitterId());
+        return planSuspandEntity;
     }
 
     @Override
-    public void onFunction2BtnClick(View view, int position) {
+    public void onFunction1BtnClick(View view, final int position) {
+        View view1 = LayoutInflater.from(EventPlanListActivity.this).inflate(R.layout.edit_info, null);
+        final EditText et = (EditText) view1.findViewById(R.id.et_info);
+        new AlertDialog.Builder(EventPlanListActivity.this)
+                .setTitle("请输入处理意见")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setView(view1)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String info = et.getText().toString()
+                                .trim();
+                        if (info.equals("")) {
+                            Toast.makeText(
+                                    EventPlanListActivity.this,
+                                    "处理意见不能为空", Toast.LENGTH_SHORT).show();
+                        } else {
+                            planAuth(list.get(position), info);
+                        }
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    @Override
+    public void onFunction2BtnClick(View view, final int position) {
+        View view2 = LayoutInflater.from(EventPlanListActivity.this).inflate(R.layout.edit_info, null);
+        final EditText et = (EditText) view2.findViewById(R.id.et_info);
+        new AlertDialog.Builder(EventPlanListActivity.this)
+                .setTitle("请输入处理意见")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setView(view2)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String info = et.getText().toString()
+                                .trim();
+                        if (info.equals("")) {
+                            Toast.makeText(
+                                    EventPlanListActivity.this,
+                                    "处理意见不能为空", Toast.LENGTH_SHORT).show();
+                        } else {
+                            planSuspand(convert2PlanSuspandEntity(list.get(position), info));
+                        }
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    /**
+     * 预案授权
+     */
+    private void planAuth(PlanStarListEntity planStarListEntity, String opinion) {
+        Utils.getInstance().showProgressDialog(
+                EventPlanListActivity.this, "", Const.SUBMIT_MESSAGE);
+        Control.getinstance().getEmergencyService().planAuth(planStarListEntity.getId(), opinion, planStarListEntity.getPlanName(), planStarListEntity.getPlanResName(),
+                planStarListEntity.getPlanResType(), planStarListEntity.getPlanId(), planStarListEntity.getPlanStarterId(), planStarListEntity.getSubmitterId(), planAuthListener);
 
     }
+
+    private EmergencySeviceImplBackBooleanListenser planAuthListener = new EmergencySeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListenser(
+                Boolean backflag, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            if (backflag) {
+                ToastUtil.showToast(
+                        EventPlanListActivity.this, "操作成功");
+                onEvent(new mainEvent("r"));//刷新列表界面
+                finish();
+            } else if (backflag == false) {
+                ToastUtil.showToast(EventPlanListActivity.this,
+                        "操作失败");
+            } else if (stRerror != null) {
+
+                ToastUtil.showLongToast(EventPlanListActivity.this,
+                        stRerror);
+            } else if (Exceptionerror != null) {
+
+                ToastUtil.showLongToast(EventPlanListActivity.this,
+                        Const.NETWORKERROR);
+            }
+            Utils.getInstance().hideProgressDialog();
+        }
+    };
+
+    /**
+     * 预案中止
+     */
+    private void planSuspand(PlanSuspandEntity planSuspandEntity) {
+        Utils.getInstance().showProgressDialog(
+                EventPlanListActivity.this, "", Const.SUBMIT_MESSAGE);
+        Control.getinstance().getEmergencyService().planSuspand(planSuspandEntity, suspandListener);
+
+    }
+
+    private EmergencySeviceImplBackBooleanListenser suspandListener = new EmergencySeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListenser(
+                Boolean backflag, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            if (backflag) {
+                ToastUtil.showToast(
+                        EventPlanListActivity.this, "操作成功");
+                onEvent(new mainEvent("r"));//刷新列表界面
+                finish();
+            } else if (backflag == false) {
+                ToastUtil.showToast(EventPlanListActivity.this,
+                        "操作失败");
+            } else if (stRerror != null) {
+
+                ToastUtil.showLongToast(EventPlanListActivity.this,
+                        stRerror);
+            } else if (Exceptionerror != null) {
+
+                ToastUtil.showLongToast(EventPlanListActivity.this,
+                        Const.NETWORKERROR);
+            }
+            Utils.getInstance().hideProgressDialog();
+        }
+    };
 
     public static boolean isSlideToBottom(RecyclerView recyclerView) {
         if (recyclerView == null) return false;

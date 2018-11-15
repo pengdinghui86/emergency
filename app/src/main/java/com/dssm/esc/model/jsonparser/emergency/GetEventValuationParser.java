@@ -145,11 +145,16 @@ public class GetEventValuationParser {
 			entity.setEveLevelId(jsonObject.getString("eveLevelId"));
 			entity.setEveLevelName(jsonObject.getString("eveLevelName"));
 			entity.setEveDescription(jsonObject.getString("eveDescription"));
-			entity.setEveScenarioId(jsonObject.getString("eveScenarioId"));
+			entity.setEveDiscover(jsonObject.getString("discoverer"));
+			entity.setEveDiscoveryTime(jsonObject.getString("discoveryTime"));
+			if(jsonObject.has("eveScenarioId")) {
+				entity.setEveScenarioId(jsonObject.getString("eveScenarioId"));
+			}
 			entity.setEveType(jsonObject.getString("eveType"));
 			entity.setEmergType(jsonObject.getString("emergType"));
-			
-			entity.setEveScenarioName(jsonObject.getString("eveScenarioName"));
+			if(jsonObject.has("eveScenarioName")) {
+				entity.setEveScenarioName(jsonObject.getString("eveScenarioName"));
+			}
 			entity.setEveName(jsonObject.getString("eveName"));
 			entity.setDealAdvice(jsonObject.getString("dealAdvice"));
 			List<Map<String, String>> referPlanList = new ArrayList<Map<String, String>>();
@@ -164,30 +169,34 @@ public class GetEventValuationParser {
 				referPlanList.add(map);
 			}
 			entity.setReferPlan(referPlanList);
-			List<Map<String, String>> otherReferPlanList = new ArrayList<Map<String, String>>();
-			JSONArray jsonArray_otherReferPlan = jsonObject
-					.getJSONArray("otherReferPlan");
-			for (int i = 0; i < jsonArray_otherReferPlan.length(); i++) {
-				JSONObject jsonObject3 = (JSONObject) jsonArray_otherReferPlan
-						.opt(i);
-				Map<String, String> map = new HashMap<String, String>();
-				map.put("id", jsonObject3.getString("id"));
-				map.put("name", jsonObject3.getString("name"));
-				otherReferPlanList.add(map);
+			if(jsonObject.has("otherReferPlan")) {
+				List<Map<String, String>> otherReferPlanList = new ArrayList<Map<String, String>>();
+				JSONArray jsonArray_otherReferPlan = jsonObject
+						.getJSONArray("otherReferPlan");
+				for (int i = 0; i < jsonArray_otherReferPlan.length(); i++) {
+					JSONObject jsonObject3 = (JSONObject) jsonArray_otherReferPlan
+							.opt(i);
+					Map<String, String> map = new HashMap<String, String>();
+					map.put("id", jsonObject3.getString("id"));
+					map.put("name", jsonObject3.getString("name"));
+					otherReferPlanList.add(map);
+				}
+				entity.setOtherReferPlan(otherReferPlanList);
 			}
-			entity.setOtherReferPlan(otherReferPlanList);
-			List<Map<String, String>> categoryPlanList = new ArrayList<Map<String, String>>();
-			JSONArray jsonArray_categoryPlan = jsonObject
-					.getJSONArray("categoryPlan");
-			for (int i = 0; i < jsonArray_categoryPlan.length(); i++) {
-				JSONObject jsonObject2 = (JSONObject) jsonArray_categoryPlan
-						.opt(i);
-				Map<String, String> map = new HashMap<String, String>();
-				map.put("id", jsonObject2.getString("id"));
-				map.put("name", jsonObject2.getString("name"));
-				categoryPlanList.add(map);
+			if(jsonObject.has("categoryPlan")) {
+				List<Map<String, String>> categoryPlanList = new ArrayList<Map<String, String>>();
+				JSONArray jsonArray_categoryPlan = jsonObject
+						.getJSONArray("categoryPlan");
+				for (int i = 0; i < jsonArray_categoryPlan.length(); i++) {
+					JSONObject jsonObject2 = (JSONObject) jsonArray_categoryPlan
+							.opt(i);
+					Map<String, String> map = new HashMap<String, String>();
+					map.put("id", jsonObject2.getString("id"));
+					map.put("name", jsonObject2.getString("name"));
+					categoryPlanList.add(map);
+				}
+				entity.setCategoryPlan(categoryPlanList);
 			}
-			entity.setCategoryPlan(categoryPlanList);
 			entity.setDrillPlanName(jsonObject.getString("drillPlanName"));
 
 		} catch (JSONException e) {

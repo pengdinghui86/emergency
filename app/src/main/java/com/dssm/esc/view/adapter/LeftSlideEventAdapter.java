@@ -70,7 +70,7 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
             case "4":
                 //执行完成
                 eventViewHolder.btn_Function1.setVisibility(View.GONE);
-                eventViewHolder.btn_Function2.setVisibility(View.VISIBLE);
+                eventViewHolder.btn_Function2.setVisibility(View.GONE);
                 eventViewHolder.btn_Function2.setText("关闭");
                 break;
             case "5":

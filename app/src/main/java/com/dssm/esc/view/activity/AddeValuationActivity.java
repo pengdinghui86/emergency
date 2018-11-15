@@ -144,10 +144,10 @@ public class AddeValuationActivity extends BaseActivity implements
 	private String eveLevelId = "";
 	/** 事件描述 */
 	private String eveDescription = "";
-	/** 事件场景 */
-	private String eveScenarioId = "";
-	/** 事件场景名称 */
-	private String eveScenarioName = "";
+	/** 事件发现人 */
+	private String eveDiscover = "";
+	/** 事件发生时间 */
+	private String eveDiscoveryTime = "";
 	/** 演练类型 */
 	private String emergType = "";
 	/** 事件名称 */
@@ -184,8 +184,6 @@ public class AddeValuationActivity extends BaseActivity implements
 	private String referPlanIds = "";
 	private String otherPlanNames = "";
 	private String otherPlanIds = "";
-	private String categrayPlanNames = "";
-	private String categrayPlanIds = "";
 	@ViewInject(R.id.tv_actionbar_title)
 	private TextView title;
 	@ViewInject(R.id.iv_actionbar_back)
@@ -272,17 +270,18 @@ public class AddeValuationActivity extends BaseActivity implements
 				eveName = entity.getEveName();
 				tradeTypeId = entity.getTradeTypeId();
 				eveLevelId = entity.getEveLevelId();
-				eveScenarioId = entity.getEveScenarioId();
-				id = eveScenarioId;
-				eveScenarioName = entity.getEveScenarioName();
+				eveDiscover = entity.getEveDiscover();
+				id = eveDiscover;
+				eveDiscoveryTime = entity.getEveDiscoveryTime();
 				eveDescription = entity.getEveDescription();
 				dealAdvice = entity.getDealAdvice();
 				event_name.setText(eveName);
 				business_type.setText(entity.getTradeTypeName());
 				event_level.setText(entity.getEveLevelName());
-				event_happen_time.setText(eveScenarioName);
+				event_discover.setText(eveDiscover);
+				event_happen_time.setText(eveDiscoveryTime);
 				List<Map<String, String>> referPlan2 = entity.getReferPlan();
-				if (referPlan2.size() > 0) {
+				if (referPlan2 != null && referPlan2.size() > 0) {
 
 					for (int i = 0; i < referPlan2.size(); i++) {
 						Map<String, String> map = referPlan2.get(i);
@@ -304,7 +303,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				referPlan_name.setText(referPlanNames);
 				List<Map<String, String>> otherPlan2 = entity
 						.getOtherReferPlan();
-				if (otherPlan2.size() > 0) {
+				if (otherPlan2 != null && otherPlan2.size() > 0) {
 
 					for (int i = 0; i < otherPlan2.size(); i++) {
 						Map<String, String> map = otherPlan2.get(i);
@@ -324,27 +323,6 @@ public class AddeValuationActivity extends BaseActivity implements
 				}
 				otherReferPlan = otherPlanIds;
 				otherReferPlan_name.setText(otherPlanNames);
-				List<Map<String, String>> categratPlan2 = entity
-						.getCategoryPlan();
-				if (categratPlan2.size() > 0) {
-					for (int i = 0; i < categratPlan2.size(); i++) {
-						Map<String, String> map = categratPlan2.get(i);
-						String id = map.get("id");
-						String name = map.get("name");
-						categrayPlanIds = categrayPlanIds + "|" + id;
-						categrayPlanNames = categrayPlanNames + "|" + name;
-					}
-					if (categrayPlanIds.subSequence(0, 1).equals("|")) {
-						categrayPlanIds = (String) categrayPlanIds.subSequence(
-								1, categrayPlanIds.length());
-					}
-					if (categrayPlanNames.subSequence(0, 1).equals("|")) {
-						categrayPlanNames = (String) categrayPlanNames
-								.subSequence(1, categrayPlanNames.length());
-					}
-				}
-				categoryPlan = categrayPlanIds;
-				categoryPlan_name.setText(categrayPlanNames);
 				event_des.setText(entity.getEveDescription());
 				suggestion.setText(entity.getDealAdvice());
 			}
@@ -357,12 +335,13 @@ public class AddeValuationActivity extends BaseActivity implements
 				tradeTypeId = entity.getTradeTypeId();// 行业类型id
 				eveLevelId = entity.getEveLevelId();// 事件等级id
 				referPlan = precautionId;// 预案id
-				eveScenarioId = entity.getEveScenarioId();// 事件场景id
+				eveDiscover = entity.getEveDiscover();// 事件场景id
 
 				event_name.setText(entity.getEveName());
 				business_type.setText(entity.getTradeTypeName());
 				event_level.setText(entity.getEveLevelName());
-				event_happen_time.setText(entity.getEveScenarioName());
+				event_discover.setText(entity.getEveDiscover());
+				event_happen_time.setText(entity.getEveDiscoveryTime());
 				event_des.setText(entity.getEveDescription());
 				suggestion.setText(entity.getDealAdvice());
 				List<Map<String, String>> referPlan2 = entity.getReferPlan();
@@ -545,8 +524,8 @@ public class AddeValuationActivity extends BaseActivity implements
 			entity.setTradeTypeId(tradeTypeId);// 行业类型
 			entity.setEveLevelId(eveLevelId);// 事件等级
 			entity.setEveDescription(eveDescription);// 事件描述
-			entity.setEveScenarioId(eveScenarioId);// 事件场景
-			entity.setEveScenarioName(eveScenarioName);// 事件场景名称
+			entity.setEveScenarioId(eveDiscover);// 事件场景
+			entity.setEveScenarioName(eveDiscoveryTime);// 事件场景名称
 			entity.setEveName(eveName);// 事件名称
 			entity.setEveDiscover(event_discover.getText().toString());// 事件发现人
 			entity.setReferPlanIds(referPlan);// 涉及预案
@@ -568,8 +547,8 @@ public class AddeValuationActivity extends BaseActivity implements
 			addEntity.setTradeType(tradeTypeId);// 行业类型
 			addEntity.setEveLevel(eveLevelId);// 事件等级
 			addEntity.setEveDescription(eveDescription);// 事件描述
-			addEntity.setEveScenarioId(eveScenarioId);// 事件场景
-			addEntity.setEveScenarioName(eveScenarioName);// 事件场景名称
+			addEntity.setEveScenarioId(eveDiscover);// 事件场景
+			addEntity.setEveScenarioName(eveDiscoveryTime);// 事件场景名称
 			addEntity.setEmergType(emergType);// 演练类型
 			addEntity.setEveName(eveName);// 事件名称
 			addEntity.setEventDiscover(event_discover.getText().toString());// 事件发现人
@@ -677,7 +656,7 @@ public class AddeValuationActivity extends BaseActivity implements
 			}
 			break;
 		case 3:
-			eveScenarioName = "";
+			eveDiscoveryTime = "";
 			if (data != null && resultCode == RESULT_OK) {
 				resutList3 = (ArrayList<BusinessTypeEntity>) data
 						.getSerializableExtra("arrlist");
@@ -690,8 +669,8 @@ public class AddeValuationActivity extends BaseActivity implements
 								.get(i);
 						boolean select = businessTypeEntity.isSelect();
 						if (select) {
-							eveScenarioName = businessTypeEntity.getName();
-							eveScenarioId = businessTypeEntity.getId();
+							eveDiscoveryTime = businessTypeEntity.getName();
+							eveDiscover = businessTypeEntity.getId();
 							id = businessTypeEntity.getId();
 						}
 					}
@@ -710,7 +689,7 @@ public class AddeValuationActivity extends BaseActivity implements
 						selectedIds.clear();
 					}
 				}
-				event_happen_time.setText(eveScenarioName);
+				event_happen_time.setText(eveDiscoveryTime);
 			}
 
 			break;

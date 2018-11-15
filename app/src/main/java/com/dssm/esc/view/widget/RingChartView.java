@@ -136,7 +136,7 @@ public class RingChartView extends View {
             canvas.drawCircle(mXCenter, mYCenter, mInnerRingRadius - mInnerRingWidth, mCirclePaint);
         }
         String txt = "";
-        if (mOutProgress > 0 )
+        if (mOutProgress > 0)
             txt = mOutProgress + "%";
         else if(mInnerProgress > 0)
             txt = mInnerProgress + "%";

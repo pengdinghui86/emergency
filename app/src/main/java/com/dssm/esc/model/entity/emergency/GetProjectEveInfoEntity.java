@@ -38,6 +38,15 @@ public class GetProjectEveInfoEntity implements Serializable {
 	private String emergType;
 	private String	eveType;
 	private String	eveDiscover;
+	private String	eveDiscoveryTime;
+
+	public String getEveDiscoveryTime() {
+		return eveDiscoveryTime;
+	}
+
+	public void setEveDiscoveryTime(String eveDiscoveryTime) {
+		this.eveDiscoveryTime = eveDiscoveryTime;
+	}
 
 	public String getEveDiscover() {
 		return eveDiscover;

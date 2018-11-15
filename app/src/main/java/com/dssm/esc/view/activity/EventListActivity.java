@@ -62,28 +62,15 @@ public class EventListActivity extends BaseActivity implements
 
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
-			/**
-			 * 接收子集合
-			 */
 			List<PlanStarListEntity> result = (List<PlanStarListEntity>) msg.obj;
 			switch (msg.what) {
 			case AutoListView.REFRESH:
 				refreshLinearLayout.onCompleteRefresh();
-//				listView.onRefreshComplete();
-				/**
-				 * 总集合清理
-				 */
 				list.clear();
-				/**
-				 * 总集合添加
-				 */
 				list.addAll(result);
 				break;
 
 			case AutoListView.LOAD:
-
-				// i++;
-//				listView.onLoadComplete();
 				refreshLinearLayout.onLoadComplete();
 				list.addAll(result);
 				break;
@@ -92,7 +79,6 @@ public class EventListActivity extends BaseActivity implements
 				break;
 			}
 			// 用来显示"加载全部"
-//			listView.setResultSize(result.size(), i);
 			refreshLinearLayout.setResultSize(result.size(), i);
 			adapter.notifyDataSetChanged();
 		};
@@ -123,7 +109,6 @@ public class EventListActivity extends BaseActivity implements
 			initData();
 		}
 	}
-	
 	
 	private void initview() {
 		// TODO Auto-generated method stub
@@ -209,7 +194,7 @@ public class EventListActivity extends BaseActivity implements
 				str = stRerror;
 				ToastUtil.showToast(EventListActivity.this,
 						str);
-				EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
+				onEvent(new mainEvent("refres"));// 刷新预案启动列表
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(EventListActivity.this,
@@ -226,52 +211,6 @@ public class EventListActivity extends BaseActivity implements
 			Utils.getInstance().hideProgressDialog();
 		}
 	};
-
-	/**
-	 * listview的item监听
-	 */
-//	private void listvitemclick() {
-//		// TODO Auto-generated method stub
-//		listView.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View arg1,
-//					int position, long arg3) {
-//				// TODO Auto-generated method stub
-//				if (position > 0 && position <= list.size()) {
-//					//启动中
-//					if(list.get(position - 1).getState().equals("5")) {
-//						ToastUtil.showLongToast(EventListActivity.this, "预案正在启动中，请稍后刷新列表重试");
-//						return;
-//					}
-//					if (tags.equals("1")) {
-//
-//						Intent intent = new Intent(EventListActivity.this,
-//								PlanStarDetailActivity.class);
-//						//intent.putExtra("tag", tag);
-//						intent.putExtra("id", list.get(position - 1).getId());
-//						intent.putExtra("name", list.get(position - 1)
-//								.getEveName());
-//						intent.putExtra("tag", list.get(position - 1)
-//								.getEveType());
-//						intent.putExtra("isStarter", list.get(position-1).getIsStarter());
-//						startActivity(intent);
-//						// EventListActivity.this.finish();
-//					} else if (tags.equals("2")) {
-//						Intent intent = new Intent(EventListActivity.this,
-//								PlanSuspandDetilActivity.class);
-//						//intent.putExtra("tag", tag);
-//						intent.putExtra("id", list.get(position - 1).getId());
-//						intent.putExtra("stop", "0");// 已启动的预案
-//						intent.putExtra("isStarter",list.get(position - 1).getIsStarter());// 已启动的预案
-//						startActivity(intent);
-//						// EventListActivity.this.finish();
-//					}
-//
-//				}
-//			}
-//		});
-//	}
 
 	private void initData() {
 		loadData(AutoListView.REFRESH);
@@ -430,21 +369,42 @@ public class EventListActivity extends BaseActivity implements
 
 	@Override
 	public void onFunction2BtnClick(View view, final int position) {
-		new android.app.AlertDialog.Builder(EventListActivity.this)
-				.setMessage("确定驳回该事件？")
-				.setPositiveButton("确定",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface arg0, int arg1) {
-								rejectEvent(list.get(position));
-							}
-						})
-				.setNegativeButton("取消",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface arg0, int arg1) {
+		if(tags.equals("1")) {
+			new android.app.AlertDialog.Builder(EventListActivity.this)
+					.setMessage("确定驳回该事件？")
+					.setPositiveButton("确定",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface arg0, int arg1) {
+									rejectEvent(list.get(position));
+								}
+							})
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface arg0, int arg1) {
 
-							}
-						}).show();
+								}
+							}).show();
+		}
+		else if(tags.equals("3"))
+		{
+			new android.app.AlertDialog.Builder(EventListActivity.this)
+					.setMessage("确定关闭该事件？")
+					.setPositiveButton("确定",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface arg0, int arg1) {
+
+								}
+							})
+					.setNegativeButton("取消",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface arg0, int arg1) {
+
+								}
+							}).show();
+		}
 	}
 }

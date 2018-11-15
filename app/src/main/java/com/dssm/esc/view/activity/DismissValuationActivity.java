@@ -98,12 +98,9 @@ public class DismissValuationActivity extends BaseActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_dismissvaluation);
 		View findViewById = findViewById(R.id.dismissvaluation);
 		findViewById.setFitsSystemWindows(true);
-		//tag = getIntent().getStringExtra("tag");
 		initview();
 	}
 	/***
@@ -119,14 +116,12 @@ public class DismissValuationActivity extends BaseActivity implements
 	 */
 	public void onEvent(mainEvent data) {
 		if (data.getData().equals("re")) {
-			
 			initData();
 		}
 	}
 	
 
 	private void initview() {
-		// TODO Auto-generated method stub
 		back.setVisibility(View.VISIBLE);
 		title.setText(R.string.dismissvaluation);
 		adapter = new LeftSlideEventAdapter(
@@ -211,12 +206,44 @@ public class DismissValuationActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onFunction1BtnClick(View view, int position) {
+	public void onFunction1BtnClick(View view, final int position) {
+		new android.app.AlertDialog.Builder(DismissValuationActivity.this)
+				.setMessage("确定重新评估？")
+				.setPositiveButton("确定",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								getValuation(position);
+							}
+						})
+				.setNegativeButton("取消",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+
+							}
+						}).show();
 
 	}
 
 	@Override
-	public void onFunction2BtnClick(View view, int position) {
+	public void onFunction2BtnClick(View view, final int position) {
+		new android.app.AlertDialog.Builder(DismissValuationActivity.this)
+				.setMessage("确定删除该事件？")
+				.setPositiveButton("确定",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								deleteData(position);
+							}
+						})
+				.setNegativeButton("取消",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+
+							}
+						}).show();
 
 	}
 
@@ -311,9 +338,7 @@ public class DismissValuationActivity extends BaseActivity implements
 		public void setEmergencySeviceImplListenser(
 				Boolean backflag, String stRerror,
 				String Exceptionerror) {
-			// TODO
-			// Auto-generated
-			// method stub
+
 			if (backflag) {
 				list.remove(curPosition - 1);
 				adapter.notifyDataSetChanged();
@@ -353,7 +378,7 @@ public class DismissValuationActivity extends BaseActivity implements
 		public void setEmergencySeviceImplListListenser(
 				Object object, String stRerror,
 				String Exceptionerror) {
-			// TODO Auto-generated method stub
+
 			if (object != null) {
 				entity = (GetProjectEveInfoEntity) object;
 				Intent intent = new Intent(
@@ -382,12 +407,11 @@ public class DismissValuationActivity extends BaseActivity implements
 				DismissValuationActivity.this, "",
 				Const.SUBMIT_MESSAGE);
 		// 获取评估信息
-		Control.getinstance().getEmergencyService().getEventInfo(list.get(position - 1).getId(), listener);
+		Control.getinstance().getEmergencyService().getEventInfo(list.get(position).getId(), listener);
 
 	}
 	@Override
 	public void initNetData() {
-		// TODO Auto-generated method stub
 		initData();
 	}
 	
