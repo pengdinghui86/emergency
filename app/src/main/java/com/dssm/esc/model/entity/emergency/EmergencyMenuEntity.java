@@ -11,6 +11,7 @@ public class EmergencyMenuEntity implements Serializable {
 	private String id;// 菜单id
 	private String name;// 菜单名称
 	private int icon;// 菜单图片
+	private int count;// 数量提醒
 	private Class activity;// 菜单对应的activity类
 
 	public String getId() {
@@ -43,5 +44,13 @@ public class EmergencyMenuEntity implements Serializable {
 
 	public void setActivity(Class activity) {
 		this.activity = activity;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 }

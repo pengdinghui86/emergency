@@ -201,8 +201,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		return redPointView;
 	}
 
-	
-
 	/**
 	 * 选择界面
 	 * @param position

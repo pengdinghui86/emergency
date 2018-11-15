@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
@@ -28,7 +27,6 @@ import com.dssm.esc.view.activity.EventListActivity;
 import com.dssm.esc.view.activity.EventPlanListActivity;
 import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.activity.PersonSignInActivity;
-import com.dssm.esc.view.activity.PlanExecutionActivity;
 import com.dssm.esc.view.adapter.EmergencyMenuRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -114,7 +112,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 
 	@Override
 	public void initGetData() {
-		// TODO Auto-generated method stub
 		if (getActivity() instanceof MainActivity) {
 			if (((MainActivity) getActivity()).menu.size() > 0) {
 				List<MenuEntity> menu = ((MainActivity) getActivity()).menu;
@@ -156,6 +153,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 				} else {
 					emergencyMenuEntity.setId("emergency_evaluate");
 					emergencyMenuEntity.setName(getString(R.string.emergency_evaluation));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.emergency_evaluate);
 					emergencyMenuEntity.setActivity(AddeValuationActivity.class);
 					addEventList.add(emergencyMenuEntity);
@@ -163,6 +161,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("drill_evaluate");
 					emergencyMenuEntity.setName(getString(R.string.drill_evaluation));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.drill_evaluate);
 					emergencyMenuEntity.setActivity(DrillSelectActivity.class);
 					addEventList.add(emergencyMenuEntity);
@@ -171,6 +170,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					addEventList.add(emergencyMenuEntity);
 
@@ -178,12 +178,14 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					addEventList.add(emergencyMenuEntity);
 
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("event_execute");
 					emergencyMenuEntity.setName(getString(R.string.executing));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.event_execute);
 					emergencyMenuEntity.setActivity(EventListActivity.class);
 					eventManageList.add(emergencyMenuEntity);
@@ -191,6 +193,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("event_reject");
 					emergencyMenuEntity.setName(getString(R.string.rejected));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.event_reject);
 					emergencyMenuEntity.setActivity(DismissValuationActivity.class);
 					eventManageList.add(emergencyMenuEntity);
@@ -198,6 +201,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("event_complete");
 					emergencyMenuEntity.setName(getString(R.string.execute_complete));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.event_complete);
 					emergencyMenuEntity.setActivity(EventListActivity.class);
 					eventManageList.add(emergencyMenuEntity);
@@ -206,6 +210,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					eventManageList.add(emergencyMenuEntity);
 				}
@@ -215,6 +220,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("wait_authorize");
 					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
 					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
@@ -222,6 +228,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("authorized");
 					emergencyMenuEntity.setName(getString(R.string.authorized));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
 					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
@@ -230,6 +237,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					planManageList.add(emergencyMenuEntity);
 
@@ -237,12 +245,14 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					planManageList.add(emergencyMenuEntity);
 				} else if (!jcsqVisible) {
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("wait_start");
 					emergencyMenuEntity.setName(getString(R.string.wait_start));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
 					emergencyMenuEntity.setActivity(EventListActivity.class);
 					planManageList.add(emergencyMenuEntity);
@@ -250,6 +260,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("started");
 					emergencyMenuEntity.setName(getString(R.string.started));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.plan_started);
 					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
@@ -258,6 +269,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					planManageList.add(emergencyMenuEntity);
 
@@ -265,12 +277,14 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					planManageList.add(emergencyMenuEntity);
 				} else {
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("wait_start");
 					emergencyMenuEntity.setName(getString(R.string.wait_start));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
 					emergencyMenuEntity.setActivity(EventListActivity.class);
 					planManageList.add(emergencyMenuEntity);
@@ -278,6 +292,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("started");
 					emergencyMenuEntity.setName(getString(R.string.started));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.plan_started);
 					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
@@ -285,6 +300,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("wait_authorize");
 					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
 					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
@@ -292,6 +308,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("authorized");
 					emergencyMenuEntity.setName(getString(R.string.authorized));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
 					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					planManageList.add(emergencyMenuEntity);
@@ -300,6 +317,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("people_sign");
 					emergencyMenuEntity.setName(getString(R.string.people_sign));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
 					emergencyMenuEntity.setActivity(PersonSignInActivity.class);
 					signInAssignList.add(emergencyMenuEntity);
@@ -308,6 +326,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					signInAssignList.add(emergencyMenuEntity);
 
@@ -315,6 +334,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					signInAssignList.add(emergencyMenuEntity);
 
@@ -322,12 +342,14 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					signInAssignList.add(emergencyMenuEntity);
 				} else {
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("people_sign");
 					emergencyMenuEntity.setName(getString(R.string.people_sign));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
 					emergencyMenuEntity.setActivity(PersonSignInActivity.class);
 					signInAssignList.add(emergencyMenuEntity);
@@ -335,6 +357,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity = new EmergencyMenuEntity();
 					emergencyMenuEntity.setId("people_assign");
 					emergencyMenuEntity.setName(getString(R.string.people_assign));
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setIcon(R.drawable.person_assign);
 					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 					signInAssignList.add(emergencyMenuEntity);
@@ -343,6 +366,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					signInAssignList.add(emergencyMenuEntity);
 
@@ -350,6 +374,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 					emergencyMenuEntity.setId("");
 					emergencyMenuEntity.setName("");
 					emergencyMenuEntity.setIcon(0);
+					emergencyMenuEntity.setCount(0);
 					emergencyMenuEntity.setActivity(null);
 					signInAssignList.add(emergencyMenuEntity);
 				}
@@ -357,6 +382,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 				emergencyMenuEntity.setId("plan_execute");
 				emergencyMenuEntity.setName(getString(R.string.plan_execute));
 				emergencyMenuEntity.setIcon(R.drawable.plan_for_execute);
+				emergencyMenuEntity.setCount(0);
 				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
 //				emergencyMenuEntity.setActivity(PlanExecutionActivity.class);
 				planExecuteList.add(emergencyMenuEntity);
@@ -365,6 +391,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 				emergencyMenuEntity.setId("");
 				emergencyMenuEntity.setName("");
 				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
 				emergencyMenuEntity.setActivity(null);
 				planExecuteList.add(emergencyMenuEntity);
 
@@ -372,6 +399,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 				emergencyMenuEntity.setId("");
 				emergencyMenuEntity.setName("");
 				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
 				emergencyMenuEntity.setActivity(null);
 				planExecuteList.add(emergencyMenuEntity);
 
@@ -379,6 +407,7 @@ public class EmergencyManageFragment extends BaseFragment implements
 				emergencyMenuEntity.setId("");
 				emergencyMenuEntity.setName("");
 				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
 				emergencyMenuEntity.setActivity(null);
 				planExecuteList.add(emergencyMenuEntity);
 			}
@@ -404,7 +433,9 @@ public class EmergencyManageFragment extends BaseFragment implements
 			PlanCountEntity entity = null;
 			if (object != null) {
 				entity = (PlanCountEntity) object;
-
+				eventManageAdapter.updateRemindCount("event_reject", Integer.parseInt(entity.getRejectEvaCount()));
+				planManageAdapter.updateRemindCount("wait_authorize", Integer.parseInt(entity.getAuthCount()));
+				planManageAdapter.updateRemindCount("wait_start", Integer.parseInt(entity.getStartCount()));
 			} else if (stRerror != null) {
 
 			} else if (Exceptionerror != null) {
