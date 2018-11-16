@@ -90,7 +90,8 @@ private String planInfoId;
 		}
 
 		mhHolder.stepname.setText(entity.getName());
-
+		mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+		mhHolder.iv.setImageResource(R.drawable.person_assign_title);
 		if(entity.getNodeStepType().equals("CallActivity")) {
 			mhHolder.assign.setVisibility(View.INVISIBLE);
 			mhHolder.who_task.setVisibility(View.GONE);
@@ -133,7 +134,8 @@ private String planInfoId;
 			if (state.equals("0")) {
 				stepname="无执行人";
 				mhHolder.who_task.setVisibility(View.GONE);
-
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
+				mhHolder.iv.setImageResource(R.drawable.person_assign_title);
 			}else if (state.equals("1")) {
 				mhHolder.who_task.setText("("+"A角"+")");
 				mhHolder.who_task.setVisibility(View.VISIBLE);
@@ -151,6 +153,8 @@ private String planInfoId;
 			}else {
 				stepname="未知";
 				mhHolder.who_task.setVisibility(View.GONE);
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
+				mhHolder.iv.setImageResource(R.drawable.person_assign_title);
 			}
 			mhHolder.whodone_name.setText(stepname);
 		}

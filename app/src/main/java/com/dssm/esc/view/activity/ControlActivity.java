@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +44,6 @@ import com.dssm.esc.view.widget.CustomProgressBar;
 import com.dssm.esc.view.widget.MyFlowView;
 import com.dssm.esc.view.widget.NSSetPointValueToSteps;
 import com.dssm.esc.view.widget.RingChartView;
-import com.dssm.esc.view.widget.SegmentControl;
-import com.dssm.esc.view.widget.Title_Layout;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -61,18 +60,6 @@ import de.greenrobot.event.EventBus;
 @ContentView(R.layout.activity_control)
 public class ControlActivity extends BaseActivity implements OnClickListener,
         MainActivity.onInitNetListener, AutoListView.OnRefreshListener, AutoListView.OnLoadListener {
-    /**
-     * 标题 布局
-     */
-    @ViewInject(R.id.title)
-    private Title_Layout title_ll;
-    /**
-     * 标题
-     */
-    @ViewInject(R.id.tv_actionbar_title)
-    private TextView title;
-
-    private ImageView iv_actionbar_refresh;
 
     /**
      * 返回按钮
@@ -83,11 +70,12 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      * 从上个页面带来的数据
      */
     PlanEntity planEntity;
-    /**
-     * 可点击转换界面的button
-     */
-    @ViewInject(R.id.segment_control_control)
-    private SegmentControl msegment;
+    @ViewInject(R.id.rb_real_track)
+    private RadioButton rb_real_track;
+    @ViewInject(R.id.rb_process_monitor)
+    private RadioButton rb_process_monitor;
+    @ViewInject(R.id.rb_resource_prepare)
+    private RadioButton rb_resource_prepare;
     /**
      * 点击button转换：1，实时跟踪2，流程监,3，资源筹
      */
@@ -278,13 +266,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         View findViewById = findViewById(R.id.control);
         findViewById.setFitsSystemWindows(true);
         my_flow_view = (MyFlowView) findViewById(R.id.my_flow_view);
-        iv_actionbar_refresh = (ImageView) findViewById(R.id.iv_actionbar_refresh);
-        iv_actionbar_refresh.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                flowChartPlanData();
-            }
-        });
+
         planEntity = (PlanEntity) getIntent().getSerializableExtra("PlanTreeEntity");
         sevice = Control.getinstance().getUserSevice();
         csevice = Control.getinstance().getControlSevice();
@@ -298,7 +280,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 ControlActivity.this, "",
                 Const.SUBMIT_MESSAGE);
         sevice.getUserPower(listListener);
-        segmentControlListDate();
     }
 
     private void addIndex(List<FlowChartPlanEntity.FlowChart> result) {
@@ -347,7 +328,9 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     private void initView() {
         back.setVisibility(View.VISIBLE);
         back.setOnClickListener(this);
-        title.setText(planEntity.getPlanName());
+        rb_real_track.setOnClickListener(this);
+        rb_process_monitor.setOnClickListener(this);
+        rb_resource_prepare.setOnClickListener(this);
         stop = (Button) realtime_tracking.findViewById(R.id.stop);
         rlistview = (AutoListView) realtime_tracking
                 .findViewById(R.id.realtime_track_listview);
@@ -486,30 +469,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 Const.LOAD_MESSAGE);
         csevice.getNoticeAndSignList(planEntity.getId(), signUserEntityControlServiceImplBackValueListenser);
 
-    }
-
-    private void segmentControlListDate() {
-        // TODO Auto-generated method stub
-        msegment.setmOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
-            @Override
-            public void onSegmentControlClick(int index) {
-                switch (index) {
-                    case 0:// 1，实时跟踪
-                        sem_tag = 1;
-                        iv_actionbar_refresh.setVisibility(View.GONE);
-                        break;
-                    case 1:// 2，流程监
-                        sem_tag = 2;
-                        iv_actionbar_refresh.setVisibility(View.VISIBLE);
-                        break;
-                    case 2:// 3，资源筹
-                        sem_tag = 3;
-                        iv_actionbar_refresh.setVisibility(View.GONE);
-                        break;
-                }
-                initData(sem_tag);
-            }
-        });
     }
 
     /***
@@ -655,7 +614,27 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 intent2.putExtra("id", planEntity.getId());
                 startActivity(intent2);
                 break;
-
+            case R.id.rb_real_track:
+                rb_real_track.setChecked(true);
+                rb_process_monitor.setChecked(false);
+                rb_resource_prepare.setChecked(false);
+                sem_tag = 1;
+                initData(sem_tag);
+                break;
+            case R.id.rb_process_monitor:
+                rb_real_track.setChecked(false);
+                rb_process_monitor.setChecked(true);
+                rb_resource_prepare.setChecked(false);
+                sem_tag = 2;
+                initData(sem_tag);
+                break;
+            case R.id.rb_resource_prepare:
+                rb_real_track.setChecked(false);
+                rb_process_monitor.setChecked(false);
+                rb_resource_prepare.setChecked(true);
+                sem_tag = 3;
+                initData(sem_tag);
+                break;
         }
     }
 

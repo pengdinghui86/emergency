@@ -6,27 +6,48 @@
     android:orientation="vertical"
     android:background="@color/set_gray">
 
-    <com.dssm.esc.view.widget.Title_Layout
-        android:id="@+id/title"
+    <RelativeLayout
+        android:id="@+id/event_process_detail_rl_segmented"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.dssm.esc.view.widget.SegmentControl
-        xmlns:segmentcontrol="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/segment_control_control"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:textSize="@dimen/we_normal_textsize"
-        segmentcontrol:colors="@color/textColor_selected"
-        segmentcontrol:cornerRadius="5dp"
-        segmentcontrol:direction="horizon"
-        segmentcontrol:horizonGap="12dp"
-        segmentcontrol:selectedIndex="0"
-        segmentcontrol:texts="实时跟踪|流程监控|资源筹备"
-        segmentcontrol:verticalGap="8dp" />
+        android:layout_centerHorizontal="true"
+        android:background="@color/title_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_actionbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/back" />
+
+        <RadioGroup
+            android:id="@+id/control_segmented"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_centerInParent="true">
+
+            <RadioButton
+                android:id="@+id/rb_real_track"
+                style="@style/message_title_radio_button"
+                android:checked="true"
+                android:text="实时跟踪" />
+
+            <RadioButton
+                android:id="@+id/rb_process_monitor"
+                style="@style/message_title_radio_button"
+                android:text="流程监控" />
+
+            <RadioButton
+                android:id="@+id/rb_resource_prepare"
+                style="@style/message_title_radio_button"
+                android:text="资源筹备" />
+        </RadioGroup>
+    </RelativeLayout>
 
     <com.dssm.esc.view.widget.MyFlowView
         android:id="@+id/my_flow_view"

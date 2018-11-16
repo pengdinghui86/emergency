@@ -173,6 +173,13 @@ public class GetMessageListParser {
 							.getString("sender"));
 					listEntity.setModelFlag(jsonObject2
 							.getString("modelFlag"));
+					if(jsonObject2.has("entityName"))
+					{
+						if(!jsonObject2
+								.getString("entityName").equals(""))
+							listEntity.setEveName(jsonObject2
+								.getString("entityName"));
+					}
 					list.add(listEntity);
 				}
 			}

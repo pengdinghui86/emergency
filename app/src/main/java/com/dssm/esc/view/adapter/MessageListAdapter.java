@@ -78,7 +78,10 @@ public class MessageListAdapter extends BaseAdapter {
 				mhHolder.message_listview_iv_type.setImageResource(R.drawable.emergency_type);
 			else
 				mhHolder.message_listview_iv_type.setImageResource(R.drawable.drill_type);
-			mhHolder.message_listview_tv_name.setText(entity.getEveName() + entity.getPlanName());
+			String title = entity.getEveName();
+			if(!"".equals(entity.getPlanName()))
+				title += "-" + entity.getPlanName();
+			mhHolder.message_listview_tv_name.setText(title);
 		}
 		String creatTime = entity.getTime();
 		long time = Utils.getStringToDate(creatTime, "yyyy-MM-dd HH:mm:ss");
