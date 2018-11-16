@@ -14,7 +14,6 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
 import com.dssm.esc.model.entity.emergency.BusinessTypeEntity;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
-import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.entity.emergency.PlanDetailEntity;
 import com.dssm.esc.model.entity.emergency.PlanDetailObjEntity;
 import com.dssm.esc.status.RealTimeTrackingStatus;
@@ -34,12 +33,6 @@ import de.greenrobot.event.EventBus;
 
 /**
  * 预案执行详情界面
- *
- * @author Zsj
- * @Description TODO
- * @date 2015-9-14
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- * Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_palndetail)
 public class PlanExecutionDetailActivity extends BaseActivity implements
@@ -146,7 +139,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     private String planInfoId = "";
     private String id = "";
     private ChildEntity childEntity = null;
-    private GroupEntity groupEntity = null;
+    private String planStatus = "";
     private String planResType = "";
     private String drillPrecautionId = "";
     private PlanDetailObjEntity obj;
@@ -188,7 +181,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
         findViewById.setFitsSystemWindows(true);
         Intent intent = getIntent();
         childEntity = (ChildEntity) intent.getSerializableExtra("entity");
-        groupEntity = (GroupEntity) intent.getSerializableExtra("groupEntity");
+        planStatus = intent.getStringExtra("planStatus");
         planInfoId = childEntity.getPlanInfoId();
         id = childEntity.getChild_id();
         initView();
@@ -214,22 +207,22 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
         initData();
         if ((status.equals("4") ||
                 status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT))
-                && groupEntity.getState().equals("3")) {
+                && planStatus.equals("3")) {
             change_ll.setVisibility(View.VISIBLE);
             execute_ll.setVisibility(View.GONE);
-        } else if (status.equals("5") && groupEntity.getState().equals("3")) {
+        } else if (status.equals("5") && planStatus.equals("3")) {
             change_ll.setVisibility(View.GONE);
             execute.setText(getString(R.string.execute_start));
             execute_ll.setVisibility(View.VISIBLE);
 
         } else if (status.equals(RealTimeTrackingStatus.EXCEPTION_EXCEED)
-                && groupEntity.getState().equals("3")) {
+                && planStatus.equals("3")) {
             change_ll.setVisibility(View.GONE);
             execute.setText(getString(R.string.execute_error));
             execute_ll.setVisibility(View.VISIBLE);
 
         } else if (status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_STOP)
-                && groupEntity.getState().equals("3")) {
+                && planStatus.equals("3")) {
             change_ll.setVisibility(View.GONE);
             execute.setText(getString(R.string.error_cancel));
             execute_ll.setVisibility(View.VISIBLE);

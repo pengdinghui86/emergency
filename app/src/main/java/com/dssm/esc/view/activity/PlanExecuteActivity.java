@@ -1,13 +1,11 @@
 package com.dssm.esc.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -181,21 +179,6 @@ public class PlanExecuteActivity extends BaseActivity implements
                 android.R.color.holo_red_light);
         initListData();
         mSwipeLayout.setOnRefreshListener(this);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ChildEntity child = childEntities.get(i);
-                //子预案节点
-                if(child.getNodeStepType().equals("CallActivity"))
-                    return;
-                ChildEntity childEntity = childEntities.get(i);
-                Intent intent = new Intent(PlanExecuteActivity.this,
-                        PlanExecutionDetailActivity.class);
-                intent.putExtra("entity", child);
-                intent.putExtra("groupEntity", childEntity);
-                startActivity(intent);
-            }
-        });
     }
 
     private EmergencyServiceImpl.EmergencySeviceImplListListenser listListener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {

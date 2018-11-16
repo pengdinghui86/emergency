@@ -319,7 +319,7 @@ public class Utils implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "0";
+        return "0秒";
     }
 
     /**

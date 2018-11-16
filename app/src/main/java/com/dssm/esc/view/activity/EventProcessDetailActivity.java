@@ -153,7 +153,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				String stRerror, String Exceptionerror) {
 			// TODO Auto-generated method stub
 			if (backValue != null) {
-				ringChartView.setOutProgress(Integer.parseInt(backValue.getProgressNum()));
+				ringChartView.setOutProgress(Integer.parseInt(backValue.getProgressNum()) / 6f * 100);
 				List<ProgressDetailEntity.EvenDetail> list = new ArrayList<ProgressDetailEntity.EvenDetail>();
 				list.add(backValue.getEveAssess()) ;//事件评估
 				list.add(backValue.getPlanStart()) ;//预案启动

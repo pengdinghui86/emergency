@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.dssm.esc.R;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.view.activity.AssignmentActivity;
+import com.dssm.esc.view.activity.PlanExecutionDetailActivity;
 
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 
 		final ChildEntity entity = getItem(position);
@@ -77,17 +78,18 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 					.findViewById(R.id.item_plan_execute_tv_status);
 			mhHolder.execute = (TextView) convertView.findViewById(R.id.item_plan_execute_tv_execute);
 			mhHolder.numbertv = (TextView) convertView.findViewById(R.id.numbertv);
-			mhHolder.v_top = (View) convertView.findViewById(R.id.item_list_view_person_assign_v_top);
-			mhHolder.v_bottom = (View) convertView.findViewById(R.id.item_list_view_person_assign_v_bottom);
-			mhHolder.iv = (ImageView) convertView.findViewById(R.id.item_list_view_person_assign_iv);
-			mhHolder.v_split = (View) convertView.findViewById(R.id.item_list_view_person_assign_v_split);
+			mhHolder.v_top = (View) convertView.findViewById(R.id.item_list_view_person_execute_v_top);
+			mhHolder.v_bottom = (View) convertView.findViewById(R.id.item_list_view_person_execute_v_bottom);
+			mhHolder.iv = (ImageView) convertView.findViewById(R.id.item_list_view_person_execute_iv);
+			mhHolder.v_split = (View) convertView.findViewById(R.id.item_list_view_person_execute_v_split);
 			convertView.setTag(mhHolder);
 		} else {
 			mhHolder = (ViewHolder) convertView.getTag();
 		}
 
 		mhHolder.stepname.setText(entity.getName());
-
+		mhHolder.iv.setBackgroundResource(R.drawable.circle_unstart_bg);
+		mhHolder.iv.setImageResource(R.drawable.unexecuted);
 		if(entity.getNodeStepType().equals("CallActivity")) {
 			mhHolder.execute.setVisibility(View.INVISIBLE);
 			mhHolder.status.setVisibility(View.GONE);
@@ -106,12 +108,11 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					//mhHolder.assign.setBackgroundResource(R.drawable.btbg_gray);
-					Intent intent = new Intent(context, AssignmentActivity.class);
-					intent.putExtra("id", entity.getChild_id());//// 流程步骤id
-					intent.putExtra("planInfoId", planInfoId);
-					intent.putExtra("entity", entity);
+					ChildEntity child = arraylist.get(position);
+					Intent intent = new Intent(context,
+							PlanExecutionDetailActivity.class);
+					intent.putExtra("entity", child);
+					intent.putExtra("planStatus", planStatus);
 					context.startActivity(intent);
 				}
 			});
@@ -174,6 +175,8 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			}else {
 				mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
 			}
+			mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+			mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
 		} else if (status.equals("4")) {
 			mhHolder.status.setText("执行中");// 切换按钮
 			if (!TextUtils.isEmpty(entity.getCode())){
@@ -181,6 +184,8 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			}else {
 				mhHolder.status.setTextColor(context.getResources().getColor(R.color.yellow_dot));
 			}
+			mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
+			mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
 		} else if (status.equals("5")) {
 			mhHolder.status.setText("可执行");// 有执行按钮
 			if (!TextUtils.isEmpty(entity.getCode())){
@@ -229,6 +234,8 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				}else {
 					mhHolder.status.setTextColor(Color.RED);
 				}
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
+				mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
 				break;
 
 			case 9:
@@ -238,6 +245,8 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				}else {
 					mhHolder.status.setTextColor(Color.RED);
 				}
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+				mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
 				break;
 
 			case 10:
@@ -247,6 +256,8 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				}else {
 					mhHolder.status.setTextColor(Color.RED);
 				}
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
+				mhHolder.iv.setImageResource(R.drawable.over_time);
 				break;
 
 			case 20:
@@ -256,6 +267,8 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				}else {
 					mhHolder.status.setTextColor(Color.RED);
 				}
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
+				mhHolder.iv.setImageResource(R.drawable.over_time);
 				break;
 
 			case 21:
@@ -265,6 +278,8 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				}else {
 					mhHolder.status.setTextColor(Color.RED);
 				}
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
+				mhHolder.iv.setImageResource(R.drawable.over_time);
 				break;
 
 			case 22:
@@ -274,6 +289,8 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				}else {
 					mhHolder.status.setTextColor(Color.RED);
 				}
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
+				mhHolder.iv.setImageResource(R.drawable.over_time);
 				break;
 
 			case 23:
@@ -301,17 +318,13 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				}else {
 					mhHolder.status.setTextColor(Color.RED);
 				}
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
+				mhHolder.iv.setImageResource(R.drawable.over_time);
 				break;
 		}
 		//2018.7.13新增，预案处于待启动或已启动或已授权的情况下，更改流程状态显示为流程未启动
 		if(planStatus.equals("0") || planStatus.equals("2") || planStatus.equals("1"))
 			mhHolder.status.setText("流程未启动");
-
-		//子预案节点
-		if(entity.getNodeStepType().equals("CallActivity"))
-			mhHolder.iv.setVisibility(View.VISIBLE);
-		else
-			mhHolder.iv.setVisibility(View.GONE);
 
 		return convertView;
 	}

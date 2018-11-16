@@ -110,7 +110,7 @@ public class EventProcessDetailListviewAdapter extends BaseAdapter {
 			mhHolder.time.setText("执行中");
 			mhHolder.imageView.setBackgroundResource(R.drawable.circle_execute_bg);
 		}else if (entity.getState().equals("2")) {
-			mhHolder.time.setText("已完成"+(entity.getFinishTime()));
+			mhHolder.time.setText("已完成" + (entity.getFinishTime() == null || "null".equals(entity.getFinishTime()) ? "" : entity.getFinishTime()));
 			mhHolder.imageView.setBackgroundResource(R.drawable.circle_complete_bg);
 		}
 		return convertView;

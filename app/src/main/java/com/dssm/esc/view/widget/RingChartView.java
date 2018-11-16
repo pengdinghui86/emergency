@@ -137,9 +137,9 @@ public class RingChartView extends View {
         }
         String txt = "";
         if (mOutProgress > 0)
-            txt = mOutProgress + "%";
+            txt = ((int) mOutProgress) + "%";
         else if(mInnerProgress > 0)
-            txt = mInnerProgress + "%";
+            txt = ((int) mInnerProgress) + "%";
         if(!mTxt.equals(""))
             txt = mTxt;
         mTxtWidth = mTextPaint.measureText(txt, 0, txt.length());

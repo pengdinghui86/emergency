@@ -229,8 +229,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     else {
                         setDefaultBackground(mhHolder, R.color.green_b);
                         mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
-                        mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
-                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
+                        mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
                     }
                     mhHolder.status.setText(status);
                     setItemColor(entity, mhHolder);
@@ -248,8 +248,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     else {
                         setDefaultBackground(mhHolder, R.color.green_b);
                         mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
-                        mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
-                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
+                        mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
                     }
                     mhHolder.status.setText(status);
 
@@ -268,8 +268,9 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     else {
                         setDefaultBackground(mhHolder, R.color.green_b);
                         mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
-                        mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
-                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
+                        mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
+
                     }
                     mhHolder.status.setText(status);
 
@@ -293,8 +294,6 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     else {
                         setDefaultBackground(mhHolder, R.color.blue_dot);
                         mhHolder.status.setTextColor(context.getResources().getColor(R.color.blue_dot));
-                        mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
-                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
                     }
                     mhHolder.status.setText(status);
 
@@ -305,8 +304,6 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     setDefaultBackground(mhHolder, R.color.green_a);
                     mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_a));
                     mhHolder.status.setText(status);
-                    mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
-                    mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
                     setItemColor(entity, mhHolder);
                     break;
                 case 7:
@@ -318,8 +315,6 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     else {
                         setDefaultBackground(mhHolder, R.color.red);
                         mhHolder.status.setTextColor(Color.RED);
-                        mhHolder.iv.setBackgroundResource(R.drawable.circle_unstart_bg);
-                        mhHolder.iv.setImageResource(R.drawable.unexecuted);
                     }
                     mhHolder.status.setText(status);
 
@@ -348,8 +343,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     else {
                         setDefaultBackground(mhHolder, R.color.red);
                         mhHolder.status.setTextColor(Color.RED);
-                        mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
-                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
+                        mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
                     }
                     mhHolder.status.setText(status);
 
@@ -401,8 +396,6 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     setDefaultBackground(mhHolder, R.color.red);
                     mhHolder.status.setTextColor(Color.RED);
                     mhHolder.status.setText(status);
-                    mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
-                    mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
                     setItemColor(entity, mhHolder);
                     break;
 
@@ -411,8 +404,6 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     setDefaultBackground(mhHolder, R.color.red);
                     mhHolder.status.setTextColor(Color.RED);
                     mhHolder.status.setText(status);
-                    mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
-                    mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
                     setItemColor(entity, mhHolder);
                     break;
 
@@ -445,7 +436,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                         mhHolder.status.setTextColor(Color.RED);
                     }
                     mhHolder.status.setText(status);
-
+                    mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+                    mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
                     setItemColor(entity, mhHolder);
                     break;
                 /**
