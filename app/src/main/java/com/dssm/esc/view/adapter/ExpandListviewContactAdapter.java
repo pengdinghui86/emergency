@@ -180,13 +180,13 @@ private	String tag;
 		gHolder.group_tv.setText(gentity.getGroupname());
 		if (!isExpanded) {
 			gHolder.group_contact_rl.setBackgroundResource(R.color.white);
-			gHolder.group_img.setImageResource(R.drawable.arrow_right);
+			gHolder.group_img.animate().rotation(0).setDuration(200).start();
 			gHolder.group_tv.setPadding(8, 20, 0, 20);
 			gHolder.group_tv.setTextSize(16);
 			gHolder.group_tv.setTextColor(context.getResources().getColor(R.color.colorWeFontBlack));
 		} else {
 			gHolder.group_contact_rl.setBackgroundResource(R.color.colorWeWindowGrayBackground);
-			gHolder.group_img.setImageResource(R.drawable.arrow_down);
+			gHolder.group_img.animate().rotation(90).setDuration(200).start();
 			gHolder.group_tv.setPadding(8, 8, 0, 8);
 			gHolder.group_tv.setTextSize(13);
 			gHolder.group_tv.setTextColor(context.getResources().getColor(R.color.colorWeFontGray_9));

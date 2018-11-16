@@ -10,6 +10,7 @@ import com.dssm.esc.R;
 import com.dssm.esc.util.DisplayUtils;
 import com.dssm.esc.util.treeview.TreeNode;
 import com.dssm.esc.util.treeview.base.CheckableNodeViewBinder;
+import com.easemob.chatuidemo.DemoApplication;
 
 public class SecondLevelNodeViewBinder extends CheckableNodeViewBinder {
 
@@ -17,23 +18,25 @@ public class SecondLevelNodeViewBinder extends CheckableNodeViewBinder {
     ImageView imageView;
     LinearLayout ll_cb;
     RelativeLayout rl_content;
+    RelativeLayout rl;
 
     public SecondLevelNodeViewBinder(View itemView) {
         super(itemView);
-        textView = (TextView) itemView.findViewById(R.id.group_tv);
-        imageView = (ImageView) itemView.findViewById(R.id.gropimg);
+        textView = (TextView) itemView.findViewById(R.id.group_contact_checkbox_tv_department);
+        imageView = (ImageView) itemView.findViewById(R.id.group_contact_checkbox_iv_arrow);
         ll_cb = (LinearLayout) itemView.findViewById(R.id.cb_layout);
         rl_content = (RelativeLayout) itemView.findViewById(R.id.rl_content);
+        rl = (RelativeLayout) itemView.findViewById(R.id.group_contact_checkbox_rl);
     }
 
     @Override
     public int getCheckableViewId() {
-        return R.id.child_checkbox;
+        return R.id.group_contact_checkbox_iv_checkbox;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.group_sigin;
+        return R.layout.first_tree_view;
     }
 
     @Override
@@ -52,8 +55,16 @@ public class SecondLevelNodeViewBinder extends CheckableNodeViewBinder {
     @Override
     public void onNodeToggled(TreeNode treeNode, boolean expand) {
         if (expand) {
+            rl.setBackgroundResource(R.color.colorWeWindowGrayBackground);
+            textView.setPadding(8, 8, 0, 8);
+            textView.setTextSize(13);
+            textView.setTextColor(DemoApplication.getInstance().getResources().getColor(R.color.colorWeFontGray_9));
             imageView.animate().rotation(90).setDuration(200).start();
         } else {
+            rl.setBackgroundResource(R.color.white);
+            textView.setPadding(8, 20, 0, 20);
+            textView.setTextSize(16);
+            textView.setTextColor(DemoApplication.getInstance().getResources().getColor(R.color.colorWeFontBlack));
             imageView.animate().rotation(0).setDuration(200).start();
         }
     }

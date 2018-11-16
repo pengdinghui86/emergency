@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/child_contact_checkbox_iv_head"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/we_margin_left"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="@dimen/we_listview_item_top_margin"
+            android:layout_marginTop="@dimen/we_listview_item_top_margin"
+            android:src="@drawable/man_offline" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:layout_weight="5"
+            android:gravity="left|center"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/child_contact_checkbox_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                style="@style/normal_text"
+                android:text="段子羽"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/child_contact_tv_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:gravity="right|center_vertical"
+            style="@style/normal_text"
+            android:visibility="gone"
+            android:text="已签到"/>
+
+        <CheckBox
+            android:id="@+id/child_contact_cb"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="right|center_vertical"
+            android:focusable="false"
+            android:button="@null"
+            android:background="@drawable/checkbox_background_selector"
+            android:paddingRight="2dp"
+            android:focusableInTouchMode="false"
+            android:gravity="right" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorWeSplitMini" />
+
+</LinearLayout>

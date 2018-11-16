@@ -17,8 +17,6 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
     LinearLayout ll_content;
     ImageView head;
     TextView name;
-    TextView zhizhe;
-    TextView phonenumber;
     TextView sigin_tv;
     CheckBox checkBox;
 
@@ -26,23 +24,20 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
     public ThirdLevelNodeViewBinder(View itemView) {
         super(itemView);
         ll_content = (LinearLayout) itemView.findViewById(R.id.ll_content);
-        head = (ImageView) itemView.findViewById(R.id.iv_head);
-        name = (TextView) itemView.findViewById(R.id.name);
-        zhizhe = (TextView) itemView.findViewById(R.id.zhizhe);
-        phonenumber = (TextView) itemView
-                .findViewById(R.id.phonenumber);
-        sigin_tv = (TextView) itemView.findViewById(R.id.sigin_tv);
-        checkBox = (CheckBox) itemView.findViewById(R.id.child_checkbox);
+        head = (ImageView) itemView.findViewById(R.id.child_contact_checkbox_iv_head);
+        name = (TextView) itemView.findViewById(R.id.child_contact_checkbox_tv_name);
+        sigin_tv = (TextView) itemView.findViewById(R.id.child_contact_tv_sign_in);
+        checkBox = (CheckBox) itemView.findViewById(R.id.child_contact_cb);
     }
 
     @Override
     public int getCheckableViewId() {
-        return R.id.child_checkbox;
+        return R.id.child_contact_cb;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.third_sigin;
+        return R.layout.third_tree_view;
     }
 
     @Override
@@ -51,13 +46,13 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
         lp.setMargins(DisplayUtils.dp2px(32), 0, 0, 0);
         ll_content.setLayoutParams(lp);
         ChildEntity centity = (ChildEntity) treeNode.getValue();
-        if(centity.getSex() == null ? false : centity.getSex().equals("女"))
-            head.setImageResource(R.drawable.woman);
+        if(centity.getSex()==null?false:centity.getSex().equals("女"))
+            head.setImageResource(R.drawable.woman_online);
         else
-            head.setImageResource(R.drawable.man);
+            head.setImageResource(R.drawable.man_online);
         name.setText(centity.getName());
-        zhizhe.setText(centity.getZhiwei());
-        phonenumber.setText(centity.getPhoneNumber());
+        name.setText(centity.getName());
+        sigin_tv.setVisibility(View.VISIBLE);
         String signin = centity.getSignin();
         String notice= centity.getNoticeState();
         if (tag.equals("1")) {//接收情况

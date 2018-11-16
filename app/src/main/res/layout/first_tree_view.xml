@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/group_contact_checkbox_rl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/cb_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/group_contact_checkbox_iv_checkbox"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:src="@drawable/ck_checked" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/cb_layout"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/group_contact_checkbox_iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/group_contact_checkbox_tv_department"
+            android:layout_alignTop="@+id/group_contact_checkbox_tv_department"
+            android:layout_marginLeft="@dimen/we_margin_left"
+            android:src="@drawable/arrow_right" />
+
+        <TextView
+            android:id="@+id/group_contact_checkbox_tv_department"
+            style="@style/normal_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="高级管理层"
+            android:layout_toRightOf="@+id/group_contact_checkbox_iv_arrow"
+            android:gravity="center_vertical"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWeSplitMini" />
+</RelativeLayout>

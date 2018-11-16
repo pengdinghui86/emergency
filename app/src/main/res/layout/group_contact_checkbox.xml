@@ -31,7 +31,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/we_margin_left"
-        android:src="@drawable/arrow_down" />
+        android:src="@drawable/arrow_right" />
 
     <TextView
         android:id="@+id/group_contact_checkbox_tv_department"
