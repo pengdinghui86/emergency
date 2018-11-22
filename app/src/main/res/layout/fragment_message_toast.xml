@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <com.dssm.esc.view.widget.AutoListView
         android:id="@+id/message_listview_toast"
@@ -11,7 +11,8 @@
         android:divider="@color/colorWeSplitMini"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/timer_list_selector"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_marginBottom="50dp">
     </com.dssm.esc.view.widget.AutoListView>
 
 </LinearLayout>

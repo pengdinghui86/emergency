@@ -23,10 +23,6 @@ import com.dssm.esc.util.Utils;
 
 /**
  * 自定义Listview上拉刷新，上拉加载更多
- * @Description TODO
- * @author Zsj
- * @date 2015-9-7
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co., Ltd. Inc. All rights reserved.
  */
 @SuppressLint({ "InflateParams", "ClickableViewAccessibility" })
 public class AutoListView extends ListView implements OnScrollListener {
@@ -146,6 +142,12 @@ public class AutoListView extends ListView implements OnScrollListener {
 		loadFull = (TextView) footer.findViewById(R.id.loadFull);
 		noData = (LinearLayout) footer.findViewById(R.id.ll_no_data);
 		more = (TextView) footer.findViewById(R.id.more);
+		more.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onLoad();
+            }
+        });
 		loading = (ProgressBar) footer.findViewById(R.id.loading);
 
 		header = inflater.inflate(R.layout.pull_to_refresh_header, null);
@@ -403,14 +405,14 @@ public class AutoListView extends ListView implements OnScrollListener {
 	 * 定义下拉刷新接口
 	 */
 	public interface OnRefreshListener {
-		public void onRefresh();
+		void onRefresh();
 	}
 
 	/*
 	 * 定义加载更多接口
 	 */
 	public interface OnLoadListener {
-		public void onLoad();
+		void onLoad();
 	}
 
 }

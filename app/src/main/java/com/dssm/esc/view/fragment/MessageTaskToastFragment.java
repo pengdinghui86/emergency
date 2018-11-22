@@ -48,13 +48,13 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	/** 适配器 */
 	private MessageListAdapter adapter;
 	/** 当前页数 */
-	private int i = 1;
+	private int i = 0;
 	private Context context;
 	private UserSevice sevice;
 
 	// private int page = 1;
-	/** 每次查询20条数据 */
-	private int limt = 20;
+	/** 当前数据数量 */
+	private int limt = 0;
 	/** 每次查询数据库的第几条 */
 	private int databaselimitn = 0;
 	private ArrayList<MessageInfoEntity> dataListAll;
@@ -145,35 +145,46 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				if(i > list.size())
+					return;
 				Intent intent = new Intent();
 				//事件已评估待启动
 				if (MessageStatusEnum.eventEvaluation.getId().equals(
-						list.get(i).getModelFlag()))
+						list.get(i-1).getModelFlag()))
 				{
 					intent.setClass(getActivity(), EventListActivity.class);
 					intent.putExtra("tags", "1");
 				}
 				//预案已启动待签到
 				else if (MessageStatusEnum.planStarted.getId().equals(
-						list.get(i).getModelFlag()) || MessageStatusEnum.personSignIn.getId().equals(
-						list.get(i).getModelFlag()))
+						list.get(i-1).getModelFlag()) || MessageStatusEnum.personSignIn.getId().equals(
+						list.get(i-1).getModelFlag()))
 				{
 					intent.setClass(getActivity(), PersonSignInActivity.class);
 				}
 				//预案已启动待授权
 				else if (MessageStatusEnum.planAuthorize.getId().equals(
-						list.get(i).getModelFlag()))
+						list.get(i-1).getModelFlag()))
 				{
 					intent.setClass(getActivity(), EventPlanListActivity.class);
 					intent.putExtra("tags", "1");
 				}
 				//事件被驳回待重新评估
 				else if (MessageStatusEnum.eventReject.getId().equals(
-						list.get(i).getModelFlag()))
+						list.get(i-1).getModelFlag()))
 				{
 					intent.setClass(getActivity(), DismissValuationActivity.class);
 					intent.putExtra("tags", "2");
 				}
+				//预案执行
+				else if (MessageStatusEnum.planExecute.getId().equals(
+						list.get(i-1).getModelFlag()))
+				{
+					intent.setClass(getActivity(), EventPlanListActivity.class);
+					intent.putExtra("tags", "6");
+				}
+				else
+					return;
 				startActivity(intent);
 			}
 		});
@@ -206,6 +217,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	 */
 	public void initData() {
 		i = 1;
+		limt = 0;
 		loadData(2);
 
 	}
@@ -345,7 +357,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	@Override
 	public void onLoad() {
 		// TODO Auto-generated method stub
-		// page++;
+        i++;
 		loadData(AutoListView.LOAD);
 	}
 
@@ -353,6 +365,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	public void onRefresh() {
 		// TODO Auto-generated method stub
 		i = 1;
+		limt = 0;
 		Log.i("44", "onRefresh");
 		loadData(AutoListView.REFRESH);
 	}
@@ -395,11 +408,13 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		}
 		int size = DataBaseUtil.getList(table1, null).size();
 		List<MessageInfoEntity> dbList;
-		if (limt > size) {
+		if (limt + 20 > size) {
 			// ToastUtil.showToast(context, "没有更多的数据了");
-			dbList = DataBaseUtil.getList(table1, (limt - 20) + "," + size);
+			dbList = DataBaseUtil.getList(table1, limt + "," + size);
+			limt = size;
 		} else {
-			dbList = DataBaseUtil.getList(table1, (limt - 20) + "," + limt);
+			dbList = DataBaseUtil.getList(table1, limt + "," + (limt + 20));
+			limt = limt + 20;
 		}
 		Log.i("44", "list的长度为：" + dataList.size());
 		msg.obj = dbList;
@@ -417,9 +432,10 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		List<MessageInfoEntity> dbList;
 		if ((limt + 20) > size) {
 			// ToastUtil.showToast(context, "没有更多的数据了");
-			dbList = DataBaseUtil.getList(table1, limt + "," + size);
+			dbList = DataBaseUtil.getList(table1, limt + "," + (size - limt));
+			limt = size;
 		} else {
-			dbList = DataBaseUtil.getList(table1, limt + "," + (limt + 20));
+			dbList = DataBaseUtil.getList(table1, limt + "," + 20);
 			limt += 20;
 		}
 		Message msg = handler.obtainMessage();
