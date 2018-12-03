@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -28,7 +29,6 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.widget.MyScrollView;
-import com.dssm.esc.view.widget.SegmentControl;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
@@ -43,18 +43,16 @@ import de.greenrobot.event.EventBus;
 @ContentView(R.layout.activity_planstar_detail)
 public class PlanStarDetailActivity extends BaseActivity implements
         OnClickListener, MainActivity.onInitNetListener {
-    /**
-     * 标题
-     */
-    @ViewInject(R.id.tv_actionbar_title)
-    private TextView title;
+
     /**
      * 返回按钮
      */
     @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
-    @ViewInject(R.id.segment_control_plandetail)
-    SegmentControl mSegmentControl;
+    @ViewInject(R.id.rb_plan_execute)
+    private RadioButton rb_plan_execute;
+    @ViewInject(R.id.rb_event_detail)
+    private RadioButton rb_event_detail;
     /**
      * 事件编号
      */
@@ -325,7 +323,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
         planEveName = intent.getStringExtra("name");
         // isStarter = intent.getStringExtra("isStarter");
         initview();
-        segmentControlListDate();
         sem_tags = 1;// 默认预案处置
         initData(sem_tags);
     }
@@ -357,9 +354,10 @@ public class PlanStarDetailActivity extends BaseActivity implements
     };
 
     private void initview() {
-        // TODO Auto-generated method stub
-        back.setVisibility(View.VISIBLE);
-        title.setText("预案启动");
+        back.setOnClickListener(this);
+        rb_plan_execute.setOnClickListener(this);
+        rb_event_detail.setOnClickListener(this);
+
         if (tag.equals("1")) {
             plan_ll.setVisibility(View.VISIBLE);
             plan_ll_2.setVisibility(View.GONE);
@@ -406,30 +404,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
             event_detail_ll.setVisibility(View.VISIBLE);
             plan_done_ll.setVisibility(View.GONE);
         }
-
-    }
-
-    /**
-     * selectButton控制list数据
-     */
-    private void segmentControlListDate() {
-        // TODO Auto-generated method stub
-        mSegmentControl
-                .setmOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
-                    @Override
-                    public void onSegmentControlClick(int index) {
-                        switch (index) {
-                            case 0:// 1,预案处置
-                                sem_tags = 1;
-
-                                break;
-                            case 1:// 2,事件详情
-                                sem_tags = 2;
-                                break;
-                        }
-                        initData(sem_tags);
-                    }
-                });
     }
 
     private ArrayList<PlanNameRowEntity> resutList4 = new ArrayList<PlanNameRowEntity>();
@@ -440,6 +414,17 @@ public class PlanStarDetailActivity extends BaseActivity implements
         // TODO Auto-generated method stub
 
         switch (v.getId()) {
+            case R.id.iv_actionbar_back:
+                finish();
+                break;
+            case R.id.rb_plan_execute:
+                sem_tags = 1;
+                initData(sem_tags);
+                break;
+            case R.id.rb_event_detail:
+                sem_tags = 2;
+                initData(sem_tags);
+                break;
             case R.id.referPlan_name_ll: // 可选预案布局
                 if (id != null) {
                     ArrayList<PlanNameRowEntity> list = new ArrayList<>();

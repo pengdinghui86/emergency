@@ -4,8 +4,8 @@
     <item android:state_checked="true">
         <layer-list>
             <!--底层使用下划线的颜色填充-->
-            <item android:left="20dp"
-                android:right="20dp">
+            <item android:left="25dp"
+                android:right="25dp">
                 <shape>
                     <solid android:color="#ffffff"/>
                 </shape>

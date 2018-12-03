@@ -6,22 +6,56 @@
     android:orientation="vertical"
     android:background="@color/set_gray">
 
-    <com.dssm.esc.view.widget.Title_Layout
+    <RelativeLayout
+        android:id="@+id/event_process_detail_rl_segmented"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/title_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
-    <com.dssm.esc.view.widget.SegmentControl
-        xmlns:segmentcontrol="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/segment_control_assign"
-        style="@style/linearlayout_segmentcontrol_style"
-        segmentcontrol:colors="@color/textColor_selected"
-        segmentcontrol:cornerRadius="5dp"
-        segmentcontrol:direction="horizon"
-        segmentcontrol:horizonGap="12dp"
-        segmentcontrol:selectedIndex="0"
-        android:layout_gravity="center"
-        segmentcontrol:texts="相关人员|应急小组"
-        segmentcontrol:verticalGap="8dp" />
+        <ImageView
+            android:id="@+id/iv_actionbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/back" />
+
+        <RadioGroup
+            android:id="@+id/event_process_detail_segmented"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_centerInParent="true">
+
+            <RadioButton
+                android:id="@+id/rb_relation_people"
+                style="@style/message_title_radio_button"
+                android:checked="true"
+                android:text="相关人员" />
+
+            <RadioButton
+                android:id="@+id/rb_emergency_group"
+                style="@style/message_title_radio_button"
+                android:text="应急小组" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/tv_actionbar_editData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/we_normal_textsize"
+            />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/assign_listview"

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,6 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.widget.MyScrollView;
-import com.dssm.esc.view.widget.SegmentControl;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -44,24 +44,20 @@ import de.greenrobot.event.EventBus;
 
 /**
  * 决策授权详情
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-11
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_autorizatdetail)
 public class AutorizateDecDetailActivity extends BaseActivity implements
 		OnClickListener {
-	/** 标题 */
-	@ViewInject(R.id.tv_actionbar_title)
-	private TextView title;
+
 	/** 返回按钮 */
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
-	@ViewInject(R.id.segment_control_plandetail)
-	SegmentControl mSegmentControl;
+	@ViewInject(R.id.rb_plan_authorize)
+	private RadioButton rb_plan_authorize;
+	@ViewInject(R.id.rb_plan_detail)
+	private RadioButton rb_plan_detail;
+	@ViewInject(R.id.rb_event_detail)
+	private RadioButton rb_event_detail;
 	/** 事件编号 */
 	@ViewInject(R.id.event_number)
 	private TextView event_number;
@@ -269,17 +265,15 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		//isAuthor= intent.getStringExtra("isAuthor");
 		initview();
 		suspandEntity = new PlanSuspandEntity();
-		segmentControlListDate();
 		sem_tags = 3;// 默认预案处置
 		initData(sem_tags);
-
 	}
 
 	private void initview() {
-		// TODO Auto-generated method stub
-		back.setVisibility(View.VISIBLE);
-		title.setText("决策授权");
-
+		back.setOnClickListener(this);
+		rb_plan_authorize.setOnClickListener(this);
+		rb_plan_detail.setOnClickListener(this);
+		rb_event_detail.setOnClickListener(this);
 	}
 
 	private void initData(int sem_tags) {
@@ -332,39 +326,6 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		}
 	}
 
-	/**
-	 * 
-	 * selectButton控制list数据
-	 * 
-	 * @version 1.0
-	 * @createTime 2015-9-7,下午3:23:05
-	 * @updateTime 2015-9-7,下午3:23:05
-	 * @createAuthor Zsj
-	 * @updateAuthor
-	 * @updateInfo (此处输入修改内容,若无修改可不写.)
-	 */
-	private void segmentControlListDate() {
-		// TODO Auto-generated method stub
-		mSegmentControl
-				.setmOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
-					@Override
-					public void onSegmentControlClick(int index) {
-						switch (index) {
-						case 0:// 1,预案授权
-							sem_tags = 3;
-
-							break;
-						case 1:// 2预案详情
-							sem_tags = 2;
-							break;
-						case 2:
-							sem_tags = 1;// 3,事件详情
-							break;
-						}
-						initData(sem_tags);
-					}
-				});
-	}
 	private AlertDialog selfdialog;
 	private String getCode =null;
 	@SuppressWarnings("deprecation")
@@ -373,6 +334,30 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 
 		switch (v.getId()) {
+		case R.id.iv_actionbar_back:
+			finish();
+			break;
+		case R.id.rb_plan_authorize:
+			rb_plan_authorize.setChecked(true);
+			rb_plan_detail.setChecked(false);
+			rb_event_detail.setChecked(false);
+			sem_tags = 3;
+			initData(sem_tags);
+			break;
+		case R.id.rb_plan_detail:
+			rb_plan_authorize.setChecked(false);
+			rb_plan_detail.setChecked(true);
+			rb_event_detail.setChecked(false);
+			sem_tags = 2;
+			initData(sem_tags);
+			break;
+		case R.id.rb_event_detail:
+			rb_plan_authorize.setChecked(false);
+			rb_plan_detail.setChecked(false);
+			rb_event_detail.setChecked(true);
+			sem_tags = 1;
+			initData(sem_tags);
+			break;
 		case R.id.stop:// 中止
 			planSuspendOpition2 = etc_plan.getText().toString().trim();
 			if (!planSuspendOpition2.equals("")) {

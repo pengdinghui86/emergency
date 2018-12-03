@@ -13,14 +13,20 @@
         android:layout_height="31dp"
         android:gravity="center">
 
-        <ImageView
-            android:id="@+id/iv_actionbar_back"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:src="@drawable/back"
-            android:visibility="invisible" />
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_actionbar_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/back"
+                android:visibility="invisible" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_actionbar_editData2"

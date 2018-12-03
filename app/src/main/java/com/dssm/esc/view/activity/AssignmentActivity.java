@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -39,19 +40,11 @@ import de.greenrobot.event.EventBus;
 
 /**
  * 指派界面
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-12
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 @ContentView(R.layout.activity_assignment)
 public class AssignmentActivity extends BaseActivity implements
-		MainActivity.onInitNetListener {
-	/** 标题 */
-	@ViewInject(R.id.tv_actionbar_title)
-	private TextView title;
+		MainActivity.onInitNetListener, OnClickListener {
+
 	/** 返回 */
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView mBack;
@@ -60,8 +53,10 @@ public class AssignmentActivity extends BaseActivity implements
 	private TextView sure;
 	/** 1，相关人员；2，应急小组 (SegmentControl点击) */
 	private int sem_tags;
-	@ViewInject(R.id.segment_control_assign)
-	private SegmentControl mSegment;
+	@ViewInject(R.id.rb_relation_people)
+	private RadioButton rb_relation_people;
+    @ViewInject(R.id.rb_emergency_group)
+    private RadioButton rb_emergency_group;
 	/** ListView */
 	@ViewInject(R.id.assign_listview)
 	private ListView mListView;
@@ -106,7 +101,6 @@ public class AssignmentActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_assignment);
 		View findViewById = findViewById(R.id.assignment);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();
@@ -115,9 +109,7 @@ public class AssignmentActivity extends BaseActivity implements
 		id = intent.getStringExtra("id");
 		entity = (PlanProcessEntity) intent.getSerializableExtra("entity");
 		initview();
-		sure.setVisibility(View.VISIBLE);
 		sure.setText("确定");
-		segmentControlListDate();
 	}
 
 	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
@@ -142,8 +134,10 @@ public class AssignmentActivity extends BaseActivity implements
 	};
 
 	private void initview() {
-		mBack.setVisibility(View.VISIBLE);
-		title.setText("指派其他");
+		mBack.setOnClickListener(this);
+        rb_relation_people.setOnClickListener(this);
+        rb_emergency_group.setOnClickListener(this);
+		sure.setOnClickListener(this);
 		sem_tags = 1;// 默认相关人员
 		/**
 		 * 为Adapter准备数据
@@ -215,17 +209,8 @@ public class AssignmentActivity extends BaseActivity implements
 	/**
 	 * 
 	 * 初始化数据（listview）
-	 * 
-	 * @version 1.0
-	 * @createTime 2015-9-12,下午2:44:40
-	 * @updateTime 2015-9-12,下午2:44:40
-	 * @createAuthor Zsj
-	 * @updateAuthor
-	 * @updateInfo (此处输入修改内容,若无修改可不写.)
 	 */
 	private void initListData() {
-		// TODO Auto-generated method stub
-
 		if (list == null || list.size() == 0) {
 			int length = 0;
 			if (!entity.getExecutorA().equals("")
@@ -342,55 +327,41 @@ public class AssignmentActivity extends BaseActivity implements
 	/**
 	 * 
 	 * 初始化数据（expandlistview）
-	 * 
-	 * @version 1.0
-	 * @createTime 2015-9-8,下午8:38:59
-	 * @updateTime 2015-9-8,下午8:38:59
-	 * @createAuthor Zsj
-	 * @updateAuthor
-	 * @updateInfo (此处输入修改内容,若无修改可不写.)
 	 */
 	private void initExpandListData() {
 		Utils.getInstance().showProgressDialog(AssignmentActivity.this, "",
 				Const.LOAD_MESSAGE);
 		Control.getinstance().getEmergencyService().getSignEmergencyInfo(planInfoId, listListener);
 	}
-
-	/**
-	 * 
-	 * selectButton控制界面
-	 * 
-	 * @version 1.0
-	 * @createTime 2015-9-12,下午2:22:10
-	 * @updateTime 2015-9-12,下午2:22:10
-	 * @createAuthor Zsj
-	 * @updateAuthor
-	 * @updateInfo (此处输入修改内容,若无修改可不写.)
-	 */
-	private void segmentControlListDate() {
-		// TODO Auto-generated method stub
-		mSegment.setmOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
-			@Override
-			public void onSegmentControlClick(int index) {
-				switch (index) {
-				case 0:// 1,1事件详情
-					sem_tags = 1;
-
-					break;	
-				case 1:// 2预案详情
-					sem_tags = 2;
-					break;
-				
-				}
-				initListviewData(sem_tags);
-			}
-		});
-	}
-
 	
 	@Override
 	public void initNetData() {
 		// TODO Auto-generated method stub
 		initListviewData(sem_tags);
 	}
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.iv_actionbar_back:
+                finish();
+                break;
+            case R.id.tv_actionbar_editData:
+                finish();
+                break;
+            case R.id.rb_relation_people:
+                sem_tags = 1;
+                rb_relation_people.setChecked(true);
+                rb_emergency_group.setChecked(false);
+                initListviewData(sem_tags);
+                break;
+            case R.id.rb_emergency_group:
+                sem_tags = 2;
+                rb_relation_people.setChecked(false);
+                rb_emergency_group.setChecked(true);
+                initListviewData(sem_tags);
+                break;
+        }
+    }
 }
