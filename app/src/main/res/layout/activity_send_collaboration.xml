@@ -1,0 +1,464 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sendcollaborate"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/set_gray">
+
+    <RelativeLayout
+        android:id="@+id/control_rl_segmented"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/title_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_actionbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/back" />
+
+        <RadioGroup
+            android:id="@+id/control_segmented"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_centerInParent="true">
+
+            <RadioButton
+                android:id="@+id/rb_send_collaboration"
+                style="@style/message_title_radio_button"
+                android:checked="true"
+                android:text="协同" />
+
+            <RadioButton
+                android:id="@+id/rb_send_notice"
+                style="@style/message_title_radio_button"
+                android:text="通告" />
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/iv_actionbar_send_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/send_history"
+            />
+    </RelativeLayout>
+
+    <com.dssm.esc.view.widget.MyScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <View
+                android:id="@+id/contact_people_v"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                style="@style/horizontal_gray_style"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:id="@+id/contact_people_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="#fff">
+
+                <TextView
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:layout_gravity="left|center"
+                    android:layout_weight="1"
+                    android:gravity="left|center"
+                    android:text="@string/contact_people" />
+
+                <TextView
+                    android:id="@+id/contact_people"
+                    style="@style/text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_weight="1.5"
+                    android:gravity="left|center"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:hint="@string/add_contact"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    />
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/right" />
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                style="@style/horizontal_gray_style"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:id="@+id/cooridiration_ll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:id="@+id/send_object_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:text="@string/sendobject"
+                        />
+
+                    <TextView
+                        android:id="@+id/send_object"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center"
+                        android:layout_weight="1.5"
+                        android:gravity="left|center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:hint="@string/select_send_object"/>
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/right" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/v"
+                    style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:id="@+id/stage_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="10dp" >
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center"
+                        android:layout_weight="1"
+                        android:gravity="left|center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:text="@string/stage"
+                        />
+
+                    <TextView
+                        android:id="@+id/stage"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center"
+                        android:layout_weight="1.5"
+                        android:gravity="left|center"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:hint="@string/select_stage"/>
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"
+                        android:src="@drawable/right" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pell"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/emergency_fragment_bg"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:id="@+id/add"
+                        style="@style/text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/tvbk_gray"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="添加联系人"/>
+
+                    <ListView
+                        android:id="@+id/recieve_listview_a"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:scrollbars="none"
+                        android:dividerHeight="1dp"
+                        android:divider="@color/colorWeSplitMini">
+                    </ListView>
+
+                    <include layout="@layout/no_data"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_gray_style"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/tvbk_blue"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/edit_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/seabar_input"
+                    android:ems="10"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/messageedit"
+                    android:imeOptions="actionNext"
+                    android:maxLength="70"
+                    android:textColorHint="#8C8C8C"
+                    android:textSize="16sp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/send_message_rl_sys"
+                    style="@style/addresslist_togbtlinear_style"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/tvbk_gray"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_sys_check"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/check_select"
+                        android:visibility="invisible"/>
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_sys"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/system" />
+
+                    <TextView
+                        android:id="@+id/send_message_tv_sys"
+                        style="@style/addresslist_togbt_style"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/xitong"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/send_message_iv_sys"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/send_message_rl_msg"
+                    style="@style/addresslist_togbtlinear_style"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/tvbk_gray"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_msg_check"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/check_select"
+                        android:visibility="invisible"/>
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/short_message" />
+
+                    <TextView
+                        android:id="@+id/send_message_tv_msg"
+                        style="@style/addresslist_togbt_style"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/send_message_iv_msg"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/shortmessage" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/send_message_rl_email"
+                    style="@style/addresslist_togbtlinear_style"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/tvbk_gray"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_email_check"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/check_select"
+                        android:visibility="invisible"/>
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/email" />
+
+                    <TextView
+                        android:id="@+id/send_message_tv_email"
+                        style="@style/addresslist_togbt_style"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/send_message_iv_email"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/email" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/send_message_rl_app"
+                    style="@style/addresslist_togbtlinear_style"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/tvbk_gray"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_app_check"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/check_select"
+                        android:visibility="invisible"/>
+
+                    <ImageView
+                        android:id="@+id/send_message_iv_app"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/app" />
+
+                    <TextView
+                        android:id="@+id/send_message_tv_app"
+                        style="@style/addresslist_togbt_style"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/send_message_iv_app"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/app" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/send_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="75dp"
+                android:background="@color/textColor_selected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="发送"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </com.dssm.esc.view.widget.MyScrollView>
+
+</LinearLayout>

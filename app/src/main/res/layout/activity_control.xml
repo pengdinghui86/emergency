@@ -7,7 +7,7 @@
     android:background="@color/set_gray">
 
     <RelativeLayout
-        android:id="@+id/event_process_detail_rl_segmented"
+        android:id="@+id/control_rl_segmented"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:src="@drawable/back" />
 
@@ -47,6 +48,16 @@
                 style="@style/message_title_radio_button"
                 android:text="资源筹备" />
         </RadioGroup>
+
+        <ImageView
+            android:id="@+id/iv_actionbar_send_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/send_msg"
+            />
     </RelativeLayout>
 
     <com.dssm.esc.view.widget.MyFlowView

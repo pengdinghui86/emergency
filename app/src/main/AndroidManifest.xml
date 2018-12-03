@@ -122,6 +122,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.SendCollaborativeActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.SendCollaborationActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.PlanSuspandDetilActivity"
             android:windowSoftInputMode="stateHidden|stateVisible|adjustResize"

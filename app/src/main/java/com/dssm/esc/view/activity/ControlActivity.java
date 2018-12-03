@@ -48,6 +48,7 @@ import com.dssm.esc.view.widget.RingChartView;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,11 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      */
     @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
+    /**
+     * 跳转至协同公告按钮
+     */
+    @ViewInject(R.id.iv_actionbar_send_msg)
+    private ImageView iv_send_msg;
     /**
      * 从上个页面带来的数据
      */
@@ -328,6 +334,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     private void initView() {
         back.setVisibility(View.VISIBLE);
         back.setOnClickListener(this);
+        iv_send_msg.setOnClickListener(this);
         rb_real_track.setOnClickListener(this);
         rb_process_monitor.setOnClickListener(this);
         rb_resource_prepare.setOnClickListener(this);
@@ -599,6 +606,11 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             case R.id.iv_actionbar_back:
                 EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
                 ControlActivity.this.finish();
+                break;
+            case R.id.iv_actionbar_send_msg:
+                Intent intent1 = new Intent(ControlActivity.this,
+                        SendCollaborationActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.resource_prepare_ll_receive:// 应急通知接收情况详情
                 Intent intent = new Intent(ControlActivity.this,
