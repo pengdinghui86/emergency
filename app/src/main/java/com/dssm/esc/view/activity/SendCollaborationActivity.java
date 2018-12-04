@@ -158,9 +158,6 @@ public class SendCollaborationActivity extends BaseActivity implements
 	/** 添加联系人按钮 */
 	@ViewInject(R.id.add)
 	private TextView add;
-	/** 暂无数据 */
-	@ViewInject(R.id.ll_no_data)
-	private LinearLayout ll_no_data;
 	/** 联系人 */
 	@ViewInject(R.id.recieve_listview_a)
 	private ListView listview;
@@ -189,7 +186,6 @@ public class SendCollaborationActivity extends BaseActivity implements
 		initView();
 	}
 	private void initView() {
-		listview.setEmptyView(ll_no_data);
 		pell.setVisibility(View.GONE);
 		sem_tags2 = 1;// 协同
 		busType = "collaborNotice";
@@ -515,9 +511,6 @@ public class SendCollaborationActivity extends BaseActivity implements
 						coorStage = stage;
 						stagetv.setText(stageString);
 						if (!sendString.equals("") && !stageString.equals("")) {
-							Log.i("precautionId", precautionId);
-							Log.i("type", type);
-							Log.i("stage", stage);
 							Control.getinstance().getEmergencyService().getNotiConfigContent(precautionId, type,
 									stage, listListener);
 						}
@@ -528,7 +521,6 @@ public class SendCollaborationActivity extends BaseActivity implements
 			}
 		} else {
 			Log.i("", "data为空");
-			// ToastUtil.showToast(SendCollaborativeActivity.this, "data为空");
 		}
 	}
 	/**

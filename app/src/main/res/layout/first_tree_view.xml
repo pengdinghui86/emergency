@@ -14,12 +14,17 @@
         android:layout_centerVertical="true"
         android:gravity="center" >
 
-        <ImageView
-            android:id="@+id/group_contact_checkbox_iv_checkbox"
+        <CheckBox
+            android:id="@+id/group_contact_cb"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:gravity="center"
-            android:src="@drawable/ck_checked" />
+            android:layout_gravity="right|center_vertical"
+            android:focusable="false"
+            android:button="@null"
+            android:background="@drawable/checkbox_background_selector"
+            android:paddingRight="2dp"
+            android:focusableInTouchMode="false"
+            android:gravity="right" />
     </LinearLayout>
 
     <RelativeLayout

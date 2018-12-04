@@ -27,7 +27,7 @@ public class FirstLevelNodeViewBinder extends CheckableNodeViewBinder {
 
     @Override
     public int getCheckableViewId() {
-        return R.id.group_contact_checkbox_iv_checkbox;
+        return R.id.group_contact_cb;
     }
 
     @Override

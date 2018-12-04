@@ -610,6 +610,10 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             case R.id.iv_actionbar_send_msg:
                 Intent intent1 = new Intent(ControlActivity.this,
                         SendCollaborationActivity.class);
+                intent1.putExtra("id", planEntity.getId());
+                intent1.putExtra("name", planEntity.getPlanName());
+                intent1.putExtra("precautionId",
+                        planEntity.getPlanId());
                 startActivity(intent1);
                 break;
             case R.id.resource_prepare_ll_receive:// 应急通知接收情况详情

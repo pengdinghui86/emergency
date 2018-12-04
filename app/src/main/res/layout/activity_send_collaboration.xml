@@ -81,7 +81,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:background="#fff">
+                >
 
                 <TextView
                     style="@style/text"
@@ -139,7 +139,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingLeft="10dp">
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
 
                     <TextView
                         style="@style/text"
@@ -182,7 +183,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingLeft="10dp" >
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp" >
 
                     <TextView
                         style="@style/text"
@@ -252,7 +254,6 @@
                         android:divider="@color/colorWeSplitMini">
                     </ListView>
 
-                    <include layout="@layout/no_data"/>
                 </LinearLayout>
             </LinearLayout>
 
