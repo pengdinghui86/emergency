@@ -211,7 +211,10 @@ public class PlanNameParser {
 					PlanNameRowEntity planNameRowEntity = new PlanNameRowEntity();
 					JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
 					planNameRowEntity.setId(jsonObject2.getString("id"));
-
+					if(jsonObject2.has(""))
+						planNameRowEntity.setPrecautionId(jsonObject2.getString("precautionId"));
+					else
+						planNameRowEntity.setPrecautionId("");
 					planNameRowEntity.setName(jsonObject2.getString("name"));
 					planNameRowEntity.setSummary(jsonObject2
 							.getString("summary"));

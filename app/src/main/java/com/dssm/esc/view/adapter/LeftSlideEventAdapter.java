@@ -95,7 +95,7 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
             eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
         }
         eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
-        // 0:，初始状态；1，待预案评估；2，执行中；3，结束；5，启动中；-1，驳回评估
+        // 0:，初始状态；1，待预案评估；2，执行中；3，结束；4，执行完成；5，启动中；-1，驳回评估
         if (!entity.getState().equals("null")
                 && !entity.getState().equals("")) {
             String status = "";
@@ -112,6 +112,9 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
                     break;
                 case 3:
                     status = "结束";
+                    break;
+                case 4:
+                    status = "执行完成";
                     break;
                 case 5:
                     status = "启动中";
@@ -167,8 +170,6 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
             }
         });
     }
-
-
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup arg0, int arg1) {

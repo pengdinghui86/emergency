@@ -43,11 +43,21 @@ public class EmergencyPlanEvaAddEntity implements Serializable {
 	private String exPlanId;
 	/**涉及预案*/
 	private String refPlanId;
+	/**涉及预案下面的场景编号，多个用|隔开*/
+	private String referProcess;
 	/**事件发现人*/
 	private String eventDiscover;
 
 	public String getRefPlanId() {
 		return refPlanId;
+	}
+
+	public String getReferProcess() {
+		return referProcess;
+	}
+
+	public void setReferProcess(String referProcess) {
+		this.referProcess = referProcess;
 	}
 
 	public void setRefPlanId(String refPlanId) {

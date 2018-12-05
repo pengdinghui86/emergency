@@ -156,6 +156,8 @@ public class AddeValuationActivity extends BaseActivity implements
 	private String dealAdvice = "";
 	/** 参考预案 可以多选，以“|”隔开 */
 	private String referPlan = "";
+	/** 参考预案下面的场景预案 可以多选，以“|”隔开 */
+	private String referProcess = "";
 	/** 其他预案 可以多选，以“|”隔开 */
 	private String otherReferPlan = "";
 	/** 分类预案 可以多选，以“|”隔开 */
@@ -182,6 +184,7 @@ public class AddeValuationActivity extends BaseActivity implements
 	private GetProjectEveInfoEntity entity;
 	private String referPlanNames = "";
 	private String referPlanIds = "";
+	private String referIds = "";
 	private String otherPlanNames = "";
 	private String otherPlanIds = "";
 	@ViewInject(R.id.tv_actionbar_title)
@@ -335,6 +338,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				tradeTypeId = entity.getTradeTypeId();// 行业类型id
 				eveLevelId = entity.getEveLevelId();// 事件等级id
 				referPlan = precautionId;// 预案id
+				referProcess = id;// 场景流程id
 				eveDiscover = entity.getEveDiscover();// 事件场景id
 
 				event_name.setText(entity.getEveName());
@@ -530,7 +534,6 @@ public class AddeValuationActivity extends BaseActivity implements
 			entity.setEveDiscover(event_discover.getText().toString());// 事件发现人
 			entity.setReferPlanIds(referPlan);// 涉及预案
 			entity.setDealAdvice(dealAdvice);// 处置建议
-			entity.setReferPlanIds(referPlan);// 参考预案
 			entity.setOtherReferPlanIds(otherReferPlan);// 其他预案
 			entity.setCategoryPlanIds(categoryPlan);// 分类预案
 			String planall = "";
@@ -555,6 +558,7 @@ public class AddeValuationActivity extends BaseActivity implements
 			addEntity.setRefPlanId(referPlan);// 涉及预案
 			addEntity.setDealAdvice(dealAdvice);// 处置建议
 			addEntity.setReferPlan(referPlan);// 参考预案
+			addEntity.setReferProcess(referProcess);// 参考预案
 			addEntity.setOtherReferPlan(otherReferPlan);// 其他预案
 			addEntity.setCategoryPlan(categoryPlan);// 分类预案
 			addEntity.setEveType(eveType);// 事件类型
@@ -712,6 +716,8 @@ public class AddeValuationActivity extends BaseActivity implements
 
 								str4 = str4 + "," + typelist4.get(i).getName();
 								referPlan = referPlan + "|"
+										+ typelist4.get(i).getPrecautionId();
+								referProcess = referProcess + "|"
 										+ typelist4.get(i).getId();
 								PlanNameRowEntity entity = new PlanNameRowEntity();
 								entity.setId(typelist4.get(i).getId());
@@ -721,6 +727,10 @@ public class AddeValuationActivity extends BaseActivity implements
 						if (referPlan.subSequence(0, 1).equals("|")) {
 							referPlan = (String) referPlan.subSequence(1,
 									referPlan.length());
+						}
+						if (referProcess.subSequence(0, 1).equals("|")) {
+							referProcess = (String) referProcess.subSequence(1,
+									referProcess.length());
 						}
 					}
 				}

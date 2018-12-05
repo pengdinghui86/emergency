@@ -12,7 +12,10 @@ import android.R.string;
 public class PlanNameRowEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	//流程编号
 	private String id;
+	//预案编号
+	private String precautionId;
 	private String name;
 	private String summary;
 	private String hasStartAuth;
@@ -25,6 +28,14 @@ public class PlanNameRowEntity implements Serializable{
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getPrecautionId() {
+		return precautionId;
+	}
+
+	public void setPrecautionId(String precautionId) {
+		this.precautionId = precautionId;
 	}
 
 	public boolean isSelect() {
