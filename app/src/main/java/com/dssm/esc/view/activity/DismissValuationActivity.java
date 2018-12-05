@@ -301,7 +301,7 @@ public class DismissValuationActivity extends BaseActivity implements
 	private void loadData(final int what) {
 
 		if (what == 0) {// 刷新和第一次加载
-			Control.getinstance().getEmergencyService().getPlanStarList(listListenser, "-1");
+			Control.getinstance().getEmergencyService().getPlanStarList(listListenser, "3");
 		} else if (what == 1) {// 加载更多
 			// 本地做分页，加载20条以后的数据，默认每20条分一页
 			Log.i("list测试长度", allList.size() + "");

@@ -274,11 +274,15 @@ public class AutoListView extends ListView implements OnScrollListener {
 			}
 			break;
 		case PULL:
-			topPadding(topPadding);
-			if (scrollState == SCROLL_STATE_TOUCH_SCROLL
-					&& space > headerContentHeight + SPACE) {
-				state = RELEASE;
-				refreshHeaderViewByState();
+			//判断是否滑到顶部
+			View first_view = getChildAt(0);
+			if(first_view != null && first_view.getTop() == 0) {
+				topPadding(topPadding);
+				if (scrollState == SCROLL_STATE_TOUCH_SCROLL
+						&& space > headerContentHeight + SPACE) {
+					state = RELEASE;
+					refreshHeaderViewByState();
+				}
 			}
 			break;
 		case RELEASE:

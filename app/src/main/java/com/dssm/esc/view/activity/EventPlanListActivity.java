@@ -258,6 +258,9 @@ public class EventPlanListActivity extends BaseActivity implements
                 intent = new Intent(EventPlanListActivity.this,
                         PlanExecuteActivity.class);
                 intent.putExtra("planInfoId", list.get(position).getId());
+                intent.putExtra("name", list.get(position).getPlanName());
+                intent.putExtra("planResType", list.get(position).getPlanResType());
+                intent.putExtra("drillPrecautionId", list.get(position).getPrecautionId());
                 intent.putExtra("planStatus", list.get(position).getState());
                 startActivity(intent);
             }

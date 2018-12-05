@@ -30,10 +30,10 @@ public class PlanStarEventListParser {
 	private List<PlanStarListEntity> list;
 	private final WeakReference<OnDataCompleterListener> wr;
 
-	public PlanStarEventListParser(OnDataCompleterListener completeListener, String status) {
+	public PlanStarEventListParser(OnDataCompleterListener completeListener, String tags) {
 		// TODO Auto-generated constructor stub
 		wr = new WeakReference<>(completeListener);
-		request(status);
+		request(tags);
 	}
 
 	/**
@@ -41,9 +41,28 @@ public class PlanStarEventListParser {
 	 * 发送请求
 	 * 
 	 */
-	public void request(final String status) {
-
-		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANLISTBYSTATUS + status);
+	public void request(final String tags) {
+		RequestParams params;
+		/** 1,待启动事件；2,执行中事件；3,已驳回事件；4,执行完成事件；5,人员签到；6,事件流程；*/
+		if(tags.equals("1"))
+		{
+			params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANSTARLIST);
+		}
+		else if (tags.equals("6"))
+		{
+			params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANLISTBYSTATUS);
+		}
+		else if (tags.equals("2")) {
+			params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANLISTBYSTATUS + "2");
+		}
+		else if (tags.equals("2")) {
+			params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANLISTBYSTATUS + "-1");
+		}
+		else if(tags.equals("4")) {
+			params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANLISTBYSTATUS + "4,3");
+		}
+		else
+			params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANLISTBYSTATUS);
 		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
@@ -89,7 +108,7 @@ public class PlanStarEventListParser {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
 						if(DemoApplication.sessionTimeoutCount < 5)
-						request(status);
+						request(tags);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -98,7 +117,7 @@ public class PlanStarEventListParser {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
 					if(DemoApplication.sessionTimeoutCount < 5)
-						request(status);
+						request(tags);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

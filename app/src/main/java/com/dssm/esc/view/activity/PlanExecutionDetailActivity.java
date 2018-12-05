@@ -47,6 +47,11 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
      */
     @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
+    /**
+     * 操作手册
+     */
+    @ViewInject(R.id.iv_actionbar_operation)
+    private ImageView operation;
     /** 1，应急；2，演练 */
     // private String tag;
     /**
@@ -84,12 +89,6 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
      */
     @ViewInject(R.id.execute)
     private TextView execute;
-
-    /**
-     * 操作手册
-     */
-    @ViewInject(R.id.tv_actionbar_editData)
-    private TextView tv_actionbar_editData;
 
     /**
      * 切换的完成状态布局
@@ -188,16 +187,17 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     }
 
     private void initView() {
-        back.setVisibility(View.VISIBLE);
+        back.setOnClickListener(this);
         title.setText(childEntity.getProcessName());
         //判断节点不显示操作手册
         if(!childEntity.getNodeStepType().equals("ExclusiveGateway")) {
-            tv_actionbar_editData.setVisibility(View.VISIBLE);
-            tv_actionbar_editData.setText(getString(R.string.operation_menu));
-            tv_actionbar_editData.setOnClickListener(this);
+            operation.setVisibility(View.VISIBLE);
+            operation.setOnClickListener(this);
         }
-        else
+        else {
+            operation.setVisibility(View.GONE);
             submit_infomation_ll.setVisibility(View.GONE);
+        }
         String status = childEntity.getStatus();
         submit_infomation_ll.setOnClickListener(this);
         execute.setOnClickListener(this);
@@ -397,6 +397,9 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
+            case R.id.iv_actionbar_back:
+                finish();
+                break;
             case R.id.operation_menu:// 操作手册
                 Intent intent3 = new Intent(PlanExecutionDetailActivity.this,
                         OperationMenuActivity.class);
@@ -407,7 +410,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 intent3.putExtra("tag", "2");// 步骤点进去
                 startActivity(intent3);
                 break;
-            case R.id.tv_actionbar_editData:// 操作手册
+            case R.id.iv_actionbar_operation:// 操作手册
                 Intent intent4 = new Intent(PlanExecutionDetailActivity.this,
                         OperationMenuActivity.class);
                 intent4.putExtra("manualDetailId", childEntity.getManualDetailId());

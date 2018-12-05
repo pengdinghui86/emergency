@@ -1,5 +1,6 @@
 package com.dssm.esc.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 @ContentView(R.layout.activity_plan_step_execute)
 public class PlanExecuteActivity extends BaseActivity implements
-        OnRefreshListener, MainActivity.onInitNetListener {
+        OnRefreshListener, MainActivity.onInitNetListener, View.OnClickListener {
     /**
      * 标题
      */
@@ -44,6 +45,11 @@ public class PlanExecuteActivity extends BaseActivity implements
      */
     @ViewInject(R.id.iv_actionbar_back)
     private ImageView back;
+    /**
+     * 操作手册
+     */
+    @ViewInject(R.id.iv_actionbar_operation)
+    private ImageView operation;
     /** 1，应急；2，演练 */
     // private String tag;
     /**
@@ -60,6 +66,9 @@ public class PlanExecuteActivity extends BaseActivity implements
     private List<ChildEntity> childList = new ArrayList<ChildEntity>();
     //传递过来的预案编号
     private String planInfoId = "";
+    private String name = "";
+    private String planResType = "";
+    private String drillPrecautionId = "";
     //传递过来的预案状态
     private String planStatus = "";
     /**
@@ -104,6 +113,9 @@ public class PlanExecuteActivity extends BaseActivity implements
         View findViewById = findViewById(R.id.plan_execute);
         findViewById.setFitsSystemWindows(true);
         planInfoId = getIntent().getStringExtra("planInfoId");
+        name = getIntent().getStringExtra("name");
+        planResType = getIntent().getStringExtra("planResType");
+        drillPrecautionId = getIntent().getStringExtra("drillPrecautionId");
         planStatus = getIntent().getStringExtra("planStatus");
         initView();
 
@@ -171,7 +183,8 @@ public class PlanExecuteActivity extends BaseActivity implements
     }
 
     private void initView() {
-        back.setVisibility(View.VISIBLE);
+        back.setOnClickListener(this);
+        operation.setOnClickListener(this);
         title.setText("预案执行");
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -261,5 +274,27 @@ public class PlanExecuteActivity extends BaseActivity implements
     public void initNetData() {
         // TODO Auto-generated method stub
         initListData();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_actionbar_back:
+                finish();
+                break;
+            case R.id.iv_actionbar_operation:
+                // planResType 预案来源类型 1、事件 2、演练计划
+                // drillPrecautionId 演练预案id
+                // planInfoId 执行预案ID
+                Intent intent = new Intent(this, OperationMenuActivity.class);
+                intent.putExtra("planResType", planResType);
+                intent.putExtra("drillPrecautionId",
+                        drillPrecautionId);
+                intent.putExtra("planInfoId", planInfoId);
+                intent.putExtra("name", name);
+                intent.putExtra("tag", "1");
+                startActivity(intent);
+                break;
+        }
     }
 }

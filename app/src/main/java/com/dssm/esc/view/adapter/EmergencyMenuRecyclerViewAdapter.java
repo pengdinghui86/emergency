@@ -67,6 +67,7 @@ public class EmergencyMenuRecyclerViewAdapter extends RecyclerView.Adapter<Emerg
     {
         if(mDatas.get(position).getIcon() > 0) {
             viewHolder.imageView.setImageResource(mDatas.get(position).getIcon());
+            viewHolder.imageView.setVisibility(View.VISIBLE);
             //数量提醒
             RedPointView redPointView = remind(viewHolder.redPoint, mDatas.get(position).getCount() + "");
             if(mDatas.get(position).getCount() > 99) {
@@ -80,8 +81,10 @@ public class EmergencyMenuRecyclerViewAdapter extends RecyclerView.Adapter<Emerg
             else {
                 redPointView.hide();
             }
-        } else
+        } else {
             viewHolder.imageView.setImageResource(0);
+            viewHolder.imageView.setVisibility(View.GONE);
+        }
         viewHolder.name.setText(mDatas.get(position).getName());
         //设置回调
         if (mOnItemClickListener != null){

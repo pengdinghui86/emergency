@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class PlanStarListEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id ;
+	private String id;
 	private String eveName;
 	private String state;
 	private String planResId;//预案来源id
@@ -21,6 +21,7 @@ public class PlanStarListEntity implements Serializable {
 //	suspendType	中止类型	启动时中止，类型为null
 //	planSuspendOpition	中止原因	
 //	planName	预案名称	发送通知使用
+//	sceneName	场景名称
 //	planResName	预案来源名称	发送通知使用
 //	planResType	预案来源类型	发送通知使用
 //	planId	预案ID	发送通知使用
@@ -32,6 +33,7 @@ public class PlanStarListEntity implements Serializable {
 	private String suspendType;
 	private String planSuspendOpition;
 	private String planName;
+	private String sceneName;
 	private String planResName;
 	private String planResType;
 	private String planId;
@@ -130,6 +132,15 @@ public class PlanStarListEntity implements Serializable {
 	public void setPlanName(String planName) {
 		this.planName = planName;
 	}
+
+	public String getSceneName() {
+		return sceneName;
+	}
+
+	public void setSceneName(String sceneName) {
+		this.sceneName = sceneName;
+	}
+
 	public String getPlanResName() {
 		return planResName;
 	}

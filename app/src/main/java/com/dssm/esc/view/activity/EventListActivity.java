@@ -54,7 +54,7 @@ public class EventListActivity extends BaseActivity implements
 	private List<PlanStarListEntity> list = new ArrayList<PlanStarListEntity>();
 	/** 当前页面 */
 	private int i = 1;
-	/** 1,待启动事件列表;2，执行中事件列表；3，执行完成事件列表；4,事件流程列表；*/
+	/** 1,待启动事件；2,执行中事件；3,已驳回事件；4,执行完成事件；5,人员签到；6,事件流程；*/
 	private String tags;
 	/** 下拉刷新控件 */
 	@ViewInject(R.id.dismissv_refreshLinearLayout)
@@ -288,15 +288,9 @@ public class EventListActivity extends BaseActivity implements
 	};
 
 	private void loadData(final int what) {
-		String status = "0";
-		if (tags.equals("6"))
-			status = "";
-		else if (tags.equals("2"))
-			status = "2";
-		else if(tags.equals("4"))
-			status = "3";
+
 		if (what == 0) {// 刷新和第一次加载
-			Control.getinstance().getEmergencyService().getPlanStarList(listListenser, status);
+			Control.getinstance().getEmergencyService().getPlanStarList(listListenser, tags);
 		} else if (what == 1) {// 加载更多
 			// 本地做分页，加载20条以后的数据，默认每20条分一页
 			Log.i("list测试长度", allList.size() + "");

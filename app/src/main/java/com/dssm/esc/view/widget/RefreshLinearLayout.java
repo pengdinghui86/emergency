@@ -384,6 +384,12 @@ public class RefreshLinearLayout extends LinearLayout {
 			float deltaY = curY - downY;
 			//是否是有效的往下拖动事件
 			boolean isDropDownValidate = (Float.MAX_VALUE != downY && deltaY > 50);
+			//recycleView没有滑到顶部时屏蔽下拉刷新
+			RecyclerView recycle_view = (RecyclerView) getChildAt(1);
+			if(recycle_view != null && canScrollVertically(recycle_view, -1))
+			{
+				return false;
+			}
 			if(isDropDownValidate)
 			{
 				onTouchEvent(ev);
@@ -429,6 +435,7 @@ public class RefreshLinearLayout extends LinearLayout {
 				 * 即不允许拦截设为true
 				 */
 				requestDisallowInterceptTouchEvent(!isDropDownValidate);
+
 				downY = curY;
 				int curHeight = header.getMeasuredHeight();
 				int exceptHeight = curHeight + (int) (deltaY / 2);
@@ -470,6 +477,23 @@ public class RefreshLinearLayout extends LinearLayout {
 				break;
 		}
 		return super.onTouchEvent(event);
+	}
+
+	/**
+	 * Check if this view can be scrolled vertically in a certain direction.
+	 *
+	 * @param direction Negative to check scrolling up, positive to check scrolling down.
+	 * @return true if this view can be scrolled in the specified direction, false otherwise.
+	 */
+	public boolean canScrollVertically(RecyclerView recycle_view, int direction) {
+		final int offset = recycle_view.computeVerticalScrollOffset();
+		final int range = recycle_view.computeVerticalScrollRange() - computeVerticalScrollExtent();
+		if (range == 0) return false;
+		if (direction < 0) {
+			return offset > 0;
+		} else {
+			return offset < range - 1;
+		}
 	}
 
 	// 根据当前状态，调整header

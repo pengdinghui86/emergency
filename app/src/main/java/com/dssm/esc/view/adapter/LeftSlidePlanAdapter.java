@@ -118,7 +118,7 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                         planViewHolder.btn_Function2.setVisibility(View.GONE);
                         break;
                 }
-                planViewHolder.tvPlanName.setText(entity1.getPlanName());
+                planViewHolder.tvPlanName.setText(entity1.getPlanName() + "-" + entity1.getSceneName());
                 planViewHolder.tvState.setVisibility(View.VISIBLE);
                 planViewHolder.tvState.setTextColor(Color.RED);
                 // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）

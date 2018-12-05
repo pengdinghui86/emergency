@@ -365,7 +365,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * 获取事件未启动列表
 	 */
 	@Override
-	public void getPlanStarList(EmergencySeviceImplListListenser listenser, String status) {
+	public void getPlanStarList(EmergencySeviceImplListListenser listenser, String tags) {
 		// TODO Auto-generated method stub
 		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
 
@@ -377,7 +377,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 				if(wr.get() != null)
 					setEmergencyListListenser(wr.get(), object, error);
 			}
-		}, status);
+		}, tags);
 	}
 
 	/**
