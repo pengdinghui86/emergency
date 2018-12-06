@@ -211,7 +211,10 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 			final String subTime = obj.getSubTime();
 			event_time.setText(subTime);
 			String nowTime = obj.getNowTime();
-			overTime = Utils.getInstance().getOverTime(nowTime, subTime);
+			if(nowTime != null && subTime != null)
+				overTime = Utils.getInstance().getOverTime(nowTime, subTime);
+			else
+				overTime = "";
 			event_over_time.setText(overTime);
 			business_type.setText(obj.getTradeType());
 			event_level.setText(obj.getEveLevel());

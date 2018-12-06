@@ -301,9 +301,9 @@ public class EventPlanListActivity extends BaseActivity implements
         planSuspandEntity.setEveLevelId(planStarListEntity.getEveLevelId());
         planSuspandEntity.setPlanStarterId(planStarListEntity.getPlanStarterId());
         String planAuthorId = planStarListEntity.getPlanAuthorId();
-        if (planAuthorId == null && planAuthorId.equals("")
-                && planAuthorId.equals("null")
-                && planAuthorId.length() == 0) {
+        if (planAuthorId == null || planAuthorId.equals("")
+                || planAuthorId.equals("null")
+                || planAuthorId.length() == 0) {
             planSuspandEntity.setPlanAuthorId("");
         }
         else

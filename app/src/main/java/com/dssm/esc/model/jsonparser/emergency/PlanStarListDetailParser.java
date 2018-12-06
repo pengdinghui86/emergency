@@ -162,8 +162,8 @@ public class PlanStarListDetailParser {
 					objEntity.setTradeTypeId(jsonObject3.getString("tradeTypeId"));
 					objEntity.setEveLevelId(jsonObject3.getString("eveLevelId"));
 					if (objEntity.getEveType().equals("2")) {//演练才有
-						
-						objEntity.setHasStartAuth(jsonObject3.getString("hasStartAuth"));
+						if(jsonObject3.has("hasStartAuth"))
+							objEntity.setHasStartAuth(jsonObject3.getString("hasStartAuth"));
 					}
 					ArrayList<PlanStarListDetailObjListEntity> list = new ArrayList<PlanStarListDetailObjListEntity>();
 					JSONArray jsonArray = jsonObject3.getJSONArray("list");

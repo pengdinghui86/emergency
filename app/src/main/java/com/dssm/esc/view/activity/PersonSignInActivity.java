@@ -172,6 +172,8 @@ public class PersonSignInActivity extends BaseActivity implements
      * 签到
      */
     private void siginin() {
+        if(list == null || list.size() == 0)
+            return;
         Utils.getInstance().showProgressDialog(PersonSignInActivity.this, "",
                 Const.LOAD_MESSAGE);
         Control.getinstance().getEmergencyService().signIn(list.get(0).getPlanId(), signInListener);
@@ -332,6 +334,8 @@ public class PersonSignInActivity extends BaseActivity implements
             } else {
                 message.obj = dataList;
             }
+            if(dataList == null || dataList.size() == 0)
+                bt_sign.setVisibility(View.GONE);
             message.what = 0;
             handler.sendMessage(message);
             allList = dataList;

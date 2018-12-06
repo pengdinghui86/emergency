@@ -63,7 +63,7 @@ public class PausePlanParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
-		params.addParameter("id", id);
+		params.addParameter("planPerformId", id);
 		params.addParameter("planInfoId", planInfoId);
 		params.addParameter("stopOrStart", stopOrStart);
 		final ControlCompleterListenter<Map<String, String>> completeListener = wr.get();

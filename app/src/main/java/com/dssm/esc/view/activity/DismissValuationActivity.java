@@ -172,7 +172,7 @@ public class DismissValuationActivity extends BaseActivity implements
 					DismissValuationActivity.this)
 					.setMessage(
 							list.get(position).getEveName())
-
+					.setTitle("请选择")
 					// 设置LOGO
 					.setPositiveButton("删除",
 							new DialogInterface.OnClickListener() {
@@ -340,10 +340,10 @@ public class DismissValuationActivity extends BaseActivity implements
 				String Exceptionerror) {
 
 			if (backflag) {
-				list.remove(curPosition - 1);
+				list.remove(curPosition);
 				adapter.notifyDataSetChanged();
 				ToastUtil.showToast(DismissValuationActivity.this,
-						stRerror);
+						"操作成功");
 			} else if (backflag == false) {
 				ToastUtil.showToast(DismissValuationActivity.this,
 						stRerror);
@@ -368,7 +368,7 @@ public class DismissValuationActivity extends BaseActivity implements
 		Utils.getInstance().showProgressDialog(
 				DismissValuationActivity.this, "",
 				Const.SUBMIT_MESSAGE);
-		Control.getinstance().getEmergencyService().deleteEvent(list.get(position - 1).getId(), deleteEventListener);
+		Control.getinstance().getEmergencyService().deleteEvent(list.get(position).getId(), deleteEventListener);
 
 	}
 

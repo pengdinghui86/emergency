@@ -103,8 +103,8 @@ public class ControlServiceImpl implements ControlSevice {
                     flag = false;
                     stRerror = "失败";
                 }
-                ;
-                stRerror = map.get("message");
+                if(map.containsKey("message") && !map.get("message").toString().equals("null"))
+                    stRerror = map.get("message").toString();
             } else {
                 stRerror = "未访问到数据";
             }

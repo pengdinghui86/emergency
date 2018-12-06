@@ -64,7 +64,7 @@ public class JumpPlan2Parser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
-		params.addParameter("id", id);
+		params.addParameter("planPerformId", id);
 		params.addParameter("planInfoId", planInfoId);
 		params.addParameter("stopOrStart", stopOrStart);
 //		params.put("status", "3");

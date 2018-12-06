@@ -178,6 +178,7 @@ public class QueryProcessTrackParser {
 					entity.setType(jsonObject.getString("type"));
 					entity.setEndTime(jsonObject.getString("endTime"));//结束时间
 					entity.setId(jsonObject.getString("id"));
+					entity.setPlanPerformId(jsonObject.getString("planPerformId"));
 					entity.setMessage(jsonObject.getString("message"));//信息内容
 					entity.setProcess(jsonObject.getString("process"));
 					entity.setpId(jsonObject.getString("pId"));

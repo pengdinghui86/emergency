@@ -135,6 +135,10 @@ public class FlowChartPlanEntity implements Serializable {
          */
         private String id;
         /**
+         * bcm2.1之后根据不同的预案重新生成流程编号，避免流程编号相同发生冲突
+         */
+        private String planPerformId;
+        /**
          * 风格
          */
         private String style;
@@ -320,6 +324,14 @@ public class FlowChartPlanEntity implements Serializable {
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        public String getPlanPerformId() {
+            return planPerformId;
+        }
+
+        public void setPlanPerformId(String planPerformId) {
+            this.planPerformId = planPerformId;
         }
 
         public String getStyle() {

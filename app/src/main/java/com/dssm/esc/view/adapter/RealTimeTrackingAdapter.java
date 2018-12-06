@@ -493,7 +493,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             //暂停传0，开启传1
-                                            planPause(entity.getId(), entity.getPlanInfoId(), "0");
+                                            planPause(entity.getPlanPerformId(), entity.getPlanInfoId(), "0");
                                         }
                                     })
 
@@ -522,7 +522,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             //暂停传0，开启传1
-                                            planPause(entity.getId(), entity.getPlanInfoId(), "0");
+                                            planPause(entity.getPlanPerformId(), entity.getPlanInfoId(), "0");
                                         }
                                     })
 
@@ -552,7 +552,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             //跳过传0，取消跳过传1
-                                            planjump2(entity.getId(), entity.getPlanInfoId(), "0");
+                                            planjump2(entity.getPlanPerformId(), entity.getPlanInfoId(), "0");
                                         }
                                     })
 
@@ -577,7 +577,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 //暂停传0，开启传1
-                                                planPause(entity.getId(), entity.getPlanInfoId(), "0");
+                                                planPause(entity.getPlanPerformId(), entity.getPlanInfoId(), "0");
                                             }
                                         })
 
@@ -609,7 +609,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             //跳过传0，取消跳过传1
-                                            planjump2(entity.getId(), entity.getPlanInfoId(), "1");
+                                            planjump2(entity.getPlanPerformId(), entity.getPlanInfoId(), "1");
                                         }
                                     })
 
@@ -639,7 +639,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             //跳过传0，取消跳过传1
-                                            planjump2(entity.getId(), entity.getPlanInfoId(), "0");
+                                            planjump2(entity.getPlanPerformId(), entity.getPlanInfoId(), "0");
                                         }
                                     })
 
@@ -670,7 +670,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             //暂停传0，开启传1
-                                            planPause(entity.getId(), entity.getPlanInfoId(), "1");
+                                            planPause(entity.getPlanPerformId(), entity.getPlanInfoId(), "1");
                                         }
                                     })
 
@@ -702,7 +702,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                             .setPositiveButton("确定",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-                                            planjump(entity.getId(), entity.getPlanInfoId());
+                                            planjump(entity.getPlanPerformId(), entity.getPlanInfoId());
                                         }
                                     })
 

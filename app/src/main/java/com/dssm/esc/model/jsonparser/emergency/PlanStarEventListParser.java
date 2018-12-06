@@ -55,7 +55,7 @@ public class PlanStarEventListParser {
 		else if (tags.equals("2")) {
 			params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANLISTBYSTATUS + "2");
 		}
-		else if (tags.equals("2")) {
+		else if (tags.equals("3")) {
 			params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.GETPLANLISTBYSTATUS + "-1");
 		}
 		else if(tags.equals("4")) {

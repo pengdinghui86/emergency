@@ -65,7 +65,7 @@ public class JumpPlanParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
-		params.addParameter("id", id);
+		params.addParameter("planPerformId", id);
 		params.addParameter("planInfoId", planInfoId);
 		params.addParameter("status", "3");
 		params.addParameter("message", "流程控制管理员跳过执行");
