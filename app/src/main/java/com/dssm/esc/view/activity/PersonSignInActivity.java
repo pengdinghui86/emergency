@@ -26,7 +26,7 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.BaseActivity.onInitNetListener;
-import com.dssm.esc.view.adapter.LeftSlideEventAdapter;
+import com.dssm.esc.view.adapter.LeftSlidePlanAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.RefreshLinearLayout;
 
@@ -41,7 +41,7 @@ import java.util.List;
  */
 @ContentView(R.layout.activity_person_sign_in)
 public class PersonSignInActivity extends BaseActivity implements
-        onInitNetListener, LeftSlideEventAdapter.IonSlidingViewClickListener{
+        onInitNetListener, LeftSlidePlanAdapter.IonSlidingViewClickListener{
     /**
      * 标题
      */
@@ -55,7 +55,7 @@ public class PersonSignInActivity extends BaseActivity implements
     @ViewInject(R.id.person_sign_in_recyclerView)
     private RecyclerView mRecyclerView;
     /** 适配器 */
-    private LeftSlideEventAdapter adapter;
+    private LeftSlidePlanAdapter adapter;
     /** 下拉刷新控件 */
     @ViewInject(R.id.person_sign_in_refreshLinearLayout)
     private RefreshLinearLayout refreshLinearLayout;
@@ -122,8 +122,8 @@ public class PersonSignInActivity extends BaseActivity implements
     private void initview() {
         back.setVisibility(View.VISIBLE);
         title.setText("人员签到");
-        adapter = new LeftSlideEventAdapter(
-                PersonSignInActivity.this, list, "5");
+        adapter = new LeftSlidePlanAdapter(
+                PersonSignInActivity.this, list, "7");
         //设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));//设置布局管理器
         mRecyclerView.setAdapter(adapter);
@@ -206,7 +206,11 @@ public class PersonSignInActivity extends BaseActivity implements
 
     @Override
     public void onItemClick(View view, final int position) {
-
+        Intent intent = new Intent(this,
+                GroupSigninDetail.class);
+        intent.putExtra("tag", "1");
+        intent.putExtra("id", list.get(position).getId());
+        startActivity(intent);
     }
 
     @Override

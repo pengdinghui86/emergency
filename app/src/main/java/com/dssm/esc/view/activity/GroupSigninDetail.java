@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
@@ -24,7 +25,6 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.treeview.TreeNode;
 import com.dssm.esc.util.treeview.TreeView;
 import com.dssm.esc.util.treeview.view.MyNodeViewFactory;
-import com.dssm.esc.view.widget.SegmentControl;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -34,17 +34,29 @@ import java.util.List;
 
 @ContentView(R.layout.activity_groupsignin)
 public class GroupSigninDetail extends BaseActivity implements
-		SwipeRefreshLayout.OnRefreshListener, MainActivity.onInitNetListener {
-	/** 标题 */
-	@ViewInject(R.id.tv_actionbar_title)
-	private TextView title;
+		SwipeRefreshLayout.OnRefreshListener, MainActivity.onInitNetListener, View.OnClickListener {
 	/** 返回按钮 */
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
 	@ViewInject(R.id.segment_control_sign_grop)
-	private SegmentControl mSegmentControl;
+	private RadioGroup mSegmentControl;
 	@ViewInject(R.id.segment_control_sign_grop2)
-	private SegmentControl mSegmentControl2;
+	private RadioGroup mSegmentControl2;
+
+	@ViewInject(R.id.rb_receive_all)
+	private RadioButton rb_receive_all;
+	@ViewInject(R.id.rb_received)
+	private RadioButton rb_received;
+	@ViewInject(R.id.rb_not_receive)
+	private RadioButton rb_not_receive;
+
+	@ViewInject(R.id.rb_sign_all)
+	private RadioButton rb_sign_all;
+	@ViewInject(R.id.rb_signed)
+	private RadioButton rb_signed;
+	@ViewInject(R.id.rb_not_sign)
+	private RadioButton rb_not_sign;
+
 	/** 暂无数据 */
 	@ViewInject(R.id.ll_no_data)
 	private LinearLayout ll_no_data;
@@ -191,34 +203,35 @@ public class GroupSigninDetail extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_groupsignin);
 		View findViewById = findViewById(R.id.groupsignin);
 		findViewById.setFitsSystemWindows(true);
 		Intent intent = getIntent();
 		tag = intent.getStringExtra("tag");
 		id = intent.getStringExtra("id");
 		initview();
-//		expandable_list_signin.setGroupIndicator(null);
-		segmentControlListDate();
 		mSwipeLayout.setOnRefreshListener(this);
 	}
 
 	private void initview() {
-		back.setVisibility(View.VISIBLE);
+		back.setOnClickListener(this);
+		rb_receive_all.setOnClickListener(this);
+		rb_received.setOnClickListener(this);
+		rb_not_receive.setOnClickListener(this);
+		rb_sign_all.setOnClickListener(this);
+		rb_signed.setOnClickListener(this);
+		rb_not_sign.setOnClickListener(this);
 		if (tag.equals("1")) {// 1,应急通知接收详情
 			mSegmentControl2.setVisibility(View.GONE);
 			mSegmentControl.setVisibility(View.VISIBLE);
-			title.setText("应急通知接收详情");
 		} else if (tag.equals("2")) {// 2,应急小组签到情况
 			mSegmentControl.setVisibility(View.GONE);
 			mSegmentControl2.setVisibility(View.VISIBLE);
-			title.setText("应急小组签到情况");
 		}
 		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
-		sem_tags = 1;// 默认预案详情
+		sem_tags = 1;
 		initListData();
 	}
 
@@ -281,48 +294,6 @@ public class GroupSigninDetail extends BaseActivity implements
 		}
 	}
 
-	private void segmentControlListDate() {
-		// TODO Auto-generated method stub
-		mSegmentControl
-				.setmOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
-					@Override
-					public void onSegmentControlClick(int index) {
-						switch (index) {
-							case 0:// 1,全部
-								sem_tags = 1;
-
-								break;
-							case 1:// 2,已
-								sem_tags = 2;
-								break;
-							case 2:// 2,未
-								sem_tags = 3;
-								break;
-						}
-						initListData();
-					}
-				});
-		mSegmentControl2
-				.setmOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
-					@Override
-					public void onSegmentControlClick(int index) {
-						switch (index) {
-							case 0:// 1,全部
-								sem_tags = 1;
-
-								break;
-							case 1:// 2,已
-								sem_tags = 2;
-								break;
-							case 2:// 2,未
-								sem_tags = 3;
-								break;
-						}
-						initListData();
-					}
-				});
-	}
-
 	private ControlServiceImpl.ControlServiceImplBackValueListenser<List<PlanTreeEntity>> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<List<PlanTreeEntity>>() {
 		@Override
 		public void setControlServiceImplListenser(
@@ -361,23 +332,10 @@ public class GroupSigninDetail extends BaseActivity implements
 				message.obj = dataList;
 				handler.sendMessage(message);
 			}
-			// if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
-			// }
 		}
 	};
 
-	/**
-	 * 
-	 * 初始化数据
-	 * 
-	 * @version 1.0
-	 * @createTime 2015-9-8,下午8:38:59
-	 * @updateTime 2015-9-8,下午8:38:59
-	 * @createAuthor Zsj
-	 * @updateAuthor
-	 * @updateInfo (此处输入修改内容,若无修改可不写.)
-	 */
 	private void initListData() {
 		Utils.getInstance().showProgressDialog(GroupSigninDetail.this, "",
 				Const.LOAD_MESSAGE);
@@ -397,5 +355,56 @@ public class GroupSigninDetail extends BaseActivity implements
 	public void initNetData() {
 		// TODO Auto-generated method stub
 		initListData();
+	}
+
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+			case R.id.iv_actionbar_back:
+				finish();
+				break;
+			case R.id.rb_receive_all:
+				rb_receive_all.setChecked(true);
+				rb_received.setChecked(false);
+				rb_not_receive.setChecked(false);
+				sem_tags = 1;
+				initListData();
+				break;
+			case R.id.rb_received:
+				rb_receive_all.setChecked(false);
+				rb_received.setChecked(true);
+				rb_not_receive.setChecked(false);
+				sem_tags = 2;
+				initListData();
+				break;
+			case R.id.rb_not_receive:
+				rb_receive_all.setChecked(false);
+				rb_received.setChecked(false);
+				rb_not_receive.setChecked(true);
+				sem_tags = 3;
+				initListData();
+				break;
+			case R.id.rb_sign_all:
+				rb_sign_all.setChecked(true);
+				rb_signed.setChecked(false);
+				rb_not_sign.setChecked(false);
+				sem_tags = 1;
+				initListData();
+				break;
+			case R.id.rb_signed:
+				rb_sign_all.setChecked(false);
+				rb_signed.setChecked(true);
+				rb_not_sign.setChecked(false);
+				sem_tags = 2;
+				initListData();
+				break;
+			case R.id.rb_not_sign:
+				rb_sign_all.setChecked(false);
+				rb_signed.setChecked(false);
+				rb_not_sign.setChecked(true);
+				sem_tags = 3;
+				initListData();
+				break;
+		}
 	}
 }

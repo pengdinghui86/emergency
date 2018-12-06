@@ -48,7 +48,6 @@ import com.dssm.esc.view.widget.RingChartView;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -137,9 +136,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      */
     @ViewInject(R.id.resource_preparation)
     private View resource_preparation;
-    /**
-     * 资源筹备 include布局
-     */
     @ViewInject(R.id.resource_prepare_rcv)
     private RingChartView ringChartView;
     /**

@@ -20,7 +20,7 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private Context mContext;
     private List<PlanStarListEntity> arraylist;
-    /** 0,已授权；1,待授权；2,已启动预案；3,人员指派；4,协同通告；5,指挥与展示；6,预案执行；*/
+    /** 0,已授权；1,待授权；2,已启动预案；3,人员指派；4,协同通告；5,指挥与展示；6,预案执行；7，人员签到*/
     private String tags;
 
     private IonSlidingViewClickListener mIDeleteBtnClickListener;
@@ -114,6 +114,11 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                         break;
                     case "6":
                         //预案执行
+                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                        break;
+                    case "7":
+                        //人员签到
                         planViewHolder.btn_Function1.setVisibility(View.GONE);
                         planViewHolder.btn_Function2.setVisibility(View.GONE);
                         break;

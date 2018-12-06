@@ -86,10 +86,7 @@ public class GetAuthPlanListParser {
 				if(DemoApplication.sessionTimeoutCount > 0)
 					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("GetAuthListParser", t);
-				if(a == 7)
-					list = eventListParser(t);
-				else
-					list = planListParser(t, a);
+				list = planListParser(t, a);
 				Log.i("GetAuthListParser", "GetAuthListParser" + list);
 				if(onEmergencyCompleteListener != null)
 					onEmergencyCompleteListener.onEmergencyParserComplete(list,

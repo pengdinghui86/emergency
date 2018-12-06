@@ -6,56 +6,80 @@
     android:orientation="vertical"
     android:background="@color/set_gray">
 
-    <com.dssm.esc.view.widget.Title_Layout
-        android:id="@+id/title"
+    <RelativeLayout
+        android:id="@+id/control_rl_segmented"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.dssm.esc.view.widget.SegmentControl
-        xmlns:segmentcontrol="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/segment_control_sign_grop"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:textSize="@dimen/we_normal_textsize"
-        segmentcontrol:colors="@color/textColor_selected"
-        segmentcontrol:cornerRadius="5dp"
-        segmentcontrol:direction="horizon"
-        segmentcontrol:horizonGap="12dp"
-        segmentcontrol:selectedIndex="0"
-        segmentcontrol:texts="全部|已接收|未接收"
-        segmentcontrol:verticalGap="8dp" />
+        android:layout_centerHorizontal="true"
+        android:background="@color/title_bg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
-    <com.dssm.esc.view.widget.SegmentControl
-        xmlns:segmentcontrol="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/segment_control_sign_grop2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:textSize="@dimen/we_normal_textsize"
-        segmentcontrol:colors="@color/textColor_selected"
-        segmentcontrol:cornerRadius="5dp"
-        segmentcontrol:direction="horizon"
-        segmentcontrol:horizonGap="12dp"
-        segmentcontrol:selectedIndex="0"
-        segmentcontrol:texts="全部|已签到|未签到"
-        segmentcontrol:verticalGap="8dp" />
+        <ImageView
+            android:id="@+id/iv_actionbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/back" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/colorWeSplitMini"/>
+        <RadioGroup
+            android:id="@+id/segment_control_sign_grop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_centerInParent="true">
+
+            <RadioButton
+                android:id="@+id/rb_receive_all"
+                style="@style/message_title_radio_button"
+                android:checked="true"
+                android:text="全部" />
+
+            <RadioButton
+                android:id="@+id/rb_received"
+                style="@style/message_title_radio_button"
+                android:text="已接收" />
+
+            <RadioButton
+                android:id="@+id/rb_not_receive"
+                style="@style/message_title_radio_button"
+                android:text="未接收" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/segment_control_sign_grop2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_centerInParent="true">
+
+            <RadioButton
+                android:id="@+id/rb_sign_all"
+                style="@style/message_title_radio_button"
+                android:checked="true"
+                android:text="全部" />
+
+            <RadioButton
+                android:id="@+id/rb_signed"
+                style="@style/message_title_radio_button"
+                android:text="已签到" />
+
+            <RadioButton
+                android:id="@+id/rb_not_sign"
+                style="@style/message_title_radio_button"
+                android:text="未签到" />
+        </RadioGroup>
+
+    </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/id_swipe_ly"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp" >
+        android:layout_height="match_parent">
 
         <!--<ExpandableListView-->
             <!--android:id="@+id/expandable_signin_grop"-->
