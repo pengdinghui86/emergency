@@ -257,6 +257,7 @@ public class AddeValuationActivity extends BaseActivity implements
 		event_happen_time_ll.setOnClickListener(this);// 事件场景布局
 		event_happen_time_ll.setVisibility(View.GONE);
 		referPlan_name_ll.setOnClickListener(this);// 参考预案布局
+		otherReferPlan_name_ll.setVisibility(View.GONE);
 		otherReferPlan_name_ll.setOnClickListener(this);// 其他预案布局
 		categoryPlan_name_ll.setOnClickListener(this);// 分类预案布局
 		submit.setOnClickListener(this);// 提交数据
@@ -918,6 +919,9 @@ public class AddeValuationActivity extends BaseActivity implements
 				ToastUtil.showToast(AddeValuationActivity.this,
 						"操作成功");
 				EventBus.getDefault().post(new mainEvent("re"));// 刷新驳回事件的列表
+				Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
+				intent.putExtra("msgType", "updatePlanCount");
+				sendBroadcast(intent);
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(AddeValuationActivity.this,

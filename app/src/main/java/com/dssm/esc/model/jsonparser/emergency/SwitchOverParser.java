@@ -67,7 +67,7 @@ public class SwitchOverParser {
 			// planInfoId 预案执行编号
 			// status 完成状态
 			// message 提交信息
-			params.addParameter("id", id);
+			params.addParameter("planPerformId", id);
 			params.addParameter("planInfoId", planInfoId);
 			params.addParameter("status", status);
 			params.addParameter("message", message);

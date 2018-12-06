@@ -11,6 +11,7 @@ import java.util.List;
 public class PlanStarListEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id;
+	private String planPerformId;
 	private String eveName;
 	private String state;
 	private String planResId;//预案来源id
@@ -82,6 +83,14 @@ public class PlanStarListEntity implements Serializable {
 
 	public void setDataType(int dataType) {
 		this.dataType = dataType;
+	}
+
+	public String getPlanPerformId() {
+		return planPerformId;
+	}
+
+	public void setPlanPerformId(String planPerformId) {
+		this.planPerformId = planPerformId;
 	}
 
 	public String getIsStarter() {

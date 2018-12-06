@@ -383,6 +383,10 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                         }
                     });
                     break;
+                case "updatePlanCount":
+                    if(emergencyManageFragment != null)
+                        emergencyManageFragment.getPlanCount();
+                    break;
             }
         }
     }

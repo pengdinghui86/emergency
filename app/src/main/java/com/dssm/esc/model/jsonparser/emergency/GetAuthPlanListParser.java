@@ -195,7 +195,11 @@ public class GetAuthPlanListParser {
 						if(jsonObject.has("isStarter"))
 							suspandEntity.setIsStarter(jsonObject.getString("isStarter"));
 						suspandEntity.setId(jsonObject.getString("id"));
-						suspandEntity.setPlanName(jsonObject.getString("planName"));
+						if(jsonObject.has("planPerformId"))
+						    suspandEntity.setPlanPerformId(jsonObject.getString("planPerformId"));
+						else
+                            suspandEntity.setPlanPerformId("");
+                        suspandEntity.setPlanName(jsonObject.getString("planName"));
 						if(jsonObject.has("sceneName"))
 							suspandEntity.setSceneName(jsonObject.getString("sceneName"));
 						else

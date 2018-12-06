@@ -259,6 +259,8 @@ public class GetPrecautionByPlanResParser {
                     }
                     childEntity.setChild_id(isNull(jsonObject
                             .getString("id")));
+                    childEntity.setPlanPerformId(isNull(jsonObject
+                            .getString("planPerformId")));
                     childEntity.setPrecautionId(isNull(jsonObject
                             .getString("precautionId")));
                     childEntity.setProcessName(isNull(jsonObject

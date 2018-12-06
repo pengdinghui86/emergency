@@ -62,7 +62,7 @@ public class BeginExecutePlanParser {
 		if (id != null) {
 			// id 事件id
 			// planAuthOpition 预案授权处置意见
-			params.addParameter("id", id);
+			params.addParameter("planPerformId", id);
 			params.addParameter("planInfoId", planInfoId);
 			
 		}

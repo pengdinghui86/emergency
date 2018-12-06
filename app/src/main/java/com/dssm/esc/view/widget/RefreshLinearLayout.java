@@ -385,10 +385,11 @@ public class RefreshLinearLayout extends LinearLayout {
 			//是否是有效的往下拖动事件
 			boolean isDropDownValidate = (Float.MAX_VALUE != downY && deltaY > 50);
 			//recycleView没有滑到顶部时屏蔽下拉刷新
-			RecyclerView recycle_view = (RecyclerView) getChildAt(1);
-			if(recycle_view != null && canScrollVertically(recycle_view, -1))
-			{
-				return false;
+			if(getChildAt(1) != null && getChildAt(1) instanceof RecyclerView) {
+				RecyclerView recycle_view = (RecyclerView) getChildAt(1);
+				if (recycle_view != null && canScrollVertically(recycle_view, -1)) {
+					return false;
+				}
 			}
 			if(isDropDownValidate)
 			{

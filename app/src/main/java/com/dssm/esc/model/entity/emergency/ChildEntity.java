@@ -25,6 +25,7 @@ public class ChildEntity implements Serializable {
 
     private String precautionId;// 预案id
     private String processName;
+    private String planPerformId;//后台重新生成的流程编号
     private String planInfoId;
     private String manualDetailId;// 操作手册详细内容记录id
     // "id": "233629ca-f975-443f-9d43-90c27ced6282",
@@ -100,6 +101,14 @@ public class ChildEntity implements Serializable {
 
     public void setParentProcessStepId(String parentProcessStepId) {
         this.parentProcessStepId = parentProcessStepId;
+    }
+
+    public String getPlanPerformId() {
+        return planPerformId;
+    }
+
+    public void setPlanPerformId(String planPerformId) {
+        this.planPerformId = planPerformId;
     }
 
     /**

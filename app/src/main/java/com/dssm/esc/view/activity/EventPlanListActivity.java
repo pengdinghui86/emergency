@@ -384,6 +384,9 @@ public class EventPlanListActivity extends BaseActivity implements
                 ToastUtil.showToast(
                         EventPlanListActivity.this, "操作成功");
                 onEvent(new mainEvent("r"));//刷新列表界面
+                Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
+                intent.putExtra("msgType", "updatePlanCount");
+                sendBroadcast(intent);
                 finish();
             } else if (backflag == false) {
                 ToastUtil.showToast(EventPlanListActivity.this,
@@ -422,6 +425,9 @@ public class EventPlanListActivity extends BaseActivity implements
                 ToastUtil.showToast(
                         EventPlanListActivity.this, "操作成功");
                 onEvent(new mainEvent("r"));//刷新列表界面
+                Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
+                intent.putExtra("msgType", "updatePlanCount");
+                sendBroadcast(intent);
                 finish();
             } else if (backflag == false) {
                 ToastUtil.showToast(EventPlanListActivity.this,

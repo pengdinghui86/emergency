@@ -136,6 +136,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     @ViewInject(R.id.okdone)
     private TextView okdone;
     private String planInfoId = "";
+    private String planPerformId = "";
     private String id = "";
     private ChildEntity childEntity = null;
     private String planStatus = "";
@@ -182,6 +183,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
         childEntity = (ChildEntity) intent.getSerializableExtra("entity");
         planStatus = intent.getStringExtra("planStatus");
         planInfoId = childEntity.getPlanInfoId();
+        planPerformId = childEntity.getPlanPerformId();
         id = childEntity.getChild_id();
         initView();
     }
@@ -423,7 +425,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             case R.id.execute:// 执行
                 Utils.getInstance().showProgressDialog(
                         PlanExecutionDetailActivity.this, "", Const.SUBMIT_MESSAGE);
-                Control.getinstance().getEmergencyService().getBeginPlan(id, planInfoId, listener);
+                Control.getinstance().getEmergencyService().getBeginPlan(planPerformId, planInfoId, listener);
                 break;
             case R.id.submit_infomation_ll:// 提交信息布局
                 Intent intent2 = new Intent(PlanExecutionDetailActivity.this,
@@ -456,12 +458,12 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 Log.i("message", message);
                 if (!message.equals("") || childEntity.getNodeStepType().equals("ExclusiveGateway")) {
 
-                    if (!id.equals("") && !planInfoId.equals("")
+                    if (!planPerformId.equals("") && !planInfoId.equals("")
                             && !changeStatus.equals("")) {
                         Utils.getInstance().showProgressDialog(
                                 PlanExecutionDetailActivity.this, "",
                                 Const.SUBMIT_MESSAGE);
-                        Control.getinstance().getEmergencyService().swichOver(id, planInfoId, changeStatus, message, childEntity.getNodeStepType(), branchId, switchOverListener);
+                        Control.getinstance().getEmergencyService().swichOver(planPerformId, planInfoId, changeStatus, message, childEntity.getNodeStepType(), branchId, switchOverListener);
                     } else {
                         ToastUtil.showLongToast(PlanExecutionDetailActivity.this,
                                 "提交信息不完整");

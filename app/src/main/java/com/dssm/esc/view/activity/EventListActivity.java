@@ -195,6 +195,9 @@ public class EventListActivity extends BaseActivity implements
 				ToastUtil.showToast(EventListActivity.this,
 						str);
 				onEvent(new mainEvent("refres"));// 刷新预案启动列表
+				Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
+				intent.putExtra("msgType", "updatePlanCount");
+				sendBroadcast(intent);
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(EventListActivity.this,

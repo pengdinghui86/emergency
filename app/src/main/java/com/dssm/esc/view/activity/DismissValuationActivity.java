@@ -342,6 +342,9 @@ public class DismissValuationActivity extends BaseActivity implements
 			if (backflag) {
 				list.remove(curPosition);
 				adapter.notifyDataSetChanged();
+				Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
+				intent.putExtra("msgType", "updatePlanCount");
+				sendBroadcast(intent);
 				ToastUtil.showToast(DismissValuationActivity.this,
 						"操作成功");
 			} else if (backflag == false) {
