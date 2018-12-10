@@ -129,6 +129,7 @@ public class PlanListByEventIdParser {
 					suspandEntity.setId(jsonObject2.getString("id"));
 					suspandEntity.setPlanName(jsonObject2.getString("planName"));
 					suspandEntity.setPlanResName(jsonObject2.getString("planResName"));
+					suspandEntity.setSceneName(jsonObject2.getString("sceneName"));
 					suspandEntity.setPlanResType(jsonObject2.getString("planResType"));
 					suspandEntity.setPlanId(jsonObject2.getString("planId"));
 					suspandEntity.setState(jsonObject2.getString("state"));

@@ -407,7 +407,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			redPointView3.show();
 		}
 		Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
-		intent.putExtra("msgType", "");
+		intent.putExtra("msgType", "updateMsgCount");
 		getActivity().sendBroadcast(intent);
 	}
 
@@ -682,13 +682,13 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 		switch (tag) {
 			case 0:
-				if(messageTaskToastFragment != null)
-					messageTaskToastFragment.onRefresh();
+//				if(messageTaskToastFragment != null)
+//					messageTaskToastFragment.onRefresh();
 				MainActivity.xgTaskMsgCount = 0;
 				break;
 			case 1:
-				if(systemToastFragment != null)
-					systemToastFragment.onRefresh();
+//				if(systemToastFragment != null)
+//					systemToastFragment.onRefresh();
 				MainActivity.xgSysMsgCount = 0;
 				break;
 			case 2:

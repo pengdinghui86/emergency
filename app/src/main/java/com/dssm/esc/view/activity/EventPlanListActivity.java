@@ -475,6 +475,7 @@ public class EventPlanListActivity extends BaseActivity implements
 
     private void loadData(final int what) {
         if (what == 0) {// 刷新和第一次加载
+            num = 20;
             getAuthList(Integer.parseInt(tags));
         } else if (what == 1) {// 加载更多
             getLoadData();

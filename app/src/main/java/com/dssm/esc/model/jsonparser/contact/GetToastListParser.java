@@ -144,9 +144,10 @@ public class GetToastListParser {
 							ChildEntity childEntity = new ChildEntity();
 							childEntity.setpId(jsonObject.getString("parentId"));
 							childEntity.setChild_id(jsonObject.getString("postFlag"));
-							// childEntity.setEmergTeam(jsonObject
-							// .getString("name"));
+							childEntity.setEmergTeam(jsonObject
+									.getString("deptName"));
 							childEntity.setOnlyId(jsonObject.getString("id"));
+							childEntity.setUserId(jsonObject.getString("userId"));
 							childEntity.setZhiwei(jsonObject
 									.getString("postName"));
 							childEntity.setName(jsonObject.getString("name"));
@@ -156,8 +157,8 @@ public class GetToastListParser {
 							 .getString("phoneNumtwo"));
 							 childEntity.setEmail(jsonObject
 							 .getString("email"));
-							// childEntity.setSex(jsonObject
-							// .getString("sex"));
+							 childEntity.setSex(jsonObject
+							 .getString("sex"));
 							list2.add(childEntity);
 						}
 					}

@@ -293,6 +293,7 @@ public class EventListActivity extends BaseActivity implements
 	private void loadData(final int what) {
 
 		if (what == 0) {// 刷新和第一次加载
+			num = 20;
 			Control.getinstance().getEmergencyService().getPlanStarList(listListenser, tags);
 		} else if (what == 1) {// 加载更多
 			// 本地做分页，加载20条以后的数据，默认每20条分一页

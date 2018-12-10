@@ -53,7 +53,7 @@ public class EventProcessPlanListViewAdapter extends BaseAdapter {
 		mhHolder.name = (TextView) convertView.findViewById(R.id.plan_listview_tv_plan_name);
 		mhHolder.status = (TextView) convertView.findViewById(R.id.plan_listview_tv_plan_status);
 		mhHolder.status.setTextColor(Color.RED);
-		mhHolder.name.setText(entity.getPlanName());
+		mhHolder.name.setText(entity.getPlanName() + "-" + entity.getSceneName());
 		// （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
 		if (!"null".equals(entity.getState())
 				&& !"".equals(entity.getState())) {
