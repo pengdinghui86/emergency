@@ -13,11 +13,20 @@ public class BusinessTypeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;// 业务类型、事件等级，事件场景
-	
+	private String planPerformId;// 服务端生成的编号
+
 	private String signState;//状态
 	private String role;//角色
 	private boolean isSelect;
-	
+
+	public String getPlanPerformId() {
+		return planPerformId;
+	}
+
+	public void setPlanPerformId(String planPerformId) {
+		this.planPerformId = planPerformId;
+	}
+
 	public boolean isSelect() {
 		return isSelect;
 	}

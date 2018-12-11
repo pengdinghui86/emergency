@@ -458,8 +458,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 Log.i("message", message);
                 if (!message.equals("") || childEntity.getNodeStepType().equals("ExclusiveGateway")) {
 
-                    if (!planPerformId.equals("") && !planInfoId.equals("")
-                            && !changeStatus.equals("")) {
+                    if (!planPerformId.equals("") && !planInfoId.equals("")) {
                         Utils.getInstance().showProgressDialog(
                                 PlanExecutionDetailActivity.this, "",
                                 Const.SUBMIT_MESSAGE);
@@ -501,12 +500,12 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                                 BusinessTypeEntity businessTypeEntity = typelist.get(i);
                                 boolean select = businessTypeEntity.isSelect();
                                 if (select) {
-                                    branchId = businessTypeEntity.getId();
+                                    branchId = businessTypeEntity.getPlanPerformId();
                                     status = businessTypeEntity.getName();
                                     break;
                                 }
                             }
-                            changeStatus = status;
+                            changeStatus = "";
                         }
                         else {
                             for (int i = 0; i < typelist.size(); i++) {

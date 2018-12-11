@@ -251,6 +251,8 @@ public class GetPrecautionByPlanResParser {
                                     BusinessTypeEntity branch = new BusinessTypeEntity();
                                     branch.setId(jsonObject3.getString("id"));
                                     branch.setName(jsonObject3.getString("name"));
+                                    branch.setPlanPerformId(isNull(jsonObject3
+                                            .getString("planPerformId")));
                                     branches.add(branch);
                                 }
                                 childEntity.setBranches(branches);
