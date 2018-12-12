@@ -241,27 +241,24 @@ public class AddeValuationActivity extends BaseActivity implements
 		} else {
 			tag = intent.getStringExtra("tag");
 			if (tag.equals("1")) {
-
 				title.setText("应急-新增评估");
 			} else if (tag.equals("2")) {
-
 				title.setText("演练-新增评估");
 			}
+			event_name_ll.setOnClickListener(this);
+			event_discover_ll.setOnClickListener(this);
+			otherReferPlan_name_ll.setOnClickListener(this);// 其他预案布局
+			categoryPlan_name_ll.setOnClickListener(this);// 分类预案布局
+			business_type_ll.setOnClickListener(this);// 行业类型布局
+			event_happen_time_ll.setOnClickListener(this);// 事件场景布局
+			referPlan_name_ll.setOnClickListener(this);// 参考预案布局
 		}
-		event_name_ll.setOnClickListener(this);
-		event_discover_ll.setOnClickListener(this);
+		event_happen_time_ll.setVisibility(View.GONE);
+		otherReferPlan_name_ll.setVisibility(View.GONE);
+		event_level_ll.setOnClickListener(this);// 事件等级布局
+		submit.setOnClickListener(this);// 提交数据
 		event_des_ll.setOnClickListener(this);
 		suggestion_ll.setOnClickListener(this);
-		business_type_ll.setOnClickListener(this);// 行业类型布局
-		event_level_ll.setOnClickListener(this);// 事件等级布局
-		event_happen_time_ll.setOnClickListener(this);// 事件场景布局
-		event_happen_time_ll.setVisibility(View.GONE);
-		referPlan_name_ll.setOnClickListener(this);// 参考预案布局
-		otherReferPlan_name_ll.setVisibility(View.GONE);
-		otherReferPlan_name_ll.setOnClickListener(this);// 其他预案布局
-		categoryPlan_name_ll.setOnClickListener(this);// 分类预案布局
-		submit.setOnClickListener(this);// 提交数据
-
 	}
 
 	public void switchView(String tag) {

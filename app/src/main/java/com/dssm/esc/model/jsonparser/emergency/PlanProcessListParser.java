@@ -137,6 +137,7 @@ public class PlanProcessListParser {
 					JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
 
 					listEntity.setId(jsonObject2.getString("id"));
+					listEntity.setPlanPerformId(jsonObject2.getString("planPerformId"));
 					listEntity.setPlanInfoId(jsonObject2
 							.getString("planInfoId"));
 					listEntity.setName(jsonObject2.getString("name"));

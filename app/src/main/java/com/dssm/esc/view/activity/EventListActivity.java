@@ -179,7 +179,7 @@ public class EventListActivity extends BaseActivity implements
 	private void rejectEvent(PlanStarListEntity entity) {
 		Utils.getInstance().showProgressDialog(EventListActivity.this, "",
 				Const.SUBMIT_MESSAGE);
-		Control.getinstance().getEmergencyService().planStarBohui(entity.getPlanId(), entity.getEveName(), entity.getSubmitterId(), entity.getEveType(), rejectEventListener);
+		Control.getinstance().getEmergencyService().planStarBohui(entity.getId(), entity.getEveName(), entity.getSubmitterId(), entity.getEveType(), rejectEventListener);
 	}
 
 	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser rejectEventListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {

@@ -59,11 +59,11 @@ public class AssignParser {
 			params.addHeader("Cookie", sbSession.toString());
 		}
 		if (planInfoId != null ) {
-//			id	流程步骤id
+//			planPerformId	服务器重新生成的流程步骤id
 //			planInfoId	预案执行id
 //			executePeopleId	执行人id
 //			executePeople	执行人姓名
-			params.addParameter("id", id);
+			params.addParameter("planPerformId", id);
 			params.addParameter("planInfoId", planInfoId);
 			params.addParameter("executePeopleId", executePeopleId);
 			params.addParameter("executePeople", executePeople);

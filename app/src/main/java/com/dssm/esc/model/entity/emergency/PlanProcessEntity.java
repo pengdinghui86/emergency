@@ -12,6 +12,7 @@ public class PlanProcessEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String id;// 流程步骤id
+	private String planPerformId;// 服务器生成的流程步骤id
 	private String planInfoId;// 预案执行id
 	private String name;// 步骤节点名称
 	private String status;// 步骤节点状态
@@ -58,6 +59,14 @@ public class PlanProcessEntity implements Serializable {
 
 	public void setIndex(int index) {
 		this.index = index;
+	}
+
+	public String getPlanPerformId() {
+		return planPerformId;
+	}
+
+	public void setPlanPerformId(String planPerformId) {
+		this.planPerformId = planPerformId;
 	}
 
 	public String getCustomNum() {

@@ -119,7 +119,7 @@ private String planInfoId;
 					// TODO Auto-generated method stub
 					//mhHolder.assign.setBackgroundResource(R.drawable.btbg_gray);
 					Intent intent = new Intent(context, AssignmentActivity.class);
-					intent.putExtra("id", entity.getId());//// 流程步骤id
+					intent.putExtra("id", entity.getPlanPerformId());//// 流程步骤id
 					intent.putExtra("planInfoId", planInfoId);
 					intent.putExtra("entity", entity);
 					context.startActivity(intent);
