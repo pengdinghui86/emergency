@@ -34,8 +34,7 @@
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 android:gravity="top"
-                android:paddingBottom="5dp"
-                android:paddingTop="10dp" >
+                android:padding="5dp" >
 
                 <TextView
                     style="@style/text"

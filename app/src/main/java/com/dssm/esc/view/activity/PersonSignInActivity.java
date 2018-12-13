@@ -176,7 +176,7 @@ public class PersonSignInActivity extends BaseActivity implements
             return;
         Utils.getInstance().showProgressDialog(PersonSignInActivity.this, "",
                 Const.LOAD_MESSAGE);
-        Control.getinstance().getEmergencyService().signIn(list.get(0).getPlanId(), signInListener);
+        Control.getinstance().getEmergencyService().signIn("", signInListener);
     }
 
     private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser signInListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
@@ -268,47 +268,6 @@ public class PersonSignInActivity extends BaseActivity implements
         list.clear();
     }
 
-    private EmergencySeviceImplBackBooleanListenser listener = new EmergencySeviceImplBackBooleanListenser() {
-
-        @Override
-        public void setEmergencySeviceImplListenser(
-                Boolean backflag, String stRerror,
-                String Exceptionerror) {
-            // TODO Auto-generated method stub
-            String str = null;
-            if (backflag) {
-                str = "已签到";
-                signState = "1";
-                Log.i("signState", signState);
-                intent.putExtra("signState", "1");
-                startActivity(intent);
-            } else if (backflag == false) {
-                str = "未签到";
-                signState = "0";
-                Log.i("signState", signState);
-                intent.putExtra("signState", "0");
-                startActivity(intent);
-            } else if (stRerror != null) {
-
-                str = stRerror;
-                ToastUtil.showLongToast(
-                        PersonSignInActivity.this, str);
-            } else if (Exceptionerror != null) {
-
-                str = Const.NETWORKERROR;
-                ToastUtil.showLongToast(
-                        PersonSignInActivity.this, str);
-            }
-        }
-    };
-
-    /**
-     * 判断用户是否签到
-     */
-    private void checkUserSignin(int position) {
-        Control.getinstance().getEmergencyService().checkEmergencySign(list.get(position - 1).getId(), listener);
-    }
-
     private EmergencySeviceImplListListenser listListener = new EmergencySeviceImplListListenser() {
         @Override
         public void setEmergencySeviceImplListListenser(Object object,
@@ -336,6 +295,17 @@ public class PersonSignInActivity extends BaseActivity implements
             }
             if(dataList == null || dataList.size() == 0)
                 bt_sign.setVisibility(View.GONE);
+            else if(dataList.get(0).isCheckSign())
+            {
+                bt_sign.setBackgroundResource(R.drawable.circle_unstart_bg);
+                bt_sign.setVisibility(View.VISIBLE);
+                bt_sign.setClickable(false);
+            }
+            else {
+                bt_sign.setBackgroundResource(R.drawable.circle_blue_bg);
+                bt_sign.setVisibility(View.VISIBLE);
+                bt_sign.setClickable(true);
+            }
             message.what = 0;
             handler.sendMessage(message);
             allList = dataList;

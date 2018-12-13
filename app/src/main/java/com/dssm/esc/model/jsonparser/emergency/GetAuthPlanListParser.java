@@ -86,7 +86,10 @@ public class GetAuthPlanListParser {
 				if(DemoApplication.sessionTimeoutCount > 0)
 					DemoApplication.sessionTimeoutCount = 0;
 				Log.i("GetAuthListParser", t);
-				list = planListParser(t, a);
+				if(a == 7)
+					list = signListParser(t);
+				else
+					list = planListParser(t, a);
 				Log.i("GetAuthListParser", "GetAuthListParser" + list);
 				if(onEmergencyCompleteListener != null)
 					onEmergencyCompleteListener.onEmergencyParserComplete(list,
@@ -233,6 +236,70 @@ public class GetAuthPlanListParser {
 			} else {
 				return list;
 			}
+		} catch (JSONException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return list;
+		}
+	}
+
+	public List<PlanStarListEntity> signListParser(String t) {
+		List<PlanStarListEntity> list = new ArrayList<PlanStarListEntity>();
+		try {
+			boolean checkSign = false;
+			JSONObject jsonObject3 = new JSONObject(t);
+			if(jsonObject3.has("checkSign")) {
+				String isSigned = jsonObject3.get("checkSign").toString();
+				if(null != isSigned && "true".equals(isSigned))
+					checkSign = true;
+			}
+			if(jsonObject3.has("signList")) {
+				JSONArray jsonArray = new JSONArray(jsonObject3.get("signList").toString());
+				if (jsonArray.length() > 0) {
+					for (int i = 0; i < jsonArray.length(); i++) {
+						PlanStarListEntity listEntity = new PlanStarListEntity();
+						JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
+						listEntity.setId(jsonObject2.getString("id"));
+						listEntity.setEveName(jsonObject2.getString("eveName"));
+						listEntity.setState(jsonObject2.getString("state"));
+						listEntity.setEveLevel(jsonObject2.getString("eveLevel"));
+						listEntity.setTradeType(jsonObject2.getString("tradeType"));
+						listEntity.setEveCode(jsonObject2.getString("eveCode"));
+						listEntity.setEveType(jsonObject2.getString("eveType"));
+						listEntity.setCheckSign(checkSign);
+						list.add(listEntity);
+						JSONArray jsonArray2 = new JSONArray(jsonObject2.getString("planInfos"));
+						for (int j = 0; j < jsonArray2.length(); j++) {
+							PlanStarListEntity suspandEntity = new PlanStarListEntity();
+							JSONObject jsonObject = (JSONObject) jsonArray2.opt(j);
+							if (jsonObject.has("isStarter"))
+								suspandEntity.setIsStarter(jsonObject.getString("isStarter"));
+							suspandEntity.setId(jsonObject.getString("id"));
+							if (jsonObject.has("planPerformId"))
+								suspandEntity.setPlanPerformId(jsonObject.getString("planPerformId"));
+							else
+								suspandEntity.setPlanPerformId("");
+							suspandEntity.setPlanName(jsonObject.getString("planName"));
+							if (jsonObject.has("sceneName"))
+								suspandEntity.setSceneName(jsonObject.getString("sceneName"));
+							else
+								suspandEntity.setSceneName("");
+							suspandEntity.setPlanResName(jsonObject.getString("planResName"));
+							suspandEntity.setPlanResType(jsonObject.getString("planResType"));
+							suspandEntity.setState(jsonObject.getString("state"));
+							suspandEntity.setPlanId(jsonObject.getString("planId"));
+							suspandEntity.setPlanResId(jsonObject.getString("planResId"));
+							if (jsonObject.has("isAuthor"))
+								suspandEntity.setIsAuthor(jsonObject.getString("isAuthor"));
+							else
+								suspandEntity.setIsAuthor("false");
+							suspandEntity.setDataType(1);
+							list.add(suspandEntity);
+						}
+					}
+				}
+			}
+			return list;
 		} catch (JSONException e) {
 			// TODO: handle exception
 			e.printStackTrace();

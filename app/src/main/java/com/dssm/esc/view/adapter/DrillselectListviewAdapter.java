@@ -15,12 +15,6 @@ import java.util.ArrayList;
 
 /**
  * 演练选择的适配器(单选)
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-11
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 public class DrillselectListviewAdapter extends BaseAdapter {
 	// 填充数据的数据

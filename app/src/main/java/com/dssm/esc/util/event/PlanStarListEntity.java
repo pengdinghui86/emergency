@@ -17,6 +17,7 @@ public class PlanStarListEntity implements Serializable {
 	private String planResId;//预案来源id
 	private String	precautionId;//预案id
 	private String	isAuthor;
+	private boolean checkSign = false;//人员签到是否签到完成
 
 //	id	预案ID	
 //	suspendType	中止类型	启动时中止，类型为null
@@ -83,6 +84,14 @@ public class PlanStarListEntity implements Serializable {
 
 	public void setDataType(int dataType) {
 		this.dataType = dataType;
+	}
+
+	public boolean isCheckSign() {
+		return checkSign;
+	}
+
+	public void setCheckSign(boolean checkSign) {
+		this.checkSign = checkSign;
 	}
 
 	public String getPlanPerformId() {

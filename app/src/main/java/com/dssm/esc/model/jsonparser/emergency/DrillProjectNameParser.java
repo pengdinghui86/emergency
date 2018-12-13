@@ -138,7 +138,6 @@ public class DrillProjectNameParser {
 					JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
 					drillProjectNameEntity.setId(jsonObject2.getString("id"));
 					drillProjectNameEntity.setName(jsonObject2.getString("name"));
-					drillProjectNameEntity.setInitialPlanId(jsonObject2.getString("initialPlanId"));
 					list.add(drillProjectNameEntity);
 				}
 			} else {
