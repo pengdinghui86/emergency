@@ -185,7 +185,7 @@ public class PlanExecuteActivity extends BaseActivity implements
     private void initView() {
         back.setOnClickListener(this);
         operation.setOnClickListener(this);
-        title.setText("预案执行");
+        title.setText(name);
         mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,

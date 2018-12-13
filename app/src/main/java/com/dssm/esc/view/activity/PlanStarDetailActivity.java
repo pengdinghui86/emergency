@@ -257,7 +257,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                         return;
                     List<PlanStarListDetailObjListEntity> list = obj.getList();
                     for (int i = 0; i < list.size(); i++) {
-                        name = name + "," + list.get(i).getName();
+                        name = name + "," + list.get(i).getName() + "-" + list.get(i).getSceneName();
                         if (name.subSequence(0, 1).equals(",")) {
                             name = (String) name.subSequence(1, name.length());
                         }
@@ -433,7 +433,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                         PlanNameRowEntity item = new PlanNameRowEntity();
                         item.setId(entity.getProcessId());
                         item.setName(entity.getName());
-                        item.setSummary(entity.getSceneName());
+                        item.setSceneName(entity.getSceneName());
                         item.setType(entity.getPlanType());
                         item.setHasStartAuth("true");
                         list.add(item);

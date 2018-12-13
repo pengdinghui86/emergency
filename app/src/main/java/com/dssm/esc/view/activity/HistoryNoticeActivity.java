@@ -77,7 +77,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
-			List<HistoryNoticeEntity> result = (ArrayList<HistoryNoticeEntity>) msg.obj;
+			ArrayList<HistoryNoticeEntity> result = (ArrayList<HistoryNoticeEntity>) msg.obj;
 			switch (msg.what) {
 				case AutoListView.REFRESH:
 					listView.onRefreshComplete();
@@ -213,7 +213,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 				Object object, String stRerror,
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
-			List<HistoryNoticeEntity> dataList = null;
+			ArrayList<HistoryNoticeEntity> dataList = null;
 			if (object != null) {
 				dataList = (ArrayList<HistoryNoticeEntity>) object;
 			} else if (stRerror != null) {
@@ -229,7 +229,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 			Message msg = handler.obtainMessage();
 			num = 0;
 			if (dataList.size() > num + perCount) {// 如果超过可加载条数，则分页
-				List<HistoryNoticeEntity> subList = dataList.subList(0, perCount);
+				ArrayList<HistoryNoticeEntity> subList = (ArrayList) dataList.subList(0, perCount);
 				msg.obj = subList;
 				num = perCount;
 			} else {
@@ -245,12 +245,12 @@ public class HistoryNoticeActivity extends BaseActivity implements
 
 	private void loadData()
 	{
-		List<HistoryNoticeEntity> datalist2;
+		ArrayList<HistoryNoticeEntity> datalist2;
 		if ((num + perCount) <= allList.size()) {
-			datalist2 = allList.subList(num, num + perCount);
+			datalist2 = (ArrayList) allList.subList(num, num + perCount);
 			num += perCount;
 		} else {
-			datalist2 = allList.subList(num, allList.size());
+			datalist2 = (ArrayList) allList.subList(num, allList.size());
 			num = allList.size();
 		}
 		Message message = handler.obtainMessage();

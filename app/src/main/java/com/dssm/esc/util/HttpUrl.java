@@ -395,7 +395,8 @@ public class HttpUrl {
      * 跳过执行中的步骤
      */
     public final static String JUMPPLAN = 
-            "emergency/planPerform/switchover";
+//            "emergency/planPerform/switchover";
+            "app/emergency/planPerform/jump";
 
 
     /**
