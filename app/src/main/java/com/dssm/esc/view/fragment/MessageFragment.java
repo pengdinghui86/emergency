@@ -687,8 +687,8 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				MainActivity.xgTaskMsgCount = 0;
 				break;
 			case 1:
-//				if(systemToastFragment != null)
-//					systemToastFragment.onRefresh();
+				if(systemToastFragment != null)
+					systemToastFragment.onRefresh();
 				MainActivity.xgSysMsgCount = 0;
 				break;
 			case 2:
@@ -728,6 +728,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		}
 		else
 			redPointView3.hide();
+		onEvent(new My(""));
 	}
 
 	@Override

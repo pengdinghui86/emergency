@@ -356,7 +356,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            //获取信鸽消息，更新UI
+            //获取极光推送消息，更新UI
             final String msgType = intent.getStringExtra("msgType");
             Log.i("msgType", "msgType: " + msgType);
             switch (msgType) {
@@ -366,14 +366,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     break;
                 case "2":
                     xgSysMsgCount ++;
-                    refreshUI();
-                    break;
-                case "3":
-                    xgPersonalMsgCount ++;
-                    refreshUI();
-                    break;
-                case "4":
-                    xgEmergencyMsgCount ++;
                     refreshUI();
                     break;
                 case "updateMsgCount":
@@ -976,14 +968,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     //信鸽推送任务未读消息总数
     public static int xgTaskMsgCount;
 
-    //信鸽推送系统未读消息总数
+    //信鸽推送通知未读消息总数
     public static int xgSysMsgCount;
-
-    //信鸽推送紧急未读消息总数
-    public static int xgEmergencyMsgCount;
-
-    //信鸽推送个人未读消息总数
-    public static int xgPersonalMsgCount;
 
     private void refreshUI() {
         runOnUiThread(new Runnable() {
@@ -1002,7 +988,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     }
 
     private void updateUnreadMsgCount() {
-        int totalMsgCount = hxMsgCount + xgTaskMsgCount + xgSysMsgCount + xgEmergencyMsgCount + xgPersonalMsgCount;
+        int totalMsgCount = hxMsgCount + xgTaskMsgCount + xgSysMsgCount;
         if(totalMsgCount > 0) {
             if(totalMsgCount > 99)
                 redPointView.setText("99+");

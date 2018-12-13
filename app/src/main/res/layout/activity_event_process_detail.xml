@@ -239,6 +239,60 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="left"
+                        android:text="@string/discoverer" />
+
+                    <TextView
+                        android:id="@+id/event_discoverer"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/discoveryTime" />
+
+                    <TextView
+                        android:id="@+id/event_discovery_time"
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:gravity="left" />
+                </LinearLayout>
+
+                <View style="@style/horizontal_gray_style" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:padding="10dp">
+
+                    <TextView
+                        style="@style/text"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
                         android:text="@string/eventovertime" />
 
                     <TextView

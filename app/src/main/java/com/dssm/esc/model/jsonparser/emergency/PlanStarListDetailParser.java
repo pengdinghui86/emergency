@@ -149,6 +149,8 @@ public class PlanStarListDetailParser {
 //					objEntity.setEveScenarioName(jsonObject3.getString("eveScenarioName"));
 //					objEntity.setEveScenarioId(jsonObject3.getString("eveScenarioId"));
 					objEntity.setDealAdvice(jsonObject3.getString("dealAdvice"));
+					objEntity.setDiscoverer(jsonObject3.getString("discoverer"));
+					objEntity.setDiscoveryTime(jsonObject3.getString("discoveryTime"));
 					String eveType = jsonObject3.getString("eveType");
 					objEntity.setEveType(eveType);
 					objEntity.setSubmitterId(jsonObject3.getString("submitterId"));

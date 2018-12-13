@@ -16,12 +16,6 @@ import java.util.List;
 
 /**
  * 预案名称选择适配器（带checkbox，多选）
- * 
- * @Description TODO
- * @author Zsj
- * @date 2015-9-11
- * @Copyright: Copyright: Copyright (c) 2015 Shenzhen DENGINE Technology Co.,
- *             Ltd. Inc. All rights reserved.
  */
 public class ListvCheckboxMulselectAdapter extends BaseAdapter {
 
@@ -33,17 +27,7 @@ public class ListvCheckboxMulselectAdapter extends BaseAdapter {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.arraylist = list;
-		// 初始化数据
-		//initData();
 	}
-
-	// 初始化isSelected的数据
-//	private void initData() {
-//		// TODO Auto-generated method stub
-//		for (int i = 0; i < arraylist.size(); i++) {
-//			getIsSelected().put(i, false);
-//		}
-//	}
 
 	@Override
 	public int getCount() {
@@ -75,8 +59,6 @@ public class ListvCheckboxMulselectAdapter extends BaseAdapter {
 					R.layout.item_listview_planname, null);
 
 			mhHolder.name = (TextView) convertView.findViewById(R.id.name);
-			mhHolder.description = (TextView) convertView
-					.findViewById(R.id.description);
 			mhHolder.checkBox = (CheckBox) convertView
 					.findViewById(R.id.planname_type_item_checkbox);
 
@@ -84,26 +66,14 @@ public class ListvCheckboxMulselectAdapter extends BaseAdapter {
 		} else {
 			mhHolder = (ViewHolderPlan) convertView.getTag();
 		}
-		mhHolder.name.setText(entity.getName());
-		mhHolder.description.setText(entity.getSummary());
-		
-//		if (tag.equals("1")) {// 预案启动的时候有权限控制
-//			//mhHolder.checkBox.setChecked(getIsSelected().get(position));
-//			mhHolder.checkBox.setChecked(entity.isSelect());
-//		} else if (tag.equals("0")) {// 新增事件的时候没有权限控制
-//		}
+		mhHolder.name.setText(entity.getName() + "-" + entity.getSceneName());
 		mhHolder.checkBox.setChecked(entity.isSelect());
 		return convertView;
 	}
 
 	public static class ViewHolderPlan {
 		TextView name;
-		TextView description;
 		public CheckBox checkBox;
 
 	}
-
-//	public static HashMap<Integer, Boolean> getIsSelected() {
-//		return isSelected;
-//	}
 }

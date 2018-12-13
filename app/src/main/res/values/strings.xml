@@ -111,6 +111,8 @@
     <string name="eventnnumber">事件编号</string>
     <string name="eventpeople">事件提交人</string>
     <string name="eventtime">提交时间</string>
+    <string name="discoverer">事件发现人</string>
+    <string name="discoveryTime">事件发生时间</string>
     <string name="eventovertime">已用时</string>
     <string name="dismiss">驳回</string>
     <string name="start">启动</string>

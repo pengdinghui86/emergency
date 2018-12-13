@@ -1,59 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/set_gray">
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="@color/set_gray"
+    android:gravity="center"
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/name"
+        style="@style/text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left"
         android:paddingLeft="5dp"
-        android:paddingTop="15dp"
-        android:orientation="horizontal">
+        android:text="TextView" />
 
-        <TextView
-            android:id="@+id/name"
-            style="@style/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="TextView" />
-
-        <CheckBox
-            android:id="@+id/planname_type_item_checkbox"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_gravity="right|center_vertical"
-            android:focusable="false"
-            android:button="@null"
-            android:background="@drawable/checkbox_background_selector"
-            android:paddingRight="2dp"
-            android:clickable="false"
-            android:focusableInTouchMode="false" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="5dp"
-        android:paddingBottom="15dp">
-
-        <TextView
-            android:id="@+id/description"
-            style="@style/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:text="TextView"
-            android:paddingLeft="5dp"
-            android:paddingRight="40dp"
-            android:textColor="@color/colorWeFontGray_9" />
-
-    </LinearLayout>
+    <CheckBox
+        android:id="@+id/planname_type_item_checkbox"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_gravity="right|center_vertical"
+        android:focusable="false"
+        android:button="@null"
+        android:background="@drawable/checkbox_background_selector"
+        android:paddingRight="2dp"
+        android:clickable="false"
+        android:focusableInTouchMode="false" />
 
 </LinearLayout>

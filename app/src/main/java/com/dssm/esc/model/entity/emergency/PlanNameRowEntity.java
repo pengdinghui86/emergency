@@ -6,8 +6,6 @@ import android.R.string;
 
 /**
  * 预案名称的row实体类
- * @author zsj
- *
  */
 public class PlanNameRowEntity implements Serializable{
 
@@ -17,6 +15,7 @@ public class PlanNameRowEntity implements Serializable{
 	//预案编号
 	private String precautionId;
 	private String name;
+	private String sceneName;//预案场景名称
 	private String summary;
 	private String hasStartAuth;
 	private String type;//预案类型
@@ -36,6 +35,14 @@ public class PlanNameRowEntity implements Serializable{
 
 	public void setPrecautionId(String precautionId) {
 		this.precautionId = precautionId;
+	}
+
+	public String getSceneName() {
+		return sceneName;
+	}
+
+	public void setSceneName(String sceneName) {
+		this.sceneName = sceneName;
 	}
 
 	public boolean isSelect() {

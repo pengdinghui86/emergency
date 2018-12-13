@@ -211,11 +211,12 @@ public class PlanNameParser {
 					PlanNameRowEntity planNameRowEntity = new PlanNameRowEntity();
 					JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
 					planNameRowEntity.setId(jsonObject2.getString("id"));
-					if(jsonObject2.has(""))
+					if(jsonObject2.has("precautionId"))
 						planNameRowEntity.setPrecautionId(jsonObject2.getString("precautionId"));
 					else
 						planNameRowEntity.setPrecautionId("");
 					planNameRowEntity.setName(jsonObject2.getString("name"));
+					planNameRowEntity.setSceneName(jsonObject2.getString("sceneName"));
 					planNameRowEntity.setSummary(jsonObject2
 							.getString("summary"));
 					planNameRowEntity.setHasStartAuth(jsonObject2

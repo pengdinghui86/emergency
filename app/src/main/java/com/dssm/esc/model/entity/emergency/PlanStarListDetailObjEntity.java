@@ -18,6 +18,8 @@ public class PlanStarListDetailObjEntity implements Serializable {
 	private String submitter;// 事件提交人
 	private String subTime;// 事件提交时间
 	private String nowTime;//提交时间
+	private String discoverer;// 事件发现人
+	private String discoveryTime;//事件发生时间
 	private String tradeType;// 行业类型名称
 	private String eveLevel;// 事件等级名称
 	private String emergType;// 演练类型 eveType为2时有值
@@ -254,4 +256,19 @@ public void setEveLevelId(String eveLevelId) {
 		this.dealAdvice = dealAdvice;
 	}
 
+	public String getDiscoverer() {
+		return discoverer;
+	}
+
+	public void setDiscoverer(String discoverer) {
+		this.discoverer = discoverer;
+	}
+
+	public String getDiscoveryTime() {
+		return discoveryTime;
+	}
+
+	public void setDiscoveryTime(String discoveryTime) {
+		this.discoveryTime = discoveryTime;
+	}
 }

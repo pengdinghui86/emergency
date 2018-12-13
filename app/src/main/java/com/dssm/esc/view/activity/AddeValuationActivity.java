@@ -712,7 +712,10 @@ public class AddeValuationActivity extends BaseActivity implements
 						for (int i = 0; i < typelist4.size(); i++) {
 							if (typelist4.get(i).isSelect()) {
 
-								str4 = str4 + "," + typelist4.get(i).getName();
+								str4 = str4 + "," + typelist4.get(i).getName()
+										+ (typelist4.get(i).getSceneName() != null
+										&& !"".equals(typelist4.get(i).getSceneName())
+										? "-" + typelist4.get(i).getSceneName() : "");
 								referPlan = referPlan + "|"
 										+ typelist4.get(i).getPrecautionId();
 								referProcess = referProcess + "|"
