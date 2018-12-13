@@ -537,8 +537,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         }
 
         if ((roleCode.equals("R001") || roleCode.equals("R002"))
-                && (entity.getStatus().equals(RealTimeTrackingStatus.EXECUTING)
-                || entity.getStatus().equals(RealTimeTrackingStatus.BEFORE))
+                && entity.getStatus().equals(RealTimeTrackingStatus.BEFORE)
                 && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.jumptv.setVisibility(View.VISIBLE);
             mhHolder.jumptv.setOnClickListener(new OnClickListener() {
@@ -624,7 +623,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         }
 
         if ((roleCode.equals("R001") || roleCode.equals("R002")
-                || roleCode.equals("R003")) && (entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT)
+                || roleCode.equals("R003")) && (entity.getStatus().equals(RealTimeTrackingStatus.EXECUTING)
+                || entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT)
                 || entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_STOP))
                 && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.jumptv.setVisibility(View.VISIBLE);
@@ -638,8 +638,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                             .setPositiveButton("确定",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-                                            //跳过传0，取消跳过传1
-                                            planjump2(entity.getPlanPerformId(), entity.getPlanInfoId(), "0");
+
+                                            planjump(entity.getPlanPerformId(), entity.getPlanInfoId());
                                         }
                                     })
 
@@ -671,38 +671,6 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                                         public void onClick(DialogInterface dialog, int which) {
                                             //暂停传0，开启传1
                                             planPause(entity.getPlanPerformId(), entity.getPlanInfoId(), "1");
-                                        }
-                                    })
-
-                            .setNegativeButton("取消",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                        }
-                                    }).create(); // 创建对话框
-                    dialog.show(); // 显示对话框
-                }
-            });
-        }
-
-
-        /**
-         * 旧的跳过按钮，两个跳过调用不同接口
-         */
-        //执行中
-        if (roleCode.equals("R003") && entity.getStatus().equals("4")
-                && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
-            mhHolder.jumptv.setVisibility(View.VISIBLE);
-            mhHolder.jumptv.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-                    Dialog dialog = null;
-                    dialog = new AlertDialog.Builder(parent.getContext())
-                            .setTitle("您确定要跳过？")
-                            .setPositiveButton("确定",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            planjump(entity.getPlanPerformId(), entity.getPlanInfoId());
                                         }
                                     })
 
