@@ -454,13 +454,24 @@ public class PlanStarDetailActivity extends BaseActivity implements
                 break;
             case R.id.otherReferPlan_name_ll: // 其他预案布局
                 if (id != null) {
-
+                    String notInSet = "";
+                    int i = 0;
+                    for(PlanStarListDetailObjListEntity entity : obj.getList())
+                    {
+                        if(i == 0)
+                            notInSet = entity.getProcessId();
+                        else
+                            notInSet += "," + entity.getProcessId();
+                        i++;
+                    }
                     Intent intent = new Intent(PlanStarDetailActivity.this,
                             PlanNameActivity.class);
                     Bundle bundle4 = new Bundle();
-                    bundle4.putString("id", "");
+                    bundle4.putString("id", obj.getId());
+                    bundle4.putString("businessType", obj.getTradeTypeId());
                     bundle4.putInt("plantags", 2);
                     bundle4.putString("tags", "1");
+                    bundle4.putString("notInSet", notInSet);
                     bundle4.putSerializable("arrlist", resutList5);
                     intent.putExtras(bundle4);
                     startActivityForResult(intent, 5);
@@ -638,7 +649,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                         if (typelist5.size() > 0) {
                             for (int i = 0; i < typelist5.size(); i++) {
                                 if (typelist5.get(i).isSelect()) {
-                                    str5 = str5 + "," + typelist5.get(i).getName();
+                                    str5 = str5 + "," + typelist5.get(i).getName() + "-" + typelist5.get(i).getSceneName();
                                     otherReferPlan = otherReferPlan + "|"
                                             + typelist5.get(i).getId();
                                     otherReferPlanName = otherReferPlanName + "|"

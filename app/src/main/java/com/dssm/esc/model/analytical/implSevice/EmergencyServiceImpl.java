@@ -232,7 +232,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 	 * 获取预案名称
 	 */
 	@Override
-	public void getPlanName(final int tags, String id,
+	public void getPlanName(final int tags, String id, String notInSet,
 			EmergencySeviceImplListListenser listenser) {
 		// TODO Auto-generated method stub
 		final WeakReference<EmergencySeviceImplListListenser> wr = new WeakReference<>(listenser);
@@ -242,7 +242,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 					Const.PARAMETER_NULL, null);
 			return;
 		}
-		new PlanNameParser(tags, id, new OnDataCompleterListener() {
+		new PlanNameParser(tags, id, notInSet, new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {

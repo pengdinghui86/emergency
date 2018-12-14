@@ -396,7 +396,7 @@ public class HttpUrl {
      */
     public final static String JUMPPLAN = 
 //            "emergency/planPerform/switchover";
-            "app/emergency/planPerform/jump";
+            "emergency/planPerform/jump";
 
 
     /**

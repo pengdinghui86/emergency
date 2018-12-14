@@ -69,6 +69,8 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 	private LinearLayout ll_no_data;
 	/** 预案名称 */
 	private String name = "";
+    /** 所有可选预案的processId，用来查询其他预案的列表 */
+	private String notInSet = "";
 	//选择的业务类型编号
 	private String businessType = "";
 	private List<PlanNameRowEntity> selectedIds;
@@ -126,6 +128,11 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 			list = (ArrayList<PlanNameRowEntity>) bundleExtra
 					.getSerializable("list");
 		}
+		//其他预案
+		else if(plantags == 2)
+        {
+            notInSet = intent.getStringExtra("notInSet");
+        }
 		initView();
 		lvListener();
 		mSelectConfirm.setOnClickListener(this);
@@ -258,7 +265,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		if (list != null && list.size() == 0) {// 只访问一次网络
 			Utils.getInstance().showProgressDialog(PlanNameActivity.this, "",
 					Const.LOAD_MESSAGE);
-			Control.getinstance().getEmergencyService().getPlanName(plantags, businessType, emergencySeviceImplListListenser);
+			Control.getinstance().getEmergencyService().getPlanName(plantags, businessType, notInSet, emergencySeviceImplListListenser);
 		} else if (list != null && list.size() > 0) {
 			List<PlanNameRowEntity> result = new ArrayList<>(list);
 			Message message = new Message();

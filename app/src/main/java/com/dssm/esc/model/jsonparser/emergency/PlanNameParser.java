@@ -33,11 +33,11 @@ public class PlanNameParser {
 	private List<PlanNameRowEntity> list;
 	private final WeakReference<OnDataCompleterListener> wr;
 
-	public PlanNameParser(int tags, String id,
+	public PlanNameParser(int tags, String id, String notInSet,
 			OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
 		wr = new WeakReference<>(completeListener);
-		request(tags, id);
+		request(tags, id, notInSet);
 	}
 
 	/**
@@ -50,13 +50,14 @@ public class PlanNameParser {
 
 	 */
 	@SuppressWarnings("unchecked")
-	public void request(final int tags, final String id) {
+	public void request(final int tags, final String id, final String notInSet) {
 		String url = null;
 		if (tags == 1) {// 默认
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GET_PREBTSCENARIOID + "?businessType=" + id;
 		} else if (tags == 2) {// 其他
-			url = DemoApplication.getInstance().getUrl()+HttpUrl.GET_OTEHERPREBTSCENARIOID + "?excludeScene=" + id
-					+ "&auditState=2";
+//			url = DemoApplication.getInstance().getUrl()+HttpUrl.GET_OTEHERPREBTSCENARIOID + "?excludeScene=" + id
+//					+ "&auditState=2";
+			url = DemoApplication.getInstance().getUrl()+HttpUrl.GET_PREBTSCENARIOID + "?businessType=" + id + "&notInSet=" + notInSet;
 		} else if (tags == 3) {// 总预案
 			url = DemoApplication.getInstance().getUrl()+HttpUrl.GET_CATEGORYPREBTSCENARIOID + "?businessType=" + id
 					+ "&auditState=2";
@@ -117,7 +118,7 @@ public class PlanNameParser {
 						errorResult = "登录超时";
 						Utils.getInstance().relogin();
 						if(DemoApplication.sessionTimeoutCount < 5)
-							request(tags, id);
+							request(tags, id, notInSet);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -126,7 +127,7 @@ public class PlanNameParser {
 					errorResult = "登录超时";
 					Utils.getInstance().relogin();
 					if(DemoApplication.sessionTimeoutCount < 5)
-						request(tags, id);
+						request(tags, id, notInSet);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}
@@ -160,36 +161,35 @@ public class PlanNameParser {
 		PlanNameSelectEntity planNameSelectEntity = new PlanNameSelectEntity();
 		List<PlanNameRowEntity> list = new ArrayList<PlanNameRowEntity>();
 		try {
-			JSONObject jsonObject = new JSONObject(t);
-			if (t.contains("rows")) {
-				JSONArray jsonArray = jsonObject.getJSONArray("rows");
-				if (jsonArray.length() > 0) {
-					for (int i = 0; i < jsonArray.length(); i++) {
-						PlanNameRowEntity planNameRowEntity = new PlanNameRowEntity();
-						JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
-						planNameRowEntity.setId(jsonObject2.getString("id"));
+            JSONArray jsonArray = new JSONArray(t);
+            if (jsonArray.length() > 0) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    PlanNameRowEntity planNameRowEntity = new PlanNameRowEntity();
+                    JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
+                    planNameRowEntity.setId(jsonObject2.getString("id"));
 
-						planNameRowEntity
-								.setName(jsonObject2.getString("name"));
-						planNameRowEntity.setSummary(jsonObject2
-								.getString("summary"));
-						planNameRowEntity.setHasStartAuth(jsonObject2
-								.getString("hasStartAuth"));
-						list.add(planNameRowEntity);
+                    planNameRowEntity
+                            .setName(jsonObject2.getString("name"));
+                    planNameRowEntity.setSummary(jsonObject2
+                            .getString("summary"));
+                    planNameRowEntity.setSceneName(jsonObject2
+                            .getString("sceneName"));
+                    if(jsonObject2.has("hasStartAuth"))
+                        planNameRowEntity.setHasStartAuth(jsonObject2
+                                .getString("hasStartAuth"));
+                    else
+                        planNameRowEntity.setHasStartAuth("true");
+                    list.add(planNameRowEntity);
 
-					}
-				}
-
-				planNameSelectEntity.setRows(list);
-				return planNameSelectEntity;
-			}
+                }
+            }
+            planNameSelectEntity.setRows(list);
+            return planNameSelectEntity;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return planNameSelectEntity;
 		}
-
-		return planNameSelectEntity;
 	}
 
 	/**

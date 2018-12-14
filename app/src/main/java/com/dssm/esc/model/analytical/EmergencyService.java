@@ -34,7 +34,7 @@ public interface EmergencyService {
 	 *            事件场景id
 	 * @param listenser
 	 */
-	void getPlanName(int tags, String id,
+	void getPlanName(int tags, String id, String notInSet,
 					 EmergencyServiceImpl.EmergencySeviceImplListListenser listenser);
 
 	/**
