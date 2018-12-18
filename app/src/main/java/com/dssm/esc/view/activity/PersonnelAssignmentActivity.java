@@ -53,6 +53,7 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 	private PersonAssignListvAdapter mSelectAdapter;
 	private String id;// 流程步骤id
 	private String planInfoId;
+	private String isSign = "1";
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			ArrayList<PlanProcessEntity> result = (ArrayList<PlanProcessEntity>) msg.obj;
@@ -62,7 +63,7 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 				list.clear();
 				list.addAll(result);
 				mSelectAdapter = new PersonAssignListvAdapter(planInfoId,
-						PersonnelAssignmentActivity.this, list);
+						PersonnelAssignmentActivity.this, list, isSign);
 				listView.setAdapter(mSelectAdapter);
 				mSelectAdapter.notifyDataSetChanged();
 
@@ -85,6 +86,7 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 		Intent intent = getIntent();
 		// tag = intent.getStringExtra("tag");
 		planInfoId = intent.getStringExtra("id");
+		isSign = intent.getStringExtra("isSign");
 		initview();
 		lvListener();
 

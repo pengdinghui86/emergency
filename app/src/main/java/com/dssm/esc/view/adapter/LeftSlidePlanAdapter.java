@@ -109,8 +109,48 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                         break;
                     case "5":
                         //指挥与展示
-                        planViewHolder.btn_Function1.setVisibility(View.GONE);
-                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                        if (arraylist.get(position).isBtnPlanStart()) {
+                            if (!arraylist.get(position).getState().equals("null")
+                                    && !arraylist.get(position).getState().equals("")) {
+                                switch (Integer.parseInt(arraylist.get(position).getState())) {
+                                    case 0:
+                                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                                        break;
+                                    case 1:
+                                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                                        break;
+                                    case 2:
+                                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                                        if(arraylist.get(position).isCheckExecutePeople() || "0".equals(arraylist.get(position).getIsSign())) {
+                                            planViewHolder.btn_Function1.setVisibility(View.VISIBLE);
+                                            planViewHolder.btn_Function1.setText("启动");
+                                        }
+                                        break;
+                                    case 3:
+                                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                                        planViewHolder.btn_Function2.setVisibility(View.VISIBLE);
+                                        planViewHolder.btn_Function2.setText("中止");
+                                        break;
+                                    case 4:
+                                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                                        break;
+                                    case 5:
+                                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                                        break;
+                                }
+                            } else {
+                                planViewHolder.btn_Function1.setVisibility(View.GONE);
+                                planViewHolder.btn_Function2.setVisibility(View.GONE);
+                            }
+                        } else {
+                            planViewHolder.btn_Function1.setVisibility(View.GONE);
+                            planViewHolder.btn_Function2.setVisibility(View.GONE);
+                        }
                         break;
                     case "6":
                         //预案执行

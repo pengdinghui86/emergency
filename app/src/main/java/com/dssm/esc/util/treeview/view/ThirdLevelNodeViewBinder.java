@@ -101,6 +101,20 @@ public class ThirdLevelNodeViewBinder extends CheckableNodeViewBinder {
             }
             sigin_tv.setText(signin);
         }
+        else if (tag.equals("4")) {
+            //checkbox只能单选
+            sigin_tv.setVisibility(View.VISIBLE);
+            if (signin.equals("1")) {//已签到
+                sigin_tv.setTextColor(Color.GREEN);
+                signin = "已签到";
+            } else if (signin.equals("0")) {//未签到
+                signin = "未签到";
+                sigin_tv.setTextColor(Color.RED);
+            }
+            sigin_tv.setTextSize(14);
+            checkBox.setVisibility(View.VISIBLE);
+            sigin_tv.setText(signin);
+        }
         else {
             sigin_tv.setVisibility(View.GONE);
             checkBox.setVisibility(View.VISIBLE);

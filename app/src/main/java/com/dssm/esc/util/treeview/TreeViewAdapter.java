@@ -146,7 +146,7 @@ public class TreeViewAdapter extends RecyclerView.Adapter {
 
     public void selectNode(boolean checked, TreeNode treeNode) {
         //单选模式
-        if(tag.equals("3")) {
+        if("3".equals(tag) || "4".equals(tag)) {
             if(checked)
                 selectChildren(root, false);
             treeNode.setSelected(checked);

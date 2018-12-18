@@ -69,6 +69,7 @@ public class AssignmentActivity extends BaseActivity implements
 	private List<PlanTreeEntity> planTreeList = new ArrayList<>();
 	private String id = "";// 流程步骤id
 	private String planInfoId = ""; // 预案执行id
+	private String isSign = "1"; // 指派操作是否需要人员签到，当值为“0”时能指派给未签到人员
 	private String executePeople = ""; // 执行人姓名
 	private PlanProcessEntity entity;
 
@@ -106,6 +107,7 @@ public class AssignmentActivity extends BaseActivity implements
 		Intent intent = getIntent();
 		// tag = intent.getStringExtra("tag");
 		planInfoId = intent.getStringExtra("planInfoId");
+		isSign = intent.getStringExtra("isSign");
 		id = intent.getStringExtra("id");
 		entity = (PlanProcessEntity) intent.getSerializableExtra("entity");
 		initview();
@@ -271,8 +273,11 @@ public class AssignmentActivity extends BaseActivity implements
 	private void addTreeView() {
 		root = TreeNode.root();
 		buildTree(planTreeList);
-		//tag = 3,CheckBox只能单选
-		treeView = new TreeView(root, this, new MyNodeViewFactory(), "3");
+		//tag = 3,CheckBox只能单选、isSign="1";tag = 4,CheckBox只能单选、isSign="0"
+		if("0".equals(isSign))
+			treeView = new TreeView(root, this, new MyNodeViewFactory(), "4");
+		else
+			treeView = new TreeView(root, this, new MyNodeViewFactory(), "3");
 		View view = treeView.getView();
 		view.setLayoutParams(new ViewGroup.LayoutParams(
 				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));

@@ -229,7 +229,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 			Message msg = handler.obtainMessage();
 			num = 0;
 			if (dataList.size() > num + perCount) {// 如果超过可加载条数，则分页
-				ArrayList<HistoryNoticeEntity> subList = (ArrayList) dataList.subList(0, perCount);
+				ArrayList<HistoryNoticeEntity> subList = new ArrayList<HistoryNoticeEntity>(dataList.subList(0, perCount));
 				msg.obj = subList;
 				num = perCount;
 			} else {
@@ -247,10 +247,10 @@ public class HistoryNoticeActivity extends BaseActivity implements
 	{
 		ArrayList<HistoryNoticeEntity> datalist2;
 		if ((num + perCount) <= allList.size()) {
-			datalist2 = (ArrayList) allList.subList(num, num + perCount);
+			datalist2 = new ArrayList<HistoryNoticeEntity>(allList.subList(num, num + perCount));
 			num += perCount;
 		} else {
-			datalist2 = (ArrayList) allList.subList(num, allList.size());
+			datalist2 = new ArrayList<HistoryNoticeEntity>(allList.subList(num, allList.size()));
 			num = allList.size();
 		}
 		Message message = handler.obtainMessage();

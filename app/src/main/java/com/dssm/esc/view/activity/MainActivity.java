@@ -33,6 +33,7 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.database.DataBaseManage;
+import com.dssm.esc.model.entity.user.ButtonEntity;
 import com.dssm.esc.model.entity.user.MenuEntity;
 import com.dssm.esc.model.entity.user.UserPowerEntity;
 import com.dssm.esc.util.ActivityCollector;
@@ -126,7 +127,11 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     /**
      * 保存用户菜单权限
      */
-    public List<MenuEntity> menu = new ArrayList<>();
+    public static List<MenuEntity> menu = new ArrayList<>();
+    /**
+     * 保存用户按钮权限
+     */
+    public static List<ButtonEntity> buttonList = new ArrayList<>();
     /**
      * 每个用户的每个角色的二张表：任务，通知
      */
@@ -930,6 +935,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         super.onDestroy();
         ActivityCollector.removeActivity(this);
         unregisterReceiver(msgReceiver);
+        menu.clear();
+        buttonList.clear();
     }
 
     @Override
@@ -1178,7 +1185,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     Intent intent = new Intent(context,
                             LoginActivity.class);
                     context.startActivity(intent);
-
+                    finish();
                 }
 
             } else if (stRerror != null) {
@@ -1207,7 +1214,15 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             if (object != null) {
                 UserPowerEntity entity = (UserPowerEntity) object;
                 menu = entity.getMenu();
+                buttonList = entity.getBtns();
                 Utils.getInstance().hideProgressDialog();
+            }
+            else {
+                ToastUtil.showLongToast(context, "获取角色权限失败,请重新登录");
+                Intent intent = new Intent(context,
+                        LoginActivity.class);
+                context.startActivity(intent);
+                finish();
             }
         }
     };
@@ -1316,6 +1331,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 tv_item_info2.setText(selectedRolemName);
                 if(personalCenterFragment != null)
                     personalCenterFragment.updateRoleName();
+                menu.clear();
+                buttonList.clear();
                 getUserPower();
             } else if (stRerror != null) {
                 str = stRerror;

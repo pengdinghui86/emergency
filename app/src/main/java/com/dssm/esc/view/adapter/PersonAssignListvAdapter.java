@@ -32,13 +32,15 @@ public class PersonAssignListvAdapter extends BaseAdapter {
 
 	private ArrayList<PlanProcessEntity> arraylist;
 	private Context context;
-private String planInfoId;
+	private String planInfoId;
+	private String isSign;
 	public PersonAssignListvAdapter(String planInfoId,Context context,
-			ArrayList<PlanProcessEntity> list) {
+			ArrayList<PlanProcessEntity> list, String isSign) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.arraylist = list;
 		this.planInfoId = planInfoId;
+		this.isSign = isSign;
 	}
 
 	@Override
@@ -121,6 +123,7 @@ private String planInfoId;
 					Intent intent = new Intent(context, AssignmentActivity.class);
 					intent.putExtra("id", entity.getPlanPerformId());//// 流程步骤id
 					intent.putExtra("planInfoId", planInfoId);
+					intent.putExtra("isSign", isSign);
 					intent.putExtra("entity", entity);
 					context.startActivity(intent);
 				}

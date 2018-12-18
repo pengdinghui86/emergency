@@ -3,11 +3,13 @@ package com.dssm.esc.model.jsonparser.emergency;
 import android.util.Log;
 
 import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
+import com.dssm.esc.model.entity.user.ButtonEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
+import com.dssm.esc.view.activity.MainActivity;
 import com.easemob.chatuidemo.DemoApplication;
 
 import org.json.JSONArray;
@@ -207,6 +209,37 @@ public class GetAuthPlanListParser {
 							suspandEntity.setSceneName(jsonObject.getString("sceneName"));
 						else
 							suspandEntity.setSceneName("");
+                        boolean checkExecutePeople = false;
+                        if(jsonObject2.has("checkExecutePeople"))
+                        {
+                            if("true".equals(jsonObject2.getString("checkExecutePeople")))
+                                checkExecutePeople = true;
+                        }
+                        suspandEntity.setCheckExecutePeople(checkExecutePeople);
+                        String isSign = "1";
+                        if(jsonObject2.has("isSign"))
+                        {
+                            if("0".equals(jsonObject2.getString("isSign")))
+                                isSign = "0";
+                        }
+                        suspandEntity.setIsSign(isSign);
+                        //指挥与展示启动与停止按钮权限判断
+                        if(a == 5)
+						{
+							boolean btnPlanStart = false;
+							if(MainActivity.buttonList != null && MainActivity.buttonList .size() > 0)
+							{
+								for(ButtonEntity buttonEntity : MainActivity.buttonList)
+								{
+									if("BTN_QDZZ".equals(buttonEntity.getBtnMark()))
+									{
+										btnPlanStart = true;
+										break;
+									}
+								}
+							}
+							suspandEntity.setBtnPlanStart(btnPlanStart);
+						}
 						suspandEntity.setPlanResName(jsonObject.getString("planResName"));
 						suspandEntity.setPlanResType(jsonObject.getString("planResType"));
 						suspandEntity.setState(jsonObject.getString("state"));

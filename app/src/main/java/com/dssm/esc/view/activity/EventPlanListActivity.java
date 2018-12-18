@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
+import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl.ControlServiceImplBackValueListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
@@ -40,6 +41,8 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 按事件分类展示预案列表界面
@@ -76,6 +79,7 @@ public class EventPlanListActivity extends BaseActivity implements
      * 0,已授权；1,待授权；2,已启动预案；3,人员指派；4,协同通告；5,指挥与展示；6,预案执行；
      */
     private String tags;
+    private String getCode = "";
     private String signState = "";// 签到状态0:未签到 1：已签到
     private Intent intent = null;
 
@@ -234,6 +238,8 @@ public class EventPlanListActivity extends BaseActivity implements
                         PersonnelAssignmentActivity.class);
                 intent.putExtra("id", list.get(position)
                         .getId());
+                intent.putExtra("isSign", list.get(position)
+                        .getIsSign());
                 startActivity(intent);
             } else if (tags.equals("4")) {
                 //协同通告
@@ -314,27 +320,85 @@ public class EventPlanListActivity extends BaseActivity implements
 
     @Override
     public void onFunction1BtnClick(View view, final int position) {
-        View view1 = LayoutInflater.from(EventPlanListActivity.this).inflate(R.layout.edit_info, null);
-        final EditText et = (EditText) view1.findViewById(R.id.et_info);
-        new AlertDialog.Builder(EventPlanListActivity.this)
-                .setTitle("请输入处理意见")
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .setView(view1)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String info = et.getText().toString()
-                                .trim();
-                        if (info.equals("")) {
-                            Toast.makeText(
-                                    EventPlanListActivity.this,
-                                    "处理意见不能为空", Toast.LENGTH_SHORT).show();
-                        } else {
-                            planAuth(list.get(position), info);
+        if("5".equals(tags))
+        {
+            //预案启动
+            new android.app.AlertDialog.Builder(EventPlanListActivity.this)
+                    .setMessage("确定启动该预案？")
+                    .setPositiveButton("确定",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    View view = LayoutInflater.from(
+                                            EventPlanListActivity.this).inflate(
+                                            R.layout.editcode, null);
+                                    final EditText et = (EditText) view
+                                            .findViewById(R.id.vc_code);
+                                    getCode = Utils.getInstance().code();
+                                    new AlertDialog.Builder(
+                                            EventPlanListActivity.this)
+                                            .setTitle("验证码：" + getCode)
+                                            .setIcon(
+                                                    android.R.drawable.ic_dialog_info)
+                                            .setView(view)
+                                            .setPositiveButton(
+                                                    "确定",
+                                                    new DialogInterface.OnClickListener() {
+                                                        public void onClick(
+                                                                DialogInterface dialog,
+                                                                int which) {
+                                                            String v_code = et
+                                                                    .getText()
+                                                                    .toString()
+                                                                    .trim();
+                                                            if (!v_code
+                                                                    .equals(getCode)) {
+                                                                Toast.makeText(
+                                                                        EventPlanListActivity.this,
+                                                                        "验证码错误",
+                                                                        Toast.LENGTH_SHORT)
+                                                                        .show();
+                                                            } else {
+
+                                                                planStart(list.get(position).getId());
+                                                            }
+                                                        }
+                                                    })
+                                            .setNegativeButton("取消", null)
+                                            .show();
+                                }
+                            })
+                    .setNegativeButton("取消",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+
+                                }
+                            }).show();
+        }
+        else {
+            View view1 = LayoutInflater.from(EventPlanListActivity.this).inflate(R.layout.edit_info, null);
+            final EditText et = (EditText) view1.findViewById(R.id.et_info);
+            new AlertDialog.Builder(EventPlanListActivity.this)
+                    .setTitle("请输入处理意见")
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .setView(view1)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            String info = et.getText().toString()
+                                    .trim();
+                            if (info.equals("")) {
+                                Toast.makeText(
+                                        EventPlanListActivity.this,
+                                        "处理意见不能为空", Toast.LENGTH_SHORT).show();
+                            } else {
+                                planAuth(list.get(position), info);
+                            }
                         }
-                    }
-                })
-                .setNegativeButton("取消", null)
-                .show();
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
+        }
     }
 
     @Override
@@ -399,6 +463,39 @@ public class EventPlanListActivity extends BaseActivity implements
 
                 ToastUtil.showLongToast(EventPlanListActivity.this,
                         Const.NETWORKERROR);
+            }
+            Utils.getInstance().hideProgressDialog();
+        }
+    };
+
+    /**
+     * 预案启动
+     */
+    private void planStart(String id) {
+        // TODO Auto-generated method stub
+        Utils.getInstance().showProgressDialog(EventPlanListActivity.this, "",
+                Const.LOAD_MESSAGE);
+        Control.getinstance().getControlSevice().starPlan(id, planStartListener);
+    }
+
+    private ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean> planStartListener = new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
+
+        @Override
+        public void setControlServiceImplListenser(
+                Boolean backValue, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated
+            // method stub
+            if (backValue) {
+                ToastUtil.showToast(EventPlanListActivity.this, "启动成功");
+                EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
+            } else if (stRerror != null) {
+                Toast.makeText(EventPlanListActivity.this, stRerror,
+                        Toast.LENGTH_SHORT).show();
+            } else if (Exceptionerror != null) {
+                Toast.makeText(EventPlanListActivity.this,
+                        Const.NETWORKERROR,
+                        Toast.LENGTH_SHORT).show();
             }
             Utils.getInstance().hideProgressDialog();
         }

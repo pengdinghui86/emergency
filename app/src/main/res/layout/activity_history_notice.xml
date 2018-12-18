@@ -54,6 +54,9 @@
         </RadioGroup>
     </RelativeLayout>
 
+    <View
+        style="@style/horizontal_gray_style" />
+
     <com.dssm.esc.view.widget.AutoListView
         android:id="@+id/history_notice_alv"
         android:layout_width="match_parent"

@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/stop"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:text="中止"
-            android:visibility="gone"
-            android:textColor="#fff"
-            android:textSize="@dimen/we_normal_textsize" />
-<!--        <Button
-            android:id="@+id/pause"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/btbg_blue"
-            android:text="暂停"
-            android:visibility="gone"
-            android:textColor="#fff"
-            android:textSize="15sp" />-->
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
 
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center">
 
-     <com.dssm.esc.view.widget.AutoListView
+            <RadioButton
+                android:id="@+id/real_time_track_rb_all"
+                style="@style/notice_title_radio_button"
+                android:checked="true"
+                android:text="全部" />
+
+            <RadioButton
+                android:id="@+id/real_time_track_rb_executing"
+                style="@style/notice_title_radio_button"
+                android:text="执行中" />
+
+            <RadioButton
+                android:id="@+id/real_time_track_rb_wait_execute"
+                style="@style/notice_title_radio_button"
+                android:text="未执行" />
+
+            <RadioButton
+                android:id="@+id/real_time_track_rb_executed"
+                style="@style/notice_title_radio_button"
+                android:text="已执行" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <View
+        style="@style/horizontal_gray_style"
+        android:layout_height="0.5dp"/>
+
+    <com.dssm.esc.view.widget.AutoListView
         android:id="@+id/realtime_track_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-      android:layout_marginTop="10dp"
-      android:scrollbars="none" />
+        android:layout_height="wrap_content"
+        android:scrollbars="none" />
 
+    <include layout="@layout/no_data"/>
 </LinearLayout>

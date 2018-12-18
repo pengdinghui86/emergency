@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/control"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/set_gray">
 
@@ -63,7 +63,8 @@
     <com.dssm.esc.view.widget.MyFlowView
         android:id="@+id/my_flow_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
     <include
         android:id="@+id/realtime_tracking"
@@ -74,4 +75,7 @@
         layout="@layout/resource_prepare"
         android:visibility="gone" />
 
+    <include android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/no_data_page"/>
 </LinearLayout>

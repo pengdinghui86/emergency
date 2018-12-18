@@ -1,20 +1,14 @@
 package com.dssm.esc.view.activity;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -26,16 +20,12 @@ import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.ControlSevice;
 import com.dssm.esc.model.analytical.UserSevice;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
-import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.entity.control.FlowChartPlanEntity;
 import com.dssm.esc.model.entity.control.NoticeSignUserEntity;
 import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.control.SignUserEntity;
-import com.dssm.esc.model.entity.user.ButtonEntity;
-import com.dssm.esc.model.entity.user.UserPowerEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.MySharePreferencesService;
-import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.adapter.RealTimeTrackingAdapter;
@@ -85,15 +75,38 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      * 点击button转换：1，实时跟踪2，流程监,3，资源筹
      */
     private int sem_tag;
+    //查询状态0=全部，1=执行中，2=未执行，3=已执行
+    private int sem_status = 0;
     /**
      * 实时跟踪的 include布局
      */
     @ViewInject(R.id.realtime_tracking)
     private View realtime_tracking;
     /**
-     * 实时跟踪的 终止按钮
+     * 实时跟踪查询全部
      */
-    private Button stop;
+    @ViewInject(R.id.real_time_track_rb_all)
+    private RadioButton real_time_track_rb_all;
+    /**
+     * 实时跟踪查询执行中步骤列表
+     */
+    @ViewInject(R.id.real_time_track_rb_executing)
+    private RadioButton real_time_track_rb_executing;
+    /**
+     * 实时跟踪查询未执行步骤列表
+     */
+    @ViewInject(R.id.real_time_track_rb_wait_execute)
+    private RadioButton real_time_track_rb_wait_execute;
+    /**
+     * 实时跟踪查询已执行步骤列表
+     */
+    @ViewInject(R.id.real_time_track_rb_executed)
+    private RadioButton real_time_track_rb_executed;
+    /**
+     * 暂无数据
+     */
+    @ViewInject(R.id.ll_no_data_page)
+    private LinearLayout ll_no_data_page;
     /**
      * 实时跟踪的列表
      */
@@ -183,12 +196,11 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                     list.clear();
                     /** 总集合添加 */
                     list.addAll(result);
-                    rlistview.setResultSize(result.size(), i);
                     radapter = new RealTimeTrackingAdapter(ControlActivity.this, planEntity.getState(),
                             list, sevice, roleCode, csevice, curDate, service);
                     rlistview.setAdapter(radapter);
                     radapter.notifyDataSetChanged();
-
+                    setResultSize(result.size(), i);
                     break;
                 case 2:
                     WindowManager wm = (WindowManager) ControlActivity.this
@@ -213,58 +225,9 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      */
     private String roleCode;
 
-    private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
-
-        @Override
-        public void setUserSeviceImplListListenser(Object object,
-                String stRerror, String Exceptionerror) {
-            // TODO Auto-generated method stub
-            if (object != null) {
-                UserPowerEntity entity = (UserPowerEntity) object;
-                List<ButtonEntity> btns = entity.getBtns();
-                // 指挥与展示启动终止按钮：BTN_QDZZ
-                for (int i = 0; i < btns.size(); i++) {
-                    ButtonEntity buttonEntity = btns.get(i);
-                    if (buttonEntity.getBtnMark().equals("BTN_QDZZ")) {
-                        if (!planEntity.getState().equals("null")
-                                && !planEntity.getState().equals("")) {
-                            switch (Integer.parseInt(planEntity.getState())) {
-                                case 0:
-                                    stop.setVisibility(View.GONE);
-                                    break;
-                                case 1:
-                                    stop.setVisibility(View.GONE);
-                                    break;
-                                case 2:
-                                    stop.setVisibility(View.VISIBLE);
-                                    stop.setText("启动");
-                                    break;
-                                case 3:
-                                    stop.setVisibility(View.VISIBLE);
-                                    stop.setText("中止");
-                                    break;
-                                case 4:
-                                    stop.setVisibility(View.GONE);
-                                    break;
-                                case 5:
-                                    stop.setVisibility(View.GONE);
-                                    break;
-                            }
-                        }
-                    } else {
-                        stop.setVisibility(View.GONE);
-                    }
-                }
-            }
-            Utils.getInstance().hideProgressDialog();
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_control);
         View findViewById = findViewById(R.id.control);
         findViewById.setFitsSystemWindows(true);
         my_flow_view = (MyFlowView) findViewById(R.id.my_flow_view);
@@ -281,7 +244,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         Utils.getInstance().showProgressDialog(
                 ControlActivity.this, "",
                 Const.SUBMIT_MESSAGE);
-        sevice.getUserPower(listListener);
     }
 
     private void addIndex(List<FlowChartPlanEntity.FlowChart> result) {
@@ -334,7 +296,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         rb_real_track.setOnClickListener(this);
         rb_process_monitor.setOnClickListener(this);
         rb_resource_prepare.setOnClickListener(this);
-        stop = (Button) realtime_tracking.findViewById(R.id.stop);
         rlistview = (AutoListView) realtime_tracking
                 .findViewById(R.id.realtime_track_listview);
 
@@ -343,7 +304,10 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
 
         sem_tag = 1;
         initData(sem_tag);
-        stop.setOnClickListener(this);
+        real_time_track_rb_all.setOnClickListener(this);
+        real_time_track_rb_wait_execute.setOnClickListener(this);
+        real_time_track_rb_executing.setOnClickListener(this);
+        real_time_track_rb_executed.setOnClickListener(this);
 
         resource_prepare_ll_receive = (LinearLayout) resource_preparation
                 .findViewById(R.id.resource_prepare_ll_receive);
@@ -376,6 +340,59 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             my_flow_view.setVisibility(View.GONE);
             initProgressData();
         }
+    }
+
+    private void showTrackListByStatus(int status)
+    {
+        List<FlowChartPlanEntity.FlowChart> list = new ArrayList<FlowChartPlanEntity.FlowChart>();
+        //排除流程未启动情况
+        if(!planEntity.getState().equals("0") && !planEntity.getState().equals("2") && !planEntity.getState().equals("1")) {
+            switch (status) {
+                //0=全部，1=执行中，2=未执行，3=执行完成
+                case 0:
+                    list = allList;
+                    break;
+                case 1:
+                    String[] statusList = new String[]{"4", "8", "10", "21", "22", "25"};
+                    for (FlowChartPlanEntity.FlowChart flowChart : allList) {
+                        if (useLoop(statusList, flowChart.getStatus()))
+                            list.add(flowChart);
+                    }
+                    break;
+                case 2:
+                    String[] statusList2 = new String[]{"5", "6", "7", "20"};
+                    for (FlowChartPlanEntity.FlowChart flowChart : allList) {
+                        if (useLoop(statusList2, flowChart.getStatus())
+                                || ((null == flowChart.getType()) ? false
+                                : flowChart.getType().equals("drillNew"))
+                                || (10 < Integer.parseInt(flowChart.getStatus())
+                                && Integer.parseInt(flowChart.getStatus()) < 20))
+                            list.add(flowChart);
+                    }
+                    break;
+                case 3:
+                    String[] statusList3 = new String[]{"1", "2", "3", "9", "23", "24", "26", "27"};
+                    for (FlowChartPlanEntity.FlowChart flowChart : allList) {
+                        if (useLoop(statusList3, flowChart.getStatus()))
+                            list.add(flowChart);
+                    }
+                    break;
+            }
+        }
+        Message message = handler.obtainMessage();
+        message.what = 0;
+        message.obj = list;
+        handler.sendMessage(message);
+    }
+
+    public static boolean useLoop(String[] arr, String value) {
+        boolean flag = false;
+        for (String s : arr) {
+            if (s.equals(value)) {
+                return true;
+            }
+        }
+        return flag;
     }
 
     private ControlServiceImpl.ControlServiceImplBackValueListenser<SignUserEntity> signUserEntityControlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<SignUserEntity>() {
@@ -465,7 +482,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     /**
      * 资源筹备数据初始化
      */
-
     private void initProgressData() {
         // TODO Auto-generated method stub
         Utils.getInstance().showProgressDialog(ControlActivity.this, "",
@@ -486,7 +502,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
      *
      * @param data
      */
-
     public void onEvent(mainEvent data) {
         if (data.getData().equals("jump")) {
 
@@ -494,111 +509,10 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         }
     }
 
-    private String getCode = null;
-
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
-            case R.id.stop:// 终止/启动
-                Dialog dialog = null;
-                if (stop.getText().toString().equals("中止")) {
-                    dialog = new AlertDialog.Builder(ControlActivity.this)
-                            .setTitle("您确定要中止？")
-
-                            .setPositiveButton("确定",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,
-                                                            int which) {
-                                            Intent intent2 = new Intent(
-                                                    ControlActivity.this,
-                                                    SubmitInfomationActivity.class);
-                                            intent2.putExtra("tag", "5");// 中止原因
-                                            startActivityForResult(intent2, 0);
-
-                                        }
-
-                                    })
-
-                            .setNegativeButton("取消",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,
-                                                            int which) {
-                                        }
-                                    }).create(); // 创建对话框
-                    dialog.show(); // 显示对话框
-                } else if (stop.getText().toString().equals("启动")) {
-                    dialog = new AlertDialog.Builder(ControlActivity.this)
-                            .setTitle("您确定要启动？")
-                            .setPositiveButton("确定",
-                                    new DialogInterface.OnClickListener() {
-                                        @SuppressWarnings("deprecation")
-                                        public void onClick(DialogInterface dialog,
-                                                            int which) {
-                                            for (FlowChartPlanEntity.FlowChart entity : alist) {
-                                                if (entity.getExecutePeople()
-                                                        .equals("null") && !entity.getNodeStepType().equals("CallActivity")) {
-                                                    Toast.makeText(
-                                                            ControlActivity.this,
-                                                            entity.getName()
-                                                                    + "没有执行人",
-                                                            Toast.LENGTH_SHORT)
-                                                            .show();
-                                                    return;
-                                                }
-                                            }
-                                            View view = LayoutInflater.from(
-                                                    ControlActivity.this).inflate(
-                                                    R.layout.editcode, null);
-                                            final EditText et = (EditText) view
-                                                    .findViewById(R.id.vc_code);
-                                            getCode = Utils.getInstance().code();
-                                            new AlertDialog.Builder(
-                                                    ControlActivity.this)
-                                                    .setTitle("验证码：" + getCode)
-                                                    .setIcon(
-                                                            android.R.drawable.ic_dialog_info)
-                                                    .setView(view)
-                                                    .setPositiveButton(
-                                                            "确定",
-                                                            new DialogInterface.OnClickListener() {
-                                                                public void onClick(
-                                                                        DialogInterface dialog,
-                                                                        int which) {
-                                                                    String v_code = et
-                                                                            .getText()
-                                                                            .toString()
-                                                                            .trim();
-                                                                    if (!v_code
-                                                                            .equals(getCode)) {
-                                                                        Toast.makeText(
-                                                                                ControlActivity.this,
-                                                                                "验证码错误",
-                                                                                Toast.LENGTH_SHORT)
-                                                                                .show();
-                                                                    } else {
-
-                                                                        planStart();
-                                                                    }
-                                                                }
-                                                            })
-                                                    .setNegativeButton("取消", null)
-                                                    .show();
-
-                                        }
-
-                                    })
-
-                            .setNegativeButton("取消",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,
-                                                            int which) {
-                                        }
-                                    }).create(); // 创建对话框
-                    dialog.show(); // 显示对话框
-                }
-
-                break;
             case R.id.iv_actionbar_back:
                 EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
                 ControlActivity.this.finish();
@@ -647,89 +561,39 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 sem_tag = 3;
                 initData(sem_tag);
                 break;
+            case R.id.real_time_track_rb_all:
+                real_time_track_rb_all.setChecked(true);
+                real_time_track_rb_executing.setChecked(false);
+                real_time_track_rb_wait_execute.setChecked(false);
+                real_time_track_rb_executed.setChecked(false);
+                sem_status = 0;
+                showTrackListByStatus(sem_status);
+                break;
+            case R.id.real_time_track_rb_executing:
+                real_time_track_rb_all.setChecked(false);
+                real_time_track_rb_executing.setChecked(true);
+                real_time_track_rb_wait_execute.setChecked(false);
+                real_time_track_rb_executed.setChecked(false);
+                sem_status = 1;
+                showTrackListByStatus(sem_status);
+                break;
+            case R.id.real_time_track_rb_wait_execute:
+                real_time_track_rb_all.setChecked(false);
+                real_time_track_rb_executing.setChecked(false);
+                real_time_track_rb_wait_execute.setChecked(true);
+                real_time_track_rb_executed.setChecked(false);
+                sem_status = 2;
+                showTrackListByStatus(sem_status);
+                break;
+            case R.id.real_time_track_rb_executed:
+                real_time_track_rb_all.setChecked(false);
+                real_time_track_rb_executing.setChecked(false);
+                real_time_track_rb_wait_execute.setChecked(false);
+                real_time_track_rb_executed.setChecked(true);
+                sem_status = 3;
+                showTrackListByStatus(sem_status);
+                break;
         }
-    }
-
-    private ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
-
-        @Override
-        public void setControlServiceImplListenser(
-                Boolean backValue, String stRerror,
-                String Exceptionerror) {
-            // TODO Auto-generated
-            // method stub
-            if (backValue) {
-                ToastUtil.showToast(ControlActivity.this, "中止成功");
-                stop.setBackgroundResource(R.drawable.btbg_blue);
-                stop.setText("启动");
-                stop.setVisibility(View.GONE);
-                EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
-                // 终止操作
-                ControlActivity.this.finish();
-
-            } else if (stRerror != null) {
-                Toast.makeText(ControlActivity.this, stRerror,
-                        Toast.LENGTH_SHORT).show();
-            } else if (Exceptionerror != null) {
-                Toast.makeText(ControlActivity.this,
-                        Const.NETWORKERROR,
-                        Toast.LENGTH_SHORT).show();
-            }
-            // if (Utils.getInstance().progressDialog.isShowing()) {
-            Utils.getInstance().hideProgressDialog();
-            // }
-        }
-    };
-
-    /**
-     * 预案中止
-     */
-    private void stopPlan(String stopcause) {
-        // TODO Auto-generated method stub
-        Utils.getInstance().showProgressDialog(ControlActivity.this, "",
-                Const.SUBMIT_MESSAGE);
-        // 此处要传终止终止意见，没有输入框
-        csevice.stopPlan(planEntity, stopcause, controlServiceImplBackValueListenser);
-    }
-
-    private ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean> controlServiceImplBackValueStartListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<Boolean>() {
-
-        @Override
-        public void setControlServiceImplListenser(
-                Boolean backValue, String stRerror,
-                String Exceptionerror) {
-            // TODO Auto-generated
-            // method stub
-            if (backValue) {
-                ToastUtil.showToast(ControlActivity.this, "启动成功");
-                stop.setBackgroundResource(R.drawable.btbg_red);
-                stop.setText("中止");
-                EventBus.getDefault().post(new mainEvent("r"));// 刷新列表界面
-                // 终止操作
-                ControlActivity.this.finish();
-                // queryProcessTrack();
-            } else if (stRerror != null) {
-                Toast.makeText(ControlActivity.this, stRerror,
-                        Toast.LENGTH_SHORT).show();
-            } else if (Exceptionerror != null) {
-                Toast.makeText(ControlActivity.this,
-                        Const.NETWORKERROR,
-                        Toast.LENGTH_SHORT).show();
-            }
-            // if (Utils.getInstance().progressDialog.isShowing()) {
-            Utils.getInstance().hideProgressDialog();
-            // }
-        }
-    };
-
-    /**
-     * 预案启动
-     */
-    private void planStart() {
-        // TODO Auto-generated method stub
-        Utils.getInstance().showProgressDialog(ControlActivity.this, "",
-                Const.LOAD_MESSAGE);
-        csevice.starPlan(planEntity.getId(), controlServiceImplBackValueStartListenser);
     }
 
     private ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity> flowChartPlanEntityControlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<FlowChartPlanEntity>() {
@@ -746,16 +610,16 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 curDate = backValue.getCurDate();
                 alist = data;
                 if (backValue.getState().equals("2")) {
-                    stop.setText("启动");
-                    stop.setBackgroundResource(R.drawable.btbg_green);
+//                    stop.setText("启动");
+//                    stop.setBackgroundResource(R.drawable.btbg_green);
                 } else if (backValue.getState().equals("3")) {
-                    stop.setText("中止");
-                    stop.setBackgroundResource(R.drawable.btbg_red);
+//                    stop.setText("中止");
+//                    stop.setBackgroundResource(R.drawable.btbg_red);
                 } else if (backValue.getState().equals("6")) {
-                    stop.setText("启动");
-                    stop.setBackgroundResource(R.drawable.btbg_green);
+//                    stop.setText("启动");
+//                    stop.setBackgroundResource(R.drawable.btbg_green);
                 } else {
-                    stop.setVisibility(View.GONE);
+//                    stop.setVisibility(View.GONE);
                 }
             } else if (Exceptionerror != null) {
                 data = new ArrayList<FlowChartPlanEntity.FlowChart>();
@@ -763,10 +627,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                         Const.NETWORKERROR,
                         Toast.LENGTH_SHORT).show();
             }
-            Message message = handler.obtainMessage();
-            // message.obj = data;
-            // handler.sendMessage(message);
-            message.what = 0;
             if(data == null)
                 return;
             flowCharts.clear();
@@ -776,9 +636,8 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             reSort(data, "", 0);
             data.clear();
             data.addAll(flowCharts);
-            message.obj = data;
-            handler.sendMessage(message);
             allList = data;
+            showTrackListByStatus(sem_status);
             Utils.getInstance().hideProgressDialog();
         }
     };
@@ -845,27 +704,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (data != null && resultCode == RESULT_OK) {
-
-            switch (requestCode) {
-                case 0:
-                    String stopcause = "";
-                    stopcause = data.getStringExtra("info");
-                    if (!stopcause.equals("") && stopcause.length() > 0) {
-                        stopPlan(stopcause);
-                    } else {
-                        ToastUtil.showToast(ControlActivity.this, "中止原因为必填项");
-                    }
-                    break;
-            }
-        } else {
-            Log.i("=====", "data为null");
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
@@ -876,7 +714,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
     public void initNetData() {
         // TODO Auto-generated method stub
         if (!planEntity.getId().equals("")) {
-
             queryProcessTrack();
         }
     }
@@ -891,5 +728,15 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         // TODO Auto-generated method stub
         i = 1;
         queryProcessTrack();
+    }
+
+    void setResultSize(int resultSize, int i) {
+        if (resultSize == 0 && i == 1) {
+            rlistview.setVisibility(View.GONE);
+            ll_no_data_page.setVisibility(View.VISIBLE);
+        } else {
+            ll_no_data_page.setVisibility(View.GONE);
+            rlistview.setVisibility(View.VISIBLE);
+        }
     }
 }
