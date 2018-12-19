@@ -2,7 +2,7 @@
 <resources  tools:ignore="MissingTranslation" xmlns:tools="http://schemas.android.com/tools">
     <!-- ESC BCM -->
     <!--     XJRCCB -->
-    <string name="app_name">ESC BCM2.0</string>
+    <string name="app_name">ESC BCM2.1</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="diver_exit_time">再按一次退出！</string>
