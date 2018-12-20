@@ -346,6 +346,7 @@
                                         android:layout_marginTop="10dp" >
 
                                         <TextView
+                                            android:id="@+id/done_status_title"
                                             style="@style/text"
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
@@ -499,7 +500,7 @@
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
-                                             android:layout_gravity="center"
+                                            android:layout_gravity="center"
                                             android:gravity="left"
                                             android:text="@string/done_status" />
 
@@ -507,7 +508,7 @@
                                             android:id="@+id/done_status_done"
                                             style="@style/text"
                                             android:layout_width="0dp"
-                                              android:layout_gravity="center"
+                                            android:layout_gravity="center"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1.5"
                                             android:gravity="left"

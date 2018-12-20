@@ -52,8 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:lines="1"
-            android:ellipsize="end"
             android:layout_below="@+id/message_listview_tv_time"
             style="@style/normal_gray_text"
             android:text="同城灾备切换预案已评估，请及时执行预案！"/>

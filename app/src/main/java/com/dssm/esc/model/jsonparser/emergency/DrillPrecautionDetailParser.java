@@ -147,6 +147,18 @@ public class DrillPrecautionDetailParser {
 					JSONObject jsonObject3 = jsonObject.getJSONObject("obj");
 					objEntity.setExPlanId(jsonObject3.getString("exPlanId"));
 					objEntity.setEmergType(jsonObject3.getString("emergType"));
+					if(jsonObject3.has("precautionList"))
+						objEntity.setPrecautionList(jsonObject3.getString("precautionList"));
+					else
+						objEntity.setPrecautionList("");
+					if(jsonObject3.has("referPlan"))
+						objEntity.setReferPlan(jsonObject3.getString("referPlan"));
+					else
+						objEntity.setReferPlan("");
+					if(jsonObject3.has("referProcess"))
+						objEntity.setReferProcess(jsonObject3.getString("referProcess"));
+					else
+						objEntity.setReferProcess("");
 					objEntity.setDrillPlanName(jsonObject3
 							.getString("drillPlanName"));
 					objEntity.setDrillPlanId(jsonObject3

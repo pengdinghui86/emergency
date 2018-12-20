@@ -210,7 +210,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				return;
 			List<PlanStarListDetailObjListEntity> list = obj.getList();
 			for (int i = 0; i < list.size(); i++) {
-				name = name + "," + list.get(i).getName();
+				name = name + "," + list.get(i).getName() + "-" + list.get(i).getSceneName();
 				if (name.subSequence(0, 1).equals(",")) {
 					name = (String) name.subSequence(1, name.length());
 				}
@@ -239,6 +239,8 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 			plan_name.setText(name);
 			event_des.setText(obj.getEveDescription());
 			suggestion.setText(obj.getDealAdvice());
+			rll_event_process.onCompleteRefresh();
+			rll_event_process.setResultSize(0, 3);
 			Utils.getInstance().hideProgressDialog();
 		}
 	};
@@ -264,6 +266,8 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 			planList.clear();
 			planList.addAll(dataList);
 			planAdapter.update(planList);
+			rll_event_process.onCompleteRefresh();
+			rll_event_process.setResultSize(0, 3);
 			Utils.getInstance().hideProgressDialog();
 		}
 	};

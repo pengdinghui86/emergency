@@ -70,6 +70,12 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	/** 提交时间 */
 	@ViewInject(R.id.event_time)
 	private TextView event_time;
+	/** 事件发现人 */
+	@ViewInject(R.id.event_discoverer)
+	private TextView event_discoverer;
+	/** 发生时间 */
+	@ViewInject(R.id.event_discovery_time)
+	private TextView event_discovery_time;
 	/** 已用时 */
 	@ViewInject(R.id.event_over_time)
 	private TextView event_over_time;
@@ -83,9 +89,6 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	/** 事件类型 */
 	@ViewInject(R.id.event_type)
 	private TextView event_type;
-	/** 事件场景 */
-	@ViewInject(R.id.event_background)
-	private TextView event_background;
 	/** 预案名称 */
 	@ViewInject(R.id.plan_name)
 	private TextView plan_name;
@@ -172,7 +175,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 				obj = detailEntity.getObj();
 				List<PlanStarListDetailObjListEntity> list = obj.getList();
 				for (int i = 0; i < list.size(); i++) {
-					name = name + "," + list.get(i).getName();
+					name = name + "," + list.get(i).getName() + "-" + list.get(i).getSceneName();
 				}
 				if (name.subSequence(0, 1).equals(",")) {
 					name = (String) name.subSequence(1, name.length());
@@ -182,6 +185,8 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 				eventpeople.setText(obj.getSubmitter());
 				String subTime = obj.getSubTime();
 				event_time.setText(subTime);
+				event_discoverer.setText(obj.getDiscoverer());
+				event_discovery_time.setText(obj.getDiscoveryTime());
 				String nowTime = obj.getNowTime();
 				overTime = Utils.getInstance().getOverTime(nowTime, subTime);
 				event_over_time.setText(overTime);
@@ -194,7 +199,6 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 
 					event_type.setText("演练");
 				}
-				event_background.setText(obj.getEveScenarioName());
 				plan_name.setText(name);
 				event_des.setText(obj.getEveDescription());
 				suggestion.setText(obj.getDealAdvice());
@@ -205,7 +209,10 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			case 1:
 				PlanDetailEntity planDetailEntity = (PlanDetailEntity) msg.obj;
 				PlanDetailObjEntity obj2 = planDetailEntity.getObj();
-				plan_detail_name.setText(obj2.getPlanName());
+				if (planName == "" || planName.equals("") || planName == null) {
+					planName = obj2.getPlanName();
+				}
+				plan_detail_name.setText(planName);
 				plan_people.setText(obj2.getPlanStarter());
 				String startTime = obj2.getPlanStartTime();
 				startime.setText(startTime);
@@ -216,7 +223,6 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 				//plan_type.setText();
 				plan_des.setText(obj2.getSummary());
 				plan_donesug.setText(obj2.getPlanStartOpition());
-				planName = obj2.getPlanName();
 				suspandEntity.setId(obj2.getId());
 				suspandEntity.setSuspendType("authSuspend");
 				suspandEntity.setPlanSuspendOpition(planSuspendOpition2);
@@ -261,6 +267,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		Intent intent = getIntent();
 		id = intent.getStringExtra("id");
 		planId = intent.getStringExtra("planId");
+		planName = intent.getStringExtra("name");
 		planResId = intent.getStringExtra("planResId");
 		//isAuthor= intent.getStringExtra("isAuthor");
 		initview();
@@ -290,16 +297,12 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			plan_detail_ll.setVisibility(View.VISIBLE);
 			event_detail_ll.setVisibility(View.GONE);
 			plan_autro_ll.setVisibility(View.GONE);
-			if (planName == "" || planName.equals("") || planName == null) {
-				getPlanDetail();
-			}
+			getPlanDetail();
 		} else if (sem_tags == 3) {// 3预案授权
 			plan_autro_ll.setVisibility(View.VISIBLE);
 			plan_detail_ll.setVisibility(View.GONE);
 			event_detail_ll.setVisibility(View.GONE);
-			if (planName == "" || planName.equals("") || planName == null) {
-				getPlanDetail();
-			}
+			getPlanDetail();
 			etc_plan.addTextChangedListener(new TextWatcher() {
 
 				public void onTextChanged(CharSequence s, int start,

@@ -184,45 +184,18 @@ public class DrillSelectActivity extends BaseActivity implements
 				intent.putExtra("drillPlanName",
 						obj.getDrillPlanName());
 				String precautionName = "";
-				String precautionId = "";
-				// String detailPlanId="";
-				for (int i = 0; i < preInfo.size(); i++) {
-					precautionName = precautionName
-							+ "|"
-							+ preInfo.get(i)
-							.getPrecautionName();
-					precautionId = precautionId
-							+ "|"
-							+ preInfo.get(i)
-							.getPrecautionId();
-					// detailPlanId=detailPlanId+"|"+preInfo.get(i).getDetailPlanId();
-
-				}
-				if (precautionName.subSequence(0, 1)
-						.equals("|")) {
-					precautionName = (String) precautionName
-							.subSequence(1,
-									precautionName.length());
-				}
-				if (precautionId.subSequence(0, 1).equals(
-						"|")) {
-					precautionId = (String) precautionId
-							.subSequence(1,
-									precautionId.length());
-				}
-				// if (detailPlanId.subSequence(0,
-				// 1).equals("|")) {
-				// detailPlanId = (String)
-				// detailPlanId.subSequence(1,
-				// detailPlanId.length());
-				// }
-				// intent.putExtra("detailPlanId",detailPlanId);
+				String precautionId = obj.getReferPlan();
+				precautionName = obj.getPrecautionList().replace("[", "")
+						.replace("]", "")
+						.replace("\"", "");
 				intent.putExtra("precautionName",
 						precautionName);// 预案名称
 				intent.putExtra("precautionId",
-						precautionId);// 预案名称
+						precautionId);// 预案编号
 				intent.putExtra("exPlanId",
 						obj.getExPlanId());
+				intent.putExtra("referProcess",
+						obj.getReferProcess());
 				Log.i("演练预案名称", precautionName);
 				Log.i("演练预案名称id", precautionId);
 				startActivity(intent);

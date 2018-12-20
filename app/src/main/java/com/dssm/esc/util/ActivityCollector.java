@@ -5,7 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 
-import com.easemob.chatuidemo.activity.SplashActivity;
+import com.dssm.esc.view.activity.SplashActivity;
 
 public class ActivityCollector {
 	

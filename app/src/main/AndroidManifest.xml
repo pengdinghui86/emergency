@@ -54,9 +54,11 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" -->
-    <!-- android:theme="@android:style/Theme.Holo.Light.NoActionBar" -->
+    <!--设置华为的Badge-->
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+
     <application
         android:name="com.easemob.chatuidemo.DemoApplication"
         android:allowBackup="true"
@@ -163,7 +165,7 @@
         <!-- 开屏页 -->
         <!-- android:theme="@style/horizontal_slide" -->
         <activity
-            android:name="com.easemob.chatuidemo.activity.SplashActivity"
+            android:name=".view.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:noHistory="true"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">

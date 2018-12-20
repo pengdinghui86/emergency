@@ -210,16 +210,17 @@ public class GetAuthPlanListParser {
 						else
 							suspandEntity.setSceneName("");
                         boolean checkExecutePeople = false;
-                        if(jsonObject2.has("checkExecutePeople"))
+                        if(jsonObject.has("checkExecutePeople"))
                         {
-                            if("true".equals(jsonObject2.getString("checkExecutePeople")))
+							String check = jsonObject.getString("checkExecutePeople");
+                            if("true".equals(jsonObject.getString("checkExecutePeople")))
                                 checkExecutePeople = true;
                         }
                         suspandEntity.setCheckExecutePeople(checkExecutePeople);
                         String isSign = "1";
-                        if(jsonObject2.has("isSign"))
+                        if(jsonObject.has("isSign"))
                         {
-                            if("0".equals(jsonObject2.getString("isSign")))
+                            if("0".equals(jsonObject.getString("isSign")))
                                 isSign = "0";
                         }
                         suspandEntity.setIsSign(isSign);

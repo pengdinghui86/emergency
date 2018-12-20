@@ -74,6 +74,16 @@ public class PlanStarDetailActivity extends BaseActivity implements
     @ViewInject(R.id.event_time)
     private TextView event_time;
     /**
+     * 事件发现人
+     */
+    @ViewInject(R.id.event_discoverer)
+    private TextView event_discoverer;
+    /**
+     * 发生时间
+     */
+    @ViewInject(R.id.event_discovery_time)
+    private TextView event_discovery_time;
+    /**
      * 已用时
      */
     @ViewInject(R.id.event_over_time)
@@ -276,6 +286,8 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     eventpeople.setText(obj.getSubmitter());
                     final String subTime = obj.getSubTime();
                     event_time.setText(subTime);
+                    event_discoverer.setText(obj.getDiscoverer());
+                    event_discovery_time.setText(obj.getDiscoveryTime());
                     String nowTime = obj.getNowTime();
                     overTime = Utils.getInstance().getOverTime(nowTime, subTime);
                     event_over_time.setText(overTime);

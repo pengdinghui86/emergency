@@ -347,37 +347,38 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         List<FlowChartPlanEntity.FlowChart> list = new ArrayList<FlowChartPlanEntity.FlowChart>();
         //排除流程未启动情况
         if(!planEntity.getState().equals("0") && !planEntity.getState().equals("2") && !planEntity.getState().equals("1")) {
-            switch (status) {
-                //0=全部，1=执行中，2=未执行，3=执行完成
-                case 0:
-                    list = allList;
-                    break;
-                case 1:
-                    String[] statusList = new String[]{"4", "8", "10", "21", "22", "25"};
-                    for (FlowChartPlanEntity.FlowChart flowChart : allList) {
-                        if (useLoop(statusList, flowChart.getStatus()))
-                            list.add(flowChart);
-                    }
-                    break;
-                case 2:
-                    String[] statusList2 = new String[]{"5", "6", "7", "20"};
-                    for (FlowChartPlanEntity.FlowChart flowChart : allList) {
-                        if (useLoop(statusList2, flowChart.getStatus())
-                                || ((null == flowChart.getType()) ? false
-                                : flowChart.getType().equals("drillNew"))
-                                || (10 < Integer.parseInt(flowChart.getStatus())
-                                && Integer.parseInt(flowChart.getStatus()) < 20))
-                            list.add(flowChart);
-                    }
-                    break;
-                case 3:
-                    String[] statusList3 = new String[]{"1", "2", "3", "9", "23", "24", "26", "27"};
-                    for (FlowChartPlanEntity.FlowChart flowChart : allList) {
-                        if (useLoop(statusList3, flowChart.getStatus()))
-                            list.add(flowChart);
-                    }
-                    break;
-            }
+
+        }
+        switch (status) {
+            //0=全部，1=执行中，2=未执行，3=执行完成
+            case 0:
+                list = allList;
+                break;
+            case 1:
+                String[] statusList = new String[]{"4", "8", "10", "21", "22", "25"};
+                for (FlowChartPlanEntity.FlowChart flowChart : allList) {
+                    if (useLoop(statusList, flowChart.getStatus()))
+                        list.add(flowChart);
+                }
+                break;
+            case 2:
+                String[] statusList2 = new String[]{"5", "6", "7", "20"};
+                for (FlowChartPlanEntity.FlowChart flowChart : allList) {
+                    if (useLoop(statusList2, flowChart.getStatus())
+                            || ((null == flowChart.getType()) ? false
+                            : flowChart.getType().equals("drillNew"))
+                            || (10 < Integer.parseInt(flowChart.getStatus())
+                            && Integer.parseInt(flowChart.getStatus()) < 20))
+                        list.add(flowChart);
+                }
+                break;
+            case 3:
+                String[] statusList3 = new String[]{"1", "2", "3", "9", "23", "24", "26", "27"};
+                for (FlowChartPlanEntity.FlowChart flowChart : allList) {
+                    if (useLoop(statusList3, flowChart.getStatus()))
+                        list.add(flowChart);
+                }
+                break;
         }
         Message message = handler.obtainMessage();
         message.what = 0;

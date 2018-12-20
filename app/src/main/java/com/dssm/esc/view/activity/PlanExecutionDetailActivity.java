@@ -101,6 +101,11 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     @ViewInject(R.id.done_status)
     private TextView done_status;
     /**
+     * 切换的完成状态标题
+     */
+    @ViewInject(R.id.done_status_title)
+    private TextView done_status_title;
+    /**
      * 提交信息布局
      */
     @ViewInject(R.id.submit_infomation_ll)
@@ -194,10 +199,12 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
         //判断节点不显示操作手册
         if(!childEntity.getNodeStepType().equals("ExclusiveGateway")) {
             operation.setVisibility(View.VISIBLE);
+            done_status_title.setText("完成状态");
             operation.setOnClickListener(this);
         }
         else {
             operation.setVisibility(View.GONE);
+            done_status_title.setText("选择分支");
             submit_infomation_ll.setVisibility(View.GONE);
         }
         String status = childEntity.getStatus();
@@ -345,7 +352,8 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                                 PlanExecutionDetailActivity.this,
                                 str);
                 change_ll.setVisibility(View.GONE);
-                done_ok_ll.setVisibility(View.VISIBLE);
+                if(!childEntity.getNodeStepType().equals("ExclusiveGateway"))
+                    done_ok_ll.setVisibility(View.VISIBLE);
                 // String overTime2 =
                 // getOverTime(executeTime);
                 // Log.i("overTime2", overTime2);

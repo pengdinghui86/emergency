@@ -37,6 +37,7 @@ import com.dssm.esc.model.entity.user.ButtonEntity;
 import com.dssm.esc.model.entity.user.MenuEntity;
 import com.dssm.esc.model.entity.user.UserPowerEntity;
 import com.dssm.esc.util.ActivityCollector;
+import com.dssm.esc.util.AppShortCutUtil;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DataCleanManager;
 import com.dssm.esc.util.MySharePreferencesService;
@@ -64,7 +65,6 @@ import com.easemob.chat.EMMessage;
 import com.easemob.chatuidemo.Constant;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.activity.LoginActivity;
-import com.easemob.chatuidemo.activity.SplashActivity;
 import com.easemob.util.EMLog;
 
 import java.lang.ref.WeakReference;
@@ -997,14 +997,20 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private void updateUnreadMsgCount() {
         int totalMsgCount = hxMsgCount + xgTaskMsgCount + xgSysMsgCount;
         if(totalMsgCount > 0) {
-            if(totalMsgCount > 99)
+            if(totalMsgCount > 99) {
                 redPointView.setText("99+");
-            else
+//                AppShortCutUtil.addNumShortCut(getApplicationContext(), MainActivity.class, true, "99", false);
+            }
+            else {
                 redPointView.setText(totalMsgCount + "");
+//                AppShortCutUtil.addNumShortCut(getApplicationContext(), MainActivity.class, true, totalMsgCount + "", false);
+            }
             redPointView.show();
         }
-        else
+        else {
             redPointView.hide();
+//            AppShortCutUtil.addNumShortCut(getApplicationContext(), MainActivity.class, false, "0", false);
+        }
     }
 
     /**

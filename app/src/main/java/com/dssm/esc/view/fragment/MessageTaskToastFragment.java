@@ -142,52 +142,52 @@ public class MessageTaskToastFragment extends BaseFragment implements
 
 		listview.setOnRefreshListener(this);
 		listview.setOnLoadListener(this);
-		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-				if(i > list.size())
-					return;
-				Intent intent = new Intent();
-				//事件已评估待启动
-				if (MessageStatusEnum.eventEvaluation.getId().equals(
-						list.get(i-1).getModelFlag()))
-				{
-					intent.setClass(getActivity(), EventListActivity.class);
-					intent.putExtra("tags", "1");
-				}
-				//预案已启动待签到
-				else if (MessageStatusEnum.planStarted.getId().equals(
-						list.get(i-1).getModelFlag()) || MessageStatusEnum.personSignIn.getId().equals(
-						list.get(i-1).getModelFlag()))
-				{
-					intent.setClass(getActivity(), PersonSignInActivity.class);
-				}
-				//预案已启动待授权
-				else if (MessageStatusEnum.planAuthorize.getId().equals(
-						list.get(i-1).getModelFlag()))
-				{
-					intent.setClass(getActivity(), EventPlanListActivity.class);
-					intent.putExtra("tags", "1");
-				}
-				//事件被驳回待重新评估
-				else if (MessageStatusEnum.eventReject.getId().equals(
-						list.get(i-1).getModelFlag()))
-				{
-					intent.setClass(getActivity(), DismissValuationActivity.class);
-					intent.putExtra("tags", "2");
-				}
-				//预案执行
-				else if (MessageStatusEnum.planExecute.getId().equals(
-						list.get(i-1).getModelFlag()))
-				{
-					intent.setClass(getActivity(), EventPlanListActivity.class);
-					intent.putExtra("tags", "6");
-				}
-				else
-					return;
-				startActivity(intent);
-			}
-		});
+//		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//				if(i > list.size())
+//					return;
+//				Intent intent = new Intent();
+//				//事件已评估待启动
+//				if (MessageStatusEnum.eventEvaluation.getId().equals(
+//						list.get(i-1).getModelFlag()))
+//				{
+//					intent.setClass(getActivity(), EventListActivity.class);
+//					intent.putExtra("tags", "1");
+//				}
+//				//预案已启动待签到
+//				else if (MessageStatusEnum.planStarted.getId().equals(
+//						list.get(i-1).getModelFlag()) || MessageStatusEnum.personSignIn.getId().equals(
+//						list.get(i-1).getModelFlag()))
+//				{
+//					intent.setClass(getActivity(), PersonSignInActivity.class);
+//				}
+//				//预案已启动待授权
+//				else if (MessageStatusEnum.planAuthorize.getId().equals(
+//						list.get(i-1).getModelFlag()))
+//				{
+//					intent.setClass(getActivity(), EventPlanListActivity.class);
+//					intent.putExtra("tags", "1");
+//				}
+//				//事件被驳回待重新评估
+//				else if (MessageStatusEnum.eventReject.getId().equals(
+//						list.get(i-1).getModelFlag()))
+//				{
+//					intent.setClass(getActivity(), DismissValuationActivity.class);
+//					intent.putExtra("tags", "2");
+//				}
+//				//预案执行
+//				else if (MessageStatusEnum.planExecute.getId().equals(
+//						list.get(i-1).getModelFlag()))
+//				{
+//					intent.setClass(getActivity(), EventPlanListActivity.class);
+//					intent.putExtra("tags", "6");
+//				}
+//				else
+//					return;
+//				startActivity(intent);
+//			}
+//		});
 	}
 
 	@Override

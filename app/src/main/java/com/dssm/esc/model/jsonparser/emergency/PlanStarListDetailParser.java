@@ -173,13 +173,7 @@ public class PlanStarListDetailParser {
 						if (jsonArray.opt(i)!=null) {
 						JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
 						PlanStarListDetailObjListEntity listEntity = new PlanStarListDetailObjListEntity();
-						if (eveType.equals("2")) {
-							listEntity.setName(jsonObject2
-									.getString("precautionName"));
-						}else {
-							listEntity.setName(jsonObject2
-									.getString("name"));
-						}
+						listEntity.setName(jsonObject2.getString("name"));
 						listEntity.setProcessId(jsonObject2.getString("processId"));
 						listEntity.setSceneName(jsonObject2.getString("sceneName"));
 						listEntity.setPlanType(jsonObject2.getString("planType"));

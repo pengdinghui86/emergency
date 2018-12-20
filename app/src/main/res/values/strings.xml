@@ -102,6 +102,7 @@
     <string name="plan_other_hint">选择其他预案</string>
     <string name="plan_kinds_hint">选择分类预案</string>
     <string name="plan_name">预案名称</string>
+    <string name="reference_plan">参考预案</string>
     <string name="event_des">事件描述</string>
     <string name="suggestion">应对建议</string>
     <string name="submit">提交</string>

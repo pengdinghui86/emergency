@@ -869,61 +869,69 @@ public class LoginActivity extends BaseActivity {
 
             new Thread(new Runnable() {
                 public void run() {
-                    try {
-                        // 调用sdk注册方法
-                        EMChatManager.getInstance().createAccountOnServer(
-                                hxuserid, pwd);
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                if (!LoginActivity.this.isFinishing())
-                                    pd.dismiss();
-                                // 保存用户名
-                                DemoApplication.getInstance().setUserName(
-                                        hxuserid);// 环信保存的是用户id
+//                    try {
+//                        // 调用sdk注册方法
+//                        EMChatManager.getInstance().createAccountOnServer(
+//                                hxuserid, pwd);
+//                        runOnUiThread(new Runnable() {
+//                            public void run() {
+//                                if (!LoginActivity.this.isFinishing())
+//                                    pd.dismiss();
+//                                // 保存用户名
+//                                DemoApplication.getInstance().setUserName(
+//                                        hxuserid);// 环信保存的是用户id
+//
+//                                // 注册成功后，调用sdk登录方法登录聊天服务器(登录也用用户id去登录)
+//                                login(hxuserid, hxuserid);
+//                            }
+//                        });
+//                    } catch (final EaseMobException e) {
+//                        runOnUiThread(new Runnable() {
+//                            public void run() {
+//                                if (!LoginActivity.this.isFinishing())
+//                                    pd.dismiss();
+//                                int errorCode = e.getErrorCode();
+//                                if (errorCode == EMError.NONETWORK_ERROR) {// 无网络
+//                                    Toast.makeText(
+//                                            getApplicationContext(),
+//                                            getResources().getString(
+//                                                    R.string.network_anomalies),
+//                                            Toast.LENGTH_SHORT).show();
+//                                } else if (errorCode == EMError.USER_ALREADY_EXISTS) {// 如果用户已存在，直接登录
+//                                    login(hxuserid, hxuserid);
+//                                } else if (errorCode == EMError.UNAUTHORIZED) {
+//                                    Toast.makeText(
+//                                            getApplicationContext(),
+//                                            getResources()
+//                                                    .getString(
+//                                                            R.string.registration_failed_without_permission),
+//                                            Toast.LENGTH_SHORT).show();
+//                                } else if (errorCode == EMError.ILLEGAL_USER_NAME) {// 用户名不合法
+//                                    Toast.makeText(
+//                                            getApplicationContext(),
+//                                            getResources().getString(
+//                                                    R.string.illegal_user_name),
+//                                            Toast.LENGTH_SHORT).show();
+//                                } else {// 注册失败
+//                                    Toast.makeText(
+//                                            getApplicationContext(),
+//                                            getResources()
+//                                                    .getString(
+//                                                            R.string.Registration_failed)
+//                                                    + e.getMessage(),
+//                                            Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+//                    }
 
-                                // 注册成功后，调用sdk登录方法登录聊天服务器(登录也用用户id去登录)
-                                login(hxuserid, hxuserid);
-                            }
-                        });
-                    } catch (final EaseMobException e) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                if (!LoginActivity.this.isFinishing())
-                                    pd.dismiss();
-                                int errorCode = e.getErrorCode();
-                                if (errorCode == EMError.NONETWORK_ERROR) {// 无网络
-                                    Toast.makeText(
-                                            getApplicationContext(),
-                                            getResources().getString(
-                                                    R.string.network_anomalies),
-                                            Toast.LENGTH_SHORT).show();
-                                } else if (errorCode == EMError.USER_ALREADY_EXISTS) {// 如果用户已存在，直接登录
-                                    login(hxuserid, hxuserid);
-                                } else if (errorCode == EMError.UNAUTHORIZED) {
-                                    Toast.makeText(
-                                            getApplicationContext(),
-                                            getResources()
-                                                    .getString(
-                                                            R.string.registration_failed_without_permission),
-                                            Toast.LENGTH_SHORT).show();
-                                } else if (errorCode == EMError.ILLEGAL_USER_NAME) {// 用户名不合法
-                                    Toast.makeText(
-                                            getApplicationContext(),
-                                            getResources().getString(
-                                                    R.string.illegal_user_name),
-                                            Toast.LENGTH_SHORT).show();
-                                } else {// 注册失败
-                                    Toast.makeText(
-                                            getApplicationContext(),
-                                            getResources()
-                                                    .getString(
-                                                            R.string.Registration_failed)
-                                                    + e.getMessage(),
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                    }
+                    pd.dismiss();
+                    // 保存用户名
+                    DemoApplication.getInstance().setUserName(
+                            hxuserid);// 环信保存的是用户id
+
+                    // 注册成功后，调用sdk登录方法登录聊天服务器(登录也用用户id去登录)
+                    login(hxuserid, hxuserid);
                 }
             }).start();
 

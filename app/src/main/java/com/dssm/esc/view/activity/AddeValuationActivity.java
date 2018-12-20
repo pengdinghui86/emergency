@@ -225,7 +225,7 @@ public class AddeValuationActivity extends BaseActivity implements
 		event_name.setFocusable(true);
 		event_name.setFocusableInTouchMode(true);
 		event_name.requestFocus();
-		event_discover.setText(map.get("name").toString());
+		event_discover.setText("");
 
 		if (type.equals("1")) {
 			entity = (GetProjectEveInfoEntity) intent
@@ -521,6 +521,7 @@ public class AddeValuationActivity extends BaseActivity implements
 			drillPlanName = intent2.getStringExtra("drillPlanName");
 			exPlanId = intent2.getStringExtra("exPlanId");
 			referPlan = precautionId;
+			referProcess = intent2.getStringExtra("referProcess");
 		}
 		if (type.equals("1")) {// 重新评估
 			entity.setTradeTypeId(tradeTypeId);// 行业类型
@@ -573,7 +574,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				if (!tradeTypeId.equals("") && !eveLevelId.equals("")
 						&& !eveDescription.equals("")
 						&& !dealAdvice.equals("") && !eveName.equals("")
-						&& !planall.equals("")) {
+						&& !planall.equals("") && !event_discover.equals("")) {
 
 					addValuation();
 
@@ -586,7 +587,8 @@ public class AddeValuationActivity extends BaseActivity implements
 				if (!tradeTypeId.equals("") && !eveLevelId.equals("")
 						&& !eveDescription.equals("")
 						&& !dealAdvice.equals("") && !eveName.equals("")
-						&& !precautionId.equals("")) {
+						&& !precautionId.equals("")
+						&& !event_discover.equals("")) {
 					addValuation();
 				} else {
 					ToastUtil

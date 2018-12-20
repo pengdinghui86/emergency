@@ -8,7 +8,7 @@ import android.util.Log;
 import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.activity.MainActivity;
-import com.easemob.chatuidemo.activity.SplashActivity;
+import com.dssm.esc.view.activity.SplashActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

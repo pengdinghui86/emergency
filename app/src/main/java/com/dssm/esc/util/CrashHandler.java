@@ -8,11 +8,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Looper;
 import android.text.TextUtils;
-import android.widget.Toast;
 
-import com.easemob.chatuidemo.activity.SplashActivity;
+import com.dssm.esc.view.activity.SplashActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;

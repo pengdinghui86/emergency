@@ -1,4 +1,4 @@
-package com.easemob.chatuidemo.activity;
+package com.dssm.esc.view.activity;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -29,11 +29,12 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
-import com.dssm.esc.view.activity.MainActivity;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.chatuidemo.DemoApplication;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
+import com.easemob.chatuidemo.activity.BaseActivity;
+import com.easemob.chatuidemo.activity.LoginActivity;
 
 import java.io.File;
 import java.io.InputStream;

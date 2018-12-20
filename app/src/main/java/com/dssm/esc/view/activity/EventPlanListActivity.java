@@ -213,6 +213,9 @@ public class EventPlanListActivity extends BaseActivity implements
                         AutorizateDecDetailActivity.class);
                 intent.putExtra("id", list.get(position)
                         .getId());
+                intent.putExtra("name", list.get(position)
+                        .getPlanName() + "-" + list.get(position)
+                        .getSceneName());
                 intent.putExtra("planId", list.get(position)
                         .getPlanId());
                 intent.putExtra("planResId", list.get(position)
@@ -525,7 +528,6 @@ public class EventPlanListActivity extends BaseActivity implements
                 Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
                 intent.putExtra("msgType", "updatePlanCount");
                 sendBroadcast(intent);
-                finish();
             } else if (backflag == false) {
                 ToastUtil.showToast(EventPlanListActivity.this,
                         "操作失败");
