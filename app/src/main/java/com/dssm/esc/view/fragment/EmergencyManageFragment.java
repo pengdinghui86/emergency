@@ -436,8 +436,9 @@ public class EmergencyManageFragment extends BaseFragment implements
 				eventManageAdapter.updateRemindCount("event_reject", Integer.parseInt(entity.getRejectEvaCount()));
 				planManageAdapter.updateRemindCount("wait_authorize", Integer.parseInt(entity.getAuthCount()));
 				planManageAdapter.updateRemindCount("wait_start", Integer.parseInt(entity.getStartCount()));
-				eventManageAdapter.notifyDataSetChanged();
-				planManageAdapter.notifyDataSetChanged();
+				eventManageAdapter.notifyItemChanged(1);
+				planManageAdapter.notifyItemChanged(0);
+				planManageAdapter.notifyItemChanged(2);
 			} else if (stRerror != null) {
 
 			} else if (Exceptionerror != null) {
