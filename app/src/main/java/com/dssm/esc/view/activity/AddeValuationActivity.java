@@ -288,10 +288,10 @@ public class AddeValuationActivity extends BaseActivity implements
 						Map<String, String> map = referPlan2.get(i);
 						String id = map.get("id");
 						String name = map.get("name");
-						referPlanIds = referPlanIds + "," + id;
+						referPlanIds = referPlanIds + "|" + id;
 						referPlanNames = referPlanNames + "," + name;
 					}
-					if (referPlanIds.subSequence(0, 1).equals(",")) {
+					if (referPlanIds.subSequence(0, 1).equals("|")) {
 						referPlanIds = (String) referPlanIds.subSequence(1,
 								referPlanIds.length());
 					}
@@ -310,10 +310,10 @@ public class AddeValuationActivity extends BaseActivity implements
 						Map<String, String> map = otherPlan2.get(i);
 						String id = map.get("id");
 						String name = map.get("name");
-						otherPlanIds = otherPlanIds + "," + id;
+						otherPlanIds = otherPlanIds + "|" + id;
 						otherPlanNames = otherPlanNames + "," + name;
 					}
-					if (otherPlanIds.subSequence(0, 1).equals(",")) {
+					if (otherPlanIds.subSequence(0, 1).equals("|")) {
 						otherPlanIds = (String) otherPlanIds.subSequence(1,
 								otherPlanIds.length());
 					}
@@ -353,10 +353,10 @@ public class AddeValuationActivity extends BaseActivity implements
 						Map<String, String> map = referPlan2.get(i);
 						String id = map.get("id");
 						String name = map.get("name");
-						referPlanIds = referPlanIds + "," + id;
+						referPlanIds = referPlanIds + "|" + id;
 						referPlanNames = referPlanNames + "," + name;
 					}
-					if (referPlanIds.subSequence(0, 1).equals(",")) {
+					if (referPlanIds.subSequence(0, 1).equals("|")) {
 						referPlanIds = (String) referPlanIds.subSequence(1,
 								referPlanIds.length());
 					}
