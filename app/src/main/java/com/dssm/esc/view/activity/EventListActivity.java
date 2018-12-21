@@ -182,19 +182,25 @@ public class EventListActivity extends BaseActivity implements
 		Control.getinstance().getEmergencyService().planStarBohui(entity.getId(), entity.getEveName(), entity.getSubmitterId(), entity.getEveType(), rejectEventListener);
 	}
 
+	/**
+	 * 事件关闭
+	 */
+	private void closeEvent(String id) {
+		Utils.getInstance().showProgressDialog(EventListActivity.this, "",
+				Const.SUBMIT_MESSAGE);
+		Control.getinstance().getEmergencyService().closeEvent(id, closeEventListener);
+	}
+
 	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser rejectEventListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
 
 		@Override
 		public void setEmergencySeviceImplListenser(
 				Boolean backflag, String stRerror,
 				String Exceptionerror) {
-			// TODO Auto-generated method stub
-			String str = null;
 			if (backflag) {
-				str = stRerror;
 				ToastUtil.showToast(EventListActivity.this,
-						str);
-				onEvent(new mainEvent("refres"));// 刷新预案启动列表
+						"操作成功");
+				onEvent(new mainEvent("refres"));// 刷新列表
 				Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
 				intent.putExtra("msgType", "updatePlanCount");
 				sendBroadcast(intent);
@@ -210,6 +216,33 @@ public class EventListActivity extends BaseActivity implements
 
 				ToastUtil.showToast(EventListActivity.this,
 						Exceptionerror);
+			}
+			Utils.getInstance().hideProgressDialog();
+		}
+	};
+
+	private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser closeEventListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListenser(
+				Boolean backflag, String stRerror,
+				String Exceptionerror) {
+
+			if (backflag) {
+				ToastUtil.showToast(EventListActivity.this,
+						"操作成功");
+				onEvent(new mainEvent("refres"));// 刷新列表
+			} else if (backflag == false) {
+				ToastUtil.showToast(EventListActivity.this,
+						stRerror);
+			} else if (stRerror != null) {
+
+				ToastUtil.showLongToast(EventListActivity.this,
+						stRerror);
+			} else if (Exceptionerror != null) {
+
+				ToastUtil.showLongToast(EventListActivity.this,
+						Const.NETWORKERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}
@@ -385,7 +418,7 @@ public class EventListActivity extends BaseActivity implements
 								}
 							}).show();
 		}
-		else if(tags.equals("3"))
+		else if(tags.equals("4"))
 		{
 			new android.app.AlertDialog.Builder(EventListActivity.this)
 					.setMessage("确定关闭该事件？")
@@ -393,7 +426,7 @@ public class EventListActivity extends BaseActivity implements
 							new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface arg0, int arg1) {
-
+									closeEvent(list.get(position).getId());
 								}
 							})
 					.setNegativeButton("取消",

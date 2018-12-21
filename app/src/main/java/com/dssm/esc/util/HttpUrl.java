@@ -1,7 +1,5 @@
 package com.dssm.esc.util;
 
-import com.easemob.chatuidemo.DemoApplication;
-
 /**
  * 各个接口的URL
  *
@@ -140,6 +138,10 @@ public class HttpUrl {
      * 事件删除
      */
     public final static String DELETEEVENT =  "emergency/planEva/delete";
+    /**
+     * 事件关闭
+     */
+    public final static String CLOSEEEVENT =  "emergency/planEva/close";
     /**
      * 授权决策列表
      */

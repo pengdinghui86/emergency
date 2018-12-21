@@ -16,6 +16,7 @@ import com.dssm.esc.model.jsonparser.emergency.BeginExecutePlanParser;
 import com.dssm.esc.model.jsonparser.emergency.BoHuiEventListParser;
 import com.dssm.esc.model.jsonparser.emergency.BusinessTypeParser;
 import com.dssm.esc.model.jsonparser.emergency.CheckEmergencySignParser;
+import com.dssm.esc.model.jsonparser.emergency.CloseEventParser;
 import com.dssm.esc.model.jsonparser.emergency.DeleteEventParser;
 import com.dssm.esc.model.jsonparser.emergency.DrillPrecautionDetailParser;
 import com.dssm.esc.model.jsonparser.emergency.DrillProjectNameParser;
@@ -573,6 +574,32 @@ public class EmergencyServiceImpl implements EmergencyService {
 			return;
 		}
 		new DeleteEventParser(id, new OnDataCompleterListener() {
+
+			@Override
+			public void onEmergencyParserComplete(Object object, String error) {
+				// TODO Auto-generated method stub
+				if(wr.get() != null)
+					setEmergencyBooleanListenser(wr.get(), object, error);
+			}
+		});
+	}
+
+	/**
+	 * 事件关闭
+	 */
+	@Override
+	public void closeEvent(String id,
+							EmergencySeviceImplBackBooleanListenser listenser) {
+		// TODO Auto-generated method stub
+		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
+
+		if (id == null) {
+			if(wr.get() != null)
+				wr.get().setEmergencySeviceImplListenser(null,
+						Const.PARAMETER_NULL, null);
+			return;
+		}
+		new CloseEventParser(id, new OnDataCompleterListener() {
 
 			@Override
 			public void onEmergencyParserComplete(Object object, String error) {

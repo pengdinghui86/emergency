@@ -145,6 +145,15 @@ public interface EmergencyService {
 					 EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listenser);
 
 	/**
+	 * 事件关闭
+	 *
+	 * @param id
+	 * @param listenser
+	 */
+	void closeEvent(String id,
+					 EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listenser);
+
+	/**
 	 * 列表展示
 	 * 
 	 * @param a
