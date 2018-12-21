@@ -574,7 +574,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				if (!tradeTypeId.equals("") && !eveLevelId.equals("")
 						&& !eveDescription.equals("")
 						&& !dealAdvice.equals("") && !eveName.equals("")
-						&& !planall.equals("") && !event_discover.equals("")) {
+						&& !planall.equals("") && event_discover.getText().toString() != null && !"".equals(event_discover.getText().toString())) {
 
 					addValuation();
 
@@ -588,7 +588,7 @@ public class AddeValuationActivity extends BaseActivity implements
 						&& !eveDescription.equals("")
 						&& !dealAdvice.equals("") && !eveName.equals("")
 						&& !precautionId.equals("")
-						&& !event_discover.equals("")) {
+						&& event_discover.getText().toString() != null && !"".equals(event_discover.getText().toString())) {
 					addValuation();
 				} else {
 					ToastUtil
