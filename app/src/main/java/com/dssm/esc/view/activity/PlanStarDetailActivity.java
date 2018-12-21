@@ -540,9 +540,9 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     }
 
                     for (int i = 0; i < palnNames.size(); i++) {
-                        planName = planName + "|" + palnNames.get(i);
+                        planName = planName + "," + palnNames.get(i);
                     }
-                    if (planName.subSequence(0, 1).equals("|")) {
+                    if (planName.subSequence(0, 1).equals(",")) {
                         planName = (String) planName.subSequence(1,
                                 planName.length());
                     }
@@ -619,7 +619,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
                                     str4 = str4 + "," + typelist4.get(i).getName() +
                                             "-" + typelist4.get(i).getSceneName();
-                                    referPlan = referPlan + ","
+                                    referPlan = referPlan + "|"
                                             + typelist4.get(i).getId();
                                     referPlanName = referPlanName + ","
                                             + typelist4.get(i).getName();
@@ -629,7 +629,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                                 }
 
                             }
-                            if (referPlan.subSequence(0, 1).equals(",")) {
+                            if (referPlan.subSequence(0, 1).equals("|")) {
                                 referPlan = (String) referPlan.subSequence(1,
                                         referPlan.length());
                             }
@@ -661,7 +661,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                             for (int i = 0; i < typelist5.size(); i++) {
                                 if (typelist5.get(i).isSelect()) {
                                     str5 = str5 + "," + typelist5.get(i).getName() + "-" + typelist5.get(i).getSceneName();
-                                    otherReferPlan = otherReferPlan + ","
+                                    otherReferPlan = otherReferPlan + "|"
                                             + typelist5.get(i).getId();
                                     otherReferPlanName = otherReferPlanName + ","
                                             + typelist5.get(i).getName();
@@ -670,7 +670,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                                     selectedIds.add(entity);
                                 }
                             }
-                            if (otherReferPlan.subSequence(0, 1).equals(",")) {
+                            if (otherReferPlan.subSequence(0, 1).equals("|")) {
                                 otherReferPlan = (String) otherReferPlan
                                         .subSequence(1, otherReferPlan.length());
                             }
