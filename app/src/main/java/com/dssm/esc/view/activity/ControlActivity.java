@@ -430,7 +430,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                                 + "/"
                                 + entity.getNotice().getNeedNoticeNum();
                         int noticeProgress = (int) (Double.parseDouble(entity.getNotice().getNoticeNum()) * 100 / Double.parseDouble(entity.getNotice().getNeedNoticeNum()));
-                        double noticeWidthPercent = Double.parseDouble(entity.getNotice().getNeedNoticeNum()) / maxNum;
+                        double noticeWidthPercent = Double.parseDouble(entity.getNotice().getNeedNoticeNum()) / maxNum * 0.9;
                         emergency_notice_progressBar.setData(noticeProgress, noticeWidthPercent, noticeDescription);
                     }
                     else
@@ -440,7 +440,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                                 + "/"
                                 + entity.getSign().getNeedSignNum();
                         int signProgress = (int) (Double.parseDouble(entity.getSign().getSignNum()) * 100 / Double.parseDouble(entity.getSign().getNeedSignNum()));
-                        double signWidthPercent = Double.parseDouble(entity.getSign().getNeedSignNum()) / maxNum;
+                        double signWidthPercent = Double.parseDouble(entity.getSign().getNeedSignNum()) / maxNum * 0.9;
                         emergency_sign_progressBar.setData(signProgress, signWidthPercent, signDescription);
                     }
                     else

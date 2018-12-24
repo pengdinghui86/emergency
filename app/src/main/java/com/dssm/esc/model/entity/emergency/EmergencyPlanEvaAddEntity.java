@@ -47,6 +47,44 @@ public class EmergencyPlanEvaAddEntity implements Serializable {
 	private String referProcess;
 	/**事件发现人*/
 	private String eventDiscover;
+	/**事件发生时间*/
+	private String eventHappenTime;
+	/**应急处置流程，预案启动、预案授权和人员签到，"0"=未选择"1"=选择*/
+	private String isPreStart;
+	private String isAuthori;
+	private String isSign;
+
+	public String getEventHappenTime() {
+		return eventHappenTime;
+	}
+
+	public void setEventHappenTime(String eventHappenTime) {
+		this.eventHappenTime = eventHappenTime;
+	}
+
+	public String getIsPreStart() {
+		return isPreStart;
+	}
+
+	public void setIsPreStart(String isPreStart) {
+		this.isPreStart = isPreStart;
+	}
+
+	public String getIsAuthori() {
+		return isAuthori;
+	}
+
+	public void setIsAuthori(String isAuthori) {
+		this.isAuthori = isAuthori;
+	}
+
+	public String getIsSign() {
+		return isSign;
+	}
+
+	public void setIsSign(String isSign) {
+		this.isSign = isSign;
+	}
 
 	public String getRefPlanId() {
 		return refPlanId;

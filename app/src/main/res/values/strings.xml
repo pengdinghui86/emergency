@@ -95,6 +95,8 @@
     <string name="event_discover">事件发现人</string>
     <string name="event_background_hint">选择事件场景</string>
     <string name="event_origin_hint">选择事件来源</string>
+    <string name="emergency_disposal_process">应急处置流程</string>
+    <string name="emergency_disposal_process_hint">选择应急处置流程</string>
     <string name="plan_background_hint">选择涉及预案</string>
     <string name="plan_drill_hint">选择演练预案</string>
     <string name="drill_type_hint">请选择演练类型（必填）</string>

@@ -354,8 +354,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 
     /**
      * 广播接收器
-     * @author len
-     *
      */
     public class MsgReceiver extends BroadcastReceiver {
 

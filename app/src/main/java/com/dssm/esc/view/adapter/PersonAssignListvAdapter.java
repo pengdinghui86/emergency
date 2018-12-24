@@ -2,6 +2,7 @@ package com.dssm.esc.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,6 +113,8 @@ public class PersonAssignListvAdapter extends BaseAdapter {
 				mhHolder.assign.setVisibility(View.INVISIBLE);
 			mhHolder.who_task.setVisibility(View.VISIBLE);
 			mhHolder.whodone_name.setVisibility(View.VISIBLE);
+			mhHolder.who_task.setTextColor(context.getResources().getColor(R.color.black));
+			mhHolder.whodone_name.setTextColor(context.getResources().getColor(R.color.black));
 			mhHolder.whodone_title.setVisibility(View.VISIBLE);
 			mhHolder.stepname.setGravity(Gravity.LEFT|Gravity.TOP);
 			mhHolder.assign.setOnClickListener(new OnClickListener() {
@@ -137,6 +140,8 @@ public class PersonAssignListvAdapter extends BaseAdapter {
 			if (state.equals("0")) {
 				stepname="无执行人";
 				mhHolder.who_task.setVisibility(View.GONE);
+				mhHolder.who_task.setTextColor(Color.RED);
+				mhHolder.whodone_name.setTextColor(Color.RED);
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
 				mhHolder.iv.setImageResource(R.drawable.person_assign_title);
 			}else if (state.equals("1")) {

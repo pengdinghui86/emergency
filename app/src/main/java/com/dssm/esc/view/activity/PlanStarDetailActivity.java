@@ -577,6 +577,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     Log.i("planName", planName);// 预案名称 发送通知使用
                     Log.i("planId", usePlan);// 预案ID 发送通知使用
                     if (!id.equals("") && !opition.equals("")) {
+                        obj.setDealAdvice(opition);
                         startPlan();
                     } else {
                         ToastUtil.showToast(PlanStarDetailActivity.this, "处理意见必填！");
@@ -584,6 +585,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                 } else if (tag.equals("2") && !planname.equals("")
                         && planname.length() > 0 && planname != null) {
                     if (!opition.equals("")) {
+                        obj.setDealAdvice(opition);
                         startPlan();
                     } else {
                         ToastUtil.showToast(PlanStarDetailActivity.this, "处理意见必填！");
@@ -712,6 +714,9 @@ public class PlanStarDetailActivity extends BaseActivity implements
                 ToastUtil.showToast(PlanStarDetailActivity.this, Exceptionerror);
             }
             EventBus.getDefault().post(new mainEvent("refres"));// 刷新预案启动列表
+            Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
+            intent.putExtra("msgType", "updatePlanCount");
+            sendBroadcast(intent);
             finish();
             Utils.getInstance().hideProgressDialog();
         }

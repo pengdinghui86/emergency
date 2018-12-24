@@ -113,6 +113,12 @@ public class AddeValuationActivity extends BaseActivity implements
 	/** 参考预案 */
 	@ViewInject(R.id.referPlan_name)
 	private TextView referPlan_name;
+	/** 应急处置流程布局 */
+	@ViewInject(R.id.emergency_disposal_process_ll)
+	private LinearLayout emergency_disposal_process_ll;
+	/** 应急处置流程 */
+	@ViewInject(R.id.emergency_disposal_process)
+	private TextView emergency_disposal_process;
 	/** 其他预案布局 */
 	@ViewInject(R.id.otherReferPlan_name_ll)
 	private LinearLayout otherReferPlan_name_ll;
@@ -156,6 +162,8 @@ public class AddeValuationActivity extends BaseActivity implements
 	private String dealAdvice = "";
 	/** 参考预案 可以多选，以“|”隔开 */
 	private String referPlan = "";
+	/** 应急处置流程 可以多选，以“|”隔开 */
+	private String emergencyDisposalProcess = "";
 	/** 参考预案下面的场景预案 可以多选，以“|”隔开 */
 	private String referProcess = "";
 	/** 其他预案 可以多选，以“|”隔开 */
@@ -234,15 +242,20 @@ public class AddeValuationActivity extends BaseActivity implements
 			String eveType2 = entity.getEveType();
 			if (eveType2.equals("1")) {
 				title.setText("应急-重新评估");
+				emergency_disposal_process_ll.setVisibility(View.VISIBLE);
 			} else if (eveType2.equals("2")) {
 				title.setText("演练-重新评估");
+				emergency_disposal_process_ll.setVisibility(View.VISIBLE);
 			}
 
 		} else {
 			tag = intent.getStringExtra("tag");
 			if (tag.equals("1")) {
 				title.setText("应急-新增评估");
+				emergency_disposal_process_ll.setVisibility(View.VISIBLE);
+				emergency_disposal_process_ll.setOnClickListener(this);
 			} else if (tag.equals("2")) {
+				emergency_disposal_process_ll.setVisibility(View.GONE);
 				title.setText("演练-新增评估");
 			}
 			event_name_ll.setOnClickListener(this);
@@ -250,10 +263,9 @@ public class AddeValuationActivity extends BaseActivity implements
 			otherReferPlan_name_ll.setOnClickListener(this);// 其他预案布局
 			categoryPlan_name_ll.setOnClickListener(this);// 分类预案布局
 			business_type_ll.setOnClickListener(this);// 行业类型布局
-			event_happen_time_ll.setOnClickListener(this);// 事件场景布局
+			event_happen_time_ll.setOnClickListener(this);// 事件发生时间布局
 			referPlan_name_ll.setOnClickListener(this);// 参考预案布局
 		}
-		event_happen_time_ll.setVisibility(View.GONE);
 		otherReferPlan_name_ll.setVisibility(View.GONE);
 		event_level_ll.setOnClickListener(this);// 事件等级布局
 		submit.setOnClickListener(this);// 提交数据
@@ -382,6 +394,7 @@ public class AddeValuationActivity extends BaseActivity implements
 	private List<PlanNameRowEntity> resutList4 = new ArrayList<PlanNameRowEntity>();
 	private List<PlanNameRowEntity> resutList5 = new ArrayList<PlanNameRowEntity>();
 	private List<PlanNameRowEntity> resutList6 = new ArrayList<PlanNameRowEntity>();
+	private List<PlanNameRowEntity> resutList7 = new ArrayList<PlanNameRowEntity>();
 
 	@Override
 	public void onClick(View view) {
@@ -429,6 +442,16 @@ public class AddeValuationActivity extends BaseActivity implements
 				bundle4.putSerializable("arrlist", (Serializable) resutList4);
 				intent.putExtras(bundle4);
 				startActivityForResult(intent, 4);
+				break;
+				case R.id.emergency_disposal_process_ll: // 应急处置流程布局
+				intent = new Intent(AddeValuationActivity.this,
+						PlanNameActivity.class);
+				Bundle bundle7 = new Bundle();
+				bundle7.putInt("plantags", 5);
+				bundle7.putString("tags", "2");
+				bundle7.putSerializable("arrlist", (Serializable) resutList7);
+				intent.putExtras(bundle7);
+				startActivityForResult(intent, 7);
 				break;
 			case R.id.otherReferPlan_name_ll: // 其他预案布局
 
@@ -554,6 +577,7 @@ public class AddeValuationActivity extends BaseActivity implements
 			addEntity.setEmergType(emergType);// 演练类型
 			addEntity.setEveName(eveName);// 事件名称
 			addEntity.setEventDiscover(event_discover.getText().toString());// 事件发现人
+			addEntity.setEventHappenTime(event_happen_time.getText().toString());// 事件发生时间
 			addEntity.setRefPlanId(referPlan);// 涉及预案
 			addEntity.setDealAdvice(dealAdvice);// 处置建议
 			addEntity.setReferPlan(referPlan);// 参考预案
@@ -564,6 +588,27 @@ public class AddeValuationActivity extends BaseActivity implements
 			addEntity.setDrillPlanId(drillPlanId);// 演练详细计划ID
 			addEntity.setDrillPlanName(drillPlanName);// 演练详细计划名称
 			addEntity.setExPlanId(exPlanId);// 演练初始计划id
+			//预案启动
+			if(emergencyDisposalProcess.indexOf("1") > -1)
+			{
+				addEntity.setIsPreStart("1");
+			}
+			else
+				addEntity.setIsPreStart("0");
+			//预案授权
+			if(emergencyDisposalProcess.indexOf("2") > -1)
+			{
+				addEntity.setIsAuthori("1");
+			}
+			else
+				addEntity.setIsAuthori("0");
+			//人员签到
+			if(emergencyDisposalProcess.indexOf("3") > -1)
+			{
+				addEntity.setIsSign("1");
+			}
+			else
+				addEntity.setIsSign("0");
 			String planall = "";
 			planall = referPlan + otherReferPlan + categoryPlan;
 			Log.i("referPlan", referPlan);
@@ -574,7 +619,11 @@ public class AddeValuationActivity extends BaseActivity implements
 				if (!tradeTypeId.equals("") && !eveLevelId.equals("")
 						&& !eveDescription.equals("")
 						&& !dealAdvice.equals("") && !eveName.equals("")
-						&& !planall.equals("") && event_discover.getText().toString() != null && !"".equals(event_discover.getText().toString())) {
+						&& !planall.equals("")
+						&& event_discover.getText().toString() != null
+						&& !"".equals(event_discover.getText().toString())
+						&& event_happen_time.getText().toString() != null
+						&& !"".equals(event_happen_time.getText().toString())) {
 
 					addValuation();
 
@@ -588,7 +637,10 @@ public class AddeValuationActivity extends BaseActivity implements
 						&& !eveDescription.equals("")
 						&& !dealAdvice.equals("") && !eveName.equals("")
 						&& !precautionId.equals("")
-						&& event_discover.getText().toString() != null && !"".equals(event_discover.getText().toString())) {
+						&& event_discover.getText().toString() != null
+						&& !"".equals(event_discover.getText().toString())
+						&& event_happen_time.getText().toString() != null
+						&& !"".equals(event_happen_time.getText().toString())) {
 					addValuation();
 				} else {
 					ToastUtil
@@ -700,6 +752,7 @@ public class AddeValuationActivity extends BaseActivity implements
 		case 4:
 			String str4 = "";
 			selectedIds.clear();
+			referPlan = "";
 			if (data != null && resultCode == RESULT_OK) {
 				// Bundle bundle = data.getExtras();
 				// resutList4 = (List<PlanNameRowEntity>)
@@ -749,6 +802,7 @@ public class AddeValuationActivity extends BaseActivity implements
 		case 5: // 其他预案布局
 			String str5 = "";
 			selectedIds.clear();
+			otherReferPlan = "";
 			if (data != null && resultCode == RESULT_OK) {
 				resutList5 = (ArrayList<PlanNameRowEntity>) data
 						.getSerializableExtra("arrlist");
@@ -788,6 +842,7 @@ public class AddeValuationActivity extends BaseActivity implements
 		case 6:
 			String str6 = "";
 			selectedIds.clear();
+			categoryPlan = "";
 			if (data != null && resultCode == RESULT_OK) {
 				resutList6 = (ArrayList<PlanNameRowEntity>) data
 						.getSerializableExtra("arrlist");
@@ -822,6 +877,37 @@ public class AddeValuationActivity extends BaseActivity implements
 //			}
 
 			break;
+			case 7:
+				String str7 = "";
+				selectedIds.clear();
+				emergencyDisposalProcess = "";
+				if (data != null && resultCode == RESULT_OK) {
+					resutList7 = (ArrayList<PlanNameRowEntity>) data
+							.getSerializableExtra("arrlist");
+					ArrayList<PlanNameRowEntity> typelist7 = new ArrayList<PlanNameRowEntity>();
+					if (resutList7 != null && resutList7.size() > 0) {
+						typelist7.clear();
+						typelist7.addAll(resutList7);
+						for (int i = 0; i < typelist7.size(); i++) {
+							if (typelist7.get(i).isSelect()) {
+								str7 = str7 + "," + typelist7.get(i).getName();
+								emergencyDisposalProcess = emergencyDisposalProcess + "|"
+										+ typelist7.get(i).getId();
+								PlanNameRowEntity entity = new PlanNameRowEntity();
+								entity.setId(typelist7.get(i).getId());
+								selectedIds.add(entity);
+							}
+						}
+						if (emergencyDisposalProcess.subSequence(0, 1).equals("|")) {
+							emergencyDisposalProcess = (String) emergencyDisposalProcess.subSequence(1,
+									emergencyDisposalProcess.length());
+						}
+					}
+				}
+				if (str7.length() > 0) {
+					emergency_disposal_process.setText(str7.substring(1, str7.length()));
+				}
+				break;
 			case 1001:
 				if (data != null && resultCode == RESULT_OK) {
 					event_name.setText(data.getExtras().get("content").toString());
@@ -873,12 +959,15 @@ public class AddeValuationActivity extends BaseActivity implements
 			String str = "";
 			if (backflag) {
 				ToastUtil.showToast(AddeValuationActivity.this,
-						stRerror);
+						"操作成功");
 				if (tag.equals("2")) {
 					EventBus.getDefault()
 							.post(new mainEvent("ref"));// 刷新演练列表
 
 				}
+				Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
+				intent.putExtra("msgType", "updatePlanCount");
+				sendBroadcast(intent);
 				finish();
 				// } else if (backflag == false) {
 				// ToastUtil.showToast(AddeValuationActivity.this,
@@ -958,7 +1047,16 @@ public class AddeValuationActivity extends BaseActivity implements
 		int day = mTimePickerDialog.getDay();
 		int hour = mTimePickerDialog.getHour();
 		int minute = mTimePickerDialog.getMinute();
-		event_happen_time.setText(year + "年" + month + "月" + day + "日 " + hour + "时" + minute + "分");
+//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		String dateString = formatter.format(currentTime);
+		String time = year + "-"
+				+ (month < 10 ? "0" + month : month) + "-"
+				+ (day < 10 ? "0" + day : day) + " "
+				+ (hour < 10 ? "0" + hour : hour) + ":"
+				+ (minute < 10 ? "0" + minute : minute) + ":"
+				+ "00";
+
+		event_happen_time.setText(time);
 	}
 	//时间选择器----------取消
 	@Override

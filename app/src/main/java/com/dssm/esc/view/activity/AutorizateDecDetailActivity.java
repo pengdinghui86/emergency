@@ -362,35 +362,28 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			initData(sem_tags);
 			break;
 		case R.id.stop:// 中止
-			planSuspendOpition2 = etc_plan.getText().toString().trim();
-			if (!planSuspendOpition2.equals("")) {
-				View view=LayoutInflater.from(AutorizateDecDetailActivity.this).inflate(R.layout.editcode, null);
-				final EditText et = (EditText) view.findViewById(R.id.vc_code);
-				getCode = Utils.getInstance().code();
-				new AlertDialog.Builder(AutorizateDecDetailActivity.this)
-						.setTitle("验证码：" + getCode)
-						.setIcon(android.R.drawable.ic_dialog_info)
-						.setView(view)
-			    .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
-			        public void onClick(DialogInterface dialog, int which) {  
-			        	String v_code = et.getText().toString()
-								.trim();
-						if (!v_code.equals(getCode)) {
-							Toast.makeText(
-									AutorizateDecDetailActivity.this,
-									"验证码错误", Toast.LENGTH_SHORT).show();
-						} else {
-							
-							planSuspand();
+			View view2 = LayoutInflater.from(AutorizateDecDetailActivity.this).inflate(R.layout.edit_info, null);
+			final EditText et = (EditText) view2.findViewById(R.id.et_info);
+			new AlertDialog.Builder(AutorizateDecDetailActivity.this)
+					.setTitle("请输入处理意见")
+					.setIcon(android.R.drawable.ic_dialog_info)
+					.setView(view2)
+					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							String info = et.getText().toString()
+									.trim();
+							if (info.equals("")) {
+								Toast.makeText(
+										AutorizateDecDetailActivity.this,
+										"处理意见不能为空", Toast.LENGTH_SHORT).show();
+							} else {
+								suspandEntity.setPlanSuspendOpition(info);
+								planSuspand();
+							}
 						}
-			        }
-			        })  
-			    .setNegativeButton("取消", null)  
-			    .show();  
-				
-			} else {
-				ToastUtil.showToast(AutorizateDecDetailActivity.this, "意见必填");
-			}
+					})
+					.setNegativeButton("取消", null)
+					.show();
 			break;
 		case R.id.auth:// 授权
 			planSuspendOpition2 = etc_plan.getText().toString().trim();
@@ -419,6 +412,9 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 						AutorizateDecDetailActivity.this, "操作成功");
 				EventBus.getDefault().post(
 						new mainEvent("r"));//刷新列表界面
+				Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
+				intent.putExtra("msgType", "updatePlanCount");
+				sendBroadcast(intent);
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(AutorizateDecDetailActivity.this,
@@ -458,6 +454,9 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 						AutorizateDecDetailActivity.this, "操作成功");
 				EventBus.getDefault().post(
 						new mainEvent("r"));//刷新列表界面
+				Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
+				intent.putExtra("msgType", "updatePlanCount");
+				sendBroadcast(intent);
 				finish();
 			} else if (backflag == false) {
 				ToastUtil.showToast(AutorizateDecDetailActivity.this,

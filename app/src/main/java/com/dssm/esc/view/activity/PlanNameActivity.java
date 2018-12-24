@@ -62,7 +62,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 	/** 1,应急 */
 	/** 1,预案执行;2,添加评估 */
 	private String tags;
-	/** 预案执行的名称类型1=默认2=其他3=分类预案4=可选预案 */
+	/** 预案执行的名称类型1=默认2=其他3=分类预案4=可选预案5=应急处置流程*/
 	private int plantags;
 	/** 暂无数据 */
 	@ViewInject(R.id.ll_no_data)
@@ -166,8 +166,9 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 				mSelectTypeTitle.setText("选择其他预案");
 			} else if (plantags == 3) {
 				mSelectTypeTitle.setText("选择分类预案");
+			} else if (plantags == 5) {
+				mSelectTypeTitle.setText("选择应急处置流程");
 			}
-
 		}
 	}
 
@@ -261,8 +262,15 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 
 	private void initData(final int plantags) {
 		// TODO Auto-generated method stub
-
-		if (list != null && list.size() == 0) {// 只访问一次网络
+		//应急处置流程
+		if(plantags == 5)
+		{
+			Message message = new Message();
+			message.obj = initEmergencyDisposalData();
+			message.what = 0;
+			handler.sendMessage(message);
+		}
+		else if (list != null && list.size() == 0) {// 只访问一次网络
 			Utils.getInstance().showProgressDialog(PlanNameActivity.this, "",
 					Const.LOAD_MESSAGE);
 			Control.getinstance().getEmergencyService().getPlanName(plantags, businessType, notInSet, emergencySeviceImplListListenser);
@@ -273,6 +281,26 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 			message.what = 0;
 			handler.sendMessage(message);
 		}
+	}
+
+	private List<PlanNameRowEntity> initEmergencyDisposalData()
+	{
+		List<PlanNameRowEntity> result = new ArrayList<>();
+		PlanNameRowEntity planNameRowEntity = new PlanNameRowEntity();
+		planNameRowEntity.setId("1");
+		planNameRowEntity.setName("预案启动");
+		result.add(planNameRowEntity);
+
+		planNameRowEntity = new PlanNameRowEntity();
+		planNameRowEntity.setId("2");
+		planNameRowEntity.setName("预案授权");
+		result.add(planNameRowEntity);
+
+		planNameRowEntity = new PlanNameRowEntity();
+		planNameRowEntity.setId("3");
+		planNameRowEntity.setName("人员签到");
+		result.add(planNameRowEntity);
+		return result;
 	}
 
 	/**

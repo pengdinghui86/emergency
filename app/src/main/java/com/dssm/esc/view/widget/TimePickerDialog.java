@@ -21,7 +21,7 @@ public class TimePickerDialog {
 
     private Context mContext;
     private AlertDialog.Builder mAlertDialog;
-    private int mHour, mMinute;
+    private int mHour, mMinute, mSecond;
     private TimePickerDialogInterface timePickerDialogInterface;
     private TimePicker mTimePicker;
     private DatePicker mDatePicker;
@@ -235,6 +235,7 @@ public class TimePickerDialog {
         // api23这两个方法过时
         mHour = mTimePicker.getCurrentHour();// timePicker.getHour();
         mMinute = mTimePicker.getCurrentMinute();// timePicker.getMinute();
+        mSecond = mTimePicker.getCurrentMinute();// timePicker.getMinute();
     }
 
 

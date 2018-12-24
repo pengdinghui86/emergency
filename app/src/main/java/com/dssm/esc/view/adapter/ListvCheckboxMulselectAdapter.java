@@ -66,7 +66,10 @@ public class ListvCheckboxMulselectAdapter extends BaseAdapter {
 		} else {
 			mhHolder = (ViewHolderPlan) convertView.getTag();
 		}
-		mhHolder.name.setText(entity.getName() + "-" + entity.getSceneName());
+		mhHolder.name.setText(entity.getName()
+				+ ((entity.getSceneName() != null
+				&& !"".equals(entity.getSceneName()))
+				? "-" + entity.getSceneName() : ""));
 		mhHolder.checkBox.setChecked(entity.isSelect());
 		return convertView;
 	}
