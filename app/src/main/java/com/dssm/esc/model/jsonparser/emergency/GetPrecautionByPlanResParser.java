@@ -269,8 +269,12 @@ public class GetPrecautionByPlanResParser {
                             .getString("name")));
                     childEntity.setOrderNumber(isNull(jsonObject
                             .getString("orderNum")));
-                    childEntity.setExecutorName(isNull(jsonObject
-                            .getString("executorAName")));
+                    if(jsonObject.has("executorAName")){
+                        childEntity.setExecutorName(isNull(jsonObject
+                                .getString("executorAName")));
+                    }
+                    else
+                        childEntity.setExecutorName("");
                     childEntity.setStatus(isNull(jsonObject
                             .getString("status")));
                     childEntity.setPlanInfoId(isNull(jsonObject
