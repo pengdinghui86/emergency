@@ -447,7 +447,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                         item.setName(entity.getName());
                         item.setSceneName(entity.getSceneName());
                         item.setType(entity.getPlanType());
-                        item.setHasStartAuth("true");
+                        item.setHasStartAuth(entity.getHasStartAuth());
                         list.add(item);
                     }
                     Intent intent = new Intent(PlanStarDetailActivity.this,

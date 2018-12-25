@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dssm.esc.R;
 import com.dssm.esc.model.entity.emergency.PlanNameRowEntity;
@@ -51,7 +53,7 @@ public class ListvCheckboxMulselectAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 
-		PlanNameRowEntity entity = getItem(position);
+		final PlanNameRowEntity entity = getItem(position);
 		final ViewHolderPlan mhHolder;
 		if (convertView == null) {
 			mhHolder = new ViewHolderPlan();
@@ -71,6 +73,21 @@ public class ListvCheckboxMulselectAdapter extends BaseAdapter {
 				&& !"".equals(entity.getSceneName()))
 				? "-" + entity.getSceneName() : ""));
 		mhHolder.checkBox.setChecked(entity.isSelect());
+		mhHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+				if(b)
+				{
+					if("true".equals(entity.getHasStartAuth()))
+						return;
+					else {
+						entity.setSelect(false);
+						mhHolder.checkBox.setChecked(false);
+						Toast.makeText(context, "您对该预案没有启动权限！", Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		});
 		return convertView;
 	}
 

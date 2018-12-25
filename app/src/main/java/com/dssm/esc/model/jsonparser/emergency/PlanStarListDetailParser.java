@@ -171,13 +171,17 @@ public class PlanStarListDetailParser {
 					JSONArray jsonArray = jsonObject3.getJSONArray("list");
 					for (int i = 0; i < jsonArray.length(); i++) {
 						if (jsonArray.opt(i)!=null) {
-						JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
-						PlanStarListDetailObjListEntity listEntity = new PlanStarListDetailObjListEntity();
-						listEntity.setName(jsonObject2.getString("name"));
-						listEntity.setProcessId(jsonObject2.getString("processId"));
-						listEntity.setSceneName(jsonObject2.getString("sceneName"));
-						listEntity.setPlanType(jsonObject2.getString("planType"));
-						list.add(listEntity);
+							JSONObject jsonObject2 = (JSONObject) jsonArray.opt(i);
+							PlanStarListDetailObjListEntity listEntity = new PlanStarListDetailObjListEntity();
+							listEntity.setName(jsonObject2.getString("name"));
+							listEntity.setProcessId(jsonObject2.getString("processId"));
+							listEntity.setSceneName(jsonObject2.getString("sceneName"));
+							listEntity.setPlanType(jsonObject2.getString("planType"));
+							if(jsonObject2.has("hasStartAuth"))
+								listEntity.setHasStartAuth(jsonObject2.getString("hasStartAuth"));
+							else
+								listEntity.setHasStartAuth("false");
+							list.add(listEntity);
 						}
 					}
 					objEntity.setList(list);

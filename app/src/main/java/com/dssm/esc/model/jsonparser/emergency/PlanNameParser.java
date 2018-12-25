@@ -178,7 +178,7 @@ public class PlanNameParser {
                         planNameRowEntity.setHasStartAuth(jsonObject2
                                 .getString("hasStartAuth"));
                     else
-                        planNameRowEntity.setHasStartAuth("true");
+                        planNameRowEntity.setHasStartAuth("false");
                     list.add(planNameRowEntity);
 
                 }

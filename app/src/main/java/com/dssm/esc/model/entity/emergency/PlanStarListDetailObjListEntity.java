@@ -9,6 +9,15 @@ public class PlanStarListDetailObjListEntity implements Serializable{
 	private String name;//预案名称
 	private String planType;//预案类型
 	private String sceneName;//场景名称
+	private String hasStartAuth;//启动人是否拥有该场景预案的启动权限
+
+	public String getHasStartAuth() {
+		return hasStartAuth;
+	}
+
+	public void setHasStartAuth(String hasStartAuth) {
+		this.hasStartAuth = hasStartAuth;
+	}
 
 	public String getName() {
 		return name;
