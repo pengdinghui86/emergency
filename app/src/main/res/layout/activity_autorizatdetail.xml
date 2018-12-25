@@ -231,7 +231,7 @@
                 android:id="@+id/emergency_disposal_process_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp" >
+                android:padding="10dp">
 
                 <TextView
                     style="@style/text"
@@ -249,18 +249,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:gravity="right"
-                    android:padding="5dp"
-                    android:textColor="@color/textColor_selected"
-                    />
+                    android:gravity="left"/>
 
-                <ImageView
-                    android:layout_width="9dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="6dp"
-                    android:src="@drawable/arrow_right" />
             </LinearLayout>
 
             <View style="@style/horizontal_gray_style" />
