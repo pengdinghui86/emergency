@@ -1,72 +1,86 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/set_gray"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:orientation="vertical"
+    android:background="@color/set_gray">
 
-    <ImageView
-        android:id="@+id/event_listview_iv_type"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/emergency_type"/>
+    <View
+        android:id="@+id/item_event_hide_drag_v_split"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        style="@style/horizontal_gray_style"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"/>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_weight="1"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:gravity="center_vertical"
-        android:layout_gravity="center_vertical"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp">
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:id="@+id/event_listview_iv_type"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/emergency_type"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:id="@+id/event_listview_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:ellipsize="end"
+                android:paddingRight="20dp"
+                android:text="集中监控应急事件"/>
+
+            <TextView
+                android:id="@+id/event_listview_tv_event_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/border_red"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textColor="@color/red"
+                android:layout_below="@+id/event_listview_tv_name"
+                android:text="I级"/>
+
+            <TextView
+                android:id="@+id/event_listview_tv_sub_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:lines="1"
+                android:ellipsize="end"
+                android:layout_below="@+id/event_listview_tv_name"
+                android:layout_toRightOf="@+id/event_listview_tv_event_level"
+                android:text="信息科技"/>
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/event_listview_tv_name"
+            android:id="@+id/event_listview_tv_event_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lines="1"
-            android:ellipsize="end"
-            android:paddingRight="20dp"
-            android:text="集中监控应急事件"/>
-
-        <TextView
-            android:id="@+id/event_listview_tv_event_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:background="@drawable/border_red"
-            android:lines="1"
-            android:ellipsize="end"
-            android:textColor="@color/red"
-            android:layout_below="@+id/event_listview_tv_name"
-            android:text="I级"/>
-
-        <TextView
-            android:id="@+id/event_listview_tv_sub_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingTop="5dp"
-            android:lines="1"
-            android:ellipsize="end"
-            android:layout_below="@+id/event_listview_tv_name"
-            android:layout_toRightOf="@+id/event_listview_tv_event_level"
-            android:text="信息科技"/>
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/event_listview_tv_event_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="@dimen/we_normal_textsize"
-        android:textColor="@color/blue_dot"
-        android:text="初始状态"/>
+            android:layout_gravity="center"
+            android:textSize="@dimen/we_normal_textsize"
+            android:textColor="@color/blue_dot"
+            android:text="初始状态"/>
+    </LinearLayout>
 </LinearLayout>

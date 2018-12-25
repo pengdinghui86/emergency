@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dssm.esc.R;
 import com.dssm.esc.util.Utils;
@@ -74,6 +75,10 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                 eventViewHolder.layout_content.measure(w, h);
                 eventViewHolder.btn_Function1.setVisibility(View.GONE);
                 eventViewHolder.btn_Function2.setVisibility(View.GONE);
+                if(position > 0)
+                    eventViewHolder.item_event_hide_drag_v_split.setVisibility(View.VISIBLE);
+                else
+                    eventViewHolder.item_event_hide_drag_v_split.setVisibility(View.GONE);
                 break;
             case 1:
                 PlanViewHolder planViewHolder = (PlanViewHolder) holder;
@@ -122,12 +127,9 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                                         planViewHolder.btn_Function2.setVisibility(View.GONE);
                                         break;
                                     case 2:
-                                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                                        planViewHolder.btn_Function1.setVisibility(View.VISIBLE);
+                                        planViewHolder.btn_Function1.setText("启动");
                                         planViewHolder.btn_Function2.setVisibility(View.GONE);
-                                        if(arraylist.get(position).isCheckExecutePeople() || "0".equals(arraylist.get(position).getIsSign())) {
-                                            planViewHolder.btn_Function1.setVisibility(View.VISIBLE);
-                                            planViewHolder.btn_Function1.setText("启动");
-                                        }
                                         break;
                                     case 3:
                                         planViewHolder.btn_Function1.setVisibility(View.GONE);
@@ -233,7 +235,11 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                     @Override
                     public void onClick(View view) {
                         int n = holder.getLayoutPosition();
-                        mISetBtnClickListener.onFunction1BtnClick(view, n);
+                        if(arraylist.get(n).isCheckExecutePeople() || "0".equals(arraylist.get(n).getIsSign())) {
+                            mISetBtnClickListener.onFunction1BtnClick(view, n);
+                        }
+                        else
+                            Toast.makeText(mContext, "没有执行人", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -273,6 +279,7 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
         private TextView tvTradeType;
         private TextView tvState;
         private ImageView ivEventType;
+        private View item_event_hide_drag_v_split;
 
         public EventViewHolder(View itemView) {
             super(itemView);
@@ -287,6 +294,8 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                     .findViewById(R.id.event_listview_tv_sub_name);
             tvEventLevel = (TextView) itemView
                     .findViewById(R.id.event_listview_tv_event_level);
+            item_event_hide_drag_v_split = (View) itemView
+                    .findViewById(R.id.item_event_hide_drag_v_split);
             ivEventType = (ImageView) itemView
                     .findViewById(R.id.event_listview_iv_type);
             ((LeftSlideView) itemView).setSlidingButtonListener(LeftSlidePlanAdapter.this);
