@@ -293,6 +293,17 @@ public class AddeValuationActivity extends BaseActivity implements
 				event_level.setText(entity.getEveLevelName());
 				event_discover.setText(eveDiscover);
 				event_happen_time.setText(eveDiscoveryTime);
+				String emergencyProcess = "";
+				if("1".equals(entity.getIsPreStart()))
+					emergencyProcess += ",预案启动";
+				if("1".equals(entity.getIsAuthori()))
+					emergencyProcess += ",预案授权";
+				if("1".equals(entity.getIsSign()))
+					emergencyProcess += ",人员签到";
+				if (emergencyProcess.length() > 0) {
+					emergencyProcess = emergencyProcess.substring(1, emergencyProcess.length());
+				}
+				emergency_disposal_process.setText(emergencyProcess);
 				List<Map<String, String>> referPlan2 = entity.getReferPlan();
 				if (referPlan2 != null && referPlan2.size() > 0) {
 

@@ -55,8 +55,18 @@ public class PlanStarListEntity implements Serializable {
 	private String	eveCode;
 	private String	eveType;
 	private String isStarter;
+	//事件关闭时间
+	private String closeTime;
 	//数据类型，0=事件，1=预案
 	private int dataType;
+
+	public String getCloseTime() {
+		return closeTime;
+	}
+
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
+	}
 
 	public String getPlanResId() {
 		return planResId;

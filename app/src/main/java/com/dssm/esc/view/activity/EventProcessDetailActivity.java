@@ -101,6 +101,9 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	 */
 	@ViewInject(R.id.event_discovery_time)
 	private TextView event_discovery_time;
+	/** 应急处置流程 */
+	@ViewInject(R.id.emergency_disposal_process)
+	private TextView emergency_disposal_process;
 	/**
 	 * 已用时
 	 */
@@ -143,6 +146,8 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	 */
 	@ViewInject(R.id.event_detail_ll)
 	private MyScrollView event_detail_ll;
+	private String status = "";// 事件状态
+	private String closeTime = "";// 事件关闭时间
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +157,8 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 		findViewById.setFitsSystemWindows(true);
 		eventId = getIntent().getStringExtra("id");
 		eventName = getIntent().getStringExtra("name");
+		status = getIntent().getStringExtra("status");
+		closeTime = getIntent().getStringExtra("closeTime");
 		initView();
 		initData();
 	}
@@ -222,7 +229,25 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 			event_time.setText(subTime);
 			event_discoverer.setText(obj.getDiscoverer());
 			event_discovery_time.setText(obj.getDiscoveryTime());
+			String emergencyProcess = "";
+			if("1".equals(obj.getIsPreStart()))
+				emergencyProcess += ",预案启动";
+			if("1".equals(obj.getIsAuthori()))
+				emergencyProcess += ",预案授权";
+			if("1".equals(obj.getIsSign()))
+				emergencyProcess += ",人员签到";
+			if (emergencyProcess.length() > 0) {
+				emergencyProcess = emergencyProcess.substring(1, emergencyProcess.length());
+			}
+			emergency_disposal_process.setText(emergencyProcess);
 			String nowTime = obj.getNowTime();
+			//事件已结束
+			if("3".equals(status) && closeTime != null
+					&& !"".equals(closeTime)
+					&& !"null".equals(closeTime))
+			{
+				nowTime = closeTime;
+			}
 			if(nowTime != null && subTime != null)
 				overTime = Utils.getInstance().getOverTime(nowTime, subTime);
 			else

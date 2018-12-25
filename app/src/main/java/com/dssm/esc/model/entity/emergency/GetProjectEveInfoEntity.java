@@ -25,7 +25,10 @@ public class GetProjectEveInfoEntity implements Serializable {
 	private String eveScenarioName;
 	private String eveName;
 	private String dealAdvice;
- 
+	//预案处置流程，预案启动、预案授权和人员签到,1=选择，0=未选
+	private String isPreStart;
+	private String isAuthori;
+	private String isSign;
 	
 	private String referPlanIds;
 	private String otherReferPlanIds;
@@ -46,6 +49,30 @@ public class GetProjectEveInfoEntity implements Serializable {
 
 	public void setEveDiscoveryTime(String eveDiscoveryTime) {
 		this.eveDiscoveryTime = eveDiscoveryTime;
+	}
+
+	public String getIsPreStart() {
+		return isPreStart;
+	}
+
+	public void setIsPreStart(String isPreStart) {
+		this.isPreStart = isPreStart;
+	}
+
+	public String getIsAuthori() {
+		return isAuthori;
+	}
+
+	public void setIsAuthori(String isAuthori) {
+		this.isAuthori = isAuthori;
+	}
+
+	public String getIsSign() {
+		return isSign;
+	}
+
+	public void setIsSign(String isSign) {
+		this.isSign = isSign;
 	}
 
 	public String getEveDiscover() {

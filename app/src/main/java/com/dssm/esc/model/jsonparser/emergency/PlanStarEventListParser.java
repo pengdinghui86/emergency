@@ -160,8 +160,16 @@ public class PlanStarEventListParser {
 					listEntity.setTradeType(jsonObject2.getString("tradeType"));
 					listEntity.setEveCode(jsonObject2.getString("eveCode"));
 					listEntity.setEveType(jsonObject2.getString("eveType"));
-					
-					
+					if(jsonObject2.has("closeTime"))
+					{
+						listEntity.setCloseTime("null".
+								equals(jsonObject2.getString(
+										"closeTime")) ? ""
+								: jsonObject2.getString(
+								"closeTime"));
+					}
+					else
+						listEntity.setCloseTime("");
 //					 "id": "7c80a341-06e3-437b-b714-281b2b7ebc69", 
 //				        "eveLevel": "Ⅰ级（重大事件）", 
 //				        "tradeType": "信息科技", 

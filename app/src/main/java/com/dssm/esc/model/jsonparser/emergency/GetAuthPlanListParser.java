@@ -191,6 +191,15 @@ public class GetAuthPlanListParser {
 					listEntity.setTradeType(jsonObject2.getString("tradeType"));
 					listEntity.setEveCode(jsonObject2.getString("eveCode"));
 					listEntity.setEveType(jsonObject2.getString("eveType"));
+					if(jsonObject2.has("closeTime"))
+					{
+						if("null".equals(jsonObject2.getString("closeTime")))
+							listEntity.setCloseTime("");
+						else
+							listEntity.setCloseTime(jsonObject2.getString("closeTime"));
+					}
+					else
+						listEntity.setCloseTime("");
 					list.add(listEntity);
 					JSONArray jsonArray2 = new JSONArray(jsonObject2.getString("planInfos"));
 					for(int j = 0; j < jsonArray2.length(); j++)

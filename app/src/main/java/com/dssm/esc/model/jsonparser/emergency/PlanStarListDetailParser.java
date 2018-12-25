@@ -153,6 +153,30 @@ public class PlanStarListDetailParser {
 					objEntity.setDiscoveryTime(jsonObject3.getString("discoveryTime"));
 					String eveType = jsonObject3.getString("eveType");
 					objEntity.setEveType(eveType);
+                    if(jsonObject3.has("isPreStart")) {
+                        if("1".equals(jsonObject3.getString("isPreStart")))
+                            objEntity.setIsPreStart("1");
+                        else
+                            objEntity.setIsPreStart("0");
+                    }
+                    else
+                        objEntity.setIsPreStart("0");
+                    if(jsonObject3.has("isAuthori")) {
+                        if("1".equals(jsonObject3.getString("isAuthori")))
+                            objEntity.setIsAuthori("1");
+                        else
+                            objEntity.setIsAuthori("0");
+                    }
+                    else
+                        objEntity.setIsAuthori("0");
+                    if(jsonObject3.has("isSign")) {
+                        if("1".equals(jsonObject3.getString("isSign")))
+                            objEntity.setIsSign("1");
+                        else
+                            objEntity.setIsSign("0");
+                    }
+                    else
+                        objEntity.setIsSign("0");
 					objEntity.setSubmitterId(jsonObject3.getString("submitterId"));
 					objEntity.setEveDescription(jsonObject3.getString("eveDescription"));
 					objEntity.setDrillPlanId(jsonObject3.getString("drillPlanId"));

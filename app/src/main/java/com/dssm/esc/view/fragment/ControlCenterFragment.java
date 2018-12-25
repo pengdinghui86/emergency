@@ -10,10 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
-import com.dssm.esc.view.activity.AutorizationDecisionActivity;
 import com.dssm.esc.view.activity.EventListActivity;
 import com.dssm.esc.view.activity.EventPlanListActivity;
-import com.dssm.esc.view.activity.EventProcessActivity;
 
 
 /**

@@ -222,6 +222,10 @@ public class EventPlanListActivity extends BaseActivity implements
                         .getPlanResId());
                 intent.putExtra("isAuthor", list.get(position)
                         .getIsAuthor());
+                intent.putExtra("status", list.get(position - 1)
+                        .getState());
+                intent.putExtra("closeTime", list.get(position - 1)
+                        .getCloseTime());
                 startActivity(intent);
             } else if (tags.equals("2")) {
                 //已启动预案

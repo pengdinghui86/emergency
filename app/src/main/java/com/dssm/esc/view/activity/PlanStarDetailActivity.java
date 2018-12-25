@@ -83,6 +83,9 @@ public class PlanStarDetailActivity extends BaseActivity implements
      */
     @ViewInject(R.id.event_discovery_time)
     private TextView event_discovery_time;
+    /** 应急处置流程 */
+    @ViewInject(R.id.emergency_disposal_process)
+    private TextView emergency_disposal_process;
     /**
      * 已用时
      */
@@ -249,6 +252,8 @@ public class PlanStarDetailActivity extends BaseActivity implements
     private String planName = "";// 预案名称 发送通知使用
     private String planResName;// 预案来源名称 发送通知使用
     private String hasStartAuth = "false";// 启动权限
+    private String status = "";// 事件状态
+    private String closeTime = "";// 事件关闭时间
 
     /**
      * 被选的预案id
@@ -288,7 +293,26 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     event_time.setText(subTime);
                     event_discoverer.setText(obj.getDiscoverer());
                     event_discovery_time.setText(obj.getDiscoveryTime());
+                    String emergencyProcess = "";
+                    if("1".equals(obj.getIsPreStart()))
+                        emergencyProcess += ",预案启动";
+                    if("1".equals(obj.getIsAuthori()))
+                        emergencyProcess += ",预案授权";
+                    if("1".equals(obj.getIsSign()))
+                        emergencyProcess += ",人员签到";
+                    if (emergencyProcess.length() > 0) {
+                        emergencyProcess = emergencyProcess.substring(1, emergencyProcess.length());
+                    }
+                    emergency_disposal_process.setText(emergencyProcess);
+
                     String nowTime = obj.getNowTime();
+                    //事件已结束
+                    if("3".equals(status) && closeTime != null
+                            && !"".equals(closeTime)
+                            && !"null".equals(closeTime))
+                    {
+                        nowTime = closeTime;
+                    }
                     overTime = Utils.getInstance().getOverTime(nowTime, subTime);
                     event_over_time.setText(overTime);
                     business_type.setText(obj.getTradeType());
@@ -333,6 +357,8 @@ public class PlanStarDetailActivity extends BaseActivity implements
         tag = intent.getStringExtra("tag");
         id = intent.getStringExtra("id");
         planEveName = intent.getStringExtra("name");
+        status = intent.getStringExtra("status");
+        closeTime = intent.getStringExtra("closeTime");
         // isStarter = intent.getStringExtra("isStarter");
         initview();
         sem_tags = 1;// 默认预案处置
@@ -377,7 +403,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
             plan_ll.setVisibility(View.GONE);
             plan_ll_2.setVisibility(View.VISIBLE);
         }
-        Control.getinstance().getEmergencyService().getPlanStarListDetail(id, listListenser);
         referPlan_name_ll.setOnClickListener(this);// 参考预案布局
         otherReferPlan_name_ll.setOnClickListener(this);// 其他预案布局
         img_delete.setOnClickListener(this);
@@ -416,6 +441,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
             event_detail_ll.setVisibility(View.VISIBLE);
             plan_done_ll.setVisibility(View.GONE);
         }
+        Control.getinstance().getEmergencyService().getPlanStarListDetail(id, listListenser);
     }
 
     private ArrayList<PlanNameRowEntity> resutList4 = new ArrayList<PlanNameRowEntity>();

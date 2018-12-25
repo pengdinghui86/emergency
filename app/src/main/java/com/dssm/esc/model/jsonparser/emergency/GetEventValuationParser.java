@@ -155,6 +155,30 @@ public class GetEventValuationParser {
 			if(jsonObject.has("eveScenarioName")) {
 				entity.setEveScenarioName(jsonObject.getString("eveScenarioName"));
 			}
+			if(jsonObject.has("isPreStart")) {
+				if("1".equals(jsonObject.getString("isPreStart")))
+				entity.setIsPreStart("1");
+				else
+					entity.setIsPreStart("0");
+			}
+			else
+				entity.setIsPreStart("0");
+			if(jsonObject.has("isAuthori")) {
+				if("1".equals(jsonObject.getString("isAuthori")))
+					entity.setIsAuthori("1");
+				else
+					entity.setIsAuthori("0");
+			}
+			else
+				entity.setIsAuthori("0");
+			if(jsonObject.has("isSign")) {
+				if("1".equals(jsonObject.getString("isSign")))
+					entity.setIsSign("1");
+				else
+					entity.setIsSign("0");
+			}
+			else
+				entity.setIsSign("0");
 			entity.setEveName(jsonObject.getString("eveName"));
 			entity.setDealAdvice(jsonObject.getString("dealAdvice"));
 			List<Map<String, String>> referPlanList = new ArrayList<Map<String, String>>();

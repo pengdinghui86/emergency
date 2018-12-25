@@ -76,6 +76,9 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	/** 发生时间 */
 	@ViewInject(R.id.event_discovery_time)
 	private TextView event_discovery_time;
+	/** 应急处置流程 */
+	@ViewInject(R.id.emergency_disposal_process)
+	private TextView emergency_disposal_process;
 	/** 已用时 */
 	@ViewInject(R.id.event_over_time)
 	private TextView event_over_time;
@@ -150,6 +153,8 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	private String id;
 	/** 预案编号 */
 	private String planId;
+	private String status = "";// 事件状态
+	private String closeTime = "";// 事件关闭时间
 	/** 事件详情id */
 	private String planResId;
 	private String planResType;// 预案来源类型 1，应急 2，演练（发送通知使用）
@@ -187,7 +192,25 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 				event_time.setText(subTime);
 				event_discoverer.setText(obj.getDiscoverer());
 				event_discovery_time.setText(obj.getDiscoveryTime());
+				String emergencyProcess = "";
+				if("1".equals(obj.getIsPreStart()))
+					emergencyProcess += ",预案启动";
+				if("1".equals(obj.getIsAuthori()))
+					emergencyProcess += ",预案授权";
+				if("1".equals(obj.getIsSign()))
+					emergencyProcess += ",人员签到";
+				if (emergencyProcess.length() > 0) {
+					emergencyProcess = emergencyProcess.substring(1, emergencyProcess.length());
+				}
+				emergency_disposal_process.setText(emergencyProcess);
 				String nowTime = obj.getNowTime();
+				//事件已结束
+				if("3".equals(status) && closeTime != null
+						&& !"".equals(closeTime)
+						&& !"null".equals(closeTime))
+				{
+					nowTime = closeTime;
+				}
 				overTime = Utils.getInstance().getOverTime(nowTime, subTime);
 				event_over_time.setText(overTime);
 				business_type.setText(obj.getTradeType());
@@ -269,6 +292,8 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		planId = intent.getStringExtra("planId");
 		planName = intent.getStringExtra("name");
 		planResId = intent.getStringExtra("planResId");
+		status = intent.getStringExtra("status");
+		closeTime = intent.getStringExtra("closeTime");
 		//isAuthor= intent.getStringExtra("isAuthor");
 		initview();
 		suspandEntity = new PlanSuspandEntity();

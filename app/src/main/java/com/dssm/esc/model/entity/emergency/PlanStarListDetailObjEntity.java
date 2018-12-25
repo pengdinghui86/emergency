@@ -35,18 +35,45 @@ public class PlanStarListDetailObjEntity implements Serializable {
 	private String eveCode;//事件编号
 	private String eveName;// 事件名称
 	private String planResName;//预案来源名称	发送通知使用
-private String tradeTypeId;//业务类型ID
-private String eveLevelId;//事件等级ID
-//		planResType	预案来源类型	发送通知使用
-//planResName	预案来源名称	发送通知使用
-//planName	预案名称	发送通知使用
-//planId	预案ID	发送通知使用
-private String planResType;//预案来源类型	发送通知使用
-private String planName;//预案名称	发送通知使用
-private String planId;//预案ID	发送通知使用
-private String planTypeName;//预案来源类型	发送通知使用
-private  String hasStartAuth;//启动权限
+	private String tradeTypeId;//业务类型ID
+	private String eveLevelId;//事件等级ID
+	//		planResType	预案来源类型	发送通知使用
+	//planResName	预案来源名称	发送通知使用
+	//planName	预案名称	发送通知使用
+	//planId	预案ID	发送通知使用
+	private String planResType;//预案来源类型	发送通知使用
+	private String planName;//预案名称	发送通知使用
+	private String planId;//预案ID	发送通知使用
+	private String planTypeName;//预案来源类型	发送通知使用
+	private  String hasStartAuth;//启动权限
+	//预案处置流程，预案启动、预案授权和人员签到,1=选择，0=未选
+	private String isPreStart;
+	private String isAuthori;
+	private String isSign;
 
+	public String getIsPreStart() {
+		return isPreStart;
+	}
+
+	public void setIsPreStart(String isPreStart) {
+		this.isPreStart = isPreStart;
+	}
+
+	public String getIsAuthori() {
+		return isAuthori;
+	}
+
+	public void setIsAuthori(String isAuthori) {
+		this.isAuthori = isAuthori;
+	}
+
+	public String getIsSign() {
+		return isSign;
+	}
+
+	public void setIsSign(String isSign) {
+		this.isSign = isSign;
+	}
 
 	public String getHasStartAuth() {
 	return hasStartAuth;

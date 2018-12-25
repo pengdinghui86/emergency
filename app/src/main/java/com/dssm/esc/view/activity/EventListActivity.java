@@ -380,6 +380,8 @@ public class EventListActivity extends BaseActivity implements
                 intent.putExtra("tag", list.get(position)
                         .getEveType());
                 intent.putExtra("isStarter", list.get(position).getIsStarter());
+                intent.putExtra("status", list.get(position).getState());
+                intent.putExtra("closeTime", list.get(position).getCloseTime());
                 startActivity(intent);
                 // EventListActivity.this.finish();
             } else {
@@ -387,7 +389,10 @@ public class EventListActivity extends BaseActivity implements
                         EventProcessDetailActivity.class);
 				intent.putExtra("id", list.get(position).getId());
 				intent.putExtra("name", list.get(position).getEveName());
-                startActivity(intent);
+
+				intent.putExtra("status", list.get(position).getState());
+				intent.putExtra("closeTime", list.get(position).getCloseTime());
+				startActivity(intent);
             }
 
         }
