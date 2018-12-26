@@ -1058,6 +1058,7 @@ public class AddeValuationActivity extends BaseActivity implements
 		int day = mTimePickerDialog.getDay();
 		int hour = mTimePickerDialog.getHour();
 		int minute = mTimePickerDialog.getMinute();
+		int second = mTimePickerDialog.getSecond();
 //		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		String dateString = formatter.format(currentTime);
 		String time = year + "-"
@@ -1065,7 +1066,7 @@ public class AddeValuationActivity extends BaseActivity implements
 				+ (day < 10 ? "0" + day : day) + " "
 				+ (hour < 10 ? "0" + hour : hour) + ":"
 				+ (minute < 10 ? "0" + minute : minute) + ":"
-				+ "00";
+				+ (second < 10 ? "0" + second : second);
 
 		event_happen_time.setText(time);
 	}

@@ -24,6 +24,7 @@ public class TimePickerDialog {
     private int mHour, mMinute, mSecond;
     private TimePickerDialogInterface timePickerDialogInterface;
     private TimePicker mTimePicker;
+    private NumberPicker mNumberPicker;
     private DatePicker mDatePicker;
     private int mTag = 0;
     private int mYear, mDay, mMonth;
@@ -63,6 +64,41 @@ public class TimePickerDialog {
         return inflate;
     }
 
+    /**
+     * 初始化NumberPicker
+     * 秒
+     */
+    private void initNumberPicker(View inflate) {
+        mNumberPicker = (NumberPicker) inflate
+                .findViewById(R.id.np_second);
+        mNumberPicker.setMaxValue(59);
+        mNumberPicker.setMinValue(0);
+        mNumberPicker.setValue(0);
+        mNumberPicker.setFormatter(formatter);
+        mNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        mNumberPicker.setOnValueChangedListener(mOnSecondChangedListener);
+        resizeNumberPicker(mNumberPicker);
+    }
+
+    private NumberPicker.OnValueChangeListener mOnSecondChangedListener = new NumberPicker.OnValueChangeListener() {
+        @Override
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+            mSecond = mNumberPicker.getValue();
+        }
+    };
+
+    //数字格式化，<10的数字前自动加0
+    private NumberPicker.Formatter formatter = new NumberPicker.Formatter(){
+        @Override
+        public String format(int value) {
+            String Str = String.valueOf(value);
+            if (value < 10) {
+                Str = "0" + Str;
+            }
+            return Str;
+        }
+    };
+
     private View initDateAndTimePicker() {
         View inflate = LayoutInflater.from(mContext).inflate(
                 R.layout.dialog_datetime_select, null);
@@ -73,6 +109,7 @@ public class TimePickerDialog {
         mTimePicker.setIs24HourView(true);
         resizePikcer(mTimePicker);
         resizePikcer(mDatePicker);
+        initNumberPicker(inflate);
         return inflate;
     }
 
@@ -211,6 +248,10 @@ public class TimePickerDialog {
         return mMonth+1;
     }
 
+    public int getSecond() {
+        return mSecond;
+    }
+
     public int getMinute() {
         return mMinute;
     }
@@ -235,10 +276,7 @@ public class TimePickerDialog {
         // api23这两个方法过时
         mHour = mTimePicker.getCurrentHour();// timePicker.getHour();
         mMinute = mTimePicker.getCurrentMinute();// timePicker.getMinute();
-        mSecond = mTimePicker.getCurrentMinute();// timePicker.getMinute();
     }
-
-
 
     public interface TimePickerDialogInterface {
         void positiveListener();
