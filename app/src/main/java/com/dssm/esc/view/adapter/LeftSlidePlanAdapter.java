@@ -235,11 +235,14 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                     @Override
                     public void onClick(View view) {
                         int n = holder.getLayoutPosition();
-                        if(arraylist.get(n).isCheckExecutePeople() || "0".equals(arraylist.get(n).getIsSign())) {
-                            mISetBtnClickListener.onFunction1BtnClick(view, n);
+                        if ("5".equals(tags)) {
+                            if (arraylist.get(n).isCheckExecutePeople() || "0".equals(arraylist.get(n).getIsSign())) {
+                                mISetBtnClickListener.onFunction1BtnClick(view, n);
+                            } else
+                                Toast.makeText(mContext, "没有执行人", Toast.LENGTH_SHORT).show();
                         }
                         else
-                            Toast.makeText(mContext, "没有执行人", Toast.LENGTH_SHORT).show();
+                            mISetBtnClickListener.onFunction1BtnClick(view, n);
                     }
                 });
 

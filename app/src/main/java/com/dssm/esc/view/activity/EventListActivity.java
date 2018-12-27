@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
+import com.dssm.esc.model.entity.emergency.GetProjectEveInfoEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
@@ -31,8 +32,6 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * 预案启动界面
@@ -399,8 +398,23 @@ public class EventListActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onFunction1BtnClick(View view, int position) {
+	public void onFunction1BtnClick(View view, final int position) {
+		new android.app.AlertDialog.Builder(EventListActivity.this)
+				.setMessage("确定重新评估？")
+				.setPositiveButton("确定",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
+								getValuation(position);
+							}
+						})
+				.setNegativeButton("取消",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface arg0, int arg1) {
 
+							}
+						}).show();
 	}
 
 	@Override
@@ -443,4 +457,43 @@ public class EventListActivity extends BaseActivity implements
 							}).show();
 		}
 	}
+
+	/**
+	 * 获取评估信息
+	 */
+	private void getValuation(int position) {
+		Utils.getInstance().showProgressDialog(
+				EventListActivity.this, "",
+				Const.SUBMIT_MESSAGE);
+		// 获取评估信息
+		Control.getinstance().getEmergencyService().getEventInfo(list.get(position).getId(), listener);
+
+	}
+
+	private EmergencyServiceImpl.EmergencySeviceImplListListenser listener = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
+
+		@Override
+		public void setEmergencySeviceImplListListenser(
+				Object object, String stRerror,
+				String Exceptionerror) {
+			GetProjectEveInfoEntity entity;
+			if (object != null) {
+				entity = (GetProjectEveInfoEntity) object;
+				Intent intent = new Intent(
+						EventListActivity.this,
+						AddeValuationActivity.class);
+				//	intent.putExtra("tag", tag);
+				intent.putExtra("type", "1");// 重新评估
+				intent.putExtra("entity", entity);
+				startActivity(intent);
+			}else if (stRerror!=null) {
+				entity = new GetProjectEveInfoEntity();
+
+			}else if (Exceptionerror!=null) {
+				entity = new GetProjectEveInfoEntity();
+				ToastUtil.showToast(EventListActivity.this, Const.NETWORKERROR);
+			}
+			Utils.getInstance().hideProgressDialog();
+		}
+	};
 }

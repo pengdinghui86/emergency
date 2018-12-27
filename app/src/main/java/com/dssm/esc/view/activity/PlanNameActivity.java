@@ -89,7 +89,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 
 				}
 				mSelectAdapter = new ListvCheckboxMulselectAdapter(
-						PlanNameActivity.this, list);
+						PlanNameActivity.this, list, plantags);
 				// if (tags.equals("2")) {
 				// } else if (tags.equals("1")) {
 				// mSelectAdapter = new ListvCheckboxMulselectAdapter(
@@ -323,7 +323,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 					holder.checkBox.toggle();
 					planNameRowEntity.setSelect(holder.checkBox.isChecked());
 					mSelectAdapter.notifyDataSetChanged();
-				} else if (tags.equals("1")) {// 预案启动
+				} else if (tags.equals("1") && plantags != 5) {// 预案启动
 
 					if (planNameRowEntity.getHasStartAuth().equals("true")) {
 						holder.checkBox.toggle();

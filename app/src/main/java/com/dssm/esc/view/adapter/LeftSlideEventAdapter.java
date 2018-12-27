@@ -10,9 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.view.widget.LeftSlideView;
+import com.easemob.chatuidemo.DemoApplication;
 
 import java.util.List;
 
@@ -28,7 +30,8 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
     private IonSlidingViewClickListener mISetBtnClickListener;
 
     private LeftSlideView mMenu = null;
-
+    private MySharePreferencesService preferencesService = null;
+    private String userId;
 
     public LeftSlideEventAdapter(Context context,
                                  List<PlanStarListEntity> list, String tags) {
@@ -38,6 +41,9 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
         mISetBtnClickListener = (IonSlidingViewClickListener) context;
         this.arraylist = list;
         this.tags = tags;
+        preferencesService = new MySharePreferencesService(DemoApplication.applicationContext);
+        // 回显
+        userId = preferencesService.getPreferences().get("userId");
     }
 
     @Override
@@ -58,6 +64,11 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
             case "2":
                 //执行中
                 eventViewHolder.btn_Function1.setVisibility(View.GONE);
+                if(userId.equals(arraylist.get(position).getSubmitterId()))
+                {
+                    eventViewHolder.btn_Function1.setVisibility(View.VISIBLE);
+                    eventViewHolder.btn_Function1.setText("重新评估");
+                }
                 eventViewHolder.btn_Function2.setVisibility(View.GONE);
                 break;
             case "3":
@@ -72,8 +83,14 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
                 eventViewHolder.btn_Function1.setVisibility(View.GONE);
                 eventViewHolder.btn_Function2.setVisibility(View.GONE);
                 eventViewHolder.btn_Function2.setText("关闭");
-                if("4".equals(arraylist.get(position).getState()))
+                if("4".equals(arraylist.get(position).getState())) {
                     eventViewHolder.btn_Function2.setVisibility(View.VISIBLE);
+                    if(userId.equals(arraylist.get(position).getSubmitterId()))
+                    {
+                        eventViewHolder.btn_Function1.setVisibility(View.VISIBLE);
+                        eventViewHolder.btn_Function1.setText("重新评估");
+                    }
+                }
                 break;
             case "5":
                 //人员签到
