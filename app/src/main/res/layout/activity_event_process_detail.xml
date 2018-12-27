@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/event_process_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -57,31 +56,6 @@
         android:scrollbars="vertical"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <com.dssm.esc.view.widget.RingChartView
-                android:id="@+id/event_process_detail_rcv"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerHorizontal="true"
-                app:centerColor="@color/white"
-                app:defaultRingColor="@color/gray_f8"
-                app:innerRingColor="@color/blue_dot"
-                app:innerRingRadius="0dp"
-                app:innerRingStrokeLen="0dp"
-                app:outRingColor="@color/blue_dot"
-                app:outRingRadius="40dp"
-                app:outRingStrokeLen="10dp"
-                app:description=""
-                app:textColor="@color/black"
-                app:textSize="32sp" />
-
-        </LinearLayout>
-
         <ListView
             android:id="@+id/event_process_detail_lv"
             android:layout_width="match_parent"
@@ -96,7 +70,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/colorWeSplitMini"
-        android:dividerHeight="1dp">
+        android:dividerHeight="1dp"
+        android:visibility="gone">
 
     </ListView>
 
@@ -106,7 +81,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="10dp"
         android:scrollbars="none"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -500,5 +475,7 @@
             <View style="@style/horizontal_gray_style" />
         </LinearLayout>
     </com.dssm.esc.view.widget.MyScrollView>
+
+    <include layout="@layout/no_data_page"/>
 
 </LinearLayout>

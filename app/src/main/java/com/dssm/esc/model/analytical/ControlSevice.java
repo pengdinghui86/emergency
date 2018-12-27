@@ -2,10 +2,13 @@ package com.dssm.esc.model.analytical;
 
 
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
+import com.dssm.esc.model.entity.control.EventProgressEntity;
 import com.dssm.esc.model.entity.control.FlowChartPlanEntity;
 import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.control.ProgressDetailEntity;
 import com.dssm.esc.model.entity.control.SignUserEntity;
+
+import java.util.List;
 
 public interface ControlSevice {
 	/**
@@ -67,7 +70,7 @@ public interface ControlSevice {
 	 * @param listenser
 	 */
 	void getProgressDetail(String id,
-						   ControlServiceImpl.ControlServiceImplBackValueListenser<ProgressDetailEntity> listenser);
+						   ControlServiceImpl.ControlServiceImplBackValueListenser<List<EventProgressEntity>> listenser);
 
 	/**
 	 * 5.2.6应急通知接收及人员签到详情

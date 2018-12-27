@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
+import com.dssm.esc.model.entity.control.EventProgressEntity;
 import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.control.ProgressDetailEntity;
 import com.dssm.esc.model.entity.emergency.PlanStarListDetailEntity;
@@ -27,7 +29,6 @@ import com.dssm.esc.view.adapter.EventProcessDetailListviewAdapter;
 import com.dssm.esc.view.adapter.EventProcessPlanListViewAdapter;
 import com.dssm.esc.view.widget.MyScrollView;
 import com.dssm.esc.view.widget.RefreshLinearLayout;
-import com.dssm.esc.view.widget.RingChartView;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -50,8 +51,6 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	private String eventId = "";
 	/** 传过来的事件名称 */
 	private String eventName = "";
-	@ViewInject(R.id.event_process_detail_rcv)
-	private RingChartView ringChartView;
 	@ViewInject(R.id.event_process_detail_lv)
 	private ListView listView;
 	@ViewInject(R.id.event_process_detail_lv_plan)
@@ -65,7 +64,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	@ViewInject(R.id.rb_detail)
 	private RadioButton rb_detail;
 	/** 数据源 */
-	private List<ProgressDetailEntity.EvenDetail> list = new ArrayList<ProgressDetailEntity.EvenDetail>();
+	private List<EventProgressEntity> list = new ArrayList<>();
 	private List<PlanStarListEntity> planList = new ArrayList<PlanStarListEntity>();
 	/** 适配器 */
 	private EventProcessDetailListviewAdapter adapter;
@@ -146,6 +145,11 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	 */
 	@ViewInject(R.id.event_detail_ll)
 	private MyScrollView event_detail_ll;
+	/**
+	 * 暂无数据布局
+	 */
+	@ViewInject(R.id.ll_no_data_page)
+	private LinearLayout ll_no_data_page;
 	private String status = "";// 事件状态
 	private String closeTime = "";// 事件关闭时间
 
@@ -163,23 +167,24 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 		initData();
 	}
 
-	private ControlServiceImpl.ControlServiceImplBackValueListenser<ProgressDetailEntity> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<ProgressDetailEntity>() {
+	private ControlServiceImpl.ControlServiceImplBackValueListenser<List<EventProgressEntity>> controlServiceImplBackValueListenser = new ControlServiceImpl.ControlServiceImplBackValueListenser<List<EventProgressEntity>>() {
 
 		@Override
-		public void setControlServiceImplListenser(ProgressDetailEntity backValue,
+		public void setControlServiceImplListenser(List<EventProgressEntity> backValue,
 				String stRerror, String Exceptionerror) {
-			// TODO Auto-generated method stub
+			List<EventProgressEntity> eventProgressEntities = null;
+			ll_no_data_page.setVisibility(View.VISIBLE);
 			if (backValue != null) {
-				ringChartView.setOutProgress(Integer.parseInt(backValue.getProgressNum()) / 6f * 100);
-				List<ProgressDetailEntity.EvenDetail> list = new ArrayList<ProgressDetailEntity.EvenDetail>();
-				list.add(backValue.getEveAssess()) ;//事件评估
-				list.add(backValue.getPlanStart()) ;//预案启动
-				list.add(backValue.getPlanAuth()) ;//决策授权
-				list.add(backValue.getPersonSign()) ;//人员签到与指派
-				list.add(backValue.getPlanPerform()) ;//预案执行
-				list.add(backValue.getEveClose()) ;//时间关闭
-				adapter.update(list, backValue.getNowTime());
-			}else if (Exceptionerror!=null) {
+				eventProgressEntities = (List<EventProgressEntity>) backValue;
+				if(eventProgressEntities != null && eventProgressEntities.size() > 0)
+				{
+					ll_no_data_page.setVisibility(View.GONE);
+					eventProgressEntities = processData(eventProgressEntities);
+					list.clear();
+					list.addAll(eventProgressEntities);
+					adapter.notifyDataSetChanged();
+				}
+			}else if (Exceptionerror != null) {
 				Toast.makeText(EventProcessDetailActivity.this, Const.NETWORKERROR, Toast.LENGTH_SHORT).show();
 			}
 			Utils.getInstance().hideProgressDialog();
@@ -187,6 +192,104 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 			rll_event_process.setResultSize(0, 3);
 		}
 	};
+
+	private List<EventProgressEntity> processData(List<EventProgressEntity> list)
+	{
+		List<EventProgressEntity> result = new ArrayList<>();
+		int index = 0;
+		for(EventProgressEntity entity : list)
+		{
+			//步骤类型：0：事件发生，1：事件评估，2：事件通告，
+			// 3：事件升级，4：事件降级，5：预案启动，6：预案授权，
+			// 7：预案中止，8：预案完成，9：事件关闭
+			String stepName = entity.getStep();
+			String stepType = entity.getStepType();
+			String planName = entity.getPlanName();
+			String operatorName = entity.getOperatorName();
+			String operationTime = entity.getOperationTime();
+			String eveLevelName = entity.getEveLevelName();
+			String content = "null".equals(entity.getContent()) ? "" : entity.getContent();
+			String appendContent = "";
+			//合并标记
+			boolean flag = false;
+			//发生时间点一致的步骤进行显示合并
+			while (index + 1 < list.size()
+					? operationTime.equals(
+							list.get(index + 1).getOperationTime())
+					: false) {
+				String nextStepType = list.get(index + 1).getStepType();
+				stepName += "&" + list.get(index + 1).getStep();
+				appendContent = createContent(appendContent, content, nextStepType,
+						operatorName, eveLevelName, planName);
+				flag = true;
+				index++;
+			}
+			if(index >= list.size()) {
+				EventProgressEntity item = new EventProgressEntity();
+				item.setId(entity.getId());
+				item.setDiscoveryTime(entity.getDiscoveryTime());
+				item.setOperationTime(operationTime);
+				if(appendContent.length() > 0)
+                    appendContent = appendContent.substring(1, appendContent.length());
+				item.setContent(appendContent);
+				item.setStepType(stepType);
+				item.setStep(stepName);
+				item.setOperatorName(operatorName);
+				result.add(item);
+				break;
+			}
+			if(flag) {
+				index++;
+				continue;
+			}
+			appendContent = createContent(appendContent, content, stepType,
+					operatorName, eveLevelName, planName);
+			EventProgressEntity item = new EventProgressEntity();
+			item.setId(entity.getId());
+			item.setDiscoveryTime(entity.getDiscoveryTime());
+			item.setOperationTime(operationTime);
+            if(appendContent.length() > 0)
+                appendContent = appendContent.substring(1, appendContent.length());
+            item.setContent(appendContent);
+			item.setStepType(stepType);
+			item.setStep(stepName);
+			item.setOperatorName(operatorName);
+			result.add(item);
+			index++;
+		}
+		return result;
+	}
+
+	private String createContent(String appendContent, String content,
+							   String type, String operatorName,
+							   String eveLevelName, String planName)
+	{
+		String ressult = appendContent;
+		if ("0".equals(type)){
+			ressult += "；发现人：" + operatorName;
+		}else if("1".equals(type)){
+			ressult += "；评估人：" + operatorName
+					+ "，预判事件等级：" + eveLevelName;
+		}else if("2".equals(type)){
+			ressult += "；" + content;
+		}else if("3".equals(type)){
+			ressult += "；" + content;
+		}else if("4".equals(type)){
+			ressult += "；" + content;
+		}else if("5".equals(type)){
+			ressult += "；启动：" + planName + "，启动人："
+					+ operatorName;
+		}else if("6".equals(type)){
+			ressult += "；授权：" + planName + "，授权人：" + operatorName;
+		}else if("7".equals(type)){
+			ressult += "；中止：" + planName + "，中止人：" + operatorName;
+		}else if("8".equals(type)){
+			ressult += "；" + planName + "执行完成";
+		}else if("9".equals(type)){
+			ressult += "；关闭人:" + operatorName;
+		}
+		return ressult;
+	}
 
 	private EmergencyServiceImpl.EmergencySeviceImplListListenser listListenser = new EmergencyServiceImpl.EmergencySeviceImplListListenser() {
 
@@ -196,6 +299,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
 			PlanStarListDetailEntity detailEntity = null;
+			ll_no_data_page.setVisibility(View.GONE);
 			if (object != null) {
 				detailEntity = (PlanStarListDetailEntity) object;
 
@@ -277,9 +381,11 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				Object object, String stRerror,
 				String Exceptionerror) {
 			List<PlanStarListEntity> dataList = null;
+			ll_no_data_page.setVisibility(View.VISIBLE);
 			if (object != null) {
 				dataList = (List<PlanStarListEntity>) object;
-
+				if(dataList.size() > 0)
+				    ll_no_data_page.setVisibility(View.GONE);
 			} else if (stRerror != null) {
 				dataList = new ArrayList<PlanStarListEntity>();
 
@@ -366,7 +472,6 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				rb_process.setChecked(true);
 				rb_plan.setChecked(false);
 				rb_detail.setChecked(false);
-				ringChartView.setVisibility(View.VISIBLE);
 				listView.setVisibility(View.VISIBLE);
 				planListView.setVisibility(View.GONE);
 				event_detail_ll.setVisibility(View.GONE);
@@ -377,7 +482,6 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				rb_process.setChecked(false);
 				rb_plan.setChecked(true);
 				rb_detail.setChecked(false);
-				ringChartView.setVisibility(View.GONE);
 				listView.setVisibility(View.GONE);
 				planListView.setVisibility(View.VISIBLE);
 				event_detail_ll.setVisibility(View.GONE);
@@ -388,7 +492,6 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				rb_process.setChecked(false);
 				rb_plan.setChecked(false);
 				rb_detail.setChecked(true);
-				ringChartView.setVisibility(View.GONE);
 				listView.setVisibility(View.GONE);
 				planListView.setVisibility(View.GONE);
 				event_detail_ll.setVisibility(View.VISIBLE);

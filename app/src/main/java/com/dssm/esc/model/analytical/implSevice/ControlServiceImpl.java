@@ -7,6 +7,7 @@ import java.util.Map;
 import android.util.Log;
 
 import com.dssm.esc.model.analytical.ControlSevice;
+import com.dssm.esc.model.entity.control.EventProgressEntity;
 import com.dssm.esc.model.entity.control.FlowChartPlanEntity;
 import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.model.entity.control.ProgressDetailEntity;
@@ -291,25 +292,25 @@ public class ControlServiceImpl implements ControlSevice {
     @Override
     public void getProgressDetail(
             String id,
-            ControlServiceImplBackValueListenser<ProgressDetailEntity> listenser) {
+            ControlServiceImplBackValueListenser<List<EventProgressEntity>> listenser) {
         // TODO Auto-generated method stub
-        final WeakReference<ControlServiceImplBackValueListenser<ProgressDetailEntity>> wr = new WeakReference<>(listenser);
+        final WeakReference<ControlServiceImplBackValueListenser<List<EventProgressEntity>>> wr = new WeakReference<>(listenser);
         new GetProgressDetailParser(id,
-                new ControlCompleterListenter<ProgressDetailEntity>() {
+                new ControlCompleterListenter<List<EventProgressEntity>>() {
 
                     @Override
                     public void controlParserComplete(
-                            ProgressDetailEntity object, String error) {
+                            List<EventProgressEntity> object, String error) {
                         // TODO Auto-generated method stub
-                        ProgressDetailEntity entity = null;
+                        List<EventProgressEntity> eventProgressEntities = null;
                         String Exceptionerror = null;
                         if (object != null) {
-                            entity = object;
+                            eventProgressEntities = object;
                         } else if (error != null) {
                             Exceptionerror = error;
                         }
                         if(wr.get() != null)
-                            wr.get().setControlServiceImplListenser(entity, null,
+                            wr.get().setControlServiceImplListenser(eventProgressEntities, null,
                                 Exceptionerror);
                     }
                 });

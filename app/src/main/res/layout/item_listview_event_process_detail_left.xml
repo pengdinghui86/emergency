@@ -19,39 +19,28 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingRight="15dp"
-        android:background="@drawable/bg_gray"
-        android:orientation="horizontal" >
+        android:background="@drawable/bg_gray">
 
         <TextView
             android:id="@+id/event_process_detail_tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="事件评估"
-            android:gravity="right"
+            android:gravity="right|center_vertical"
             android:layout_alignParentRight="true"
             style="@style/normal_text" />
 
         <TextView
-            android:id="@+id/event_process_detail_tv_overtime_title"
+            android:id="@+id/event_process_detail_tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:text="已用时:"
-            android:gravity="right"
-            android:layout_toLeftOf="@+id/event_process_detail_tv_overtime"
+            android:text="1133112"
+            android:gravity="right|center_vertical"
+            android:layout_alignParentRight="true"
             android:layout_below="@+id/event_process_detail_tv_name"
             style="@style/small_gray_text" />
 
-        <TextView
-            android:id="@+id/event_process_detail_tv_overtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:layout_below="@+id/event_process_detail_tv_name"
-            style="@style/small_gray_text"
-            android:gravity="right"
-            android:layout_alignParentRight="true"
-            android:text="29分19秒"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -96,10 +85,19 @@
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/event_process_detail_tv_overtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/small_gray_text"
+            android:text="29分19秒"/>
+
+        <TextView
             android:id="@+id/event_process_detail_tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/small_gray_text"
+            android:paddingTop="5dp"
+            android:layout_below="@+id/event_process_detail_tv_overtime"
             android:text="11-2 11:50:19"/>
 
     </RelativeLayout>

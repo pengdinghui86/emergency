@@ -149,7 +149,6 @@ public class NoticeAndSignListParser {
 					JSONObject jsonObject = (JSONObject) arraysign.opt(i);
 					SignUserEntity.Sign sign = entity.new Sign();
 					sign.setEmergTeam(jsonObject.getString("emergTeam"));
-					;
 					sign.setEmergTeamId(jsonObject.getString("emergTeamId"));
 					sign.setNeedSignNum(jsonObject.getString("needSignNum"));
 					sign.setSignNum(jsonObject.getString("signNum"));
