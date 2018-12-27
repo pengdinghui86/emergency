@@ -146,6 +146,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.HistoryNoticeActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.HistoryNoticeDetailActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.PermissionsActivity"
             android:theme="@style/AppTheme.NoActionBar.Permissions"

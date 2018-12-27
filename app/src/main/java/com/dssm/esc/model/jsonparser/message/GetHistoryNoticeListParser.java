@@ -129,6 +129,18 @@ public class GetHistoryNoticeListParser {
 							.getString("sendType"));
 					entity.setMessage(jsonObject
 							.getString("message"));
+					entity.setId(jsonObject
+							.getString("id"));
+					entity.setSender(jsonObject
+							.getString("sender"));
+					entity.setSenderId(jsonObject
+							.getString("senderId"));
+					entity.setCreateUser(jsonObject
+							.getString("createUser"));
+					entity.setReceiver(jsonObject
+							.getString("receiver"));
+					entity.setReceiverId(jsonObject
+							.getString("receiverId"));
 					list.add(entity);
 				}
 			}

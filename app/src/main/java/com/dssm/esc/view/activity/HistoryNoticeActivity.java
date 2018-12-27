@@ -1,5 +1,6 @@
 package com.dssm.esc.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -137,7 +138,12 @@ public class HistoryNoticeActivity extends BaseActivity implements
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+				HistoryNoticeEntity entity = list.get(i -1);
+				Intent intent = new Intent(HistoryNoticeActivity.this, HistoryNoticeDetailActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("noticeInfo", entity);
+				intent.putExtras(bundle);
+				startActivity(intent);
 			}
 		});
 	}

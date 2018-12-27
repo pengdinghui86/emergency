@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/history_notice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/set_gray">
+
+    <com.dssm.esc.view.widget.Title_Layout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </com.dssm.esc.view.widget.Title_Layout>
+
+    <include layout="@layout/item_listview_message"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:paddingBottom="10dp"
+            style="@style/title_text"
+            android:text="发送人员"/>
+
+        <View
+            style="@style/horizontal_gray_style" />
+
+        <TextView
+            android:id="@+id/history_notice_detail_tv_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/normal_text"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"/>
+
+        <View
+            style="@style/horizontal_gray_style" />
+
+    </LinearLayout>
+</LinearLayout>
