@@ -230,6 +230,11 @@
 -keep public interface org.xutils.** {*;}
 -dontwarn org.xutils.**
 
+#glide避免混淆
+-keep class com.bumptech.glide.** {*;}
+-keep public interface com.bumptech.glide.** {*;}
+-dontwarn com.bumptech.glide.**
+
 #自己编写的实体类和视图不混淆
 -keep class com.dssm.esc.model.entity.**{*;}
 -keep class com.dssm.esc.view.**{*;}

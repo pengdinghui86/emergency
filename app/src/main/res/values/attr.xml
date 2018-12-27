@@ -45,4 +45,7 @@
         <attr name="progressBarTextColor" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="NineGridImageView">
+        <attr format="dimension" name="imgGap"/>
+    </declare-styleable>
 </resources>
