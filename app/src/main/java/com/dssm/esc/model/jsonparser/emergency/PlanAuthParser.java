@@ -31,10 +31,10 @@ public class PlanAuthParser {
 	private final WeakReference<OnDataCompleterListener> wr;
 
 	public PlanAuthParser(String id, String planAuthOpition, String planName,
-			String planResName,String planResType,String planId,String planStarterId,String submitterId, OnDataCompleterListener completeListener) {
+			String planResName,String planResType,String planId,String planStarterId,String submitterId,String drillPrecautionId, OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
 		wr = new WeakReference<>(completeListener);
-		request(id, planAuthOpition,planName,planResName,planResType, planId, planStarterId, submitterId);
+		request(id, planAuthOpition,planName,planResName,planResType, planId, planStarterId, submitterId, drillPrecautionId);
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class PlanAuthParser {
 
 	 */
 	public void request(final String id,final String planAuthOpition,final String planName,
-			final String planResName,final String planResType,final String planId,final String planStarterId,final String submitterId) {
+			final String planResName,final String planResType,final String planId,final String planStarterId,final String submitterId,final String drillPrecautionId) {
 
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.PLANAUTH);
 		params.setReadTimeout(60 * 1000);
@@ -73,6 +73,7 @@ public class PlanAuthParser {
 			params.addParameter("planId", planId);
 			params.addParameter("planStarterId", planStarterId);
 			params.addParameter("submitterId", submitterId);
+			params.addParameter("drillPrecautionId", drillPrecautionId);
 		}
 		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
@@ -105,7 +106,7 @@ public class PlanAuthParser {
 						Utils.getInstance().relogin();
 						if(DemoApplication.sessionTimeoutCount < 5)
 							request(id,  planAuthOpition,  planName,
-								planResName, planResType, planId, planStarterId, submitterId);
+								planResName, planResType, planId, planStarterId, submitterId, drillPrecautionId);
 					}
 					responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -115,7 +116,7 @@ public class PlanAuthParser {
 					Utils.getInstance().relogin();
 					if(DemoApplication.sessionTimeoutCount < 5)
 						request(id,  planAuthOpition,  planName,
-							planResName, planResType, planId, planStarterId, submitterId);
+							planResName, planResType, planId, planStarterId, submitterId, drillPrecautionId);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

@@ -211,21 +211,43 @@ public class EventPlanListActivity extends BaseActivity implements
                 intent = new Intent(
                         EventPlanListActivity.this,
                         AutorizateDecDetailActivity.class);
+                String closeTime = "";
+                String submiterId = "";
+                for(int i = position; i >= 0; i--)
+                {
+                    //预案所属的事件
+                    if(list.get(i).getDataType() == 0)
+                    {
+                        closeTime = list.get(i).getCloseTime();
+                        submiterId = list.get(i).getSubmitterId();
+                        break;
+                    }
+                }
                 intent.putExtra("id", list.get(position)
                         .getId());
                 intent.putExtra("name", list.get(position)
-                        .getPlanName() + "-" + list.get(position)
+                        .getPlanName());
+                intent.putExtra("sceneName", list.get(position)
                         .getSceneName());
+                intent.putExtra("planResType", list.get(position)
+                        .getPlanResType());
+                intent.putExtra("planResName", list.get(position)
+                        .getPlanResName());
+                //演练时需要
+                intent.putExtra("drillPrecautionId", list.get(position)
+                        .getPrecautionId());
+                intent.putExtra("submitterId", submiterId);
+                intent.putExtra("planStarterId", list.get(position)
+                        .getPlanStarterId());
                 intent.putExtra("planId", list.get(position)
                         .getPlanId());
                 intent.putExtra("planResId", list.get(position)
                         .getPlanResId());
                 intent.putExtra("isAuthor", list.get(position)
                         .getIsAuthor());
-                intent.putExtra("status", list.get(position - 1)
+                intent.putExtra("status", list.get(position)
                         .getState());
-                intent.putExtra("closeTime", list.get(position - 1)
-                        .getCloseTime());
+                intent.putExtra("closeTime", closeTime);
                 startActivity(intent);
             } else if (tags.equals("2")) {
                 //已启动预案
@@ -399,7 +421,16 @@ public class EventPlanListActivity extends BaseActivity implements
                                         EventPlanListActivity.this,
                                         "处理意见不能为空", Toast.LENGTH_SHORT).show();
                             } else {
-                                planAuth(list.get(position), info);
+                                String submitterId = "";
+                                for(int i = position; i >= 0; i--)
+                                {
+                                    if(list.get(i).getDataType() == 0)
+                                    {
+                                        submitterId = list.get(i).getSubmitterId();
+                                        break;
+                                    }
+                                }
+                                planAuth(list.get(position), submitterId, info);
                             }
                         }
                     })
@@ -436,11 +467,11 @@ public class EventPlanListActivity extends BaseActivity implements
     /**
      * 预案授权
      */
-    private void planAuth(PlanStarListEntity planStarListEntity, String opinion) {
+    private void planAuth(PlanStarListEntity planStarListEntity, String submitterId, String opinion) {
         Utils.getInstance().showProgressDialog(
                 EventPlanListActivity.this, "", Const.SUBMIT_MESSAGE);
         Control.getinstance().getEmergencyService().planAuth(planStarListEntity.getId(), opinion, planStarListEntity.getPlanName(), planStarListEntity.getPlanResName(),
-                planStarListEntity.getPlanResType(), planStarListEntity.getPlanId(), planStarListEntity.getPlanStarterId(), planStarListEntity.getSubmitterId(), planAuthListener);
+                planStarListEntity.getPlanResType(), planStarListEntity.getPlanId(), planStarListEntity.getPlanStarterId(), submitterId, planStarListEntity.getPrecautionId(), planAuthListener);
 
     }
 

@@ -167,6 +167,8 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 	private String overTime = "";
 	private String planName = "";
 	private String planResName = "";
+	private String drillPrecautionId = "";
+	private String sceneName = "";
 	/** 中止原因 */
 	private String planSuspendOpition2 = "";
 	/**是否有中止的权限*/
@@ -292,9 +294,14 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		planId = intent.getStringExtra("planId");
 		planName = intent.getStringExtra("name");
 		planResId = intent.getStringExtra("planResId");
+	    sceneName = intent.getStringExtra("sceneName");
+		planResType = intent.getStringExtra("planResType");
+		planResName = intent.getStringExtra("planResName");
+		drillPrecautionId = intent.getStringExtra("drillPrecautionId");
+		planStarterId = intent.getStringExtra("planStarterId");
 		status = intent.getStringExtra("status");
 		closeTime = intent.getStringExtra("closeTime");
-		//isAuthor= intent.getStringExtra("isAuthor");
+		submitterId = intent.getStringExtra("submitterId");
 		initview();
 		suspandEntity = new PlanSuspandEntity();
 		sem_tags = 3;// 默认预案处置
@@ -314,10 +321,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			event_detail_ll.setVisibility(View.VISIBLE);
 			plan_detail_ll.setVisibility(View.GONE);
 			plan_autro_ll.setVisibility(View.GONE);
-			if (planResName == "" || planResName.equals("")
-					|| planResName == null) {
-				getEventDetail();
-			}
+            getEventDetail();
 		} else if (sem_tags == 2) {// 2,预案详情
 			plan_detail_ll.setVisibility(View.VISIBLE);
 			event_detail_ll.setVisibility(View.GONE);
@@ -354,8 +358,6 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		}
 	}
 
-	private AlertDialog selfdialog;
-	private String getCode =null;
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onClick(View v) {
@@ -506,8 +508,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 		Utils.getInstance().showProgressDialog(
 				AutorizateDecDetailActivity.this, "", Const.SUBMIT_MESSAGE);
 		Control.getinstance().getEmergencyService().planAuth(id, planSuspendOpition2, planName, planResName,
-				planResType, planId, planStarterId, submitterId, planAuthListener);
-
+				planResType, planId, planStarterId, submitterId, drillPrecautionId, planAuthListener);
 	}
 
 	private EmergencySeviceImplListListenser listListener = new EmergencySeviceImplListListenser() {

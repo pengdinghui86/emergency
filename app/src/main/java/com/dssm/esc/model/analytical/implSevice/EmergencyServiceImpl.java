@@ -676,7 +676,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 	@Override
 	public void planAuth(String id, String planAuthOpition, String planName,
 			String planResName, String planResType, String planId,
-			String planStarterId, String submitterId,
+			String planStarterId, String submitterId, String drillPrecautionId,
 			EmergencySeviceImplBackBooleanListenser listenser) {
 		// TODO Auto-generated method stub
 		final WeakReference<EmergencySeviceImplBackBooleanListenser> wr = new WeakReference<>(listenser);
@@ -688,7 +688,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 			return;
 		}
 		new PlanAuthParser(id, planAuthOpition, planName, planResName,
-				planResType, planId, planStarterId, submitterId,
+				planResType, planId, planStarterId, submitterId, drillPrecautionId,
 				new OnDataCompleterListener() {
 
 					@Override

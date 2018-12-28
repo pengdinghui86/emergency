@@ -186,7 +186,8 @@ public interface EmergencyService {
 	 * @param listenser
 	 */
 	void planAuth(String id, String planAuthOpition, String planName,
-				  String planResName, String planResType, String planId, String planStarterId, String submitterId,
+				  String planResName, String planResType, String planId, String planStarterId,
+				  String submitterId, String drillPrecautionId,
 				  EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser listenser);
 
 	/**

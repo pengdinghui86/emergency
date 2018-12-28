@@ -436,7 +436,8 @@
                                 <TextView
                                     android:id="@+id/execute"
                                     style="@style/text"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="20dp"
                                     android:layout_marginRight="20dp"
@@ -444,6 +445,21 @@
                                     android:clickable="true"
                                     android:padding="10dp"
                                     android:text="开始执行"
+                                    android:textColor="#fff"
+                                    android:textSize="@dimen/we_title_textsize" />
+
+                                <TextView
+                                    android:id="@+id/execute_error"
+                                    style="@style/text"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:background="@drawable/btbg_red"
+                                    android:clickable="true"
+                                    android:padding="10dp"
+                                    android:text="执行异常"
                                     android:textColor="#fff"
                                     android:textSize="@dimen/we_title_textsize" />
                             </LinearLayout>

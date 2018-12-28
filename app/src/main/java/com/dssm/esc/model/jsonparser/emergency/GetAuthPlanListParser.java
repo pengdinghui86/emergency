@@ -191,6 +191,7 @@ public class GetAuthPlanListParser {
 					listEntity.setTradeType(jsonObject2.getString("tradeType"));
 					listEntity.setEveCode(jsonObject2.getString("eveCode"));
 					listEntity.setEveType(jsonObject2.getString("eveType"));
+					listEntity.setSubmitterId(jsonObject2.getString("submitterId"));
 					if(jsonObject2.has("closeTime"))
 					{
 						if("null".equals(jsonObject2.getString("closeTime")))
@@ -255,6 +256,8 @@ public class GetAuthPlanListParser {
 						suspandEntity.setState(jsonObject.getString("state"));
 						suspandEntity.setPlanId(jsonObject.getString("planId"));
 						suspandEntity.setPlanResId(jsonObject.getString("planResId"));
+						suspandEntity.setPrecautionId(jsonObject.getString("drillPrecautionId"));
+						suspandEntity.setPlanStarterId(jsonObject.getString("planStarterId"));
 						if (a == 0) {
 							if(jsonObject.has("isAuthor"))
 								suspandEntity.setIsAuthor(jsonObject.getString("isAuthor"));
