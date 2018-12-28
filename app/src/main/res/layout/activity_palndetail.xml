@@ -407,22 +407,47 @@
                                     </LinearLayout>
                                 </LinearLayout>
 
-                                <TextView
-                                    android:id="@+id/change"
-                                    style="@style/text"
+                                <LinearLayout
+                                    android:id="@+id/change_error_ll"
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
                                     android:layout_marginBottom="10dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_marginRight="20dp"
                                     android:layout_marginTop="30dp"
                                     android:layout_weight="1"
-                                    android:background="@drawable/btbg_blue"
-                                    android:clickable="true"
-                                    android:padding="10dp"
-                                    android:text="@string/execute_complete"
-                                    android:textColor="#fff"
-                                    android:textSize="@dimen/we_title_textsize" />
+                                    android:orientation="horizontal" >
+
+                                    <TextView
+                                        android:id="@+id/change"
+                                        style="@style/text"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/btbg_blue"
+                                        android:clickable="true"
+                                        android:padding="10dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:text="@string/execute_complete"
+                                        android:textColor="#fff"
+                                        android:textSize="@dimen/we_title_textsize" />
+
+                                    <TextView
+                                        android:id="@+id/execute_error"
+                                        style="@style/text"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/btbg_red"
+                                        android:clickable="true"
+                                        android:layout_marginLeft="20dp"
+                                        android:layout_marginRight="20dp"
+                                        android:padding="10dp"
+                                        android:text="执行异常"
+                                        android:textColor="#fff"
+                                        android:textSize="@dimen/we_title_textsize" />
+
+                                </LinearLayout>
+
                             </LinearLayout>
 
                             <LinearLayout
@@ -448,20 +473,6 @@
                                     android:textColor="#fff"
                                     android:textSize="@dimen/we_title_textsize" />
 
-                                <TextView
-                                    android:id="@+id/execute_error"
-                                    style="@style/text"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_marginRight="20dp"
-                                    android:background="@drawable/btbg_red"
-                                    android:clickable="true"
-                                    android:padding="10dp"
-                                    android:text="执行异常"
-                                    android:textColor="#fff"
-                                    android:textSize="@dimen/we_title_textsize" />
                             </LinearLayout>
 
                             <LinearLayout

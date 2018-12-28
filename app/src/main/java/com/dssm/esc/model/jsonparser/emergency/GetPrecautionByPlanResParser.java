@@ -269,12 +269,42 @@ public class GetPrecautionByPlanResParser {
                             .getString("name")));
                     childEntity.setOrderNumber(isNull(jsonObject
                             .getString("orderNum")));
-                    if(jsonObject.has("executorAName")){
+                    if(jsonObject.has("executePeople")){
                         childEntity.setExecutorName(isNull(jsonObject
-                                .getString("executorAName")));
+                                .getString("executePeople")));
                     }
                     else
                         childEntity.setExecutorName("");
+                    if(jsonObject.has("executePeopleType")){
+                        childEntity.setExecutePeopleType(isNull(jsonObject
+                                .getString("executePeopleType")));
+                    }
+                    else
+                        childEntity.setExecutePeopleType("0");
+                    if(jsonObject.has("executorAName")){
+                        childEntity.setExecutorAName(isNull(jsonObject
+                                .getString("executorAName")));
+                    }
+                    else
+                        childEntity.setExecutorAName("");
+                    if(jsonObject.has("executorBName")){
+                        childEntity.setExecutorBName(isNull(jsonObject
+                                .getString("executorBName")));
+                    }
+                    else
+                        childEntity.setExecutorBName("");
+                    if(jsonObject.has("executorCName")){
+                        childEntity.setExecutorCName(isNull(jsonObject
+                                .getString("executorCName")));
+                    }
+                    else
+                        childEntity.setExecutorCName("");
+                    if(jsonObject.has("isSign")){
+                        childEntity.setIsSign(isNull(jsonObject
+                                .getString("isSign")));
+                    }
+                    else
+                        childEntity.setIsSign("1");
                     childEntity.setStatus(isNull(jsonObject
                             .getString("status")));
                     childEntity.setPlanInfoId(isNull(jsonObject

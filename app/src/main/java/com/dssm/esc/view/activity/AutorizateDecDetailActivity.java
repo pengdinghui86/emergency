@@ -392,7 +392,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			View view2 = LayoutInflater.from(AutorizateDecDetailActivity.this).inflate(R.layout.edit_info, null);
 			final EditText et = (EditText) view2.findViewById(R.id.et_info);
 			new AlertDialog.Builder(AutorizateDecDetailActivity.this)
-					.setTitle("请输入处理意见")
+					.setTitle("请输入中止原因")
 					.setIcon(android.R.drawable.ic_dialog_info)
 					.setView(view2)
 					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -402,7 +402,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 							if (info.equals("")) {
 								Toast.makeText(
 										AutorizateDecDetailActivity.this,
-										"处理意见不能为空", Toast.LENGTH_SHORT).show();
+										"中止原因不能为空", Toast.LENGTH_SHORT).show();
 							} else {
 								suspandEntity.setPlanSuspendOpition(info);
 								planSuspand();

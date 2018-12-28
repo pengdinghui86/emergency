@@ -113,306 +113,309 @@ public class EmergencyManageFragment extends BaseFragment implements
 	@Override
 	public void initGetData() {
 		if (getActivity() instanceof MainActivity) {
-			if (((MainActivity) getActivity()).menu.size() > 0) {
-				List<MenuEntity> menu = ((MainActivity) getActivity()).menu;
-				// 事件评估：SJPG
-				// 预案启动：YAQDCD
-				// 决策授权：JCSQCD
-				// 人员指派：RYZP
-				// 协同与通告:XTYTG
-				// 指挥与展示启动终止按钮：BTN_QDZZ
-				boolean sjpgVisible = false;
-				boolean yaqdVisible = false;
-				boolean jcsqVisible = false;
-				boolean personnel_assignment_llVisible = false;
-				for (int i = 0; i < menu.size(); i++) {
-					MenuEntity menuEntity = menu.get(i);
-					String mark = menuEntity.getMark();
-					if (mark.equals("SJPG")) {
-						sjpgVisible = true;
-					}
-					if (mark.equals("YAQD")) {
-						yaqdVisible = true;
-					}
-					if (mark.equals("JCSQ")) {
-						jcsqVisible = true;
-					}
-					if (mark.equals("RYZP")) {
-						personnel_assignment_llVisible = true;
-					}
+			List<MenuEntity> menu = ((MainActivity) getActivity()).menu;
+			// 事件评估：SJPG
+			// 预案启动：YAQDCD
+			// 决策授权：JCSQCD
+			// 人员指派：RYZP
+			// 协同与通告:XTYTG
+			// 指挥与展示启动终止按钮：BTN_QDZZ
+			boolean sjpgVisible = false;
+			boolean yaqdVisible = false;
+			boolean jcsqVisible = false;
+			boolean personnel_assignment_llVisible = false;
+			for (int i = 0; i < menu.size(); i++) {
+				MenuEntity menuEntity = menu.get(i);
+				String mark = menuEntity.getMark();
+				if (mark.equals("SJPG")) {
+					sjpgVisible = true;
 				}
-				addEventList.clear();
-				eventManageList.clear();
-				planManageList.clear();
-				signInAssignList.clear();
-				planExecuteList.clear();
-				EmergencyMenuEntity emergencyMenuEntity = new EmergencyMenuEntity();
-				if (!sjpgVisible) {
-					emergency_menu_rl_add_event.setVisibility(View.GONE);
-					emergency_menu_rl_event_manage.setVisibility(View.GONE);
-				} else {
-					emergencyMenuEntity.setId("emergency_evaluate");
-					emergencyMenuEntity.setName(getString(R.string.emergency_evaluation));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.emergency_evaluate);
-					emergencyMenuEntity.setActivity(AddeValuationActivity.class);
-					addEventList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("drill_evaluate");
-					emergencyMenuEntity.setName(getString(R.string.drill_evaluation));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.drill_evaluate);
-					emergencyMenuEntity.setActivity(DrillSelectActivity.class);
-					addEventList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					addEventList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					addEventList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("event_execute");
-					emergencyMenuEntity.setName(getString(R.string.executing));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.event_execute);
-					emergencyMenuEntity.setActivity(EventListActivity.class);
-					eventManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("event_reject");
-					emergencyMenuEntity.setName(getString(R.string.rejected));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.event_reject);
-					emergencyMenuEntity.setActivity(DismissValuationActivity.class);
-					eventManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("event_complete");
-					emergencyMenuEntity.setName(getString(R.string.execute_complete));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.event_complete);
-					emergencyMenuEntity.setActivity(EventListActivity.class);
-					eventManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					eventManageList.add(emergencyMenuEntity);
+				if (mark.equals("YAQD")) {
+					yaqdVisible = true;
 				}
-				if (!yaqdVisible && !jcsqVisible)
-					emergency_menu_rl_plan_manage.setVisibility(View.GONE);
-				else if (!yaqdVisible) {
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("wait_authorize");
-					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
-					planManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("authorized");
-					emergencyMenuEntity.setName(getString(R.string.authorized));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
-					planManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					planManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					planManageList.add(emergencyMenuEntity);
-				} else if (!jcsqVisible) {
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("wait_start");
-					emergencyMenuEntity.setName(getString(R.string.wait_start));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
-					emergencyMenuEntity.setActivity(EventListActivity.class);
-					planManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("started");
-					emergencyMenuEntity.setName(getString(R.string.started));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.plan_started);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
-					planManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					planManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					planManageList.add(emergencyMenuEntity);
-				} else {
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("wait_start");
-					emergencyMenuEntity.setName(getString(R.string.wait_start));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
-					emergencyMenuEntity.setActivity(EventListActivity.class);
-					planManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("started");
-					emergencyMenuEntity.setName(getString(R.string.started));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.plan_started);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
-					planManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("wait_authorize");
-					emergencyMenuEntity.setName(getString(R.string.wait_authorize));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
-					planManageList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("authorized");
-					emergencyMenuEntity.setName(getString(R.string.authorized));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
-					planManageList.add(emergencyMenuEntity);
+				if (mark.equals("JCSQ")) {
+					jcsqVisible = true;
 				}
-				if (!personnel_assignment_llVisible) {
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("people_sign");
-					emergencyMenuEntity.setName(getString(R.string.people_sign));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
-					emergencyMenuEntity.setActivity(PersonSignInActivity.class);
-					signInAssignList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					signInAssignList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					signInAssignList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					signInAssignList.add(emergencyMenuEntity);
-				} else {
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("people_sign");
-					emergencyMenuEntity.setName(getString(R.string.people_sign));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
-					emergencyMenuEntity.setActivity(PersonSignInActivity.class);
-					signInAssignList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("people_assign");
-					emergencyMenuEntity.setName(getString(R.string.people_assign));
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setIcon(R.drawable.person_assign);
-					emergencyMenuEntity.setActivity(EventPlanListActivity.class);
-					signInAssignList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					signInAssignList.add(emergencyMenuEntity);
-
-					emergencyMenuEntity = new EmergencyMenuEntity();
-					emergencyMenuEntity.setId("");
-					emergencyMenuEntity.setName("");
-					emergencyMenuEntity.setIcon(0);
-					emergencyMenuEntity.setCount(0);
-					emergencyMenuEntity.setActivity(null);
-					signInAssignList.add(emergencyMenuEntity);
+				if (mark.equals("RYZP")) {
+					personnel_assignment_llVisible = true;
 				}
-				emergencyMenuEntity = new EmergencyMenuEntity();
-				emergencyMenuEntity.setId("plan_execute");
-				emergencyMenuEntity.setName(getString(R.string.plan_execute));
-				emergencyMenuEntity.setIcon(R.drawable.plan_for_execute);
-				emergencyMenuEntity.setCount(0);
-				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
-//				emergencyMenuEntity.setActivity(PlanExecutionActivity.class);
-				planExecuteList.add(emergencyMenuEntity);
-
-				emergencyMenuEntity = new EmergencyMenuEntity();
-				emergencyMenuEntity.setId("");
-				emergencyMenuEntity.setName("");
-				emergencyMenuEntity.setIcon(0);
-				emergencyMenuEntity.setCount(0);
-				emergencyMenuEntity.setActivity(null);
-				planExecuteList.add(emergencyMenuEntity);
-
-				emergencyMenuEntity = new EmergencyMenuEntity();
-				emergencyMenuEntity.setId("");
-				emergencyMenuEntity.setName("");
-				emergencyMenuEntity.setIcon(0);
-				emergencyMenuEntity.setCount(0);
-				emergencyMenuEntity.setActivity(null);
-				planExecuteList.add(emergencyMenuEntity);
-
-				emergencyMenuEntity = new EmergencyMenuEntity();
-				emergencyMenuEntity.setId("");
-				emergencyMenuEntity.setName("");
-				emergencyMenuEntity.setIcon(0);
-				emergencyMenuEntity.setCount(0);
-				emergencyMenuEntity.setActivity(null);
-				planExecuteList.add(emergencyMenuEntity);
 			}
-			showMenuData();
+			addEventList.clear();
+			eventManageList.clear();
+			planManageList.clear();
+			signInAssignList.clear();
+			planExecuteList.clear();
+			EmergencyMenuEntity emergencyMenuEntity = new EmergencyMenuEntity();
+			if (!sjpgVisible) {
+				emergency_menu_rl_add_event.setVisibility(View.GONE);
+				emergency_menu_rl_event_manage.setVisibility(View.GONE);
+			} else {
+                emergency_menu_rl_add_event.setVisibility(View.VISIBLE);
+                emergency_menu_rl_event_manage.setVisibility(View.VISIBLE);
+				emergencyMenuEntity.setId("emergency_evaluate");
+				emergencyMenuEntity.setName(getString(R.string.emergency_evaluation));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.emergency_evaluate);
+				emergencyMenuEntity.setActivity(AddeValuationActivity.class);
+				addEventList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("drill_evaluate");
+				emergencyMenuEntity.setName(getString(R.string.drill_evaluation));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.drill_evaluate);
+				emergencyMenuEntity.setActivity(DrillSelectActivity.class);
+				addEventList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				addEventList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				addEventList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("event_execute");
+				emergencyMenuEntity.setName(getString(R.string.executing));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.event_execute);
+				emergencyMenuEntity.setActivity(EventListActivity.class);
+				eventManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("event_reject");
+				emergencyMenuEntity.setName(getString(R.string.rejected));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.event_reject);
+				emergencyMenuEntity.setActivity(DismissValuationActivity.class);
+				eventManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("event_complete");
+				emergencyMenuEntity.setName(getString(R.string.execute_complete));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.event_complete);
+				emergencyMenuEntity.setActivity(EventListActivity.class);
+				eventManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				eventManageList.add(emergencyMenuEntity);
+			}
+			if (!yaqdVisible && !jcsqVisible)
+				emergency_menu_rl_plan_manage.setVisibility(View.GONE);
+			else if (!yaqdVisible) {
+                emergency_menu_rl_plan_manage.setVisibility(View.VISIBLE);
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("wait_authorize");
+				emergencyMenuEntity.setName(getString(R.string.wait_authorize));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
+				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+				planManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("authorized");
+				emergencyMenuEntity.setName(getString(R.string.authorized));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
+				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+				planManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				planManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				planManageList.add(emergencyMenuEntity);
+			} else if (!jcsqVisible) {
+                emergency_menu_rl_plan_manage.setVisibility(View.VISIBLE);
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("wait_start");
+				emergencyMenuEntity.setName(getString(R.string.wait_start));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
+				emergencyMenuEntity.setActivity(EventListActivity.class);
+				planManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("started");
+				emergencyMenuEntity.setName(getString(R.string.started));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.plan_started);
+				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+				planManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				planManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				planManageList.add(emergencyMenuEntity);
+			} else {
+                emergency_menu_rl_plan_manage.setVisibility(View.VISIBLE);
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("wait_start");
+				emergencyMenuEntity.setName(getString(R.string.wait_start));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.plan_for_start);
+				emergencyMenuEntity.setActivity(EventListActivity.class);
+				planManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("started");
+				emergencyMenuEntity.setName(getString(R.string.started));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.plan_started);
+				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+				planManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("wait_authorize");
+				emergencyMenuEntity.setName(getString(R.string.wait_authorize));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.plan_for_authorize);
+				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+				planManageList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("authorized");
+				emergencyMenuEntity.setName(getString(R.string.authorized));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.plan_authorized);
+				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+				planManageList.add(emergencyMenuEntity);
+			}
+			if (!personnel_assignment_llVisible) {
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("people_sign");
+				emergencyMenuEntity.setName(getString(R.string.people_sign));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
+				emergencyMenuEntity.setActivity(PersonSignInActivity.class);
+				signInAssignList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				signInAssignList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				signInAssignList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				signInAssignList.add(emergencyMenuEntity);
+			} else {
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("people_sign");
+				emergencyMenuEntity.setName(getString(R.string.people_sign));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.person_sign_in);
+				emergencyMenuEntity.setActivity(PersonSignInActivity.class);
+				signInAssignList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("people_assign");
+				emergencyMenuEntity.setName(getString(R.string.people_assign));
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setIcon(R.drawable.person_assign);
+				emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+				signInAssignList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				signInAssignList.add(emergencyMenuEntity);
+
+				emergencyMenuEntity = new EmergencyMenuEntity();
+				emergencyMenuEntity.setId("");
+				emergencyMenuEntity.setName("");
+				emergencyMenuEntity.setIcon(0);
+				emergencyMenuEntity.setCount(0);
+				emergencyMenuEntity.setActivity(null);
+				signInAssignList.add(emergencyMenuEntity);
+			}
+			emergencyMenuEntity = new EmergencyMenuEntity();
+			emergencyMenuEntity.setId("plan_execute");
+			emergencyMenuEntity.setName(getString(R.string.plan_execute));
+			emergencyMenuEntity.setIcon(R.drawable.plan_for_execute);
+			emergencyMenuEntity.setCount(0);
+			emergencyMenuEntity.setActivity(EventPlanListActivity.class);
+//				emergencyMenuEntity.setActivity(PlanExecutionActivity.class);
+			planExecuteList.add(emergencyMenuEntity);
+
+			emergencyMenuEntity = new EmergencyMenuEntity();
+			emergencyMenuEntity.setId("");
+			emergencyMenuEntity.setName("");
+			emergencyMenuEntity.setIcon(0);
+			emergencyMenuEntity.setCount(0);
+			emergencyMenuEntity.setActivity(null);
+			planExecuteList.add(emergencyMenuEntity);
+
+			emergencyMenuEntity = new EmergencyMenuEntity();
+			emergencyMenuEntity.setId("");
+			emergencyMenuEntity.setName("");
+			emergencyMenuEntity.setIcon(0);
+			emergencyMenuEntity.setCount(0);
+			emergencyMenuEntity.setActivity(null);
+			planExecuteList.add(emergencyMenuEntity);
+
+			emergencyMenuEntity = new EmergencyMenuEntity();
+			emergencyMenuEntity.setId("");
+			emergencyMenuEntity.setName("");
+			emergencyMenuEntity.setIcon(0);
+			emergencyMenuEntity.setCount(0);
+			emergencyMenuEntity.setActivity(null);
+			planExecuteList.add(emergencyMenuEntity);
 		}
+		showMenuData();
 	}
 
 	public void getPlanCount()

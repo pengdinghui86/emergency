@@ -135,13 +135,15 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
          * 2018/4/25
          */
         //新增节点
-        if (!entity.getOrderNum().equals("null")) {
+        if (!entity.getOrderNum().equals("null") && !entity.getOrderNum().equals("")) {
             mhHolder.postiontv.setText(entity.getParentOrderNum() + entity.getOrderNum() + ".");
         }
         else {
-            if (!entity.getEditOrderNum().equals("null")) {
+            if (!entity.getEditOrderNum().equals("null") && !entity.getEditOrderNum().equals("")) {
                 mhHolder.postiontv.setText(entity.getParentOrderNum() + entity.getEditOrderNum() + ".");
             }
+            else
+                mhHolder.postiontv.setText("");
         }
         if (!entity.getExecutePeople().equals("null")) {
             mhHolder.executePeople.setText(entity.getExecutePeople());
@@ -720,7 +722,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
         }
         else if (!entity.getEndTime().equals("null")
-                && !entity.getBeginTime().equals("")) {
+                && !entity.getBeginTime().equals("")
+                && !entity.getBeginTime().equals("null")) {
             String overSeconds = Utils.getInstance().getOverSeconds(
                     entity.getEndTime(), entity.getBeginTime()) + "";
             String duration;

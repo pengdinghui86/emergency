@@ -61,7 +61,57 @@ public class ChildEntity implements Serializable {
     private String parentOrderNumber;
     //预案步骤执行人名称
     private String executorName;
+    //预案步骤执行人类型，0无执行人1A角2B角3C角4指派
+    private String executePeopleType;
+    //执行人A角
+    private String executorAName;
+    //执行人B角
+    private String executorBName;
+    //执行人C角
+    private String executorCName;
+    //是否需要签到才能执行步骤，0不需要1需要
+    private String isSign = "1";
     private String parentProcessStepId;
+
+    public String getExecutePeopleType() {
+        return executePeopleType;
+    }
+
+    public void setExecutePeopleType(String executePeopleType) {
+        this.executePeopleType = executePeopleType;
+    }
+
+    public String getIsSign() {
+        return isSign;
+    }
+
+    public void setIsSign(String isSign) {
+        this.isSign = isSign;
+    }
+
+    public String getExecutorAName() {
+        return executorAName;
+    }
+
+    public void setExecutorAName(String executorAName) {
+        this.executorAName = executorAName;
+    }
+
+    public String getExecutorBName() {
+        return executorBName;
+    }
+
+    public void setExecutorBName(String executorBName) {
+        this.executorBName = executorBName;
+    }
+
+    public String getExecutorCName() {
+        return executorCName;
+    }
+
+    public void setExecutorCName(String executorCName) {
+        this.executorCName = executorCName;
+    }
 
     public String getExecutorName() {
         return executorName;

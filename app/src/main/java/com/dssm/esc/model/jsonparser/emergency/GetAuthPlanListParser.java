@@ -256,8 +256,10 @@ public class GetAuthPlanListParser {
 						suspandEntity.setState(jsonObject.getString("state"));
 						suspandEntity.setPlanId(jsonObject.getString("planId"));
 						suspandEntity.setPlanResId(jsonObject.getString("planResId"));
-						suspandEntity.setPrecautionId(jsonObject.getString("drillPrecautionId"));
-						suspandEntity.setPlanStarterId(jsonObject.getString("planStarterId"));
+						if(jsonObject.has("drillPrecautionId"))
+						    suspandEntity.setPrecautionId(jsonObject.getString("drillPrecautionId"));
+                        if(jsonObject.has("planStarterId"))
+                            suspandEntity.setPlanStarterId(jsonObject.getString("planStarterId"));
 						if (a == 0) {
 							if(jsonObject.has("isAuthor"))
 								suspandEntity.setIsAuthor(jsonObject.getString("isAuthor"));

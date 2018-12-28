@@ -365,8 +365,6 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 String[] statusList2 = new String[]{"5", "6", "7", "20"};
                 for (FlowChartPlanEntity.FlowChart flowChart : allList) {
                     if (useLoop(statusList2, flowChart.getStatus())
-                            || ((null == flowChart.getType()) ? false
-                            : flowChart.getType().equals("drillNew"))
                             || (10 < Integer.parseInt(flowChart.getStatus())
                             && Integer.parseInt(flowChart.getStatus()) < 20))
                         list.add(flowChart);
@@ -375,7 +373,9 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             case 3:
                 String[] statusList3 = new String[]{"1", "2", "3", "9", "23", "24", "26", "27"};
                 for (FlowChartPlanEntity.FlowChart flowChart : allList) {
-                    if (useLoop(statusList3, flowChart.getStatus()))
+                    if (useLoop(statusList3, flowChart.getStatus())
+                            || ((null == flowChart.getType()) ? false
+                            : flowChart.getType().equals("drillNew")))
                         list.add(flowChart);
                 }
                 break;

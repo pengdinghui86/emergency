@@ -89,6 +89,11 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
      */
     @ViewInject(R.id.execute)
     private TextView execute;
+    /**
+     * 执行异常按钮
+     */
+    @ViewInject(R.id.execute_error)
+    private TextView execute_error;
 
     /**
      * 切换的完成状态布局
@@ -210,6 +215,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
         String status = childEntity.getStatus();
         submit_infomation_ll.setOnClickListener(this);
         execute.setOnClickListener(this);
+        execute_error.setOnClickListener(this);
         done_status_ll.setOnClickListener(this);
         okdone.setOnClickListener(this);
         change.setOnClickListener(this);
@@ -218,6 +224,9 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT))
                 && planStatus.equals("3")) {
             change_ll.setVisibility(View.VISIBLE);
+            if(status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT)
+                    || childEntity.getNodeStepType().equals("ExclusiveGateway"))
+                execute_error.setVisibility(View.GONE);
             execute_ll.setVisibility(View.GONE);
         } else if (status.equals("5") && planStatus.equals("3")) {
             change_ll.setVisibility(View.GONE);
@@ -312,6 +321,9 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 str = stRerror;
                 execute_ll.setVisibility(View.GONE);
                 change_ll.setVisibility(View.VISIBLE);
+                execute_error.setVisibility(View.GONE);
+                if(!childEntity.getNodeStepType().equals("ExclusiveGateway"))
+                    execute_error.setVisibility(View.VISIBLE);
                 EventBus.getDefault().post(
                         new mainEvent("refre"));// 刷新预案执行列表
                 ToastUtil.showLongToast(
@@ -367,6 +379,54 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 }
                 else
                     done_status_done.setText(changeStatus);
+                EventBus.getDefault().post(
+                        new mainEvent("refre"));// 刷新预案执行列表
+            } else if (backflag == false) {
+                str = stRerror;
+                ToastUtil
+                        .showLongToast(
+                                PlanExecutionDetailActivity.this,
+                                str);
+            } else if (stRerror != null) {
+                str = stRerror;
+                ToastUtil
+                        .showLongToast(
+                                PlanExecutionDetailActivity.this,
+                                str);
+            } else if (Exceptionerror != null) {
+
+                str = Const.NETWORKERROR
+                        + Exceptionerror;
+                ToastUtil
+                        .showLongToast(
+                                PlanExecutionDetailActivity.this,
+                                str);
+            }
+            if (Utils.getInstance().progressDialog
+                    .isShowing()) {
+                Utils.getInstance()
+                        .hideProgressDialog();
+            }
+        }
+    };
+
+    private EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser switchErrorListener = new EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser() {
+
+        @Override
+        public void setEmergencySeviceImplListenser(
+                Boolean backflag, String stRerror,
+                String Exceptionerror) {
+            // TODO Auto-generated method stub
+            String str = null;
+            if (backflag) {
+                str = stRerror;
+                ToastUtil
+                        .showLongToast(
+                                PlanExecutionDetailActivity.this,
+                                str);
+                change_ll.setVisibility(View.GONE);
+                execute.setText(getString(R.string.error_cancel));
+                execute_ll.setVisibility(View.VISIBLE);
                 EventBus.getDefault().post(
                         new mainEvent("refre"));// 刷新预案执行列表
             } else if (backflag == false) {
@@ -480,7 +540,12 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                             "完成情况必填");
                 }
                 break;
-
+            case R.id.execute_error:// 切换执行异常
+                Utils.getInstance().showProgressDialog(
+                        PlanExecutionDetailActivity.this, "",
+                        Const.SUBMIT_MESSAGE);
+                Control.getinstance().getEmergencyService().swichOver(planPerformId, planInfoId, "21", message, childEntity.getNodeStepType(), branchId, switchErrorListener);
+                break;
         }
     }
 

@@ -91,7 +91,6 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 		mhHolder.iv.setBackgroundResource(R.drawable.circle_unstart_bg);
 		mhHolder.iv.setImageResource(R.drawable.unexecuted);
 		if(entity.getNodeStepType().equals("CallActivity")) {
-			mhHolder.execute.setVisibility(View.INVISIBLE);
 			mhHolder.status.setVisibility(View.GONE);
 			mhHolder.whodone_name.setVisibility(View.GONE);
 			mhHolder.whodone_title.setVisibility(View.GONE);
@@ -120,9 +119,41 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			String state = entity.getStatus();
 			if(entity.getOrderNumber() != null && !("").equals(entity.getOrderNumber()))
 				mhHolder.numbertv.setText(entity.getParentOrderNumber() + entity.getOrderNumber());
-			if (state.equals("0")) {
+			if (state.equals("0") || "null".equals(stepname) || "".equals(stepname)) {
 				stepname="无执行人";
+				mhHolder.whodone_name.setTextColor(Color.RED);
 			}
+			else
+				mhHolder.whodone_name.setTextColor(Color.BLACK);
+			//不需要签到也能执行
+			if("0".equals(entity.getIsSign()) && "无执行人" .equals(stepname))
+			{
+				stepname = "";
+				if(!"null".equals(entity.getExecutorAName())
+						&& !"".equals(entity.getExecutorAName()))
+					stepname += ",A角:" + entity.getExecutorAName();
+				if(!"null".equals(entity.getExecutorBName())
+						&& !"".equals(entity.getExecutorBName()))
+					stepname += ",B角:" + entity.getExecutorBName();
+				if(!"null".equals(entity.getExecutorCName())
+						&& !"".equals(entity.getExecutorCName()))
+					stepname += ",C角:" + entity.getExecutorCName();
+				if(stepname.length() > 0)
+					stepname.substring(1, stepname.length());
+				mhHolder.whodone_name.setTextColor(Color.BLACK);
+			}
+			//A角
+			if("1".equals(entity.getExecutePeopleType()))
+				stepname += "（A角）";
+			//B角
+			else if("2".equals(entity.getExecutePeopleType()))
+				stepname += "（B角）";
+			//C角
+			else if("3".equals(entity.getExecutePeopleType()))
+				stepname += "（C角）";
+			//指派
+			else if("4".equals(entity.getExecutePeopleType()))
+				stepname += "（指派）";
 			mhHolder.whodone_name.setText(stepname);
 		}
 		if(entity.getParentProcessStepId() == null || "".equals(entity.getParentProcessStepId()))
@@ -161,6 +192,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 		}
 
 		mhHolder.stepname.setText(entity.getProcessName());
+		mhHolder.execute.setVisibility(View.GONE);
 		// （全部完成：1，部分完成：2，跳过：3，正在执行：4，可执行：5,准备执行：6，还未执行：7）
 		String status = entity.getStatus();
 
@@ -178,7 +210,9 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
 			mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
 		} else if (status.equals("4")) {
-			mhHolder.status.setText("执行中");// 切换按钮
+			mhHolder.execute.setVisibility(View.VISIBLE);
+			// 有切换按钮
+			mhHolder.status.setText("执行中");
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
@@ -187,7 +221,9 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
 			mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
 		} else if (status.equals("5")) {
-			mhHolder.status.setText("可执行");// 有执行按钮
+			// 有执行按钮
+			mhHolder.execute.setVisibility(View.VISIBLE);
+			mhHolder.status.setText("可执行");
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
@@ -251,6 +287,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 
 			case 10:
 				mhHolder.status.setText("执行失败");
+				mhHolder.execute.setVisibility(View.VISIBLE);
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
@@ -262,6 +299,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 
 			case 20:
 				mhHolder.status.setText("接收超时");
+				mhHolder.execute.setVisibility(View.VISIBLE);
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
@@ -273,6 +311,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 
 			case 21:
 				mhHolder.status.setText("执行异常");
+				mhHolder.execute.setVisibility(View.VISIBLE);
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
@@ -284,6 +323,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 
 			case 22:
 				mhHolder.status.setText("异常解除");
+				mhHolder.execute.setVisibility(View.VISIBLE);
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
@@ -313,6 +353,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 
 			case 25:
 				mhHolder.status.setText("执行超时");
+				mhHolder.execute.setVisibility(View.VISIBLE);
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
@@ -325,7 +366,8 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 		//2018.7.13新增，预案处于待启动或已启动或已授权的情况下，更改流程状态显示为流程未启动
 		if(planStatus.equals("0") || planStatus.equals("2") || planStatus.equals("1"))
 			mhHolder.status.setText("流程未启动");
-
+		if(entity.getNodeStepType().equals("CallActivity"))
+			mhHolder.execute.setVisibility(View.INVISIBLE);
 		return convertView;
 	}
 

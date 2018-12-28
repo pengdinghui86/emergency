@@ -133,7 +133,8 @@
                 android:paddingTop="5dp"
                 android:text="执行"
                 android:textColor="@color/colorWeFontGray_9"
-                android:textSize="@dimen/we_normal_textsize"/>
+                android:textSize="@dimen/we_normal_textsize"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 
