@@ -96,6 +96,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 					break;
 			}
 			listView.setResultSize(result.size(), 0);
+			adapter.updateTag(tag);
 			adapter.notifyDataSetChanged();
 		}
 	};

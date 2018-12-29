@@ -25,6 +25,7 @@ import java.util.List;
 public class HistoryNoticeListAdapter extends BaseAdapter {
 	private List<HistoryNoticeEntity> arraylist;
 	private Context context;
+	private String tag = "";
 	public HistoryNoticeListAdapter(Context context, List<HistoryNoticeEntity> list) {
 		this.context = context;
 		this.arraylist = list;
@@ -85,25 +86,35 @@ public class HistoryNoticeListAdapter extends BaseAdapter {
         List<Integer> mPostList = new ArrayList<>();
         String[] typeList = entity.getSendType().split(",");
         String title = "";
-        for(String type : typeList)
+        if("".equals(tag)) {
+			for (String type : typeList) {
+				if ("0".equals(type)) {
+					mPostList.add(R.drawable.system_notice);
+					title += ",系统";
+				} else if ("1".equals(type)) {
+					mPostList.add(R.drawable.email_notice);
+					title += ",邮件";
+				} else if ("2".equals(type)) {
+					mPostList.add(R.drawable.message_notice);
+					title += ",短信";
+				} else if ("3".equals(type)) {
+					mPostList.add(R.drawable.app_notice);
+					title += ",APP";
+				}
+			}
+		}
+		else
 		{
-			if("0".equals(type))
-			{
+			if ("0".equals(tag)) {
 				mPostList.add(R.drawable.system_notice);
 				title += ",系统";
-			}
-			else if("1".equals(type))
-			{
+			} else if ("1".equals(tag)) {
 				mPostList.add(R.drawable.email_notice);
 				title += ",邮件";
-			}
-			else if("2".equals(type))
-			{
+			} else if ("2".equals(tag)) {
 				mPostList.add(R.drawable.message_notice);
 				title += ",短信";
-			}
-			else if("3".equals(type))
-			{
+			} else if ("3".equals(tag)) {
 				mPostList.add(R.drawable.app_notice);
 				title += ",APP";
 			}
@@ -128,4 +139,8 @@ public class HistoryNoticeListAdapter extends BaseAdapter {
 
 	}
 
+	public void updateTag(String tag)
+	{
+		this.tag = tag;
+	}
 }

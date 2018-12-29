@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ContentView(R.layout.activity_groupsignin)
-public class GroupSigninDetail extends BaseActivity implements
+public class GroupSignAssignDetailActivity extends BaseActivity implements
 		SwipeRefreshLayout.OnRefreshListener, MainActivity.onInitNetListener, View.OnClickListener {
 	/** 返回按钮 */
 	@ViewInject(R.id.iv_actionbar_back)
@@ -309,7 +309,7 @@ public class GroupSigninDetail extends BaseActivity implements
 					dataList = new ArrayList<>();
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<>();
-					ToastUtil.showToast(GroupSigninDetail.this,
+					ToastUtil.showToast(GroupSignAssignDetailActivity.this,
 							Const.NETWORKERROR);
 				}
 				Message message = handler.obtainMessage();
@@ -324,7 +324,7 @@ public class GroupSigninDetail extends BaseActivity implements
 					dataList = new ArrayList<>();
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<>();
-					ToastUtil.showToast(GroupSigninDetail.this,
+					ToastUtil.showToast(GroupSignAssignDetailActivity.this,
 							Const.NETWORKERROR);
 				}
 				Message message = handler.obtainMessage();
@@ -337,7 +337,7 @@ public class GroupSigninDetail extends BaseActivity implements
 	};
 
 	private void initListData() {
-		Utils.getInstance().showProgressDialog(GroupSigninDetail.this, "",
+		Utils.getInstance().showProgressDialog(GroupSignAssignDetailActivity.this, "",
 				Const.LOAD_MESSAGE);
 		Control.getinstance().getControlSevice().getSignDetailInfo(id, controlServiceImplBackValueListenser);
 	}

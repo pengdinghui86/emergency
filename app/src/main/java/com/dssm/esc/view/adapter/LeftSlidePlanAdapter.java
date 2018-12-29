@@ -175,22 +175,27 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                     switch (Integer.parseInt(entity1.getState())) {
                         case 0:
                             status = "待启动";
+                            planViewHolder.tvState.setTextColor(Color.GRAY);
                             break;
                         case 1:
                             status = "已启动";
+                            planViewHolder.tvState.setTextColor(Color.GRAY);
                             break;
                         case 2:
                             status = "已授权";
+                            planViewHolder.tvState.setTextColor(Color.GREEN);
                             break;
                         case 3:
                             status = "执行中";
-
+                            planViewHolder.tvState.setTextColor(Color.YELLOW);
                             break;
                         case 4:
                             status = "完成";
+                            planViewHolder.tvState.setTextColor(Color.BLUE);
                             break;
                         case 5:
                             status = "强行中止";
+                            planViewHolder.tvState.setTextColor(Color.RED);
                             break;
 
                         /**
@@ -199,9 +204,9 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                          */
                         case 6:
                             status = "暂停";
+                            planViewHolder.tvState.setTextColor(Color.RED);
                             break;
                     }
-                    planViewHolder.tvState.setTextColor(Color.RED);
                     planViewHolder.tvState.setText(status);
                 }
 

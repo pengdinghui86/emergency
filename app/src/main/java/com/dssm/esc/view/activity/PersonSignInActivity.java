@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl;
-import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplBackBooleanListenser;
 import com.dssm.esc.model.analytical.implSevice.EmergencyServiceImpl.EmergencySeviceImplListListenser;
 import com.dssm.esc.model.entity.control.PlanEntity;
 import com.dssm.esc.util.Const;
@@ -209,8 +208,8 @@ public class PersonSignInActivity extends BaseActivity implements
     @Override
     public void onItemClick(View view, final int position) {
         Intent intent = new Intent(this,
-                GroupSigninDetail.class);
-        intent.putExtra("tag", "1");
+                GroupSignDetailActivity.class);
+        intent.putExtra("tag", "2");
         intent.putExtra("id", list.get(position).getId());
         startActivity(intent);
     }

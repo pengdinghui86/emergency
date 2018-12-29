@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -42,6 +43,7 @@ public class PersonalCenterFragment extends BaseFragment implements
 	private TextView personal_center_tv_post;
 	private TextView personal_center_tv_department;
 	private TextView personal_center_tv_email;
+	private ImageView personal_center_iv_header;
 	private Button personal_center_bt_change_role;
 	private Button personal_center_bt_logout;
 	private Context context;
@@ -75,6 +77,7 @@ public class PersonalCenterFragment extends BaseFragment implements
 		personal_center_tv_post = (TextView) view_Parent.findViewById(R.id.personal_center_tv_post);
 		personal_center_tv_department = (TextView) view_Parent.findViewById(R.id.personal_center_tv_department);
 		personal_center_tv_email = (TextView) view_Parent.findViewById(R.id.personal_center_tv_email);
+		personal_center_iv_header = (ImageView) view_Parent.findViewById(R.id.personal_center_iv_header);
 		personal_center_bt_change_role = (Button) view_Parent.findViewById(R.id.personal_center_bt_change_role);
         personal_center_bt_change_role.setOnClickListener(this);
 		personal_center_bt_logout = (Button) view_Parent.findViewById(R.id.personal_center_bt_logout);
@@ -152,6 +155,10 @@ public class PersonalCenterFragment extends BaseFragment implements
 							personal_center_tv_post.setText(childEntity.getZhiwei().toString());
 							personal_center_tv_department.setText(childEntity.getEmergTeam().toString());
 							personal_center_tv_email.setText(childEntity.getEmail().toString());
+							if("女".equals(childEntity.getEmail().toString()))
+								personal_center_iv_header.setImageResource(R.drawable.m_p_w);
+							else
+								personal_center_iv_header.setImageResource(R.drawable.m_p_m);
 							flag = true;
 							break;
 						}

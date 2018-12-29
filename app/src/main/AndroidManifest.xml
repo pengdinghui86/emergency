@@ -120,7 +120,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.ControlActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.GroupSigninDetail"
+        <activity android:name=".view.activity.GroupSignAssignDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.GroupSignDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.SendCollaborativeActivity"
             android:screenOrientation="portrait"/>

@@ -529,14 +529,14 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
                 break;
             case R.id.resource_prepare_ll_receive:// 应急通知接收情况详情
                 Intent intent = new Intent(ControlActivity.this,
-                        GroupSigninDetail.class);
+                        GroupSignAssignDetailActivity.class);
                 intent.putExtra("tag", "1");
                 intent.putExtra("id", planEntity.getId());
                 startActivity(intent);
                 break;
             case R.id.resource_prepare_ll_sign:// 应急小组签到情况详情
                 Intent intent2 = new Intent(ControlActivity.this,
-                        GroupSigninDetail.class);
+                        GroupSignAssignDetailActivity.class);
                 intent2.putExtra("tag", "2");
                 intent2.putExtra("id", planEntity.getId());
                 startActivity(intent2);
