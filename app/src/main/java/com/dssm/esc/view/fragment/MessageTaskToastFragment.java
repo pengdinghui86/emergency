@@ -2,13 +2,16 @@ package com.dssm.esc.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
@@ -30,6 +33,7 @@ import com.dssm.esc.view.activity.PersonSignInActivity;
 import com.dssm.esc.view.activity.EventListActivity;
 import com.dssm.esc.view.adapter.MessageListAdapter;
 import com.dssm.esc.view.widget.AutoListView;
+import com.dssm.esc.view.widget.ClearEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +47,14 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		AutoListView.OnRefreshListener, AutoListView.OnLoadListener, MainActivity.onInitNetListener {
 	/** 自定义listview */
 	private AutoListView listview;
-	/** 总list */
+	/** 当前页展示list */
 	private List<MessageInfoEntity> list = new ArrayList<MessageInfoEntity>();
+	/** 总list */
+	private List<MessageInfoEntity> totalList = new ArrayList<MessageInfoEntity>();
+	/** 搜索过滤后list */
+	private List<MessageInfoEntity> searchList = new ArrayList<MessageInfoEntity>();
+	/** 搜索输入框 */
+	private ClearEditText filter_edit;
 	/** 适配器 */
 	private MessageListAdapter adapter;
 	/** 当前页数 */
@@ -52,19 +62,18 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	private Context context;
 	private UserSevice sevice;
 
-	// private int page = 1;
 	/** 当前数据数量 */
 	private int limt = 0;
-	/** 每次查询数据库的第几条 */
-	private int databaselimitn = 0;
-	private ArrayList<MessageInfoEntity> dataListAll;
 	/**
 	 * 每个用户的每个角色的三张表：任务
 	 */
 	private String table1 = "";
 	public String count1 = "0";
 	public String count2 = "0";
-	private MessageInfoEntity infoEntity;
+	/**
+	 * 搜索字符串
+	 */
+	public String queryStr = "";
 
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -105,7 +114,6 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	public MessageTaskToastFragment(Context context, String table1) {
 		this.context = context;
 		sevice = Control.getinstance().getUserSevice();
-		infoEntity = new MessageInfoEntity();
 		this.table1 = table1;
 		Log.i("任务通知表名", table1);
 
@@ -133,6 +141,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		listview = (AutoListView) view_Parent
 				.findViewById(R.id.message_listview_toast);
+		filter_edit = (ClearEditText) view_Parent.findViewById(R.id.filter_edit);
 	}
 
 	@Override
@@ -195,7 +204,20 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		adapter = new MessageListAdapter(context, list);
 		listview.setAdapter(adapter);
-
+		filter_edit.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+										  int after) {
+			}
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+									  int count) {
+			}
+			@Override
+			public void afterTextChanged(Editable s) {
+				filterData(s.toString());
+			}
+		});
 	}
 
 	@Override
@@ -406,14 +428,14 @@ public class MessageTaskToastFragment extends BaseFragment implements
 			Log.i("44", "无数据");
 			listview.onRefreshComplete();
 		}
-		int size = DataBaseUtil.getList(table1, null).size();
+		int size = DataBaseUtil.getList(table1, null, queryStr).size();
 		List<MessageInfoEntity> dbList;
 		if (limt + 20 > size) {
 			// ToastUtil.showToast(context, "没有更多的数据了");
-			dbList = DataBaseUtil.getList(table1, limt + "," + size);
+			dbList = DataBaseUtil.getList(table1, limt + "," + size, queryStr);
 			limt = size;
 		} else {
-			dbList = DataBaseUtil.getList(table1, limt + "," + (limt + 20));
+			dbList = DataBaseUtil.getList(table1, limt + "," + (limt + 20), queryStr);
 			limt = limt + 20;
 		}
 		Log.i("44", "list的长度为：" + dataList.size());
@@ -428,14 +450,14 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	 */
 	private void onLoadDta(int what) {
 		// 判断数据库数据的长度
-		int size = DataBaseUtil.getList(table1, null).size();
+		int size = DataBaseUtil.getList(table1, null, queryStr).size();
 		List<MessageInfoEntity> dbList;
 		if ((limt + 20) > size) {
 			// ToastUtil.showToast(context, "没有更多的数据了");
-			dbList = DataBaseUtil.getList(table1, limt + "," + (size - limt));
+			dbList = DataBaseUtil.getList(table1, limt + "," + (size - limt), queryStr);
 			limt = size;
 		} else {
-			dbList = DataBaseUtil.getList(table1, limt + "," + 20);
+			dbList = DataBaseUtil.getList(table1, limt + "," + 20, queryStr);
 			limt += 20;
 		}
 		Message msg = handler.obtainMessage();
@@ -474,5 +496,13 @@ public class MessageTaskToastFragment extends BaseFragment implements
 
 			loadData(0);
 		}
+	}
+
+	/**
+	 * 根据输入框中的值来过滤数据并更新ListView
+	 */
+	private void filterData(String filterStr) {
+		queryStr = filterStr;
+		initData();
 	}
 }

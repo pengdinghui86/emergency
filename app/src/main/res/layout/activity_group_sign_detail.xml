@@ -36,7 +36,7 @@
             android:paddingTop="8dp"
             android:singleLine="true"
             style="@style/normal_text"
-            android:gravity="center"/>
+            android:gravity="center_vertical"/>
     </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

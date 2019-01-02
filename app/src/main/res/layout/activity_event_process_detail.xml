@@ -52,7 +52,7 @@
     <com.dssm.esc.view.widget.RefreshLinearLayout
         android:id="@+id/rll_event_process"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:orientation="vertical">
 

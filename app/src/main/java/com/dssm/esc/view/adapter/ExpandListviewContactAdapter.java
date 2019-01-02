@@ -177,7 +177,7 @@ private	String tag;
 		} else {
 			gHolder = (GroupViewHolder) convertView.getTag();
 		}
-		gHolder.group_tv.setText(gentity.getGroupname());
+		gHolder.group_tv.setText(gentity.getGroupname() + "（" + gentity.getcList().size() + "）");
 		if (!isExpanded) {
 			gHolder.group_contact_rl.setBackgroundResource(R.color.white);
 			gHolder.group_img.animate().rotation(0).setDuration(200).start();

@@ -198,7 +198,7 @@ public class ExpandListviewContactCheckboxAdapter extends BaseExpandableListAdap
 		} else {
 			gHolder = (GroupViewHolder) convertView.getTag();
 		}
-		gHolder.group_tv.setText(gentity.getGroupname());
+		gHolder.group_tv.setText(gentity.getGroupname() + "（" + gentity.getcList().size() + "）");
 		gHolder.groupCBLayout
 				.setOnClickListener(new GroupCBLayoutOnClickListener(gentity));
 		if(!groupCheckedStateMap.containsKey(gentity.getGroup_id()))

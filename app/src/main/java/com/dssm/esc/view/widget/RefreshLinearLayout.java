@@ -15,6 +15,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -391,6 +392,15 @@ public class RefreshLinearLayout extends LinearLayout {
 					return false;
 				}
 			}
+            //listView没有滑到顶部时屏蔽下拉刷新
+            if(getChildAt(1) != null && getChildAt(1) instanceof ListView) {
+                ListView listView = (ListView) getChildAt(1);
+				if (listView != null) {
+					if (listView.getFirstVisiblePosition() > 0 || listView.getChildAt(0).getTop() < 0) {
+						return false;
+					}
+				}
+            }
 			if(isDropDownValidate)
 			{
 				onTouchEvent(ev);

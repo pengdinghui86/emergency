@@ -62,13 +62,15 @@ public class EventProcessDetailListviewAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		EventProgressEntity entity = list.get(position);
 		ViewHolder mhHolder = new ViewHolder();
-		if (position % 2 == 0) {
-			convertView = LayoutInflater.from(context).inflate(
-					R.layout.item_listview_event_process_detail_right, null);
-		} else {
-			convertView = LayoutInflater.from(context).inflate(
-					R.layout.item_listview_event_process_detail_left, null);
-		}
+//		if (position % 2 == 0) {
+//			convertView = LayoutInflater.from(context).inflate(
+//					R.layout.item_listview_event_process_detail_right, null);
+//		} else {
+//			convertView = LayoutInflater.from(context).inflate(
+//					R.layout.item_listview_event_process_detail_left, null);
+//		}
+		convertView = LayoutInflater.from(context).inflate(
+				R.layout.item_listview_event_process_detail_right, null);
 		mhHolder.name = (TextView) convertView.findViewById(R.id.event_process_detail_tv_name);
 		mhHolder.content = (TextView) convertView.findViewById(R.id.event_process_detail_tv_content);
 		mhHolder.time = (TextView) convertView.findViewById(R.id.event_process_detail_tv_time);

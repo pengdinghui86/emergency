@@ -483,7 +483,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             case R.id.iv_actionbar_operation:// 操作手册
                 Intent intent4 = new Intent(PlanExecutionDetailActivity.this,
                         OperationMenuActivity.class);
-                intent4.putExtra("manualDetailId", childEntity.getManualDetailId());
+                intent4.putExtra("manualDetailId", childEntity.getPlanInfoId() + ";"+childEntity.getPlanPerformId());
                 intent4.putExtra("planResType", planResType);
                 intent4.putExtra("drillPrecautionId", drillPrecautionId);
                 intent4.putExtra("name", childEntity.getProcessName());

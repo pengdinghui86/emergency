@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.adapter.MessageListAdapter;
 import com.dssm.esc.view.adapter.MessageToastAdapter;
 import com.dssm.esc.view.widget.AutoListView;
+import com.dssm.esc.view.widget.ClearEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,8 @@ public class MessageSystemToastFragment extends BaseFragment implements
 		AutoListView.OnRefreshListener, AutoListView.OnLoadListener,MainActivity.onInitNetListener {
 	/** 自定义listview */
 	private AutoListView listview;
+	/** 搜索输入框 */
+	private ClearEditText filter_edit;
 	/** 总list */
 	private List<MessageInfoEntity> list = new ArrayList<MessageInfoEntity>();
 	/** 适配器 */
@@ -49,6 +54,11 @@ public class MessageSystemToastFragment extends BaseFragment implements
 	private String table2 = "";
 	/** 每次查询20条数据 */
 	private int limt = 20;
+	/**
+	 * 搜索字符串
+	 */
+	public String queryStr = "";
+
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			@SuppressWarnings("unchecked")
@@ -100,6 +110,7 @@ public class MessageSystemToastFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		listview = (AutoListView) view_Parent
 				.findViewById(R.id.message_listview_toast);
+		filter_edit = (ClearEditText) view_Parent.findViewById(R.id.filter_edit);
 	}
 	@Override
 	public void onHiddenChanged(boolean hidden) {
@@ -124,7 +135,20 @@ public class MessageSystemToastFragment extends BaseFragment implements
 		// TODO Auto-generated method stub
 		adapter = new MessageListAdapter(context, list);
 		listview.setAdapter(adapter);
-
+		filter_edit.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+										  int after) {
+			}
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+									  int count) {
+			}
+			@Override
+			public void afterTextChanged(Editable s) {
+				filterData(s.toString());
+			}
+		});
 	}
 
 	@Override
@@ -285,13 +309,13 @@ public class MessageSystemToastFragment extends BaseFragment implements
 		if (dataList.size() == 0) {
 			//ToastUtil.showToast(context, "已是最新的数据");
 		}
-		int size = DataBaseUtil.getList(table2, null).size();
+		int size = DataBaseUtil.getList(table2, null, queryStr).size();
 		List<MessageInfoEntity> dbList;
 		if (limt > size) {
 			//ToastUtil.showToast(context, "没有更多的数据了");
-			dbList = DataBaseUtil.getList(table2, (limt - 20) + "," + size);
+			dbList = DataBaseUtil.getList(table2, (limt - 20) + "," + size, queryStr);
 		} else {
-			dbList = DataBaseUtil.getList(table2, (limt - 20) + "," + limt);
+			dbList = DataBaseUtil.getList(table2, (limt - 20) + "," + limt, queryStr);
 		}
 		msg.obj = dbList;
 		handler.sendMessage(msg);
@@ -304,13 +328,13 @@ public class MessageSystemToastFragment extends BaseFragment implements
 	 */
 	private void onLoadDta(int what) {
 		// 判断数据库数据的长度
-		int size = DataBaseUtil.getList(table2, null).size();
+		int size = DataBaseUtil.getList(table2, null, queryStr).size();
 		List<MessageInfoEntity> dbList;
 		if ((limt + 20) > size) {
 			//ToastUtil.showToast(context, "没有更多的数据了");
-			dbList = DataBaseUtil.getList(table2, limt + "," + size);
+			dbList = DataBaseUtil.getList(table2, limt + "," + size, queryStr);
 		} else {
-			dbList = DataBaseUtil.getList(table2, limt + "," + (limt + 20));
+			dbList = DataBaseUtil.getList(table2, limt + "," + (limt + 20), queryStr);
 			limt += 20;
 		}
 		Message msg = handler.obtainMessage();
@@ -322,5 +346,13 @@ public class MessageSystemToastFragment extends BaseFragment implements
 	public void initNetData() {
 		// TODO Auto-generated method stub
 		initData();
+	}
+
+	/**
+	 * 根据输入框中的值来过滤数据并更新ListView
+	 */
+	private void filterData(String filterStr) {
+		queryStr = filterStr;
+		loadData(0);
 	}
 }

@@ -303,13 +303,13 @@ public class MessageEmergencyToastFragment extends BaseFragment implements
 		if (dataList.size() == 0) {
 			// ToastUtil.showToast(context, "已是最新的数据");
 		}
-		int size = DataBaseUtil.getList(table3, null).size();
+		int size = DataBaseUtil.getList(table3, null, "").size();
 		List<MessageInfoEntity> dbList;
 		if (limt > size) {
 			// ToastUtil.showToast(context, "没有更多的数据了");
-			dbList = DataBaseUtil.getList(table3, (limt - 20) + "," + size);
+			dbList = DataBaseUtil.getList(table3, (limt - 20) + "," + size, "");
 		} else {
-			dbList = DataBaseUtil.getList(table3, (limt - 20) + "," + limt);
+			dbList = DataBaseUtil.getList(table3, (limt - 20) + "," + limt, "");
 		}
 		msg.obj = dbList;
 		handler.sendMessage(msg);
@@ -322,13 +322,13 @@ public class MessageEmergencyToastFragment extends BaseFragment implements
 	 */
 	private void onLoadDta(int what) {
 		// 判断数据库数据的长度
-		int size = DataBaseUtil.getList(table3, null).size();
+		int size = DataBaseUtil.getList(table3, null, "").size();
 		List<MessageInfoEntity> dbList;
 		if ((limt + 20) > size) {
 			// ToastUtil.showToast(context, "没有更多的数据了");
-			dbList = DataBaseUtil.getList(table3, limt + "," + size);
+			dbList = DataBaseUtil.getList(table3, limt + "," + size, "");
 		} else {
-			dbList = DataBaseUtil.getList(table3, limt + "," + (limt + 20));
+			dbList = DataBaseUtil.getList(table3, limt + "," + (limt + 20), "");
 			limt += 20;
 		}
 		Message msg = handler.obtainMessage();

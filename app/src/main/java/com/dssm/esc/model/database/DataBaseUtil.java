@@ -75,12 +75,25 @@ public class DataBaseUtil {
 		return json;
 	}
 
-	public static List<MessageInfoEntity> getList(String table, String limit) {
+	public static List<MessageInfoEntity> getList(String table, String limit, String searchStr) {
 		// TODO Auto-generated method stub
 		OperationDataBaseUtil helper = DataBaseManage
 				.getOperationDataBaseUtil(DataBaseManage.DATA_BASE_NAME);
+		String selection = null;
+		String[] selectionArgs = null;
+		if(searchStr != null && !"".equals(searchStr))
+		{
+			selection = DataBaseFields.EVENTNAME + " LIKE ? OR " + DataBaseFields.PLANNAME
+					+ " LIKE ? OR " + DataBaseFields.MESSAGE + " LIKE ? ";
+			selectionArgs = new String[] {"%"+searchStr+"%", "%"+searchStr+"%", "%"+searchStr+"%"};
+		}
+
 		ArrayList<HashMap<String, String>> list = helper.selectByEncrypt(false,
-				DataBaseFields.TB_MESSAGE+table, new String[] { "*" }, null, null, null, null, "time desc",
+				DataBaseFields.TB_MESSAGE+table, new String[] { DataBaseFields.ID,
+						DataBaseFields.MESSAGEID, DataBaseFields.TIME, DataBaseFields.MESSAGE,
+						DataBaseFields.EVENTNAME, DataBaseFields.EVENTTYPE, DataBaseFields.PLANNAME,
+						DataBaseFields.SENDER, DataBaseFields.MODELFLAG },
+				selection, selectionArgs, null, null, "time desc",
 				limit, null, false);
 		
 		List<MessageInfoEntity> infolist = new ArrayList<MessageInfoEntity>();

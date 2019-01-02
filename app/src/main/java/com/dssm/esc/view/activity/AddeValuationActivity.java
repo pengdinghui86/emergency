@@ -252,6 +252,8 @@ public class AddeValuationActivity extends BaseActivity implements
 			tag = intent.getStringExtra("tag");
 			if (tag.equals("1")) {
 				title.setText("应急-新增评估");
+				resutList7 = initEmergencyDisposalData();
+				emergency_disposal_process.setText("预案启动,预案授权,人员签到");
 				emergency_disposal_process_ll.setVisibility(View.VISIBLE);
 				emergency_disposal_process_ll.setOnClickListener(this);
 			} else if (tag.equals("2")) {
@@ -396,6 +398,26 @@ public class AddeValuationActivity extends BaseActivity implements
 
 			}
 		}
+	}
+
+	private List<PlanNameRowEntity> initEmergencyDisposalData()
+	{
+		List<PlanNameRowEntity> result = new ArrayList<>();
+		PlanNameRowEntity planNameRowEntity = new PlanNameRowEntity();
+		planNameRowEntity.setId("1");
+		planNameRowEntity.setName("预案启动");
+		result.add(planNameRowEntity);
+
+		planNameRowEntity = new PlanNameRowEntity();
+		planNameRowEntity.setId("2");
+		planNameRowEntity.setName("预案授权");
+		result.add(planNameRowEntity);
+
+		planNameRowEntity = new PlanNameRowEntity();
+		planNameRowEntity.setId("3");
+		planNameRowEntity.setName("人员签到");
+		result.add(planNameRowEntity);
+		return result;
 	}
 
 	/** 带回来的集合 */
@@ -806,9 +828,9 @@ public class AddeValuationActivity extends BaseActivity implements
 
 				referPlan_name.setText(str4.substring(1, str4.length()));
 			}
-//			else {
-//				referPlan_name.setText(str4);
-//			}
+			else {
+				referPlan_name.setText(str4);
+			}
 			break;
 		case 5: // 其他预案布局
 			String str5 = "";
@@ -845,9 +867,9 @@ public class AddeValuationActivity extends BaseActivity implements
 
 				otherReferPlan_name.setText(str5.substring(1, str5.length()));
 			}
-//			else {
-//				otherReferPlan_name.setText(str5);
-//			}
+			else {
+				otherReferPlan_name.setText(str5);
+			}
 			break;
 
 		case 6:
@@ -883,9 +905,9 @@ public class AddeValuationActivity extends BaseActivity implements
 			if (str6.length() > 0) {
 				categoryPlan_name.setText(str6.substring(1, str6.length()));
 			}
-//			else {
-//				categoryPlan_name.setText(str6);
-//			}
+			else {
+				categoryPlan_name.setText(str6);
+			}
 
 			break;
 			case 7:
@@ -918,6 +940,8 @@ public class AddeValuationActivity extends BaseActivity implements
 				if (str7.length() > 0) {
 					emergency_disposal_process.setText(str7.substring(1, str7.length()));
 				}
+				else
+					emergency_disposal_process.setText(str7);
 				break;
 			case 1001:
 				if (data != null && resultCode == RESULT_OK) {

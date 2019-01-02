@@ -278,7 +278,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 			ressult += "；" + content;
 		}else if("5".equals(type)){
 			ressult += "；启动：" + planName + "，启动人："
-					+ operatorName;
+					+ ("null".equals(operatorName) ? "" : operatorName);
 		}else if("6".equals(type)){
 			ressult += "；授权：" + planName + "，授权人：" + operatorName;
 		}else if("7".equals(type)){

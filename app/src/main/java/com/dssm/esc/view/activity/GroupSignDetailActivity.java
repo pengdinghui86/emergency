@@ -44,7 +44,7 @@ public class GroupSignDetailActivity extends BaseActivity implements
 	/** 返回按钮 */
 	@ViewInject(R.id.iv_actionbar_back)
 	private ImageView back;
-    /** 返回按钮 */
+    /** 搜索输入框 */
 	@ViewInject(R.id.filter_edit)
 	private ClearEditText filter_edit;
 	/** 暂无数据 */
@@ -160,11 +160,18 @@ public class GroupSignDetailActivity extends BaseActivity implements
 			for (int j = 0; j < planTreeList.get(i).getEmeGroups().size(); j++) {
 				TreeNode treeNode1 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getGroupname());
 				treeNode1.setLevel(1);
+				int total = 0;
+				int signCount = 0;
 				for (int k = 0; k < planTreeList.get(i).getEmeGroups().get(j).getcList().size(); k++) {
 					TreeNode treeNode2 = new TreeNode(planTreeList.get(i).getEmeGroups().get(j).getcList().get(k));
 					treeNode2.setLevel(2);
 					treeNode1.addChild(treeNode2);
+					total++;
+					if("1".equals(planTreeList.get(i).getEmeGroups().get(j).getcList().get(k).getSignin()))
+						signCount++;
 				}
+				treeNode1.setValue(planTreeList.get(i).getEmeGroups().get(j).getGroupname()
+				+"（" + signCount + "/" + total + "）");
 				treeNode.addChild(treeNode1);
 			}
 			root.addChild(treeNode);
