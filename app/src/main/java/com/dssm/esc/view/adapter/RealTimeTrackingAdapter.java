@@ -626,8 +626,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
 
         if ((roleCode.equals("R001") || roleCode.equals("R002")
                 || roleCode.equals("R003")) && (entity.getStatus().equals(RealTimeTrackingStatus.EXECUTING)
-                || entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT)
-                || entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_STOP))
+                || entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT))
                 && parentState.equals("3") && !entity.getNodeStepType().equals("ExclusiveGateway")) {
             mhHolder.jumptv.setVisibility(View.VISIBLE);
             mhHolder.jumptv.setOnClickListener(new OnClickListener() {
