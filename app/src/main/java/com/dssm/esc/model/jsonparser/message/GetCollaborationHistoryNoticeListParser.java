@@ -21,14 +21,14 @@ import java.util.List;
 
 
 /**
- * 获取应急历史通知列表解析
+ * 获取协同与通告历史通知列表解析
  */
-public class GetHistoryNoticeListParser {
+public class GetCollaborationHistoryNoticeListParser {
 	private List<HistoryNoticeEntity> list;
 	private final WeakReference<OnDataCompleterListener> wr;
 
-	public GetHistoryNoticeListParser(String msgType,
-                                      OnDataCompleterListener completeListener) {
+	public GetCollaborationHistoryNoticeListParser(String msgType,
+                                                   OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
 		wr = new WeakReference<>(completeListener);
 		request(msgType);
@@ -39,7 +39,7 @@ public class GetHistoryNoticeListParser {
 	 * 不传查全部，0系统，1邮件，2短信，3APP
 	 */
 	public void request(final String msgType) {
-		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.HISTORYNOTICE + msgType);
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.COLLABORATIONHISTORYNOTICE + msgType);
 		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(

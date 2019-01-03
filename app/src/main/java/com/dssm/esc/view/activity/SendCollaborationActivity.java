@@ -220,16 +220,15 @@ public class SendCollaborationActivity extends BaseActivity implements
 				contact_people_v.setVisibility(View.VISIBLE);
 				contact_people_ll.setVisibility(View.VISIBLE);
 				pell.setVisibility(View.GONE);
-
+				send_tv.setVisibility(View.VISIBLE);
 			} else if (sendString.equals("对外")) {
 				type = "2";
-
 				pell.setVisibility(View.GONE);
-
+				send_tv.setVisibility(View.GONE);
 			} else if (sendString.equals("对监管")) {
 				type = "3";
-
 				pell.setVisibility(View.VISIBLE);
+				send_tv.setVisibility(View.VISIBLE);
 			}
 		}
 
@@ -247,8 +246,9 @@ public class SendCollaborationActivity extends BaseActivity implements
 				finish();
 				break;
 			case R.id.iv_actionbar_send_history:
-				//通知历史信息
+				//协同与通告通知历史信息
 				Intent intent = new Intent(this, HistoryNoticeActivity.class);
+				intent.putExtra("type", "2");
 				startActivity(intent);
 				break;
 			case R.id.rb_send_collaboration:
@@ -259,6 +259,7 @@ public class SendCollaborationActivity extends BaseActivity implements
 				busType = "collaborNotice";
 				rb_send_collaboration.setChecked(true);
 				rb_send_notice.setChecked(false);
+				send_tv.setVisibility(View.VISIBLE);
 				initMesgData(sem_tags2);
 				break;
 			case R.id.rb_send_notice:
@@ -454,17 +455,19 @@ public class SendCollaborationActivity extends BaseActivity implements
 								contact_people_v.setVisibility(View.VISIBLE);
 								contact_people_ll.setVisibility(View.VISIBLE);
 								pell.setVisibility(View.GONE);
+								send_tv.setVisibility(View.VISIBLE);
 							} else if (sendString.equals("对外")) {
 								type = "2";
 								contact_people_v.setVisibility(View.GONE);
 								contact_people_ll.setVisibility(View.GONE);
 								pell.setVisibility(View.GONE);
-
+								send_tv.setVisibility(View.GONE);
 							} else if (sendString.equals("对监管")) {
 								type = "3";
 								contact_people_v.setVisibility(View.GONE);
 								contact_people_ll.setVisibility(View.GONE);
 								pell.setVisibility(View.VISIBLE);
+								send_tv.setVisibility(View.VISIBLE);
 							}
 						}
 						selectObj = sendString;

@@ -253,10 +253,15 @@ public class HttpUrl {
     public final static String GETASSIGNLIST =
             "emergency/planInfo/getAssign?state=1,2,3";
     /**
-     * 通知历史
+     * 应急通知历史
      */
     public final static String HISTORYNOTICE =
             "message/getNoticeInfo?sendType=";
+    /**
+     * 协同与通告通知历史
+     */
+    public final static String COLLABORATIONHISTORYNOTICE =
+            "message/getCollaborAndNoticeInfo?sendType=";
     /**
      * 预案小组应急列表
      * 2018.7.11由getmergencyGroupData?planInfoId=接口更改为getSignUserInfo?id=接口

@@ -147,8 +147,9 @@ public class SendMessageActivity extends BaseActivity implements
 				finish();
 				break;
 			case R.id.tv_actionbar_rightimag:
-				//通知历史信息
+				//应急通知历史信息
 				Intent intent = new Intent(this, HistoryNoticeActivity.class);
+				intent.putExtra("type", "1");
 				startActivity(intent);
 				break;
 			case R.id.send_tv://发送

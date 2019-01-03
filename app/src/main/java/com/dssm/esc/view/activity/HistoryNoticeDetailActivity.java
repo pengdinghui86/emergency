@@ -47,8 +47,10 @@ public class HistoryNoticeDetailActivity extends BaseActivity implements View.On
 	/** 消息接收人 */
 	@ViewInject(R.id.history_notice_detail_tv_receiver)
 	private TextView message_tv_receiver;
-
+	//传过来的通知历史数据
 	private HistoryNoticeEntity noticeInfo = new HistoryNoticeEntity();
+	//传过来的通知历史类型
+	private String tag = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class HistoryNoticeDetailActivity extends BaseActivity implements View.On
 		title.setText("通知详情");
 		Bundle bundle = getIntent().getExtras();
 		noticeInfo = (HistoryNoticeEntity) bundle.getSerializable("noticeInfo");
+		tag = bundle.getString("tag");
 	}
 
 	private void initData()
@@ -89,25 +92,35 @@ public class HistoryNoticeDetailActivity extends BaseActivity implements View.On
 		List<Integer> mPostList = new ArrayList<>();
 		String[] typeList = noticeInfo.getSendType().split(",");
 		String title = "";
-		for(String type : typeList)
+		if("".equals(tag)) {
+			for (String type : typeList) {
+				if ("0".equals(type)) {
+					mPostList.add(R.drawable.system_notice);
+					title += ",系统";
+				} else if ("1".equals(type)) {
+					mPostList.add(R.drawable.email_notice);
+					title += ",邮件";
+				} else if ("2".equals(type)) {
+					mPostList.add(R.drawable.message_notice);
+					title += ",短信";
+				} else if ("3".equals(type)) {
+					mPostList.add(R.drawable.app_notice);
+					title += ",APP";
+				}
+			}
+		}
+		else
 		{
-			if("0".equals(type))
-			{
+			if ("0".equals(tag)) {
 				mPostList.add(R.drawable.system_notice);
 				title += ",系统";
-			}
-			else if("1".equals(type))
-			{
+			} else if ("1".equals(tag)) {
 				mPostList.add(R.drawable.email_notice);
 				title += ",邮件";
-			}
-			else if("2".equals(type))
-			{
+			} else if ("2".equals(tag)) {
 				mPostList.add(R.drawable.message_notice);
 				title += ",短信";
-			}
-			else if("3".equals(type))
-			{
+			} else if ("3".equals(tag)) {
 				mPostList.add(R.drawable.app_notice);
 				title += ",APP";
 			}

@@ -57,6 +57,8 @@ public class HistoryNoticeActivity extends BaseActivity implements
 	private RadioButton rb_app;
 	//不传查全部，0系统，1邮件，2短信，3APP
 	public String tag = "";
+	//1应急历史，2协同与通告历史
+	public String type = "";
 	//当前已加载的总条数
 	private int num = 0;
 	//每次加载20条
@@ -119,7 +121,10 @@ public class HistoryNoticeActivity extends BaseActivity implements
 		Utils.getInstance().showProgressDialog(
 				HistoryNoticeActivity.this, "",
 				Const.SUBMIT_MESSAGE);
-		service.getHistoryNoticeList(tag, listListener);
+		if("2".equals(type))
+			service.getCollaborationHistoryNoticeList(tag, listListener);
+		else
+			service.getHistoryNoticeList(tag, listListener);
 	}
 
 	private void initView() {
@@ -143,10 +148,13 @@ public class HistoryNoticeActivity extends BaseActivity implements
 				Intent intent = new Intent(HistoryNoticeActivity.this, HistoryNoticeDetailActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("noticeInfo", entity);
+				bundle.putString("tag", tag);
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}
 		});
+		if(getIntent() != null)
+			type = getIntent().getStringExtra("type");
 	}
 
 	@Override

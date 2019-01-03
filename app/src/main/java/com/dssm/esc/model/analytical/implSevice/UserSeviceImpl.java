@@ -14,6 +14,7 @@ import com.dssm.esc.model.entity.user.UserPersonIdEntity;
 import com.dssm.esc.model.entity.user.UserPowerEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.model.jsonparser.message.ConfirMessageParser;
+import com.dssm.esc.model.jsonparser.message.GetCollaborationHistoryNoticeListParser;
 import com.dssm.esc.model.jsonparser.message.GetFirstAllMessageListParser;
 import com.dssm.esc.model.jsonparser.message.GetHistoryNoticeListParser;
 import com.dssm.esc.model.jsonparser.message.GetMessageListParser;
@@ -254,12 +255,29 @@ public class UserSeviceImpl implements UserSevice {
 	}
 
 	/**
-	 * 获取历史通知列表
+	 * 获取应急历史通知列表
 	 */
 	@Override
 	public void getHistoryNoticeList(String msgType, UserSeviceImplListListenser listenser) {
 		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
 		new GetHistoryNoticeListParser(msgType,
+				new OnDataCompleterListener() {
+					@Override
+					public void onEmergencyParserComplete(Object object,
+														  String error) {
+						if(wr.get() != null)
+							setUserListListenser(wr.get(), object, error);
+					}
+				});
+	}
+
+	/**
+	 * 获取协同与通告历史通知列表
+	 */
+	@Override
+	public void getCollaborationHistoryNoticeList(String msgType, UserSeviceImplListListenser listenser) {
+		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
+		new GetCollaborationHistoryNoticeListParser(msgType,
 				new OnDataCompleterListener() {
 					@Override
 					public void onEmergencyParserComplete(Object object,

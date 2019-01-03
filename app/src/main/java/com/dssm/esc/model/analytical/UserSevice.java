@@ -99,4 +99,6 @@ void relogin(String userName, String password, String roleId,
 	void getUserMessageByPersonalId(String executePeopleId, UserSeviceImpl.UserSeviceImplListListenser listListenser);
 
 	void getHistoryNoticeList(String msgType, UserSeviceImpl.UserSeviceImplListListenser listenser);
+
+	void getCollaborationHistoryNoticeList(String msgType, UserSeviceImpl.UserSeviceImplListListenser listenser);
 }
