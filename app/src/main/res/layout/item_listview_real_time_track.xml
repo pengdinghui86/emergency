@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="left"
-                    style="@style/normal_blue_text" />
+                    style="@style/normal_gray_text" />
 
                 <ImageView
                     android:id="@+id/over_time_title_up"
