@@ -342,6 +342,12 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
         }
     }
 
+    /**
+     * 未执行：未执行、暂停、准备执行、接收超时
+     * 执行中：执行中、执行超时、执行异常
+     * 已执行：跳过、未选择执行、已执行
+     * @param status
+     */
     private void showTrackListByStatus(int status)
     {
         List<FlowChartPlanEntity.FlowChart> list = new ArrayList<FlowChartPlanEntity.FlowChart>();

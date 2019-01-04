@@ -57,6 +57,8 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingTop="12dp"
+            android:paddingBottom="10dp"
             android:gravity="center_vertical">
 
             <LinearLayout
@@ -91,14 +93,15 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:textColor="#f00"
-                    android:textSize="@dimen/we_small_textsize" />
+                    android:textSize="@dimen/we_normal_textsize" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_executePeople"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp">
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/executePeopleTitle"
@@ -116,6 +119,25 @@
                     android:layout_gravity="center"
                     android:gravity="left"
                     style="@style/normal_blue_text" />
+
+                <ImageView
+                    android:id="@+id/over_time_title_up"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:src="@drawable/used_time_normal"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/overtime_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="right"
+                    android:textColor="@color/green_my"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -145,10 +167,10 @@
                     android:layout_marginTop="3dp"
                     android:clickable="true"
                     android:gravity="center"
-                    android:paddingBottom="3dp"
-                    android:paddingLeft="7dp"
-                    android:paddingRight="7dp"
-                    android:paddingTop="3dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="5dp"
                     android:text="开启"
                     android:background="@drawable/border_gray_corners"
                     android:textColor="@color/colorWeFontGray_9"
@@ -165,10 +187,10 @@
                     android:layout_marginTop="3dp"
                     android:clickable="true"
                     android:gravity="center"
-                    android:paddingBottom="3dp"
-                    android:paddingLeft="7dp"
-                    android:paddingRight="7dp"
-                    android:paddingTop="3dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="5dp"
                     android:text="跳过"
                     android:background="@drawable/border_gray_corners"
                     android:textColor="@color/colorWeFontGray_9"
@@ -185,10 +207,10 @@
                     android:layout_marginTop="3dp"
                     android:clickable="true"
                     android:gravity="center"
-                    android:paddingBottom="3dp"
-                    android:paddingLeft="7dp"
-                    android:paddingRight="7dp"
-                    android:paddingTop="3dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="5dp"
                     android:text="暂停"
                     android:background="@drawable/border_gray_corners"
                     android:textColor="@color/colorWeFontGray_9"
@@ -205,10 +227,10 @@
                     android:layout_marginTop="3dp"
                     android:clickable="true"
                     android:gravity="center"
-                    android:paddingBottom="3dp"
-                    android:paddingLeft="7dp"
-                    android:paddingRight="7dp"
-                    android:paddingTop="3dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="5dp"
                     android:text="取消跳过"
                     android:background="@drawable/border_gray_corners"
                     android:textColor="@color/colorWeFontGray_9"
@@ -222,41 +244,41 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="20dp"
-                android:paddingRight="20dp">
+                android:paddingRight="10dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/predict_time_title"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_gravity="center"
                     android:gravity="left"
-                    android:text="已用时："
-                    style="@style/small_gray_text" />
+                    android:src="@drawable/expect_time"/>
 
                 <TextView
-                    android:id="@+id/overtime"
+                    android:id="@+id/predict_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:layout_marginLeft="3dp"
                     android:gravity="left"
-                    android:textColor="@color/timeover" />
+                    style="@style/small_gray_text" />
+
+                <ImageView
+                    android:id="@+id/over_time_title"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:src="@drawable/used_time_normal"/>
 
                 <TextView
-                    android:id="@+id/predict_time_title"
+                    android:id="@+id/overtime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="right"
-                    android:text="预计用时："
-                    style="@style/small_gray_text" />
-
-                <TextView
-                    android:id="@+id/predict_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="right"
-                    style="@style/small_gray_text" />
+                    android:layout_marginLeft="3dp"
+                    android:gravity="right" />
             </LinearLayout>
 
         </LinearLayout>
