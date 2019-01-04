@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/select_contact_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,18 +37,8 @@
             android:singleLine="true"
             android:textColor="@color/colorWeFontBlack"
             android:textSize="@dimen/we_normal_textsize"/>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/no_search_result_tv_c"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/filter_edit_ll"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/searchno"
-        style="@style/normal_text"
-        android:visibility="gone" />
+    </LinearLayout>
 
     <ExpandableListView
         android:id="@+id/select_contact_list_expandable_lv"
@@ -58,7 +47,11 @@
         android:childDivider="@color/colorWeSplitMini"
         android:dividerHeight="1dp"
         android:indicatorLeft="1sp"
-        android:layout_below="@+id/no_search_result_tv_c"
+        android:layout_below="@+id/filter_edit_ll"
         android:scrollbars="none" />
 
+    <include layout="@layout/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/filter_edit_ll"/>
 </RelativeLayout>

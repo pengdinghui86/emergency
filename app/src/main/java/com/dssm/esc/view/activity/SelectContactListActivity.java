@@ -7,11 +7,11 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
@@ -62,9 +62,9 @@ public class SelectContactListActivity extends BaseActivity implements
 	public List<String> selectId = new ArrayList<String>();
 	/** 汉字转换成拼音的类 */
 	private CharacterParser characterParser = CharacterParser.getInstance();
-	/** 显示未搜索到 */
-	@ViewInject(R.id.no_search_result_tv_c)
-	private TextView noSearchResultTv;
+	/** 没有数据 */
+	@ViewInject(R.id.ll_no_data)
+	private LinearLayout ll_no_data;
 	/** 可清除的edittext */
 	@ViewInject(R.id.filter_edit_c)
 	private ClearEditText myClearEt;
@@ -84,10 +84,10 @@ public class SelectContactListActivity extends BaseActivity implements
 					expandableListView.setAdapter(adapter);
 					if (groupList.size() == 0) {
 						expandableListView.setVisibility(View.GONE);
-						noSearchResultTv.setVisibility(View.VISIBLE);
+						ll_no_data.setVisibility(View.VISIBLE);
 					} else {
 						expandableListView.setVisibility(View.VISIBLE);
-						noSearchResultTv.setVisibility(View.GONE);
+						ll_no_data.setVisibility(View.GONE);
 					}
 					for (int i = 0; i < groupList.size(); i++) {
 						GroupEntity groupEntity = groupList.get(i);
@@ -193,12 +193,10 @@ public class SelectContactListActivity extends BaseActivity implements
 		List<GroupEntity> groupFilterList = new ArrayList<GroupEntity>();
 		List<ChildEntity> childFilterList = null;
 
-		Log.i("xx", "dd" + groupList.get(0).getcList().size());
 		if (TextUtils.isEmpty(filterStr)) {
 			groupFilterList = groupList;
 			childFilterList = childList;
-			Log.i("xx", "ddxx" + groupList.get(0).getcList().size());
-			noSearchResultTv.setVisibility(View.GONE);
+			ll_no_data.setVisibility(View.GONE);
 		} else {
 			groupFilterList.clear();
 			// ildFilterList.clear();
@@ -266,9 +264,9 @@ public class SelectContactListActivity extends BaseActivity implements
 
 		// 如果查询的结果为0时，显示为搜索到结果的提示
 		if (groupFilterList.size() == 0) {
-			noSearchResultTv.setVisibility(View.VISIBLE);
+			ll_no_data.setVisibility(View.VISIBLE);
 		} else {
-			noSearchResultTv.setVisibility(View.GONE);
+			ll_no_data.setVisibility(View.GONE);
 		}
 	}
 

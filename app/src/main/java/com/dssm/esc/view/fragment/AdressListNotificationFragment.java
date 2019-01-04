@@ -10,12 +10,11 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
@@ -58,8 +57,8 @@ public class AdressListNotificationFragment extends BaseFragment
 	public List<String> selectId = new ArrayList<String>();
 	/** 汉字转换成拼音的类 */
 	private CharacterParser characterParser = CharacterParser.getInstance();
-	/** 显示未搜索到 */
-	private TextView noSearchResultTv;
+	/** 没有数据 */
+	private LinearLayout ll_no_data;
 	/** 可清除的edittext */
 	private ClearEditText myClearEt;
 	/** 子entity */
@@ -83,11 +82,11 @@ public class AdressListNotificationFragment extends BaseFragment
 				if (groupList.size() == 0) {
 					mSwipeLayout.setVisibility(View.GONE);
 					expandableListView.setVisibility(View.GONE);
-					noSearchResultTv.setVisibility(View.VISIBLE);
+					ll_no_data.setVisibility(View.VISIBLE);
 				} else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
 					expandableListView.setVisibility(View.VISIBLE);
-					noSearchResultTv.setVisibility(View.GONE);
+					ll_no_data.setVisibility(View.GONE);
 				}
 				for (int i = 0; i < groupList.size(); i++) {
 					GroupEntity groupEntity = groupList.get(i);
@@ -108,11 +107,11 @@ public class AdressListNotificationFragment extends BaseFragment
 				if (groupList.size() == 0) {
 					mSwipeLayout.setVisibility(View.GONE);
 					expandableListView.setVisibility(View.GONE);
-					noSearchResultTv.setVisibility(View.VISIBLE);
+					ll_no_data.setVisibility(View.VISIBLE);
 				} else {
 					mSwipeLayout.setVisibility(View.VISIBLE);
 					expandableListView.setVisibility(View.VISIBLE);
-					noSearchResultTv.setVisibility(View.GONE);
+					ll_no_data.setVisibility(View.GONE);
 				}
 				for (int i = 0; i < groupList.size(); i++) {
 					GroupEntity groupEntity = groupList.get(i);
@@ -163,8 +162,8 @@ public class AdressListNotificationFragment extends BaseFragment
 				.findViewById(R.id.expandable_listv_failsafe);
 		expandableListView.setGroupIndicator(null);
 		myClearEt = (ClearEditText) view_Parent.findViewById(R.id.filter_edit);
-		noSearchResultTv = (TextView) view_Parent
-				.findViewById(R.id.no_search_result_tv);
+		ll_no_data = (LinearLayout) view_Parent
+				.findViewById(R.id.ll_no_data);
 		mSwipeLayout = (SwipeRefreshLayout) view_Parent
 				.findViewById(R.id.id_swipe_ly);
 		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -358,12 +357,10 @@ public class AdressListNotificationFragment extends BaseFragment
 		List<GroupEntity> groupFilterList = new ArrayList<GroupEntity>();
 		List<ChildEntity> childFilterList = null;
 
-		Log.i("xx", "dd" + groupList.get(0).getcList().size());
 		if (TextUtils.isEmpty(filterStr)) {
 			groupFilterList = groupList;
 			childFilterList = childList;
-			Log.i("xx", "ddxx" + groupList.get(0).getcList().size());
-			noSearchResultTv.setVisibility(View.GONE);
+			ll_no_data.setVisibility(View.GONE);
 		} else {
 			groupFilterList.clear();
 			// ildFilterList.clear();
@@ -431,9 +428,9 @@ public class AdressListNotificationFragment extends BaseFragment
 
 		// 如果查询的结果为0时，显示为搜索到结果的提示
 		if (groupFilterList.size() == 0) {
-			noSearchResultTv.setVisibility(View.VISIBLE);
+			ll_no_data.setVisibility(View.VISIBLE);
 		} else {
-			noSearchResultTv.setVisibility(View.GONE);
+			ll_no_data.setVisibility(View.GONE);
 		}
 	}
 

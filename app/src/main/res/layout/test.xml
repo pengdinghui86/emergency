@@ -29,18 +29,6 @@
             style="@style/normal_text"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/no_search_result_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/filter_edit_ll"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/searchno"
-        android:textSize="@dimen/we_normal_textsize"
-        android:background="#fff"
-        android:visibility="gone" />
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/id_swipe_ly"
         android:layout_width="match_parent"
@@ -58,5 +46,8 @@
             android:scrollbars="none" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-  
+    <include layout="@layout/no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/filter_edit_ll"/>
 </RelativeLayout>
