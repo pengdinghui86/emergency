@@ -16,6 +16,7 @@ import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.entity.emergency.PlanTreeEntity;
 import com.dssm.esc.model.jsonparser.ControlCompleterListenter;
+import com.dssm.esc.model.jsonparser.control.CheckExecutePeopleParser;
 import com.dssm.esc.model.jsonparser.control.FlowChartPlanParser;
 import com.dssm.esc.model.jsonparser.control.GetEventlistParser;
 import com.dssm.esc.model.jsonparser.control.GetPlanlistParser;
@@ -104,7 +105,8 @@ public class ControlServiceImpl implements ControlSevice {
                     flag = false;
                     stRerror = "失败";
                 }
-                if(map.containsKey("message") && !map.get("message").toString().equals("null"))
+                if(map.containsKey("message") && !map.get("message").toString().equals("null")
+                        && !map.get("message").toString().equals(""))
                     stRerror = map.get("message").toString();
             } else {
                 stRerror = "未访问到数据";
@@ -193,6 +195,32 @@ public class ControlServiceImpl implements ControlSevice {
                     }
                 });
 
+    }
+
+    /**
+     * 预案启动时判断是否有执行人
+     *
+     * @param listenser
+     */
+    @Override
+    public void checkExecutePeople(String id,
+                         ControlServiceImplBackValueListenser<?> listenser) {
+        // TODO Auto-generated method stub
+        final WeakReference<ControlServiceImplBackValueListenser<?>> wr = new WeakReference<ControlServiceImplBackValueListenser<?>>(listenser);
+        new CheckExecutePeopleParser(id,
+                new ControlCompleterListenter<Map<String, String>>() {
+
+                    @SuppressWarnings("unchecked")
+                    @Override
+                    public void controlParserComplete(
+                            Map<String, String> object, String error) {
+                        // TODO Auto-generated method stub
+                        if(wr.get() != null)
+                            setContorlBooleanListenser(
+                                (ControlServiceImplBackValueListenser<Boolean>) wr.get(),
+                                object, error);
+                    }
+                });
     }
 
     /**

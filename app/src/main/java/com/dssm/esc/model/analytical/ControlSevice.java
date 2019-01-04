@@ -33,8 +33,13 @@ public interface ControlSevice {
 				  ControlServiceImpl.ControlServiceImplBackValueListenser<?> listenser);
 
 	/**
+	 * 预案启动时判断是否有执行人
+	 */
+	void checkExecutePeople(String id, ControlServiceImpl.ControlServiceImplBackValueListenser<?> listenser);
+
+	/**
 	 * 5.2.3 流程启动
-	 * 
+	 *
 	 * @param listenser
 	 */
 	void starPlan(String id, ControlServiceImpl.ControlServiceImplBackValueListenser<?> listenser);

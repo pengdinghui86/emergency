@@ -144,6 +144,10 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                                         planViewHolder.btn_Function1.setVisibility(View.GONE);
                                         planViewHolder.btn_Function2.setVisibility(View.GONE);
                                         break;
+                                    default:
+                                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                                        break;
                                 }
                             } else {
                                 planViewHolder.btn_Function1.setVisibility(View.GONE);
@@ -161,6 +165,10 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                         break;
                     case "7":
                         //人员签到
+                        planViewHolder.btn_Function1.setVisibility(View.GONE);
+                        planViewHolder.btn_Function2.setVisibility(View.GONE);
+                        break;
+                    default:
                         planViewHolder.btn_Function1.setVisibility(View.GONE);
                         planViewHolder.btn_Function2.setVisibility(View.GONE);
                         break;
@@ -240,13 +248,13 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                     @Override
                     public void onClick(View view) {
                         int n = holder.getLayoutPosition();
-                        if ("5".equals(tags)) {
-                            if (arraylist.get(n).isCheckExecutePeople() || "0".equals(arraylist.get(n).getIsSign())) {
-                                mISetBtnClickListener.onFunction1BtnClick(view, n);
-                            } else
-                                Toast.makeText(mContext, "没有执行人", Toast.LENGTH_SHORT).show();
-                        }
-                        else
+//                        if ("5".equals(tags)) {
+//                            if (arraylist.get(n).isCheckExecutePeople() || "0".equals(arraylist.get(n).getIsSign())) {
+//                                mISetBtnClickListener.onFunction1BtnClick(view, n);
+//                            } else
+//                                Toast.makeText(mContext, "没有执行人", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else
                             mISetBtnClickListener.onFunction1BtnClick(view, n);
                     }
                 });
