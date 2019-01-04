@@ -121,25 +121,31 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
             switch (Integer.parseInt(entity.getState())) {
                 case 0:
                     status = "初始状态";
-                    eventViewHolder.tvState.setTextColor(Color.BLUE);
+                    eventViewHolder.tvState.setTextColor(Color.GRAY);
                     break;
                 case 1:
                     status = "待预案评估";
+                    eventViewHolder.tvState.setTextColor(Color.GRAY);
                     break;
                 case 2:
                     status = "执行中";
+                    eventViewHolder.tvState.setTextColor(Color.YELLOW);
                     break;
                 case 3:
                     status = "结束";
+                    eventViewHolder.tvState.setTextColor(Color.BLUE);
                     break;
                 case 4:
                     status = "执行完成";
+                    eventViewHolder.tvState.setTextColor(Color.BLUE);
                     break;
                 case 5:
                     status = "启动中";
+                    eventViewHolder.tvState.setTextColor(Color.GREEN);
                     break;
                 case -1:
                     status = "驳回评估";
+                    eventViewHolder.tvState.setTextColor(Color.RED);
                     break;
 
             }

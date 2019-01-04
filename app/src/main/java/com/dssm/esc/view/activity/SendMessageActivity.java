@@ -125,9 +125,9 @@ public class SendMessageActivity extends BaseActivity implements
 	}
 	private void initView() {
 		if (tag.equals("0")) {
-			mSelectTypeTitle.setText("应急通讯录");
+			mSelectTypeTitle.setText("应急通知");
 		} else if (tag.equals("1")) {
-			mSelectTypeTitle.setText("应急通知组");
+			mSelectTypeTitle.setText("应急通知");
 		}
 		contact_people_ll.setOnClickListener(this);
 		send_message_rl_sys.setOnClickListener(this);

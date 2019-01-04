@@ -93,7 +93,7 @@ public class PersonAssignListvAdapter extends BaseAdapter {
 		}
 
 		mhHolder.stepname.setText(entity.getName());
-		mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+		mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
 		mhHolder.iv.setImageResource(R.drawable.person_assign_title);
 		if(entity.getNodeStepType().equals("CallActivity")) {
 			mhHolder.assign.setVisibility(View.INVISIBLE);
@@ -105,6 +105,36 @@ public class PersonAssignListvAdapter extends BaseAdapter {
 				mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getOrderNum());
 			else if(entity.getEditOrderNum() != null && !("").equals(entity.getEditOrderNum()))
 				mhHolder.numbertv.setText(entity.getParentProcessNumber() + entity.getEditOrderNum());
+			int i = position + 1;
+			boolean flag = false;
+			while (i < arraylist.size() && !"".equals(arraylist.get(i).getParentProcessStepId()))
+			{
+				String state = arraylist.get(i).getExecutePeopleType();
+				if (state.equals("0")) {
+					flag = true;
+					break;
+				}else if (state.equals("1")) {
+
+				}else if (state.equals("2")) {
+
+				}
+				else if (state.equals("3")) {
+
+				}
+				else if (state.equals("4")) {
+
+				}else {
+					flag = true;
+					break;
+				}
+				i++;
+			}
+			if(flag)
+			{
+				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
+				mhHolder.iv.setImageResource(R.drawable.person_assign_title);
+			}
+
 		}
 		else {
 			if(entity.getStatus().equals(RealTimeTrackingStatus.PREPARATION) || entity.getStatus().equals(RealTimeTrackingStatus.BEFORE))

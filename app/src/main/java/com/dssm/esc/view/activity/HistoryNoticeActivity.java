@@ -7,6 +7,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +56,8 @@ public class HistoryNoticeActivity extends BaseActivity implements
 	private RadioButton rb_email;
 	@ViewInject(R.id.history_notice_rb_app)
 	private RadioButton rb_app;
+	@ViewInject(R.id.ll_no_data_page)
+	private LinearLayout ll_no_data_page;
 	//不传查全部，0系统，1邮件，2短信，3APP
 	public String tag = "";
 	//1应急历史，2协同与通告历史
@@ -243,6 +246,15 @@ public class HistoryNoticeActivity extends BaseActivity implements
 
 			Message msg = handler.obtainMessage();
 			num = 0;
+			if(dataList.size() > 0) {
+				listView.setVisibility(View.VISIBLE);
+				ll_no_data_page.setVisibility(View.GONE);
+			}
+			else
+			{
+				listView.setVisibility(View.GONE);
+				ll_no_data_page.setVisibility(View.VISIBLE);
+			}
 			if (dataList.size() > num + perCount) {// 如果超过可加载条数，则分页
 				ArrayList<HistoryNoticeEntity> subList = new ArrayList<HistoryNoticeEntity>(dataList.subList(0, perCount));
 				msg.obj = subList;

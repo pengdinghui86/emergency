@@ -169,14 +169,14 @@ public class GetProgressDetailParser {
 				for (int i = 0; i < array.length(); i++) {
 					JSONObject jsonObject = (JSONObject) array.opt(i);
 					EventProgressEntity eventProgressEntity = new EventProgressEntity();
-					eventProgressEntity.setContent(jsonObject.getString("content"));
+					eventProgressEntity.setContent("null".equals(jsonObject.getString("content")) ? "" : jsonObject.getString("content"));
 					eventProgressEntity.setId(jsonObject.getString("id"));
 					eventProgressEntity.setEveLevelName(jsonObject.getString("eveLevelName"));
 					eventProgressEntity.setOperatorName(jsonObject.getString("operatorName"));
 					eventProgressEntity.setOperationTime(jsonObject.getString("operationTime"));
 					eventProgressEntity.setStepType(jsonObject.getString("stepType"));
 					eventProgressEntity.setStep(jsonObject.getString("step"));
-					eventProgressEntity.setPlanName(jsonObject.getString("planName"));
+					eventProgressEntity.setPlanName("null".equals(jsonObject.getString("planName")) ? "" : jsonObject.getString("planName"));
 					eventProgressEntity.setDiscoveryTime(discoveryTime);
 					list.add(eventProgressEntity);
 				}

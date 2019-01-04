@@ -65,4 +65,6 @@
 
     </com.dssm.esc.view.widget.AutoListView>
 
+    <!--autoListView包含no_data，所以使用no_data_page-->
+    <include layout="@layout/no_data_page"/>
 </LinearLayout>

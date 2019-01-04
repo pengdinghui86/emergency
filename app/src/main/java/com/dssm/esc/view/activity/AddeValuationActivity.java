@@ -251,14 +251,14 @@ public class AddeValuationActivity extends BaseActivity implements
 		} else {
 			tag = intent.getStringExtra("tag");
 			if (tag.equals("1")) {
-				title.setText("应急-新增评估");
+				title.setText("新增应急评估");
 				resutList7 = initEmergencyDisposalData();
 				emergency_disposal_process.setText("预案启动,预案授权,人员签到");
 				emergency_disposal_process_ll.setVisibility(View.VISIBLE);
 				emergency_disposal_process_ll.setOnClickListener(this);
 			} else if (tag.equals("2")) {
 				emergency_disposal_process_ll.setVisibility(View.GONE);
-				title.setText("演练-新增评估");
+				title.setText("新增演练评估");
 			}
 			event_name_ll.setOnClickListener(this);
 			event_discover_ll.setOnClickListener(this);

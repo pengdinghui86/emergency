@@ -123,7 +123,7 @@ public class DismissValuationActivity extends BaseActivity implements
 
 	private void initview() {
 		back.setVisibility(View.VISIBLE);
-		title.setText(R.string.dismissvaluation);
+		title.setText("已驳回");
 		adapter = new LeftSlideEventAdapter(
 				DismissValuationActivity.this, list,"3");
 		//设置布局管理器

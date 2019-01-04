@@ -168,9 +168,9 @@ public class AutorizationDecisionActivity extends BaseActivity implements
 
         // if (tag.equals("1")) {
         if (tags.equals("0")) {
-            title.setText("已授权预案");
+            title.setText("已授权");
         } else if (tags.equals("1")) {
-            title.setText("待授权预案");
+            title.setText("待授权");
         } else if (tags.equals("2")) {
             title.setText("人员签到");
         } else if (tags.equals("3")) {

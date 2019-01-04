@@ -36,17 +36,17 @@
                 android:id="@+id/rb_real_track"
                 style="@style/message_title_radio_button"
                 android:checked="true"
-                android:text="实时跟踪" />
+                android:text="跟踪" />
 
             <RadioButton
                 android:id="@+id/rb_process_monitor"
                 style="@style/message_title_radio_button"
-                android:text="流程监控" />
+                android:text="流程" />
 
             <RadioButton
                 android:id="@+id/rb_resource_prepare"
                 style="@style/message_title_radio_button"
-                android:text="资源筹备" />
+                android:text="资源" />
         </RadioGroup>
 
         <ImageView

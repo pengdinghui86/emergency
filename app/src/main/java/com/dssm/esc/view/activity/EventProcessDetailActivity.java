@@ -472,7 +472,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				rb_process.setChecked(true);
 				rb_plan.setChecked(false);
 				rb_detail.setChecked(false);
-				listView.setVisibility(View.VISIBLE);
+				rll_event_process.setVisibility(View.VISIBLE);
 				planListView.setVisibility(View.GONE);
 				event_detail_ll.setVisibility(View.GONE);
 				initData();
@@ -482,7 +482,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				rb_process.setChecked(false);
 				rb_plan.setChecked(true);
 				rb_detail.setChecked(false);
-				listView.setVisibility(View.GONE);
+				rll_event_process.setVisibility(View.GONE);
 				planListView.setVisibility(View.VISIBLE);
 				event_detail_ll.setVisibility(View.GONE);
 				initData();
@@ -492,7 +492,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				rb_process.setChecked(false);
 				rb_plan.setChecked(false);
 				rb_detail.setChecked(true);
-				listView.setVisibility(View.GONE);
+				rll_event_process.setVisibility(View.GONE);
 				planListView.setVisibility(View.GONE);
 				event_detail_ll.setVisibility(View.VISIBLE);
 				initData();

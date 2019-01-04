@@ -54,7 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <ListView
             android:id="@+id/event_process_detail_lv"
@@ -81,7 +82,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="10dp"
         android:scrollbars="none"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -113,11 +113,11 @@ public class EventListActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		back.setVisibility(View.VISIBLE);
         if (tags.equals("1")) {
-            title.setText("待启动事件");
+            title.setText("待启动");
         } else if (tags.equals("2")) {
-            title.setText("执行中事件");
+            title.setText("执行中");
         } else if (tags.equals("4")) {
-            title.setText("执行完成事件");
+            title.setText("执行完成");
         } else if (tags.equals("6")) {
             title.setText("事件流程");
         }

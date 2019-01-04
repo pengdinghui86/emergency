@@ -136,11 +136,11 @@ public class EventPlanListActivity extends BaseActivity implements
         // TODO Auto-generated method stub
         back.setVisibility(View.VISIBLE);
         if (tags.equals("0")) {
-            title.setText("已授权预案");
+            title.setText("已授权");
         } else if (tags.equals("1")) {
-            title.setText("待授权预案");
+            title.setText("待授权");
         } else if (tags.equals("2")) {
-            title.setText("已启动预案");
+            title.setText("已启动");
         } else if (tags.equals("3")) {
             title.setText("人员指派");
         } else if (tags.equals("4")) {

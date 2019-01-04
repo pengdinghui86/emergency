@@ -61,22 +61,27 @@ public class EventProcessPlanListViewAdapter extends BaseAdapter {
 			switch (Integer.parseInt(entity.getState())) {
 				case 0:
 					status = "待启动";
+					mhHolder.status.setTextColor(Color.GRAY);
 					break;
 				case 1:
 					status = "已启动";
+					mhHolder.status.setTextColor(Color.GREEN);
 					break;
 				case 2:
 					status = "已授权";
+					mhHolder.status.setTextColor(Color.BLUE);
 					break;
 				case 3:
 					status = "执行中";
-
+					mhHolder.status.setTextColor(Color.YELLOW);
 					break;
 				case 4:
 					status = "完成";
+					mhHolder.status.setTextColor(Color.BLUE);
 					break;
 				case 5:
 					status = "强行中止";
+					mhHolder.status.setTextColor(Color.RED);
 					break;
 
 				/**
@@ -85,9 +90,9 @@ public class EventProcessPlanListViewAdapter extends BaseAdapter {
 				 */
 				case 6:
 					status = "暂停";
+					mhHolder.status.setTextColor(Color.RED);
 					break;
 			}
-			mhHolder.status.setTextColor(Color.RED);
 			mhHolder.status.setText(status);
 		}
 		return convertView;

@@ -119,7 +119,8 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 				PlanDetailEntity planDetailEntity = (PlanDetailEntity) msg.obj;
 				PlanDetailObjEntity obj2 = planDetailEntity.getObj();
 				plan_detail_name.setText(obj2.getPlanName());
-				plan_people.setText(obj2.getPlanStarter());
+				plan_people.setText("null".equals(obj2.getPlanStarter()) ? ""
+						: obj2.getPlanStarter());
 				String startTime = obj2.getPlanStartTime();
 				startime.setText(startTime);
 				String nowTime = obj2.getNowTime();
