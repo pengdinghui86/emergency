@@ -65,7 +65,6 @@ import com.dssm.esc.view.activity.EditIPActivity;
 import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.adapter.PopRoleSelectListviewAdapter;
 import com.easemob.EMCallBack;
-import com.easemob.EMError;
 import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
@@ -75,7 +74,6 @@ import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.db.UserDao;
 import com.easemob.chatuidemo.domain.User;
 import com.easemob.chatuidemo.utils.CommonUtils;
-import com.easemob.exceptions.EaseMobException;
 
 import java.io.File;
 import java.io.InputStream;
@@ -363,7 +361,7 @@ public class LoginActivity extends BaseActivity {
         ColorDrawable dw = new ColorDrawable(0xffffffff);
         popupWindow.setBackgroundDrawable(dw);
         popupWindow.setOutsideTouchable(false);
-        popupWindow.showAtLocation(getLayoutInflater().inflate(R.layout.activity_login_new, null),
+        popupWindow.showAtLocation(getLayoutInflater().inflate(R.layout.activity_login, null),
         Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         //设置背景半透明     
         backgroundAlpha(0.3f);
@@ -623,8 +621,8 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_new);
-        setStatusBarState();
+        setContentView(R.layout.activity_login);
+//        setStatusBarState();
         View findViewById = findViewById(R.id.login);
         findViewById.setFitsSystemWindows(true);
         sevice = Control.getinstance().getUserSevice();

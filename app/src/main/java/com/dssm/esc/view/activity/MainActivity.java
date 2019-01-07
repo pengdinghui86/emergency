@@ -245,7 +245,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         View findViewById = findViewById(R.id.main);
         findViewById.setFitsSystemWindows(true);
         // 标题栏和状态栏风格一致
-        setStatusBarState();
+//        setStatusBarState();
         // Thread.setDefaultUncaughtExceptionHandler(restartHandler); //
         // 程序崩溃时触发线程
         preferencesService = new MySharePreferencesService(this);

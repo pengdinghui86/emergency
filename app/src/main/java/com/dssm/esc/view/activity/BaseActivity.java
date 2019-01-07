@@ -105,7 +105,7 @@ public class BaseActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		x.view().inject(this);
-		setStatusBarState();
+//		setStatusBarState();
 		if (useEventBus()) {
 			EventBus.getDefault().register(this);
 		}

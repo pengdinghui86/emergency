@@ -58,7 +58,7 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                 EventViewHolder eventViewHolder = (EventViewHolder) holder;
                 final PlanStarListEntity entity = arraylist.get(position);
                 eventViewHolder.tvEventName.setText(entity.getEveName());
-                eventViewHolder.tvState.setTextColor(Color.RED);
+                eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
                 eventViewHolder.tvTradeType.setText(entity.getTradeType());
                 String eveType = entity.getEveType();
                 if ("1".equals(eveType)) {
@@ -175,7 +175,7 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
                 planViewHolder.tvPlanName.setText(entity1.getPlanName() + "-" + entity1.getSceneName());
                 planViewHolder.tvState.setVisibility(View.VISIBLE);
-                planViewHolder.tvState.setTextColor(Color.RED);
+                planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
                 // （0.待启动 1.已启动 2.已授权 3.流程启动 4.完成 5.强行中止）
                 if (!"null".equals(entity1.getState())
                         && !"".equals(entity1.getState())) {
@@ -183,27 +183,27 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                     switch (Integer.parseInt(entity1.getState())) {
                         case 0:
                             status = "待启动";
-                            planViewHolder.tvState.setTextColor(Color.GRAY);
+                            planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_gray));
                             break;
                         case 1:
                             status = "已启动";
-                            planViewHolder.tvState.setTextColor(Color.GREEN);
+                            planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_green));
                             break;
                         case 2:
                             status = "已授权";
-                            planViewHolder.tvState.setTextColor(Color.BLUE);
+                            planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_blue));
                             break;
                         case 3:
                             status = "执行中";
-                            planViewHolder.tvState.setTextColor(Color.YELLOW);
+                            planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_yellow));
                             break;
                         case 4:
                             status = "完成";
-                            planViewHolder.tvState.setTextColor(Color.BLUE);
+                            planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_blue));
                             break;
                         case 5:
                             status = "强行中止";
-                            planViewHolder.tvState.setTextColor(Color.RED);
+                            planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
                             break;
 
                         /**
@@ -212,7 +212,7 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                          */
                         case 6:
                             status = "暂停";
-                            planViewHolder.tvState.setTextColor(Color.RED);
+                            planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
                             break;
                     }
                     planViewHolder.tvState.setText(status);

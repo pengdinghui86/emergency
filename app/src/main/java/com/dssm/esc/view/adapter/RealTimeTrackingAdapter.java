@@ -215,7 +215,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     && Integer.parseInt(entity.getStatus()) < 20) {
                 status = "暂停";
                 setDefaultBackground(mhHolder, R.color.red);
-                mhHolder.status.setTextColor(Color.RED);
+                mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
                 mhHolder.status.setText(status);
 
                 setItemColor(entity, mhHolder);
@@ -230,11 +230,11 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1"))
                     {
                         status = "流程未启动";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     else {
                         setDefaultBackground(mhHolder, R.color.green_b);
-                        mhHolder.status.setTextColor(Color.BLUE);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
                         mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
                         mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
                     }
@@ -247,16 +247,16 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1")) {
                         status = "流程未启动";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     //新增,2018/8/14
                     else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")){
                         status = "未执行";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     else {
                         setDefaultBackground(mhHolder, R.color.green_b);
-                        mhHolder.status.setTextColor(Color.BLUE);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
                         mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
                         mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
                     }
@@ -270,16 +270,16 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1")) {
                         status = "流程未启动";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     //新增,2018/8/14
                     else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")){
                         status = "未执行";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     else {
                         setDefaultBackground(mhHolder, R.color.green_b);
-                        mhHolder.status.setTextColor(Color.BLUE);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
                         mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
                         mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
 
@@ -291,7 +291,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 4:
                     status = "执行中";
                     setDefaultBackground(mhHolder, R.color.yellow_dot);
-                    mhHolder.status.setTextColor(Color.YELLOW);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_yellow));
                     mhHolder.status.setText(status);
                     mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
                     mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
@@ -303,11 +303,11 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1")) {
                         status = "流程未启动";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     else {
                         setDefaultBackground(mhHolder, R.color.blue_dot);
-                        mhHolder.status.setTextColor(Color.GREEN);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_green));
                     }
                     mhHolder.status.setText(status);
 
@@ -316,7 +316,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 6:
                     status = "准备执行";
                     setDefaultBackground(mhHolder, R.color.green_a);
-                    mhHolder.status.setTextColor(Color.GREEN);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_green));
                     mhHolder.status.setText(status);
                     setItemColor(entity, mhHolder);
                     break;
@@ -326,11 +326,11 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1")) {
                         status = "流程未启动";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     else {
                         setDefaultBackground(mhHolder, R.color.red);
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     mhHolder.status.setText(status);
 
@@ -343,7 +343,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 8:
                     status = "自动执行中";
                     setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.YELLOW);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_yellow));
                     mhHolder.status.setText(status);
                     mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
                     mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
@@ -355,11 +355,11 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //新增,2018/8/14
                     if((null == entity.getType()) ? false : entity.getType().equals("drillNew")) {
                         status = "未执行";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     else {
                         setDefaultBackground(mhHolder, R.color.red);
-                        mhHolder.status.setTextColor(Color.BLUE);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
                         mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
                         mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
                     }
@@ -371,7 +371,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 10:
                     status = "执行失败";
                     setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.RED);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
                     mhHolder.status.setText(status);
                     mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
                     mhHolder.iv.setImageResource(R.drawable.over_time);
@@ -381,7 +381,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 20:
                     status = "接收超时";
                     setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.RED);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
                     mhHolder.status.setText(status);
                     mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
                     mhHolder.iv.setImageResource(R.drawable.over_time);
@@ -391,7 +391,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 21:
                     status = "执行异常";
                     setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.RED);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
                     mhHolder.status.setText(status);
                     mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
                     mhHolder.iv.setImageResource(R.drawable.over_time);
@@ -401,7 +401,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 22:
                     status = "异常解除";
                     setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.RED);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
                     mhHolder.status.setText(status);
                     mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
                     mhHolder.iv.setImageResource(R.drawable.over_time);
@@ -411,7 +411,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 23:
                     status = "跳过";
                     setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.BLUE);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
                     mhHolder.status.setText(status);
                     setItemColor(entity, mhHolder);
                     break;
@@ -419,7 +419,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 24:
                     status = "跳过";
                     setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.BLUE);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
                     mhHolder.status.setText(status);
                     setItemColor(entity, mhHolder);
                     break;
@@ -427,7 +427,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 case 25:
                     status = "执行超时";
                     setDefaultBackground(mhHolder, R.color.red);
-                    mhHolder.status.setTextColor(Color.RED);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
                     mhHolder.status.setText(status);
                     mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
                     mhHolder.iv.setImageResource(R.drawable.over_time);
@@ -444,16 +444,16 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1")) {
                         status = "流程未启动";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     //新增,2018/8/14
                     else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")){
                         status = "未执行";
-                        mhHolder.status.setTextColor(Color.GRAY);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     else {
                         setDefaultBackground(mhHolder, R.color.red);
-                        mhHolder.status.setTextColor(Color.RED);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
                     }
                     mhHolder.status.setText(status);
                     mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
@@ -481,7 +481,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                 default:
                     if(status.equals("")) {
                         setDefaultBackground(mhHolder, R.color.red);
-                        mhHolder.status.setTextColor(Color.RED);
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
                         mhHolder.status.setText("状态未知");
                         setItemColor(entity, mhHolder);
                     }

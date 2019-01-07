@@ -264,4 +264,12 @@
     <color name="color_flow_line_red">#FF141414</color>
 
     <color name="color_flow_line_green">#66ff66</color>
+
+    <!--预案状态、流程步骤状态等颜色区分-->
+    <color name="color_state_red">#ff4646</color>
+    <color name="color_state_blue">#2da5f3</color>
+    <color name="color_state_yellow">#ffcc00</color>
+    <color name="color_state_green">#54d500</color>
+    <color name="color_state_gray">#aaaaaa</color>
+
 </resources>

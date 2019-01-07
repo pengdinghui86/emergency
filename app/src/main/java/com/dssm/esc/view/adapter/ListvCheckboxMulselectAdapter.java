@@ -24,13 +24,15 @@ public class ListvCheckboxMulselectAdapter extends BaseAdapter {
 	public  List<PlanNameRowEntity> arraylist;
 	private Context context;
 	private int planTags;
+	private String tags;
 
 	public ListvCheckboxMulselectAdapter(Context context,
-			List<PlanNameRowEntity> list, int planTags) {
+			List<PlanNameRowEntity> list, int planTags, String tags) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.arraylist = list;
 		this.planTags = planTags;
+		this.tags = tags;
 	}
 
 	@Override
@@ -78,7 +80,8 @@ public class ListvCheckboxMulselectAdapter extends BaseAdapter {
 		mhHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-				if(b && planTags != 5)
+				//预案启动时判断是否有启动该预案权限
+				if("1".equals(tags) && b && planTags != 5)
 				{
 					if("true".equals(entity.getHasStartAuth()))
 						return;

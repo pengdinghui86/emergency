@@ -105,7 +105,7 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
         }
         final PlanStarListEntity entity = arraylist.get(position);
         eventViewHolder.tvEventName.setText(entity.getEveName());
-        eventViewHolder.tvState.setTextColor(Color.RED);
+        eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
         eventViewHolder.tvTradeType.setText(entity.getTradeType());
         String planResType = entity.getEveType();
         if (planResType.equals("1")) {
@@ -121,35 +121,35 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
             switch (Integer.parseInt(entity.getState())) {
                 case 0:
                     status = "初始状态";
-                    eventViewHolder.tvState.setTextColor(Color.GRAY);
+                    eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_gray));
                     break;
                 case 1:
                     status = "待预案评估";
-                    eventViewHolder.tvState.setTextColor(Color.GRAY);
+                    eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_gray));
                     break;
                 case 2:
                     status = "执行中";
-                    eventViewHolder.tvState.setTextColor(Color.YELLOW);
+                    eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_yellow));
                     break;
                 case 3:
                     status = "结束";
-                    eventViewHolder.tvState.setTextColor(Color.BLUE);
+                    eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_blue));
                     break;
                 case 4:
                     status = "执行完成";
-                    eventViewHolder.tvState.setTextColor(Color.BLUE);
+                    eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_blue));
                     break;
                 case 5:
                     status = "启动中";
-                    eventViewHolder.tvState.setTextColor(Color.GREEN);
+                    eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_green));
                     break;
                 case -1:
                     status = "驳回评估";
-                    eventViewHolder.tvState.setTextColor(Color.RED);
+                    eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
                     break;
 
             }
-            eventViewHolder.tvState.setTextColor(Color.RED);
+            eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
             eventViewHolder.tvState.setText(status);
         }
         //设置内容布局的宽为屏幕宽度

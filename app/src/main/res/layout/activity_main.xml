@@ -12,7 +12,7 @@
         例如：LinearLayout布局或者RelativeLayout布局；
     也可以是单个控件，
         如 TextView等  -->
-    <include layout="@layout/layout_main_new" />
+    <include layout="@layout/layout_main" />
 
     <RelativeLayout
         android:id="@+id/nav_view"

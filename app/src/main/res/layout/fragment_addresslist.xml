@@ -20,29 +20,29 @@
             android:layout_height="wrap_content"
             android:gravity="center" >
 
-            <com.dssm.esc.view.widget.SegmentedGroup
+            <RadioGroup
                 android:id="@+id/segmented"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                segmentedgroup:sc_checked_text_color="@color/textColor_selected"
-                segmentedgroup:sc_tint_color="@android:color/white" >
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rb_failsafe"
-                    style="@style/RadioButton"
+                    style="@style/message_title_radio_button"
                     android:checked="true"
                     android:text="应急通讯录" />
 
                 <RadioButton
                     android:id="@+id/rb_show"
-                    style="@style/RadioButton"
+                    style="@style/message_title_radio_button"
                     android:text="应急通知" />
-            </com.dssm.esc.view.widget.SegmentedGroup>
+
+            </RadioGroup>
+
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/send"
+        <ImageView
+            android:id="@+id/addresslist_iv_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/title"
@@ -51,9 +51,7 @@
             android:layout_marginRight="10dp"
             android:clickable="true"
             android:gravity="center"
-            android:text="发消息"
-            android:textColor="#fff"
-            android:textSize="@dimen/we_normal_textsize" />
+            android:src="@drawable/send_msg"/>
     </RelativeLayout>
 
     <FrameLayout

@@ -60,7 +60,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 	/** 被选中的list */
 	private ArrayList<PlanNameRowEntity> type = new ArrayList<PlanNameRowEntity>();
 	/** 1,应急 */
-	/** 1,预案执行;2,添加评估 */
+	/** 1,预案启动;2,添加评估 */
 	private String tags;
 	/** 预案执行的名称类型1=默认2=其他3=分类预案4=可选预案5=应急处置流程*/
 	private int plantags;
@@ -89,7 +89,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 
 				}
 				mSelectAdapter = new ListvCheckboxMulselectAdapter(
-						PlanNameActivity.this, list, plantags);
+						PlanNameActivity.this, list, plantags, tags);
 				// if (tags.equals("2")) {
 				// } else if (tags.equals("1")) {
 				// mSelectAdapter = new ListvCheckboxMulselectAdapter(

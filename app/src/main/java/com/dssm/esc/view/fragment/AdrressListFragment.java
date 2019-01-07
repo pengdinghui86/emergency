@@ -57,7 +57,7 @@ public class AdrressListFragment extends BaseFragment implements
     @Override
     protected View getViews() {
         return view_Parent = LayoutInflater.from(context).inflate(
-                R.layout.fragment_addresslist_new, null);
+                R.layout.fragment_addresslist, null);
     }
 
     @Override

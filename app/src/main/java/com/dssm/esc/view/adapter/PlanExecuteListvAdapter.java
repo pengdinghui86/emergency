@@ -121,7 +121,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				mhHolder.numbertv.setText(entity.getParentOrderNumber() + entity.getOrderNumber());
 			if (state.equals("0") || "null".equals(stepname) || "".equals(stepname)) {
 				stepname="无执行人";
-				mhHolder.whodone_name.setTextColor(Color.RED);
+				mhHolder.whodone_name.setTextColor(context.getResources().getColor(R.color.color_state_red));
 			}
 			else
 				mhHolder.whodone_name.setTextColor(Color.BLACK);
@@ -227,21 +227,21 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
-				mhHolder.status.setTextColor(context.getResources().getColor(R.color.blue_dot));
+				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
 			}
 		} else if (status.equals("6")) {
 			mhHolder.status.setText("准备执行");
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
-				mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_a));
+				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_green));
 			}
 		} else if (status.equals("7")) {
 			mhHolder.status.setText("未执行");
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
-				mhHolder.status.setTextColor(Color.RED);
+				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 			}
 		}
 
@@ -254,7 +254,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
-				mhHolder.status.setTextColor(Color.RED);
+				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 			}
 		}
 
@@ -268,7 +268,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 				}
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
 				mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
@@ -279,7 +279,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 				}
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
 				mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
@@ -291,7 +291,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 				}
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
 				mhHolder.iv.setImageResource(R.drawable.over_time);
@@ -303,7 +303,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 				}
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
 				mhHolder.iv.setImageResource(R.drawable.over_time);
@@ -315,7 +315,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 				}
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
 				mhHolder.iv.setImageResource(R.drawable.over_time);
@@ -327,7 +327,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 				}
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
 				mhHolder.iv.setImageResource(R.drawable.over_time);
@@ -338,7 +338,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 				}
 				break;
 
@@ -347,7 +347,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 				}
 				break;
 
@@ -357,7 +357,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 				}
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_over_time_bg);
 				mhHolder.iv.setImageResource(R.drawable.over_time);

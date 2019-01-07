@@ -118,7 +118,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	protected View getViews() {
 		Log.i("context", context + "");
 		return view_Parent = LayoutInflater.from(context).inflate(
-				R.layout.fragment_message_new, null);
+				R.layout.fragment_message, null);
 	}
 
 	@Override

@@ -3,8 +3,6 @@ package com.dssm.esc.view.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,7 +22,7 @@ public class EditIPActivity extends com.easemob.chatuidemo.activity.BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_ip_new);
+        setContentView(R.layout.activity_edit_ip);
         ((TextView) findViewById(R.id.tv_actionbar_title)).setText("设置BCM服务器");
         ImageView backImg = (ImageView) findViewById(R.id.iv_actionbar_back);
         backImg.setVisibility(View.VISIBLE);

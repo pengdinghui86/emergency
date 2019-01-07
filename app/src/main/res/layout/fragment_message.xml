@@ -1,6 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,16 +11,6 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
-        <ImageView
-            android:id="@+id/setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:src="@drawable/settings_normal" />
-
         <RelativeLayout
             android:id="@+id/rl_segmented"
             android:layout_width="wrap_content"
@@ -30,35 +18,28 @@
             android:layout_centerHorizontal="true"
             android:gravity="center">
 
-            <com.dssm.esc.view.widget.SegmentedGroup
+            <RadioGroup
                 android:id="@+id/segmented"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                segmentedgroup:sc_checked_text_color="@color/textColor_selected"
-                segmentedgroup:sc_tint_color="@android:color/white">
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rb_task"
-                    style="@style/RadioButton"
+                    style="@style/message_title_radio_button"
                     android:checked="true"
                     android:text="任务" />
 
                 <RadioButton
-                    android:id="@+id/rb_system"
-                    style="@style/RadioButton"
-                    android:text="系统" />
+                    android:id="@+id/rb_notice"
+                    style="@style/message_title_radio_button"
+                    android:text="通知" />
 
                 <RadioButton
-                    android:id="@+id/rb_emergency"
-                    style="@style/RadioButton"
-                    android:text="紧急" />
-
-                <RadioButton
-                    android:id="@+id/rb_mymessage"
-                    style="@style/RadioButton"
-                    android:text="个人" />
-            </com.dssm.esc.view.widget.SegmentedGroup>
+                    android:id="@+id/rb_chat"
+                    style="@style/message_title_radio_button"
+                    android:text="通讯" />
+            </RadioGroup>
         </RelativeLayout>
         <!-- 实现提醒信息用的 -->
 
@@ -115,31 +96,10 @@
                 style="@style/radio_tab2"
                 android:background="#00000000"
                 android:focusable="false"
-                android:focusableInTouchMode="false" />
+                android:focusableInTouchMode="false"
+                android:visibility="invisible"/>
 
-            <TextView
-                style="@style/radio_tab2"
-                android:visibility="invisible" />
-
-            <TextView
-                style="@style/radio_tab2"
-                android:layout_height="match_parent"
-                android:background="#00000000"
-                android:focusable="false"
-                android:focusableInTouchMode="false" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/message"
-            android:layout_toRightOf="@id/rl_segmented"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:paddingLeft="20dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/message" />
 
     </RelativeLayout>
 
