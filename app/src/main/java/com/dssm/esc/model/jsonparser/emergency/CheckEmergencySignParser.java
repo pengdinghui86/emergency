@@ -21,8 +21,6 @@ import java.util.Map;
 
 /**
  * 判断用户是否签到
- * @author zsj
- *
  */
 public class CheckEmergencySignParser {
 	public Map<String, String> map;

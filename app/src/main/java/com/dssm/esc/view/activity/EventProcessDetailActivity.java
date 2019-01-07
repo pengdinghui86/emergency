@@ -229,6 +229,8 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				item.setId(entity.getId());
 				item.setDiscoveryTime(entity.getDiscoveryTime());
 				item.setOperationTime(operationTime);
+				appendContent = createContent(appendContent, content, stepType,
+						operatorName, eveLevelName, planName);
 				if(appendContent.length() > 0)
                     appendContent = appendContent.substring(1, appendContent.length());
 				item.setContent(appendContent);
@@ -282,7 +284,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 		}else if("6".equals(type)){
 			ressult += "；授权：" + planName + "，授权人：" + operatorName;
 		}else if("7".equals(type)){
-			ressult += "；中止：" + planName + "，中止人：" + operatorName;
+			ressult += "；中止：" + planName + "，中止人：" + operatorName + "，中止原因：" + content;
 		}else if("8".equals(type)){
 			ressult += "；" + planName + "执行完成";
 		}else if("9".equals(type)){

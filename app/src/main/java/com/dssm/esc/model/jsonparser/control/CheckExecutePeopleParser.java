@@ -43,7 +43,7 @@ public class CheckExecutePeopleParser {
 	 */
 	public void request(final String id) {
 
-		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.STAR_PLAN);
+		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.CHECKEXECUTEPEOPLE);
 		params.setReadTimeout(60 * 1000);
 		//增加session
 		if(!MySharePreferencesService.getInstance(
@@ -59,7 +59,7 @@ public class CheckExecutePeopleParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
-		params.addParameter("id", id);
+		params.addParameter("planInfoId", id);
 		final ControlCompleterListenter<Map<String, String>> completeListener = wr.get();
 		x.http().post(params, new Callback.CommonCallback<String>() {
 
@@ -126,7 +126,7 @@ public class CheckExecutePeopleParser {
 			JSONObject object = new JSONObject(t);
 			if (t.contains("success")) {
 				map.put("success", object.getString("success"));
-				map.put("message", object.getString("message"));
+				map.put("message", object.has("message") ? object.getString("message") : "");
 			}
 		} catch (JSONException e) {
 			// TODO: handle exception

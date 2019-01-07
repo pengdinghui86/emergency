@@ -116,6 +116,11 @@ public class HttpUrl {
     public final static String PLANSTARD =  "emergency/planInfo/start";
 
     /**
+     * 是否有执行人
+     */
+    public final static String CHECKEXECUTEPEOPLE =  "emergency/planInfo/checkExecutePeople";
+
+    /**
      * 预案驳回
      */
     public final static String PLANSTARD_BOHUI = 

@@ -405,16 +405,19 @@ public class AddeValuationActivity extends BaseActivity implements
 		List<PlanNameRowEntity> result = new ArrayList<>();
 		PlanNameRowEntity planNameRowEntity = new PlanNameRowEntity();
 		planNameRowEntity.setId("1");
+		planNameRowEntity.setSelect(true);
 		planNameRowEntity.setName("预案启动");
 		result.add(planNameRowEntity);
 
 		planNameRowEntity = new PlanNameRowEntity();
 		planNameRowEntity.setId("2");
+		planNameRowEntity.setSelect(true);
 		planNameRowEntity.setName("预案授权");
 		result.add(planNameRowEntity);
 
 		planNameRowEntity = new PlanNameRowEntity();
 		planNameRowEntity.setId("3");
+		planNameRowEntity.setSelect(true);
 		planNameRowEntity.setName("人员签到");
 		result.add(planNameRowEntity);
 		return result;
