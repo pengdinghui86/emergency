@@ -271,5 +271,6 @@
     <color name="color_state_yellow">#ffcc00</color>
     <color name="color_state_green">#54d500</color>
     <color name="color_state_gray">#aaaaaa</color>
+    <color name="color_state_purple">#CA8EFF</color>
 
 </resources>

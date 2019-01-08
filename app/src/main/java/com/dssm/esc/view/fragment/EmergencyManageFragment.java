@@ -7,7 +7,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.dssm.esc.R;
@@ -20,7 +19,6 @@ import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.activity.AddeValuationActivity;
-import com.dssm.esc.view.activity.AutorizationDecisionActivity;
 import com.dssm.esc.view.activity.DismissValuationActivity;
 import com.dssm.esc.view.activity.DrillSelectActivity;
 import com.dssm.esc.view.activity.EventListActivity;
@@ -35,8 +33,7 @@ import java.util.List;
 /**
  * 应急管理
  */
-public class EmergencyManageFragment extends BaseFragment implements
-		OnClickListener {
+public class EmergencyManageFragment extends BaseFragment {
 	private TextView title;
 	private Context context;
 	private RelativeLayout emergency_menu_rl_add_event;
@@ -451,19 +448,6 @@ public class EmergencyManageFragment extends BaseFragment implements
 			Utils.getInstance().hideProgressDialog();
 		}
 	};
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.collaborative_circular_ll:// 协同通告
-			Intent intent8 = new Intent(getActivity(),
-					AutorizationDecisionActivity.class);
-			intent8.putExtra("tags", "4");
-			startActivity(intent8);
-			break;
-		}
-	}
 
 	private void showMenuData() {
 		addEventAdapter = new EmergencyMenuRecyclerViewAdapter(getContext(), addEventList);

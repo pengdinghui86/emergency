@@ -215,7 +215,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     && Integer.parseInt(entity.getStatus()) < 20) {
                 status = "暂停";
                 setDefaultBackground(mhHolder, R.color.red);
-                mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
+                mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                 mhHolder.status.setText(status);
 
                 setItemColor(entity, mhHolder);
@@ -307,7 +307,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     }
                     else {
                         setDefaultBackground(mhHolder, R.color.blue_dot);
-                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_green));
+                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_purple));
                     }
                     mhHolder.status.setText(status);
 
@@ -758,14 +758,14 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.overtime.setText(Utils.getInstance().getOverTime(
                     entity.getEndTime(), entity.getBeginTime()));
             if (result < 0) {
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.color_state_green));
                 mhHolder.over_time_title.setImageResource(R.drawable.used_time_normal);
             } else {
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
+                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.color_state_red));
                 mhHolder.over_time_title.setImageResource(R.drawable.used_time_over);
             }
         }else {
-            mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
+            mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.color_state_green));
             mhHolder.overtime.setText("0秒");
             mhHolder.over_time_title.setImageResource(R.drawable.used_time_normal);
         }

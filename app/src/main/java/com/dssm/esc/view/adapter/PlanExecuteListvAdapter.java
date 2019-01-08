@@ -139,7 +139,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 						&& !"".equals(entity.getExecutorCName()))
 					stepname += ",C角:" + entity.getExecutorCName();
 				if(stepname.length() > 0)
-					stepname.substring(1, stepname.length());
+					stepname = stepname.substring(1, stepname.length());
 				mhHolder.whodone_name.setTextColor(Color.BLACK);
 			}
 			//A角
@@ -205,7 +205,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
-				mhHolder.status.setTextColor(context.getResources().getColor(R.color.green_b));
+				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
 			}
 			mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
 			mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
@@ -216,7 +216,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
-				mhHolder.status.setTextColor(context.getResources().getColor(R.color.yellow_dot));
+				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_yellow));
 			}
 			mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
 			mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
@@ -227,7 +227,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
-				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
+				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_purple));
 			}
 		} else if (status.equals("6")) {
 			mhHolder.status.setText("准备执行");
@@ -241,7 +241,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
-				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
+				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
 			}
 		}
 
@@ -254,7 +254,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			if (!TextUtils.isEmpty(entity.getCode())){
 				mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 			}else {
-				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
+				mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
 			}
 		}
 
@@ -268,7 +268,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_yellow));
 				}
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_execute_bg);
 				mhHolder.iv.setImageResource(R.drawable.event_process_plan_execute);
@@ -279,7 +279,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
 				}
 				mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
 				mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
@@ -338,7 +338,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
 				}
 				break;
 
@@ -347,7 +347,7 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				if (!TextUtils.isEmpty(entity.getCode())){
 					mhHolder.status.setTextColor(Color.parseColor(entity.getCode()));
 				}else {
-					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
 				}
 				break;
 

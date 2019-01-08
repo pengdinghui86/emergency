@@ -43,7 +43,7 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
         this.tags = tags;
         preferencesService = new MySharePreferencesService(DemoApplication.applicationContext);
         // 回显
-        userId = preferencesService.getPreferences().get("userId");
+        userId = preferencesService.getPreferences().get("postFlag");
     }
 
     @Override

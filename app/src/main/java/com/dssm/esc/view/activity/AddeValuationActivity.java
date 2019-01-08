@@ -420,6 +420,19 @@ public class AddeValuationActivity extends BaseActivity implements
 		planNameRowEntity.setSelect(true);
 		planNameRowEntity.setName("人员签到");
 		result.add(planNameRowEntity);
+
+		if (result != null && result.size() > 0) {
+			for (int i = 0; i < result.size(); i++) {
+				if (result.get(i).isSelect()) {
+					emergencyDisposalProcess = emergencyDisposalProcess + "|"
+							+ result.get(i).getId();
+				}
+			}
+			if (emergencyDisposalProcess.subSequence(0, 1).equals("|")) {
+				emergencyDisposalProcess = (String) emergencyDisposalProcess.subSequence(1,
+						emergencyDisposalProcess.length());
+			}
+		}
 		return result;
 	}
 

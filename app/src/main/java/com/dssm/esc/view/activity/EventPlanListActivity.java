@@ -398,14 +398,35 @@ public class EventPlanListActivity extends BaseActivity implements
                 .setView(view2)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        String info = et.getText().toString()
+                        final String info = et.getText().toString()
                                 .trim();
                         if (info.equals("")) {
                             Toast.makeText(
                                     EventPlanListActivity.this,
                                     "中止原因不能为空", Toast.LENGTH_SHORT).show();
                         } else {
-                            planSuspand(convert2PlanSuspandEntity(list.get(position), info));
+                            View view = LayoutInflater.from(EventPlanListActivity.this).inflate(R.layout.editcode, null);
+                            final EditText et = (EditText) view.findViewById(R.id.vc_code);
+                            final String getCode = Utils.getInstance().code();
+                            new AlertDialog.Builder(EventPlanListActivity.this)
+                                    .setTitle("验证码：" + getCode)
+                                    .setIcon(android.R.drawable.ic_dialog_info)
+                                    .setView(view)
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            String v_code = et.getText().toString()
+                                                    .trim();
+                                            if (!v_code.equals(getCode)) {
+                                                Toast.makeText(
+                                                        EventPlanListActivity.this,
+                                                        "验证码错误", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                planSuspand(convert2PlanSuspandEntity(list.get(position), info));
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton("取消", null)
+                                    .show();
                         }
                     }
                 })

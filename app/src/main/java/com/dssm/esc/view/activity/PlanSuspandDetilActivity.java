@@ -187,9 +187,9 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 		// tag = intent.getStringExtra("tag");
 		id = intent.getStringExtra("id");
 		stop = intent.getStringExtra("stop");
-		if (stop.equals("0")) {// 预案列表
+		if (stop.equals("0")) {// 待授权列表
 			isStarter = intent.getStringExtra("isStarter");
-		} else if (stop.equals("1")) {// 授权列表
+		} else if (stop.equals("1")) {// 已授权列表
 			isAuthor = intent.getStringExtra("isAuthor");
 		}
 		suspandEntity = new PlanSuspandEntity();
@@ -264,9 +264,7 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 			message.what = 1;
 			message.obj = planDetailEntity;
 			handler.sendMessage(message);
-			// if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
-			// }
 		}
 	};
 
@@ -302,7 +300,7 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 									PlanSuspandDetilActivity.this,
 									"验证码错误", Toast.LENGTH_SHORT).show();
 						} else {
-							
+							suspandEntity.setPlanSuspendOpition(etc.getText().toString());
 							stopPlan();
 						}
 			        }
@@ -399,12 +397,12 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 	};
 
 	private void stopPlan() {
-		if (stop.equals("0")) {// 预案启动列表
+		if (stop.equals("0")) {// 待授权列表
 			Utils.getInstance().showProgressDialog(
 					PlanSuspandDetilActivity.this, "", Const.SUBMIT_MESSAGE);
 			Control.getinstance().getEmergencyService().suspand(suspandEntity, suspandListener);
 
-		} else if (stop.equals("1")) {// 预案授权列表
+		} else if (stop.equals("1")) {// 已授权列表
 			Utils.getInstance().showProgressDialog(
 					PlanSuspandDetilActivity.this, "", Const.SUBMIT_MESSAGE);
 			Control.getinstance().getEmergencyService().planSuspand(suspandEntity, listener);

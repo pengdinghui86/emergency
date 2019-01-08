@@ -160,6 +160,7 @@ public class PlanStarEventListParser {
 					listEntity.setTradeType(jsonObject2.getString("tradeType"));
 					listEntity.setEveCode(jsonObject2.getString("eveCode"));
 					listEntity.setEveType(jsonObject2.getString("eveType"));
+					listEntity.setSubmitterId(jsonObject2.getString("submitterId"));
 					if(jsonObject2.has("closeTime"))
 					{
 						listEntity.setCloseTime("null".
