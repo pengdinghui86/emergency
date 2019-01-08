@@ -27,18 +27,18 @@ public class GetCollaborationHistoryNoticeListParser {
 	private List<HistoryNoticeEntity> list;
 	private final WeakReference<OnDataCompleterListener> wr;
 
-	public GetCollaborationHistoryNoticeListParser(String msgType,
+	public GetCollaborationHistoryNoticeListParser(String msgType, String planInfoId,
                                                    OnDataCompleterListener completeListener) {
 		// TODO Auto-generated constructor stub
 		wr = new WeakReference<>(completeListener);
-		request(msgType);
+		request(msgType, planInfoId);
 	}
 
 	/**
 	 * @param msgType
 	 * 不传查全部，0系统，1邮件，2短信，3APP
 	 */
-	public void request(final String msgType) {
+	public void request(final String msgType, final String planInfoId) {
 		RequestParams params = new RequestParams(DemoApplication.getInstance().getUrl()+HttpUrl.COLLABORATIONHISTORYNOTICE + msgType);
 		params.setReadTimeout(60 * 1000);
 		//增加session
@@ -55,6 +55,7 @@ public class GetCollaborationHistoryNoticeListParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		params.addParameter("entityId", planInfoId);
 		final OnDataCompleterListener onEmergencyCompleteListener = wr.get();
 		x.http().get(params, new Callback.CommonCallback<String>() {
 
@@ -82,7 +83,7 @@ public class GetCollaborationHistoryNoticeListParser {
 						errorResult = "登录超时";
                         Utils.getInstance().relogin();
 						if(DemoApplication.sessionTimeoutCount < 5)
-							request(msgType);
+							request(msgType, planInfoId);
                     }
                     responseMsg = httpEx.getMessage();
 					//					errorResult = httpEx.getResult();
@@ -91,7 +92,7 @@ public class GetCollaborationHistoryNoticeListParser {
 					errorResult = "登录超时";
                 	Utils.getInstance().relogin();
 					if(DemoApplication.sessionTimeoutCount < 5)
-						request(msgType);
+						request(msgType, planInfoId);
 				} else { //其他错误
 					errorResult = "其他错误";
 				}

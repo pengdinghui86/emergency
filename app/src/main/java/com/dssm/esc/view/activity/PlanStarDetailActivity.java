@@ -330,6 +330,8 @@ public class PlanStarDetailActivity extends BaseActivity implements
                             start.setEnabled(true);
                         }
                     }
+                    //默认全选参考预案
+                    resutList4 = initReferPlanData(list);
                     plan_name.setText(name);
                     event_des.setText(obj.getEveDescription());
                     suggestion.setText(obj.getDealAdvice());
@@ -623,6 +625,48 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
         }
 
+    }
+
+    private ArrayList<PlanNameRowEntity> initReferPlanData(List<PlanStarListDetailObjListEntity> list) {
+        ArrayList<PlanNameRowEntity> result = new ArrayList<>();
+        String selectedReferPlanName = "";
+        for (PlanStarListDetailObjListEntity entity : list) {
+            PlanNameRowEntity item = new PlanNameRowEntity();
+            item.setId(entity.getProcessId());
+            item.setName(entity.getName());
+            item.setSceneName(entity.getSceneName());
+            item.setType(entity.getPlanType());
+            item.setHasStartAuth(entity.getHasStartAuth());
+            item.setSelect(true);
+            result.add(item);
+        }
+        for (int i = 0; i < result.size(); i++) {
+            selectedReferPlanName = selectedReferPlanName + "," + result.get(i).getName() +
+                    "-" + result.get(i).getSceneName();
+            referPlan = referPlan + "|"
+                    + result.get(i).getId();
+            referPlanName = referPlanName + ","
+                    + result.get(i).getName();
+            PlanNameRowEntity entity = new PlanNameRowEntity();
+            entity.setId(result.get(i).getId());
+            selectedIds.add(entity);
+        }
+        if (selectedReferPlanName.subSequence(0, 1).equals(",")) {
+            selectedReferPlanName = (String) selectedReferPlanName.subSequence(1,
+                    selectedReferPlanName.length());
+        }
+        if (referPlan.subSequence(0, 1).equals("|")) {
+            referPlan = (String) referPlan.subSequence(1,
+                    referPlan.length());
+        }
+        if (referPlanName.subSequence(0, 1).equals(",")) {
+            referPlanName = (String) referPlanName.subSequence(
+                    1, referPlanName.length());
+        }
+        referPlan_name.setText(selectedReferPlanName);
+        palnIds.add(referPlan);
+        palnNames.add(referPlanName);
+        return result;
     }
 
     @SuppressWarnings("unchecked")

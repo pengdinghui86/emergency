@@ -275,9 +275,9 @@ public class UserSeviceImpl implements UserSevice {
 	 * 获取协同与通告历史通知列表
 	 */
 	@Override
-	public void getCollaborationHistoryNoticeList(String msgType, UserSeviceImplListListenser listenser) {
+	public void getCollaborationHistoryNoticeList(String msgType, String planInfoId, UserSeviceImplListListenser listenser) {
 		final WeakReference<UserSeviceImplListListenser> wr = new WeakReference<>(listenser);
-		new GetCollaborationHistoryNoticeListParser(msgType,
+		new GetCollaborationHistoryNoticeListParser(msgType, planInfoId,
 				new OnDataCompleterListener() {
 					@Override
 					public void onEmergencyParserComplete(Object object,

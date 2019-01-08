@@ -249,6 +249,7 @@ public class SendCollaborationActivity extends BaseActivity implements
 				//协同与通告通知历史信息
 				Intent intent = new Intent(this, HistoryNoticeActivity.class);
 				intent.putExtra("type", "2");
+				intent.putExtra("planInfoId", planInfoId);
 				startActivity(intent);
 				break;
 			case R.id.rb_send_collaboration:

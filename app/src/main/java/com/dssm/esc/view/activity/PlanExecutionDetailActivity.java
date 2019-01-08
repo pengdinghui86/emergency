@@ -224,8 +224,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT))
                 && planStatus.equals("3")) {
             change_ll.setVisibility(View.VISIBLE);
-            if(status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT)
-                    || childEntity.getNodeStepType().equals("ExclusiveGateway"))
+            if(childEntity.getNodeStepType().equals("ExclusiveGateway"))
                 execute_error.setVisibility(View.GONE);
             execute_ll.setVisibility(View.GONE);
         } else if (status.equals("5") && planStatus.equals("3")) {

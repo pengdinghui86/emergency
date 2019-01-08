@@ -62,6 +62,8 @@ public class HistoryNoticeActivity extends BaseActivity implements
 	public String tag = "";
 	//1应急历史，2协同与通告历史
 	public String type = "";
+	//协同与通告查询历史时需要传递给服务器
+	public String planInfoId = "";
 	//当前已加载的总条数
 	private int num = 0;
 	//每次加载20条
@@ -125,7 +127,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 				HistoryNoticeActivity.this, "",
 				Const.SUBMIT_MESSAGE);
 		if("2".equals(type))
-			service.getCollaborationHistoryNoticeList(tag, listListener);
+			service.getCollaborationHistoryNoticeList(tag, planInfoId, listListener);
 		else
 			service.getHistoryNoticeList(tag, listListener);
 	}
@@ -156,8 +158,10 @@ public class HistoryNoticeActivity extends BaseActivity implements
 				startActivity(intent);
 			}
 		});
-		if(getIntent() != null)
+		if(getIntent() != null) {
 			type = getIntent().getStringExtra("type");
+			planInfoId = getIntent().getStringExtra("planInfoId");
+		}
 	}
 
 	@Override

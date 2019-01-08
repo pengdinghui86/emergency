@@ -100,5 +100,5 @@ void relogin(String userName, String password, String roleId,
 
 	void getHistoryNoticeList(String msgType, UserSeviceImpl.UserSeviceImplListListenser listenser);
 
-	void getCollaborationHistoryNoticeList(String msgType, UserSeviceImpl.UserSeviceImplListListenser listenser);
+	void getCollaborationHistoryNoticeList(String msgType, String planInfoId, UserSeviceImpl.UserSeviceImplListListenser listenser);
 }
