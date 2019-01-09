@@ -105,11 +105,9 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             mhHolder.content = (TextView) convertView.findViewById(R.id.content);
 
             mhHolder.overtime = (TextView) convertView.findViewById(R.id.overtime);
-            mhHolder.overtime_up = (TextView) convertView.findViewById(R.id.overtime_up);
             mhHolder.predict_time = (TextView) convertView.findViewById(R.id.predict_time);
             mhHolder.predict_time_title = (ImageView) convertView.findViewById(R.id.predict_time_title);
             mhHolder.over_time_title = (ImageView) convertView.findViewById(R.id.over_time_title);
-            mhHolder.over_time_title_up = (ImageView) convertView.findViewById(R.id.over_time_title_up);
 //            mhHolder.ivdot = (ImageView) convertView.findViewById(R.id.dot);
             mhHolder.postiontv = (TextView) convertView.findViewById(R.id.postiontv);
             mhHolder.jumptv = (TextView) convertView.findViewById(R.id.jumptv);
@@ -148,20 +146,32 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             else
                 mhHolder.postiontv.setText("");
         }
-        if (!entity.getExecutePeople().equals("null")) {
+        if (!entity.getExecutePeople().equals("null")
+                && !entity.getExecutePeople().equals("")) {
             mhHolder.executePeople.setText(entity.getExecutePeople());
             final String executePeopleId = entity.getExecutePeopleId();
             if (!executePeopleId.equals("null") && !executePeopleId.equals("")) {
                 peopleClick(mhHolder, executePeopleId);
-
             }
         }
-        else
-            mhHolder.executePeople.setText("");
+        else {
+            String executePeopleName = "";
+            if(!"".equals(entity.getExecutorA()))
+                executePeopleName += "，A角：" + entity.getExecutorA();
+            if(!"".equals(entity.getExecutorB()))
+                executePeopleName += "，B角：" + entity.getExecutorB();
+            if(!"".equals(entity.getExecutorC()))
+                executePeopleName += "，C角：" + entity.getExecutorC();
+            if(executePeopleName.length() > 0)
+                executePeopleName = executePeopleName.substring(1, executePeopleName.length());
+            mhHolder.executePeople.setText(executePeopleName);
+        }
         if (!entity.getName().equals("null")) {
             mhHolder.name_step.setText(entity.getName());
         }
-
+        String overSeconds = entity.getActualAfterDuration();
+        String overTime = Utils.getInstance().convert2TimeStyle(overSeconds);
+        mhHolder.overtime.setText(overTime);
         mhHolder.v_top = (View) convertView.findViewById(R.id.item_list_view_real_time_track_v_top);
         mhHolder.v_bottom = (View) convertView.findViewById(R.id.item_list_view_real_time_track_v_bottom);
         mhHolder.iv = (ImageView) convertView.findViewById(R.id.item_list_view_real_time_track_iv);
@@ -494,7 +504,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
          * 2017/10/12
          */
         mhHolder.jumptv.setVisibility(View.GONE);
-        mhHolder.tv_start.setVisibility(View.GONE);
+        mhHolder.tv_start.setVisibility(View.INVISIBLE);
         mhHolder.tv_pause.setVisibility(View.GONE);
         mhHolder.tv_cancel_jump.setVisibility(View.GONE);
 
@@ -708,66 +718,18 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         } else {
             mhHolder.content.setText("");
         }
-        if (entity.getStatus().equals("4")
-                || entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_TIME_OUT)) {
-            // 执行中或执行超时
-            mhHolder.overtime.setText(Utils.getInstance().setTtimeline(curDate,
-                    entity.getBeginTime()));
-            if (entity.getStatus().equals("4")) {
-                String overSeconds = Utils.getInstance().getOverSeconds(
-                        curDate, entity.getBeginTime()) + "";
-                long result = Utils.getInstance().compareTime(overSeconds, entity.getDuration());
-                if (result < 0) {
-                    mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
-                    mhHolder.over_time_title.setImageResource(R.drawable.used_time_normal);
-                } else {
-                    mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
-                    mhHolder.over_time_title.setImageResource(R.drawable.used_time_over);
-                }
-            } else {
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
-                mhHolder.over_time_title.setImageResource(R.drawable.used_time_over);
-            }
-        }
-        else if (entity.getStatus().equals(RealTimeTrackingStatus.EXCEPTION_OPTION_STOP)) {
-            //执行异常
-            mhHolder.overtime.setText(Utils.getInstance().setTtimeline(curDate,
-                    entity.getBeginTime()));
-            String overSeconds = Utils.getInstance().getOverSeconds(
-                    curDate, entity.getBeginTime()) + "";
-            long result = Utils.getInstance().compareTime(overSeconds, entity.getDuration());
-            if (result < 0) {
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.green_my));
-                mhHolder.over_time_title.setImageResource(R.drawable.used_time_normal);
-            } else {
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.red));
-                mhHolder.over_time_title.setImageResource(R.drawable.used_time_over);
-            }
-        }
-        else if (!entity.getEndTime().equals("null")
-                && !entity.getBeginTime().equals("")
-                && !entity.getBeginTime().equals("null")) {
-            String overSeconds = Utils.getInstance().getOverSeconds(
-                    entity.getEndTime(), entity.getBeginTime()) + "";
-            String duration;
-            if (entity.getDuration().equals("null") || entity.getDuration().equals(""))
-                duration = "0";
-            else
-                duration = entity.getDuration();
-            long result = Utils.getInstance().compareTime(overSeconds, duration);
-            mhHolder.overtime.setText(Utils.getInstance().getOverTime(
-                    entity.getEndTime(), entity.getBeginTime()));
-            if (result < 0) {
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.color_state_green));
-                mhHolder.over_time_title.setImageResource(R.drawable.used_time_normal);
-            } else {
-                mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.color_state_red));
-                mhHolder.over_time_title.setImageResource(R.drawable.used_time_over);
-            }
-        }else {
+        String duration;
+        if (entity.getDuration().equals("null") || entity.getDuration().equals(""))
+            duration = "0";
+        else
+            duration = entity.getDuration();
+        long result = Utils.getInstance().compareTime(overSeconds, duration);
+        if (result <= 0) {
             mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.color_state_green));
-            mhHolder.overtime.setText("0秒");
             mhHolder.over_time_title.setImageResource(R.drawable.used_time_normal);
+        } else {
+            mhHolder.overtime.setTextColor(context.getResources().getColor(R.color.color_state_red));
+            mhHolder.over_time_title.setImageResource(R.drawable.used_time_over);
         }
         if (!entity.getDuration().equals("null")) {
             mhHolder.predict_time.setText(entity.getDuration() + "秒");
@@ -780,37 +742,29 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
          * 2018.7.23
          */
         if(entity.getNodeStepType().equals("CallActivity")) {
-            mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
-            mhHolder.executePeopleTitle.setVisibility(View.GONE);
-            mhHolder.executePeople.setVisibility(View.GONE);
-            mhHolder.over_time_title_up.setVisibility(View.VISIBLE);
-            mhHolder.overtime_up.setVisibility(View.VISIBLE);
-            mhHolder.overtime_up.setText(mhHolder.overtime.getText().toString());
-            mhHolder.ll_time.setVisibility(View.GONE);
-        }
-        /**
-         * 添加执行完成状态
-         * 2017.10.23
-         */
-        else if (26 == Integer.parseInt(entity.getStatus())&& !(null == entity.getType()) ? false : entity.getType().equals("drillNew")) {
             mhHolder.ll_executePeople.setVisibility(View.GONE);
-            mhHolder.ll_time.setVisibility(View.GONE);
+            mhHolder.predict_time_title.setVisibility(View.GONE);
+            mhHolder.predict_time.setVisibility(View.GONE);
         }
+//        /**
+//         * 添加执行完成状态
+//         * 2017.10.23
+//         */
+//        else if (26 == Integer.parseInt(entity.getStatus())&& !(null == entity.getType()) ? false : entity.getType().equals("drillNew")) {
+//            mhHolder.ll_executePeople.setVisibility(View.GONE);
+//            mhHolder.ll_time.setVisibility(View.GONE);
+//        }
         /**
          * 2018.4.24 新增节点不显示执行人
          */
         else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")) {
             mhHolder.ll_executePeople.setVisibility(View.GONE);
             mhHolder.predict_time.setText("0秒");
-            mhHolder.ll_time.setVisibility(View.VISIBLE);
         }
         else {
             mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
-            mhHolder.executePeopleTitle.setVisibility(View.VISIBLE);
-            mhHolder.executePeople.setVisibility(View.VISIBLE);
-            mhHolder.over_time_title_up.setVisibility(View.GONE);
-            mhHolder.overtime_up.setVisibility(View.GONE);
-            mhHolder.ll_time.setVisibility(View.VISIBLE);
+            mhHolder.predict_time_title.setVisibility(View.VISIBLE);
+            mhHolder.predict_time.setVisibility(View.VISIBLE);
         }
 
         //根据子预案层级设置缩进幅度
@@ -851,18 +805,17 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                         IntroductionActivity.class);
                 //保存联系人
                 service.saveContactName(obj.getUserId(), obj.getName());
+
                 intent.putExtra("id", obj.getUserId());
                 intent.putExtra("name", obj.getName());
-                intent.putExtra("phonenumberOne",
-                        obj.getPhoneNumOne());
-                intent.putExtra("phonenumberTwo",
-                        obj.getPhoneNumTwo());
-                intent.putExtra("gangwei",
-                        obj.getPostName());
-                intent.putExtra("bumen", obj.getDepName());
+                intent.putExtra("mobileNumber", obj.getPhoneNumOne());
+                intent.putExtra("telephoneNumber", obj.getPhoneNumTwo());
+                intent.putExtra("post", obj.getPostName());
+                intent.putExtra("department", obj.getDepName());
                 intent.putExtra("sex", obj.getSex());
-                intent.putExtra("postFlag", obj.getPostFlag());
                 intent.putExtra("email", obj.getEmail());
+
+
                 context.startActivity(intent);
             } else if (stRerror != null) {
                 Toast.makeText(context, stRerror,
@@ -895,10 +848,8 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         private TextView status;// 完成状态
         private TextView content;// 信息内容
         private TextView overtime;// （已用时：结束时间减去开始时间）
-        private TextView overtime_up;// 已用时,子预案显示用
         private ImageView predict_time_title;// 预计用时标题
         private ImageView over_time_title;// 预计用时标题
-        private ImageView over_time_title_up;// 预计用时标题,子预案显示用
         private TextView predict_time;// 预计用时，单位秒
         private View v_top;
         private View v_bottom;

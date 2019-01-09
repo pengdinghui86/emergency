@@ -137,18 +137,29 @@ public class GetPhoneByExecuteParser {
 			JSONObject jsonObject2 = jsonObject.getJSONObject("obj");
 			UserObjEntity objEntity =new UserObjEntity();
 			objEntity.setId(jsonObject2.getString("id"));
-			objEntity.setUserId(jsonObject2.getString("userId"));
+			if(jsonObject2.has("userId"))
+				objEntity.setUserId(jsonObject2.getString("userId"));
+			else
+				objEntity.setUserId("");
 			objEntity.setSex(jsonObject2.getString("sex"));
-			objEntity.setPostName(jsonObject2.getString("postName"));
+			if(jsonObject2.has("postName"))
+				objEntity.setPostName(jsonObject2.getString("postName"));
+			else
+				objEntity.setPostName("");
 			objEntity.setPhoneNumTwo(isNull(jsonObject2.getString("phoneNumTwo")));
 			
 			objEntity.setEmail(isNull(jsonObject2.getString("email")));
 			objEntity.setName(isNull(jsonObject2.getString("name")));
 			objEntity.setPhoneNumOne(isNull(jsonObject2.getString("phoneNumOne")));
 			objEntity.setNumbuer(isNull(jsonObject2.getString("numbuer")));
-			
-			objEntity.setDepName(isNull(jsonObject2.getString("depName")));
-			objEntity.setOrgName(isNull(jsonObject2.getString("orgName")));
+			if(jsonObject2.has("depName"))
+				objEntity.setDepName(jsonObject2.getString("depName"));
+			else
+				objEntity.setDepName("");
+			if(jsonObject2.has("orgName"))
+				objEntity.setOrgName(jsonObject2.getString("orgName"));
+			else
+				objEntity.setOrgName("");
 			objEntity.setPostFlag(isNull(jsonObject2.getString("postFlag")));
 			entity.setObj(objEntity);
 			

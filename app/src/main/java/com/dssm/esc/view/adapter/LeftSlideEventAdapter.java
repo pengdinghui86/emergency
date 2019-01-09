@@ -149,7 +149,6 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
                     break;
 
             }
-            eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
             eventViewHolder.tvState.setText(status);
         }
         //设置内容布局的宽为屏幕宽度

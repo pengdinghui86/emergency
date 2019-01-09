@@ -183,6 +183,49 @@ public class QueryProcessTrackParser {
 					entity.setProcess(jsonObject.getString("process"));
 					entity.setpId(jsonObject.getString("pId"));
 					entity.setDuration(jsonObject.getString("duration"));//预计用时，单位秒
+					if(jsonObject.has("actualAfterDuration"))
+					{
+						if("".equals(jsonObject.getString("actualAfterDuration")) || "null".equals(jsonObject.getString("actualAfterDuration")))
+							entity.setActualAfterDuration("0");//已用时，单位秒
+						else
+							entity.setActualAfterDuration(jsonObject.getString("actualAfterDuration"));
+					}
+					else {
+						entity.setActualAfterDuration("0");
+					}
+
+					if(jsonObject.has("executorAName"))
+					{
+						if("null".equals(jsonObject.getString("executorAName")))
+							entity.setExecutorA("");//已用时，单位秒
+						else
+							entity.setExecutorA(jsonObject.getString("executorAName"));
+					}
+					else {
+						entity.setExecutorA("");
+					}
+
+					if(jsonObject.has("executorBName"))
+					{
+						if("null".equals(jsonObject.getString("executorBName")))
+							entity.setExecutorB("");
+						else
+							entity.setExecutorB(jsonObject.getString("executorBName"));
+					}
+					else {
+						entity.setExecutorB("");
+					}
+
+					if(jsonObject.has("executorCName"))
+					{
+						if("null".equals(jsonObject.getString("executorCName")))
+							entity.setExecutorC("");
+						else
+							entity.setExecutorC(jsonObject.getString("executorCName"));
+					}
+					else {
+						entity.setExecutorC("");
+					}
 					entity.setName(jsonObject.getString("name"));//步骤名称
 					list.add(entity);
 				}

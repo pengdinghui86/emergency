@@ -214,6 +214,10 @@ public class FlowChartPlanEntity implements Serializable {
          */
         private String duration;
         /**
+         * 已用时间
+         */
+        private String actualAfterDuration;
+        /**
          * 创建人
          */
         private String createUser;
@@ -237,6 +241,14 @@ public class FlowChartPlanEntity implements Serializable {
 
         //节点所属预案层级，多一级子预案数值加1
         private int index = 0;
+
+        public String getActualAfterDuration() {
+            return actualAfterDuration;
+        }
+
+        public void setActualAfterDuration(String actualAfterDuration) {
+            this.actualAfterDuration = actualAfterDuration;
+        }
 
         public int getIndex() {
             return index;

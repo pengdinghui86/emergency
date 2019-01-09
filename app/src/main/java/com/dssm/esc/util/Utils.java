@@ -289,7 +289,7 @@ public class Utils implements Serializable {
         try {
             Date d1 = df.parse(dateNow);
             Date d2 = df.parse(dateStar);
-            long diff = d1.getTime() - d2.getTime();// 这样得到的差值是微秒级别
+            long diff = d1.getTime() - d2.getTime();
             long days = diff / (1000 * 60 * 60 * 24);
             long hours = (diff - days * (1000 * 60 * 60 * 24))
                     / (1000 * 60 * 60);
@@ -298,6 +298,42 @@ public class Utils implements Serializable {
                     / (1000 * 60);
             long miao = (diff - days * (1000 * 60 * 60 * 24) - hours
                     * (1000 * 60 * 60) - minutes * (1000 * 60)) / 1000;
+            System.out.println("" + days + "天" + hours + "小时" + minutes + "分"
+                    + miao + "秒");
+            if (days == 0 && hours > 0 && minutes > 0 && miao > 0) {
+                return hours + "小时" + minutes + "分" + miao + "秒";
+            } else if (days == 0 && hours == 0 && minutes > 0 && miao > 0) {
+
+                return minutes + "分" + miao + "秒";
+            } else if (days == 0 && hours == 0 && minutes == 0 && miao >= 0) {
+
+                return miao + "秒";
+            } else {
+
+//                return "" + days + "天" + hours + "小时" + minutes + "分" + miao
+//                        + "秒";
+                //2018.4.28修改
+                return "" + (days * 24 + hours) + "小时" + minutes + "分" + miao
+                        + "秒";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0秒";
+    }
+
+    //传入参数为秒
+    public String convert2TimeStyle(String actualAfterDuration) {
+        try {
+            long diff = Long.parseLong(actualAfterDuration);
+            long days = diff / (60 * 60 * 24);
+            long hours = (diff - days * (60 * 60 * 24))
+                    / (60 * 60);
+            long minutes = (diff - days * (60 * 60 * 24) - hours
+                    * (60 * 60))
+                    / (60);
+            long miao = diff - days * (60 * 60 * 24) - hours
+                    * (60 * 60) - minutes * 60;
             System.out.println("" + days + "天" + hours + "小时" + minutes + "分"
                     + miao + "秒");
             if (days == 0 && hours > 0 && minutes > 0 && miao > 0) {
