@@ -201,6 +201,12 @@ public class GetAuthPlanListParser {
 					}
 					else
 						listEntity.setCloseTime("");
+					String isSign = "1";
+					if(jsonObject2.has("isSign"))
+					{
+						if("0".equals(jsonObject2.getString("isSign")))
+							isSign = "0";
+					}
 					list.add(listEntity);
 					JSONArray jsonArray2 = new JSONArray(jsonObject2.getString("planInfos"));
 					for(int j = 0; j < jsonArray2.length(); j++)
@@ -227,12 +233,6 @@ public class GetAuthPlanListParser {
                                 checkExecutePeople = true;
                         }
                         suspandEntity.setCheckExecutePeople(checkExecutePeople);
-                        String isSign = "1";
-                        if(jsonObject.has("isSign"))
-                        {
-                            if("0".equals(jsonObject.getString("isSign")))
-                                isSign = "0";
-                        }
                         suspandEntity.setIsSign(isSign);
                         //指挥与展示启动与停止按钮权限判断
                         if(a == 5)

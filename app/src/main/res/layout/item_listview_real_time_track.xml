@@ -21,8 +21,8 @@
             <View
                 android:id="@+id/item_list_view_real_time_track_v_top"
                 android:layout_width="22dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layerType="software"
@@ -35,16 +35,16 @@
                 android:background="@drawable/circle_unstart_bg"
                 android:layout_gravity="center_vertical"
                 android:foregroundGravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:src="@drawable/unexecuted"
                 android:visibility="gone"/>
 
             <View
                 android:id="@+id/item_list_view_real_time_track_v_bottom"
                 android:layout_width="22dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layerType="software"
@@ -71,7 +71,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left|center"
-                    android:layout_marginLeft="17dp"
                     android:padding="3dp"
                     style="@style/normal_gray_text" />
 
@@ -100,7 +99,7 @@
                 android:id="@+id/ll_executePeople"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="3dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -164,7 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="3dp"
                 >
 
                 <ImageView
@@ -206,7 +205,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="right"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="3dp"
                     android:layout_gravity="right"
                     android:layout_weight="1">
 

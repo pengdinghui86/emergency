@@ -197,8 +197,9 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 	{
 		List<EventProgressEntity> result = new ArrayList<>();
 		int index = 0;
-		for(EventProgressEntity entity : list)
+		while (index < list.size())
 		{
+			EventProgressEntity entity = list.get(index);
 			//步骤类型：0：事件发生，1：事件评估，2：事件通告，
 			// 3：事件升级，4：事件降级，5：预案启动，6：预案授权，
 			// 7：预案中止，8：预案完成，9：事件关闭
@@ -219,10 +220,31 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 					: false) {
 				String nextStepType = list.get(index + 1).getStepType();
 				stepName += "&" + list.get(index + 1).getStep();
-				appendContent = createContent(appendContent, content, nextStepType,
+				appendContent = createContent(appendContent, content, stepType,
 						operatorName, eveLevelName, planName);
+				appendContent = createContent(appendContent,
+						"null".equals(list.get(index + 1).getContent()) ? ""
+								: list.get(index + 1).getContent(), nextStepType,
+						list.get(index + 1).getOperatorName(),
+						list.get(index + 1).getEveLevelName(),
+						list.get(index + 1).getPlanName());
 				flag = true;
 				index++;
+			}
+			if(flag) {
+				index++;
+				EventProgressEntity item = new EventProgressEntity();
+				item.setId(entity.getId());
+				item.setDiscoveryTime(entity.getDiscoveryTime());
+				item.setOperationTime(operationTime);
+				if(appendContent.length() > 0)
+					appendContent = appendContent.substring(1, appendContent.length());
+				item.setContent(appendContent);
+				item.setStepType(stepType);
+				item.setStep(stepName);
+				item.setOperatorName(operatorName);
+				result.add(item);
+				continue;
 			}
 			if(index >= list.size()) {
 				EventProgressEntity item = new EventProgressEntity();
@@ -239,10 +261,6 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 				item.setOperatorName(operatorName);
 				result.add(item);
 				break;
-			}
-			if(flag) {
-				index++;
-				continue;
 			}
 			appendContent = createContent(appendContent, content, stepType,
 					operatorName, eveLevelName, planName);

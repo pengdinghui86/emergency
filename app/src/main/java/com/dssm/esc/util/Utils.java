@@ -346,11 +346,11 @@ public class Utils implements Serializable {
                 return miao + "秒";
             } else {
 
-//                return "" + days + "天" + hours + "小时" + minutes + "分" + miao
-//                        + "秒";
-                //2018.4.28修改
-                return "" + (days * 24 + hours) + "小时" + minutes + "分" + miao
+                return "" + days + "天" + hours + "小时" + minutes + "分" + miao
                         + "秒";
+                //2018.4.28修改
+//                return "" + (days * 24 + hours) + "小时" + minutes + "分" + miao
+//                        + "秒";
             }
         } catch (Exception e) {
             e.printStackTrace();

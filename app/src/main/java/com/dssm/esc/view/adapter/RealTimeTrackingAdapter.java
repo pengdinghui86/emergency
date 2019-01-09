@@ -504,7 +504,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
          * 2017/10/12
          */
         mhHolder.jumptv.setVisibility(View.GONE);
-        mhHolder.tv_start.setVisibility(View.INVISIBLE);
+        mhHolder.tv_start.setVisibility(View.GONE);
         mhHolder.tv_pause.setVisibility(View.GONE);
         mhHolder.tv_cancel_jump.setVisibility(View.GONE);
 
