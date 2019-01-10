@@ -113,36 +113,18 @@
 
                 <TextView
                     android:id="@+id/executePeople"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="63"
                     android:layout_gravity="center"
                     android:gravity="left"
                     style="@style/normal_gray_text" />
-
-                <ImageView
-                    android:id="@+id/over_time_title_up"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_gravity="center"
-                    android:gravity="right"
-                    android:src="@drawable/used_time_normal"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/overtime_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="3dp"
-                    android:gravity="right"
-                    android:textColor="@color/green_my"
-                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:layout_weight="1"
+                    android:layout_weight="37"
                     android:orientation="vertical">
 
                     <TextView
@@ -180,6 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="3dp"
+                    android:layout_marginRight="20dp"
                     android:gravity="left"
                     style="@style/small_gray_text" />
 
@@ -189,7 +172,6 @@
                     android:layout_height="18dp"
                     android:layout_gravity="center"
                     android:gravity="left"
-                    android:layout_marginLeft="20dp"
                     android:src="@drawable/used_time_normal"/>
 
                 <TextView
