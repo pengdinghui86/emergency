@@ -114,7 +114,7 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
             eventViewHolder.ivEventType.setImageResource(R.drawable.drill_type);
         }
         eventViewHolder.tvEventLevel.setText(entity.getEveLevel());
-        // 0:，初始状态；1，待预案评估；2，执行中；3，结束；4，执行完成；5，启动中；-1，驳回评估
+        // 0:，初始状态；1，待预案评估；2，执行中；3，结束；4，执行完成；5，启动中；-1，驳回待评估
         if (!entity.getState().equals("null")
                 && !entity.getState().equals("")) {
             String status = "";
@@ -144,7 +144,7 @@ public class LeftSlideEventAdapter extends RecyclerView.Adapter<LeftSlideEventAd
                     eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_green));
                     break;
                 case -1:
-                    status = "驳回评估";
+                    status = "驳回待评估";
                     eventViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
                     break;
 
