@@ -131,13 +131,13 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 				stepname = "";
 				if(!"null".equals(entity.getExecutorAName())
 						&& !"".equals(entity.getExecutorAName()))
-					stepname += ",A角:" + entity.getExecutorAName();
+					stepname += ",A:" + entity.getExecutorAName();
 				if(!"null".equals(entity.getExecutorBName())
 						&& !"".equals(entity.getExecutorBName()))
-					stepname += ",B角:" + entity.getExecutorBName();
+					stepname += ",B:" + entity.getExecutorBName();
 				if(!"null".equals(entity.getExecutorCName())
 						&& !"".equals(entity.getExecutorCName()))
-					stepname += ",C角:" + entity.getExecutorCName();
+					stepname += ",C:" + entity.getExecutorCName();
 				if(stepname.length() > 0)
 					stepname = stepname.substring(1, stepname.length());
 				mhHolder.whodone_name.setTextColor(Color.BLACK);

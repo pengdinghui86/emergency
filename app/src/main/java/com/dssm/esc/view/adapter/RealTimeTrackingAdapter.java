@@ -157,11 +157,11 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
         else {
             String executePeopleName = "";
             if(!"".equals(entity.getExecutorA()))
-                executePeopleName += "，A角：" + entity.getExecutorA();
+                executePeopleName += ",A:" + entity.getExecutorA();
             if(!"".equals(entity.getExecutorB()))
-                executePeopleName += "，B角：" + entity.getExecutorB();
+                executePeopleName += ",B:" + entity.getExecutorB();
             if(!"".equals(entity.getExecutorC()))
-                executePeopleName += "，C角：" + entity.getExecutorC();
+                executePeopleName += ",C:" + entity.getExecutorC();
             if(executePeopleName.length() > 0)
                 executePeopleName = executePeopleName.substring(1, executePeopleName.length());
             mhHolder.executePeople.setText(executePeopleName);

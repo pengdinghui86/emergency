@@ -52,8 +52,9 @@ public class HttpUrl {
     /**
      * 业务类型
      */
-    public final static String GET_BUSINESSTYPE = 
-             "param/getParamValues?paramCode=businessType";
+    public final static String GET_BUSINESSTYPE =
+            "param/getCurrentUserBusiness";
+//             "param/getParamValues?paramCode=businessType";
     /**
      * 事件等级
      */

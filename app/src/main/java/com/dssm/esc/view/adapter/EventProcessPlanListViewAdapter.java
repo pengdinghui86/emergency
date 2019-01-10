@@ -61,27 +61,27 @@ public class EventProcessPlanListViewAdapter extends BaseAdapter {
 			switch (Integer.parseInt(entity.getState())) {
 				case 0:
 					status = "待启动";
-					mhHolder.status.setTextColor(Color.GRAY);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
 					break;
 				case 1:
 					status = "已启动";
-					mhHolder.status.setTextColor(Color.GREEN);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_green));
 					break;
 				case 2:
 					status = "已授权";
-					mhHolder.status.setTextColor(Color.BLUE);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
 					break;
 				case 3:
 					status = "执行中";
-					mhHolder.status.setTextColor(Color.YELLOW);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_yellow));
 					break;
 				case 4:
 					status = "完成";
-					mhHolder.status.setTextColor(Color.BLUE);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
 					break;
 				case 5:
 					status = "强行中止";
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_red));
 					break;
 
 				/**
@@ -90,7 +90,7 @@ public class EventProcessPlanListViewAdapter extends BaseAdapter {
 				 */
 				case 6:
 					status = "暂停";
-					mhHolder.status.setTextColor(Color.RED);
+					mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
 					break;
 			}
 			mhHolder.status.setText(status);
