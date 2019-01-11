@@ -611,7 +611,10 @@ public class Utils implements Serializable {
         Random random = new Random();
         int num = 0;
         for (int i = 0; i <= 3; i++) {
-            num = num * 10 + random.nextInt(9);
+            if(i == 0)
+                num = num * 10 + (random.nextInt(9) + 1);
+            else
+                num = num * 10 + random.nextInt(9);
         }
         return String.valueOf(num);
     }

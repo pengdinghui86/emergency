@@ -304,7 +304,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 		}else if("7".equals(type)){
 			ressult += "；中止：" + planName + "，中止人：" + operatorName + "，中止原因：" + content;
 		}else if("8".equals(type)){
-			ressult += "；" + planName + "执行完成";
+			ressult += "；执行完成：" + planName;
 		}else if("9".equals(type)){
 			ressult += "；关闭人:" + operatorName;
 		}
