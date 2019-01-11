@@ -230,18 +230,21 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
         } else if (status.equals("5") && planStatus.equals("3")) {
             change_ll.setVisibility(View.GONE);
             execute.setText(getString(R.string.execute_start));
+            execute.setBackgroundResource(R.drawable.btbg_blue);
             execute_ll.setVisibility(View.VISIBLE);
 
         } else if (status.equals(RealTimeTrackingStatus.EXCEPTION_EXCEED)
                 && planStatus.equals("3")) {
             change_ll.setVisibility(View.GONE);
             execute.setText(getString(R.string.execute_error));
+            execute.setBackgroundResource(R.drawable.btbg_red);
             execute_ll.setVisibility(View.VISIBLE);
 
         } else if (status.equals(RealTimeTrackingStatus.EXCEPTION_OPTION_STOP)
                 && planStatus.equals("3")) {
             change_ll.setVisibility(View.GONE);
             execute.setText(getString(R.string.error_cancel));
+            execute.setBackgroundResource(R.drawable.btbg_red);
             execute_ll.setVisibility(View.VISIBLE);
 
         } else {
@@ -425,6 +428,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                                 str);
                 change_ll.setVisibility(View.GONE);
                 execute.setText(getString(R.string.error_cancel));
+                execute.setBackgroundResource(R.drawable.btbg_red);
                 execute_ll.setVisibility(View.VISIBLE);
                 EventBus.getDefault().post(
                         new mainEvent("refre"));// 刷新预案执行列表
@@ -492,7 +496,10 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
             case R.id.execute:// 执行
                 Utils.getInstance().showProgressDialog(
                         PlanExecutionDetailActivity.this, "", Const.SUBMIT_MESSAGE);
-                Control.getinstance().getEmergencyService().getBeginPlan(planPerformId, planInfoId, listener);
+                if(getString(R.string.error_cancel).equals(execute.getText().toString()))
+                    Control.getinstance().getEmergencyService().swichOver(planPerformId, planInfoId, "4", "", childEntity.getNodeStepType(), branchId, listener);
+                else
+                    Control.getinstance().getEmergencyService().getBeginPlan(planPerformId, planInfoId, listener);
                 break;
             case R.id.submit_infomation_ll:// 提交信息布局
                 Intent intent2 = new Intent(PlanExecutionDetailActivity.this,
@@ -529,7 +536,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         Utils.getInstance().showProgressDialog(
                                 PlanExecutionDetailActivity.this, "",
                                 Const.SUBMIT_MESSAGE);
-                        Control.getinstance().getEmergencyService().swichOver(planPerformId, planInfoId, changeStatus, message, childEntity.getNodeStepType(), branchId, switchOverListener);
+                        Control.getinstance().getEmergencyService().swichOver(planPerformId, planInfoId, changeStatus, "", childEntity.getNodeStepType(), branchId, switchOverListener);
                     } else {
                         ToastUtil.showLongToast(PlanExecutionDetailActivity.this,
                                 "提交信息不完整");
