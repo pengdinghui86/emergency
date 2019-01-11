@@ -44,4 +44,10 @@
         android:layout_marginBottom="50dp">
     </com.dssm.esc.view.widget.AutoListView>
 
+    <View
+        android:id="@+id/message_listview_v_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWeWindowGrayBackground"
+        android:layout_weight="1"/>
 </LinearLayout>

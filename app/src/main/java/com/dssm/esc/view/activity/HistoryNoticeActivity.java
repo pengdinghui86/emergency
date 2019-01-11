@@ -149,6 +149,8 @@ public class HistoryNoticeActivity extends BaseActivity implements
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+				if(i > list.size())
+					return;
 				HistoryNoticeEntity entity = list.get(i -1);
 				Intent intent = new Intent(HistoryNoticeActivity.this, HistoryNoticeDetailActivity.class);
 				Bundle bundle = new Bundle();

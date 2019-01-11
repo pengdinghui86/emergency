@@ -241,7 +241,8 @@ public class AdressListContactFragment extends BaseFragment
 	 * 初始化数据
 	 */
 	private void initData() {
-		Utils.getInstance().showProgressDialog(getActivity(), "",
+		if(getActivity() != null && !getActivity().isFinishing())
+			Utils.getInstance().showProgressDialog(getActivity(), "",
 				Const.LOAD_MESSAGE);
 		contactListService.getEmergencyContactList(contactSeviceImplListListenser);
 

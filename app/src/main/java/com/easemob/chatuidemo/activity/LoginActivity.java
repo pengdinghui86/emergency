@@ -245,7 +245,7 @@ public class LoginActivity extends BaseActivity {
                                 LoginActivity.this,
                                 str);
             }
-
+//            Utils.getInstance().hideProgressDialog();
         }
     };
 
@@ -273,7 +273,7 @@ public class LoginActivity extends BaseActivity {
                 ToastUtil.showLongToast(LoginActivity.this,
                         str);
             }
-
+//            Utils.getInstance().hideProgressDialog();
         }
     };
 
@@ -305,8 +305,9 @@ public class LoginActivity extends BaseActivity {
 
                     break;
                 case 12:
+                    Utils.getInstance().showProgressDialog(LoginActivity.this, "",
+                            Const.LOAD_MESSAGE);
                     sevice.loginRole(rolesId[0], loginRoleListener2);
-
                     break;
                 case UPDATA_NONEED:
 //				ToastUtil.showToast(getApplicationContext(), "不需要更新");
@@ -388,7 +389,8 @@ public class LoginActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 userLoginObjEntity = userEntity.getObj().get(i);
                 popupWindow.dismiss();
-                ToastUtil.showLongToast(LoginActivity.this,
+                if(LoginActivity.this != null && !LoginActivity.this.isFinishing())
+                    Utils.getInstance().showProgressDialog(LoginActivity.this, "",
                         "你选择了: " + userLoginObjEntity.getRoleName());
                 // 选择角色
                 sevice.loginRole(
@@ -1000,14 +1002,20 @@ public class LoginActivity extends BaseActivity {
                 if (!progressShow) {
                     return;
                 }
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        pd.dismiss();
-                        Toast.makeText(getApplicationContext(),
-                                getString(R.string.Login_failed) + message,
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                //由于环信限制免费用户注册功能，因此暂时屏蔽环信登录验证
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        pd.dismiss();
+//                        Toast.makeText(getApplicationContext(),
+//                                getString(R.string.Login_failed) + message,
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+
+                if (!LoginActivity.this.isFinishing() && pd.isShowing()) {
+                    pd.dismiss();
+                }
+                userSelectRole();
             }
         });
     }

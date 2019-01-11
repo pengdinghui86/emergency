@@ -40,6 +40,8 @@ public class MessageSystemToastFragment extends BaseFragment implements
 	private AutoListView listview;
 	/** 搜索输入框 */
 	private ClearEditText filter_edit;
+	/** 页面尾部灰色背景区域 */
+	private View message_listview_v_end;
 	/** 总list */
 	private List<MessageInfoEntity> list = new ArrayList<MessageInfoEntity>();
 	/** 适配器 */
@@ -70,11 +72,19 @@ public class MessageSystemToastFragment extends BaseFragment implements
 				list.clear();
 				/** 总集合添加 */
 				list.addAll(result);
+				if(result.size() > 0)
+					message_listview_v_end.setVisibility(View.VISIBLE);
+				else
+					message_listview_v_end.setVisibility(View.GONE);
 				break;
 			case 2:// 第一次加载
 				listview.onRefreshComplete();
 				list.clear();
 				list.addAll(result);
+				if(result.size() > 0)
+					message_listview_v_end.setVisibility(View.VISIBLE);
+				else
+					message_listview_v_end.setVisibility(View.GONE);
 				break;
 			case AutoListView.LOAD:
 				listview.onLoadComplete();
@@ -111,6 +121,7 @@ public class MessageSystemToastFragment extends BaseFragment implements
 		listview = (AutoListView) view_Parent
 				.findViewById(R.id.message_listview_toast);
 		filter_edit = (ClearEditText) view_Parent.findViewById(R.id.filter_edit);
+		message_listview_v_end = (View) view_Parent.findViewById(R.id.message_listview_v_end);
 	}
 	@Override
 	public void onHiddenChanged(boolean hidden) {

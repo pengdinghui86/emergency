@@ -151,9 +151,9 @@ public class PlanExecuteListvAdapter extends BaseAdapter {
 			//C角
 			else if("3".equals(entity.getExecutePeopleType()))
 				stepname += "（C角）";
-			//指派
+			//被指派
 			else if("4".equals(entity.getExecutePeopleType()))
-				stepname += "（指派）";
+				stepname += "（被指派）";
 			mhHolder.whodone_name.setText(stepname);
 		}
 		if(entity.getParentProcessStepId() == null || "".equals(entity.getParentProcessStepId()))

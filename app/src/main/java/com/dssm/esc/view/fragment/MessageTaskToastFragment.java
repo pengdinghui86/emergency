@@ -55,6 +55,8 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	private List<MessageInfoEntity> searchList = new ArrayList<MessageInfoEntity>();
 	/** 搜索输入框 */
 	private ClearEditText filter_edit;
+	/** 页面尾部灰色背景区域 */
+	private View message_listview_v_end;
 	/** 适配器 */
 	private MessageListAdapter adapter;
 	/** 当前页数 */
@@ -87,13 +89,20 @@ public class MessageTaskToastFragment extends BaseFragment implements
 				list.clear();
 				/** 总集合添加 */
 				list.addAll(result);
+				if(result.size() > 0)
+					message_listview_v_end.setVisibility(View.VISIBLE);
+				else
+					message_listview_v_end.setVisibility(View.GONE);
 				break;
 			case 2:// 第一次加载
 				listview.onRefreshComplete();
 				/** 总集合清理 */
 				list.clear();
 				list.addAll(result);
-
+				if(result.size() > 0)
+					message_listview_v_end.setVisibility(View.VISIBLE);
+				else
+					message_listview_v_end.setVisibility(View.GONE);
 				break;
 			case AutoListView.LOAD:
 				listview.onLoadComplete();
@@ -142,6 +151,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 		listview = (AutoListView) view_Parent
 				.findViewById(R.id.message_listview_toast);
 		filter_edit = (ClearEditText) view_Parent.findViewById(R.id.filter_edit);
+		message_listview_v_end = (View) view_Parent.findViewById(R.id.message_listview_v_end);
 	}
 
 	@Override
@@ -312,7 +322,6 @@ public class MessageTaskToastFragment extends BaseFragment implements
 			} else {
 				dataList = new ArrayList<MessageInfoEntity>();
 			}
-
 			getDBData(dataList, curWhat);
 			EventBus.getDefault().post(
 					new MessageCountEvent(count1, count2,

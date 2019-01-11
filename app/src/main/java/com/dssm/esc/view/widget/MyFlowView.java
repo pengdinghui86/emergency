@@ -933,13 +933,7 @@ public class MyFlowView extends View {
                 getContext());
         if (step.type.equals("") && !step.stepId.startsWith("sid")) {// 新建节点
             builder.setTitle("步骤：" + step.name);
-            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
-                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
-                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
-                message += "执行状态：跳过";
-            }
-            else if(step.statusId.equals(RealTimeTrackingStatus.NO_CHOICE_TO_EXECUTE))
-                message += "执行状态：未选择执行";
+            message += "执行状态：" + getStatusDescription(step.statusId);
             if(!"".equals(message))
                 builder.setMessage(message);
             builder.setPositiveButton("ok",
@@ -963,20 +957,10 @@ public class MyFlowView extends View {
                 else
                     message += "\n" + "完成时间：" + endTime;
             }
-            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
-                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
-                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
-                if(!message.equals(""))
-                    message += "\n" + "执行状态：跳过";
-                else
-                    message += "执行状态：跳过";
-            }
-            else if(step.statusId.equals(RealTimeTrackingStatus.NO_CHOICE_TO_EXECUTE)) {
-                if(!message.equals(""))
-                    message += "\n" + "执行状态：未选择执行";
-                else
-                    message += "执行状态：未选择执行";
-            }
+            if(!message.equals(""))
+                message += "\n" + "执行状态：" + getStatusDescription(step.statusId);
+            else
+                message += "执行状态：" + getStatusDescription(step.statusId);
             if(!"".equals(message))
                 builder.setMessage(message);
             builder.setTitle("步骤：" + step.name);
@@ -994,17 +978,10 @@ public class MyFlowView extends View {
         }
         else if (step.type.equals("drillNew")) {// 新增节点
             builder.setTitle("步骤：" + step.name);
-            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
-                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
-                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
-                message += "执行状态：跳过";
-            }
-            else if(step.statusId.equals(RealTimeTrackingStatus.NO_CHOICE_TO_EXECUTE)) {
-                if(!message.equals(""))
-                    message += "\n" + "执行状态：未选择执行";
-                else
-                    message += "执行状态：未选择执行";
-            }
+            if(!message.equals(""))
+                message += "\n" + "执行状态：" + getStatusDescription(step.statusId);
+            else
+                message += "执行状态：" + getStatusDescription(step.statusId);
             if(!"".equals(message))
                 builder.setMessage(message);
             builder.setPositiveButton("ok",
@@ -1035,20 +1012,10 @@ public class MyFlowView extends View {
                 else
                     message += "完成时间：" + endTime;
             }
-            if (step.statusId.equals(RealTimeTrackingStatus.IGNORE) ||
-                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_CAN_START) ||
-                    step.statusId.equals(RealTimeTrackingStatus.NO_OPTION_NO_CAN_START)) {
-                if(!message.equals(""))
-                    message += "\n" + "执行状态：跳过";
-                else
-                    message += "执行状态：跳过";
-            }
-            else if(step.statusId.equals(RealTimeTrackingStatus.NO_CHOICE_TO_EXECUTE)) {
-                if(!message.equals(""))
-                    message += "\n" + "执行状态：未选择执行";
-                else
-                    message += "执行状态：未选择执行";
-            }
+            if(!message.equals(""))
+                message += "\n" + "执行状态：" + getStatusDescription(step.statusId);
+            else
+                message += "执行状态：" + getStatusDescription(step.statusId);
             if(!"".equals(message))
                 builder.setMessage(message);
             builder.setTitle("步骤：" + step.name);
@@ -1064,6 +1031,50 @@ public class MyFlowView extends View {
 
             builder.create().show();
         }
+    }
+
+    private String getStatusDescription(String status)
+    {
+        String result;
+        if("1".equals(status))
+            result = "已执行";
+        else if("2".equals(status))
+            result = "已执行";
+        else if("3".equals(status))
+            result = "跳过";
+        else if("4".equals(status))
+            result = "执行中";
+        else if("5".equals(status))
+            result = "可执行";
+        else if("6".equals(status))
+            result = "准备执行";
+        else if("7".equals(status))
+            result = "未执行";
+        else if("8".equals(status))
+            result = "自动执行中";
+        else if("9".equals(status))
+            result = "已执行";
+        else if("10".equals(status))
+            result = "执行失败";
+        else if(10 < Integer.parseInt(status) && 20 > Integer.parseInt(status))
+            result = "暂停";
+        else if("20".equals(status))
+            result = "接收超时";
+        else if("21".equals(status))
+            result = "执行异常";
+        else if("23".equals(status))
+            result = "跳过";
+        else if("24".equals(status))
+            result = "跳过";
+        else if("25".equals(status))
+            result = "执行超时";
+        else if("26".equals(status))
+            result = "已执行";
+        else if("27".equals(status))
+            result = "未选择执行";
+        else
+            result = "状态未知";
+        return result;
     }
 
     /**

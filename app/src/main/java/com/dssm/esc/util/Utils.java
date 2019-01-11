@@ -431,9 +431,8 @@ public class Utils implements Serializable {
             progressDialog.setTitle(title);
             progressDialog.setMessage(message);
         }
-
-        progressDialog.show();
-
+        else
+            progressDialog.show();
     }
 
     /*
