@@ -33,8 +33,7 @@
         android:id="@+id/id_swipe_ly"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/filter_edit_ll"
-        android:paddingBottom="@dimen/we_margin_left">
+        android:layout_below="@+id/filter_edit_ll">
 
         <ExpandableListView
             android:id="@+id/expandable_listv_failsafe"
