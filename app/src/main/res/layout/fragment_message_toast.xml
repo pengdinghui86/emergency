@@ -40,8 +40,7 @@
         android:divider="@color/colorWeSplitMini"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/timer_list_selector"
-        android:scrollbars="none"
-        android:layout_marginBottom="50dp">
+        android:scrollbars="none">
     </com.dssm.esc.view.widget.AutoListView>
 
     <View

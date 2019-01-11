@@ -328,6 +328,7 @@ public class AutoListView extends ListView implements OnScrollListener {
 			loading.setVisibility(View.GONE);
 			more.setVisibility(View.GONE);
 			noData.setVisibility(View.GONE);
+			footer.setVisibility(View.GONE);
 		} else if (resultSize == pageSize) {
 			isLoadFull = false;
 			loadFull.setVisibility(View.GONE);
@@ -341,6 +342,7 @@ public class AutoListView extends ListView implements OnScrollListener {
 			loading.setVisibility(View.GONE);
 			more.setVisibility(View.GONE);
 			noData.setVisibility(View.GONE);
+			footer.setVisibility(View.GONE);
 		}
 		//loadFull.setVisibility(View.GONE);
 	}
