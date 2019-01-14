@@ -18,6 +18,7 @@ import com.dssm.esc.model.database.DataBaseUtil;
 import com.dssm.esc.model.entity.message.MessageInfoEntity;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.System;
 import com.dssm.esc.util.event.mainEvent;
 import com.dssm.esc.view.activity.MainActivity;
@@ -93,8 +94,8 @@ public class MessageSystemToastFragment extends BaseFragment implements
 			}
 			listview.setResultSize(result.size(), i);
 			adapter.notifyDataSetChanged();
-
-		};
+			Utils.getInstance().hideProgressDialog();
+		}
 	};
 	public MessageSystemToastFragment() {
 
@@ -265,6 +266,7 @@ public class MessageSystemToastFragment extends BaseFragment implements
 	 * @param what
 	 */
 	private void loadData(final int what) {
+		Utils.getInstance().showProgressDialog(getContext(), "", Const.LOAD_MESSAGE);
 		if (what == 0 || what == 2) {// 刷新和第一次加载
 			curWhat = what;
 			sevice.getFrashMessageList(getActivity(), "2", "false","", listListener);

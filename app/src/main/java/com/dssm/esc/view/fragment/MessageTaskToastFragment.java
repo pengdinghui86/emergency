@@ -23,6 +23,7 @@ import com.dssm.esc.model.entity.message.MessageInfoEntity;
 import com.dssm.esc.model.entity.message.MessageStatusEnum;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
+import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.MessageCountEvent;
 import com.dssm.esc.util.event.Toast;
 import com.dssm.esc.util.event.mainEvent;
@@ -89,6 +90,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 				list.clear();
 				/** 总集合添加 */
 				list.addAll(result);
+//				android.widget.Toast.makeText(getContext(), "" + list.size(), android.widget.Toast.LENGTH_SHORT).show();
 				if(result.size() > 0)
 					message_listview_v_end.setVisibility(View.VISIBLE);
 				else
@@ -99,6 +101,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 				/** 总集合清理 */
 				list.clear();
 				list.addAll(result);
+//				android.widget.Toast.makeText(getContext(), "" + list.size(), android.widget.Toast.LENGTH_SHORT).show();
 				if(result.size() > 0)
 					message_listview_v_end.setVisibility(View.VISIBLE);
 				else
@@ -112,8 +115,8 @@ public class MessageTaskToastFragment extends BaseFragment implements
 			}
 			listview.setResultSize(result.size(), i);
 			adapter.notifyDataSetChanged();
-
-		};
+			Utils.getInstance().hideProgressDialog();
+		}
 	};
 
 	public MessageTaskToastFragment() {
@@ -370,6 +373,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	 */
 	private void loadData(final int what) {
 		curMessageListWhat = what;
+		Utils.getInstance().showProgressDialog(getContext(), "", Const.LOAD_MESSAGE);
 		if (what == 2) {// 第一次加载
 			// Log.i("getActivity()", getActivity()+"");
 			// 任务通知
