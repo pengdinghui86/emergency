@@ -379,9 +379,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             case 3:
                 String[] statusList3 = new String[]{"1", "2", "3", "9", "23", "24", "26", "27"};
                 for (FlowChartPlanEntity.FlowChart flowChart : allList) {
-                    if (useLoop(statusList3, flowChart.getStatus())
-                            || ((null == flowChart.getType()) ? false
-                            : flowChart.getType().equals("drillNew")))
+                    if (useLoop(statusList3, flowChart.getStatus()))
                         list.add(flowChart);
                 }
                 break;

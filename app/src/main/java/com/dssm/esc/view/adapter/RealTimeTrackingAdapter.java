@@ -259,11 +259,6 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                         status = "流程未启动";
                         mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
-                    //新增,2018/8/14
-                    else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")){
-                        status = "未执行";
-                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
-                    }
                     else {
                         setDefaultBackground(mhHolder, R.color.green_b);
                         mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
@@ -280,11 +275,6 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1")) {
                         status = "流程未启动";
-                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
-                    }
-                    //新增,2018/8/14
-                    else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")){
-                        status = "未执行";
                         mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     else {
@@ -362,17 +352,10 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
 
                 case 9:
                     status = "已执行";
-                    //新增,2018/8/14
-                    if((null == entity.getType()) ? false : entity.getType().equals("drillNew")) {
-                        status = "未执行";
-                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
-                    }
-                    else {
-                        setDefaultBackground(mhHolder, R.color.red);
-                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
-                        mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
-                        mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
-                    }
+                    setDefaultBackground(mhHolder, R.color.red);
+                    mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_blue));
+                    mhHolder.iv.setBackgroundResource(R.drawable.circle_complete_bg);
+                    mhHolder.iv.setImageResource(R.drawable.event_process_plan_authorize);
                     mhHolder.status.setText(status);
 
                     setItemColor(entity, mhHolder);
@@ -454,11 +437,6 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                     //待启动或已启动或已授权的情况下，更改状态显示为流程未启动
                     if(parentState.equals("0") || parentState.equals("2") || parentState.equals("1")) {
                         status = "流程未启动";
-                        mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
-                    }
-                    //新增,2018/8/14
-                    else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")){
-                        status = "未执行";
                         mhHolder.status.setTextColor(context.getResources().getColor(R.color.color_state_gray));
                     }
                     else {
@@ -755,14 +733,15 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
 //            mhHolder.ll_time.setVisibility(View.GONE);
 //        }
         /**
-         * 2018.4.24 新增节点不显示执行人
+         * 2018.4.24 新增节点不显示执行人和已用时信息
          */
         else if((null == entity.getType()) ? false : entity.getType().equals("drillNew")) {
             mhHolder.ll_executePeople.setVisibility(View.GONE);
-            mhHolder.predict_time.setText("0秒");
+            mhHolder.ll_time.setVisibility(View.GONE);
         }
         else {
             mhHolder.ll_executePeople.setVisibility(View.VISIBLE);
+            mhHolder.ll_time.setVisibility(View.VISIBLE);
             mhHolder.predict_time_title.setVisibility(View.VISIBLE);
             mhHolder.predict_time.setVisibility(View.VISIBLE);
         }

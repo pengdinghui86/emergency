@@ -104,7 +104,7 @@ public class EventListActivity extends BaseActivity implements
 	 * @param data
 	 */
 	public void onEvent(mainEvent data) {
-		if (data.getData().equals("refres")) {
+		if (data.getData().equals("refres") || data.getData().equals("re")) {
 			initData();
 		}
 	}
