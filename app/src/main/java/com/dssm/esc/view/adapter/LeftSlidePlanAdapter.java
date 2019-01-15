@@ -212,7 +212,7 @@ public class LeftSlidePlanAdapter extends RecyclerView.Adapter<RecyclerView.View
                          */
                         case 6:
                             status = "暂停";
-                            planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_red));
+                            planViewHolder.tvState.setTextColor(mContext.getResources().getColor(R.color.color_state_gray));
                             break;
                     }
                     planViewHolder.tvState.setText(status);
