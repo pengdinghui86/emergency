@@ -5,36 +5,49 @@
     android:background="@color/common_bg"
     android:orientation="vertical">
 
-    <!-- <RelativeLayout
+    <LinearLayout
+        android:id="@+id/filter_edit_ll"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_top_bar"
-        android:background="@color/top_bar_normal_bg"
-        android:gravity="center_vertical" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="8dp"
+        android:gravity="center">
 
-        <TextView
-            android:id="@+id/message_title"
-            android:layout_width="wrap_content"
+        <com.dssm.esc.view.widget.ClearEditText
+            android:id="@+id/filter_edit"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/session"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+            android:background="@drawable/search_bg"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="10dp"
+            android:hint="@string/editflithint"
+            android:textColorHint="@color/colorWeFontGray_9"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:singleLine="true"
+            style="@style/normal_text"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
 
-    </RelativeLayout> -->
-    <!-- <include layout="@layout/search_bar" /> -->
-
-    <include
-        android:id="@+id/rl_error_item"
-        layout="@layout/chat_neterror_item"
-        android:visibility="gone" />
-
-    <ListView
+    <com.dssm.esc.view.widget.AutoListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:cacheColorHint="#00000000"
-        android:divider="@null" />
+        android:layout_height="wrap_content"
+        android:divider="@color/colorWeSplitMini"
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/timer_list_selector"
+        android:scrollbars="none">
+    </com.dssm.esc.view.widget.AutoListView>
 
-    <include layout="@layout/no_data"/>
+    <View
+        android:id="@+id/message_listview_v_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWeWindowGrayBackground"
+        android:layout_weight="1"/>
 </LinearLayout>

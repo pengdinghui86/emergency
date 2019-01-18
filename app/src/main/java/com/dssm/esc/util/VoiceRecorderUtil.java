@@ -7,9 +7,6 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.text.format.Time;
 
-import com.easemob.util.EMLog;
-import com.easemob.util.PathUtil;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -53,7 +50,7 @@ public class VoiceRecorderUtil {
             this.isRecording = true;
             this.recorder.start();
         } catch (IOException var5) {
-            EMLog.e("voice", "prepare() failed");
+
         }
 
         (new Thread(new Runnable() {
@@ -68,7 +65,7 @@ public class VoiceRecorderUtil {
                             continue;
                         }
                     } catch (Exception var2) {
-                        EMLog.e("voice", var2.toString());
+
                     }
 
                     return;
@@ -76,7 +73,6 @@ public class VoiceRecorderUtil {
             }
         })).start();
         this.startTime = (new Date()).getTime();
-        EMLog.d("voice", "start voice recording to file:" + this.file.getAbsolutePath());
         return this.file == null?null:this.file.getAbsolutePath();
     }
 
@@ -112,7 +108,6 @@ public class VoiceRecorderUtil {
                     return -1011;
                 } else {
                     int var1 = (int)((new Date()).getTime() - this.startTime) / 1000;
-                    EMLog.d("voice", "voice recording finished. seconds:" + var1 + " file length:" + this.file.length());
                     return var1;
                 }
             } else {
@@ -142,10 +137,10 @@ public class VoiceRecorderUtil {
     }
 
     public String getVoiceFilePath() {
-        File voiceFile = PathUtil.getInstance().getVoicePath();
-        if(!voiceFile.exists())
-            voiceFile.mkdirs();
-        String voiceFilePath = PathUtil.getInstance().getVoicePath().getAbsolutePath();
+//        File voiceFile = PathUtil.getInstance().getVoicePath();
+//        if(!voiceFile.exists())
+//            voiceFile.mkdirs();
+//        String voiceFilePath = PathUtil.getInstance().getVoicePath().getAbsolutePath();
         return voiceFilePath + "/" + this.voiceFileName;
     }
 }

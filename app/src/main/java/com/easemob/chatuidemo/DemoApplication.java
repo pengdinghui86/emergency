@@ -23,15 +23,17 @@ import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.CrashHandler;
 import com.dssm.esc.util.DataCleanManager;
 import com.dssm.esc.util.MySharePreferencesService;
-import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.activity.LoginActivity;
 import com.easemob.chatuidemo.utils.SpUtil;
+import com.jgmessage.GlobalEventListener;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.xutils.x;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.DeviceInfo;
 import me.jessyan.autosize.AutoSize;
 import me.jessyan.autosize.AutoSizeConfig;
 
@@ -47,7 +49,6 @@ public class DemoApplication extends Application implements
      * 当前用户nickname,为了苹果推送不是userid而是昵称
      */
     public static String currentUserNick = "";
-    public static DemoHXSDKHelper hxSDKHelper = new DemoHXSDKHelper();
     public String url;
     //连续登录超时计数
     public static int sessionTimeoutCount = 0;
@@ -75,23 +76,6 @@ public class DemoApplication extends Application implements
         // 回显
         map = service.getPreferences();
         Thread.setDefaultUncaughtExceptionHandler(this); // 程序崩溃时触发线程
-        /**
-         * this function will initialize the HuanXin SDK
-         *
-         * @return boolean true if caller can continue to call HuanXin related
-         *         APIs after calling onInit, otherwise false.
-         *
-         *         环信初始化SDK帮助函数
-         *         返回true如果正确初始化，否则false，如果返回为false，请在后续的调用中不要调用任何和环信相关的代码
-         *
-         *         for example: 例子：
-         *
-         *         public class DemoHXSDKHelper extends HXSDKHelper
-         *
-         *         HXHelper = new DemoHXSDKHelper();
-         *         if(HXHelper.onInit(context)){ // do HuanXin related work }
-         */
-        hxSDKHelper.onInit(applicationContext);
         //注册异常捕获工具类
         CrashHandler.getInstance().init(this);
 
@@ -99,6 +83,11 @@ public class DemoApplication extends Application implements
         JPushInterface.setDebugMode(true);
         //初始化JPush
         JPushInterface.init(this);
+        //极光IM初始化
+        JMessageClient.setDebugMode(true);
+        JMessageClient.init(this, true);
+        //注册全局事件监听类
+        JMessageClient.registerEventReceiver(new GlobalEventListener(getApplicationContext()));
 
         //xUtils初始化
         x.Ext.init(this);
@@ -153,76 +142,19 @@ public class DemoApplication extends Application implements
     }
 
     /**
-     * 获取当前登录用户名
-     *
-     * @return
-     */
-    public String getUserName() {
-        return hxSDKHelper.getHXId();
-    }
-
-    /**
-     * 获取密码
-     *
-     * @return
-     */
-    public String getPassword() {
-        return hxSDKHelper.getPassword();
-    }
-
-    /**
-     * 设置用户名
-     *
-     */
-    public void setUserName(String username) {
-        hxSDKHelper.setHXId(username);
-    }
-
-    /**
-     * 设置密码 下面的实例代码 只是demo，实际的应用中需要加password 加密后存入 preference 环信sdk
-     * 内部的自动登录需要的密码，已经加密存储了
-     *
-     * @param pwd
-     */
-    public void setPassword(String pwd) {
-        hxSDKHelper.setPassword(pwd);
-    }
-
-    /**
      * 退出登录,清空数据
      */
-    public void logout(final boolean isGCM, final EMCallBack emCallBack) {
+    public void logout() {
         // 先调用sdk logout，在清理app中自己的数据
-        hxSDKHelper.logout(isGCM, emCallBack);
+        JMessageClient.logout();
     }
 
     public void return2Login() {
-        DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
+        logout();
+        new Handler(getMainLooper()).post(new Runnable() {
             @Override
-            public void onSuccess() {
-                new Handler(getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        /** 推送在退出登录时解除账号绑定 */
-                        JPushInterface.stopPush(getApplicationContext());
-                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
-                        // 清除本地的sharepreference缓存
-                        DataCleanManager.cleanSharedPreference(getApplicationContext());
-                        // 重新显示登录页面
-                        ActivityCollector.finishAll();
-                        startActivity(new Intent(getApplicationContext(),
-                                LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                    }
-                });
-            }
-
-            @Override
-            public void onProgress(int progress, String status) {
-
-            }
-
-            @Override
-            public void onError(int code, String message) {
+            public void run() {
+                /** 推送在退出登录时解除账号绑定 */
                 JPushInterface.stopPush(getApplicationContext());
                 JPushInterface.deleteAlias(getApplicationContext(), 2018);
                 // 清除本地的sharepreference缓存
@@ -230,7 +162,7 @@ public class DemoApplication extends Application implements
                 // 重新显示登录页面
                 ActivityCollector.finishAll();
                 startActivity(new Intent(getApplicationContext(),
-                        LoginActivity.class));
+                        LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
     }
@@ -250,24 +182,7 @@ public class DemoApplication extends Application implements
 
         service.save(map.get("loginName"), "", "", "", "", "", "", "", "", "",
                 "");
-        logout(true, new EMCallBack() {
-
-            @Override
-            public void onSuccess() {
-//				service.save(map.get("loginName"), "", "", "", "", "", "", "", "", "",
-//						"");
-            }
-
-            @Override
-            public void onProgress(int progress, String status) {
-
-            }
-
-            @Override
-            public void onError(int code, String message) {
-
-            }
-        });
+        logout();
 
 
         /**

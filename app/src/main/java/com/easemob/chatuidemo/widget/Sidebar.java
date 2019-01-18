@@ -25,7 +25,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dssm.esc.R;
-import com.easemob.util.DensityUtil;
 
 public class Sidebar extends View{
 	private Paint paint;
@@ -53,7 +52,7 @@ public class Sidebar extends View{
 		paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		paint.setColor(Color.parseColor("#8C8C8C"));
 		paint.setTextAlign(Align.CENTER);
-		paint.setTextSize(DensityUtil.sp2px(context, 10));
+//		paint.setTextSize(DensityUtil.sp2px(context, 10));
 	}
 	
 	@Override

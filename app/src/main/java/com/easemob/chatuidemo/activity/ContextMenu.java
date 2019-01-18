@@ -17,8 +17,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-
-import com.easemob.chat.EMMessage;
 import com.dssm.esc.R;
 
 public class ContextMenu extends BaseActivity {
@@ -28,20 +26,20 @@ public class ContextMenu extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		int txtValue = EMMessage.Type.TXT.ordinal();
-		int type = getIntent().getIntExtra("type", -1);
-		if (type == EMMessage.Type.TXT.ordinal()) {
-		    setContentView(R.layout.context_menu_for_text);
-		} else if (type == EMMessage.Type.LOCATION.ordinal()) {
-		    setContentView(R.layout.context_menu_for_location);
-		} else if (type == EMMessage.Type.IMAGE.ordinal()) {
-		    setContentView(R.layout.context_menu_for_image);
-		} else if (type == EMMessage.Type.VOICE.ordinal()) {
-		    setContentView(R.layout.context_menu_for_voice);
-		} else if (type == EMMessage.Type.VIDEO.ordinal()) {
-			setContentView(R.layout.context_menu_for_video);
-		}
-		    
+//		int txtValue = EMMessage.Type.TXT.ordinal();
+//		int type = getIntent().getIntExtra("type", -1);
+//		if (type == EMMessage.Type.TXT.ordinal()) {
+//		    setContentView(R.layout.context_menu_for_text);
+//		} else if (type == EMMessage.Type.LOCATION.ordinal()) {
+//		    setContentView(R.layout.context_menu_for_location);
+//		} else if (type == EMMessage.Type.IMAGE.ordinal()) {
+//		    setContentView(R.layout.context_menu_for_image);
+//		} else if (type == EMMessage.Type.VOICE.ordinal()) {
+//		    setContentView(R.layout.context_menu_for_voice);
+//		} else if (type == EMMessage.Type.VIDEO.ordinal()) {
+//			setContentView(R.layout.context_menu_for_video);
+//		}
+//
 		/*    
 		switch (getIntent().getIntExtra("type", -1)) {
 		case txtValue:

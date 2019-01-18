@@ -37,14 +37,8 @@ import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.System;
 import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.widget.RedPointView;
-import com.easemob.EMCallBack;
-import com.easemob.chatuidemo.DemoHXSDKHelper;
-import com.easemob.chatuidemo.activity.ChatAllHistoryFragment;
-import com.easemob.chatuidemo.activity.LoginActivity;
 
 import java.util.Map;
-
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * 消息
@@ -55,8 +49,8 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	private MessageTaskToastFragment messageTaskToastFragment;
 	/** 通知碎片 */
 	private MessageSystemToastFragment systemToastFragment;
-	/** 通讯（环信） */
-	private ChatAllHistoryFragment chatHistoryFragment;
+	/** 通讯（IM） */
+	private ConversationListFragment chatHistoryFragment;
 	/** 用于区分消息 0,任务；1，通知；2，通讯*/
 	public int tag = 0;
 	private Context context;
@@ -123,11 +117,8 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	protected void findViews() {
-		initPop();
-
 		mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.id_drawerlayout);
 		mRelativeLayout= (RelativeLayout) getActivity().findViewById(R.id.nav_view);
-
 		rb_task = (RadioButton) view_Parent.findViewById(R.id.rb_task);
 		rb_notice = (RadioButton) view_Parent.findViewById(R.id.rb_notice);
 		rb_chat = (RadioButton) view_Parent
@@ -145,7 +136,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	protected void init() {
 		// TODO Auto-generated method stub
 		// 初始化，默认加载任务通知界面
-
 		userSevice = Control.getinstance().getUserSevice();
 		service = MySharePreferencesService.getInstance(context);
 		// 回显
@@ -162,10 +152,10 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void initGetData() {
-		// TODO Auto-generated method stub
+		MainActivity.imMsgCount = MainActivity.getUnreadMsgCountTotal();
 		redPointView1 = remind(rb_task, ((MainActivity) getActivity()).xgTaskMsgCount + "");
 		redPointView2 = remind(rb_notice, ((MainActivity) getActivity()).xgSysMsgCount + "");
-		redPointView3 = remind(rb_chat, ((MainActivity) getActivity()).hxMsgCount + "");
+		redPointView3 = remind(rb_chat, ((MainActivity) getActivity()).imMsgCount + "");
 		Log.i("onFailure", "MessageFragment: " + tag);
 		switchView(tag);
 		int position = 0;
@@ -237,11 +227,11 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			break;
 
 		case 2:// 添加环信（消息记录）碎片
-			if (MainActivity.hxMsgCount > 0) {
-				MainActivity.hxMsgCount = 0;
+			if (MainActivity.imMsgCount > 0) {
+				MainActivity.imMsgCount = 0;
 			}
 			if (chatHistoryFragment == null) {
-				chatHistoryFragment = new ChatAllHistoryFragment();
+				chatHistoryFragment = new ConversationListFragment();
 				transaction.add(R.id.view_message, chatHistoryFragment);
 			} else {
 				transaction.show(chatHistoryFragment);
@@ -314,14 +304,14 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	}
 
 	public void onEvent(Emergenct data) {
-		MainActivity.hxMsgCount  = 0;
-		if (MainActivity.hxMsgCount < 1) {
+		MainActivity.imMsgCount = 0;
+		if (MainActivity.imMsgCount < 1) {
 			redPointView3.hide();
 		} else {
-			if(MainActivity.hxMsgCount > 99)
+			if(MainActivity.imMsgCount > 99)
 				redPointView3.setText("99+");
 			else
-				redPointView3.setText(MainActivity.hxMsgCount + "");
+				redPointView3.setText(MainActivity.imMsgCount + "");
 			redPointView3.show();
 		}
         Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
@@ -397,13 +387,13 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				redPointView2.setText(MainActivity.xgSysMsgCount + "");
 			redPointView2.show();
 		}
-		if (MainActivity.hxMsgCount < 1) {
+		if (MainActivity.imMsgCount < 1) {
 			redPointView3.hide();
 		} else {
-			if(MainActivity.hxMsgCount > 99)
+			if(MainActivity.imMsgCount > 99)
 				redPointView3.setText("99+");
 			else
-				redPointView3.setText(MainActivity.hxMsgCount + "");
+				redPointView3.setText(MainActivity.imMsgCount + "");
 			redPointView3.show();
 		}
 		Intent intent = new Intent("com.dssm.esc.push.RECEIVER");
@@ -441,115 +431,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			break;
 		}
 		switchView(tag);
-	}
-
-	/**
-	 * 弹出退出登录的PopupWindow
-	 */
-	public void initPop() {
-		pop = new PopupWindow(getActivity());
-
-		View view = LayoutInflater.from(getActivity()).inflate(
-				R.layout.item_popupwindows, null);
-
-		ll_popup = (LinearLayout) view.findViewById(R.id.ll_popup);
-
-		pop.setWidth(LayoutParams.MATCH_PARENT);
-		pop.setHeight(LayoutParams.WRAP_CONTENT);
-		pop.setBackgroundDrawable(new BitmapDrawable());
-		pop.setFocusable(true);
-		pop.setOutsideTouchable(true);
-		pop.setContentView(view);
-
-		RelativeLayout parent = (RelativeLayout) view.findViewById(R.id.parent);
-		Button bt1 = (Button) view.findViewById(R.id.item_popupwindows_exit);
-		Button bt3 = (Button) view
-				.findViewById(R.id.item_popupwindows_exchangerples);
-		Button bt2 = (Button) view.findViewById(R.id.item_popupwindows_cancel);
-		t1 = (TextView) view.findViewById(R.id.item_popupwindows_info);
-		t2 = (TextView) view.findViewById(R.id.item_popupwindows_info2);
-
-		t1.setText(name);
-		t2.setText(selectedRolemName);
-		parent.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				pop.dismiss();
-				ll_popup.clearAnimation();
-			}
-		});
-		bt1.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				logout();
-			}
-		});
-		bt3.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				changeRoles();
-			}
-		});
-		bt2.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				pop.dismiss();
-				ll_popup.clearAnimation();
-			}
-		});
-
-	}
-
-	/**
-	 * 退出登录
-	 */
-	private void logout() {
-		final ProgressDialog pd = new ProgressDialog(getActivity());
-		String st = getResources().getString(R.string.Are_logged_out);
-		pd.setMessage(st);
-		pd.setCanceledOnTouchOutside(false);
-		pd.show();
-		DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
-
-			@Override
-			public void onSuccess() {
-				getActivity().runOnUiThread(new Runnable() {
-					public void run() {
-						pd.dismiss();
-						/** 推送在退出登录时解除账号绑定 */
-						JPushInterface.stopPush(context);
-						JPushInterface.deleteAlias(context, 2018);
-						// 重新显示登录页面
-						getActivity().finish();
-						startActivity(new Intent(getActivity(),
-								LoginActivity.class));
-
-					}
-				});
-			}
-
-			@Override
-			public void onProgress(int progress, String status) {
-
-			}
-
-			@Override
-			public void onError(int code, String message) {
-				getActivity().runOnUiThread(new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						pd.dismiss();
-						Toast.makeText(getActivity(),
-								"unbind devicetokens failed",
-								Toast.LENGTH_SHORT).show();
-					}
-				});
-			}
-		});
 	}
 
 	private int curWhich;
@@ -656,7 +537,8 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		super.onHiddenChanged(hidden);
 		this.hidden = hidden;
 		if (!hidden) {
-			refresh(MainActivity.hxMsgCount);
+			MainActivity.imMsgCount = MainActivity.getUnreadMsgCountTotal();
+			refresh(MainActivity.imMsgCount);
 		}
 	}
 
@@ -665,7 +547,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		super.onResume();
 		Log.i("MessageFragment", "onResume");
 		if (!hidden && !MainActivity.isConflict) {
-			refresh(MainActivity.hxMsgCount);
+			refresh(MainActivity.imMsgCount);
 		}
 	}
 
@@ -676,7 +558,7 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 		Log.i("count", count + "");
 		if (count > 0) {
 			if (chatHistoryFragment != null) {
-				chatHistoryFragment.refresh();
+				chatHistoryFragment.onRefresh();
 			}
 		}
 
@@ -692,14 +574,14 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 				MainActivity.xgSysMsgCount = 0;
 				break;
 			case 2:
-				if(chatHistoryFragment != null)
-					chatHistoryFragment.refresh();
-				MainActivity.hxMsgCount = 0;
+//				if(chatHistoryFragment != null)
+//					chatHistoryFragment.refresh();
+				MainActivity.imMsgCount = 0;
 				break;
 		}
 		int count1 = MainActivity.xgTaskMsgCount;
 		int count2 = MainActivity.xgSysMsgCount;
-		int count3 = MainActivity.hxMsgCount;
+		int count3 = MainActivity.imMsgCount;
 
 		if(count1 > 0) {
 			if(count1 > 99)

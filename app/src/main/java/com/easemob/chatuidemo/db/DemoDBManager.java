@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
-import com.easemob.util.HanziToPinyin;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,9 +39,9 @@ public class DemoDBManager {
             db.delete(UserDao.TABLE_NAME, null, null);
             for (User user : contactList) {
                 ContentValues values = new ContentValues();
-                values.put(UserDao.COLUMN_NAME_ID, user.getUsername());
-                if(user.getNick() != null)
-                    values.put(UserDao.COLUMN_NAME_NICK, user.getNick());
+//                values.put(UserDao.COLUMN_NAME_ID, user.getUsername());
+//                if(user.getNick() != null)
+//                    values.put(UserDao.COLUMN_NAME_NICK, user.getNick());
                 if(user.getAvatar() != null)
                     values.put(UserDao.COLUMN_NAME_AVATAR, user.getAvatar());
                 db.replace(UserDao.TABLE_NAME, null, values);
@@ -66,28 +64,28 @@ public class DemoDBManager {
                 String nick = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_NICK));
                 String avatar = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_AVATAR));
                 User user = new User();
-                user.setUsername(username);
-                user.setNick(nick);
-                user.setAvatar(avatar);
-                String headerName = null;
-                if (!TextUtils.isEmpty(user.getNick())) {
-                    headerName = user.getNick();
-                } else {
-                    headerName = user.getUsername();
-                }
+//                user.setUsername(username);
+//                user.setNick(nick);
+//                user.setAvatar(avatar);
+//                String headerName = null;
+//                if (!TextUtils.isEmpty(user.getNick())) {
+//                    headerName = user.getNick();
+//                } else {
+//                    headerName = user.getUsername();
+//                }
                 
                 if (username.equals(Constant.NEW_FRIENDS_USERNAME) || username.equals(Constant.GROUP_USERNAME)
                         || username.equals(Constant.CHAT_ROOM)|| username.equals(Constant.CHAT_ROBOT)) {
                     user.setHeader("");
-                } else if (Character.isDigit(headerName.charAt(0))) {
-                    user.setHeader("#");
-                } else {
-                    user.setHeader(HanziToPinyin.getInstance().get(headerName.substring(0, 1))
-                            .get(0).target.substring(0, 1).toUpperCase());
-                    char header = user.getHeader().toLowerCase().charAt(0);
-                    if (header < 'a' || header > 'z') {
-                        user.setHeader("#");
-                    }
+//                } else if (Character.isDigit(headerName.charAt(0))) {
+//                    user.setHeader("#");
+//                } else {
+//                    user.setHeader(HanziToPinyin.getInstance().get(headerName.substring(0, 1))
+//                            .get(0).target.substring(0, 1).toUpperCase());
+//                    char header = user.getHeader().toLowerCase().charAt(0);
+//                    if (header < 'a' || header > 'z') {
+//                        user.setHeader("#");
+//                    }
                 }
                 users.put(username, user);
             }
@@ -114,9 +112,9 @@ public class DemoDBManager {
     synchronized public void saveContact(User user){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(UserDao.COLUMN_NAME_ID, user.getUsername());
-        if(user.getNick() != null)
-            values.put(UserDao.COLUMN_NAME_NICK, user.getNick());
+//        values.put(UserDao.COLUMN_NAME_ID, user.getUsername());
+//        if(user.getNick() != null)
+//            values.put(UserDao.COLUMN_NAME_NICK, user.getNick());
         if(user.getAvatar() != null)
             values.put(UserDao.COLUMN_NAME_AVATAR, user.getAvatar());
         if(db.isOpen()){
@@ -339,8 +337,8 @@ public class DemoDBManager {
 				if(Character.isDigit(headerName.charAt(0))){
 					user.setHeader("#");
 				}else{
-					user.setHeader(HanziToPinyin.getInstance().get(headerName.substring(0, 1)).get(0).target
-							.substring(0, 1).toUpperCase());
+//					user.setHeader(HanziToPinyin.getInstance().get(headerName.substring(0, 1)).get(0).target
+//							.substring(0, 1).toUpperCase());
 					char header = user.getHeader().toLowerCase().charAt(0);
 					if (header < 'a' || header > 'z') {
 						user.setHeader("#");

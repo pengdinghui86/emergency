@@ -31,6 +31,13 @@
         android:name="com.dssm.esc.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
+    <!-- 极光IM -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
     <!-- 极光推送必须权限 -->
     <uses-permission android:name="com.dssm.esc.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -51,7 +58,6 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
 
 
     <!--设置华为的Badge-->
@@ -190,11 +196,6 @@
             android:windowSoftInputMode="adjustResize|stateVisible"></activity>
 
         <!-- 注册 -->
-        <activity
-            android:name="com.easemob.chatuidemo.activity.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="adjustResize|stateVisible"></activity>
         <!-- 聊天页面 -->
         <activity
             android:name="com.easemob.chatuidemo.activity.ChatActivity"
@@ -208,11 +209,7 @@
             android:name="com.easemob.chatuidemo.activity.ContextMenu"
             android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyle"></activity>
-        <!-- 自定义的alertdialog -->
-        <activity
-            android:name="com.easemob.chatuidemo.activity.AlertDialog"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyDialogStyle"></activity>
+
         <activity
             android:name="com.easemob.chatuidemo.activity.EditActivity"
             android:screenOrientation="portrait"
@@ -232,13 +229,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
-        <!-- robots list -->
-        <!-- <activity -->
-        <!-- android:name="com.easemob.chatuidemo.activity.RobotsActivity" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- android:theme="@style/horizontal_slide" -->
-        <!-- android:windowSoftInputMode="stateAlwaysHidden" > -->
-        <!-- </activity> -->
 
 
         <!-- 如果您项目中的所有页面都只需要以高或宽中的一个作为基准进行适配的话, 那就只需要填写高或宽中的一个设计图尺寸即可 -->
@@ -249,41 +239,21 @@
             android:name="design_height_in_dp"
             android:value="667"/>
 
-        <!-- 设置环信应用的appkey 原来的key：dssm-zsj#esc 新的key：escxj#escchinaxj-->
-        <meta-data
-            android:name="EASEMOB_APPKEY"
-            android:value="dssm-zsj#esc" />
-        <!-- 声明sdk所需的service SDK核心功能 -->
-        <service android:name="com.easemob.chat.EMChatService" />
-
-        <!-- 声明sdk所需的receiver -->
-        <receiver android:name="com.easemob.chat.EMMonitorReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-            </intent-filter>
-        </receiver>
-
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="2WTnYCGGA5wTW8svKpSCARnL" />
-        <!-- 2WTnYCGGA5wTW8svKpSCARnL -->
-        <!-- 3ecea51f560650b1ed8a4b99808f52e8 -->
 
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.im.android.helpers.IMReceiver"
+            android:enabled="true"
+            android:exported="false"/>
 
-        <!-- <activity -->
-        <!-- android:name="com.easemob.chatuidemo.activity.MainActivity" -->
-        <!-- android:launchMode="singleTask" -->
-        <!-- android:screenOrientation="portrait" -->
-        <!-- android:theme="@style/horizontal_slide" -->
-        <!-- android:windowSoftInputMode="adjustPan" /> -->
-        <!-- 信鸽 -->
-
+        <!-- Required since JMessage 2.7.0 SDK 核心功能-->
+        <provider
+            android:name="cn.jpush.im.android.helpers.ipc.IMProvider"
+            android:authorities="com.dssm.esc.IMProvider"
+            android:exported="false" />
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->

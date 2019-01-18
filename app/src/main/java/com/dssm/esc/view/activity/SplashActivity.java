@@ -29,10 +29,7 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMGroupManager;
 import com.easemob.chatuidemo.DemoApplication;
-import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.activity.BaseActivity;
 import com.easemob.chatuidemo.activity.LoginActivity;
 
@@ -42,12 +39,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 import de.greenrobot.event.EventBus;
 
 
 /**
  * 开屏页
- * 
  */
 public class SplashActivity extends BaseActivity {
 
@@ -55,10 +53,6 @@ public class SplashActivity extends BaseActivity {
 	// 用户服务类
 	private UserSevice sevice;
 	private MySharePreferencesService service;
-	// /** 当前被选中的角色 */
-	// private String selectedRolem;
-	// /** 用户实体类 */
-	// private UserEntity userEntity;
 	public Map<String, String> map;
 	private final String TAG = this.getClass().getName();
 
@@ -84,8 +78,6 @@ public class SplashActivity extends BaseActivity {
 				Boolean backflag,
 				String stRerror,
 				String Exceptionerror) {
-			// TODO Auto-generated
-			// method stub
 			if (backflag) {
 				versionUpdate();
 
@@ -123,7 +115,6 @@ public class SplashActivity extends BaseActivity {
 					str = "登录成功";
 					sevice.loginRole(
 							map.get("selectedRolem"), listener);
-
 				} else {
 					str = "密码已失效,请重新登录";
 					ToastUtil.showLongToast(
@@ -134,9 +125,7 @@ public class SplashActivity extends BaseActivity {
 					startActivity(intent);
 					finish();
 				}
-
 			} else if (stRerror != null) {
-
 				str = stRerror;
 				ToastUtil.showLongToast(
 						SplashActivity.this, str);
@@ -154,7 +143,6 @@ public class SplashActivity extends BaseActivity {
 				startActivity(intent);
 				finish();
 			}
-
 		}
 	};
 
@@ -165,7 +153,6 @@ public class SplashActivity extends BaseActivity {
 				// 回显
 				map = service.getPreferences();
 				sevice.login(map.get("loginName"), map.get("password"), listListener);
-
 				break;
 			case UPDATA_NONEED:
                 LoginMain();
@@ -182,7 +169,6 @@ public class SplashActivity extends BaseActivity {
 				ToastUtil.showToast(getApplicationContext(), "下载新版本失败");
                 LoginMain();
 				break;
-
 			}
 		};
 	};
@@ -199,7 +185,6 @@ public class SplashActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 		CheckVersionTask cv = new CheckVersionTask();
-
 		new Thread(cv).start();
 	}
 
@@ -208,7 +193,6 @@ public class SplashActivity extends BaseActivity {
 	 */
 	public class CheckVersionTask implements Runnable {
 		InputStream is;
-
 		public void run() {
 			try {
 				URL url = new URL(DemoApplication.getInstance().getUrl()+HttpUrl.VERSIONUPDATE);
@@ -227,7 +211,7 @@ public class SplashActivity extends BaseActivity {
 					Message msg = new Message();
 					msg.what = UPDATA_NONEED;
 					handler.sendMessage(msg);
-					 LoginMain();
+					LoginMain();
 				} else {
 					Log.i(TAG, "版本号不相同 ");
 					Message msg = new Message();
@@ -239,7 +223,6 @@ public class SplashActivity extends BaseActivity {
 				msg.what = GET_UNDATAINFO_ERROR;
 				handler.sendMessage(msg);
 				e.printStackTrace();
-
 			}
 		}
 	}
@@ -265,14 +248,11 @@ public class SplashActivity extends BaseActivity {
 		dialog.setCanceledOnTouchOutside(false);//调用这个方法时，按对话框以外的地方不起作用。按返回键还起作用
 //		dialog.setCancelable(false);//调用这个方法时，按对话框以外的地方不起作用。按返回键也不起作用
 		dialog.show();
-
 	}
 
 	/*
-	 * 
 	 * 从服务器中下载APK
 	 */
-
 	protected void downLoadApk() {
 		final ProgressDialog pd; // 进度条对话框
 		pd = new ProgressDialog(this);
@@ -288,7 +268,6 @@ public class SplashActivity extends BaseActivity {
 					sleep(3000);
 					installApk(file);
 					pd.dismiss(); // 结束掉进度条对话框
-
 				} catch (Exception e) {
 					Message msg = new Message();
 					msg.what = DOWN_ERROR;
@@ -349,7 +328,6 @@ public class SplashActivity extends BaseActivity {
 			msgType = intent.getStringExtra("msgType");
 			Log.i("onFailure", "mainActivity status: " + flag);
 			Log.i("onFailure", "msgType: " + msgType);
-
 			if(msgType != null && !msgType.equals(""))
 			{
 				Log.i("onFailure", "EventBus: " + msgType);
@@ -358,7 +336,6 @@ public class SplashActivity extends BaseActivity {
 				//给MessageFragment发送通知
 				EventBus.getDefault().post(new PushMessageEvent(Integer.parseInt(msgType)));
 			}
-
 			if(flag != null && flag.equals("live")) {
                 finish();
             }
@@ -387,13 +364,17 @@ public class SplashActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		new Thread(new Runnable() {
 			public void run() {
-				if (DemoHXSDKHelper.getInstance().isLogined()) {
+				/**获取个人信息不是null，说明已经登陆，
+				 * 无需再次登陆
+				 * */
+				UserInfo myInfo = JMessageClient.getMyInfo();
+				if (myInfo != null) {
 					// ** 免登录情况 加载所有本地群和会话
 					// 不是必须的，不加sdk也会自动异步去加载(不会重复加载)；
 					// 加上的话保证进了主页面会话和群组都已经load完毕
 					long start = System.currentTimeMillis();
-					EMGroupManager.getInstance().loadAllGroups();
-					EMChatManager.getInstance().loadAllConversations();
+//					EMGroupManager.getInstance().loadAllGroups();
+//					EMChatManager.getInstance().loadAllConversations();
 					long costTime = System.currentTimeMillis() - start;
 					// 等待sleeptime时长
 					if (sleepTime - costTime > 0) {

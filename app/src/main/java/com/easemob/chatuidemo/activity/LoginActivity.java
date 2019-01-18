@@ -64,13 +64,9 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.activity.EditIPActivity;
 import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.adapter.PopRoleSelectListviewAdapter;
-import com.easemob.EMCallBack;
 import com.easemob.applib.controller.HXSDKHelper;
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMGroupManager;
 import com.easemob.chatuidemo.Constant;
 import com.easemob.chatuidemo.DemoApplication;
-import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.db.UserDao;
 import com.easemob.chatuidemo.domain.User;
 import com.easemob.chatuidemo.utils.CommonUtils;
@@ -83,6 +79,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.RequestCallback;
+import cn.jpush.im.android.api.enums.PlatformType;
+import cn.jpush.im.android.api.model.DeviceInfo;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.android.api.options.RegisterOptionalUserInfo;
+import cn.jpush.im.api.BasicCallback;
 
 /**
  * 登录页面
@@ -639,7 +643,11 @@ public class LoginActivity extends BaseActivity {
         usernameEditText = (EditText) findViewById(R.id.login_name_et);
         passwordEditText = (EditText) findViewById(R.id.login_psw_et);
         Log.i("onFailure", "loginActivity");
-        if (DemoHXSDKHelper.getInstance().isLogined()) {// 环信被登录过了就不用再登录了，只重新登录下本地服务器
+        /**获取个人信息不是null，说明已经登陆，
+         * 无需再次登陆
+         * */
+        UserInfo myInfo = JMessageClient.getMyInfo();
+        if (myInfo != null) {
             currentUsername = usernameEditText.getText().toString().trim();
             if (currentUsername == null || currentUsername.equals(""))
                 currentUsername = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("loginName");
@@ -827,30 +835,30 @@ public class LoginActivity extends BaseActivity {
         Map<String, User> userlist = new HashMap<String, User>();
         // 添加user"申请与通知"
         User newFriends = new User();
-        newFriends.setUsername(Constant.NEW_FRIENDS_USERNAME);
+//        newFriends.setUsername(Constant.NEW_FRIENDS_USERNAME);
         String strChat = getResources().getString(
                 R.string.Application_and_notify);
-        newFriends.setNick(strChat);
+//        newFriends.setNick(strChat);
 
         userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
         // 添加"群聊"
         User groupUser = new User();
         String strGroup = getResources().getString(R.string.group_chat);
-        groupUser.setUsername(Constant.GROUP_USERNAME);
-        groupUser.setNick(strGroup);
+//        groupUser.setUsername(Constant.GROUP_USERNAME);
+//        groupUser.setNick(strGroup);
         groupUser.setHeader("");
         userlist.put(Constant.GROUP_USERNAME, groupUser);
 
         // 添加"Robot"
         User robotUser = new User();
         String strRobot = getResources().getString(R.string.robot_chat);
-        robotUser.setUsername(Constant.CHAT_ROBOT);
-        robotUser.setNick(strRobot);
+//        robotUser.setUsername(Constant.CHAT_ROBOT);
+//        robotUser.setNick(strRobot);
         robotUser.setHeader("");
         userlist.put(Constant.CHAT_ROBOT, robotUser);
 
         // 存入内存
-        ((DemoHXSDKHelper) HXSDKHelper.getInstance()).setContactList(userlist);
+//        ((DemoHXSDKHelper) HXSDKHelper.getInstance()).setContactList(userlist);
         // 存入db
         UserDao dao = new UserDao(LoginActivity.this);
         List<User> users = new ArrayList<User>(userlist.values());
@@ -858,7 +866,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     * 注册(环信)
+     * 注册(IM)
      */
     private void register(final String hxuserid, final String pwd) {
         if (!TextUtils.isEmpty(hxuserid) && !TextUtils.isEmpty(pwd)) {
@@ -866,158 +874,139 @@ public class LoginActivity extends BaseActivity {
             // 正在注册的弹出框
             // pd.setMessage(getResources().getString(R.string.Is_the_registered));
             // pd.show();
-
+            final RegisterOptionalUserInfo registerOptionalUserInfo = new RegisterOptionalUserInfo();
+            String nickName = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("name");
+            registerOptionalUserInfo.setNickname(nickName);
             new Thread(new Runnable() {
                 public void run() {
-//                    try {
-//                        // 调用sdk注册方法
-//                        EMChatManager.getInstance().createAccountOnServer(
-//                                hxuserid, pwd);
-//                        runOnUiThread(new Runnable() {
-//                            public void run() {
-//                                if (!LoginActivity.this.isFinishing())
-//                                    pd.dismiss();
-//                                // 保存用户名
-//                                DemoApplication.getInstance().setUserName(
-//                                        hxuserid);// 环信保存的是用户id
-//
-//                                // 注册成功后，调用sdk登录方法登录聊天服务器(登录也用用户id去登录)
-//                                login(hxuserid, hxuserid);
-//                            }
-//                        });
-//                    } catch (final EaseMobException e) {
-//                        runOnUiThread(new Runnable() {
-//                            public void run() {
-//                                if (!LoginActivity.this.isFinishing())
-//                                    pd.dismiss();
-//                                int errorCode = e.getErrorCode();
-//                                if (errorCode == EMError.NONETWORK_ERROR) {// 无网络
-//                                    Toast.makeText(
-//                                            getApplicationContext(),
-//                                            getResources().getString(
-//                                                    R.string.network_anomalies),
-//                                            Toast.LENGTH_SHORT).show();
-//                                } else if (errorCode == EMError.USER_ALREADY_EXISTS) {// 如果用户已存在，直接登录
-//                                    login(hxuserid, hxuserid);
-//                                } else if (errorCode == EMError.UNAUTHORIZED) {
-//                                    Toast.makeText(
-//                                            getApplicationContext(),
-//                                            getResources()
-//                                                    .getString(
-//                                                            R.string.registration_failed_without_permission),
-//                                            Toast.LENGTH_SHORT).show();
-//                                } else if (errorCode == EMError.ILLEGAL_USER_NAME) {// 用户名不合法
-//                                    Toast.makeText(
-//                                            getApplicationContext(),
-//                                            getResources().getString(
-//                                                    R.string.illegal_user_name),
-//                                            Toast.LENGTH_SHORT).show();
-//                                } else {// 注册失败
-//                                    Toast.makeText(
-//                                            getApplicationContext(),
-//                                            getResources()
-//                                                    .getString(
-//                                                            R.string.Registration_failed)
-//                                                    + e.getMessage(),
-//                                            Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-//                    }
+                    try {
+                        // 调用sdk注册方法
+                        JMessageClient.register(hxuserid, pwd, registerOptionalUserInfo, new BasicCallback() {
+                            @Override
+                            public void gotResult(int responseCode, final String responseMessage) {
+                                //responseCode - 0 表示正常。大于 0 表示异常，responseMessage 会有进一步的异常信息。
+                                //responseMessage - 一般异常时会有进一步的信息提示。
+                                if(responseCode == 0)
+                                {
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            if (!LoginActivity.this.isFinishing())
+                                                pd.dismiss();
+                                            // 注册成功后，调用sdk登录方法登录聊天服务器
+                                            login(hxuserid, pwd);
+                                        }
+                                    });
+                                }
+                                //已注册
+                                else if(responseCode == 898001)
+                                {
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            if (!LoginActivity.this.isFinishing())
+                                                pd.dismiss();
+                                            // 注册成功后，调用sdk登录方法登录聊天服务器
+                                            login(hxuserid, pwd);
+                                        }
+                                    });
+                                }
+                                else {
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            if (!LoginActivity.this.isFinishing())
+                                                pd.dismiss();
+                                            Toast.makeText(getApplicationContext(), responseMessage,
+                                                        Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }
+                        });
 
-                    pd.dismiss();
-                    // 保存用户名
-                    DemoApplication.getInstance().setUserName(
-                            hxuserid);// 环信保存的是用户id
-
-                    // 注册成功后，调用sdk登录方法登录聊天服务器(登录也用用户id去登录)
-                    login(hxuserid, hxuserid);
+                    } catch (final Exception e) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                if (!LoginActivity.this.isFinishing())
+                                    pd.dismiss();
+                                Toast.makeText(getApplicationContext(), e.toString(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
             }).start();
-
         }
-
     }
 
     /**
-     * 登录(环信)
+     * 登录(IM)
      */
-    private void login(final String hxuserid, String pwd) {
-        EMChatManager.getInstance().login(hxuserid, hxuserid, new EMCallBack() {
-
+    private void login(final String hxuserid, final String pwd) {
+        RequestCallback<List<DeviceInfo>> callback = new RequestCallback<List<DeviceInfo>>() {
             @Override
-            public void onSuccess() {
-                if (!progressShow) {
-                    return;
-                }
-                // 登录成功，保存用户名密码
-                DemoApplication.getInstance().setUserName(hxuserid);
-                DemoApplication.getInstance().setPassword(hxuserid);
-                Log.i("LoginActivity用户名--环信", DemoApplication.getInstance()
-                        .getUserName());
-                Log.i("LoginActivity密码--环信", DemoApplication.getInstance()
-                        .getPassword());
-                try {
-                    // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
-                    // ** manually load all local groups and
-                    EMGroupManager.getInstance().loadAllGroups();
-                    EMChatManager.getInstance().loadAllConversations();
+            public void gotResult(int responseCode, final String responseMessage, List<DeviceInfo> deviceInfos) {
+                //登录成功
+                if(responseCode == 0)
+                {
+                    if (!progressShow) {
+                        return;
+                    }
+                    try {
+                        // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
+                        // ** manually load all local groups and
+//                        EMGroupManager.getInstance().loadAllGroups();
+//                        EMChatManager.getInstance().loadAllConversations();
+                        // 处理好友和群组
+//                        initializeContacts();
+                        if("".equals(JMessageClient.getMyInfo().getNickname())) {
+                            String nickName = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("name");
+                            UserInfo userInfo = JMessageClient.getMyInfo();
+                            userInfo.setNickname(nickName);
+                            JMessageClient.updateMyInfo(UserInfo.Field.nickname, userInfo, new BasicCallback() {
+                                @Override
+                                public void gotResult(int i, String s) {
 
-                    // 处理好友和群组
-                    initializeContacts();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    // 取好友或者群聊失败，不让进入主页面
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        // 取好友或者群聊失败，不让进入主页面
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                pd.dismiss();
+                                JMessageClient.logout();
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.login_failure_failed, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        return;
+                    }
+                    // 更新当前用户的nickname
+                    // 此方法的作用是在ios离线推送时能够显示用户nick
+//                    boolean updatenick = EMChatManager.getInstance()
+//                            .updateCurrentUserNick(
+//                                    DemoApplication.currentUserNick.trim());
+//                    if (!updatenick) {
+//                        Log.e("LoginActivity", "update current user nick fail");
+//                    }
+                    if (!LoginActivity.this.isFinishing() && pd.isShowing()) {
+                        pd.dismiss();
+                    }
+                    userSelectRole();
+                }
+                else {
                     runOnUiThread(new Runnable() {
                         public void run() {
                             pd.dismiss();
-                            DemoHXSDKHelper.getInstance().logout(true, null);
+                            JMessageClient.logout();
                             Toast.makeText(getApplicationContext(),
-                                    R.string.login_failure_failed, Toast.LENGTH_SHORT).show();
+                                    responseMessage, Toast.LENGTH_SHORT).show();
                         }
                     });
-                    return;
                 }
-                // 更新当前用户的nickname
-                // 此方法的作用是在ios离线推送时能够显示用户nick
-                boolean updatenick = EMChatManager.getInstance()
-                        .updateCurrentUserNick(
-                                DemoApplication.currentUserNick.trim());
-                if (!updatenick) {
-                    Log.e("LoginActivity", "update current user nick fail");
-                }
-                if (!LoginActivity.this.isFinishing() && pd.isShowing()) {
-                    pd.dismiss();
-                }
-                userSelectRole();
-
             }
-
-            @Override
-            public void onProgress(int progress, String status) {
-            }
-
-            @Override
-            public void onError(final int code, final String message) {
-                if (!progressShow) {
-                    return;
-                }
-                //由于环信限制免费用户注册功能，因此暂时屏蔽环信登录验证
-//                runOnUiThread(new Runnable() {
-//                    public void run() {
-//                        pd.dismiss();
-//                        Toast.makeText(getApplicationContext(),
-//                                getString(R.string.Login_failed) + message,
-//                                Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
-                if (!LoginActivity.this.isFinishing() && pd.isShowing()) {
-                    pd.dismiss();
-                }
-                userSelectRole();
-            }
-        });
+        };
+        JMessageClient.login(hxuserid, pwd, callback);
     }
 
     @Override

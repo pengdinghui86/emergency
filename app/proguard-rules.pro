@@ -221,6 +221,16 @@
 -dontwarn cn.jiguang.**
 -keep class cn.jiguang.** { *; }
 -keep public interface cn.jiguang.** { *; }
+-dontpreverify
+-keepattributes  EnclosingMethod,Signature
+ -keepclassmembers class ** {
+     public void onEvent*(**);
+ }
+-dontwarn com.google.**
+-keep class com.google.gson.** {*;}
+-keep class com.google.protobuf.** {*;}
+-dontwarn cn.jmessage.support.**
+-keep class cn.jmessage.support.**{*;}
 
 #xutils3避免混淆
 -keep class org.xutils.** {*;}

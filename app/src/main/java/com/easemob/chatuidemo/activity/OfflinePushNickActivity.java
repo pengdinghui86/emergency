@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dssm.esc.R;
-import com.easemob.chat.EMChatManager;
 
 public class OfflinePushNickActivity extends BaseActivity {
 
@@ -39,33 +38,33 @@ public class OfflinePushNickActivity extends BaseActivity {
 				// TODO Auto-generated method stub
 
 				dialog = ProgressDialog.show(OfflinePushNickActivity.this, "update nickname...", "waiting...");
-				new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(
-								inputNickName.getText().toString());
-						if (!updatenick) {
-							runOnUiThread(new Runnable() {
-								public void run() {
-									Toast.makeText(OfflinePushNickActivity.this, "update nickname failed!",
-											Toast.LENGTH_SHORT).show();
-									dialog.dismiss();
-								}
-							});
-						} else {
-							runOnUiThread(new Runnable() {
-								public void run() {
-									dialog.dismiss();
-									Toast.makeText(OfflinePushNickActivity.this, "update nickname success!",
-											Toast.LENGTH_SHORT).show();
-								}
-							});
-							finish();
-						}
-					}
-				}).start();
+//				new Thread(new Runnable() {
+//
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated method stub
+//						boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(
+//								inputNickName.getText().toString());
+//						if (!updatenick) {
+//							runOnUiThread(new Runnable() {
+//								public void run() {
+//									Toast.makeText(OfflinePushNickActivity.this, "update nickname failed!",
+//											Toast.LENGTH_SHORT).show();
+//									dialog.dismiss();
+//								}
+//							});
+//						} else {
+//							runOnUiThread(new Runnable() {
+//								public void run() {
+//									dialog.dismiss();
+//									Toast.makeText(OfflinePushNickActivity.this, "update nickname success!",
+//											Toast.LENGTH_SHORT).show();
+//								}
+//							});
+//							finish();
+//						}
+//					}
+//				}).start();
 			}
 		});
 

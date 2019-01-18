@@ -19,7 +19,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.dssm.esc.util.ActivityCollector;
-import com.easemob.applib.controller.HXSDKHelper;
 
 
 public class BaseActivity extends FragmentActivity {
@@ -36,18 +35,11 @@ public class BaseActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		// onresume时，取消notification显示
-		HXSDKHelper.getInstance().getNotifier().reset();
-
-		// umeng
-//		MobclickAgent.onResume(this);
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		// umeng
-//		MobclickAgent.onPause(this);
 	}
 
 	@Override
@@ -63,6 +55,5 @@ public class BaseActivity extends FragmentActivity {
 	 */
 	public void back(View view) {
 		finish();
-		
 	}
 }

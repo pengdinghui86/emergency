@@ -13,9 +13,7 @@
  */
 package com.easemob.chatuidemo.domain;
 
-import com.easemob.chat.EMContact;
-
-public class RobotUser extends EMContact{
+public class RobotUser{
 	private String username;
 	private String nick;
 	private String header;

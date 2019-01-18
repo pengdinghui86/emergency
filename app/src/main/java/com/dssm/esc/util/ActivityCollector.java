@@ -27,6 +27,16 @@ public class ActivityCollector {
 		}
 	}
 
+	public static Activity getTopActivity()
+	{
+		Activity activity = null;
+		if(activities.size() > 0)
+		{
+			return activities.get(activities.size() - 1);
+		}
+		return activity;
+	}
+
 	public static void finishSplashActivity(){
 		for (Activity activity : activities) {
 			if(!activity.isFinishing() && activity instanceof SplashActivity){

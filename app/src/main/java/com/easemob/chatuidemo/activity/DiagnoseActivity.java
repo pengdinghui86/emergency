@@ -10,10 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.easemob.EMCallBack;
-import com.easemob.chat.EMChat;
-import com.easemob.util.EMLog;
 import com.dssm.esc.R;
 
 /**
@@ -96,49 +92,49 @@ public class DiagnoseActivity extends BaseActivity implements OnClickListener {
 		progressDialog.setCancelable(false);
 		progressDialog.show();
 		final String st = getResources().getString(R.string.Log_uploaded_successfully);
-		EMChat.getInstance().uploadLog(new EMCallBack() {
-
-			@Override
-			public void onSuccess() {
-				runOnUiThread(new Runnable() {
-
-					@Override
-					public void run() {
-						progressDialog.dismiss();
-						Toast.makeText(DiagnoseActivity.this, st,
-								Toast.LENGTH_SHORT).show();
-					}
-				});
-			}
-
-			@Override
-			public void onProgress(final int progress, String status) {
-				// getActivity().runOnUiThread(new Runnable() {
-				//
-				// @Override
-				// public void run() {
-				// progressDialog.setMessage("上传中 "+progress+"%");
-				//
-				// }
-				// });
-
-			}
-			String st3 = getResources().getString(R.string.Log_Upload_failed);
-			@Override
-			public void onError(int code, String message) {
-				EMLog.e("###", message);
-				runOnUiThread(new Runnable() {
-
-					@Override
-					public void run() {
-						progressDialog.dismiss();
-						Toast.makeText(DiagnoseActivity.this, st3,
-								Toast.LENGTH_SHORT).show();
-					}
-				});
-
-			}
-		});
+//		EMChat.getInstance().uploadLog(new EMCallBack() {
+//
+//			@Override
+//			public void onSuccess() {
+//				runOnUiThread(new Runnable() {
+//
+//					@Override
+//					public void run() {
+//						progressDialog.dismiss();
+//						Toast.makeText(DiagnoseActivity.this, st,
+//								Toast.LENGTH_SHORT).show();
+//					}
+//				});
+//			}
+//
+//			@Override
+//			public void onProgress(final int progress, String status) {
+//				// getActivity().runOnUiThread(new Runnable() {
+//				//
+//				// @Override
+//				// public void run() {
+//				// progressDialog.setMessage("上传中 "+progress+"%");
+//				//
+//				// }
+//				// });
+//
+//			}
+//			String st3 = getResources().getString(R.string.Log_Upload_failed);
+//			@Override
+//			public void onError(int code, String message) {
+//				EMLog.e("###", message);
+//				runOnUiThread(new Runnable() {
+//
+//					@Override
+//					public void run() {
+//						progressDialog.dismiss();
+//						Toast.makeText(DiagnoseActivity.this, st3,
+//								Toast.LENGTH_SHORT).show();
+//					}
+//				});
+//
+//			}
+//		});
 
 	}
 

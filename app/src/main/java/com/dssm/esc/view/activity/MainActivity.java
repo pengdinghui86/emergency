@@ -37,7 +37,6 @@ import com.dssm.esc.model.entity.user.ButtonEntity;
 import com.dssm.esc.model.entity.user.MenuEntity;
 import com.dssm.esc.model.entity.user.UserPowerEntity;
 import com.dssm.esc.util.ActivityCollector;
-import com.dssm.esc.util.AppShortCutUtil;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.DataCleanManager;
 import com.dssm.esc.util.MySharePreferencesService;
@@ -52,33 +51,21 @@ import com.dssm.esc.view.fragment.EmergencyManageFragment;
 import com.dssm.esc.view.fragment.MessageFragment;
 import com.dssm.esc.view.fragment.PersonalCenterFragment;
 import com.dssm.esc.view.widget.RedPointView;
-import com.easemob.EMCallBack;
-import com.easemob.EMConnectionListener;
-import com.easemob.EMError;
-import com.easemob.EMEventListener;
-import com.easemob.EMNotifierEvent;
-import com.easemob.applib.controller.HXSDKHelper;
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMConversation;
-import com.easemob.chat.EMConversation.EMConversationType;
-import com.easemob.chat.EMMessage;
 import com.easemob.chatuidemo.Constant;
-import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.activity.LoginActivity;
-import com.easemob.util.EMLog;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
 import de.greenrobot.event.EventBus;
 
 /**
  * 主界面
  */
-public class MainActivity extends FragmentActivity implements EMEventListener {
+public class MainActivity extends FragmentActivity {
 
     /**
      * 记录退出按下时间
@@ -220,7 +207,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         if (savedInstanceState != null
                 && savedInstanceState.getBoolean(Constant.ACCOUNT_REMOVED, false)) { //
             // 防止被移除后，没点确定按钮然后按了home键，长期在后台又进app导致的crash // 三个fragment里加的判断同理
-            DemoHXSDKHelper.getInstance().logout(true, null);
+            JMessageClient.logout();
             // 清除本地的sharepreference缓存
             DataCleanManager.cleanSharedPreference(context);
             finish();
@@ -371,6 +358,11 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                     xgSysMsgCount ++;
                     refreshUI();
                     break;
+                case "3":
+                    imMsgCount++;
+                    EventBus.getDefault().post(new mainEvent("im"));
+                    refreshUI();
+                    break;
                 case "updateMsgCount":
                     runOnUiThread(new Runnable() {
                         public void run() {
@@ -386,11 +378,11 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         }
     }
 
-    private static MyConnectionListener connectionListener = null;
+//    private static MyConnectionListener connectionListener = null;
 
     private void init() {
-        connectionListener = new MyConnectionListener(this);
-        EMChatManager.getInstance().addConnectionListener(connectionListener);
+//        connectionListener = new MyConnectionListener(this);
+//        EMChatManager.getInstance().addConnectionListener(connectionListener);
         /*
          * Log.i("MainActivity用户名--环信", DemoApplication.getInstance()
 		 * .getUserName()); Log.i("MainActivity密码--环信",
@@ -516,42 +508,42 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             return;
         isConflictDialogShow = true;
 //        DemoHXSDKHelper.getInstance().logout(false, null);
-        DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
-
-            @Override
-            public void onSuccess() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        /** 推送在退出登录时解除账号绑定 */
-                        JPushInterface.stopPush(getApplicationContext());
-                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
-                        // 清除本地的sharepreference缓存
-                        DataCleanManager.cleanSharedPreference(context);
-                    }
-                });
-            }
-
-
-            @Override
-            public void onProgress(int progress, String status) {
-
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-                        JPushInterface.stopPush(getApplicationContext());
-                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
-                        // 清除本地的sharepreference缓存
-                        DataCleanManager.cleanSharedPreference(context);
-                    }
-                });
-            }
-        });
+//        DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
+//
+//            @Override
+//            public void onSuccess() {
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        /** 推送在退出登录时解除账号绑定 */
+//                        JPushInterface.stopPush(getApplicationContext());
+//                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
+//                        // 清除本地的sharepreference缓存
+//                        DataCleanManager.cleanSharedPreference(context);
+//                    }
+//                });
+//            }
+//
+//
+//            @Override
+//            public void onProgress(int progress, String status) {
+//
+//            }
+//
+//            @Override
+//            public void onError(int code, String message) {
+//                runOnUiThread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        // TODO Auto-generated method stub
+//                        JPushInterface.stopPush(getApplicationContext());
+//                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
+//                        // 清除本地的sharepreference缓存
+//                        DataCleanManager.cleanSharedPreference(context);
+//                    }
+//                });
+//            }
+//        });
         String st = getResources().getString(R.string.Logoff_notification);
         // clear up global variables
         try {
@@ -577,8 +569,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             conflictBuilder.create().show();
             isConflict = true;
         } catch (Exception e) {
-            EMLog.e("MainActivity", "---------color conflictBuilder error"
-                    + e.getMessage());
+
         }
     }
 
@@ -588,39 +579,39 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     private void showAccountRemovedDialog() {
         isAccountRemovedDialogShow = true;
 //        DemoHXSDKHelper.getInstance().logout(false, null);
-        DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
-
-            @Override
-            public void onSuccess() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        /** 推送在退出登录时解除账号绑定 */
-                        JPushInterface.stopPush(getApplicationContext());
-                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
-                        // 清除本地的sharepreference缓存
-                        DataCleanManager.cleanSharedPreference(context);
-                    }
-                });
-            }
-
-            @Override
-            public void onProgress(int progress, String status) {
-
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-                        ToastUtil.showToast(context,
-                                "unbind devicetokens failed");
-                    }
-                });
-            }
-        });
+//        DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
+//
+//            @Override
+//            public void onSuccess() {
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        /** 推送在退出登录时解除账号绑定 */
+//                        JPushInterface.stopPush(getApplicationContext());
+//                        JPushInterface.deleteAlias(getApplicationContext(), 2018);
+//                        // 清除本地的sharepreference缓存
+//                        DataCleanManager.cleanSharedPreference(context);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onProgress(int progress, String status) {
+//
+//            }
+//
+//            @Override
+//            public void onError(int code, String message) {
+//                runOnUiThread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        // TODO Auto-generated method stub
+//                        ToastUtil.showToast(context,
+//                                "unbind devicetokens failed");
+//                    }
+//                });
+//            }
+//        });
 
         String st5 = getResources().getString(R.string.Remove_the_notification);
         if (!MainActivity.this.isFinishing()) {
@@ -648,9 +639,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 accountRemovedBuilder.create().show();
                 isCurrentAccountRemoved = true;
             } catch (Exception e) {
-                EMLog.e("MainActivity",
-                        "---------color userRemovedBuilder error"
-                                + e.getMessage());
+
             }
 
         }
@@ -816,16 +805,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         win.setAttributes(winParams);
     }
 
-    /**
-     * 沉浸式
-     *
-     * @version 1.0
-     * @createTime 2015-9-17,上午11:48:58
-     * @updateTime 2015-9-17,上午11:48:58
-     * @createAuthor Zsj
-     * @updateAuthor
-     * @updateInfo (此处输入修改内容, 若无修改可不写.)
-     */
     private void setStatusBarState() {
         // TODO Auto-generated method stub
         if (Build.VERSION.SDK_INT >= 19) {
@@ -881,43 +860,43 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     /**
      * 连接监听listener
      */
-    public static class MyConnectionListener implements EMConnectionListener {
-
-        private final WeakReference<Context> wr;
-
-        public MyConnectionListener(Context context) {
-            wr = new WeakReference<>(context);
-        }
-
-        @Override
-        public void onConnected() {
-
-        }
-
-        @Override
-        public void onDisconnected(final int error) {
-            final MainActivity activity = (MainActivity) wr.get();
-            if(activity == null)
-                return;
-            activity.runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (error == EMError.USER_REMOVED) {
-                        // 显示帐号已经被移除
-                        activity.showAccountRemovedDialog();
-                    } else if (error == EMError.CONNECTION_CONFLICT) {
-                        // 显示帐号在其他设备登录dialog
-                        activity.showConflictDialog();
-                    }
-                    /** 推送账号在其他地方登录时解除账号绑定 */
-                    JPushInterface.stopPush(activity.context);
-                    JPushInterface.deleteAlias(activity.context, 2018);
-                }
-
-            });
-        }
-    }
+//    public static class MyConnectionListener implements EMConnectionListener {
+//
+//        private final WeakReference<Context> wr;
+//
+//        public MyConnectionListener(Context context) {
+//            wr = new WeakReference<>(context);
+//        }
+//
+//        @Override
+//        public void onConnected() {
+//
+//        }
+//
+//        @Override
+//        public void onDisconnected(final int error) {
+//            final MainActivity activity = (MainActivity) wr.get();
+//            if(activity == null)
+//                return;
+//            activity.runOnUiThread(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    if (error == EMError.USER_REMOVED) {
+//                        // 显示帐号已经被移除
+//                        activity.showAccountRemovedDialog();
+//                    } else if (error == EMError.CONNECTION_CONFLICT) {
+//                        // 显示帐号在其他设备登录dialog
+//                        activity.showConflictDialog();
+//                    }
+//                    /** 推送账号在其他地方登录时解除账号绑定 */
+//                    JPushInterface.stopPush(activity.context);
+//                    JPushInterface.deleteAlias(activity.context, 2018);
+//                }
+//
+//            });
+//        }
+//    }
 
     @Override
     protected void onDestroy() {
@@ -925,11 +904,11 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         if (useEventBus()) {
             EventBus.getDefault().unregister(this);
         }
-        if (connectionListener != null) {
-            EMChatManager.getInstance().removeConnectionListener(
-                    connectionListener);
-            connectionListener = null;
-        }
+//        if (connectionListener != null) {
+//            EMChatManager.getInstance().removeConnectionListener(
+//                    connectionListener);
+//            connectionListener = null;
+//        }
         super.onDestroy();
         ActivityCollector.removeActivity(this);
         unregisterReceiver(msgReceiver);
@@ -937,38 +916,37 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         buttonList.clear();
     }
 
-    @Override
-    public void onEvent(EMNotifierEvent event) {
-        // TODO Auto-generated method stub
-        switch (event.getEvent()) {
-            case EventNewMessage: // 普通消息
-            {
-                EMMessage message = (EMMessage) event.getData();
+//    @Override
+//    public void onEvent(EMNotifierEvent event) {
+//        switch (event.getEvent()) {
+//            case EventNewMessage: // 普通消息
+//            {
+//                EMMessage message = (EMMessage) event.getData();
+//
+//                // 提示新消息
+//                HXSDKHelper.getInstance().getNotifier().onNewMsg(message);
+//
+//                refreshUI();
+//                break;
+//            }
+//
+//            case EventOfflineMessage: {
+//                refreshUI();
+//                break;
+//            }
+//
+//            case EventConversationListChanged: {
+//                refreshUI();
+//                break;
+//            }
+//
+//            default:
+//                break;
+//        }
+//    }
 
-                // 提示新消息
-                HXSDKHelper.getInstance().getNotifier().onNewMsg(message);
-
-                refreshUI();
-                break;
-            }
-
-            case EventOfflineMessage: {
-                refreshUI();
-                break;
-            }
-
-            case EventConversationListChanged: {
-                refreshUI();
-                break;
-            }
-
-            default:
-                break;
-        }
-    }
-
-    //环信未读消息总数
-    public static int hxMsgCount;
+    //IM未读消息总数
+    public static int imMsgCount;
 
     //信鸽推送任务未读消息总数
     public static int xgTaskMsgCount;
@@ -980,11 +958,11 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         runOnUiThread(new Runnable() {
             public void run() {
                 // 刷新bottom bar消息未读数
-                hxMsgCount = updateUnreadLabel();
+                imMsgCount = updateUnreadLabel();
                 if (currentTabIndex == 0) {
                     // 当前页面如果为聊天历史页面，刷新此页面
                     if (messageFragment != null) {
-                        messageFragment.refresh(hxMsgCount);
+                        messageFragment.refresh(imMsgCount);
                     }
                 }
                 updateUnreadMsgCount();
@@ -993,7 +971,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
     }
 
     private void updateUnreadMsgCount() {
-        int totalMsgCount = hxMsgCount + xgTaskMsgCount + xgSysMsgCount;
+        int totalMsgCount = imMsgCount + xgTaskMsgCount + xgSysMsgCount;
         if(totalMsgCount > 0) {
             if(totalMsgCount > 99) {
                 redPointView.setText("99+");
@@ -1025,16 +1003,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
      * @return
      */
     public static int getUnreadMsgCountTotal() {
-        int unreadMsgCountTotal = 0;
-        int chatroomUnreadMsgCount = 0;
-        unreadMsgCountTotal = EMChatManager.getInstance().getUnreadMsgsCount();
-        for (EMConversation conversation : EMChatManager.getInstance()
-                .getAllConversations().values()) {
-            if (conversation.getType() == EMConversationType.ChatRoom)
-                chatroomUnreadMsgCount = chatroomUnreadMsgCount
-                        + conversation.getUnreadMsgCount();
-        }
-        return unreadMsgCountTotal - chatroomUnreadMsgCount;
+        int unreadMsgCountTotal = JMessageClient.getAllUnReadMsgCount();
+        return unreadMsgCountTotal;
     }
 
     @Override
@@ -1047,8 +1017,8 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 "login").equals("true"))
         {
             if (!isConflict && !isCurrentAccountRemoved) {
-                // hxMsgCount=updateUnreadLabel();
-                EMChatManager.getInstance().activityResumed();
+                // imMsgCount=updateUnreadLabel();
+//                EMChatManager.getInstance().activityResumed();
             }
             relogin();
             JPushInterface.resumePush(getApplicationContext());
@@ -1059,20 +1029,6 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
             initView();
             init();
         }
-
-        // unregister this event listener when this activity enters the
-        // background
-        DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
-                .getInstance();
-        sdkHelper.pushActivity(this);
-
-        // register the event listener when enter the foreground
-        EMChatManager.getInstance().registerEventListener(
-                this,
-                new EMNotifierEvent.Event[]{
-                        EMNotifierEvent.Event.EventNewMessage,
-                        EMNotifierEvent.Event.EventOfflineMessage,
-                        EMNotifierEvent.Event.EventConversationListChanged});
         if (netListener != null)
             netListener.initNetData();
 
@@ -1242,11 +1198,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
 
     @Override
     protected void onStop() {
-        EMChatManager.getInstance().unregisterEventListener(this);
-        DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper
-                .getInstance();
-        sdkHelper.popActivity(this);
-
+//        EMChatManager.getInstance().unregisterEventListener(this);
         super.onStop();
     }
 
@@ -1259,48 +1211,18 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
         pd.setMessage(st);
         pd.setCanceledOnTouchOutside(false);
         pd.show();
-        DemoHXSDKHelper.getInstance().logout(true, new EMCallBack() {
-
-            @Override
-            public void onSuccess() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        pd.dismiss();
-                        /** 推送在退出登录时解除账号绑定 */
-                        JPushInterface.stopPush(context);
-                        JPushInterface.deleteAlias(context, 2018);
-                        // 清除本地的sharepreference缓存
-                        DataCleanManager.cleanSharedPreference(context);
-                        // 退出服务器，通知服务器清除session
-                        userSevice.logout(map.get("userId"), logoutListener);
-                        // 重新显示登录页面
-                        finish();
-                        startActivity(new Intent(MainActivity.this,
-                                LoginActivity.class));
-
-                    }
-                });
-            }
-
-            @Override
-            public void onProgress(int progress, String status) {
-
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-                        pd.dismiss();
-                        ToastUtil.showToast(context,
-                                "unbind devicetokens failed");
-                    }
-                });
-            }
-        });
+        JMessageClient.logout();
+        /** 推送在退出登录时解除账号绑定 */
+        JPushInterface.stopPush(context);
+        JPushInterface.deleteAlias(context, 2018);
+        // 清除本地的sharepreference缓存
+        DataCleanManager.cleanSharedPreference(context);
+        // 退出服务器，通知服务器清除session
+        userSevice.logout(map.get("userId"), logoutListener);
+        // 重新显示登录页面
+        finish();
+        startActivity(new Intent(MainActivity.this,
+                LoginActivity.class));
     }
 
     private int curWhich;
@@ -1368,6 +1290,7 @@ public class MainActivity extends FragmentActivity implements EMEventListener {
                 str = Const.NETWORKERROR;
                 ToastUtil.showLongToast(context, str);
             }
+            pd.dismiss();
         }
     };
 

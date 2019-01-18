@@ -13,18 +13,12 @@
  */
 package com.easemob.chatuidemo.domain;
 
-import com.easemob.chat.EMContact;
-
-public class User extends EMContact {
+public class User {
 	private int unreadMsgCount;
 	private String header;
 	private String avatar;
 	
 	public User(){}
-	
-	public User(String username){
-	    this.username = username;
-	}
 
 	public String getHeader() {
 		return header;
@@ -54,7 +48,7 @@ public class User extends EMContact {
 
     @Override
 	public int hashCode() {
-		return 17 * getUsername().hashCode();
+		return 17;
 	}
 
 	@Override
@@ -62,11 +56,11 @@ public class User extends EMContact {
 		if (o == null || !(o instanceof User)) {
 			return false;
 		}
-		return getUsername().equals(((User) o).getUsername());
+		return "".equals("");
 	}
 
 	@Override
 	public String toString() {
-		return nick == null ? username : nick;
+		return "";
 	}
 }
