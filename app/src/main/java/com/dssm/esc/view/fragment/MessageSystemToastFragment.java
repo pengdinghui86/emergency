@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
@@ -43,6 +44,10 @@ public class MessageSystemToastFragment extends BaseFragment implements
 	private ClearEditText filter_edit;
 	/** 页面尾部灰色背景区域 */
 	private View message_listview_v_end;
+	/**
+	 * 无数据显示布局
+	 */
+	private LinearLayout ll_no_data_page;
 	/** 总list */
 	private List<MessageInfoEntity> list = new ArrayList<MessageInfoEntity>();
 	/** 适配器 */
@@ -73,19 +78,29 @@ public class MessageSystemToastFragment extends BaseFragment implements
 				list.clear();
 				/** 总集合添加 */
 				list.addAll(result);
-				if(result.size() > 0)
+				if(result.size() > 0) {
+					ll_no_data_page.setVisibility(View.GONE);
+					listview.setVisibility(View.VISIBLE);
 					message_listview_v_end.setVisibility(View.VISIBLE);
-				else
+				} else {
+					ll_no_data_page.setVisibility(View.VISIBLE);
+					listview.setVisibility(View.GONE);
 					message_listview_v_end.setVisibility(View.GONE);
+				}
 				break;
 			case 2:// 第一次加载
 				listview.onRefreshComplete();
 				list.clear();
 				list.addAll(result);
-				if(result.size() > 0)
+				if(result.size() > 0) {
+					ll_no_data_page.setVisibility(View.GONE);
+					listview.setVisibility(View.VISIBLE);
 					message_listview_v_end.setVisibility(View.VISIBLE);
-				else
+				} else {
+					ll_no_data_page.setVisibility(View.VISIBLE);
+					listview.setVisibility(View.GONE);
 					message_listview_v_end.setVisibility(View.GONE);
+				}
 				break;
 			case AutoListView.LOAD:
 				listview.onLoadComplete();
@@ -123,6 +138,7 @@ public class MessageSystemToastFragment extends BaseFragment implements
 				.findViewById(R.id.message_listview_toast);
 		filter_edit = (ClearEditText) view_Parent.findViewById(R.id.filter_edit);
 		message_listview_v_end = (View) view_Parent.findViewById(R.id.message_listview_v_end);
+		ll_no_data_page = (LinearLayout) view_Parent.findViewById(R.id.ll_no_data_page);
 	}
 	@Override
 	public void onHiddenChanged(boolean hidden) {

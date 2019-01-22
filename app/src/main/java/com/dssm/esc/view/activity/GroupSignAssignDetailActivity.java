@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +22,14 @@ import com.dssm.esc.model.analytical.implSevice.ControlServiceImpl;
 import com.dssm.esc.model.entity.emergency.ChildEntity;
 import com.dssm.esc.model.entity.emergency.GroupEntity;
 import com.dssm.esc.model.entity.emergency.PlanTreeEntity;
+import com.dssm.esc.util.CharacterParser;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.treeview.TreeNode;
 import com.dssm.esc.util.treeview.TreeView;
 import com.dssm.esc.util.treeview.view.MyNodeViewFactory;
+import com.dssm.esc.view.widget.ClearEditText;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -42,7 +47,9 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 	private RadioGroup mSegmentControl;
 	@ViewInject(R.id.segment_control_sign_grop2)
 	private RadioGroup mSegmentControl2;
-
+	/** 搜索输入框 */
+	@ViewInject(R.id.filter_edit)
+	private ClearEditText filter_edit;
 	@ViewInject(R.id.rb_receive_all)
 	private RadioButton rb_receive_all;
 	@ViewInject(R.id.rb_received)
@@ -56,26 +63,27 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 	private RadioButton rb_signed;
 	@ViewInject(R.id.rb_not_sign)
 	private RadioButton rb_not_sign;
-
 	/** 暂无数据 */
 	@ViewInject(R.id.ll_no_data)
 	private LinearLayout ll_no_data;
-
-	/** 签到，未签到列表 */
+    /** 已签到或已接收列表 */
 	private List<PlanTreeEntity> list1 = new ArrayList<>();
+    /** 未签到或未接收列表 */
 	private List<PlanTreeEntity> list0 = new ArrayList<>();
-	/** 父list显示预案 */
+	/** 全部数据列表*/
 	private List<PlanTreeEntity> planTreeList = new ArrayList<>();
-	/** 子list显示组 */
-	private List<GroupEntity> groupList = new ArrayList<>();
-	/** 子list显示人 */
-	private List<ChildEntity> childList = new ArrayList<>();
-	/** 1,应急通知接收详情;2,应急小组签到情况 */
+    /** 搜索过滤后数据 */
+    private List<PlanTreeEntity> searchPlanTreeList = new ArrayList<>();
+    /** 汉字转换成拼音的类 */
+    private CharacterParser characterParser = CharacterParser.getInstance();
+    /** 1,应急通知接收详情；2,应急小组签到情况 */
 	private String tag = "";
-	/** 1,全部;2,已接受3，未接收 (SegmentControl点击) */
+	/** 1,全部；2,已接收；3,未接收 (SegmentControl点击) */
 	private int sem_tags = 1;
 	/** 预案执行编号 */
 	private String id;
+    /** 搜索字符串 */
+	private String filterStr = "";
 	@ViewInject(R.id.id_swipe_ly)
 	private SwipeRefreshLayout mSwipeLayout;
 
@@ -87,6 +95,7 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 			switch (msg.what) {
 			case 0:
 				planTreeList = (List<PlanTreeEntity>) msg.obj;
+                searchPlanTreeList = planTreeList;
 				addTreeView();
 				if (planTreeList.size() == 0) {
 					mSwipeLayout.setVisibility(View.GONE);
@@ -101,7 +110,9 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 			case 1:
 				List<PlanTreeEntity> result = (List<PlanTreeEntity>) msg.obj;
 				planTreeList.clear();
+                searchPlanTreeList.clear();
 				planTreeList.addAll(result);
+                filterData(filterStr);
 				Log.i("========", "handler");
 				mSwipeLayout.setRefreshing(false);
 				if (planTreeList.size() == 0) {
@@ -118,7 +129,7 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 					list1.clear();
 				}
 				separateData();
-				initData(sem_tags, tag);
+				initData(sem_tags);
 				break;
 			default:
 				break;
@@ -128,10 +139,10 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 
 	//分离已接收和未接收或已签到和未签到数据
 	private void separateData() {
-		for (int i = 0; i < planTreeList.size(); i++) {
+		for (int i = 0; i < searchPlanTreeList.size(); i++) {
 			PlanTreeEntity planTreeEntity1 = new PlanTreeEntity();
 			PlanTreeEntity planTreeEntity0 = new PlanTreeEntity();
-			List<GroupEntity> groupEntityList = planTreeList.get(i).getEmeGroups();
+			List<GroupEntity> groupEntityList = searchPlanTreeList.get(i).getEmeGroups();
 			List<GroupEntity> groupEntityList1 = new ArrayList<>();
 			List<GroupEntity> groupEntityList0 = new ArrayList<>();
 			for (int j = 0; j < groupEntityList.size(); j++) {
@@ -187,12 +198,12 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 				}
 			}
 			if(groupEntityList1.size() > 0) {
-				planTreeEntity1.setName(planTreeList.get(i).getName());
+				planTreeEntity1.setName(searchPlanTreeList.get(i).getName());
 				planTreeEntity1.setEmeGroups(groupEntityList1);
 				list1.add(planTreeEntity1);
 			}
 			if(groupEntityList0.size() > 0) {
-				planTreeEntity0.setName(planTreeList.get(i).getName());
+				planTreeEntity0.setName(searchPlanTreeList.get(i).getName());
 				planTreeEntity0.setEmeGroups(groupEntityList0);
 				list0.add(planTreeEntity0);
 			}
@@ -227,6 +238,25 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 			mSegmentControl.setVisibility(View.GONE);
 			mSegmentControl2.setVisibility(View.VISIBLE);
 		}
+        // 初始化，默认加载任务通知界面
+        filter_edit.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                filterData(s.toString());
+            }
+        });
 		mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
@@ -235,23 +265,31 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 		initListData();
 	}
 
-	private void initData(int sem_tags, String tag) {
+	private void initData(int sem_tags) {
 		if (sem_tags == 1) {
 			root.getChildren().clear();
-			buildTree(planTreeList);
+			buildTree(searchPlanTreeList);
+            if (searchPlanTreeList.size() == 0) {
+                mSwipeLayout.setVisibility(View.GONE);
+                ll_no_data.setVisibility(View.VISIBLE);
+            } else {
+                mSwipeLayout.setVisibility(View.VISIBLE);
+                ll_no_data.setVisibility(View.GONE);
+            }
 			treeView.refreshTreeView();
+            treeView.expandAll();
 		} else if (sem_tags == 2) {
 			root.getChildren().clear();
 			buildTree(list1);
 			if (list1.size() == 0) {
 				mSwipeLayout.setVisibility(View.GONE);
 				ll_no_data.setVisibility(View.VISIBLE);
-				treeView.refreshTreeView();
 			} else {
 				mSwipeLayout.setVisibility(View.VISIBLE);
 				ll_no_data.setVisibility(View.GONE);
-				treeView.refreshTreeView();
 			}
+            treeView.refreshTreeView();
+            treeView.expandAll();
 		} else if (sem_tags == 3) {
 			root.getChildren().clear();
 			buildTree(list0);
@@ -261,8 +299,9 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 			} else {
 				mSwipeLayout.setVisibility(View.VISIBLE);
 				ll_no_data.setVisibility(View.GONE);
-				treeView.refreshTreeView();
 			}
+            treeView.refreshTreeView();
+            treeView.expandAll();
 		}
 	}
 
@@ -301,6 +340,7 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 				String Exceptionerror) {
 			// TODO Auto-generated method stub
 			List<PlanTreeEntity> dataList = null;
+			//第一次加载
 			if (i != 1) {
 				Log.i("========", "initListData()0");
 				if (backValue != null) {
@@ -316,7 +356,9 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 				message.what = 0;
 				message.obj = dataList;
 				handler.sendMessage(message);
-			} else if (i == 1) {
+			}
+			//刷新
+			else if (i == 1) {
 				Log.i("=========", "initListData()1");
 				if (backValue != null) {
 					dataList = backValue;
@@ -407,4 +449,65 @@ public class GroupSignAssignDetailActivity extends BaseActivity implements
 				break;
 		}
 	}
+
+    /**
+     * 根据输入框中的值来过滤数据并更新ListView
+     */
+    private void filterData(String filterStr) {
+        this.filterStr = filterStr;
+        List<PlanTreeEntity> filterList = new ArrayList<PlanTreeEntity>();
+        if (TextUtils.isEmpty(filterStr)) {
+            filterList = planTreeList;
+        } else {
+            filterList.clear();
+            for (int i = 0; i < planTreeList.size(); i++) {
+                PlanTreeEntity first = new PlanTreeEntity();
+                List<GroupEntity> second = new ArrayList<>();
+                List<GroupEntity> emeGroups = planTreeList.get(i).getEmeGroups();
+                for (int j = 0; j < emeGroups.size(); j++) {
+                    GroupEntity groupEntity = new GroupEntity();
+                    List<ChildEntity> cList = emeGroups.get(j).getcList();
+                    List<ChildEntity> third = new ArrayList<>();
+                    for (int k = 0; k < cList.size(); k++) {
+                        if (cList.get(k).getName().indexOf(filterStr.toString()) != -1
+                                || characterParser.getSelling(cList.get(k).getName()).startsWith(
+                                filterStr.toString())
+                                || cList.get(k).getEmergTeam().indexOf(filterStr.toString()) != -1
+                                || characterParser.getSelling(cList.get(k).getEmergTeam()).startsWith(
+                                filterStr.toString())) {
+                            third.add(cList.get(k));
+                        }
+                    }
+                    if(third.size() > 0)
+                    {
+                        groupEntity.setGroup_id(emeGroups.get(j).getGroup_id());
+                        groupEntity.setGroupname(emeGroups.get(j).getGroupname());
+                        groupEntity.setcList(third);
+                        second.add(groupEntity);
+                    }
+                }
+                if(second.size() > 0) {
+                    first.setTreeId(planTreeList.get(i).getTreeId());
+                    first.setName(planTreeList.get(i).getName());
+                    first.setEmeGroups(second);
+                    filterList.add(first);
+                }
+            }
+            // 根据a-z进行排序
+            // Collections.sort(groupList, pinyinComparator);
+        }
+
+        // 如果查询的结果为0时，显示为搜索到结果的提示
+        if (filterList.size() == 0) {
+            mSwipeLayout.setVisibility(View.GONE);
+            ll_no_data.setVisibility(View.VISIBLE);
+        }
+        else {
+            searchPlanTreeList = filterList;
+            initData(sem_tags);
+            mSwipeLayout.setVisibility(View.VISIBLE);
+            ll_no_data.setVisibility(View.GONE);
+        }
+    }
+
 }

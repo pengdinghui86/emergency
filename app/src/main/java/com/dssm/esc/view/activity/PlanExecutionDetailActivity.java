@@ -201,12 +201,12 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
     private void initView() {
         back.setOnClickListener(this);
         title.setText(childEntity.getProcessName());
-        //判断节点不显示操作手册
         if(!childEntity.getNodeStepType().equals("ExclusiveGateway")) {
             operation.setVisibility(View.VISIBLE);
             done_status_title.setText("完成状态");
             operation.setOnClickListener(this);
         }
+        //判断节点不显示操作手册
         else {
             operation.setVisibility(View.GONE);
             done_status_title.setText("选择分支");
@@ -532,6 +532,12 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 Log.i("message", message);
                 if (!message.equals("") || childEntity.getNodeStepType().equals("ExclusiveGateway")) {
 
+                    if("".equals(changeStatus) && "完成状态".equals(done_status_title))
+                    {
+                        ToastUtil.showLongToast(PlanExecutionDetailActivity.this,
+                                "完成状态必选");
+                        return;
+                    }
                     if (!planPerformId.equals("") && !planInfoId.equals("")) {
                         Utils.getInstance().showProgressDialog(
                                 PlanExecutionDetailActivity.this, "",

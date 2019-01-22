@@ -64,6 +64,8 @@ public class PlanSuspandParser {
 							"DOMAIN"));
 			params.addHeader("Cookie", sbSession.toString());
 		}
+		params.addHeader("Content-Type", "text/html");    //这行很重要
+		params.addHeader("charset", "utf-8");         //这行很重要);
 		params.addParameter("id", suspandEntity.getId());
 		params.addParameter("suspendType", suspandEntity.getSuspendType());
 		params.addParameter("planSuspendOpition", suspandEntity.getPlanSuspendOpition());

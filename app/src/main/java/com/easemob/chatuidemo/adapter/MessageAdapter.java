@@ -466,26 +466,7 @@ public class MessageAdapter extends BaseAdapter{
 				statusView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						if (wf.get() == null && !(wf.get() instanceof ChatActivity))
-							return;
-						// 显示重发消息的自定义alertdialog
-						Intent intent = new Intent(wf.get(), AlertDialog.class);
-						intent.putExtra("msg", wf.get().getString(R.string.confirm_resend));
-						intent.putExtra("title", wf.get().getString(R.string.resend));
-						intent.putExtra("cancel", true);
-						intent.putExtra("position", position);
-						if (message.getContentType() == ContentType.text)
-							((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_TEXT);
-						else if (message.getContentType() == ContentType.voice)
-							((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_VOICE);
-						else if (message.getContentType() == ContentType.image)
-							((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_PICTURE);
-						else if (message.getContentType() == ContentType.location)
-							((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_LOCATION);
-						else if (message.getContentType() == ContentType.file)
-							((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_FILE);
-						else if (message.getContentType() == ContentType.video)
-							((ChatActivity) wf.get()).startActivityForResult(intent, ChatActivity.REQUEST_CODE_VIDEO);
+						handleTextMessage(message, holder, position);
 					}
 				});
 			}

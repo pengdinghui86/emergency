@@ -5,12 +5,10 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.dssm.esc.R;
@@ -20,18 +18,13 @@ import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
 import com.dssm.esc.model.database.DataBaseUtil;
 import com.dssm.esc.model.entity.message.FirstAllMessagesEntity;
 import com.dssm.esc.model.entity.message.MessageInfoEntity;
-import com.dssm.esc.model.entity.message.MessageStatusEnum;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.MessageCountEvent;
 import com.dssm.esc.util.event.Toast;
 import com.dssm.esc.util.event.mainEvent;
-import com.dssm.esc.view.activity.DismissValuationActivity;
-import com.dssm.esc.view.activity.EventPlanListActivity;
 import com.dssm.esc.view.activity.MainActivity;
-import com.dssm.esc.view.activity.PersonSignInActivity;
-import com.dssm.esc.view.activity.EventListActivity;
 import com.dssm.esc.view.adapter.MessageListAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.ClearEditText;
@@ -58,6 +51,10 @@ public class MessageTaskToastFragment extends BaseFragment implements
 	private ClearEditText filter_edit;
 	/** 页面尾部灰色背景区域 */
 	private View message_listview_v_end;
+	/**
+	 * 无数据显示布局
+	 */
+	private LinearLayout ll_no_data_page;
 	/** 适配器 */
 	private MessageListAdapter adapter;
 	/** 当前页数 */
@@ -91,10 +88,15 @@ public class MessageTaskToastFragment extends BaseFragment implements
 				/** 总集合添加 */
 				list.addAll(result);
 //				android.widget.Toast.makeText(getContext(), "" + list.size(), android.widget.Toast.LENGTH_SHORT).show();
-				if(result.size() > 0)
+				if(result.size() > 0) {
+					ll_no_data_page.setVisibility(View.GONE);
+					listview.setVisibility(View.VISIBLE);
 					message_listview_v_end.setVisibility(View.VISIBLE);
-				else
+				} else {
+					ll_no_data_page.setVisibility(View.VISIBLE);
+					listview.setVisibility(View.GONE);
 					message_listview_v_end.setVisibility(View.GONE);
+				}
 				break;
 			case 2:// 第一次加载
 				listview.onRefreshComplete();
@@ -102,10 +104,15 @@ public class MessageTaskToastFragment extends BaseFragment implements
 				list.clear();
 				list.addAll(result);
 //				android.widget.Toast.makeText(getContext(), "" + list.size(), android.widget.Toast.LENGTH_SHORT).show();
-				if(result.size() > 0)
+				if(result.size() > 0) {
+					ll_no_data_page.setVisibility(View.GONE);
+					listview.setVisibility(View.VISIBLE);
 					message_listview_v_end.setVisibility(View.VISIBLE);
-				else
+				} else {
+					ll_no_data_page.setVisibility(View.VISIBLE);
+					listview.setVisibility(View.GONE);
 					message_listview_v_end.setVisibility(View.GONE);
+				}
 				break;
 			case AutoListView.LOAD:
 				listview.onLoadComplete();
@@ -155,6 +162,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 				.findViewById(R.id.message_listview_toast);
 		filter_edit = (ClearEditText) view_Parent.findViewById(R.id.filter_edit);
 		message_listview_v_end = (View) view_Parent.findViewById(R.id.message_listview_v_end);
+		ll_no_data_page = (LinearLayout) view_Parent.findViewById(R.id.ll_no_data_page);
 	}
 
 	@Override

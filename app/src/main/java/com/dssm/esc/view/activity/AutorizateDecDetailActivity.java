@@ -254,11 +254,11 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 				suspandEntity.setPlanName(planName);
 				planResType = obj2.getPlanResType();
 				plan_type.setText(planTypeName);
-				if (planResType.equals("1")) {
-					planResType="应急";
-				} else if (planResType.equals("2")) {
-					planResType="演练";
-				}
+//				if (planResType.equals("1")) {
+//					planResType="应急";
+//				} else if (planResType.equals("2")) {
+//					planResType="演练";
+//				}
 				suspandEntity.setPlanResType(planResType);
 				suspandEntity.setPlanId(obj2.getPlanId());
 				suspandEntity.setPlanResName(obj2.getPlanResName());

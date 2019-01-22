@@ -76,16 +76,40 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/filter_edit_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="8dp"
+        android:gravity="center">
+
+        <com.dssm.esc.view.widget.ClearEditText
+            android:id="@+id/filter_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_bg"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="10dp"
+            android:hint="@string/editflithint"
+            android:textColorHint="@color/colorWeFontGray_9"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp"
+            android:singleLine="true"
+            style="@style/normal_text"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/id_swipe_ly"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<ExpandableListView-->
-            <!--android:id="@+id/expandable_signin_grop"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:indicatorLeft="1sp" />-->
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <include layout="@layout/no_data"/>

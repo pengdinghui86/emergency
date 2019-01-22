@@ -316,7 +316,7 @@ public class EventPlanListActivity extends BaseActivity implements
         return planEntity;
     }
 
-    private PlanSuspandEntity convert2PlanSuspandEntity(PlanStarListEntity planStarListEntity, String opinion)
+    private PlanSuspandEntity convert2PlanSuspandEntity(PlanStarListEntity planStarListEntity, String opinion, String submitterId)
     {
         PlanSuspandEntity planSuspandEntity = new PlanSuspandEntity();
         String planName = planStarListEntity.getPlanName();
@@ -324,13 +324,7 @@ public class EventPlanListActivity extends BaseActivity implements
         planSuspandEntity.setSuspendType("authSuspend");
         planSuspandEntity.setPlanSuspendOpition(opinion);
         planSuspandEntity.setPlanName(planName);
-        String planResType = planStarListEntity.getPlanResType();
-        if (planResType.equals("1")) {
-            planResType="应急";
-        } else if (planResType.equals("2")) {
-            planResType="演练";
-        }
-        planSuspandEntity.setPlanResType(planResType);
+        planSuspandEntity.setPlanResType(planStarListEntity.getPlanResType());
         planSuspandEntity.setPlanId(planStarListEntity.getPlanId());
         planSuspandEntity.setPlanResName(planStarListEntity.getPlanResName());
         planSuspandEntity.setTradeTypeId(planStarListEntity.getTradeTypeId());
@@ -344,7 +338,7 @@ public class EventPlanListActivity extends BaseActivity implements
         }
         else
             planSuspandEntity.setPlanAuthorId(planAuthorId);
-        planSuspandEntity.setSubmitterId(planStarListEntity.getSubmitterId());
+        planSuspandEntity.setSubmitterId(submitterId);
         return planSuspandEntity;
     }
 
@@ -421,7 +415,17 @@ public class EventPlanListActivity extends BaseActivity implements
                                                         EventPlanListActivity.this,
                                                         "验证码错误", Toast.LENGTH_SHORT).show();
                                             } else {
-                                                planSuspand(convert2PlanSuspandEntity(list.get(position), info));
+                                                if(position < 0)
+                                                    return;
+                                                String submitterId = "";
+                                                int i = position;
+                                                for(; i >= 0; i--){
+                                                    if(0 == list.get(i).getDataType()) {
+                                                        submitterId = list.get(i).getSubmitterId();
+                                                        break;
+                                                    }
+                                                }
+                                                planSuspand(convert2PlanSuspandEntity(list.get(position), info, submitterId));
                                             }
                                         }
                                     })
