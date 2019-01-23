@@ -23,7 +23,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +33,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -64,7 +62,6 @@ import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.activity.EditIPActivity;
 import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.adapter.PopRoleSelectListviewAdapter;
-import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chatuidemo.Constant;
 import com.easemob.chatuidemo.DemoApplication;
 import com.easemob.chatuidemo.db.UserDao;
@@ -82,7 +79,6 @@ import java.util.Map;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.RequestCallback;
-import cn.jpush.im.android.api.enums.PlatformType;
 import cn.jpush.im.android.api.model.DeviceInfo;
 import cn.jpush.im.android.api.model.UserInfo;
 import cn.jpush.im.android.api.options.RegisterOptionalUserInfo;
@@ -91,7 +87,7 @@ import cn.jpush.im.api.BasicCallback;
 /**
  * 登录页面
  * (两种方式：第一种，前台把用户名和密码传给后台，后台就收到收据后再去登录环信，返回给前台登录状态；第二种:前台先把用户名和密码传给后台，若登录成功
- * ，再去登录环信，两次登录都成功后才进入主界面)；注：登录环信界面对用户不可见，此代码是第二种方式
+ * ，再去登录IM，两次登录都成功后才进入主界面)；注：登录IM对用户不可见，此代码是第二种方式
  */
 public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
@@ -173,11 +169,7 @@ public class LoginActivity extends BaseActivity {
 
     private final int GET_UNDATAINFO_ERROR = 2;
 
-    private final int SDCARD_NOMOUNTED = 3;
-
     private final int DOWN_ERROR = 4;
-
-    private Button getVersion;
 
     private UpdataInfo info;
     private String localVersion;
@@ -202,7 +194,6 @@ public class LoginActivity extends BaseActivity {
                 selectedRolem = userLoginObjEntity.getRoleId();
                 selectedRolemName = userLoginObjEntity.getRoleName();
                 roleCode = userLoginObjEntity.getRoleCode();
-                // service.save(selectedRolem);
                 userId = userEntity.getAttributes().getId();
                 name = userEntity.getAttributes().getName();
                 service.save(
@@ -215,19 +206,6 @@ public class LoginActivity extends BaseActivity {
                         userEntity
                                 .getAttributes()
                                 .getPostFlag(), userId, selectedRolemName, roleCode, name);
-                Log.i("LoginActivity被选中的角色id",
-                        selectedRolem);
-                Log.i("LoginActivity被选中的角色名称",
-                        selectedRolemName);
-                Log.i("LoginActivity被选中的角色编号",
-                        roleCode);
-                // 进入主页面
-//															Intent intent = new Intent(
-//																	LoginActivity.this,
-//																	MainActivity.class);
-//															startActivity(intent);
-//
-//															finish();
                 versionUpdate();
             } else if (stRerror != null) {
                 if (pd != null) {
@@ -249,7 +227,6 @@ public class LoginActivity extends BaseActivity {
                                 LoginActivity.this,
                                 str);
             }
-//            Utils.getInstance().hideProgressDialog();
         }
     };
 
@@ -277,7 +254,6 @@ public class LoginActivity extends BaseActivity {
                 ToastUtil.showLongToast(LoginActivity.this,
                         str);
             }
-//            Utils.getInstance().hideProgressDialog();
         }
     };
 
@@ -288,25 +264,6 @@ public class LoginActivity extends BaseActivity {
 
                 case 11:
                     initPopupWindow();
-//                    new Builder(LoginActivity.this)
-//                            .setTitle("请选择角色")
-//                            .setIcon(android.R.drawable.ic_dialog_info)
-//                            .setSingleChoiceItems(identity, 0,
-//                                    new DialogInterface.OnClickListener() {
-//                                        public void onClick(DialogInterface dialog,
-//                                                            final int which) {
-//                                            dialog.dismiss();
-//                                            ToastUtil.showLongToast(LoginActivity.this,
-//                                                    "你选择了: " + identity[which]);
-//                                            curWhich = which;
-//                                            // 选择角色
-//                                            sevice.loginRole(
-//                                                    rolesId[which], loginRoleListener);
-//
-//                                        }
-//
-//                                    }).setNegativeButton("取消", null).show();
-
                     break;
                 case 12:
                     Utils.getInstance().showProgressDialog(LoginActivity.this, "",
@@ -314,7 +271,6 @@ public class LoginActivity extends BaseActivity {
                     sevice.loginRole(rolesId[0], loginRoleListener2);
                     break;
                 case UPDATA_NONEED:
-//				ToastUtil.showToast(getApplicationContext(), "不需要更新");
                     Intent intent = new Intent(LoginActivity.this,
                             MainActivity.class);
                     startActivity(intent);
@@ -326,7 +282,6 @@ public class LoginActivity extends BaseActivity {
                     break;
                 case GET_UNDATAINFO_ERROR:
                     // 服务器超时
-                //    ToastUtil.showToast(getApplicationContext(), "获取服务器更新信息失败");
                     Intent intent2 = new Intent(LoginActivity.this,
                             MainActivity.class);
                     startActivity(intent2);
@@ -484,21 +439,17 @@ public class LoginActivity extends BaseActivity {
         builer.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 LoginMain();
-//				loing();
             }
         });
         AlertDialog dialog = builer.create();
         dialog.setCanceledOnTouchOutside(false);//调用这个方法时，按对话框以外的地方不起作用。按返回键还起作用
-        //dialog.setCanceleable(false);调用这个方法时，按对话框以外的地方不起作用。按返回键也不起作用
         dialog.show();
-
     }
 
-	/*
+	/**
      *
 	 * 从服务器中下载APK
 	 */
-
     protected void downLoadApk() {
         final ProgressDialog pd; // 进度条对话框
         pd = new ProgressDialog(this);
@@ -536,17 +487,16 @@ public class LoginActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    /*
+    /**
      * 进入程序的主界面
      */
     private void LoginMain() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
-        // 结束掉当前的activity
         this.finish();
     }
 
-    /*
+    /**
      * 获取当前程序的版本号
      */
     private String getVersionName() throws Exception {
@@ -565,7 +515,7 @@ public class LoginActivity extends BaseActivity {
                 String Exceptionerror) {
             // TODO Auto-generated method stub
             String str = null;
-            // 若登录成功，再访问环信服务器
+            // 若登录成功，再访问IM服务器
             if (object != null) {
                 str = "登录成功";
                 if (object instanceof UserEntity) {
@@ -628,7 +578,6 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        setStatusBarState();
         View findViewById = findViewById(R.id.login);
         findViewById.setFitsSystemWindows(true);
         sevice = Control.getinstance().getUserSevice();
@@ -657,7 +606,6 @@ public class LoginActivity extends BaseActivity {
             Log.i("onFailure", MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("loginName"));
             Log.i("onFailure", MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("password"));
             sevice.login(currentUsername, currentPassword, listener);
-
             return;
         }
 
@@ -681,10 +629,6 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        // if (DemoApplication.getInstance().getUserName() != null) {
-        // usernameEditText.setText(DemoApplication.getInstance()
-        // .getUserName());
-        // }
         // 当退出登录的时候，可以显示用户名
         if (map.get("loginName") != null) {
             usernameEditText.setText(map.get("loginName"));
@@ -698,29 +642,13 @@ public class LoginActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-//            usernameEditText.setText("");
-//            passwordEditText.setText("");
             usernameEditText.requestFocus();
         }
     }
 
-    /**
-     * 将字符串用","切割成数组
-     *
-     * @param str
-     * @return
-     */
-    private String[] convertStrToArray(String str) {
-        String[] strArray = null;
-        strArray = str.split(","); // 拆分字符为"," ,然后把结果交给数组strArray
-        return strArray;
-    }
-
     public void editip(View view) {
-
         Intent intent = new Intent(LoginActivity.this, EditIPActivity.class);
         startActivityForResult(intent, 1);
-
     }
 
     private UserSeviceImpl.UserSeviceImplListListenser listListener = new UserSeviceImpl.UserSeviceImplListListenser() {
@@ -730,18 +658,17 @@ public class LoginActivity extends BaseActivity {
                 String stRerror, String Exceptionerror) {
             // TODO Auto-generated method stub
             String str = null;
-            // 若登录成功，再访问环信服务器
+            // 若登录成功，再访问IM服务器
             if (object != null) {
                 str = "登录成功";
                 userEntity = (UserEntity) object;
                 if (userEntity.getSuccess().equals("true")) {
                     // 把户名和密码角色保存到PreferencesService中
-
                     Log.i("LoginActivity角色", map.get("roleNames"));
                     Log.i("LoginActivity用户名", map.get("loginName"));
                     Log.i("LoginActivity密码", map.get("password"));
                     userId = userEntity.getAttributes().getId();
-                    // 先去环信服务器注册（环信的用户名唯一，所以要用唯一标识去注册，这里用userID当环信的用户名和密码，即使本地的用户名和密码改变了也不用修改）
+                    // 先去极光IM服务器注册（极光IM的用户名唯一，所以要用唯一标识去注册，这里用userID当极光IM的用户名和密码，即使本地的用户名和密码改变了也不用修改）
                     hxuserid = userId.replace("-", "_");
                     register(hxuserid, hxuserid);
 
@@ -785,12 +712,9 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 登录ESC服务器
-     *
      * @param view
      */
     public void login(View view) {
-//        Toast.makeText(this, DemoApplication.getInstance().getUrl()+HttpUrl.LOGIN,
-//                Toast.LENGTH_LONG).show();
         if (!CommonUtils.isNetWorkConnected(this)) {
             Toast.makeText(this, R.string.network_isnot_available,
                     Toast.LENGTH_SHORT).show();
@@ -798,7 +722,6 @@ public class LoginActivity extends BaseActivity {
         }
         currentUsername = usernameEditText.getText().toString().trim();
         currentPassword = passwordEditText.getText().toString().trim();
-
         if (TextUtils.isEmpty(currentUsername)) {
             Toast.makeText(this, R.string.User_name_cannot_be_empty,
                     Toast.LENGTH_SHORT).show();
@@ -809,7 +732,6 @@ public class LoginActivity extends BaseActivity {
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
         progressShow = true;
         pd = new ProgressDialog(LoginActivity.this);
         pd.setCanceledOnTouchOutside(false);
@@ -826,43 +748,7 @@ public class LoginActivity extends BaseActivity {
         final long start = System.currentTimeMillis();
 
         // 先访问ESC服务器
-
         sevice.login(currentUsername, currentPassword, listListener);
-
-    }
-
-    private void initializeContacts() {
-        Map<String, User> userlist = new HashMap<String, User>();
-        // 添加user"申请与通知"
-        User newFriends = new User();
-//        newFriends.setUsername(Constant.NEW_FRIENDS_USERNAME);
-        String strChat = getResources().getString(
-                R.string.Application_and_notify);
-//        newFriends.setNick(strChat);
-
-        userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
-        // 添加"群聊"
-        User groupUser = new User();
-        String strGroup = getResources().getString(R.string.group_chat);
-//        groupUser.setUsername(Constant.GROUP_USERNAME);
-//        groupUser.setNick(strGroup);
-        groupUser.setHeader("");
-        userlist.put(Constant.GROUP_USERNAME, groupUser);
-
-        // 添加"Robot"
-        User robotUser = new User();
-        String strRobot = getResources().getString(R.string.robot_chat);
-//        robotUser.setUsername(Constant.CHAT_ROBOT);
-//        robotUser.setNick(strRobot);
-        robotUser.setHeader("");
-        userlist.put(Constant.CHAT_ROBOT, robotUser);
-
-        // 存入内存
-//        ((DemoHXSDKHelper) HXSDKHelper.getInstance()).setContactList(userlist);
-        // 存入db
-        UserDao dao = new UserDao(LoginActivity.this);
-        List<User> users = new ArrayList<User>(userlist.values());
-        dao.saveContactList(users);
     }
 
     /**
@@ -951,12 +837,7 @@ public class LoginActivity extends BaseActivity {
                         return;
                     }
                     try {
-                        // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
-                        // ** manually load all local groups and
-//                        EMGroupManager.getInstance().loadAllGroups();
-//                        EMChatManager.getInstance().loadAllConversations();
-                        // 处理好友和群组
-//                        initializeContacts();
+                        //如果当前用户昵称为空则更新
                         if("".equals(JMessageClient.getMyInfo().getNickname())) {
                             String nickName = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("name");
                             UserInfo userInfo = JMessageClient.getMyInfo();
@@ -981,14 +862,6 @@ public class LoginActivity extends BaseActivity {
                         });
                         return;
                     }
-                    // 更新当前用户的nickname
-                    // 此方法的作用是在ios离线推送时能够显示用户nick
-//                    boolean updatenick = EMChatManager.getInstance()
-//                            .updateCurrentUserNick(
-//                                    DemoApplication.currentUserNick.trim());
-//                    if (!updatenick) {
-//                        Log.e("LoginActivity", "update current user nick fail");
-//                    }
                     if (!LoginActivity.this.isFinishing() && pd.isShowing()) {
                         pd.dismiss();
                     }
@@ -1048,43 +921,6 @@ public class LoginActivity extends BaseActivity {
             handler.sendMessage(message);
 
         }
-    }
-
-    /**
-     * 沉浸式（api19）
-     *
-     * @param on
-     * @version 1.0
-     * @createTime 2015-9-17,上午11:05:15
-     * @updateTime 2015-9-17,上午11:05:15
-     * @createAuthor Zsj
-     * @updateAuthor
-     * @updateInfo (此处输入修改内容, 若无修改可不写.)
-     */
-    protected void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
-
-    private void setStatusBarState() {
-        // TODO Auto-generated method stub
-        if (Build.VERSION.SDK_INT >= 19) {
-            setTranslucentStatus(true);
-            mTintManager = new SystemBarTintManager(this);
-            mTintManager.setStatusBarTintEnabled(true);
-            // 使StatusBarTintView 和 actionbar的颜色保持一致，风格统一。
-            mTintManager.setStatusBarTintResource(R.color.title_bg);
-            // 设置状态栏的文字颜色
-            mTintManager.setStatusBarDarkMode(false, this);
-        }
-
     }
 
     /**

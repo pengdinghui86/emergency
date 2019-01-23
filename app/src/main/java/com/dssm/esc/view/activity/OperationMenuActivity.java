@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.dssm.esc.R;
 import com.dssm.esc.util.Const;
 import com.dssm.esc.util.HttpUrl;
+import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.easemob.chatuidemo.DemoApplication;
 
@@ -95,7 +96,7 @@ public class OperationMenuActivity extends BaseActivity {
             planInfoId = intent.getStringExtra("planInfoId");
             url = DemoApplication.getInstance().getUrl() + HttpUrl.SHOWALLOPENMANUAL + "?planResType=" + planResType
                     + "&drillPrecautionId=" + drillPrecautionId
-                    + "&planInfoId=" + planInfoId;
+                    + "&planInfoId=" + planInfoId + "&postFlag=" + MySharePreferencesService.getInstance(context).getcontectName("postFlag");
         } else if (tag.equals("2")) {
             manualDetailId = intent.getStringExtra("manualDetailId");
             name = intent.getStringExtra("name");

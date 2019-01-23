@@ -14,11 +14,15 @@
 package com.easemob.chatuidemo.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.text.Spannable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +45,8 @@ import com.easemob.chatuidemo.DemoApplication;
 import com.easemob.chatuidemo.activity.ChatActivity;
 import com.easemob.chatuidemo.activity.ContextMenu;
 import com.easemob.chatuidemo.utils.SmileUtils;
+
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.Hashtable;
 import java.util.List;
@@ -49,6 +55,7 @@ import java.util.Timer;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
+import cn.jpush.im.android.api.content.VoiceContent;
 import cn.jpush.im.android.api.enums.ContentType;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.enums.MessageStatus;
@@ -173,30 +180,6 @@ public class MessageAdapter extends BaseAdapter{
 		return -1;
 	}
 
-
-	private View createViewByMessage(Message message, int position) {
-		if (ContentType.location.equals(message.getContentType())) {
-			return message.getDirect() == MessageDirect.receive ? inflater.inflate(R.layout.row_received_location, null) : inflater.inflate(
-					R.layout.row_sent_location, null);
-		}
-		else if (ContentType.image.equals(message.getContentType())) {
-			return message.getDirect() == MessageDirect.receive ? inflater.inflate(R.layout.row_received_picture, null) : inflater.inflate(
-					R.layout.row_sent_picture, null);
-		} else if (ContentType.voice.equals(message.getContentType())) {
-			return message.getDirect() == MessageDirect.receive ? inflater.inflate(R.layout.row_received_voice, null) : inflater.inflate(
-					R.layout.row_sent_voice, null);
-		} else if (ContentType.video.equals(message.getContentType())) {
-			return message.getDirect() == MessageDirect.receive ? inflater.inflate(R.layout.row_received_video, null) : inflater.inflate(
-					R.layout.row_sent_video, null);
-		} else if (ContentType.file.equals(message.getContentType())) {
-			return message.getDirect() == MessageDirect.receive ? inflater.inflate(R.layout.row_received_file, null) : inflater.inflate(
-					R.layout.row_sent_file, null);
-		} else {
-			return message.getDirect() == MessageDirect.receive ? inflater.inflate(R.layout.row_received_message,
-					null) : inflater.inflate(R.layout.row_sent_message, null);
-		}
-	}
-
 	@SuppressLint("NewApi")
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final Message message = getItem(position);
@@ -208,7 +191,7 @@ public class MessageAdapter extends BaseAdapter{
 				holder.direction = 1;
 			else
 				holder.direction = 2;
-			convertView = createViewByMessage(message, position);
+			convertView = createViewByMessage(message);
 			if (chatType == ContentType.image) {
 				try {
 					holder.iv = ((ImageView) convertView.findViewById(R.id.iv_sendPicture));
@@ -304,7 +287,7 @@ public class MessageAdapter extends BaseAdapter{
 					holder.direction = 1;
 				else
 					holder.direction = 2;
-				convertView = createViewByMessage(message, position);
+				convertView = createViewByMessage(message);
 				if (chatType == ContentType.image) {
 					try {
 						holder.iv = ((ImageView) convertView.findViewById(R.id.iv_sendPicture));
@@ -447,7 +430,7 @@ public class MessageAdapter extends BaseAdapter{
 		}
 		else if (chatType == ContentType.voice)
 		{
-
+			handleVoiceMessage(message, holder);
 		}
 		else if (chatType == ContentType.video)
 		{
@@ -466,7 +449,8 @@ public class MessageAdapter extends BaseAdapter{
 				statusView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						handleTextMessage(message, holder, position);
+						// 发送消息
+						sendMsgInBackground(message, holder);
 					}
 				});
 			}
@@ -506,7 +490,39 @@ public class MessageAdapter extends BaseAdapter{
 		}
 		return convertView;
 	}
-	
+
+	private View createViewByMessage(Message message) {
+		if (ContentType.location == message.getContentType())
+			return message.getDirect() == MessageDirect.receive ?
+					inflater.inflate(R.layout.row_received_location,
+					null) : inflater.inflate(
+					R.layout.row_sent_location, null);
+		else if(ContentType.image == message.getContentType())
+			return message.getDirect() == MessageDirect.receive ?
+					inflater.inflate(R.layout.row_received_picture,
+					null) : inflater.inflate(
+					R.layout.row_sent_picture, null);
+		else if(ContentType.voice == message.getContentType())
+			return message.getDirect() == MessageDirect.receive ?
+					inflater.inflate(R.layout.row_received_voice,
+					null) : inflater.inflate(
+					R.layout.row_sent_voice, null);
+		else if(ContentType.video == message.getContentType())
+			return message.getDirect() == MessageDirect.receive ?
+					inflater.inflate(R.layout.row_received_video,
+					null) : inflater.inflate(
+					R.layout.row_sent_video, null);
+		else if(ContentType.file == message.getContentType())
+			return message.getDirect() == MessageDirect.receive ?
+					inflater.inflate(R.layout.row_received_file,
+					null) : inflater.inflate(
+					R.layout.row_sent_file, null);
+		else
+			return message.getDirect() == MessageDirect.receive ?
+					inflater.inflate(R.layout.row_received_message,
+					null) : inflater.inflate(
+					R.layout.row_sent_message, null);
+	}
 	
 	/**
 	 * 显示用户头像
@@ -569,10 +585,10 @@ public class MessageAdapter extends BaseAdapter{
 				if(holder.staus_iv != null)
 					holder.staus_iv.setVisibility(View.GONE);
 			}
-			else {
-				// 发送消息
-				sendMsgInBackground(message, holder);
-			}
+//			else {
+//				// 发送消息
+//				sendMsgInBackground(message, holder);
+//			}
 		}
 	}
 
@@ -601,13 +617,34 @@ public class MessageAdapter extends BaseAdapter{
 		if (mConversation == null) {
 			mConversation = Conversation.createSingleConversation(name, appkey);
 		}
-		//构造message content对象
-		TextContent textContent = (TextContent) message.getContent();
-		//设置自定义的extra参数
-		textContent.setStringExtra("", "");
+		Message message1 = mConversation.createSendMessage(new TextContent(""), "");
+		String description = "";
+		if(message.getContentType() == ContentType.text) {
+			//构造message content对象
+			TextContent textContent = (TextContent) message.getContent();
+			description = textContent.getText();
+			//设置自定义的extra参数
+			textContent.setStringExtra("", "");
+			message1 = mConversation.createSendMessage(textContent, "");
 
-		//创建message实体，设置消息发送回调。
-		Message message1 = mConversation.createSendMessage(textContent, "");
+		}
+		else if(message.getContentType() == ContentType.voice) {
+			try {
+				VoiceContent voiceContent = (VoiceContent) message.getContent();
+				description = "[语音]";
+				if (!(new File(voiceContent.getLocalPath()).exists())) {
+					return;
+				}
+				File fileMp3 = new File(voiceContent.getLocalPath());
+				MediaPlayer player = new MediaPlayer();
+				player.setDataSource(String.valueOf(fileMp3));
+				player.prepare();
+				int duration = player.getDuration();
+				message1 = mConversation.createSendVoiceMessage(fileMp3, duration);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		message1.setOnSendCompleteCallback(new BasicCallback() {
 			@Override
 			public void gotResult(int i, String s) {
@@ -623,7 +660,14 @@ public class MessageAdapter extends BaseAdapter{
 				updateSendedView(message, holder);
 			}
 		});
-
+		//上传进度
+//            message1.setOnContentUploadProgressCallback(new ProgressUpdateCallback() {
+//                @Override
+//                public void onProgressUpdate(double v) {
+//                    String progressStr = (int) (v * 100) + "%";
+//                    mTv_progress.append("上传进度：" + progressStr + "\n");
+//                }
+//            });
 		//设置消息发送时的一些控制参数
 		MessageSendingOptions options = new MessageSendingOptions();
 		options.setNeedReadReceipt(needReadReceipt);//是否需要对方用户发送消息已读回执
@@ -634,10 +678,74 @@ public class MessageAdapter extends BaseAdapter{
 			options.setNotificationTitle(MySharePreferencesService.getInstance(
 					DemoApplication.getInstance().getApplicationContext()).getcontectName("name"));//自定义对方收到消息时通知栏展示的title
 			options.setNotificationAtPrefix("");//自定义对方收到消息时通知栏展示的@信息的前缀
-			options.setNotificationText(textContent.getText());//自定义对方收到消息时通知栏展示的text
+			options.setNotificationText(description);//自定义对方收到消息时通知栏展示的text
 		}
 		//发送消息
 		JMessageClient.sendMessage(message, options);
+	}
+
+	/**
+	 * 语音消息
+	 *
+	 * @param message
+	 * @param holder
+	 */
+	private void handleVoiceMessage(final Message message, final ViewHolder holder) {
+		VoiceContent voiceContent = (VoiceContent) message.getContent();
+		int len = voiceContent.getDuration();
+		if (len > 0) {
+			holder.tv.setText(voiceContent.getDuration() / 1000 + "\"");
+			holder.tv.setVisibility(View.VISIBLE);
+		} else {
+			holder.tv.setVisibility(View.INVISIBLE);
+		}
+		holder.iv.setOnClickListener(new VoicePlayClickListener(message,
+				holder.iv, holder.iv_read_status, this, (Activity) wf.get()));
+
+		if (wf.get() != null && wf.get() instanceof ChatActivity) {
+
+			if (((ChatActivity) wf.get()).playMsgId == message
+					.getId() && VoicePlayClickListener.isPlaying) {
+				AnimationDrawable voiceAnimation;
+				if (message.getDirect() == MessageDirect.receive) {
+					holder.iv.setImageResource(R.drawable.voice_from_icon);
+				} else {
+					holder.iv.setImageResource(R.drawable.voice_to_icon);
+				}
+				voiceAnimation = (AnimationDrawable) holder.iv.getDrawable();
+				voiceAnimation.start();
+			} else {
+				if (message.getDirect() == MessageDirect.receive) {
+					holder.iv.setImageResource(R.drawable.chatfrom_voice_playing);
+				} else {
+					holder.iv.setImageResource(R.drawable.chatto_voice_playing);
+				}
+			}
+		}
+
+		if (message.getDirect() == MessageDirect.receive) {
+			if (voiceContent.isFileUploaded()) {
+				// 隐藏语音未听标志
+				holder.iv_read_status.setVisibility(View.INVISIBLE);
+			} else {
+				holder.iv_read_status.setVisibility(View.VISIBLE);
+			}
+			return;
+		}
+
+		// until here, deal with send voice msg
+		if (MessageStatus.send_success == message.getStatus()) {
+			holder.pb.setVisibility(View.GONE);
+			holder.staus_iv.setVisibility(View.GONE);
+		} else if (MessageStatus.send_fail == message.getStatus()) {
+			holder.pb.setVisibility(View.GONE);
+			holder.staus_iv.setVisibility(View.VISIBLE);
+		} else if (MessageStatus.send_going == message.getStatus()) {
+			holder.pb.setVisibility(View.VISIBLE);
+			holder.staus_iv.setVisibility(View.GONE);
+		}
+//		else
+//			sendMsgInBackground(message, holder);
 	}
 
 	/**

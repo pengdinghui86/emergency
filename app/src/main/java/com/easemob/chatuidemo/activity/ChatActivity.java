@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,7 +54,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -158,12 +158,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     private ImageView iv_emoticons_normal;
     private ImageView iv_emoticons_checked;
     private RelativeLayout edittext_layout;
-    private ProgressBar loadmorePB;
     private boolean isloading;
     private final int pagesize = 20;
     private boolean haveMoreData = true;
-    // private Button btnMore;
-    public String playMsgId;
+    public int playMsgId = 0;
+    private ProgressDialog mProgressDialog;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -215,12 +214,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
         buttonPressToSpeak = findViewById(R.id.btn_press_to_speak);
         expressionViewpager = (ViewPager) findViewById(R.id.vPager);
         emojiIconContainer = (LinearLayout) findViewById(R.id.ll_face_container);
-        // btnContainer = (LinearLayout) findViewById(R.id.ll_btn_container);
         locationImgview = (ImageView) findViewById(R.id.btn_location);
         iv_emoticons_normal = (ImageView) findViewById(R.id.iv_emoticons_normal);
         iv_emoticons_checked = (ImageView) findViewById(R.id.iv_emoticons_checked);
-        loadmorePB = (ProgressBar) findViewById(R.id.pb_load_more);
-        // btnMore = (Button) findViewById(R.id.btn_more);
         iv_emoticons_normal.setVisibility(View.VISIBLE);
         iv_emoticons_checked.setVisibility(View.INVISIBLE);
         more = findViewById(R.id.more);
@@ -364,6 +360,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     private void setUpView() {
         iv_emoticons_normal.setOnClickListener(this);
         iv_emoticons_checked.setOnClickListener(this);
+        findViewById(R.id.container_remove).setOnClickListener(this);
         // position = getIntent().getIntExtra("position", -1);
         clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -488,10 +485,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             }
         }
         if (resultCode == RESULT_OK) { // 清空消息
-            if (requestCode == REQUEST_CODE_EMPTY_HISTORY) {
-                // 清空会话
-                adapter.refresh();
-            } else if (requestCode == REQUEST_CODE_LOCAL) { // 发送本地图片
+            if (requestCode == REQUEST_CODE_LOCAL) { // 发送本地图片
                 if (data != null) {
                     Uri selectedImage = data.getData();
                     if (selectedImage != null) {
@@ -603,7 +597,29 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             // btnContainer.setVisibility(View.VISIBLE);
             emojiIconContainer.setVisibility(View.GONE);
             more.setVisibility(View.GONE);
+        }
+        else if(id == R.id.container_remove) {
+            String st5 = getResources().getString(
+                    R.string.Whether_to_empty_all_chats);
+            new android.app.AlertDialog.Builder(ChatActivity.this)
+                    .setMessage(st5)
+                    .setPositiveButton("确定",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    // 清空会话
+                                    conversation.deleteAllMessage();
+                                    EventBus.getDefault().post(new mainEvent("refresh"));
+                                    adapter.refresh();
+                                }
+                            })
+                    .setNegativeButton("取消",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
 
+                                }
+                            }).show();
         }
     }
 
@@ -749,10 +765,68 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
             return;
         }
         try {
+            mProgressDialog = ProgressDialog.show(ChatActivity.this, "提示:", "正在发送中。。。");
+            mProgressDialog.setCanceledOnTouchOutside(true);
+            //对方的username
+            String name = toChatUsername;
+            //对方所属应用的appkey，空默认为本应用
+            String appkey = "";
+            //是否保存离线
+            boolean retainOfflineMsg = true;
+            //是否显示通知
+            boolean showNotification = true;
+            //是否开启自定义接收方通知栏
+            boolean enableCustomNotify = true;
+            //是否需要对方发送已读回执
+            boolean needReadReceipt = false;
+
+            //通过username和appkey拿到会话对象，通过指定appkey可以创建一个和跨应用用户的会话对象，从而实现跨应用的消息发送
+            Conversation mConversation = JMessageClient.getSingleConversation(name, appkey);
+            if (mConversation == null) {
+                mConversation = Conversation.createSingleConversation(name, appkey);
+            }
+            File fileMp3 = new File(filePath);
+            MediaPlayer player = new MediaPlayer();
+            player.setDataSource(String.valueOf(fileMp3));
+            player.prepare();
+            int duration = player.getDuration();
+            Message voiceMessage = mConversation.createSendVoiceMessage(fileMp3, duration);
+            voiceMessage.setOnSendCompleteCallback(new BasicCallback() {
+                @Override
+                public void gotResult(int i, String s) {
+                    if (i == 0) {
+                        mProgressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "发送成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        mProgressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "发送失败", Toast.LENGTH_SHORT).show();
+                        Log.i(TAG, "JMessageClient.createSingleVoiceMessage " + ", responseCode = " + i + " ; LoginDesc = " + s);
+                    }
+                    adapter.refresh();
+                }
+            });
+            //voice上传进度
+//            voiceMessage.setOnContentUploadProgressCallback(new ProgressUpdateCallback() {
+//                @Override
+//                public void onProgressUpdate(double v) {
+//                    String progressStr = (int) (v * 100) + "%";
+//                    mTv_progress.append("上传进度：" + progressStr + "\n");
+//                }
+//            });
+            //设置消息发送时的一些控制参数
+            MessageSendingOptions options = new MessageSendingOptions();
+            options.setNeedReadReceipt(needReadReceipt);//是否需要对方用户发送消息已读回执
+            options.setRetainOffline(retainOfflineMsg);//是否当对方用户不在线时让后台服务区保存这条消息的离线消息
+            options.setShowNotification(showNotification);//是否让对方展示sdk默认的通知栏通知
+            options.setCustomNotificationEnabled(enableCustomNotify);//是否需要自定义对方收到这条消息时sdk默认展示的通知栏中的文字
+            if (enableCustomNotify) {
+                options.setNotificationTitle(MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("name"));//自定义对方收到消息时通知栏展示的title
+                options.setNotificationAtPrefix("");//自定义对方收到消息时通知栏展示的@信息的前缀
+                options.setNotificationText("[语音]");//自定义对方收到消息时通知栏展示的text
+            }
+            JMessageClient.sendMessage(voiceMessage, options);
             adapter.refreshSelectLast();
             setResult(RESULT_OK);
-            // send file
-            // sendVoiceSub(filePath, fileName, message);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -949,20 +1023,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
     }
 
     /**
-     * 点击清空聊天记录
-     *
-     * @param view
-     */
-    public void emptyHistory(View view) {
-        String st5 = getResources().getString(
-                R.string.Whether_to_empty_all_chats);
-        startActivityForResult(
-                new Intent(this, AlertDialog.class)
-                        .putExtra("titleIsCancel", true).putExtra("msg", st5)
-                        .putExtra("cancel", true), REQUEST_CODE_EMPTY_HISTORY);
-    }
-
-    /**
      * 点击进入群组详情
      *
      * @param view
@@ -1096,10 +1156,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
                         String st3 = getResources().getString(
                                 R.string.send_failure_please);
                         try {
-//                            if(!voiceRecorder.isRecording()) {
-//                                voiceRecorder.discardRecording();
-//                                return false;
-//                            }
                             int length = voiceRecorder.stopRecoding();
                             if (length > 0) {
                                 sendVoice(voiceRecorder.getVoiceFilePath(),

@@ -19,12 +19,12 @@
 
         <ImageView
             android:id="@+id/iv_userhead"
-            android:layout_width="@dimen/we_small_textsize"
-            android:layout_height="@dimen/we_small_textsize"
+            android:layout_width="@dimen/we_listview_icon_size"
+            android:layout_height="@dimen/we_listview_icon_size"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/margin_chat_activity"
-            android:background="@drawable/mini_avatar_shadow"
+            android:background="@drawable/man_online"
             android:scaleType="fitXY" />
 
         <ImageView

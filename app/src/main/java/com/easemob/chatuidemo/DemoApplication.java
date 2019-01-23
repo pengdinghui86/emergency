@@ -23,6 +23,7 @@ import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.CrashHandler;
 import com.dssm.esc.util.DataCleanManager;
 import com.dssm.esc.util.MySharePreferencesService;
+import com.dssm.esc.util.PathUtil;
 import com.easemob.chatuidemo.activity.LoginActivity;
 import com.easemob.chatuidemo.utils.SpUtil;
 import com.jgmessage.GlobalEventListener;
@@ -78,7 +79,8 @@ public class DemoApplication extends Application implements
         Thread.setDefaultUncaughtExceptionHandler(this); // 程序崩溃时触发线程
         //注册异常捕获工具类
         CrashHandler.getInstance().init(this);
-
+        //初始化聊天文件存储目录
+        PathUtil.getInstance().initDirs("chat", "jMessage", this);
         //设置开启日志,发布时请关闭日志
         JPushInterface.setDebugMode(true);
         //初始化JPush

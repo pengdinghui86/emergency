@@ -137,10 +137,10 @@ public class VoiceRecorderUtil {
     }
 
     public String getVoiceFilePath() {
-//        File voiceFile = PathUtil.getInstance().getVoicePath();
-//        if(!voiceFile.exists())
-//            voiceFile.mkdirs();
-//        String voiceFilePath = PathUtil.getInstance().getVoicePath().getAbsolutePath();
+        File voiceFile = PathUtil.getInstance().getVoicePath();
+        if(!voiceFile.exists())
+            voiceFile.mkdirs();
+        String voiceFilePath = PathUtil.getInstance().getVoicePath().getAbsolutePath();
         return voiceFilePath + "/" + this.voiceFileName;
     }
 }

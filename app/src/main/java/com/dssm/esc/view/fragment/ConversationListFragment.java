@@ -311,6 +311,12 @@ public class ConversationListFragment extends BaseFragment implements
         limt = 0;
         //获取所有会话列表
         totalList = JMessageClient.getConversationList();
+        List<Conversation> tempList = new ArrayList<>(totalList);
+        for(Conversation conversation : tempList)
+        {
+            if(conversation.getAllMessage().size() == 0)
+                totalList.remove(conversation);
+        }
         searchData();
         onLoadDta(2);
     }
@@ -461,27 +467,12 @@ public class ConversationListFragment extends BaseFragment implements
 //    public void onClick(View v) {
 //    }
 //
-//    /***
-//     * 打开EventBus开关
-//     */
-//    protected boolean useEventBus() {
-//        return true;
-//    }
-
-    //    /**
-//     * 接收推送过来的消息类型，向MessageFragment发送消息，要显示哪个界面
-//     *
-//     * @param data
-//     */
-//
-//    public void onEvent(mainEvent data) {
-//        if (data.getData().equals("count") || data.getData().equals("userid")) {
-//            if (!hidden && !MainActivity.isConflict) {
-//                refresh();
-//            }
-//        }
-//    }
-//
+    /***
+     * 打开EventBus开关
+     */
+    protected boolean useEventBus() {
+        return true;
+    }
 
     /**
      * 过滤数据
@@ -551,7 +542,7 @@ public class ConversationListFragment extends BaseFragment implements
      * @param data
      */
     public void onEvent(mainEvent data) {
-        if (data.getData().equals("1")) {
+        if (data.getData().equals("refresh")) {
             initData();
         }
     }
