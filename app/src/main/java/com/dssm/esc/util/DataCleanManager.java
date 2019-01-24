@@ -63,7 +63,7 @@ public class DataCleanManager {
         cleanInternalCache(context);
         cleanExternalCache(context);
         cleanDatabases(context);
-        cleanSharedPreference(context);
+        MySharePreferencesService.getInstance(context.getApplicationContext()).clear();
         cleanFiles(context);
         for (String filePath : filepath) {
             cleanCustomCache(filePath);

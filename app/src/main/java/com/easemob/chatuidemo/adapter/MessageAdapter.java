@@ -724,7 +724,7 @@ public class MessageAdapter extends BaseAdapter{
 		}
 
 		if (message.getDirect() == MessageDirect.receive) {
-			if (voiceContent.isFileUploaded()) {
+			if (message.haveRead()) {
 				// 隐藏语音未听标志
 				holder.iv_read_status.setVisibility(View.INVISIBLE);
 			} else {

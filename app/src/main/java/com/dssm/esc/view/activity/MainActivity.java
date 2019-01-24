@@ -209,7 +209,7 @@ public class MainActivity extends FragmentActivity {
             // 防止被移除后，没点确定按钮然后按了home键，长期在后台又进app导致的crash // 三个fragment里加的判断同理
             JMessageClient.logout();
             // 清除本地的sharepreference缓存
-            DataCleanManager.cleanSharedPreference(context);
+            MySharePreferencesService.getInstance(getApplicationContext()).clear();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
             return;
@@ -1216,7 +1216,7 @@ public class MainActivity extends FragmentActivity {
         JPushInterface.stopPush(context);
         JPushInterface.deleteAlias(context, 2018);
         // 清除本地的sharepreference缓存
-        DataCleanManager.cleanSharedPreference(context);
+        MySharePreferencesService.getInstance(getApplicationContext()).clear();
         // 退出服务器，通知服务器清除session
         userSevice.logout(map.get("userId"), logoutListener);
         // 重新显示登录页面

@@ -160,7 +160,7 @@ public class DemoApplication extends Application implements
                 JPushInterface.stopPush(getApplicationContext());
                 JPushInterface.deleteAlias(getApplicationContext(), 2018);
                 // 清除本地的sharepreference缓存
-                DataCleanManager.cleanSharedPreference(getApplicationContext());
+                MySharePreferencesService.getInstance(getApplicationContext()).clear();
                 // 重新显示登录页面
                 ActivityCollector.finishAll();
                 startActivity(new Intent(getApplicationContext(),

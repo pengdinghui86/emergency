@@ -663,14 +663,10 @@ public class LoginActivity extends BaseActivity {
                 str = "登录成功";
                 userEntity = (UserEntity) object;
                 if (userEntity.getSuccess().equals("true")) {
-                    // 把户名和密码角色保存到PreferencesService中
-                    Log.i("LoginActivity角色", map.get("roleNames"));
-                    Log.i("LoginActivity用户名", map.get("loginName"));
-                    Log.i("LoginActivity密码", map.get("password"));
                     userId = userEntity.getAttributes().getId();
                     // 先去极光IM服务器注册（极光IM的用户名唯一，所以要用唯一标识去注册，这里用userID当极光IM的用户名和密码，即使本地的用户名和密码改变了也不用修改）
                     hxuserid = userId.replace("-", "_");
-                    register(hxuserid, hxuserid);
+                    register(hxuserid, hxuserid, userEntity.getAttributes().getName());
 
                 } else if (userEntity.getSuccess().equals("false")
                         && userEntity.getObjString() != null
@@ -754,15 +750,14 @@ public class LoginActivity extends BaseActivity {
     /**
      * 注册(IM)
      */
-    private void register(final String hxuserid, final String pwd) {
+    private void register(final String hxuserid, final String pwd, final String name) {
         if (!TextUtils.isEmpty(hxuserid) && !TextUtils.isEmpty(pwd)) {
             final ProgressDialog pd = new ProgressDialog(this);
             // 正在注册的弹出框
             // pd.setMessage(getResources().getString(R.string.Is_the_registered));
             // pd.show();
             final RegisterOptionalUserInfo registerOptionalUserInfo = new RegisterOptionalUserInfo();
-            String nickName = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("name");
-            registerOptionalUserInfo.setNickname(nickName);
+            registerOptionalUserInfo.setNickname(name);
             new Thread(new Runnable() {
                 public void run() {
                     try {
@@ -837,6 +832,7 @@ public class LoginActivity extends BaseActivity {
                         return;
                     }
                     try {
+                        userSelectRole();
                         //如果当前用户昵称为空则更新
                         if("".equals(JMessageClient.getMyInfo().getNickname())) {
                             String nickName = MySharePreferencesService.getInstance(getApplicationContext()).getcontectName("name");
@@ -865,7 +861,6 @@ public class LoginActivity extends BaseActivity {
                     if (!LoginActivity.this.isFinishing() && pd.isShowing()) {
                         pd.dismiss();
                     }
-                    userSelectRole();
                 }
                 else {
                     runOnUiThread(new Runnable() {

@@ -148,4 +148,11 @@ public class MySharePreferencesService {
 		// TODO Auto-generated method stub
 		return preferences.getString(userId, "");
 	}
+
+	//清除缓存
+    public void clear() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
 }
