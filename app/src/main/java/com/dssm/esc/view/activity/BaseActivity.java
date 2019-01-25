@@ -15,7 +15,6 @@ import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl.UserSeviceImplListListenser;
 import com.dssm.esc.util.ActivityCollector;
-import com.dssm.esc.util.Const;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.SystemBarTintManager;
 import com.dssm.esc.util.ToastUtil;
@@ -24,7 +23,6 @@ import com.dssm.esc.util.Utils;
 import java.util.Map;
 
 import de.greenrobot.event.EventBus;
-import com.easemob.chatuidemo.activity.LoginActivity;
 
 import org.xutils.x;
 

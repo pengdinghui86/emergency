@@ -66,7 +66,7 @@
     <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
 
     <application
-        android:name="com.easemob.chatuidemo.DemoApplication"
+        android:name=".DemoApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:installLocation="preferExternal"
@@ -95,8 +95,6 @@
         <activity android:name=".view.activity.EventListActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.PlanStarDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.AutorizationDecisionActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.AutorizateDecDetailActivity"
             android:screenOrientation="portrait"/>
@@ -189,7 +187,7 @@
         <!-- 登录 -->
         <!-- android:theme="@style/horizontal_slide" -->
         <activity
-            android:name="com.easemob.chatuidemo.activity.LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:launchMode="singleTop"
@@ -198,7 +196,7 @@
         <!-- 注册 -->
         <!-- 聊天页面 -->
         <activity
-            android:name="com.easemob.chatuidemo.activity.ChatActivity"
+            android:name=".view.activity.ChatActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"

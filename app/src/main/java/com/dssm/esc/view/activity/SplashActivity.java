@@ -29,9 +29,7 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.PushMessageEvent;
 import com.dssm.esc.util.event.mainEvent;
-import com.easemob.chatuidemo.DemoApplication;
-import com.easemob.chatuidemo.activity.BaseActivity;
-import com.easemob.chatuidemo.activity.LoginActivity;
+import com.dssm.esc.DemoApplication;
 
 import java.io.File;
 import java.io.InputStream;
@@ -47,7 +45,7 @@ import de.greenrobot.event.EventBus;
 /**
  * 开屏页
  */
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseFragmentActivity {
 
 	private static final int sleepTime = 2000;
 	// 用户服务类

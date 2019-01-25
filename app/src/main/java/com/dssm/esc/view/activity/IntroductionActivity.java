@@ -15,7 +15,6 @@ import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.mainEvent;
 
 import de.greenrobot.event.EventBus;
-import com.easemob.chatuidemo.activity.ChatActivity;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;

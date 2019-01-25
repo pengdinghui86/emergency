@@ -17,7 +17,7 @@ import com.dssm.esc.util.Const;
 import com.dssm.esc.util.HttpUrl;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
-import com.easemob.chatuidemo.DemoApplication;
+import com.dssm.esc.DemoApplication;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;

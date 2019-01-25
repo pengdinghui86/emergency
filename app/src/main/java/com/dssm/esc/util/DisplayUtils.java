@@ -2,7 +2,7 @@ package com.dssm.esc.util;
 
 import android.util.TypedValue;
 
-import com.easemob.chatuidemo.DemoApplication;
+import com.dssm.esc.DemoApplication;
 
 public class DisplayUtils {
     /**

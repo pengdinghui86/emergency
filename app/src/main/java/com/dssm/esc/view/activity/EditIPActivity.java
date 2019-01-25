@@ -8,13 +8,13 @@ import android.widget.TextView;
 
 import com.dssm.esc.R;
 import com.dssm.esc.view.widget.DeleteEditText;
-import com.easemob.chatuidemo.DemoApplication;
-import com.easemob.chatuidemo.utils.SpUtil;
+import com.dssm.esc.DemoApplication;
+import com.dssm.esc.util.SpUtil;
 
 /**
  * 设置服务器地址
  */
-public class EditIPActivity extends com.easemob.chatuidemo.activity.BaseActivity {
+public class EditIPActivity extends BaseFragmentActivity {
 
     //默认选择http
     private int checkId = 1;

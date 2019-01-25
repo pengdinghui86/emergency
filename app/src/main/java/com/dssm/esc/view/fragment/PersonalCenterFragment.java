@@ -24,7 +24,7 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.view.activity.MainActivity;
-import com.easemob.chatuidemo.DemoApplication;
+import com.dssm.esc.DemoApplication;
 
 import java.util.ArrayList;
 import java.util.List;

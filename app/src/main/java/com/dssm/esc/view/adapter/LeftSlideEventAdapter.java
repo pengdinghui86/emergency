@@ -1,7 +1,6 @@
 package com.dssm.esc.view.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,7 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.view.widget.LeftSlideView;
-import com.easemob.chatuidemo.DemoApplication;
+import com.dssm.esc.DemoApplication;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.dssm.esc.R;
 import com.dssm.esc.util.treeview.TreeNode;
 import com.dssm.esc.util.treeview.base.CheckableNodeViewBinder;
-import com.easemob.chatuidemo.DemoApplication;
+import com.dssm.esc.DemoApplication;
 
 public class FirstLevelNodeViewBinder extends CheckableNodeViewBinder {
     TextView textView;
@@ -43,6 +43,19 @@ public class FirstLevelNodeViewBinder extends CheckableNodeViewBinder {
             ll_cb.setVisibility(View.VISIBLE);
         else
             ll_cb.setVisibility(View.GONE);
+        if (treeNode.isExpanded()) {
+            rl.setBackgroundResource(R.color.colorWeWindowGrayBackground);
+            textView.setPadding(8, 8, 0, 8);
+            textView.setTextSize(13);
+            textView.setTextColor(DemoApplication.getInstance().getResources().getColor(R.color.colorWeFontGray_9));
+            imageView.animate().rotation(90).setDuration(200).start();
+        } else {
+            rl.setBackgroundResource(R.color.white);
+            textView.setPadding(8, 20, 0, 20);
+            textView.setTextSize(16);
+            textView.setTextColor(DemoApplication.getInstance().getResources().getColor(R.color.colorWeFontBlack));
+            imageView.animate().rotation(0).setDuration(200).start();
+        }
     }
 
     @Override

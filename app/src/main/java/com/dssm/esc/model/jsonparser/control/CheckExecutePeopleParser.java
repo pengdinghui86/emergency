@@ -6,7 +6,7 @@ import com.dssm.esc.model.jsonparser.ControlCompleterListenter;
 import com.dssm.esc.util.HttpUrl;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
-import com.easemob.chatuidemo.DemoApplication;
+import com.dssm.esc.DemoApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;

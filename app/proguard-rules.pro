@@ -195,7 +195,7 @@
 #2.0.9后的不需要加下面这个keep
 #-keep class org.xbill.DNS.** {*;}
 #另外，demo中发送表情的时候使用到反射，需要keep SmileUtils
--keep class com.easemob.chatuidemo.utils.SmileUtils {*;}
+-keep class com.dssm.esc.util.SmileUtils {*;}
 #注意前面的包名，如果把这个类复制到自己的项目底下，比如放在com.example.utils底下，应该这么写（实际要去掉#）
 #-keep class com.example.utils.SmileUtils {*;}
 #如果使用EaseUI库，需要这么写
@@ -229,8 +229,8 @@
 -dontwarn com.google.**
 -keep class com.google.gson.** {*;}
 -keep class com.google.protobuf.** {*;}
--dontwarn cn.jmessage.support.**
--keep class cn.jmessage.support.**{*;}
+-dontwarn cn.jmessage.**
+-keep class cn.jmessage.**{*;}
 
 #xutils3避免混淆
 -keep class org.xutils.** {*;}

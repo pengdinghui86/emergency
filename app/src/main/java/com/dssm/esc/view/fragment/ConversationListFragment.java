@@ -31,7 +31,7 @@ import com.dssm.esc.view.activity.MainActivity;
 import com.dssm.esc.view.adapter.ConversationListAdapter;
 import com.dssm.esc.view.widget.AutoListView;
 import com.dssm.esc.view.widget.ClearEditText;
-import com.easemob.chatuidemo.activity.ChatActivity;
+import com.dssm.esc.view.activity.ChatActivity;
 
 import java.util.ArrayList;
 import java.util.List;

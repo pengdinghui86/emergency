@@ -2,7 +2,6 @@ package com.dssm.esc.model.jsonparser.emergency;
 
 import android.util.Log;
 
-import com.dssm.esc.model.entity.emergency.BoHuiListEntity;
 import com.dssm.esc.model.entity.user.ButtonEntity;
 import com.dssm.esc.model.jsonparser.OnDataCompleterListener;
 import com.dssm.esc.util.HttpUrl;
@@ -10,7 +9,7 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.Utils;
 import com.dssm.esc.util.event.PlanStarListEntity;
 import com.dssm.esc.view.activity.MainActivity;
-import com.easemob.chatuidemo.DemoApplication;
+import com.dssm.esc.DemoApplication;
 
 import org.json.JSONArray;
 import org.json.JSONException;

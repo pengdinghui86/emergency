@@ -1,35 +1,24 @@
 package com.dssm.esc.view.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dssm.esc.R;
 import com.dssm.esc.controler.Control;
 import com.dssm.esc.model.analytical.UserSevice;
-import com.dssm.esc.model.analytical.implSevice.UserSeviceImpl;
-import com.dssm.esc.util.Const;
 import com.dssm.esc.util.MySharePreferencesService;
-import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.Emergenct;
 import com.dssm.esc.util.event.MessageCountEvent;
 import com.dssm.esc.util.event.My;
@@ -88,10 +77,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 	private String loginName;
 	private String name;// 用户姓名
 	private UserSevice userSevice;
-	private TextView t1, t2;
-
-	private DrawerLayout mDrawerLayout;
-	private RelativeLayout mRelativeLayout;
 
 	public MessageFragment() {
 
@@ -117,8 +102,6 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	protected void findViews() {
-		mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.id_drawerlayout);
-		mRelativeLayout= (RelativeLayout) getActivity().findViewById(R.id.nav_view);
 		rb_task = (RadioButton) view_Parent.findViewById(R.id.rb_task);
 		rb_notice = (RadioButton) view_Parent.findViewById(R.id.rb_notice);
 		rb_chat = (RadioButton) view_Parent
@@ -423,99 +406,8 @@ public class MessageFragment extends BaseFragment implements OnClickListener {
 			rb_task.setChecked(false);
 			rb_chat.setChecked(true);
 			break;
-		case R.id.setting:
-
-			if (!mDrawerLayout.isDrawerOpen(mRelativeLayout)) {
-				mDrawerLayout.openDrawer(mRelativeLayout);
-			}
-			break;
 		}
 		switchView(tag);
-	}
-
-	private int curWhich;
-	private UserSeviceImpl.UserSeviceImplBackBooleanListenser listener = new UserSeviceImpl.UserSeviceImplBackBooleanListenser() {
-
-		@Override
-		public void setUserSeviceImplListenser(
-				Boolean backflag,
-				String stRerror,
-				String Exceptionerror) {
-			String str = null;
-			if (backflag) {
-				str = stRerror;
-				// 被选中的角色id,再次保存
-				selectedRolem = rolesId[curWhich];
-				selectedRolemName = identity[curWhich];
-				roleCode = roleCodes[curWhich];
-				service.save(
-						map.get("loginName"),
-						map.get("password"),
-						map.get("roleIds"),
-						map.get("roleNames"),
-						map.get("roleCodes"),
-						selectedRolem,
-						map.get("postFlag"),
-						map.get("userId"),
-						selectedRolemName,
-						roleCode,
-						name);
-				Log.i("messageFragment被选中的角色id",
-						selectedRolem);
-				Log.i("messageFragment被选中的角色名称",
-						selectedRolemName);
-				t1.setText(name);
-				t2.setText(selectedRolemName);
-			} else if (stRerror != null) {
-				if (pd != null) {
-					pd.dismiss();
-				}
-				str = stRerror;
-				ToastUtil
-						.showLongToast(
-								context,
-								str);
-			} else if (Exceptionerror != null) {
-				if (pd != null) {
-					pd.dismiss();
-				}
-				str = Const.NETWORKERROR
-						+ Exceptionerror;
-				ToastUtil
-						.showLongToast(
-								context,
-								str);
-			}
-
-		}
-	};
-
-	/**
-	 * 切换角色
-	 */
-	private void changeRoles() {
-		if (identity.length > 1) {
-
-			new AlertDialog.Builder(context)
-					.setTitle("当前角色：" + selectedRolemName)
-					.setSingleChoiceItems(identity, -1,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										final int which) {
-									dialog.dismiss();
-									Toast.makeText(context,
-											"你选择了: " + identity[which], Toast.LENGTH_SHORT)
-											.show();
-									Log.i("rolesId[which]", rolesId[which]);
-									curWhich = which;
-									// 选择角色
-									userSevice.loginRole(rolesId[which], listener);
-								}
-
-							}).setNegativeButton("取消", null).show();
-		} else if (identity.length == 1) {
-			ToastUtil.showToast(context, "无角色进行切换");
-		}
 	}
 
 	/**

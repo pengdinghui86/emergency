@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -38,7 +37,6 @@ import com.dssm.esc.model.entity.user.MenuEntity;
 import com.dssm.esc.model.entity.user.UserPowerEntity;
 import com.dssm.esc.util.ActivityCollector;
 import com.dssm.esc.util.Const;
-import com.dssm.esc.util.DataCleanManager;
 import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.PermissionsChecker;
 import com.dssm.esc.util.SystemBarTintManager;
@@ -51,8 +49,7 @@ import com.dssm.esc.view.fragment.EmergencyManageFragment;
 import com.dssm.esc.view.fragment.MessageFragment;
 import com.dssm.esc.view.fragment.PersonalCenterFragment;
 import com.dssm.esc.view.widget.RedPointView;
-import com.easemob.chatuidemo.Constant;
-import com.easemob.chatuidemo.activity.LoginActivity;
+import com.dssm.esc.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,12 +127,6 @@ public class MainActivity extends FragmentActivity {
     private int currentTabIndex;
     protected UserSevice usevice;
     public onInitNetListener netListener;
-
-    private DrawerLayout mDrawerLayout;
-    private TextView tv_item_info1;
-    private TextView tv_item_info2;
-    private TextView tv_item_exit;
-    private TextView tv_item_exchange;
     private boolean permissionDetect = false;
     private ProgressDialog pd;
     /**
@@ -249,60 +240,8 @@ public class MainActivity extends FragmentActivity {
         identity = convertStrToArray(map.get("roleNames"));
         rolesId = convertStrToArray(map.get("roleIds"));
         roleCodes = convertStrToArray(map.get("roleCodes"));
-
         // 创建数据库
         DataBaseManage.createDataBase(table1, table2);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.id_drawerlayout);
-        tv_item_info1 = (TextView) findViewById(R.id.tv_item_info1);
-        tv_item_info1.setText(name);
-        tv_item_info2 = (TextView) findViewById(R.id.tv_item_info2);
-        tv_item_info2.setText(selectedRolemName);
-
-        tv_item_exit = (TextView) findViewById(R.id.tv_item_exit);
-        tv_item_exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder adBuilder = new AlertDialog.Builder(MainActivity.this);
-                adBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        logout();
-                    }
-                });
-                adBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                adBuilder.setTitle("提示");
-                adBuilder.setMessage("确定退出当前账号");
-                adBuilder.setCancelable(true);
-                adBuilder.show();
-            }
-        });
-
-        tv_item_exchange = (TextView) findViewById(R.id.tv_item_exchange);
-        tv_item_exchange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeRoles();
-            }
-        });
-
-//        mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-//            @Override
-//            public void onDrawerClosed(View drawerView) {
-//                super.onDrawerClosed(drawerView);
-//            }
-//
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//            }
-//        });
 
         //有登录成功的记录
         if(MySharePreferencesService.getInstance(getApplicationContext()).getcontectName(
@@ -1253,8 +1192,6 @@ public class MainActivity extends FragmentActivity {
                         selectedRolemName,
                         roleCode,
                         name);
-                tv_item_info1.setText(name);
-                tv_item_info2.setText(selectedRolemName);
                 if(personalCenterFragment != null)
                     personalCenterFragment.updateRoleName();
                 menu.clear();

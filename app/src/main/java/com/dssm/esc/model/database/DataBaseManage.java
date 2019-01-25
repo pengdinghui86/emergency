@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.dssm.esc.util.LogUtil;
 
-import com.easemob.chatuidemo.DemoApplication;
+import com.dssm.esc.DemoApplication;
 
 
 /**
