@@ -263,7 +263,7 @@ public class AdressListNotificationFragment extends BaseFragment
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<GroupEntity>();
 					ToastUtil.showToast(getActivity(),
-							Const.NETWORKERROR);
+							Const.REQUESTERROR);
 				}
 				Message message = new Message();
 				message.what = 1;
@@ -279,7 +279,7 @@ public class AdressListNotificationFragment extends BaseFragment
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<GroupEntity>();
 					ToastUtil.showToast(getActivity(),
-							Const.NETWORKERROR);
+							Const.REQUESTERROR);
 				}
 				Message message = new Message();
 				message.what = 0;

@@ -185,7 +185,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 					adapter.notifyDataSetChanged();
 				}
 			}else if (Exceptionerror != null) {
-				Toast.makeText(EventProcessDetailActivity.this, Const.NETWORKERROR, Toast.LENGTH_SHORT).show();
+				Toast.makeText(EventProcessDetailActivity.this, Const.REQUESTERROR, Toast.LENGTH_SHORT).show();
 			}
 			Utils.getInstance().hideProgressDialog();
 			rll_event_process.onCompleteRefresh();
@@ -329,7 +329,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 			} else if (Exceptionerror != null) {
 				detailEntity = new PlanStarListDetailEntity();
 				ToastUtil.showToast(EventProcessDetailActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			String name = "", overTime;
 			PlanStarListDetailObjEntity obj = new PlanStarListDetailObjEntity();
@@ -412,7 +412,7 @@ public class EventProcessDetailActivity extends BaseActivity implements MainActi
 			} else if (Exceptionerror != null) {
 				dataList = new ArrayList<PlanStarListEntity>();
 				ToastUtil.showToast(EventProcessDetailActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			planList.clear();
 			planList.addAll(dataList);

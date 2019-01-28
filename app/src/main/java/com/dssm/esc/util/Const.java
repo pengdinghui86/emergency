@@ -3,6 +3,7 @@ package com.dssm.esc.util;
 
 public class Const {
 	public static final String NETWORKERROR = "当前网络异常，请稍后再试";
+	public static final String REQUESTERROR = "请求失败";
 
 	public static final String NO_MSG = "暂无数据";
 	public static final String PARAMETER_NULL="登录过期，请重新登录";

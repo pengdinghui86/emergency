@@ -285,7 +285,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 				ToastUtil
 						.showToast(
 								getActivity(),
-								Const.NETWORKERROR
+								Const.REQUESTERROR
 										+ ":"
 										+ Exceptionerror);
 			}
@@ -329,7 +329,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 			} else if (Exceptionerror != null) {
 				dataList = new ArrayList<MessageInfoEntity>();
 				ToastUtil.showToast(getActivity(),
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			} else {
 				dataList = new ArrayList<MessageInfoEntity>();
 			}
@@ -358,7 +358,7 @@ public class MessageTaskToastFragment extends BaseFragment implements
 			} else if (Exceptionerror != null) {
 				dataList = new ArrayList<MessageInfoEntity>();
 				ToastUtil.showToast(getActivity(),
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			} else {
 				dataList = new ArrayList<MessageInfoEntity>();
 			}

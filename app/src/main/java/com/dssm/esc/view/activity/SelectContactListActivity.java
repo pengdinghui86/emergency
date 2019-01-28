@@ -296,7 +296,7 @@ public class SelectContactListActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 				dataList = new ArrayList<GroupEntity>();
 				ToastUtil.showToast(SelectContactListActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Message message = new Message();
 			message.what = 1;

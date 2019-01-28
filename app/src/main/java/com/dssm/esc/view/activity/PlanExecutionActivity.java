@@ -243,7 +243,7 @@ public class PlanExecutionActivity extends BaseActivity implements
                 } else if (Exceptionerror != null) {
                     dataList = new ArrayList<GroupEntity>();
                     ToastUtil.showToast(PlanExecutionActivity.this,
-                            Const.NETWORKERROR);
+                            Const.REQUESTERROR);
                 }
                 List<GroupEntity> result = new ArrayList<>(dataList);
                 for (GroupEntity groupEntity : result) {
@@ -270,7 +270,7 @@ public class PlanExecutionActivity extends BaseActivity implements
                 } else if (Exceptionerror != null) {
                     dataList = new ArrayList<GroupEntity>();
                     ToastUtil.showToast(PlanExecutionActivity.this,
-                            Const.NETWORKERROR);
+                            Const.REQUESTERROR);
                 }
                 List<GroupEntity> result = new ArrayList<>(dataList);
                 for (GroupEntity groupEntity : result) {

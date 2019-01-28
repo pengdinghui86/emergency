@@ -629,7 +629,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             } else if (Exceptionerror != null) {
                 data = new ArrayList<FlowChartPlanEntity.FlowChart>();
                 Toast.makeText(ControlActivity.this,
-                        Const.NETWORKERROR,
+                        Const.REQUESTERROR,
                         Toast.LENGTH_SHORT).show();
             }
             if(data == null)
@@ -676,7 +676,7 @@ public class ControlActivity extends BaseActivity implements OnClickListener,
             } else if (Exceptionerror != null) {
                 data = new ArrayList<FlowChartPlanEntity.FlowChart>();
                 Toast.makeText(ControlActivity.this,
-                        Const.NETWORKERROR,
+                        Const.REQUESTERROR,
                         Toast.LENGTH_SHORT).show();
             } else if (stRerror != null) {
                 data = new ArrayList<FlowChartPlanEntity.FlowChart>();

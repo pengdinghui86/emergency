@@ -116,7 +116,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 			if (backValue != null) {
 
 			}else if (Exceptionerror!=null) {
-				Toast.makeText(HistoryNoticeActivity.this, Const.NETWORKERROR, Toast.LENGTH_SHORT).show();
+				Toast.makeText(HistoryNoticeActivity.this, Const.REQUESTERROR, Toast.LENGTH_SHORT).show();
 			}
 			Utils.getInstance().hideProgressDialog();
 		}
@@ -245,7 +245,7 @@ public class HistoryNoticeActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 				dataList = new ArrayList<HistoryNoticeEntity>();
 				ToastUtil.showToast(HistoryNoticeActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			} else {
 				dataList = new ArrayList<HistoryNoticeEntity>();
 			}

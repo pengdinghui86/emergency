@@ -241,7 +241,7 @@ public class EventListActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(EventListActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}
@@ -272,7 +272,7 @@ public class EventListActivity extends BaseActivity implements
 
 			}else if (Exceptionerror!=null) {
 				datalist=new ArrayList<PlanStarListEntity>();
-				ToastUtil.showToast(EventListActivity.this, Const.NETWORKERROR);
+				ToastUtil.showToast(EventListActivity.this, Const.REQUESTERROR);
 			}
 			Message message = handler.obtainMessage();
 			message.what = 0;
@@ -305,7 +305,7 @@ public class EventListActivity extends BaseActivity implements
 
 			}else if (Exceptionerror!=null) {
 				datalist=new ArrayList<PlanStarListEntity>();
-				ToastUtil.showToast(EventListActivity.this, Const.NETWORKERROR);
+				ToastUtil.showToast(EventListActivity.this, Const.REQUESTERROR);
 			}
 			Message message = handler.obtainMessage();
 			message.what = 0;
@@ -491,7 +491,7 @@ public class EventListActivity extends BaseActivity implements
 
 			}else if (Exceptionerror!=null) {
 				entity = new GetProjectEveInfoEntity();
-				ToastUtil.showToast(EventListActivity.this, Const.NETWORKERROR);
+				ToastUtil.showToast(EventListActivity.this, Const.REQUESTERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}

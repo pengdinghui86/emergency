@@ -258,7 +258,7 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 				planDetailEntity = new PlanDetailEntity();
 				ToastUtil.showToast(PlanSuspandDetilActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Message message = new Message();
 			message.what = 1;

@@ -199,7 +199,7 @@ public class PersonSignInActivity extends BaseActivity implements
             } else if (Exceptionerror != null) {
 
                 ToastUtil.showLongToast(PersonSignInActivity.this,
-                        Const.NETWORKERROR);
+                        Const.REQUESTERROR);
             }
             Utils.getInstance().hideProgressDialog();
         }
@@ -284,7 +284,7 @@ public class PersonSignInActivity extends BaseActivity implements
             } else if (Exceptionerror != null) {
                 dataList = new ArrayList<PlanStarListEntity>();
                 ToastUtil.showToast(PersonSignInActivity.this,
-                        Const.NETWORKERROR);
+                        Const.REQUESTERROR);
             }
             if (dataList.size() > 20) {// 如果超过20条，则分页
                 List<PlanStarListEntity> subList = dataList.subList(0, 20);

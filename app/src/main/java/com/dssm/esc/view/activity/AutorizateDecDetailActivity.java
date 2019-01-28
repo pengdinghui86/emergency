@@ -474,7 +474,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}
@@ -516,7 +516,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(AutorizateDecDetailActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}
@@ -547,7 +547,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 				planDetailEntity = new PlanDetailEntity();
 				ToastUtil.showToast(AutorizateDecDetailActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Message message = new Message();
 			message.what = 1;
@@ -583,7 +583,7 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 				detailEntity = new PlanStarListDetailEntity();
 				ToastUtil.showToast(
 						AutorizateDecDetailActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Message message = new Message();
 			message.what = 0;

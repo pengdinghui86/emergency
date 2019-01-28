@@ -224,7 +224,7 @@ public class LoginActivity extends BaseFragmentActivity {
                 if (pd != null) {
                     pd.dismiss();
                 }
-                str = Const.NETWORKERROR
+                str = Const.REQUESTERROR
                         + Exceptionerror;
                 ToastUtil
                         .showLongToast(
@@ -266,7 +266,7 @@ public class LoginActivity extends BaseFragmentActivity {
                 if (pd != null) {
                     pd.dismiss();
                 }
-                str = Const.NETWORKERROR;
+                str = Const.REQUESTERROR;
                 ToastUtil.showLongToast(LoginActivity.this,
                         str);
             }
@@ -583,7 +583,7 @@ public class LoginActivity extends BaseFragmentActivity {
                 if (pd != null) {
                     pd.dismiss();
                 }
-                str = Const.NETWORKERROR;
+                str = Const.REQUESTERROR;
                 ToastUtil
                         .showLongToast(LoginActivity.this, str);
             }

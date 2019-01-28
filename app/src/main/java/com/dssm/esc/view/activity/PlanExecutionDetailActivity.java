@@ -298,7 +298,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         PlanExecutionDetailActivity.this, stRerror);
             } else if (Exceptionerror != null) {
                 ToastUtil.showToast(PlanExecutionDetailActivity.this,
-                        Const.NETWORKERROR);
+                        Const.REQUESTERROR);
             }
             Utils.getInstance().hideProgressDialog();
         }
@@ -341,7 +341,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         PlanExecutionDetailActivity.this, str);
             } else if (Exceptionerror != null) {
 
-                str = Const.NETWORKERROR;
+                str = Const.REQUESTERROR;
                 ToastUtil.showLongToast(
                         PlanExecutionDetailActivity.this, str);
             }
@@ -397,7 +397,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                                 str);
             } else if (Exceptionerror != null) {
 
-                str = Const.NETWORKERROR
+                str = Const.REQUESTERROR
                         + Exceptionerror;
                 ToastUtil
                         .showLongToast(
@@ -446,7 +446,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                                 str);
             } else if (Exceptionerror != null) {
 
-                str = Const.NETWORKERROR
+                str = Const.REQUESTERROR
                         + Exceptionerror;
                 ToastUtil
                         .showLongToast(

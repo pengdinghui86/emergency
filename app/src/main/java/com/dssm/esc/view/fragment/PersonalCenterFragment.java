@@ -137,7 +137,7 @@ public class PersonalCenterFragment extends BaseFragment implements
 			} else if (Exceptionerror != null) {
 				dataList = new ArrayList<GroupEntity>();
 				ToastUtil.showToast(getActivity(),
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}

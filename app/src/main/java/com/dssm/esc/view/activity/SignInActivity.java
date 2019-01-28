@@ -300,7 +300,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<>();
 					ToastUtil.showToast(SignInActivity.this,
-							Const.NETWORKERROR);
+							Const.REQUESTERROR);
 				}
 				Message message = new Message();
 				message.what = 0;
@@ -316,7 +316,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<>();
 					ToastUtil.showToast(SignInActivity.this,
-							Const.NETWORKERROR);
+							Const.REQUESTERROR);
 				}
 				Message message = new Message();
 				message.what = 1;
@@ -386,7 +386,7 @@ public class SignInActivity extends BaseActivity implements OnClickListener,
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(SignInActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}

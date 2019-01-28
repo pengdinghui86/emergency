@@ -323,7 +323,7 @@ public class SendMessageActivity extends BaseActivity implements
 
 										ToastUtil.showLongToast(
 												SendMessageActivity.this,
-												Const.NETWORKERROR
+												Const.REQUESTERROR
 														+ Exceptionerror);
 									}
 									Utils.getInstance().hideProgressDialog();

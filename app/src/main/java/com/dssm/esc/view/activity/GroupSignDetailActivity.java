@@ -193,7 +193,7 @@ public class GroupSignDetailActivity extends BaseActivity implements
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<>();
 					ToastUtil.showToast(GroupSignDetailActivity.this,
-							Const.NETWORKERROR);
+							Const.REQUESTERROR);
 				}
 				Message message = handler.obtainMessage();
 				message.what = 0;
@@ -207,7 +207,7 @@ public class GroupSignDetailActivity extends BaseActivity implements
 				} else if (Exceptionerror != null) {
 					dataList = new ArrayList<>();
 					ToastUtil.showToast(GroupSignDetailActivity.this,
-							Const.NETWORKERROR);
+							Const.REQUESTERROR);
 				}
 				Message message = handler.obtainMessage();
 				message.what = 1;

@@ -184,7 +184,7 @@ public class PersonnelAssignmentActivity extends BaseActivity implements MainAct
 				result = new ArrayList<PlanProcessEntity>();
 				ToastUtil.showToast(
 						PersonnelAssignmentActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			entities.clear();
 			//增加子预案层级标记

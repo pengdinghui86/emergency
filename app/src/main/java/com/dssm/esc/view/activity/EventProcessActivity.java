@@ -151,7 +151,7 @@ public class EventProcessActivity extends BaseActivity implements
 				list=backValue;
 			}else if (Exceptionerror!=null) {
 				list=new ArrayList<BoHuiListEntity>();
-				Toast.makeText(EventProcessActivity.this, Const.NETWORKERROR, Toast.LENGTH_SHORT).show();
+				Toast.makeText(EventProcessActivity.this, Const.REQUESTERROR, Toast.LENGTH_SHORT).show();
 			}
 			message.what = 0;
 			if (list.size() > 20) {// 如果超过20条，则分页

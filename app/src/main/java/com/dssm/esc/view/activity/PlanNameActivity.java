@@ -190,7 +190,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 			} else if (Exceptionerror != null) {
 				list = new ArrayList<PlanNameRowEntity>();
 				ToastUtil.showToast(PlanNameActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 
 			Message message = new Message();
@@ -247,7 +247,7 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 			} else if (Exceptionerror != null) {
 				list = new ArrayList<PlanNameRowEntity>();
 				ToastUtil.showToast(PlanNameActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 
 			Message message = new Message();

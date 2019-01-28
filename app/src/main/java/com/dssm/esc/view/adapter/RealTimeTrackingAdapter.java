@@ -802,7 +802,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
             } else if (Exceptionerror != null) {
                 Toast.makeText(
                         context,
-                        Const.NETWORKERROR,
+                        Const.REQUESTERROR,
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -865,7 +865,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(context,
-                        Const.NETWORKERROR,
+                        Const.REQUESTERROR,
                         Toast.LENGTH_SHORT).show();
             }
             // if (Utils.getInstance().progressDialog.isShowing()) {
@@ -905,7 +905,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(context,
-                        Const.NETWORKERROR,
+                        Const.REQUESTERROR,
                         Toast.LENGTH_SHORT).show();
             }
             Utils.getInstance().hideProgressDialog();
@@ -943,7 +943,7 @@ public class RealTimeTrackingAdapter extends BaseAdapter {
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(context,
-                        Const.NETWORKERROR,
+                        Const.REQUESTERROR,
                         Toast.LENGTH_SHORT).show();
             }
             Utils.getInstance().hideProgressDialog();

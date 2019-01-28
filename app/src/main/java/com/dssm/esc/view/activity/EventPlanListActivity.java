@@ -531,7 +531,7 @@ public class EventPlanListActivity extends BaseActivity implements
             } else if (Exceptionerror != null) {
 
                 ToastUtil.showLongToast(EventPlanListActivity.this,
-                        Const.NETWORKERROR);
+                        Const.REQUESTERROR);
             }
             Utils.getInstance().hideProgressDialog();
         }
@@ -567,7 +567,7 @@ public class EventPlanListActivity extends BaseActivity implements
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(EventPlanListActivity.this,
-                        Const.NETWORKERROR,
+                        Const.REQUESTERROR,
                         Toast.LENGTH_SHORT).show();
             }
             Utils.getInstance().hideProgressDialog();
@@ -600,7 +600,7 @@ public class EventPlanListActivity extends BaseActivity implements
                         Toast.LENGTH_SHORT).show();
             } else if (Exceptionerror != null) {
                 Toast.makeText(EventPlanListActivity.this,
-                        Const.NETWORKERROR,
+                        Const.REQUESTERROR,
                         Toast.LENGTH_SHORT).show();
             }
             Utils.getInstance().hideProgressDialog();
@@ -641,7 +641,7 @@ public class EventPlanListActivity extends BaseActivity implements
             } else if (Exceptionerror != null) {
 
                 ToastUtil.showLongToast(EventPlanListActivity.this,
-                        Const.NETWORKERROR);
+                        Const.REQUESTERROR);
             }
             Utils.getInstance().hideProgressDialog();
         }
@@ -718,7 +718,7 @@ public class EventPlanListActivity extends BaseActivity implements
                         EventPlanListActivity.this, str);
             } else if (Exceptionerror != null) {
 
-                str = Const.NETWORKERROR;
+                str = Const.REQUESTERROR;
                 ToastUtil.showLongToast(
                         EventPlanListActivity.this, str);
             }
@@ -749,7 +749,7 @@ public class EventPlanListActivity extends BaseActivity implements
             } else if (Exceptionerror != null) {
                 dataList = new ArrayList<PlanStarListEntity>();
                 ToastUtil.showToast(EventPlanListActivity.this,
-                        Const.NETWORKERROR);
+                        Const.REQUESTERROR);
             }
             if (dataList.size() > 20) {// 如果超过20条，则分页
                 List<PlanStarListEntity> subList = dataList.subList(0, 20);
@@ -811,7 +811,7 @@ public class EventPlanListActivity extends BaseActivity implements
             } else if (Exceptionerror != null) {
                 dataList = new ArrayList<PlanStarListEntity>();
                 ToastUtil.showToast(EventPlanListActivity.this,
-                        Const.NETWORKERROR);
+                        Const.REQUESTERROR);
             }
             if (dataList.size() > 20) {// 如果超过20条，则分页
                 List<PlanStarListEntity> subList = dataList.subList(0, 20);

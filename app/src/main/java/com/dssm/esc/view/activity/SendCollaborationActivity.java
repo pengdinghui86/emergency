@@ -399,7 +399,7 @@ public class SendCollaborationActivity extends BaseActivity implements
 				ToastUtil
 						.showToast(
 								SendCollaborationActivity.this,
-								Const.NETWORKERROR
+								Const.REQUESTERROR
 										+ ":"
 										+ Exceptionerror);
 			}

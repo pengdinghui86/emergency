@@ -139,7 +139,7 @@ public class DrillSelectActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 				list = new ArrayList<DrillProjectNameEntity>();
 				ToastUtil.showToast(DrillSelectActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 
 			}
 			mSelectAdapter = new DrillselectListviewAdapter(
@@ -204,7 +204,7 @@ public class DrillSelectActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 				ToastUtil.showToast(
 						DrillSelectActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 		}
 	};

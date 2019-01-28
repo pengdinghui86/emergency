@@ -787,6 +787,7 @@ public class ChatActivity extends BaseFragmentActivity implements OnClickListene
             player.setDataSource(String.valueOf(fileMp3));
             player.prepare();
             int duration = player.getDuration();
+            duration = duration / 1000;
             Message voiceMessage = mConversation.createSendVoiceMessage(fileMp3, duration);
             voiceMessage.setOnSendCompleteCallback(new BasicCallback() {
                 @Override

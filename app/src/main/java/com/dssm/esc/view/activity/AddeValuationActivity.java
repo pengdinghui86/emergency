@@ -1030,7 +1030,7 @@ public class AddeValuationActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(AddeValuationActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			// if (Utils.getInstance().progressDialog.isShowing()) {
 			Utils.getInstance().hideProgressDialog();
@@ -1075,7 +1075,7 @@ public class AddeValuationActivity extends BaseActivity implements
 			} else if (Exceptionerror != null) {
 
 				ToastUtil.showLongToast(AddeValuationActivity.this,
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}

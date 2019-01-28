@@ -627,6 +627,7 @@ public class MessageAdapter extends BaseAdapter{
 				player.setDataSource(String.valueOf(fileMp3));
 				player.prepare();
 				int duration = player.getDuration();
+				duration = duration / 1000;
 				message1 = mConversation.createSendVoiceMessage(fileMp3, duration);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -681,7 +682,7 @@ public class MessageAdapter extends BaseAdapter{
 		VoiceContent voiceContent = (VoiceContent) message.getContent();
 		int len = voiceContent.getDuration();
 		if (len > 0) {
-			holder.tv.setText(voiceContent.getDuration() / 1000 + "\"");
+			holder.tv.setText(voiceContent.getDuration() + "\"");
 			holder.tv.setVisibility(View.VISIBLE);
 		} else {
 			holder.tv.setVisibility(View.INVISIBLE);

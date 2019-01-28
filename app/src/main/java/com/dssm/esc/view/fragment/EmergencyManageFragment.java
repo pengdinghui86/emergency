@@ -443,7 +443,7 @@ public class EmergencyManageFragment extends BaseFragment {
 
 			} else if (Exceptionerror != null) {
 				ToastUtil.showToast(getActivity(),
-						Const.NETWORKERROR);
+						Const.REQUESTERROR);
 			}
 			Utils.getInstance().hideProgressDialog();
 		}

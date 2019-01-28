@@ -212,7 +212,7 @@ public class PlanExecuteActivity extends BaseActivity implements
                 } else if (Exceptionerror != null) {
                     dataList = new ArrayList<ChildEntity>();
                     ToastUtil.showToast(PlanExecuteActivity.this,
-                            Const.NETWORKERROR);
+                            Const.REQUESTERROR);
                 }
                 List<ChildEntity> result = new ArrayList<>(dataList);
                 childList.clear();
@@ -235,7 +235,7 @@ public class PlanExecuteActivity extends BaseActivity implements
                 } else if (Exceptionerror != null) {
                     dataList = new ArrayList<ChildEntity>();
                     ToastUtil.showToast(PlanExecuteActivity.this,
-                            Const.NETWORKERROR);
+                            Const.REQUESTERROR);
                 }
                 List<ChildEntity> result = new ArrayList<>(dataList);
                 childList.clear();

@@ -261,7 +261,7 @@ public class SendMeassageActivity extends BaseActivity implements
 
 										ToastUtil.showLongToast(
 												SendMeassageActivity.this,
-												Const.NETWORKERROR
+												Const.REQUESTERROR
 														+ Exceptionerror);
 									}
 									Utils.getInstance().hideProgressDialog();
