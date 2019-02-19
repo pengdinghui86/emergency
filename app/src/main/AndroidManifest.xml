@@ -7,7 +7,6 @@
         android:minSdkVersion="9"
         android:targetSdkVersion="23" />
 
-    <!-- 环信sdk需要的权限 -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -201,33 +200,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustResize"></activity>
-
-        <!-- 自定义的contextmenu -->
-        <activity
-            android:name="com.easemob.chatuidemo.activity.ContextMenu"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyDialogStyle"></activity>
-
-        <activity
-            android:name="com.easemob.chatuidemo.activity.EditActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="stateVisible"></activity>
-
-        <!-- upload error log -->
-        <activity
-            android:name="com.easemob.chatuidemo.activity.DiagnoseActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-
-        <!-- iOS offline push nick -->
-        <activity
-            android:name="com.easemob.chatuidemo.activity.OfflinePushNickActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/horizontal_slide"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-
 
         <!-- 如果您项目中的所有页面都只需要以高或宽中的一个作为基准进行适配的话, 那就只需要填写高或宽中的一个设计图尺寸即可 -->
         <meta-data
