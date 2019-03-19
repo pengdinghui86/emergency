@@ -13,10 +13,10 @@
  */
 package com.dssm.esc;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
 import com.dssm.esc.util.ActivityCollector;
@@ -35,7 +35,7 @@ import cn.jpush.im.android.api.JMessageClient;
 import me.jessyan.autosize.AutoSize;
 import me.jessyan.autosize.AutoSizeConfig;
 
-public class DemoApplication extends Application implements
+public class DemoApplication extends MultiDexApplication implements
         Thread.UncaughtExceptionHandler {
 
     public static Context applicationContext;

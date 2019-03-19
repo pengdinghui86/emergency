@@ -651,15 +651,15 @@ public class PlanStarDetailActivity extends BaseActivity implements
             entity.setId(result.get(i).getId());
             selectedIds.add(entity);
         }
-        if (selectedReferPlanName.subSequence(0, 1).equals(",")) {
+        if (!"".equals(selectedReferPlanName)) {
             selectedReferPlanName = (String) selectedReferPlanName.subSequence(1,
                     selectedReferPlanName.length());
         }
-        if (referPlan.subSequence(0, 1).equals("|")) {
+        if (!"".equals(referPlan)) {
             referPlan = (String) referPlan.subSequence(1,
                     referPlan.length());
         }
-        if (referPlanName.subSequence(0, 1).equals(",")) {
+        if (!"".equals(referPlanName)) {
             referPlanName = (String) referPlanName.subSequence(
                     1, referPlanName.length());
         }
