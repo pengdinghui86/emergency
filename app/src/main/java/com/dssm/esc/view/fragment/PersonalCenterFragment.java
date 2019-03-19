@@ -152,9 +152,9 @@ public class PersonalCenterFragment extends BaseFragment implements
 					boolean flag = false;
 					for(ChildEntity childEntity : groupEntity.getcList()) {
 						if(childEntity.getUserId().toString().equals(map.get("userId").toLowerCase())) {
-							personal_center_tv_post.setText(childEntity.getZhiwei().toString());
-							personal_center_tv_department.setText(childEntity.getEmergTeam().toString());
-							personal_center_tv_email.setText(childEntity.getEmail().toString());
+							personal_center_tv_post.setText("null".equals(childEntity.getZhiwei().toString())?"":childEntity.getZhiwei().toString());
+							personal_center_tv_department.setText("null".equals(childEntity.getEmergTeam().toString())?"":childEntity.getEmergTeam().toString());
+							personal_center_tv_email.setText("null".equals(childEntity.getEmail().toString())?"":childEntity.getEmail().toString());
 							if("女".equals(childEntity.getEmail().toString()))
 								personal_center_iv_header.setImageResource(R.drawable.m_p_w);
 							else
