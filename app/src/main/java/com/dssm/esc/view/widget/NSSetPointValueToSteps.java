@@ -22,6 +22,7 @@ public class NSSetPointValueToSteps{
 	//节点位置标记矩阵，已占用位置标记为1，否则为0
 	public int[][] adjMat;
 
+	public String[] horizontalNum = null;
 	/**
 	 * 测试用例
 	 */
@@ -237,7 +238,7 @@ public class NSSetPointValueToSteps{
 	}
 
 	private void initStepValues2() {
-
+		horizontalNum = new String[rowNum];
 		for (int i = 1; i <= rowNum; i++) {
 			int j = 0;
 			int k = 0;
@@ -247,6 +248,7 @@ public class NSSetPointValueToSteps{
 					j++;
 				}
 			}
+			horizontalNum[i-1] = j + "";
 			//计算每一个节点的绝对坐标
 			for (NSstep currentStep : steplist) {
 				if (currentStep.lineId == i) {

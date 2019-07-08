@@ -58,6 +58,7 @@ import java.util.Map;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import de.greenrobot.event.EventBus;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 /**
  * 主界面
@@ -914,17 +915,30 @@ public class MainActivity extends FragmentActivity {
         if(totalMsgCount > 0) {
             if(totalMsgCount > 99) {
                 redPointView.setText("99+");
+                setShortCutBadger(99);
 //                AppShortCutUtil.addNumShortCut(getApplicationContext(), MainActivity.class, true, "99", false);
             }
             else {
                 redPointView.setText(totalMsgCount + "");
+                setShortCutBadger(totalMsgCount);
 //                AppShortCutUtil.addNumShortCut(getApplicationContext(), MainActivity.class, true, totalMsgCount + "", false);
             }
             redPointView.show();
         }
         else {
             redPointView.hide();
+            setShortCutBadger(0);
 //            AppShortCutUtil.addNumShortCut(getApplicationContext(), MainActivity.class, false, "0", false);
+        }
+    }
+
+    //设置app快捷launcher添加数字“徽章”
+    private void setShortCutBadger(int count) {
+        if(count > 0) {
+            ShortcutBadger.applyCount(getApplicationContext(), count);
+        }
+        else {
+            ShortcutBadger.removeCount(getApplicationContext());
         }
     }
 

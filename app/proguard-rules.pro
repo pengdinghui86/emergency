@@ -245,6 +245,11 @@
 -keep public interface com.bumptech.glide.** {*;}
 -dontwarn com.bumptech.glide.**
 
+#启动快捷方式角标避免混淆
+-keep class me.leolin.shortcutbadger.** {*;}
+-keep public interface me.leolin.shortcutbadger.** {*;}
+-dontwarn me.leolin.shortcutbadger.**
+
 #自己编写的实体类和视图不混淆
 -keep class com.dssm.esc.model.entity.**{*;}
 -keep class com.dssm.esc.view.**{*;}

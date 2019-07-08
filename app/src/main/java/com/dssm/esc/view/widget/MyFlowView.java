@@ -12,17 +12,23 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
+import com.dssm.esc.DemoApplication;
 import com.dssm.esc.R;
+import com.dssm.esc.model.Line;
+import com.dssm.esc.model.Point;
 import com.dssm.esc.status.RealTimeTrackingStatus;
 import com.dssm.esc.util.DisplayUtils;
 import com.dssm.esc.view.activity.ProcessMonitoringSubMissionActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -74,6 +80,32 @@ public class MyFlowView extends View {
     //控件初始化时的宽和高
     private int defaultWidth = 0, defaultHeight = 0;
 
+    private boolean detailFlag = false;
+
+    //垂直方向item的个数
+    private int verticalNum = 0;
+    //水平方向item的个数 (与垂直方向一一对应)
+    private String[] horizontalNum = null;
+    private int maxNum = 0;
+    //item的宽度
+    private int itemWidth = 0;
+    //item的高度
+    private int itemHeight = 0;
+    //divider的高度
+    private int verticalSpace = 0;
+    //item的颜色
+    private int itemColor = Color.BLACK;
+    //item的字体大小
+    private float itemTextSize = 0f;
+    //item水平间距
+    private int horizontalSpace = 30;
+    private float textHeight = 0f;
+    private Paint paint = new Paint();
+    private Rect lastItemRect;
+    private List<Line> lines = new ArrayList<>();
+    //用来保存每隔item的Rect，用于后面的点击事件判断
+    private HashMap<Integer, List<Rect>> rects = new HashMap<>();
+
     public MyFlowView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         // TODO Auto-generated constructor stub
@@ -92,23 +124,209 @@ public class MyFlowView extends View {
         buttonRadius = radius;
         maxButtonRadius = (int) (radius * maxZoom);
         minButtonRadius = (int) (radius * minZoom);
+
+        WindowManager wm = (WindowManager) DemoApplication.getInstance().getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(dm);
+        defaultWidth = dm.widthPixels;
+        defaultHeight = dm.heightPixels;
+
+        itemTextSize = textSize;
+        paint.setAntiAlias(true);
+        paint.setColor(itemColor);
+        paint.setTextSize(itemTextSize);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setTextAlign(Paint.Align.CENTER);
+        textHeight = paint.getFontMetrics().descent - paint.getFontMetrics().ascent + paint.getFontMetrics().leading;
+
+        if(horizontalNum != null) {
+            for (String num : horizontalNum) {
+                if (maxNum < Integer.parseInt(num))
+                    maxNum = Integer.parseInt(num);
+            }
+        }
+        itemWidth = (int) (itemTextSize * 6);
+        itemHeight = (int) (itemTextSize * 2);
+        verticalSpace = itemHeight * 3;
+        horizontalSpace = itemWidth / 2;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if(detailFlag && maxNum > 0 && verticalNum > 0)
+        {
+            setMeasuredDimension(maxNum * itemWidth + (maxNum - 1) *  horizontalSpace,
+                    verticalNum * (itemHeight + verticalSpace));
+        }
+        else
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        // TODO Auto-generated method stub
-        super.onDraw(canvas);
+
         this.myCanvas = canvas;
         setPaintDefaultStyle();
-        if(nsSetPointValueToSteps.steplist != null) {
+        if(nsSetPointValueToSteps.steplist != null && nsSetPointValueToSteps.steplist.size() > 0) {
+            if(detailFlag) {
+                int i = 0, count = 0;
+                int j;
+                lines.clear();
+                for (int vIndex = 0; vIndex < verticalNum; vIndex++) {
+                    j = i;
+                    List<Rect> list = new ArrayList<>();
+                    int hNum = Integer.parseInt(horizontalNum[vIndex]);
+                    // item实际宽度
+                    int tempWidth = (getWidth() - horizontalSpace * (hNum - 1)) / hNum;
+                    for (int hIndex = 0; hIndex < hNum; hIndex++) {
+                        Line line = new Line();
+                        Rect rectBorder = new Rect();
+                        rectBorder.top = (vIndex) * itemHeight + (vIndex) * verticalSpace;
+                        rectBorder.bottom = rectBorder.top + itemHeight;
+                        if (tempWidth >= itemWidth) {
+                            // 距离两边的距离
+                            int margin = (getWidth() - (itemWidth * hNum + (hNum - 1) * horizontalSpace)) / 2;
+                            rectBorder.left = margin + hIndex * itemWidth + hIndex * horizontalSpace;
+                            rectBorder.right = itemWidth + rectBorder.left;
+                        } else {
+                            rectBorder.left = hIndex * tempWidth + hIndex * horizontalSpace;
+                            rectBorder.right = tempWidth + rectBorder.left;
+                        }
+                        drawContent(canvas, rectBorder, nsSetPointValueToSteps.steplist.get(count));
+                        Point point = new Point();
+                        point.setX((rectBorder.left + rectBorder.right)/2f);
+                        point.setY(rectBorder.top);
+                        line.setStartPoint(point);
+                        Point point1 = new Point();
+                        point1.setX((rectBorder.left + rectBorder.right)/2f);
+                        point1.setY(rectBorder.bottom);
+                        line.setPoint(point1);
+                        nsSetPointValueToSteps.steplist.get(count).setmPoint(point1);
+                        if(vIndex > 0) {
+                            List<NSstep> parentSteps = findAllParentNodes(nsSetPointValueToSteps.steplist.get(count));
+                            List<Point> pointList = new ArrayList<>();
+                            for(NSstep step : parentSteps) {
+                                Point point2 = new Point();
+                                point2.setX(step.getmPoint().getX());
+                                point2.setY(step.getmPoint().getY());
+                                pointList.add(point2);
+                            }
+                            line.setEndPoints(pointList);
+                        }
+                        lines.add(line);
+                        list.add(rectBorder);
+                        i = i + 1;
+                        count++;
+                    }
+                    rects.put(vIndex, list);
+                }
+                int k = 0;
+                for (int vIndex = 0; vIndex < verticalNum; vIndex++) {
+                    int hNum = Integer.parseInt(horizontalNum[vIndex]);
+                    for (int hIndex = 0; hIndex < hNum; hIndex++) {
+                        for(Point point : lines.get(k).getEndPoints()) {
+                            canvas.drawLine(lines.get(k).getStartPoint().getX(), lines.get(k).getStartPoint().getY(), point.getX(), point.getY(), paint);
+                        }
+                        k = k +1;
+                    }
+                }
+                setZoomAndMove(canvas);
+            }
+            else {
 //            if (nsSetPointValueToSteps.steplist.size() > 50)
 //                addArrowLine2();
 //            else
                 addArrowLine();
-            addButtonAndText();
-            setZoomAndMove(canvas);
-            clearDrawLineFlag();
+                addButtonAndText();
+                setZoomAndMove(canvas);
+                clearDrawLineFlag();
+            }
         }
+    }
+
+    /**
+     * 画文字和背景
+     */
+    private void drawContent(Canvas canvas, Rect rect, NSstep step) {
+        String str;
+        if (step.type.equals("begin")) {
+            paint.setColor(getResources().getColor(R.color.color_flow_start));
+            str = "开始";
+        } else if (step.type.equals("end")) {
+            paint.setColor(getResources().getColor(R.color.color_flow_end));
+            str = "结束";
+        } else if (step.type.equals("merge")) {
+            if (!step.statusId.equals("") && step.statusId != null
+                    && step.statusId.length() > 0
+                    && !step.statusId.equals("null")) {// 初始合并status为null
+
+                if (step.statusId.equals("1") || step.statusId.equals("2")
+                        || step.statusId.equals("3")) {// (1，全部完成；2，部分完成；3，跳过)
+                    // 绿色
+                    paint.setColor(getResources().getColor(R.color.color_flow_green));
+                    str = step.name.substring(0, 4);
+                } else if (step.statusId.equals("4")) {// （4，正在执行）黄色
+                    paint.setColor(getResources().getColor(R.color.color_flow_yellow));
+                    str = step.name.substring(0, step.name.length() > 4?4:step.name.length());
+                } else if (step.statusId.equals("5")
+                        || step.statusId.equals("6")
+                        || step.statusId.equals("7")) {// （5，可执行；6,准备执行；7，还未执行）
+                    // 红色
+                    paint.setColor(getResources().getColor(R.color.color_flow_red));
+                    str = step.name.substring(0, step.name.length() > 4?4:step.name.length());
+                } else {
+                    paint.setColor(getResources().getColor(R.color.color_flow_red));
+                    str = step.name.substring(0, step.name.length() > 4?4:step.name.length());
+                }
+            } else {
+                // 红色
+                paint.setColor(getResources().getColor(R.color.color_flow_red));
+                str = step.name.substring(0, step.name.length() > 4?4:step.name.length());
+            }
+        } else if (step.type.equals("") && !step.stepId.startsWith("sid")) {
+            // 新建节点
+            paint.setColor(getResources().getColor(R.color.color_flow_other));
+            str = "新建节点";
+        } else {
+            if (step.statusId.equals("1") || step.statusId.equals("2")
+                    || step.statusId.equals("3")) {// (1，全部完成；2，部分完成；3，跳过)
+                // 绿色
+                paint.setColor(getResources().getColor(R.color.color_flow_green));
+                str = step.name.substring(0, step.name.length() > 4?4:step.name.length());
+            } else if (step.statusId.equals("4")) {// （4，正在执行）黄色
+                paint.setColor(getResources().getColor(R.color.color_flow_yellow));
+                str = step.name.substring(0, step.name.length() > 4?4:step.name.length());
+            } else if (step.statusId.equals("5")
+                    || step.statusId.equals("6")
+                    || step.statusId.equals("7")) {// （5，可执行；6,准备执行；7，还未执行）
+                paint.setColor(getResources().getColor(R.color.color_flow_red));
+                str = step.name.substring(0, step.name.length() > 4?4:step.name.length());
+            } else {
+                paint.setColor(getResources().getColor(R.color.color_flow_red));
+                str = step.name.substring(0, step.name.length() > 4?4:step.name.length());
+            }
+        }
+        if (!TextUtils.isEmpty(step.color)) {
+            tempFlowPaint.setColor(Color.parseColor(step.color));
+            paint = tempFlowPaint;
+            paint.setColor(itemColor);
+            circlePaint.setColor(0xFF000000); // 边框颜色
+        } else {
+            circlePaint.setColor(0xFFf00); // 边框颜色
+        }
+        if(step.nodeStepType.equals("CallActivity"))
+            circlePaint.setColor(getResources().getColor(R.color.color_flow_yellow));
+        else if(step.type.equals("merge")) {
+            paint.setColor(itemColor);
+            circlePaint.setColor(getResources().getColor(R.color.color_flow_green));
+        }
+        else
+            paint.setColor(itemColor);
+        canvas.drawRect(rect, circlePaint);
+        canvas.drawText(str
+                , (rect.right + rect.left) / 2f - itemTextSize * str.length() / 2f
+                , (rect.bottom + rect.top) / 2f + textHeight / 2 - 2
+                , paint);
     }
 
     private void setZoomAndMove(Canvas canvas) {
@@ -128,25 +346,41 @@ public class MyFlowView extends View {
         scrollTo((int) smoothMoveX, (int) smoothMoveY);
     }
 
+    private List<NSstep> sortList(List<NSstep> steps) {
+        List<NSstep> result = new ArrayList<>();
+        for(int i = 1; i <= maxRow; i++) {
+            for(NSstep step : steps) {
+                if(step.lineId == i)
+                    result.add(step);
+            }
+        }
+        return result;
+    }
+
     public void setData(NSSetPointValueToSteps nsSetPointValueToSteps) {
-        this.nsSetPointValueToSteps = nsSetPointValueToSteps;
         maxRow = nsSetPointValueToSteps.rowNum;
         maxColumn = nsSetPointValueToSteps.maxLineNum;
-        if(defaultWidth == 0)
-            defaultWidth = getWidth();
-        if(defaultHeight == 0)
-            defaultHeight = getHeight();
+        nsSetPointValueToSteps.steplist = sortList(nsSetPointValueToSteps.steplist);
+        this.nsSetPointValueToSteps = nsSetPointValueToSteps;
+        horizontalNum = nsSetPointValueToSteps.horizontalNum;
+        verticalNum = maxRow;
         ViewGroup.LayoutParams lp = getLayoutParams();
-        lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
-        lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
-        if(maxColumn > 100)
-            lp.height = Math.max(lp.width, lp.height);
+        currentStep = new NSstep();
         if(maxColumn > 30 && maxColumn > maxRow)
             setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxColumn / 30), 0.1f));
         else if(maxRow > 30)
             setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxRow / 30), 0.1f));
-        setLayoutParams(lp);
-        currentStep = new NSstep();
+        if(!detailFlag) {
+            lp.height = Math.max((maxRow + 1) * 4 * buttonRadius, defaultHeight);
+            lp.width = Math.max((maxColumn + 1) * 4 * buttonRadius, defaultWidth);
+            if(maxColumn > 100)
+                lp.height = Math.max(lp.width, lp.height);
+            if(maxColumn > 30 && maxColumn > maxRow)
+                setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxColumn / 30), 0.1f));
+            else if(maxRow > 30)
+                setMinZoom(Math.max(minZoom - 0.2f * minZoom * (maxRow / 30), 0.1f));
+            setLayoutParams(lp);
+        }
         setPoisition2ExcuteNode(lp.width, lp.height);
         invalidate();
     }
@@ -796,7 +1030,30 @@ public class MyFlowView extends View {
                 touchStartY = y;
                 touchLastX = x;
                 touchLastY = y;
-                detectClicked(x, y);
+                if(detailFlag) {
+                    Result result = isTouchPointInView(ev);
+                    if (result.isTouchInView) {
+                        NSstep step = nsSetPointValueToSteps.steplist.get(result.position);
+                        //子预案
+                        if(step.nodeStepType.equals("CallActivity")) {
+                            Intent intent = new Intent();
+                            intent.setClass(getContext(), ProcessMonitoringSubMissionActivity.class);
+                            intent.putExtra("name", step.name);
+                            intent.putExtra("stepId", step.stepId);
+                            Gson gson = new Gson();
+                            String jsonStr = gson.toJson(this.nsSetPointValueToSteps.subFlowChart); //将List转换成Json
+                            SharedPreferences sp = getContext().getSharedPreferences("SP_MISSION_LIST", Activity.MODE_PRIVATE);//创建sp对象
+                            SharedPreferences.Editor editor = sp.edit() ;
+                            editor.putString("KEY_MISSION_LIST_DATA", jsonStr) ; //存入json串
+                            editor.commit() ;  //提交
+                            getContext().startActivity(intent);
+                        }
+                        else
+                            showDialog(step);
+                    }
+                }
+                else
+                    detectClicked(x, y);
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (!doubleFinger && singleFinger && l > 30.0f) {
@@ -846,43 +1103,22 @@ public class MyFlowView extends View {
             smoothZoom = minZoom;
         else
             smoothZoom = zoom;
-        if(currentZoom != smoothZoom) {
-            buttonRadius = radius + (int) (radius * (smoothZoom - 1f));
-            if(buttonRadius > maxButtonRadius)
-                buttonRadius = maxButtonRadius;
-            else if(buttonRadius < minButtonRadius)
-                buttonRadius = minButtonRadius;
-            currentZoom = smoothZoom;
-            textSize = (int) (buttonRadius / 2f);
-            if(currentZoom > 1) {
-                minDistance = buttonRadius * 5;
+        if(detailFlag) {
+            if(currentZoom != smoothZoom) {
+                itemTextSize = itemTextSize * smoothZoom / currentZoom;
+                currentZoom = smoothZoom;
+                itemHeight = (int)(itemTextSize * 2);
+                itemWidth = (int)(itemTextSize * 6);
+                verticalSpace = itemHeight * 3;
+                horizontalSpace = itemWidth / 2;
+                paint.setTextSize(itemTextSize);
+                textHeight = paint.getFontMetrics().descent - paint.getFontMetrics().ascent + paint.getFontMetrics().leading;
             }
-            else if(currentZoom > 0.6) {
-                minDistance = buttonRadius * 4;
-            }
-            else if(currentZoom > 0.4) {
-                minDistance = buttonRadius * 3;
-            }
-            else if(currentZoom > 0.2) {
-                minDistance = buttonRadius * 2;
-            }
-            else if(currentZoom > 0.1) {
-                minDistance = buttonRadius;
-            }
-            else {
-                minDistance = Math.min(buttonRadius, defaultWidth / ((maxColumn + 1)));
-            }
-//            int length = Math.min(defaultWidth / (maxColumn + 1), defaultHeight / (maxRow + 1));
-//            minDistance = Math.max(buttonRadius * 4, length);
             ViewGroup.LayoutParams lp = getLayoutParams();
             float tempX = x / lp.width;
             float tempY = y / lp.height;
             float dx = smoothMoveX / lp.width;
             float dy = smoothMoveY / lp.height;
-            lp.height = Math.max((maxRow + 1) * minDistance, defaultHeight);
-            lp.width = Math.max((maxColumn + 1) * minDistance, defaultWidth);
-//            if (maxColumn > 100)
-//                lp.height = Math.max(lp.width, lp.height);
             if (flag == 1) {
                 smoothMoveX = (tempX + dx) * lp.width - x;
                 smoothMoveY = (tempY + dy) * lp.height - y;
@@ -890,9 +1126,53 @@ public class MyFlowView extends View {
                 smoothMoveX = (tempX + dx) * lp.width - defaultWidth / 2f;
                 smoothMoveY = (tempY + dy) * lp.height - defaultHeight / 2f;
             }
-            setLayoutParams(lp);
-            if(currentZoom == 1.0f)
+            if (currentZoom == 1.0f)
                 setPoisition2ExcuteNode(lp.width, lp.height);
+        }
+        else {
+            if (currentZoom != smoothZoom) {
+                buttonRadius = radius + (int) (radius * (smoothZoom - 1f));
+                if (buttonRadius > maxButtonRadius)
+                    buttonRadius = maxButtonRadius;
+                else if (buttonRadius < minButtonRadius)
+                    buttonRadius = minButtonRadius;
+                currentZoom = smoothZoom;
+                textSize = (int) (buttonRadius / 2f);
+                if (currentZoom > 1) {
+                    minDistance = buttonRadius * 5;
+                } else if (currentZoom > 0.6) {
+                    minDistance = buttonRadius * 4;
+                } else if (currentZoom > 0.4) {
+                    minDistance = buttonRadius * 3;
+                } else if (currentZoom > 0.2) {
+                    minDistance = buttonRadius * 2;
+                } else if (currentZoom > 0.1) {
+                    minDistance = buttonRadius;
+                } else {
+                    minDistance = Math.min(buttonRadius, defaultWidth / ((maxColumn + 1)));
+                }
+//            int length = Math.min(defaultWidth / (maxColumn + 1), defaultHeight / (maxRow + 1));
+//            minDistance = Math.max(buttonRadius * 4, length);
+                ViewGroup.LayoutParams lp = getLayoutParams();
+                float tempX = x / lp.width;
+                float tempY = y / lp.height;
+                float dx = smoothMoveX / lp.width;
+                float dy = smoothMoveY / lp.height;
+                lp.height = Math.max((maxRow + 1) * minDistance, defaultHeight);
+                lp.width = Math.max((maxColumn + 1) * minDistance, defaultWidth);
+//            if (maxColumn > 100)
+//                lp.height = Math.max(lp.width, lp.height);
+                if (flag == 1) {
+                    smoothMoveX = (tempX + dx) * lp.width - x;
+                    smoothMoveY = (tempY + dy) * lp.height - y;
+                } else {
+                    smoothMoveX = (tempX + dx) * lp.width - defaultWidth / 2f;
+                    smoothMoveY = (tempY + dy) * lp.height - defaultHeight / 2f;
+                }
+                setLayoutParams(lp);
+                if (currentZoom == 1.0f)
+                    setPoisition2ExcuteNode(lp.width, lp.height);
+            }
         }
     }
 
@@ -1224,5 +1504,41 @@ public class MyFlowView extends View {
             mathstr[1] = vy;
         }
         return mathstr;
+    }
+
+    /**
+     * 判断点击事件是否在某个上面
+     */
+    private Result isTouchPointInView(MotionEvent event) {
+        if (rects.size() == 0) return new Result(false, 0, 0, 0);
+
+        int eventX = (int) event.getRawX();
+        int eventY = (int) event.getY();
+        int count = 0;
+        for (int vIndex = 0; vIndex < rects.size(); vIndex++) {
+            List<Rect> list = rects.get(vIndex);
+            for (int hIndex = 0; hIndex < list.size(); hIndex++) {
+                Rect rect = list.get(hIndex);
+                if (rect.contains(eventX, eventY)) {
+                    return new Result(true, vIndex, hIndex, count);
+                }
+                count++;
+            }
+        }
+        return new Result(false, 0, 0, 0);
+    }
+
+    class Result {
+        boolean isTouchInView;
+        int vPosition;
+        int hPosition;
+        int position;
+
+        Result(boolean isTouchInView, int vPosition, int hPosition, int position) {
+            this.isTouchInView = isTouchInView;
+            this.vPosition = vPosition;
+            this.hPosition = hPosition;
+            this.position = position;
+        }
     }
 }

@@ -26,6 +26,8 @@ public class NSstep {
 	 * 中心点（划线）
 	 */
 	public Point point;
+
+	private com.dssm.esc.model.Point mPoint;
 	/**
 	 * 行号
 	 */
@@ -159,4 +161,11 @@ public class NSstep {
 		return false;
 	}
 
+	public com.dssm.esc.model.Point getmPoint() {
+		return mPoint;
+	}
+
+	public void setmPoint(com.dssm.esc.model.Point mPoint) {
+		this.mPoint = mPoint;
+	}
 }
