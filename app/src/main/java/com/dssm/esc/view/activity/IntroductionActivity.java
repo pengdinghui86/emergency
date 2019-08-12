@@ -14,6 +14,9 @@ import com.dssm.esc.util.MySharePreferencesService;
 import com.dssm.esc.util.ToastUtil;
 import com.dssm.esc.util.event.mainEvent;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
+import cn.jpush.im.android.api.model.UserInfo;
 import de.greenrobot.event.EventBus;
 
 import org.xutils.view.annotation.ContentView;
@@ -144,20 +147,29 @@ public class IntroductionActivity extends BaseActivity {
 				startActivity(intent2);
 				break;
 			case R.id.send_message:// 发消息
-				Intent intent3 = new Intent(IntroductionActivity.this,
-						ChatActivity.class);
 				Log.i("userId", id);
-
 				if (!id.equals("")) {
 					if (!MySharePreferencesService.getInstance(getApplicationContext()).getPreferences().get("userId").equals(id)) {
-						String hxuserid = id.replace("-", "_");
+						final String userId = id.replace("-", "_");
+						//判断该用户是否登录过app
+						JMessageClient.getUserInfo(userId, new GetUserInfoCallback() {
+							@Override
+							public void gotResult(int i, String s, UserInfo userInfo) {
+								if(userInfo != null) {
+									Intent intent3 = new Intent(IntroductionActivity.this,
+											ChatActivity.class);
+									intent3.putExtra("userId", userId);
+									intent3.putExtra("name", name);
 
-						intent3.putExtra("userId", hxuserid);// 环信的用户id:李佳的用户id，去掉中划线
-						intent3.putExtra("name", name);// 环信用户名：李佳
-
-						startActivity(intent3);
-						MySharePreferencesService.getInstance(getApplicationContext()).saveContactName(id, name);// 将此联系人存到本地
-						EventBus.getDefault().post(new mainEvent("userid"));
+									startActivity(intent3);
+									MySharePreferencesService.getInstance(getApplicationContext()).saveContactName(id, name);// 将此联系人存到本地
+									EventBus.getDefault().post(new mainEvent("userid"));
+								}
+								else {
+									ToastUtil.showToast(context, "该用户从未登录过APP");
+								}
+							}
+						});
 					} else {
 						ToastUtil.showToast(context, "不能跟自己聊天");
 					}

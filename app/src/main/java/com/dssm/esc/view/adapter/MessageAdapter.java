@@ -1,16 +1,3 @@
-/**
- * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *     http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.dssm.esc.view.adapter;
 
 import android.annotation.SuppressLint;
@@ -19,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.media.MediaPlayer;
 import android.os.Handler;
 import android.text.Spannable;
 import android.view.LayoutInflater;
@@ -45,12 +31,8 @@ import com.dssm.esc.view.activity.ChatActivity;
 import com.dssm.esc.util.VoicePlayClickListener;
 import com.dssm.esc.util.SmileUtils;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
-import java.util.Timer;
 
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.content.TextContent;
@@ -66,7 +48,6 @@ import cn.jpush.im.api.BasicCallback;
 
 public class MessageAdapter extends BaseAdapter{
 
-	private String username;
 	private LayoutInflater inflater;
 	private WeakReference<Context> wf;
 	private static final int HANDLER_MESSAGE_REFRESH_LIST = 0;
@@ -74,10 +55,8 @@ public class MessageAdapter extends BaseAdapter{
 	private static final int HANDLER_MESSAGE_SEEK_TO = 2;
 	private Conversation conversation;
 	List<Message> messages = null;
-	private Map<String, Timer> timers = new Hashtable<String, Timer>();
 
 	public MessageAdapter(Context context, String username, int chatType) {
-		this.username = username;
 		inflater = LayoutInflater.from(context);
 		wf = new WeakReference<>(context);
 		this.conversation = JMessageClient.getSingleConversation(username);
@@ -448,8 +427,8 @@ public class MessageAdapter extends BaseAdapter{
 				statusView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						// 发送消息
-						sendMsgInBackground(message, holder);
+						// 重发消息
+						reSendMsg(message, holder);
 					}
 				});
 			}
@@ -580,17 +559,13 @@ public class MessageAdapter extends BaseAdapter{
 	}
 
 	/**
-	 * 发送消息
+	 * 重发消息
 	 * @param message
 	 * @param holder
 	 */
-	public void sendMsgInBackground(final Message message, final ViewHolder holder) {
+	public void reSendMsg(final Message message, final ViewHolder holder) {
 		holder.staus_iv.setVisibility(View.GONE);
 		holder.pb.setVisibility(View.VISIBLE);
-		//对方的username
-		String name = username;
-		//对方所属应用的appkey，空默认为本应用
-		String appkey = "";
 		//是否保存离线
 		boolean retainOfflineMsg = true;
 		//是否显示通知
@@ -599,63 +574,26 @@ public class MessageAdapter extends BaseAdapter{
 		boolean enableCustomNotify = true;
 		//是否需要对方发送已读回执
 		boolean needReadReceipt = false;
-		//通过username和appkey拿到会话对象，通过指定appkey可以创建一个和跨应用用户的会话对象，从而实现跨应用的消息发送
-		Conversation mConversation = JMessageClient.getSingleConversation(name, appkey);
-		if (mConversation == null) {
-			mConversation = Conversation.createSingleConversation(name, appkey);
-		}
-		Message message1 = mConversation.createSendMessage(new TextContent(""), "");
-		String description = "";
-		if(message.getContentType() == ContentType.text) {
-			//构造message content对象
-			TextContent textContent = (TextContent) message.getContent();
-			description = textContent.getText();
-			//设置自定义的extra参数
-			textContent.setStringExtra("", "");
-			message1 = mConversation.createSendMessage(textContent, "");
-
-		}
-		else if(message.getContentType() == ContentType.voice) {
-			try {
-				VoiceContent voiceContent = (VoiceContent) message.getContent();
-				description = "[语音]";
-				if (!(new File(voiceContent.getLocalPath()).exists())) {
-					return;
-				}
-				File fileMp3 = new File(voiceContent.getLocalPath());
-				MediaPlayer player = new MediaPlayer();
-				player.setDataSource(String.valueOf(fileMp3));
-				player.prepare();
-				int duration = player.getDuration();
-				duration = duration / 1000;
-				message1 = mConversation.createSendVoiceMessage(fileMp3, duration);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		message1.setOnSendCompleteCallback(new BasicCallback() {
+		message.setOnSendCompleteCallback(new BasicCallback() {
 			@Override
 			public void gotResult(int i, String s) {
 				if (i == 0) {
-					Toast.makeText(DemoApplication.getInstance(), "发送成功", Toast.LENGTH_SHORT).show();
-					holder.pb.setVisibility(View.GONE);
-					holder.staus_iv.setVisibility(View.VISIBLE);
+					//消息发送成功
+					Toast.makeText(DemoApplication.getInstance(), "消息重发成功",
+							Toast.LENGTH_SHORT).show();
 				} else {
-					Toast.makeText(DemoApplication.getInstance(), "发送失败", Toast.LENGTH_SHORT).show();
-					holder.pb.setVisibility(View.GONE);
-					holder.staus_iv.setVisibility(View.VISIBLE);
+					//消息发送失败
+					if(s.indexOf("Network not available") > -1)
+						Toast.makeText(DemoApplication.getInstance(), "消息重发失败：网络不可用，请检查网络连接",
+							Toast.LENGTH_SHORT).show();
+					else
+						Toast.makeText(DemoApplication.getInstance(), "消息重发失败：" + s,
+								Toast.LENGTH_SHORT).show();
 				}
-				updateSendedView(message, holder);
+				messages = conversation.getAllMessage();
+				notifyDataSetChanged();
 			}
 		});
-		//上传进度
-//            message1.setOnContentUploadProgressCallback(new ProgressUpdateCallback() {
-//                @Override
-//                public void onProgressUpdate(double v) {
-//                    String progressStr = (int) (v * 100) + "%";
-//                    mTv_progress.append("上传进度：" + progressStr + "\n");
-//                }
-//            });
 		//设置消息发送时的一些控制参数
 		MessageSendingOptions options = new MessageSendingOptions();
 		options.setNeedReadReceipt(needReadReceipt);//是否需要对方用户发送消息已读回执
@@ -666,7 +604,6 @@ public class MessageAdapter extends BaseAdapter{
 			options.setNotificationTitle(MySharePreferencesService.getInstance(
 					DemoApplication.getInstance().getApplicationContext()).getcontectName("name"));//自定义对方收到消息时通知栏展示的title
 			options.setNotificationAtPrefix("");//自定义对方收到消息时通知栏展示的@信息的前缀
-			options.setNotificationText(description);//自定义对方收到消息时通知栏展示的text
 		}
 		//发送消息
 		JMessageClient.sendMessage(message, options);
@@ -731,33 +668,6 @@ public class MessageAdapter extends BaseAdapter{
 		} else if (MessageStatus.send_going == message.getStatus()) {
 			holder.pb.setVisibility(View.VISIBLE);
 			holder.staus_iv.setVisibility(View.GONE);
-		}
-//		else
-//			sendMsgInBackground(message, holder);
-	}
-
-	/**
-	 * 更新ui上消息发送状态
-	 * 
-	 * @param message
-	 * @param holder
-	 */
-	private void updateSendedView(final Message message, final ViewHolder holder) {
-		if (wf.get() != null && wf.get() instanceof ChatActivity) {
-			((ChatActivity) wf.get()).runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					if (message.getStatus() == MessageStatus.send_success) {
-						holder.pb.setVisibility(View.GONE);
-						holder.staus_iv.setVisibility(View.VISIBLE);
-					}
-					else if (message.getStatus() == MessageStatus.send_fail) {
-						holder.pb.setVisibility(View.GONE);
-						holder.staus_iv.setVisibility(View.VISIBLE);
-					}
-					notifyDataSetChanged();
-				}
-			});
 		}
 	}
 
