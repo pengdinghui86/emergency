@@ -89,8 +89,8 @@ public class Code {
 			drawLine(c, paint);
 		}
 
-		c.save(Canvas.ALL_SAVE_FLAG);// ����
-		c.restore();//
+		c.save();
+		c.restore();
 		return bp;
 	}
 

@@ -271,6 +271,7 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     else
                         return;
                     List<PlanStarListDetailObjListEntity> list = obj.getList();
+                    name = "";
                     for (int i = 0; i < list.size(); i++) {
                         name = name + "," + list.get(i).getName() + "-" + list.get(i).getSceneName();
                         if (name.subSequence(0, 1).equals(",")) {
