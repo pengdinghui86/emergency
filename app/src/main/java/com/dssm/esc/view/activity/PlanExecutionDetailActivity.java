@@ -497,6 +497,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 Utils.getInstance().showProgressDialog(
                         PlanExecutionDetailActivity.this, "", Const.SUBMIT_MESSAGE);
                 if(getString(R.string.error_cancel).equals(execute.getText().toString()))
+                    //执行异常
                     Control.getinstance().getEmergencyService().swichOver(planPerformId, planInfoId, "4", "", childEntity.getNodeStepType(), branchId, listener);
                 else
                     Control.getinstance().getEmergencyService().getBeginPlan(planPerformId, planInfoId, listener);
@@ -530,9 +531,10 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 Log.i("planInfoId", planInfoId);
                 Log.i("changeStatus", changeStatus);
                 Log.i("message", message);
+                //判断节点不需要完成情况
                 if (!message.equals("") || childEntity.getNodeStepType().equals("ExclusiveGateway")) {
 
-                    if("".equals(changeStatus) && "完成状态".equals(done_status_title))
+                    if("".equals(changeStatus) && "完成状态".equals(done_status_title.getText().toString()))
                     {
                         ToastUtil.showLongToast(PlanExecutionDetailActivity.this,
                                 "完成状态必选");
@@ -542,7 +544,7 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                         Utils.getInstance().showProgressDialog(
                                 PlanExecutionDetailActivity.this, "",
                                 Const.SUBMIT_MESSAGE);
-                        Control.getinstance().getEmergencyService().swichOver(planPerformId, planInfoId, changeStatus, "", childEntity.getNodeStepType(), branchId, switchOverListener);
+                        Control.getinstance().getEmergencyService().swichOver(planPerformId, planInfoId, changeStatus, message, childEntity.getNodeStepType(), branchId, switchOverListener);
                     } else {
                         ToastUtil.showLongToast(PlanExecutionDetailActivity.this,
                                 "提交信息不完整");
@@ -553,6 +555,11 @@ public class PlanExecutionDetailActivity extends BaseActivity implements
                 }
                 break;
             case R.id.execute_error:// 切换执行异常
+                if("".equals(message)) {
+                    ToastUtil.showLongToast(PlanExecutionDetailActivity.this,
+                            "完成情况必填");
+                    return;
+                }
                 Utils.getInstance().showProgressDialog(
                         PlanExecutionDetailActivity.this, "",
                         Const.SUBMIT_MESSAGE);

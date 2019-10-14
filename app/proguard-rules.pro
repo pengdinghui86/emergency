@@ -250,6 +250,19 @@
 -keep public interface me.leolin.shortcutbadger.** {*;}
 -dontwarn me.leolin.shortcutbadger.**
 
+#eventbus避免混淆
+-keep class org.greenrobot.eventbus.** {*;}
+-keep public interface org.greenrobot.eventbus.** {*;}
+-dontwarn org.greenrobot.eventbus.**
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
 #自己编写的实体类和视图不混淆
 -keep class com.dssm.esc.model.entity.**{*;}
 -keep class com.dssm.esc.view.**{*;}
