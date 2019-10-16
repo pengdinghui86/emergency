@@ -712,8 +712,10 @@ public class PlanStarDetailActivity extends BaseActivity implements
                                 referPlanName = (String) referPlanName.subSequence(
                                         1, referPlanName.length());
                             }
-                            palnIds.add(referPlan);
-                            palnNames.add(referPlanName);
+                            if(!palnIds.contains(referPlan)) {
+                                palnIds.add(referPlan);
+                                palnNames.add(referPlanName);
+                            }
                         }
                     }
                 }
@@ -755,8 +757,10 @@ public class PlanStarDetailActivity extends BaseActivity implements
                                 otherReferPlanName = (String) otherReferPlanName
                                         .subSequence(1, otherReferPlanName.length());
                             }
-                            palnIds.add(otherReferPlan);
-                            palnNames.add(otherReferPlanName);
+                            if(!palnIds.contains(otherReferPlan)) {
+                                palnIds.add(otherReferPlan);
+                                palnNames.add(otherReferPlanName);
+                            }
                         }
                     }
 
