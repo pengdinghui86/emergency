@@ -677,6 +677,8 @@ public class PlanStarDetailActivity extends BaseActivity implements
         switch (requestCode) {
             case 4:
                 String str4 = "";
+                referPlan = "";
+                referPlanName = "";
                 selectedIds.clear();
                 if (data != null && resultCode == RESULT_OK) {
 
@@ -723,6 +725,8 @@ public class PlanStarDetailActivity extends BaseActivity implements
             case 5:
                 String str5 = "";
                 selectedIds.clear();
+                otherReferPlan = "";
+                otherReferPlanName = "";
                 if (data != null && resultCode == RESULT_OK) {
                     resutList5 = (ArrayList<PlanNameRowEntity>) data
                             .getSerializableExtra("arrlist");

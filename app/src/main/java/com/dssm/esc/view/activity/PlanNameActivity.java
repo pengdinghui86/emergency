@@ -348,25 +348,21 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 			if (mSelectAdapter != null && mSelectAdapter.arraylist != null
 					&& mSelectAdapter.arraylist.size() > 0) {
 				for (int i = 0; i < mSelectAdapter.arraylist.size(); i++) {
-					if (!mSelectAdapter.arraylist.get(i).isSelect()) {
+					if (mSelectAdapter.arraylist.get(i).isSelect()) {
 						count++;
 					}
 				}
-				if (count != mSelectAdapter.arraylist.size()) {
+				if (count > 0) {
 					intent.putExtra("arrlist",
 							(Serializable) mSelectAdapter.arraylist);
 				}
-				// Bundle bundle = new Bundle();
-				// if (mSelectAdapter != null && mSelectAdapter.arraylist !=
-				// null
-				// && mSelectAdapter.arraylist.size() > 0) {
-				// bundle.putSerializable("arrlist",
-				// (Serializable) mSelectAdapter.arraylist);
-				// }
-				// intent.putExtras(bundle);
+				else {
+					ToastUtil.showToast(context, "请至少选择一项！");
+					return;
+				}
+				PlanNameActivity.this.setResult(RESULT_OK, intent);
+				PlanNameActivity.this.finish();
 			}
-			PlanNameActivity.this.setResult(RESULT_OK, intent);
-			PlanNameActivity.this.finish();
 			break;
 
 		case R.id.iv_actionbar_back:
