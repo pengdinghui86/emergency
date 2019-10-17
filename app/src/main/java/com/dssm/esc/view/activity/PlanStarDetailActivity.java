@@ -192,14 +192,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
     @ViewInject(R.id.start)
     private Button start;
     /**
-     * 预案id 可以多选，以“|”隔开
-     */
-    private List<String> palnIds = new ArrayList<String>();
-    /**
-     * 预案名称 可以多选，以“|”隔开
-     */
-    private List<String> palnNames = new ArrayList<String>();
-    /**
      * 参考预案 可以多选，以“|”隔开
      */
     private String referPlan = "";
@@ -255,10 +247,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
     private String status = "";// 事件状态
     private String closeTime = "";// 事件关闭时间
 
-    /**
-     * 被选的预案id
-     */
-    private ArrayList<PlanNameRowEntity> selectedIds = new ArrayList<PlanNameRowEntity>();
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             PlanStarListDetailEntity detailEntity = (PlanStarListDetailEntity) msg.obj;
@@ -558,24 +546,27 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
                 break;
             case R.id.start:// 预案处置的启动按钮
+                usePlan = "";
+                planName = "";
                 String planname = plan_name.getText().toString().trim();
                 opition = etc.getText().toString().trim();
-                if (tag.equals("1") && palnIds.size() > 0 && palnNames.size() > 0) {
-                    for (int i = 0; i < palnIds.size(); i++) {
-                        usePlan = usePlan + "|" + palnIds.get(i);
+                if(tag.equals("1") && (!"".equals(referPlan) || !"".equals(otherReferPlan))) {
+
+                    if (!"".equals(referPlan)) {
+                        usePlan = usePlan + "|" + referPlan;
+                        planName = planName + "," + referPlanName;
+                    }
+                    if (!"".equals(otherReferPlan)) {
+                        usePlan = usePlan + "|" + otherReferPlan;
+                        planName = planName + "," + otherReferPlanName;
                     }
                     if (usePlan.subSequence(0, 1).equals("|")) {
                         usePlan = (String) usePlan.subSequence(1, usePlan.length());
-                    }
-
-                    for (int i = 0; i < palnNames.size(); i++) {
-                        planName = planName + "," + palnNames.get(i);
                     }
                     if (planName.subSequence(0, 1).equals(",")) {
                         planName = (String) planName.subSequence(1,
                                 planName.length());
                     }
-
                     // usePlan 已选预案 可以多选，以“|”隔开
                     // opition 处置意见
                     // planEveId 事件ID
@@ -650,7 +641,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     + result.get(i).getName();
             PlanNameRowEntity entity = new PlanNameRowEntity();
             entity.setId(result.get(i).getId());
-            selectedIds.add(entity);
         }
         if (!"".equals(selectedReferPlanName)) {
             selectedReferPlanName = (String) selectedReferPlanName.subSequence(1,
@@ -665,8 +655,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
                     1, referPlanName.length());
         }
         referPlan_name.setText(selectedReferPlanName);
-        palnIds.add(referPlan);
-        palnNames.add(referPlanName);
         return result;
     }
 
@@ -679,7 +667,6 @@ public class PlanStarDetailActivity extends BaseActivity implements
                 String str4 = "";
                 referPlan = "";
                 referPlanName = "";
-                selectedIds.clear();
                 if (data != null && resultCode == RESULT_OK) {
 
                     resutList4 = (ArrayList<PlanNameRowEntity>) data
@@ -700,21 +687,20 @@ public class PlanStarDetailActivity extends BaseActivity implements
                                             + typelist4.get(i).getName();
                                     PlanNameRowEntity entity = new PlanNameRowEntity();
                                     entity.setId(typelist4.get(i).getId());
-                                    selectedIds.add(entity);
                                 }
 
                             }
-                            if (referPlan.subSequence(0, 1).equals("|")) {
-                                referPlan = (String) referPlan.subSequence(1,
-                                        referPlan.length());
+                            if(!"".equals(referPlan)) {
+                                if (referPlan.subSequence(0, 1).equals("|")) {
+                                    referPlan = (String) referPlan.subSequence(1,
+                                            referPlan.length());
+                                }
                             }
-                            if (referPlanName.subSequence(0, 1).equals(",")) {
-                                referPlanName = (String) referPlanName.subSequence(
-                                        1, referPlanName.length());
-                            }
-                            if(!palnIds.contains(referPlan)) {
-                                palnIds.add(referPlan);
-                                palnNames.add(referPlanName);
+                            if(!"".equals(referPlanName)) {
+                                if (referPlanName.subSequence(0, 1).equals(",")) {
+                                    referPlanName = (String) referPlanName.subSequence(
+                                            1, referPlanName.length());
+                                }
                             }
                         }
                     }
@@ -723,10 +709,11 @@ public class PlanStarDetailActivity extends BaseActivity implements
 
                     referPlan_name.setText(str4.substring(1, str4.length()));
                 }
+                else
+                    referPlan_name.setText("");
                 break;
             case 5:
                 String str5 = "";
-                selectedIds.clear();
                 otherReferPlan = "";
                 otherReferPlanName = "";
                 if (data != null && resultCode == RESULT_OK) {
@@ -746,20 +733,19 @@ public class PlanStarDetailActivity extends BaseActivity implements
                                             + typelist5.get(i).getName();
                                     PlanNameRowEntity entity = new PlanNameRowEntity();
                                     entity.setId(typelist5.get(i).getId());
-                                    selectedIds.add(entity);
                                 }
                             }
-                            if (otherReferPlan.subSequence(0, 1).equals("|")) {
-                                otherReferPlan = (String) otherReferPlan
-                                        .subSequence(1, otherReferPlan.length());
+                            if(!"".equals(otherReferPlan)) {
+                                if (otherReferPlan.subSequence(0, 1).equals("|")) {
+                                    otherReferPlan = (String) otherReferPlan
+                                            .subSequence(1, otherReferPlan.length());
+                                }
                             }
-                            if (otherReferPlanName.subSequence(0, 1).equals(",")) {
-                                otherReferPlanName = (String) otherReferPlanName
-                                        .subSequence(1, otherReferPlanName.length());
-                            }
-                            if(!palnIds.contains(otherReferPlan)) {
-                                palnIds.add(otherReferPlan);
-                                palnNames.add(otherReferPlanName);
+                            if(!"".equals(otherReferPlanName)) {
+                                if (otherReferPlanName.subSequence(0, 1).equals(",")) {
+                                    otherReferPlanName = (String) otherReferPlanName
+                                            .subSequence(1, otherReferPlanName.length());
+                                }
                             }
                         }
                     }
@@ -768,6 +754,8 @@ public class PlanStarDetailActivity extends BaseActivity implements
                 if (str5.length() > 0) {
                     otherReferPlan_name.setText(str5.substring(1, str5.length()));
                 }
+                else
+                    otherReferPlan_name.setText("");
                 break;
         }
 

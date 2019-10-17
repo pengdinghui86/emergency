@@ -344,22 +344,9 @@ public class PlanNameActivity extends BaseActivity implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.tv_actionbar_editData:
 			Intent intent = new Intent();
-			int count = 0;
-			if (mSelectAdapter != null && mSelectAdapter.arraylist != null
-					&& mSelectAdapter.arraylist.size() > 0) {
-				for (int i = 0; i < mSelectAdapter.arraylist.size(); i++) {
-					if (mSelectAdapter.arraylist.get(i).isSelect()) {
-						count++;
-					}
-				}
-				if (count > 0) {
-					intent.putExtra("arrlist",
-							(Serializable) mSelectAdapter.arraylist);
-				}
-				else {
-					ToastUtil.showToast(context, "请至少选择一项！");
-					return;
-				}
+			if (mSelectAdapter != null && mSelectAdapter.arraylist != null) {
+                intent.putExtra("arrlist",
+                        (Serializable) mSelectAdapter.arraylist);
 				PlanNameActivity.this.setResult(RESULT_OK, intent);
 				PlanNameActivity.this.finish();
 			}

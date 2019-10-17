@@ -706,9 +706,12 @@ public class AddeValuationActivity extends BaseActivity implements
 
 		switch (requestCode) {
 		case 1:
-			tradeType = "";
 			if (data != null && resultCode == RESULT_OK) {
-
+				tradeType = "";
+				referPlan = "";
+				tradeTypeId = "";
+				resutList4.clear();
+				referPlan_name.setText("");
 				resutList1 = (ArrayList<BusinessTypeEntity>) data
 						.getSerializableExtra("arrlist");
 				ArrayList<BusinessTypeEntity> typelist1 = new ArrayList<BusinessTypeEntity>();
@@ -739,8 +742,8 @@ public class AddeValuationActivity extends BaseActivity implements
 
 			break;
 		case 2:
-			eveLevel = "";
 			if (data != null && resultCode == RESULT_OK) {
+				eveLevel = "";
 				resutList2 = (ArrayList<BusinessTypeEntity>) data
 						.getSerializableExtra("arrlist");
 				ArrayList<BusinessTypeEntity> typelist2 = new ArrayList<BusinessTypeEntity>();
@@ -761,8 +764,8 @@ public class AddeValuationActivity extends BaseActivity implements
 			}
 			break;
 		case 3:
-			eveDiscoveryTime = "";
 			if (data != null && resultCode == RESULT_OK) {
+				eveDiscoveryTime = "";
 				resutList3 = (ArrayList<BusinessTypeEntity>) data
 						.getSerializableExtra("arrlist");
 				ArrayList<BusinessTypeEntity> typelist3 = new ArrayList<BusinessTypeEntity>();
@@ -799,10 +802,10 @@ public class AddeValuationActivity extends BaseActivity implements
 
 			break;
 		case 4:
-			String str4 = "";
-			selectedIds.clear();
-			referPlan = "";
 			if (data != null && resultCode == RESULT_OK) {
+				String str4 = "";
+				selectedIds.clear();
+				referPlan = "";
 				// Bundle bundle = data.getExtras();
 				// resutList4 = (List<PlanNameRowEntity>)
 				// bundle.getSerializable("arrlist");
@@ -829,30 +832,34 @@ public class AddeValuationActivity extends BaseActivity implements
 								selectedIds.add(entity);
 							}
 						}
-						if (referPlan.subSequence(0, 1).equals("|")) {
-							referPlan = (String) referPlan.subSequence(1,
-									referPlan.length());
+						if(!"".equals(referPlan)) {
+							if (referPlan.subSequence(0, 1).equals("|")) {
+								referPlan = (String) referPlan.subSequence(1,
+										referPlan.length());
+							}
 						}
-						if (referProcess.subSequence(0, 1).equals("|")) {
-							referProcess = (String) referProcess.subSequence(1,
-									referProcess.length());
+						if(!"".equals(referProcess)) {
+							if (referProcess.subSequence(0, 1).equals("|")) {
+								referProcess = (String) referProcess.subSequence(1,
+										referProcess.length());
+							}
 						}
 					}
 				}
-			}
-			if (str4.length() > 0) {
+				if (str4.length() > 0) {
 
-				referPlan_name.setText(str4.substring(1, str4.length()));
-			}
-			else {
-				referPlan_name.setText(str4);
+					referPlan_name.setText(str4.substring(1, str4.length()));
+				}
+				else {
+					referPlan_name.setText(str4);
+				}
 			}
 			break;
 		case 5: // 其他预案布局
-			String str5 = "";
-			selectedIds.clear();
-			otherReferPlan = "";
 			if (data != null && resultCode == RESULT_OK) {
+				String str5 = "";
+				selectedIds.clear();
+				otherReferPlan = "";
 				resutList5 = (ArrayList<PlanNameRowEntity>) data
 						.getSerializableExtra("arrlist");
 				ArrayList<PlanNameRowEntity> typelist5 = new ArrayList<PlanNameRowEntity>();
@@ -871,28 +878,30 @@ public class AddeValuationActivity extends BaseActivity implements
 								selectedIds.add(entity);
 							}
 						}
-						if (otherReferPlan.subSequence(0, 1).equals("|")) {
-							otherReferPlan = (String) otherReferPlan
-									.subSequence(1, otherReferPlan.length());
+						if(!"".equals(otherReferPlan)) {
+							if (otherReferPlan.subSequence(0, 1).equals("|")) {
+								otherReferPlan = (String) otherReferPlan
+										.subSequence(1, otherReferPlan.length());
+							}
 						}
 					}
 
 				}
-			}
-			if (str5.length() > 0) {
+				if (str5.length() > 0) {
 
-				otherReferPlan_name.setText(str5.substring(1, str5.length()));
-			}
-			else {
-				otherReferPlan_name.setText(str5);
+					otherReferPlan_name.setText(str5.substring(1, str5.length()));
+				}
+				else {
+					otherReferPlan_name.setText(str5);
+				}
 			}
 			break;
 
 		case 6:
-			String str6 = "";
-			selectedIds.clear();
-			categoryPlan = "";
 			if (data != null && resultCode == RESULT_OK) {
+				String str6 = "";
+				selectedIds.clear();
+				categoryPlan = "";
 				resutList6 = (ArrayList<PlanNameRowEntity>) data
 						.getSerializableExtra("arrlist");
 				ArrayList<PlanNameRowEntity> typelist6 = new ArrayList<PlanNameRowEntity>();
@@ -910,27 +919,27 @@ public class AddeValuationActivity extends BaseActivity implements
 								selectedIds.add(entity);
 							}
 						}
-						if (categoryPlan.subSequence(0, 1).equals("|")) {
-							categoryPlan = (String) categoryPlan.subSequence(1,
-									categoryPlan.length());
+						if(!"".equals(categoryPlan)) {
+							if (categoryPlan.subSequence(0, 1).equals("|")) {
+								categoryPlan = (String) categoryPlan.subSequence(1,
+										categoryPlan.length());
+							}
 						}
-
 					}
 				}
+				if (str6.length() > 0) {
+					categoryPlan_name.setText(str6.substring(1, str6.length()));
+				}
+				else {
+					categoryPlan_name.setText(str6);
+				}
 			}
-			if (str6.length() > 0) {
-				categoryPlan_name.setText(str6.substring(1, str6.length()));
-			}
-			else {
-				categoryPlan_name.setText(str6);
-			}
-
 			break;
 			case 7:
-				String str7 = "";
-				selectedIds.clear();
-				emergencyDisposalProcess = "";
 				if (data != null && resultCode == RESULT_OK) {
+					String str7 = "";
+					selectedIds.clear();
+					emergencyDisposalProcess = "";
 					resutList7 = (ArrayList<PlanNameRowEntity>) data
 							.getSerializableExtra("arrlist");
 					ArrayList<PlanNameRowEntity> typelist7 = new ArrayList<PlanNameRowEntity>();
@@ -947,17 +956,19 @@ public class AddeValuationActivity extends BaseActivity implements
 								selectedIds.add(entity);
 							}
 						}
-						if (emergencyDisposalProcess.subSequence(0, 1).equals("|")) {
-							emergencyDisposalProcess = (String) emergencyDisposalProcess.subSequence(1,
-									emergencyDisposalProcess.length());
+						if(!"".equals(emergencyDisposalProcess)) {
+							if (emergencyDisposalProcess.subSequence(0, 1).equals("|")) {
+								emergencyDisposalProcess = (String) emergencyDisposalProcess.subSequence(1,
+										emergencyDisposalProcess.length());
+							}
 						}
 					}
+					if (str7.length() > 0) {
+						emergency_disposal_process.setText(str7.substring(1, str7.length()));
+					}
+					else
+						emergency_disposal_process.setText(str7);
 				}
-				if (str7.length() > 0) {
-					emergency_disposal_process.setText(str7.substring(1, str7.length()));
-				}
-				else
-					emergency_disposal_process.setText(str7);
 				break;
 			case 1001:
 				if (data != null && resultCode == RESULT_OK) {
