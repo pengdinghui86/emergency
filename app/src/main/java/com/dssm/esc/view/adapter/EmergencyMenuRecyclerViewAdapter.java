@@ -16,6 +16,7 @@ import com.dssm.esc.model.entity.emergency.EmergencyMenuEntity;
 import com.dssm.esc.view.widget.RedPointView;
 
 import java.util.List;
+import java.util.Map;
 
 public class EmergencyMenuRecyclerViewAdapter extends RecyclerView.Adapter<EmergencyMenuRecyclerViewAdapter.ViewHolder>
 {
@@ -23,6 +24,9 @@ public class EmergencyMenuRecyclerViewAdapter extends RecyclerView.Adapter<Emerg
     private List<EmergencyMenuEntity> mDatas;
     private LayoutInflater mInflater;
     private  OnItemClickListener mOnItemClickListener;
+    private RedPointView eventRejectRedPointView;
+    private RedPointView waitAuthorizeRedPointView;
+    private RedPointView waitStartRedPointView;
 
     //定义点击事件的接口
     public interface OnItemClickListener
@@ -30,7 +34,7 @@ public class EmergencyMenuRecyclerViewAdapter extends RecyclerView.Adapter<Emerg
         void onItemClick(View view, int position);
     }
 
-    public EmergencyMenuRecyclerViewAdapter( Context mContext,List<EmergencyMenuEntity> datats)
+    public EmergencyMenuRecyclerViewAdapter(Context mContext, List<EmergencyMenuEntity> datats)
     {
         this.mContext = mContext;
         this.mDatas = datats;
@@ -68,18 +72,14 @@ public class EmergencyMenuRecyclerViewAdapter extends RecyclerView.Adapter<Emerg
         if(mDatas.get(position).getIcon() > 0) {
             viewHolder.imageView.setImageResource(mDatas.get(position).getIcon());
             viewHolder.imageView.setVisibility(View.VISIBLE);
-            //数量提醒
-            RedPointView redPointView = remind(viewHolder.redPoint, mDatas.get(position).getCount() + "");
-            if(mDatas.get(position).getCount() > 99) {
-                redPointView.setText("99+");
-                redPointView.show();
+            if(mDatas.get(position).getId().equals("event_reject") && eventRejectRedPointView == null) {
+                eventRejectRedPointView = remind(viewHolder.redPoint, "");
             }
-            else if (mDatas.get(position).getCount() > 0) {
-                redPointView.setText(mDatas.get(position).getCount() + "");
-                redPointView.show();
+            else if(mDatas.get(position).getId().equals("wait_authorize") && waitAuthorizeRedPointView == null) {
+                waitAuthorizeRedPointView = remind(viewHolder.redPoint, "");
             }
-            else {
-                redPointView.hide();
+            else if(mDatas.get(position).getId().equals("wait_start") && waitStartRedPointView == null) {
+                waitStartRedPointView = remind(viewHolder.redPoint, "");
             }
         } else {
             viewHolder.imageView.setImageResource(0);
@@ -117,13 +117,61 @@ public class EmergencyMenuRecyclerViewAdapter extends RecyclerView.Adapter<Emerg
 
     }
 
-    public void updateRemindCount(String id, int count) {
-        for(EmergencyMenuEntity entity : mDatas)
-        {
-            if(entity.getId().equals(id))
-            {
-                entity.setCount(count);
-                break;
+    public void updateRemindCount(Map<String, Integer> map) {
+        for(String key : map.keySet()) {
+            for (EmergencyMenuEntity entity : mDatas) {
+                if (entity.getId().equals(key)) {
+                    entity.setCount(map.get(key));
+                    break;
+                }
+            }
+        }
+        showRedPoint();
+    }
+
+    private void showRedPoint() {
+        for (EmergencyMenuEntity entity : mDatas) {
+            if (entity.getId().equals("event_reject")) {
+                eventRejectRedPointView.hide();
+                final int count = entity.getCount();
+                //数量提醒
+                if (count > 99) {
+                    eventRejectRedPointView.setText("99+");
+                    eventRejectRedPointView.show();
+                } else if (count > 0) {
+                    eventRejectRedPointView.setText(count + "");
+                    eventRejectRedPointView.show();
+                } else {
+                    eventRejectRedPointView.hide();
+                }
+            }
+            else if(entity.getId().equals("wait_authorize")) {
+                waitAuthorizeRedPointView.hide();
+                final int count = entity.getCount();
+                //数量提醒
+                if (count > 99) {
+                    waitAuthorizeRedPointView.setText("99+");
+                    waitAuthorizeRedPointView.show();
+                } else if (count > 0) {
+                    waitAuthorizeRedPointView.setText(count + "");
+                    waitAuthorizeRedPointView.show();
+                } else {
+                    waitAuthorizeRedPointView.hide();
+                }
+            }
+            else if(entity.getId().equals("wait_start")) {
+                waitStartRedPointView.hide();
+                final int count = entity.getCount();
+                //数量提醒
+                if (count > 99) {
+                    waitStartRedPointView.setText("99+");
+                    waitStartRedPointView.show();
+                } else if (count > 0) {
+                    waitStartRedPointView.setText(count + "");
+                    waitStartRedPointView.show();
+                } else {
+                    waitStartRedPointView.hide();
+                }
             }
         }
     }

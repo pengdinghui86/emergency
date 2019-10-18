@@ -28,7 +28,9 @@ import com.dssm.esc.view.activity.PersonSignInActivity;
 import com.dssm.esc.view.adapter.EmergencyMenuRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 应急管理
@@ -433,12 +435,14 @@ public class EmergencyManageFragment extends BaseFragment {
 			PlanCountEntity entity = null;
 			if (object != null) {
 				entity = (PlanCountEntity) object;
-				eventManageAdapter.updateRemindCount("event_reject", Integer.parseInt(entity.getRejectEvaCount()));
-				planManageAdapter.updateRemindCount("wait_authorize", Integer.parseInt(entity.getAuthCount()));
-				planManageAdapter.updateRemindCount("wait_start", Integer.parseInt(entity.getStartCount()));
-				eventManageAdapter.notifyItemChanged(1);
-				planManageAdapter.notifyItemChanged(0);
-				planManageAdapter.notifyItemChanged(2);
+				final Map<String, Integer> eventMap = new HashMap<>();
+				eventMap.put("event_reject", Integer.parseInt(entity.getRejectEvaCount()));
+
+				final Map<String, Integer> planMap = new HashMap<>();
+				planMap.put("wait_authorize", Integer.parseInt(entity.getAuthCount()));
+				planMap.put("wait_start", Integer.parseInt(entity.getStartCount()));
+				eventManageAdapter.updateRemindCount(eventMap);
+				planManageAdapter.updateRemindCount(planMap);
 			} else if (stRerror != null) {
 
 			} else if (Exceptionerror != null) {
