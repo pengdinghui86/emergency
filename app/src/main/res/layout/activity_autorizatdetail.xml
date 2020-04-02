@@ -654,7 +654,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp" >
+        android:paddingRight="10dp" >
 
         <View style="@style/horizontal_gray_style" />
 
