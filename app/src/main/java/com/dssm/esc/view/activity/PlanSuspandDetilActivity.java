@@ -202,20 +202,14 @@ public class PlanSuspandDetilActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		back.setVisibility(View.VISIBLE);
 		title.setText("预案详情");
-		if (isStarter.equals("true")) {
+		if (isStarter.equals("true") || isAuthor.equals("true")) {
 			suspandbt.setVisibility(View.VISIBLE);
 			suggestion_ll.setVisibility(View.VISIBLE);
-		} else if (isStarter.equals("false")) {
+		} else {
 			suspandbt.setVisibility(View.GONE);
 			suggestion_ll.setVisibility(View.GONE);
 		}
-		if (isAuthor.equals("true")) {
-			suspandbt.setVisibility(View.VISIBLE);
-			suggestion_ll.setVisibility(View.VISIBLE);
-		} else if (isAuthor.equals("false")) {
-			suspandbt.setVisibility(View.GONE);
-			suggestion_ll.setVisibility(View.GONE);
-		}
+
 		intData();
 		etc.addTextChangedListener(new TextWatcher() {
 

@@ -180,6 +180,8 @@ public class AutorizateDecDetailActivity extends BaseActivity implements
 			case 0:
 				PlanStarListDetailEntity detailEntity = (PlanStarListDetailEntity) msg.obj;
 				obj = detailEntity.getObj();
+				if(obj == null)
+					return;
 				List<PlanStarListDetailObjListEntity> list = obj.getList();
 				for (int i = 0; i < list.size(); i++) {
 					name = name + "," + list.get(i).getName() + "-" + list.get(i).getSceneName();
